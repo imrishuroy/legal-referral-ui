@@ -1,0 +1,30 @@
+import 'dart:async';
+
+import 'package:flutter/material.dart';
+
+const double padding = 24.0;
+
+class WebAuthCard extends StatelessWidget {
+  final String label;
+  final Future<void> Function() action;
+
+  const WebAuthCard({required this.label, required this.action, final Key? key})
+      : super(key: key);
+
+  @override
+  Widget build(final BuildContext context) {
+    return Card(
+        child: Padding(
+            padding: const EdgeInsets.all(padding),
+            child: SizedBox(
+                width: double.maxFinite,
+                child: Semantics(
+                  label: label,
+                  child: ElevatedButton(
+                    key: Key(label),
+                    onPressed: action,
+                    child: Text(label),
+                  ),
+                ))));
+  }
+}

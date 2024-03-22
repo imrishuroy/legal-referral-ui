@@ -1,4 +1,4 @@
-package com.example.legal_referral_ui
+package network.legalreferral.legalreferral
 
 import io.flutter.embedding.android.FlutterActivity
 
