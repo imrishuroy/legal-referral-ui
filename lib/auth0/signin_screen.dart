@@ -128,20 +128,28 @@ class _SignInScreenState extends State<SignInScreen> {
       String email = _emailController.text.trim();
       String password = _passwordController.text.trim();
 
-      final credentials = await auth0.api.login(
-        usernameOrEmail: email,
+      final user = await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: email,
         password: password,
-        connectionOrRealm: 'Username-Password-Authentication',
-        audience: dotenv.env['AUTH0_AUDIENCE']!,
-        scopes: {'read:posts'},
-        parameters: {},
       );
 
-      debugPrint('Email Verified: ${credentials.user.isEmailVerified}');
-      debugPrint('access token: ${credentials.accessToken}\n');
-      debugPrint('id token: ${credentials.idToken}');
-      dev.log('id token: ${credentials.idToken}\n');
-      dev.log('access token: ${credentials.accessToken}\n');
+      final idToken = await user.user?.getIdToken();
+      dev.log('idToken: $idToken');
+
+      // final credentials = await auth0.api.login(
+      //   usernameOrEmail: email,
+      //   password: password,
+      //   connectionOrRealm: 'Username-Password-Authentication',
+      //   audience: dotenv.env['AUTH0_AUDIENCE']!,
+      //   scopes: {'read:posts'},
+      //   parameters: {},
+      // );
+
+      // debugPrint('Email Verified: ${credentials.user.isEmailVerified}');
+      // debugPrint('access token: ${credentials.accessToken}\n');
+      // debugPrint('id token: ${credentials.idToken}');
+      // dev.log('id token: ${credentials.idToken}\n');
+      // dev.log('access token: ${credentials.accessToken}\n');
 
       // Store the credentials
       // auth0.credentialsManager.storeCredentials(credentials);

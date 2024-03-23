@@ -1,6 +1,7 @@
 import 'dart:developer' as dev;
 
 import 'package:auth0_flutter/auth0_flutter.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
@@ -89,23 +90,29 @@ class _SignUpScreenState extends State<SignUpScreen> {
       String email = _emailController.text.trim();
       String password = _passwordController.text.trim();
 
-      final DatabaseUser user = await auth0.api.signup(
+      // final DatabaseUser user = await auth0.api.signup(
+      //   email: email,
+      //   password: password,
+      //   connection: 'Username-Password-Authentication',
+      // );
+
+      // final credentials = await auth0.api.login(
+      //   usernameOrEmail: user.email,
+      //   password: password,
+      //   connectionOrRealm: 'Username-Password-Authentication',
+      //   audience: dotenv.env['AUTH0_AUDIENCE']!,
+      //   scopes: {'read:posts'},
+      //   parameters: {},
+      // );
+
+      final user = await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: email,
         password: password,
-        connection: 'Username-Password-Authentication',
       );
 
-      final credentials = await auth0.api.login(
-        usernameOrEmail: user.email,
-        password: password,
-        connectionOrRealm: 'Username-Password-Authentication',
-        audience: dotenv.env['AUTH0_AUDIENCE']!,
-        scopes: {'read:posts'},
-        parameters: {},
-      );
+      final idToken = await user.user?.getIdToken();
 
-      dev.log('accessToken: ${credentials.accessToken}');
-      dev.log('idToken: ${credentials.idToken}');
+      dev.log('idToken: $idToken');
     } catch (e) {
       // It throws ApiException
       dev.log('Error: ${e.runtimeType}');
