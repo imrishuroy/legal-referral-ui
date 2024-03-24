@@ -7,8 +7,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-
-import 'signup_screen.dart';
+import 'package:legal_referral_ui/auth0/signup_screen.dart';
 
 class SignInScreen extends StatefulWidget {
   const SignInScreen({super.key});
@@ -50,7 +49,7 @@ class _SignInScreenState extends State<SignInScreen> {
         title: const Text('SignIn Screen'),
       ),
       body: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(16),
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -98,7 +97,7 @@ class _SignInScreenState extends State<SignInScreen> {
               const SizedBox(
                 height: 20,
               ),
-              const Center(child: Text('Don\'t have an account?')),
+              const Center(child: Text("Don't have an account?")),
               TextButton(
                 onPressed: () {
                   Navigator.of(context).push(
@@ -125,8 +124,8 @@ class _SignInScreenState extends State<SignInScreen> {
 
   Future<void> _signIn() async {
     try {
-      String email = _emailController.text.trim();
-      String password = _passwordController.text.trim();
+      final email = _emailController.text.trim();
+      final password = _passwordController.text.trim();
 
       final user = await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: email,
@@ -154,18 +153,17 @@ class _SignInScreenState extends State<SignInScreen> {
       // Store the credentials
       // auth0.credentialsManager.storeCredentials(credentials);
     } on ApiException catch (e) {
-      debugPrint('ApiException: ${e.toString()}');
+      debugPrint('ApiException: $e');
     }
   }
 
   Future<void> _googleSignIn() async {
     try {
       // Trigger the authentication flow
-      final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+      final googleUser = await GoogleSignIn().signIn();
 
       // Obtain the auth details from the request
-      final GoogleSignInAuthentication? googleAuth =
-          await googleUser?.authentication;
+      final googleAuth = await googleUser?.authentication;
 
       // Create a new credential
       final credential = GoogleAuthProvider.credential(
@@ -182,7 +180,7 @@ class _SignInScreenState extends State<SignInScreen> {
       // debugPrint('Id Token: $idToken');
       dev.log('Id Token: $idToken');
     } catch (e) {
-      debugPrint('Google Sign In Error: ${e.toString()}');
+      debugPrint('Google Sign In Error: $e');
     }
   }
 

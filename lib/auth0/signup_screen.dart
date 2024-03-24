@@ -4,8 +4,7 @@ import 'package:auth0_flutter/auth0_flutter.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-
-import 'signin_screen.dart';
+import 'package:legal_referral_ui/auth0/signin_screen.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
@@ -34,7 +33,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
         title: const Text('SignUp Screen'),
       ),
       body: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(16),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
@@ -85,10 +84,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
     );
   }
 
-  void _signUp() async {
+  Future<void> _signUp() async {
     try {
-      String email = _emailController.text.trim();
-      String password = _passwordController.text.trim();
+      final email = _emailController.text.trim();
+      final password = _passwordController.text.trim();
 
       // final DatabaseUser user = await auth0.api.signup(
       //   email: email,
