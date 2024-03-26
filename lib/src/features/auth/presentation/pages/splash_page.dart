@@ -30,7 +30,12 @@ class _SplashPageState extends State<SplashPage> {
         if (token != null && appUser != null) {
           context.goNamed(HomePage.name);
         } else {
-          context.goNamed(SignInPage.name);
+          final onBoarding = SharedPrefs.getOnBoarding();
+          if (onBoarding) {
+            context.goNamed(SignInPage.name);
+          } else {
+            context.goNamed(OnBoardingScreen.name);
+          }
         }
       },
     );

@@ -52,6 +52,19 @@ class AppRouter {
         ),
       ),
       GoRoute(
+        path: '/onboarding',
+        name: OnBoardingScreen.name,
+        parentNavigatorKey: _rootNavigatorKey,
+        pageBuilder: (context, state) => CustomTransitionPage(
+          child: const OnBoardingScreen(),
+          transitionDuration: const Duration(
+            seconds: 2,
+          ),
+          transitionsBuilder: (_, a, __, c) =>
+              FadeTransition(opacity: a, child: c),
+        ),
+      ),
+      GoRoute(
         path: '/home',
         name: HomePage.name,
         parentNavigatorKey: _rootNavigatorKey,

@@ -4,6 +4,7 @@ import 'package:dio/dio.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:legal_referral_ui/firebase_options.dart';
 import 'package:legal_referral_ui/src/core/config/config.dart';
 import 'package:legal_referral_ui/src/core/network/network.dart';
@@ -26,13 +27,20 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final appRouter = AppRouter();
-    return MaterialApp.router(
-      debugShowCheckedModeBanner: false,
-      title: 'Legal Referral',
-      theme: ThemeData(
-        useMaterial3: true,
-      ),
-      routerConfig: appRouter.router,
+    return ScreenUtilInit(
+      designSize: const Size(375, 812),
+      minTextAdapt: true,
+      splitScreenMode: true,
+      builder: (context, child) {
+        return MaterialApp.router(
+          debugShowCheckedModeBanner: false,
+          title: 'Legal Referral',
+          theme: ThemeData(
+            useMaterial3: true,
+          ),
+          routerConfig: appRouter.router,
+        );
+      },
     );
   }
 }

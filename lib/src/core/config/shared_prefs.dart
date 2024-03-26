@@ -5,6 +5,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 const _token = 'token';
 const _appUser = 'appUser';
+const _onBoarding = 'onBoarding';
 
 class SharedPrefs {
   factory SharedPrefs() => SharedPrefs._internal();
@@ -54,6 +55,21 @@ class SharedPrefs {
       );
     }
     return null;
+  }
+
+  static Future<void> setOnBoarding({
+    required bool onBoarding,
+  }) async {
+    if (_sharedPrefs != null) {
+      await _sharedPrefs?.setBool(
+        _onBoarding,
+        onBoarding,
+      );
+    }
+  }
+
+  static bool getOnBoarding() {
+    return _sharedPrefs?.getBool(_onBoarding) ?? false;
   }
 
   static Future<void> clear() async {
