@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:legal_referral_ui/src/core/constants/colors.dart';
 import 'package:legal_referral_ui/src/core/utils/image_strings.dart';
+import 'package:legal_referral_ui/src/features/auth/presentation/pages/reset_password_screen.dart';
 import 'package:legal_referral_ui/src/features/auth/presentation/pages/signUp_screen.dart';
 import 'package:legal_referral_ui/src/features/auth/presentation/widgets/customButton.dart';
 import 'package:legal_referral_ui/src/features/auth/presentation/widgets/customtextfield.dart';
@@ -49,7 +50,10 @@ class _LogInScreenState extends State<LogInScreen> {
                     labelText: 'Password'),
                 const SizedBox(height: 16),
                 TextButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => const ResetPasswordScreen()));
+                    },
                     child: const Text(
                       'Forgot Password?',
                       style: TextStyle(

@@ -9,6 +9,10 @@ class LegalReferralImg {
   static const String facebook = "";
 
   // -- Category Icons
+  static const String personIcon = "assets/icons/person.svg";
+  static const String uploadIcon = "assets/icons/upload.svg";
+  static const String pdfIcon = "assets/icons/pdfIcon.svg";
+  static const String deleteIcon = "assets/icons/deleteIcon.svg";
 
   // -- Brand Icons
 

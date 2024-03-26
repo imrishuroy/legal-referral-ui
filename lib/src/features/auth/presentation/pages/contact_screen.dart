@@ -5,6 +5,7 @@ import 'package:legal_referral_ui/src/core/utils/image_strings.dart';
 import 'package:legal_referral_ui/src/features/auth/presentation/pages/lisense_details_screen.dart';
 import 'package:legal_referral_ui/src/features/auth/presentation/widgets/customButton.dart';
 import 'package:legal_referral_ui/src/features/auth/presentation/widgets/customtextfield.dart';
+import 'package:legal_referral_ui/src/features/auth/presentation/widgets/otp_widget.dart';
 
 class ContactScreen extends StatefulWidget {
   const ContactScreen({super.key});
@@ -15,12 +16,17 @@ class ContactScreen extends StatefulWidget {
 
 class _ContactScreenState extends State<ContactScreen> {
   final _contactNumber = TextEditingController();
+  final _text1 = TextEditingController();
+  final _text2 = TextEditingController();
+  final _text3 = TextEditingController();
+  final _text4 = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: LegalReferralColors.primaryBackground,
       appBar: AppBar(
         backgroundColor: LegalReferralColors.primaryBackground,
+        centerTitle: false,
         title: const Text(
           'Contact Details',
           style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
@@ -45,9 +51,104 @@ class _ContactScreenState extends State<ContactScreen> {
                       builder: (context) => Padding(
                         padding: const EdgeInsets.all(16),
                         child: Column(
+                          mainAxisSize: MainAxisSize.min,
                           children: [
+                            const SizedBox(height: 24),
+                            Row(
+                              children: [
+                                const Text(
+                                  'Enter OTP',
+                                  style: TextStyle(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.w600),
+                                ),
+                                const Spacer(),
+                                IconButton(
+                                    onPressed: () {
+                                      Navigator.pop(context);
+                                    },
+                                    icon: const Icon(Icons.close_rounded))
+                              ],
+                            ),
+                            const SizedBox(height: 24),
+                            OtpWidget(
+                              text1: _text1,
+                              text2: _text2,
+                              text3: _text3,
+                              text4: _text4,
+                            ),
+                            const SizedBox(height: 24),
+                            Row(
+                              children: [
+                                RichText(
+                                  text: const TextSpan(
+                                    style: TextStyle(
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w400),
+                                    children: [
+                                      TextSpan(
+                                        text: '4 digit OTP has been sent to ',
+                                      ),
+                                      TextSpan(
+                                        text: '+1 3*******879',
+                                        style: TextStyle(
+                                          decoration: TextDecoration.underline,
+                                        ),
+                                      ),
+                                      TextSpan(text: 'mobile number')
+                                    ],
+                                  ),
+                                ),
+                                TextButton(
+                                  onPressed: () {},
+                                  child: const Text(
+                                    'CHANGE NUMBER',
+                                    style: TextStyle(
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w400,
+                                        color: LegalReferralColors.textBlue100),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(
+                              height: 24,
+                            ),
+                            Row(
+                              children: [
+                                const Text(
+                                  "Didn’t Received OTP?",
+                                  style: TextStyle(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w400,
+                                  ),
+                                ),
+                                TextButton(
+                                  onPressed: () {},
+                                  child: const Text(
+                                    'RESEND OTP',
+                                    style: TextStyle(
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w400,
+                                        color: LegalReferralColors.textBlue100),
+                                  ),
+                                )
+                              ],
+                            ),
+                            const SizedBox(
+                              height: 24,
+                            ),
                             CustomButton(
                               onTap: () {
+                                print(
+                                    'mobile number OTP: ${_text1.text + _text2.text + _text3.text + _text4.text}');
+
+                                _text1.clear();
+                                _text2.clear();
+                                _text3.clear();
+                                _text4.clear();
+
+                                Navigator.pop(context);
                                 showModalBottomSheet(
                                   isScrollControlled: true,
                                   context: context,

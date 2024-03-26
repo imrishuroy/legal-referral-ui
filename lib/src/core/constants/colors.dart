@@ -10,6 +10,7 @@ class LegalReferralColors {
   static const Color textWhite450 = Color.fromRGBO(252, 252, 252, 1);
   static const Color textBlue100 = Color.fromRGBO(89, 158, 217, 1);
   static const Color textGrey400 = Color.fromRGBO(143, 139, 143, 1);
+  static const Color textGrey500 = Color.fromRGBO(151, 152, 158, 1);
   // static const Color textgrey = Color.fromRGBO(117, 114, 117, 1);
   // static const Color textgrey = Color.fromRGBO(67, 119, 163, 1);
   static const Color textBlack400 = Color.fromRGBO(26, 26, 26, 1);
