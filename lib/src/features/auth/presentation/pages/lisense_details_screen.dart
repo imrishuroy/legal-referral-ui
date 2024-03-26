@@ -23,6 +23,7 @@ class _LicenseDetailScreenState extends State<LicenseDetailScreen> {
       backgroundColor: LegalReferralColors.primaryBackground,
       appBar: AppBar(
         backgroundColor: LegalReferralColors.primaryBackground,
+        centerTitle: false,
         title: const Text(
           'License Details',
           style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
