@@ -12,6 +12,19 @@ class AppRouter {
     navigatorKey: _rootNavigatorKey,
     initialLocation: '/',
     routes: [
+      // GoRoute(
+      //   path: '/',
+      //   name: SplashPage.name,
+      //   parentNavigatorKey: _rootNavigatorKey,
+      //   pageBuilder: (context, state) => CustomTransitionPage(
+      //     child: const SplashPage(),
+      //     transitionDuration: const Duration(
+      //       seconds: _routeAnimationDuration,
+      //     ),
+      //     transitionsBuilder: (_, a, __, c) =>
+      //         FadeTransition(opacity: a, child: c),
+      //   ),
+      // ),
       GoRoute(
         path: '/',
         name: SplashPage.name,
@@ -53,10 +66,10 @@ class AppRouter {
       ),
       GoRoute(
         path: '/onboarding',
-        name: OnBoardingScreen.name,
+        name: OnBoardingPage.name,
         parentNavigatorKey: _rootNavigatorKey,
         pageBuilder: (context, state) => CustomTransitionPage(
-          child: const OnBoardingScreen(),
+          child: const OnBoardingPage(),
           transitionDuration: const Duration(
             seconds: 2,
           ),

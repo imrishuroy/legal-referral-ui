@@ -23,6 +23,7 @@ class LegalReferralColors {
   // Background Container colors
   static const Color containerWhite500 = Color.fromRGBO(255, 255, 255, 1);
   static const Color containerBlue100 = Color.fromRGBO(89, 158, 217, 1);
+  static const Color containerBlue50 = Color.fromRGBO(239, 247, 253, 1);
 
   // Button colors
   static const Color buttonPrimary = Color.fromRGBO(89, 158, 217, 1);
@@ -35,6 +36,7 @@ class LegalReferralColors {
   static const Color borderPrimary = Color.fromRGBO(67, 119, 163, 1);
 
   // Error and validation colors
+  static const Color error = Color.fromRGBO(255, 100, 100, 1);
 
   // Neutral Shades
   static const Color black = Color(0xFF232323);

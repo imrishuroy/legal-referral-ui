@@ -2,29 +2,29 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:legal_referral_ui/src/core/constants/colors.dart';
 import 'package:legal_referral_ui/src/core/utils/image_strings.dart';
-import 'package:legal_referral_ui/src/features/auth/presentation/widgets/custom_button.dart';
-import 'package:legal_referral_ui/src/features/more_details/presentation/pages/upload_license_screen.dart';
-import 'package:legal_referral_ui/src/features/more_details/presentation/widgets/customtextfield.dart';
+import 'package:legal_referral_ui/src/core/widgets/custom_button.dart';
+import 'package:legal_referral_ui/src/features/profile/presentation/pages/upload_license_page.dart';
+import 'package:legal_referral_ui/src/features/profile/presentation/widgets/customtextfield.dart';
 
-class SocialAvatarScreen extends StatelessWidget {
-  SocialAvatarScreen({super.key});
+class SocialAvatarPage extends StatelessWidget {
+  SocialAvatarPage({super.key});
   final _userName = TextEditingController();
   final _createPassword = TextEditingController();
   final _confirmPassword = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
+    return Scaffold(
+      backgroundColor: LegalReferralColors.primaryBackground,
+      appBar: AppBar(
+        centerTitle: false,
         backgroundColor: LegalReferralColors.primaryBackground,
-        appBar: AppBar(
-          centerTitle: false,
-          backgroundColor: LegalReferralColors.primaryBackground,
-          title: const Text(
-            'Social Avatar',
-            style: TextStyle(fontWeight: FontWeight.w600, fontSize: 20),
-          ),
+        title: const Text(
+          'Social Avatar',
+          style: TextStyle(fontWeight: FontWeight.w600, fontSize: 20),
         ),
-        body: SingleChildScrollView(
+      ),
+      body: SafeArea(
+        child: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.all(16),
             child: Column(
@@ -83,11 +83,11 @@ class SocialAvatarScreen extends StatelessWidget {
                 const SizedBox(
                   height: 24,
                 ),
-                CustomButton(
+                CustomElevatedButton(
                   onTap: () {
                     Navigator.of(context).push(
                       MaterialPageRoute(
-                        builder: (context) => const UploadLicenseScreen(),
+                        builder: (context) => const UploadLicensePage(),
                       ),
                     );
                   },

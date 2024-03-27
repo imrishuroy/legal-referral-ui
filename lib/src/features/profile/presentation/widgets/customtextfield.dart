@@ -8,20 +8,19 @@ class CustomTextField extends StatelessWidget {
   final int? maxLines;
   final String? Function(String?)? validator;
   const CustomTextField({
-    Key? key,
     required this.controller,
     required this.hintText,
     required this.labelText,
+    super.key,
     this.validator,
     this.maxLines,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
     return Container(
       decoration: const BoxDecoration(),
       child: Column(
-        mainAxisSize: MainAxisSize.max,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
@@ -37,39 +36,35 @@ class CustomTextField extends StatelessWidget {
             controller: controller,
             // focusNode: _model.textFieldFocusNode,
             autofocus: true,
-            obscureText: false,
             maxLines: maxLines,
             decoration: InputDecoration(
               hintText: hintText,
               hintStyle: const TextStyle(
-                  fontWeight: FontWeight.w400,
-                  fontSize: 14,
-                  color: Color.fromRGBO(168, 164, 168, 1)),
+                fontWeight: FontWeight.w400,
+                fontSize: 14,
+                color: Color.fromRGBO(168, 164, 168, 1),
+              ),
               enabledBorder: OutlineInputBorder(
                 borderSide: const BorderSide(
                   color: Color.fromRGBO(131, 166, 193, 1),
-                  width: 1,
                 ),
                 borderRadius: BorderRadius.circular(4),
               ),
               focusedBorder: OutlineInputBorder(
                 borderSide: const BorderSide(
                   color: Color.fromRGBO(131, 166, 193, 1),
-                  width: 1,
                 ),
                 borderRadius: BorderRadius.circular(4),
               ),
               errorBorder: OutlineInputBorder(
                 borderSide: const BorderSide(
                   color: Color.fromRGBO(131, 166, 193, 1),
-                  width: 1,
                 ),
                 borderRadius: BorderRadius.circular(4),
               ),
               focusedErrorBorder: OutlineInputBorder(
                 borderSide: const BorderSide(
                   color: Color.fromRGBO(131, 166, 193, 1),
-                  width: 1,
                 ),
                 borderRadius: BorderRadius.circular(4),
               ),

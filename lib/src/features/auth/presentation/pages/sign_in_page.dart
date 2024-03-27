@@ -5,8 +5,8 @@ import 'package:go_router/go_router.dart';
 import 'package:legal_referral_ui/src/core/config/config.dart';
 import 'package:legal_referral_ui/src/core/constants/colors.dart';
 import 'package:legal_referral_ui/src/core/utils/image_strings.dart';
+import 'package:legal_referral_ui/src/core/widgets/custom_button.dart';
 import 'package:legal_referral_ui/src/features/auth/presentation/presentation.dart';
-import 'package:legal_referral_ui/src/features/auth/presentation/widgets/custom_button.dart';
 import 'package:legal_referral_ui/src/features/auth/presentation/widgets/custom_textfield.dart';
 import 'package:legal_referral_ui/src/features/home_page.dart';
 
@@ -62,54 +62,100 @@ class _SignInPageState extends State<SignInPage> {
                                 LegalReferralImg.legalReferralLogo,
                               ),
                             ),
-                            const Text(
-                              'Log In',
-                              style: TextStyle(
-                                fontWeight: FontWeight.w600,
-                                fontSize: 24,
+
+                            Container(
+                              alignment: Alignment.centerLeft,
+                              child: const Text(
+                                'Log In',
+                                textAlign: TextAlign.left,
+                                style: TextStyle(
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 24,
+                                ),
                               ),
                             ),
+
                             const SizedBox(height: 16),
+
                             CustomTextField(
                               controller: _emailController,
                               hintText: 'SamAtman',
                               labelText: 'User Name',
                             ),
+
                             const SizedBox(height: 16),
+
                             CustomTextField(
                               controller: _passwordController,
                               hintText: 'Enter Password',
                               labelText: 'Password',
                             ),
+
                             const SizedBox(height: 16),
-                            TextButton(
-                              onPressed: () {},
-                              child: const Text(
-                                'Forgot Password?',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.w400,
-                                  fontSize: 14,
-                                  color: LegalReferralColors.textgrey300,
-                                ),
+
+                            Container(
+                              alignment: Alignment.centerRight,
+                              child: CustomTextButton(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w300,
+                                onPressed: () {},
+                                text: 'Forgot Password?',
+                                textColor: LegalReferralColors.textgrey300,
                               ),
                             ),
+
                             const SizedBox(height: 24),
-                            CustomButton(
+
+                            CustomElevatedButton(
                               onTap: _signIn,
                               text: 'LOG IN',
+                            ),
+                            const SizedBox(height: 24),
+
+                            //* --- horizontal divider ---
+
+                            const Row(
+                              children: [
+                                Expanded(
+                                  child: Divider(),
+                                ),
+                                Text(
+                                  '  Or continue using  ',
+                                  style: TextStyle(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w400,
+                                    color: LegalReferralColors.textGrey400,
+                                  ),
+                                ),
+                                Expanded(
+                                  child: Divider(),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: 24),
+
+                            //* --- google login ---
+
+                            CustomOutlinedButton(
+                              text: 'Log in using Google',
+                              onPressed: () {},
                             ),
                             const SizedBox(height: 24),
                             Row(
                               children: [
                                 const Text(
-                                  'Not a member yet?',
+                                  'Not a member yet? ',
                                   style: TextStyle(
                                     fontSize: 14,
                                     fontWeight: FontWeight.w400,
                                     color: LegalReferralColors.textgrey300,
                                   ),
                                 ),
-                                TextButton(
+                                CustomTextButton(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w600,
+                                  textColor: LegalReferralColors.textBlue100,
+                                  text: 'SIGN UP',
                                   onPressed: () {
                                     Navigator.of(context).push(
                                       MaterialPageRoute(
@@ -118,14 +164,6 @@ class _SignInPageState extends State<SignInPage> {
                                       ),
                                     );
                                   },
-                                  child: const Text(
-                                    'SIGN UP',
-                                    style: TextStyle(
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w600,
-                                      color: Color.fromRGBO(89, 158, 217, 1),
-                                    ),
-                                  ),
                                 ),
                               ],
                             ),

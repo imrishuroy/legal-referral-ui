@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:dio/dio.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:legal_referral_ui/firebase_options.dart';
 import 'package:legal_referral_ui/src/core/config/config.dart';
@@ -11,7 +10,8 @@ import 'package:legal_referral_ui/src/core/network/network.dart';
 import 'package:legal_referral_ui/src/core/router/app_router.dart';
 
 Future<void> main() async {
-  await dotenv.load();
+  // await dotenv.load();
+  WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );

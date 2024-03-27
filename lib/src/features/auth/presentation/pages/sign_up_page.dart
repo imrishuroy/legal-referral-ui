@@ -5,8 +5,8 @@ import 'package:go_router/go_router.dart';
 import 'package:legal_referral_ui/src/core/config/config.dart';
 import 'package:legal_referral_ui/src/core/constants/colors.dart';
 import 'package:legal_referral_ui/src/core/utils/image_strings.dart';
+import 'package:legal_referral_ui/src/core/widgets/custom_button.dart';
 import 'package:legal_referral_ui/src/features/auth/presentation/presentation.dart';
-import 'package:legal_referral_ui/src/features/auth/presentation/widgets/custom_button.dart';
 import 'package:legal_referral_ui/src/features/auth/presentation/widgets/custom_textfield.dart';
 import 'package:legal_referral_ui/src/features/home_page.dart';
 
@@ -67,11 +67,14 @@ class _SignUpPageState extends State<SignUpPage> {
                             ),
 
                             // Sign Up fiels
-                            const Text(
-                              'Sign Up',
-                              style: TextStyle(
-                                fontSize: 24,
-                                fontWeight: FontWeight.w600,
+                            Container(
+                              alignment: Alignment.centerLeft,
+                              child: const Text(
+                                'Sign Up',
+                                style: TextStyle(
+                                  fontSize: 24,
+                                  fontWeight: FontWeight.w600,
+                                ),
                               ),
                             ),
                             const SizedBox(height: 16),
@@ -112,7 +115,7 @@ class _SignUpPageState extends State<SignUpPage> {
                             ),
                             const SizedBox(height: 24),
                             // verify button
-                            CustomButton(
+                            CustomElevatedButton(
                               onTap: _signUp,
                               text: 'Sign Up',
                             ),
@@ -120,14 +123,18 @@ class _SignUpPageState extends State<SignUpPage> {
                             Row(
                               children: [
                                 const Text(
-                                  'Already a member?',
+                                  'Already a member? ',
                                   style: TextStyle(
                                     fontSize: 14,
                                     fontWeight: FontWeight.w400,
                                     color: LegalReferralColors.textgrey300,
                                   ),
                                 ),
-                                TextButton(
+                                CustomTextButton(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w600,
+                                  textColor: LegalReferralColors.textBlue100,
+                                  text: 'LOG IN',
                                   onPressed: () {
                                     Navigator.of(context).pushReplacement(
                                       MaterialPageRoute(
@@ -136,14 +143,6 @@ class _SignUpPageState extends State<SignUpPage> {
                                       ),
                                     );
                                   },
-                                  child: const Text(
-                                    'LOG IN',
-                                    style: TextStyle(
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w600,
-                                      color: Color.fromRGBO(89, 158, 217, 1),
-                                    ),
-                                  ),
                                 ),
                               ],
                             ),

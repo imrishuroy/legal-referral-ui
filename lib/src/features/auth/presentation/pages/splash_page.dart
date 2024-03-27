@@ -34,7 +34,7 @@ class _SplashPageState extends State<SplashPage> {
           if (onBoarding) {
             context.goNamed(SignInPage.name);
           } else {
-            context.goNamed(OnBoardingScreen.name);
+            context.goNamed(OnBoardingPage.name);
           }
         }
       },

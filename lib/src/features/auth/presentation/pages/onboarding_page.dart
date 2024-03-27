@@ -4,18 +4,18 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:introduction_screen/introduction_screen.dart';
 import 'package:legal_referral_ui/src/core/config/config.dart';
+import 'package:legal_referral_ui/src/core/widgets/custom_button.dart';
 import 'package:legal_referral_ui/src/features/auth/presentation/presentation.dart';
-import 'package:legal_referral_ui/src/features/auth/presentation/widgets/custom_button.dart';
 
-class OnBoardingScreen extends StatefulWidget {
-  const OnBoardingScreen({super.key});
+class OnBoardingPage extends StatefulWidget {
+  const OnBoardingPage({super.key});
   static const name = 'OnBoardingScreen';
 
   @override
-  State<OnBoardingScreen> createState() => _OnBoardingScreenState();
+  State<OnBoardingPage> createState() => _OnBoardingPageState();
 }
 
-class _OnBoardingScreenState extends State<OnBoardingScreen> {
+class _OnBoardingPageState extends State<OnBoardingPage> {
   final introKey = GlobalKey<IntroductionScreenState>();
 
   @override
@@ -81,10 +81,10 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                   padding: EdgeInsets.symmetric(
                     horizontal: 20.w,
                   ),
-                  child: const SizedBox(
-                    height: 262,
-                    width: 226,
-                    child: OnBoardingImage(
+                  child: SizedBox(
+                    height: 262.h,
+                    width: 226.w,
+                    child: const OnBoardingImage(
                       assetName: 'on_boarding2.svg',
                     ),
                   ),
@@ -176,7 +176,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
               children: [
                 const SizedBox(width: 10),
                 Expanded(
-                  child: CustomButton(
+                  child: CustomElevatedButton(
                     onTap: () async {
                       await SharedPrefs.setOnBoarding(onBoarding: true);
                       if (context.mounted) {
@@ -190,7 +190,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                 ),
                 const SizedBox(width: 10),
                 Expanded(
-                  child: CustomButton(
+                  child: CustomElevatedButton(
                     onTap: () async {
                       await SharedPrefs.setOnBoarding(
                         onBoarding: true,
