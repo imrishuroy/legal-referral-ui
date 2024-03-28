@@ -40,10 +40,13 @@ class _SignUpPageState extends State<SignUpPage> {
             );
           }
           if (state.authStatus == AuthStatus.failure) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: Text('${state.failure?.message}'),
-              ),
+            // ScaffoldMessenger.of(context).showSnackBar(
+            //   SnackBar(
+            //     content: Text('${state.failure?.message}'),
+            //   ),
+            // );
+            context.goNamed(
+              HomePage.name,
             );
           }
         },
@@ -104,15 +107,15 @@ class _SignUpPageState extends State<SignUpPage> {
                               //   return null;
                               // },
                             ),
-                            const SizedBox(height: 24),
-                            CustomTextField(
-                              controller: _passwordController,
-                              hintText: '*********',
-                              labelText: 'Password',
-                              // validator: () {
-                              //   return null;
-                              // },
-                            ),
+                            // const SizedBox(height: 24),
+                            // CustomTextField(
+                            //   controller: _passwordController,
+                            //   hintText: '*********',
+                            //   labelText: 'Password',
+                            //   // validator: () {
+                            //   //   return null;
+                            //   // },
+                            // ),
                             const SizedBox(height: 24),
                             // verify button
                             CustomElevatedButton(
@@ -167,6 +170,10 @@ class _SignUpPageState extends State<SignUpPage> {
           lastName: _lastNameController.text,
         ),
       );
+
+      Future.delayed(const Duration(seconds: 3), () {
+        context.goNamed(HomePage.name);
+      });
     }
   }
 

@@ -35,28 +35,28 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         ),
       );
 
-      final user = await _firebaseAuth.createUserWithEmailAndPassword(
-        email: event.email,
-        password: event.password,
-      );
+      // final user = await _firebaseAuth.createUserWithEmailAndPassword(
+      //   email: event.email,
+      //   password: event.password,
+      // );
 
-      if (user.user == null) {
-        emit(
-          state.copyWith(
-            authStatus: AuthStatus.failure,
-            failure: const Failure(
-              message: 'Failed to create user',
-            ),
-          ),
-        );
-        return;
-      }
+      // if (user.user == null) {
+      //   emit(
+      //     state.copyWith(
+      //       authStatus: AuthStatus.failure,
+      //       failure: const Failure(
+      //         message: 'Failed to create user',
+      //       ),
+      //     ),
+      //   );
+      //   return;
+      // }
 
-      final idToken = await user.user?.getIdToken();
+      //final idToken = await user.user?.getIdToken();
 
-      if (idToken != null) {
-        await SharedPrefs.setToken(token: idToken);
-      }
+      // if (idToken != null) {
+      //   await SharedPrefs.setToken(token: idToken);
+      // }
 
       final userRes = await _authUseCase.signUp(
         appUser: AppUser(
@@ -64,6 +64,12 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           firstName: event.firstName,
           lastName: event.lastName,
           isEmailVerified: true,
+        ),
+      );
+
+      emit(
+        state.copyWith(
+          authStatus: AuthStatus.signedUp,
         ),
       );
 

@@ -1,3 +1,4 @@
+import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -17,6 +18,7 @@ class OnBoardingPage extends StatefulWidget {
 
 class _OnBoardingPageState extends State<OnBoardingPage> {
   final introKey = GlobalKey<IntroductionScreenState>();
+  int currentPage = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +26,11 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
       key: introKey,
       showNextButton: false,
       showDoneButton: false,
-      onChange: (int index) {},
+      onChange: (int index) {
+        setState(() {
+          currentPage = index;
+        });
+      },
       pages: [
         PageViewModel(
           titleWidget: const SizedBox.shrink(),
@@ -156,22 +162,41 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
           ),
         ),
       ],
-      dotsDecorator: DotsDecorator(
-        size: const Size(7, 7),
-        activeSize: const Size(22, 7),
-        activeShape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(6),
-        ),
-        activeColor: Colors.blue,
+      dotsDecorator: const DotsDecorator(
+        size: Size.zero,
+        activeSize: Size.zero,
       ),
       controlsPadding: EdgeInsets.only(
         top: 24.h,
         bottom: 24.h,
       ),
       globalFooter: Padding(
-        padding: const EdgeInsets.only(bottom: 20),
+        padding: EdgeInsets.only(
+          bottom: 20.h,
+        ),
         child: Column(
           children: [
+            Align(
+              alignment: Alignment.bottomLeft,
+              child: Padding(
+                padding: EdgeInsets.only(
+                  left: 12.w,
+                ),
+                child: DotsIndicator(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  dotsCount: 3,
+                  position: currentPage.toDouble(),
+                  decorator: DotsDecorator(
+                    activeSize: Size(22.w, 7.h),
+                    activeShape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(5),
+                    ),
+                    activeColor: const Color(0xff599ed9),
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(height: 24.h),
             Row(
               children: [
                 const SizedBox(width: 10),
@@ -218,7 +243,7 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
                 }
               },
               child: const Text(
-                'Skip',
+                'SKIP',
                 style: TextStyle(
                   fontWeight: FontWeight.w600,
                   color: Colors.black,
