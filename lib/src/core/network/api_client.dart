@@ -16,12 +16,22 @@ abstract class APIClient {
   Future<String> ping();
 
   @POST('/sign-up')
-  Future<AppUser> signUp(
+  Future<SignUpResponse?> signUp(
     @Body() AppUser appUser,
   );
 
   @POST('/sign-in')
-  Future<AppUser> signIn(
+  Future<AppUser?> signIn(
     @Body() SignInReq signInReq,
+  );
+
+  @POST('/otp/email')
+  Future<SendEmailOtpRes> sendEmailOtp(
+    @Body() SendEmailOtpReq sendEmailOtpReq,
+  );
+
+  @POST('/otp/email/verify')
+  Future<ResponseMsg?> verifyEmailOtp(
+    @Body() VerifyEmailOtpReq verifyEmailOtpReq,
   );
 }

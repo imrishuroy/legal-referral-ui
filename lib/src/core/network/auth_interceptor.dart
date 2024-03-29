@@ -14,9 +14,9 @@ class AuthInterceptor extends Interceptor {
     RequestInterceptorHandler handler,
   ) {
     final token = SharedPrefs.getToken();
-    logger.d('token from inceptor $token');
 
     if (token != null) {
+      logger.d('token from inceptor $token');
       options.headers.addAll(
         {
           HttpHeaders.contentTypeHeader: 'application/json',

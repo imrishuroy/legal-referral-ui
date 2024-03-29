@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:legal_referral_ui/src/core/constants/colors.dart';
-import 'package:legal_referral_ui/src/core/utils/image_strings.dart';
+import 'package:legal_referral_ui/src/core/utils/image_strings_util.dart';
 import 'package:legal_referral_ui/src/core/widgets/custom_button.dart';
 import 'package:legal_referral_ui/src/features/profile/presentation/pages/experience_page.dart';
 
@@ -38,7 +38,7 @@ class UploadLicensePage extends StatelessWidget {
                         height: 24,
                         width: 24,
                         child: SvgPicture.asset(
-                          LegalReferralImg.uploadIcon,
+                          ImageStringsUtil.uploadIcon,
                         ),
                       ),
                       const Text(
@@ -79,7 +79,7 @@ class UploadLicensePage extends StatelessWidget {
                         padding: const EdgeInsets.symmetric(horizontal: 8),
                         child: Row(
                           children: [
-                            SvgPicture.asset(LegalReferralImg.pdfIcon),
+                            SvgPicture.asset(ImageStringsUtil.pdfIcon),
                             const SizedBox(
                               width: 8,
                             ),
@@ -92,7 +92,7 @@ class UploadLicensePage extends StatelessWidget {
                               ),
                             ),
                             const Spacer(),
-                            SvgPicture.asset(LegalReferralImg.deleteIcon),
+                            SvgPicture.asset(ImageStringsUtil.deleteIcon),
                           ],
                         ),
                       ),

@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:go_router/go_router.dart';
 import 'package:legal_referral_ui/src/core/config/config.dart';
 import 'package:legal_referral_ui/src/core/constants/colors.dart';
-import 'package:legal_referral_ui/src/core/utils/image_strings.dart';
+import 'package:legal_referral_ui/src/core/utils/utils.dart';
 import 'package:legal_referral_ui/src/core/widgets/custom_button.dart';
+import 'package:legal_referral_ui/src/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:legal_referral_ui/src/features/auth/presentation/presentation.dart';
 import 'package:legal_referral_ui/src/features/auth/presentation/widgets/custom_textfield.dart';
-import 'package:legal_referral_ui/src/features/home_page.dart';
+import 'package:legal_referral_ui/src/features/auth/presentation/widgets/email_verification_model.dart';
 
 class SignUpPage extends StatefulWidget {
   const SignUpPage({super.key});
@@ -33,24 +33,21 @@ class _SignUpPageState extends State<SignUpPage> {
       backgroundColor: LegalReferralColors.primaryBackground,
       body: BlocConsumer<AuthBloc, AuthState>(
         bloc: _authBloc,
-        listener: (context, state) {
-          if (state.authStatus == AuthStatus.signedUp) {
-            context.goNamed(
-              HomePage.name,
-            );
+        listener: (_, state) {
+          if (state.authStatus == AuthStatus.signedUp &&
+              state.emailOtpStatus == EmailOtpStatus.sent) {
+            debugPrint('checking bottom sheet');
+            _verifyEmailBottomSheet(context);
           }
           if (state.authStatus == AuthStatus.failure) {
-            // ScaffoldMessenger.of(context).showSnackBar(
-            //   SnackBar(
-            //     content: Text('${state.failure?.message}'),
-            //   ),
-            // );
-            context.goNamed(
-              HomePage.name,
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text('${state.failure?.message}'),
+              ),
             );
           }
         },
-        builder: (context, state) {
+        builder: (_, state) {
           return SafeArea(
             child: state.authStatus == AuthStatus.loading
                 ? const Center(child: CircularProgressIndicator())
@@ -65,7 +62,7 @@ class _SignUpPageState extends State<SignUpPage> {
                               height: 160,
                               width: 160,
                               child: SvgPicture.asset(
-                                LegalReferralImg.legalReferralLogo,
+                                ImageStringsUtil.legalReferralLogo,
                               ),
                             ),
 
@@ -138,14 +135,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                   fontWeight: FontWeight.w600,
                                   textColor: LegalReferralColors.textBlue100,
                                   text: 'LOG IN',
-                                  onPressed: () {
-                                    Navigator.of(context).pushReplacement(
-                                      MaterialPageRoute(
-                                        builder: (context) =>
-                                            const SignInPage(),
-                                      ),
-                                    );
-                                  },
+                                  onPressed: () {},
                                 ),
                               ],
                             ),
@@ -170,11 +160,62 @@ class _SignUpPageState extends State<SignUpPage> {
           lastName: _lastNameController.text,
         ),
       );
-
-      Future.delayed(const Duration(seconds: 3), () {
-        context.goNamed(HomePage.name);
-      });
     }
+  }
+
+  Future<void> _verifyEmailBottomSheet(BuildContext context) async {
+    // TODO(Satyam): Add animation to it, smooth closing and smooth opening
+    return showModalBottomSheet(
+      isDismissible: false,
+      backgroundColor: LegalReferralColors.containerWhite500,
+      isScrollControlled: true,
+      enableDrag: false,
+      context: context,
+      builder: (context) => EmailVerificationModal(
+        email: _emailController.text,
+        onChangeEmail: () {},
+        onResend: () {},
+        onVerify: (String otp) {},
+        authBloc: _authBloc,
+      ),
+    );
+  }
+
+  Future<dynamic> successBottomSheet(BuildContext context) {
+    return showModalBottomSheet(
+      backgroundColor: LegalReferralColors.containerWhite500,
+      isScrollControlled: true,
+      context: context,
+      builder: (context) => Padding(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const SizedBox(height: 24),
+            SizedBox(
+              height: 114,
+              width: 114,
+              child: SvgPicture.asset(
+                ImageStringsUtil.successLogo,
+              ),
+            ),
+            const SizedBox(height: 24),
+            const Text(
+              'Mobile number verified',
+              style: TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+            const SizedBox(height: 40),
+            CustomElevatedButton(
+              onTap: () {},
+              text: 'Continue',
+            ),
+          ],
+        ),
+      ),
+    );
   }
 
   @override

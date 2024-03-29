@@ -5,6 +5,7 @@ import 'package:legal_referral_ui/src/core/constants/constants.dart';
 
 class DioExceptions implements Exception {
   DioExceptions.fromDioError(DioException dioError) {
+    statusCode = dioError.response?.statusCode;
     switch (dioError.type) {
       case DioExceptionType.cancel:
         message = StringConstants.dioExceptionCanceltxt;
@@ -45,6 +46,7 @@ class DioExceptions implements Exception {
     }
   }
   late String message;
+  late int? statusCode;
 
   String _handleError(int? statusCode, Map<String, dynamic> error) {
     switch (statusCode) {

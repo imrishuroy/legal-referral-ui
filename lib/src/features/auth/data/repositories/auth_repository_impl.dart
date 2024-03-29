@@ -1,7 +1,9 @@
 import 'package:dartz/dartz.dart';
+import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:injectable/injectable.dart';
 import 'package:legal_referral_ui/src/core/config/config.dart';
+import 'package:legal_referral_ui/src/core/network/network.dart';
 import 'package:legal_referral_ui/src/features/auth/data/data.dart';
 import 'package:legal_referral_ui/src/features/auth/domain/domain.dart';
 
@@ -13,7 +15,7 @@ class AuthRepositoryImpl extends AuthRepository {
   final AuthDataSource _authDataSource;
 
   @override
-  Future<Either<Failure, AppUser?>> signUp({
+  Future<Either<Failure, SignUpResponse?>> signUp({
     required AppUser appUser,
   }) async {
     try {
@@ -21,10 +23,12 @@ class AuthRepositoryImpl extends AuthRepository {
         appUser: appUser,
       );
       return Right(response);
-    } on FirebaseAuthException catch (error) {
+    } on DioException catch (error) {
+      final dioError = DioExceptions.fromDioError(error);
       return Left(
         Failure(
-          message: error.message ?? error.toString(),
+          statusCode: dioError.statusCode,
+          message: dioError.message,
         ),
       );
     }
@@ -45,6 +49,46 @@ class AuthRepositoryImpl extends AuthRepository {
       return Left(
         Failure(
           message: error.message ?? error.toString(),
+        ),
+      );
+    }
+  }
+
+  @override
+  Future<Either<Failure, ResponseMsg?>> verifyEmailOtp({
+    required VerifyEmailOtpReq verifyEmailOtpReq,
+  }) async {
+    try {
+      final response = await _authDataSource.verifyEmailOtp(
+        verifyEmailOtpReq: verifyEmailOtpReq,
+      );
+      return Right(response);
+    } on DioException catch (error) {
+      final dioError = DioExceptions.fromDioError(error);
+      return Left(
+        Failure(
+          statusCode: dioError.statusCode,
+          message: dioError.message,
+        ),
+      );
+    }
+  }
+
+  @override
+  Future<Either<Failure, SendEmailOtpRes?>> sendEmailOtp({
+    required SendEmailOtpReq sendEmailOtpReq,
+  }) async {
+    try {
+      final response = await _authDataSource.sendEmailOtp(
+        sendEmailOtpReq: sendEmailOtpReq,
+      );
+      return Right(response);
+    } on DioException catch (error) {
+      final dioError = DioExceptions.fromDioError(error);
+      return Left(
+        Failure(
+          statusCode: dioError.statusCode,
+          message: dioError.message,
         ),
       );
     }

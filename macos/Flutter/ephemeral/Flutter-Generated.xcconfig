@@ -1,6 +1,6 @@
 // This is a generated file; do not edit or check into version control.
-FLUTTER_ROOT=/opt/homebrew/Caskroom/flutter/3.19.3/flutter
-FLUTTER_APPLICATION_PATH=/Users/satyamchourasia/Developer/legal-referral-ui
+FLUTTER_ROOT=/Users/rishu/Developer/SDKs/flutter
+FLUTTER_APPLICATION_PATH=/Users/rishu/Developer/Flutter/legal_referral_ui
 COCOAPODS_PARALLEL_CODE_SIGN=true
 FLUTTER_BUILD_DIR=build
 FLUTTER_BUILD_NAME=1.0.0

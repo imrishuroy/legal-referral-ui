@@ -45,14 +45,14 @@ class _APIClient implements APIClient {
   }
 
   @override
-  Future<AppUser> signUp(AppUser appUser) async {
+  Future<SignUpResponse?> signUp(AppUser appUser) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     _data.addAll(appUser.toJson());
-    final _result =
-        await _dio.fetch<Map<String, dynamic>>(_setStreamType<AppUser>(Options(
+    final _result = await _dio
+        .fetch<Map<String, dynamic>?>(_setStreamType<SignUpResponse>(Options(
       method: 'POST',
       headers: _headers,
       extra: _extra,
@@ -68,19 +68,20 @@ class _APIClient implements APIClient {
               _dio.options.baseUrl,
               baseUrl,
             ))));
-    final value = AppUser.fromJson(_result.data!);
+    final value =
+        _result.data == null ? null : SignUpResponse.fromJson(_result.data!);
     return value;
   }
 
   @override
-  Future<AppUser> signIn(SignInReq signInReq) async {
+  Future<AppUser?> signIn(SignInReq signInReq) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     _data.addAll(signInReq.toJson());
     final _result =
-        await _dio.fetch<Map<String, dynamic>>(_setStreamType<AppUser>(Options(
+        await _dio.fetch<Map<String, dynamic>?>(_setStreamType<AppUser>(Options(
       method: 'POST',
       headers: _headers,
       extra: _extra,
@@ -96,7 +97,65 @@ class _APIClient implements APIClient {
               _dio.options.baseUrl,
               baseUrl,
             ))));
-    final value = AppUser.fromJson(_result.data!);
+    final value = _result.data == null ? null : AppUser.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<SendEmailOtpRes> sendEmailOtp(SendEmailOtpReq sendEmailOtpReq) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(sendEmailOtpReq.toJson());
+    final _result = await _dio
+        .fetch<Map<String, dynamic>>(_setStreamType<SendEmailOtpRes>(Options(
+      method: 'POST',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              '/otp/email',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
+    final value = SendEmailOtpRes.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<ResponseMsg?> verifyEmailOtp(
+      VerifyEmailOtpReq verifyEmailOtpReq) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(verifyEmailOtpReq.toJson());
+    final _result = await _dio
+        .fetch<Map<String, dynamic>?>(_setStreamType<ResponseMsg>(Options(
+      method: 'POST',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              '/otp/email/verify',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
+    final value =
+        _result.data == null ? null : ResponseMsg.fromJson(_result.data!);
     return value;
   }
 

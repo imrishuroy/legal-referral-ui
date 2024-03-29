@@ -1,6 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
 import 'package:legal_referral_ui/src/core/config/config.dart';
+import 'package:legal_referral_ui/src/features/auth/data/data.dart';
 import 'package:legal_referral_ui/src/features/auth/domain/domain.dart';
 
 @lazySingleton
@@ -11,7 +12,7 @@ class AuthUseCase {
 
   final AuthRepository _authRepository;
 
-  Future<Either<Failure, AppUser?>> signUp({
+  Future<Either<Failure, SignUpResponse?>> signUp({
     required AppUser appUser,
   }) async {
     return _authRepository.signUp(
@@ -24,6 +25,22 @@ class AuthUseCase {
   }) async {
     return _authRepository.signIn(
       email: email,
+    );
+  }
+
+  Future<Either<Failure, ResponseMsg?>> verifyEmailOtp({
+    required VerifyEmailOtpReq verifyEmailOtpReq,
+  }) async {
+    return _authRepository.verifyEmailOtp(
+      verifyEmailOtpReq: verifyEmailOtpReq,
+    );
+  }
+
+  Future<Either<Failure, SendEmailOtpRes?>> sendEmailOtp({
+    required SendEmailOtpReq sendEmailOtpReq,
+  }) async {
+    return _authRepository.sendEmailOtp(
+      sendEmailOtpReq: sendEmailOtpReq,
     );
   }
 

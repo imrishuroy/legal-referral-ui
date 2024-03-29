@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:legal_referral_ui/src/core/network/network.dart';
-import 'package:legal_referral_ui/src/features/auth/data/models/sign_in_req.dart';
+import 'package:legal_referral_ui/src/features/auth/data/data.dart';
 import 'package:legal_referral_ui/src/features/auth/domain/domain.dart';
 import 'package:legal_referral_ui/src/features/auth/domain/entities/app_user.dart';
 
@@ -11,12 +11,41 @@ class AuthDataSource {
 
   final APIClient _apiClient;
 
-  Future<AppUser?> signUp({
+  Future<String?> ping() async {
+    try {
+      return _apiClient.ping();
+    } catch (error) {
+      debugPrint('Error in ping $error');
+    }
+    return null;
+  }
+
+  Future<SendEmailOtpRes?> sendEmailOtp({
+    required SendEmailOtpReq sendEmailOtpReq,
+  }) async {
+    try {
+      return await _apiClient.sendEmailOtp(sendEmailOtpReq);
+    } catch (error) {
+      rethrow;
+    }
+  }
+
+  Future<ResponseMsg?> verifyEmailOtp({
+    required VerifyEmailOtpReq verifyEmailOtpReq,
+  }) async {
+    try {
+      return await _apiClient.verifyEmailOtp(verifyEmailOtpReq);
+    } catch (error) {
+      rethrow;
+    }
+  }
+
+  Future<SignUpResponse?> signUp({
     required AppUser appUser,
   }) async {
     try {
-      final user = await _apiClient.signUp(appUser);
-      return user;
+      final res = await _apiClient.signUp(appUser);
+      return res;
     } catch (_) {
       rethrow;
     }
@@ -31,15 +60,6 @@ class AuthDataSource {
     } catch (_) {
       rethrow;
     }
-  }
-
-  Future<String?> ping() async {
-    try {
-      return _apiClient.ping();
-    } catch (error) {
-      debugPrint('Error in ping $error');
-    }
-    return null;
   }
 
   // Future<AppUser> createUser({

@@ -7,7 +7,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:legal_referral_ui/firebase_options.dart';
 import 'package:legal_referral_ui/src/core/config/config.dart';
 import 'package:legal_referral_ui/src/core/network/network.dart';
-import 'package:legal_referral_ui/src/core/router/app_router.dart';
+import 'package:legal_referral_ui/src/core/router/router.dart';
 
 Future<void> main() async {
   // await dotenv.load();

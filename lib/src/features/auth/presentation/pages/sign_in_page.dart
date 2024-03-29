@@ -4,7 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:legal_referral_ui/src/core/config/config.dart';
 import 'package:legal_referral_ui/src/core/constants/colors.dart';
-import 'package:legal_referral_ui/src/core/utils/image_strings.dart';
+import 'package:legal_referral_ui/src/core/utils/image_strings_util.dart';
 import 'package:legal_referral_ui/src/core/widgets/custom_button.dart';
 import 'package:legal_referral_ui/src/features/auth/presentation/presentation.dart';
 import 'package:legal_referral_ui/src/features/auth/presentation/widgets/custom_textfield.dart';
@@ -59,7 +59,7 @@ class _SignInPageState extends State<SignInPage> {
                               height: 160,
                               width: 160,
                               child: SvgPicture.asset(
-                                LegalReferralImg.legalReferralLogo,
+                                ImageStringsUtil.legalReferralLogo,
                               ),
                             ),
 
@@ -156,14 +156,8 @@ class _SignInPageState extends State<SignInPage> {
                                   fontWeight: FontWeight.w600,
                                   textColor: LegalReferralColors.textBlue100,
                                   text: 'SIGN UP',
-                                  onPressed: () {
-                                    Navigator.of(context).push(
-                                      MaterialPageRoute(
-                                        builder: (context) =>
-                                            const SignUpPage(),
-                                      ),
-                                    );
-                                  },
+                                  onPressed: () =>
+                                      context.goNamed(SignUpPage.name),
                                 ),
                               ],
                             ),

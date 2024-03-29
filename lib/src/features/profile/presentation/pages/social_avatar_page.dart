@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:legal_referral_ui/src/core/constants/colors.dart';
-import 'package:legal_referral_ui/src/core/utils/image_strings.dart';
+import 'package:legal_referral_ui/src/core/utils/image_strings_util.dart';
 import 'package:legal_referral_ui/src/core/widgets/custom_button.dart';
 import 'package:legal_referral_ui/src/features/profile/presentation/pages/upload_license_page.dart';
 import 'package:legal_referral_ui/src/features/profile/presentation/widgets/customtextfield.dart';
@@ -39,7 +39,7 @@ class SocialAvatarPage extends StatelessWidget {
                       SizedBox(
                         height: 81,
                         width: 81,
-                        child: SvgPicture.asset(LegalReferralImg.personIcon),
+                        child: SvgPicture.asset(ImageStringsUtil.personIcon),
                       ),
                       const Text(
                         'ADD PROFILE\nPICTURE',

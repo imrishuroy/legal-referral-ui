@@ -1,20 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:legal_referral_ui/src/core/constants/colors.dart';
-import 'package:legal_referral_ui/src/core/utils/image_strings.dart';
+import 'package:legal_referral_ui/src/core/utils/image_strings_util.dart';
 import 'package:legal_referral_ui/src/core/widgets/custom_button.dart';
 import 'package:legal_referral_ui/src/features/auth/presentation/pages/lisense_details_page.dart';
 import 'package:legal_referral_ui/src/features/auth/presentation/widgets/custom_textfield.dart';
 import 'package:legal_referral_ui/src/features/auth/presentation/widgets/otp_widget.dart';
 
-class ContactPage extends StatefulWidget {
-  const ContactPage({super.key});
+class ContactDetailsPage extends StatefulWidget {
+  const ContactDetailsPage({super.key});
+  static const String name = 'ContactDetailsPage';
 
   @override
-  State<ContactPage> createState() => _ContactPageState();
+  State<ContactDetailsPage> createState() => _ContactDetailsPageState();
 }
 
-class _ContactPageState extends State<ContactPage> {
+class _ContactDetailsPageState extends State<ContactDetailsPage> {
   final _contactNumber = TextEditingController();
   final _pinController = TextEditingController();
 
@@ -179,7 +180,7 @@ class _ContactPageState extends State<ContactPage> {
               height: 114,
               width: 114,
               child: SvgPicture.asset(
-                LegalReferralImg.successLogo,
+                ImageStringsUtil.successLogo,
               ),
             ),
             const SizedBox(height: 24),
