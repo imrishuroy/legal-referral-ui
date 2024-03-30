@@ -9,7 +9,7 @@ part of 'verify_email_otp_req.dart';
 VerifyEmailOtpReq _$VerifyEmailOtpReqFromJson(Map<String, dynamic> json) =>
     VerifyEmailOtpReq(
       sessionId: json['session_id'] as int,
-      userId: json['user_id'] as String,
+      email: json['email'] as String,
       channel: json['channel'] as String,
       otp: json['otp'] as int,
     );
@@ -17,7 +17,7 @@ VerifyEmailOtpReq _$VerifyEmailOtpReqFromJson(Map<String, dynamic> json) =>
 Map<String, dynamic> _$VerifyEmailOtpReqToJson(VerifyEmailOtpReq instance) =>
     <String, dynamic>{
       'session_id': instance.sessionId,
-      'user_id': instance.userId,
+      'email': instance.email,
       'channel': instance.channel,
       'otp': instance.otp,
     };

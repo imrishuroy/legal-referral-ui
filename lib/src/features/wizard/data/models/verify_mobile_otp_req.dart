@@ -5,6 +5,7 @@ part 'verify_mobile_otp_req.g.dart';
 @JsonSerializable()
 class VerifyMobileOtpReq {
   VerifyMobileOtpReq({
+    required this.userId,
     required this.mobile,
     required this.otp,
   });
@@ -12,6 +13,8 @@ class VerifyMobileOtpReq {
   factory VerifyMobileOtpReq.fromJson(Map<String, dynamic> json) =>
       _$VerifyMobileOtpReqFromJson(json);
 
+  @JsonKey(name: 'user_id')
+  final String userId;
   final String mobile;
   final String otp;
 

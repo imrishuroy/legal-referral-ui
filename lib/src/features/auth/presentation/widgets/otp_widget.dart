@@ -5,6 +5,7 @@ import 'package:pinput/pinput.dart';
 class OtpWidget extends StatelessWidget {
   OtpWidget({
     required this.pinController,
+    this.focusNode,
     this.length = 4,
     this.onChange,
     this.validator,
@@ -16,6 +17,7 @@ class OtpWidget extends StatelessWidget {
 
   final int length;
   final TextEditingController pinController;
+  final FocusNode? focusNode;
   final String? Function(String?)? onChange;
   final String? Function(String?)? validator;
   final Function(String)? onSubmitted;
@@ -82,6 +84,7 @@ class OtpWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Pinput(
+      focusNode: focusNode,
       length: length,
       forceErrorState: isError,
       errorText: errorText,

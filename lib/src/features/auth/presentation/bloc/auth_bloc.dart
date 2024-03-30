@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:equatable/equatable.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:legal_referral_ui/src/core/config/config.dart';
@@ -18,8 +19,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   })  : _firebaseAuth = FirebaseAuth.instance,
         _authUseCase = authUseCase,
         super(AuthState.initial()) {
-    on<AuthSignedIn>(_onAuthSignedIn);
     on<AuthSignedUp>(_onAuthSignedUp);
+    on<AuthSignedIn>(_onAuthSignedIn);
     on<AuthSignOutRequested>(_onAuthSignOutRequested);
     on<EmailOtpResend>(_onEmailOtpResend);
     on<EmailOtpVerified>(_onEmailOtpVerified);
@@ -54,8 +55,29 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
             authStatus: AuthStatus.failure,
           ),
         );
+
+        // const errorMsg = 'user with email already exists';
+        // debugPrint('failure: ${failure.message}');
+
+        // if (errorMsg == failure.message) {
+        //   emit(
+        //     state.copyWith(
+        //       failure: failure,
+        //       authStatus: AuthStatus.failure,
+        //     ),
+        //   );
+        //   add(EmailOtpResend(email: event.email));
+        // } else {
+        //   emit(
+        //     state.copyWith(
+        //       failure: failure,
+        //       authStatus: AuthStatus.failure,
+        //     ),
+        //   );
+        // }
       },
       (res) async {
+        debugPrint('userRes: ${res?.appUser}');
         if (res?.appUser == null) {
           emit(
             state.copyWith(
@@ -170,7 +192,26 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     Emitter<AuthState> emit,
   ) async {
     final user = state.user;
-    if (user == null || user.id == null || state.sessionId == null) {
+    // if (user == null || state.sessionId == null) {
+    //   emit(
+    //     state.copyWith(
+    //       authStatus: AuthStatus.failure,
+    //       failure: const Failure(
+    //         message: 'Failed to verify OTP',
+    //       ),
+    //     ),
+    //   );
+    //   return;
+    // }
+
+    emit(
+      state.copyWith(
+        emailOtpStatus: EmailOtpStatus.verifying,
+      ),
+    );
+
+    final email = event.email ?? user?.email;
+    if (email == null) {
       emit(
         state.copyWith(
           authStatus: AuthStatus.failure,
@@ -182,15 +223,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       return;
     }
 
-    emit(
-      state.copyWith(
-        emailOtpStatus: EmailOtpStatus.verifying,
-      ),
-    );
-
     final response = await _authUseCase.verifyEmailOtp(
       verifyEmailOtpReq: VerifyEmailOtpReq(
-        userId: user.id!,
+        email: email,
         sessionId: state.sessionId!,
         otp: event.otp,
         channel: 'email',
@@ -221,7 +256,26 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     Emitter<AuthState> emit,
   ) async {
     final user = state.user;
-    if (user == null || user.id == null) {
+    // if (user == null || user.id == null) {
+    //   emit(
+    //     state.copyWith(
+    //       authStatus: AuthStatus.failure,
+    //       failure: const Failure(
+    //         message: 'Failed to resend OTP',
+    //       ),
+    //     ),
+    //   );
+    //   return;
+    // }
+
+    emit(
+      state.copyWith(
+        emailOtpStatus: EmailOtpStatus.verifying,
+      ),
+    );
+
+    final email = event.email ?? user?.email;
+    if (email == null) {
       emit(
         state.copyWith(
           authStatus: AuthStatus.failure,
@@ -233,15 +287,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       return;
     }
 
-    emit(
-      state.copyWith(
-        emailOtpStatus: EmailOtpStatus.verifying,
-      ),
-    );
-
     final response = await _authUseCase.sendEmailOtp(
       sendEmailOtpReq: SendEmailOtpReq(
-        userId: user.id!,
+        email: email,
         channel: 'email',
       ),
     );

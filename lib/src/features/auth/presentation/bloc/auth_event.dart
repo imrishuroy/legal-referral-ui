@@ -52,15 +52,20 @@ class AuthUserCreated extends AuthEvent {
 
 class AuthSignOutRequested extends AuthEvent {}
 
-class EmailOtpResend extends AuthEvent {}
+class EmailOtpResend extends AuthEvent {
+  const EmailOtpResend({
+    this.email,
+  });
+
+  final String? email;
+}
 
 class EmailOtpVerified extends AuthEvent {
   const EmailOtpVerified({
     required this.otp,
+    this.email,
   });
 
+  final String? email;
   final int otp;
-
-  @override
-  List<Object> get props => [otp];
 }

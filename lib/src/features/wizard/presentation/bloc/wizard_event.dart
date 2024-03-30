@@ -20,13 +20,12 @@ class MobileOtpSent extends WizardEvent {
 
 class MobileOtpVerified extends WizardEvent {
   const MobileOtpVerified({
+    required this.userId,
     required this.mobile,
     required this.otp,
   });
 
+  final String? userId;
   final String mobile;
   final String otp;
-
-  @override
-  List<Object> get props => [mobile, otp];
 }

@@ -35,7 +35,8 @@ class _SignUpPageState extends State<SignUpPage> {
         bloc: _authBloc,
         listener: (_, state) {
           if (state.authStatus == AuthStatus.signedUp &&
-              state.emailOtpStatus == EmailOtpStatus.sent) {
+                  state.emailOtpStatus == EmailOtpStatus.sent ||
+              state.emailOtpStatus == EmailOtpStatus.resent) {
             debugPrint('checking bottom sheet');
             _verifyEmailBottomSheet(context);
           }

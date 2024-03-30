@@ -50,7 +50,6 @@ class _ContactDetailsPageState extends State<ContactDetailsPage> {
           }
         },
         builder: (context, state) {
-          debugPrint('Auth Status: ${state.mobileOtpStatus}');
           return state.wizardStatus == WizardStatus.loading
               ? const Center(
                   child: CircularProgressIndicator(),

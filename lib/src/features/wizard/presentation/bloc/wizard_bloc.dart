@@ -69,8 +69,22 @@ class WizardBloc extends Bloc<WizardEvent, WizardState> {
       ),
     );
 
+    if (event.userId == null) {
+      emit(
+        state.copyWith(
+          wizardStatus: WizardStatus.failure,
+          mobileOtpStatus: MobileOtpStatus.failed,
+          failure: const Failure(
+            message: 'Failed to verify OTP',
+          ),
+        ),
+      );
+      return;
+    }
+
     final response = await _wizardUseCase.verifyMobileOtp(
       verifyMobileOtpReq: VerifyMobileOtpReq(
+        userId: event.userId!,
         mobile: event.mobile,
         otp: event.otp,
       ),

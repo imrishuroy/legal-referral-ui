@@ -6,7 +6,7 @@ part 'verify_email_otp_req.g.dart';
 class VerifyEmailOtpReq {
   VerifyEmailOtpReq({
     required this.sessionId,
-    required this.userId,
+    required this.email,
     required this.channel,
     required this.otp,
   });
@@ -16,8 +16,7 @@ class VerifyEmailOtpReq {
 
   @JsonKey(name: 'session_id')
   final int sessionId;
-  @JsonKey(name: 'user_id')
-  final String userId;
+  final String email;
   final String channel;
   final int otp;
 

@@ -27,4 +27,32 @@ class ObscureTextUtil {
       return email;
     }
   }
+
+  static String obfuscateMobileNo(String phoneNumber) {
+    // Initial checks for phone number validity
+    if (phoneNumber.isEmpty) {
+      return '';
+    }
+
+    // Determining if a country code is present (assuming "+" indicates this)
+    final countryCode = phoneNumber.startsWith('+') ? '+' : '';
+
+    // Extract the national number (excluding country code if present)
+    final nationalNumber =
+        countryCode.isNotEmpty ? phoneNumber.substring(1) : phoneNumber;
+
+    // Ensure national number is of a plausible length to obscure
+    if (nationalNumber.length < 4) {
+      return '';
+    }
+
+    // Keeping the last 3 digits visible
+    final visiblePart = nationalNumber.substring(nationalNumber.length - 3);
+
+    // Obscuring the rest
+    final obscuredPart = '*' * (nationalNumber.length - 3);
+
+    // Reassembling the phone number
+    return '$countryCode$obscuredPart$visiblePart';
+  }
 }

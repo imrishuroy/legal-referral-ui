@@ -7,7 +7,7 @@ import 'package:legal_referral_ui/src/core/utils/utils.dart';
 import 'package:legal_referral_ui/src/core/widgets/custom_button.dart';
 import 'package:legal_referral_ui/src/features/auth/presentation/presentation.dart';
 import 'package:legal_referral_ui/src/features/auth/presentation/widgets/otp_widget.dart';
-import 'package:legal_referral_ui/src/features/home_page.dart';
+import 'package:legal_referral_ui/src/features/wizard/presentation/presentation.dart';
 
 class EmailVerificationModal extends StatefulWidget {
   const EmailVerificationModal({
@@ -27,7 +27,13 @@ class EmailVerificationModal extends StatefulWidget {
 class _EmailVerificationModalState extends State<EmailVerificationModal> {
   final _formKey = GlobalKey<FormState>();
   final _otpController = TextEditingController();
-  bool _inValidOtp = false;
+  final _pinputFocusNode = FocusNode();
+
+  @override
+  void initState() {
+    _pinputFocusNode.requestFocus();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -46,9 +52,7 @@ class _EmailVerificationModalState extends State<EmailVerificationModal> {
             BlocConsumer<AuthBloc, AuthState>(
               bloc: widget.authBloc,
               listener: (context, state) {
-                if (state.emailOtpStatus == EmailOtpStatus.failed) {
-                  _inValidOtp = true;
-                }
+                if (state.emailOtpStatus == EmailOtpStatus.failed) {}
               },
               builder: (context, state) {
                 switch (state.emailOtpStatus) {
@@ -74,7 +78,7 @@ class _EmailVerificationModalState extends State<EmailVerificationModal> {
                         CustomElevatedButton(
                           onTap: () {
                             context.pop();
-                            context.goNamed(HomePage.name);
+                            context.goNamed(WizardInspectionPage.name);
                           },
                           text: 'Continue',
                         ),
@@ -105,19 +109,16 @@ class _EmailVerificationModalState extends State<EmailVerificationModal> {
                           ),
                           const SizedBox(height: 24),
                           OtpWidget(
-                            length: 6,
                             pinController: _otpController,
-                            onChange: (otp) {
-                              _inValidOtp = false;
-                              return null;
-                            },
+                            focusNode: _pinputFocusNode,
+                            isError:
+                                state.emailOtpStatus == EmailOtpStatus.failed,
+                            errorText: state.failure?.message,
                             validator: (otp) {
+                              debugPrint('OTP validator: $otp');
                               if (otp!.isEmpty) {
                                 return 'Please enter OTP';
-                              } else if (_inValidOtp) {
-                                return 'Invalid OTP';
                               }
-
                               return null;
                             },
                           ),
@@ -167,7 +168,11 @@ class _EmailVerificationModalState extends State<EmailVerificationModal> {
                                 text: 'RESEND OTP',
                                 textColor: LegalReferralColors.textBlue100,
                                 onPressed: () {
-                                  widget.authBloc.add(EmailOtpResend());
+                                  widget.authBloc.add(
+                                    EmailOtpResend(
+                                      email: widget.email,
+                                    ),
+                                  );
                                 },
                               ),
                             ],
@@ -195,6 +200,7 @@ class _EmailVerificationModalState extends State<EmailVerificationModal> {
     if (_formKey.currentState!.validate()) {
       widget.authBloc.add(
         EmailOtpVerified(
+          email: widget.email,
           otp: int.parse(_otpController.text),
         ),
       );

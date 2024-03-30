@@ -18,7 +18,7 @@ class AppRouter {
         name: SplashPage.name,
         parentNavigatorKey: _rootNavigatorKey,
         pageBuilder: (context, state) => CustomTransitionPage(
-          child: const ContactDetailsPage(),
+          child: const SplashPage(),
           transitionDuration: const Duration(
             seconds: _routeAnimationDuration,
           ),
@@ -66,11 +66,11 @@ class AppRouter {
         ),
       ),
       GoRoute(
-        path: '/contact',
-        name: ContactDetailsPage.name,
+        path: '/wizard',
+        name: WizardInspectionPage.name,
         parentNavigatorKey: _rootNavigatorKey,
         pageBuilder: (context, state) => CustomTransitionPage(
-          child: const ContactDetailsPage(),
+          child: const WizardInspectionPage(),
           transitionDuration: const Duration(
             seconds: 2,
           ),

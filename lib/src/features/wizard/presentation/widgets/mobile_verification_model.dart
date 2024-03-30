@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
+import 'package:legal_referral_ui/src/core/config/config.dart';
 import 'package:legal_referral_ui/src/core/constants/constants.dart';
 import 'package:legal_referral_ui/src/core/utils/utils.dart';
 import 'package:legal_referral_ui/src/core/widgets/custom_button.dart';
+import 'package:legal_referral_ui/src/features/auth/presentation/presentation.dart';
 import 'package:legal_referral_ui/src/features/auth/presentation/widgets/otp_widget.dart';
 import 'package:legal_referral_ui/src/features/home_page.dart';
 import 'package:legal_referral_ui/src/features/wizard/presentation/presentation.dart';
@@ -27,9 +29,8 @@ class MobileVerificationModel extends StatefulWidget {
 class _MobileVerificationModelState extends State<MobileVerificationModel> {
   final _formKey = GlobalKey<FormState>();
   final _otpController = TextEditingController();
-  // bool _inValidOtp = false;
-  /// Create FocusNode
   final _pinputFocusNode = FocusNode();
+  final _authBloc = getIt<AuthBloc>();
 
   @override
   void initState() {
@@ -109,6 +110,7 @@ class _MobileVerificationModelState extends State<MobileVerificationModel> {
                           const SizedBox(height: 24),
                           OtpWidget(
                             pinController: _otpController,
+                            focusNode: _pinputFocusNode,
                             isError:
                                 state.mobileOtpStatus == MobileOtpStatus.failed,
                             errorText: state.failure?.message,
@@ -117,7 +119,6 @@ class _MobileVerificationModelState extends State<MobileVerificationModel> {
                               if (otp!.isEmpty) {
                                 return 'Please enter OTP';
                               }
-
                               return null;
                             },
                           ),
@@ -134,7 +135,7 @@ class _MobileVerificationModelState extends State<MobileVerificationModel> {
                           Wrap(
                             children: [
                               Text(
-                                ObscureTextUtil.obfuscateEmail(
+                                ObscureTextUtil.obfuscateMobileNo(
                                   widget.mobile,
                                 ),
                                 style: const TextStyle(
@@ -200,6 +201,7 @@ class _MobileVerificationModelState extends State<MobileVerificationModel> {
     if (_formKey.currentState!.validate()) {
       widget.wizardBloc.add(
         MobileOtpVerified(
+          userId: _authBloc.state.user?.id,
           otp: _otpController.text,
           mobile: widget.mobile,
         ),

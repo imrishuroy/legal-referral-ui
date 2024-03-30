@@ -46,4 +46,9 @@ abstract class APIClient {
   Future<ResponseMsg?> verifyMobileOtp(
     @Body() VerifyMobileOtpReq verifyMobileOtpReq,
   );
+
+  @PUT('/user')
+  Future<AppUser?> updateUser(
+    @Body() AppUser appUser,
+  );
 }
