@@ -173,9 +173,6 @@ class _SignUpPageState extends State<SignUpPage> {
       context: context,
       builder: (context) => EmailVerificationModal(
         email: _emailController.text,
-        onChangeEmail: () {},
-        onResend: () {},
-        onVerify: (String otp) {},
         authBloc: _authBloc,
       ),
     );

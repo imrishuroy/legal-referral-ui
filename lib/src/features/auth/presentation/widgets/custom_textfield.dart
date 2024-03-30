@@ -1,18 +1,20 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 
 class CustomTextField extends StatelessWidget {
-  final TextEditingController controller;
-  final String hintText;
-  final String labelText;
-  final String? Function(String?)? validator;
   const CustomTextField({
     required this.controller,
     required this.hintText,
     required this.labelText,
+    this.focusNode,
     super.key,
     this.validator,
   });
+
+  final FocusNode? focusNode;
+  final TextEditingController controller;
+  final String hintText;
+  final String labelText;
+  final String? Function(String?)? validator;
 
   @override
   Widget build(BuildContext context) {
@@ -31,6 +33,7 @@ class CustomTextField extends StatelessWidget {
           ),
           const SizedBox(height: 8),
           TextFormField(
+            focusNode: focusNode,
             controller: controller,
             // focusNode: _model.textFieldFocusNode,
             autofocus: true,

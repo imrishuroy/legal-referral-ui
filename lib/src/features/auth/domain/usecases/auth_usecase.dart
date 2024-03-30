@@ -43,12 +43,4 @@ class AuthUseCase {
       sendEmailOtpReq: sendEmailOtpReq,
     );
   }
-
-  // Future<Either<Failure, AppUser>> getUser({
-  //   required String? id,
-  // }) async {
-  //   return _authRepository.getUser(
-  //     id: id,
-  //   );
-  // }
 }

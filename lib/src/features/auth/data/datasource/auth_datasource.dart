@@ -1,4 +1,5 @@
 import 'package:flutter/foundation.dart';
+import 'package:legal_referral_ui/src/core/config/config.dart';
 import 'package:legal_referral_ui/src/core/network/network.dart';
 import 'package:legal_referral_ui/src/features/auth/data/data.dart';
 import 'package:legal_referral_ui/src/features/auth/domain/domain.dart';
@@ -61,26 +62,4 @@ class AuthDataSource {
       rethrow;
     }
   }
-
-  // Future<AppUser> createUser({
-  //   required AppUser appUser,
-  // }) async {
-  //   try {
-  //     return await _apiClient.createUser(
-  //       appUser,
-  //     );
-  //   } catch (error) {
-  //     rethrow;
-  //   }
-  // }
-
-  // Future<AppUser> getUser({
-  //   required String? id,
-  // }) async {
-  //   try {
-  //     return await _apiClient.getUser(id);
-  //   } catch (error) {
-  //     rethrow;
-  //   }
-  // }
 }

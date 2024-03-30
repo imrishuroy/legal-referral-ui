@@ -1,6 +1,8 @@
 import 'package:dio/dio.dart';
+import 'package:legal_referral_ui/src/core/config/config.dart';
 import 'package:legal_referral_ui/src/features/auth/data/data.dart';
 import 'package:legal_referral_ui/src/features/auth/domain/domain.dart';
+import 'package:legal_referral_ui/src/features/wizard/data/data.dart';
 import 'package:retrofit/retrofit.dart';
 
 part 'api_client.g.dart';
@@ -33,5 +35,15 @@ abstract class APIClient {
   @POST('/otp/email/verify')
   Future<ResponseMsg?> verifyEmailOtp(
     @Body() VerifyEmailOtpReq verifyEmailOtpReq,
+  );
+
+  @POST('/otp/mobile')
+  Future<ResponseMsg?> sendMobileOtp(
+    @Body() SendMobileOtpReq sendMobileOtpReq,
+  );
+
+  @POST('/otp/mobile/verify')
+  Future<ResponseMsg?> verifyMobileOtp(
+    @Body() VerifyMobileOtpReq verifyMobileOtpReq,
   );
 }

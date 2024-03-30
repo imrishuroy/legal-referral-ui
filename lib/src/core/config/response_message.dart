@@ -1,6 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-part 'response_msg.g.dart';
+part 'response_message.g.dart';
 
 @JsonSerializable()
 class ResponseMsg {

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:legal_referral_ui/src/features/auth/presentation/presentation.dart';
 import 'package:legal_referral_ui/src/features/home_page.dart';
+import 'package:legal_referral_ui/src/features/wizard/presentation/presentation.dart';
 
 final _rootNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'parent');
 
@@ -17,7 +18,7 @@ class AppRouter {
         name: SplashPage.name,
         parentNavigatorKey: _rootNavigatorKey,
         pageBuilder: (context, state) => CustomTransitionPage(
-          child: const SignUpPage(),
+          child: const ContactDetailsPage(),
           transitionDuration: const Duration(
             seconds: _routeAnimationDuration,
           ),

@@ -5,16 +5,22 @@ import 'package:pinput/pinput.dart';
 class OtpWidget extends StatelessWidget {
   OtpWidget({
     required this.pinController,
+    this.length = 4,
     this.onChange,
     this.validator,
     this.onSubmitted,
+    this.isError = false,
+    this.errorText,
     super.key,
   });
 
+  final int length;
   final TextEditingController pinController;
   final String? Function(String?)? onChange;
   final String? Function(String?)? validator;
   final Function(String)? onSubmitted;
+  final bool isError;
+  final String? errorText;
 
   final defaultPinTheme = PinTheme(
     width: 48,
@@ -76,6 +82,9 @@ class OtpWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Pinput(
+      length: length,
+      forceErrorState: isError,
+      errorText: errorText,
       controller: pinController,
       onChanged: onChange,
       defaultPinTheme: defaultPinTheme,
@@ -84,6 +93,7 @@ class OtpWidget extends StatelessWidget {
       errorPinTheme: errorPinTheme,
       validator: validator,
       onSubmitted: onSubmitted,
+      hapticFeedbackType: HapticFeedbackType.mediumImpact,
     );
   }
 }

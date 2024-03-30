@@ -15,9 +15,15 @@ import '../../features/auth/data/data.dart' as _i4;
 import '../../features/auth/data/repositories/auth_repository_impl.dart' as _i6;
 import '../../features/auth/domain/domain.dart' as _i5;
 import '../../features/auth/domain/usecases/auth_usecase.dart' as _i7;
-import '../../features/auth/presentation/bloc/auth_bloc.dart' as _i8;
+import '../../features/auth/presentation/bloc/auth_bloc.dart' as _i12;
+import '../../features/wizard/data/data.dart' as _i8;
+import '../../features/wizard/data/repositories/wizard_repository_impl.dart'
+    as _i10;
+import '../../features/wizard/domain/domain.dart' as _i9;
+import '../../features/wizard/domain/usecases/wizard_usecase.dart' as _i11;
+import '../../features/wizard/presentation/bloc/wizard_bloc.dart' as _i13;
 import '../network/network.dart' as _i3;
-import 'api_client_module.dart' as _i9;
+import 'api_client_module.dart' as _i14;
 
 extension GetItInjectableX on _i1.GetIt {
 // initializes the registration of main-scope dependencies inside of GetIt
@@ -41,10 +47,18 @@ extension GetItInjectableX on _i1.GetIt {
       () => aPIClientModule.baseUrl,
       instanceName: 'baseUrl',
     );
-    gh.lazySingleton<_i8.AuthBloc>(
-        () => _i8.AuthBloc(authUseCase: gh<_i5.AuthUseCase>()));
+    gh.singleton<_i8.WizardDataSource>(
+        () => aPIClientModule.wizardDataSource());
+    gh.lazySingleton<_i9.WizardRepository>(() => _i10.WizardRepositoryImpl(
+        wizardDataSource: gh<_i8.WizardDataSource>()));
+    gh.lazySingleton<_i11.WizardUseCase>(
+        () => _i11.WizardUseCase(wizardRepository: gh<_i9.WizardRepository>()));
+    gh.singleton<_i12.AuthBloc>(
+        () => _i12.AuthBloc(authUseCase: gh<_i5.AuthUseCase>()));
+    gh.factory<_i13.WizardBloc>(
+        () => _i13.WizardBloc(wizardUseCase: gh<_i11.WizardUseCase>()));
     return this;
   }
 }
 
-class _$APIClientModule extends _i9.APIClientModule {}
+class _$APIClientModule extends _i14.APIClientModule {}

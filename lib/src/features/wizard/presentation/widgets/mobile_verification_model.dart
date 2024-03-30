@@ -5,29 +5,37 @@ import 'package:go_router/go_router.dart';
 import 'package:legal_referral_ui/src/core/constants/constants.dart';
 import 'package:legal_referral_ui/src/core/utils/utils.dart';
 import 'package:legal_referral_ui/src/core/widgets/custom_button.dart';
-import 'package:legal_referral_ui/src/features/auth/presentation/presentation.dart';
 import 'package:legal_referral_ui/src/features/auth/presentation/widgets/otp_widget.dart';
 import 'package:legal_referral_ui/src/features/home_page.dart';
+import 'package:legal_referral_ui/src/features/wizard/presentation/presentation.dart';
 
-class EmailVerificationModal extends StatefulWidget {
-  const EmailVerificationModal({
-    required this.email,
-    required this.authBloc,
+class MobileVerificationModel extends StatefulWidget {
+  const MobileVerificationModel({
+    required this.mobile,
+    required this.wizardBloc,
     super.key,
   });
 
-  final String email;
-
-  final AuthBloc authBloc;
+  final String mobile;
+  final WizardBloc wizardBloc;
 
   @override
-  State<EmailVerificationModal> createState() => _EmailVerificationModalState();
+  State<MobileVerificationModel> createState() =>
+      _MobileVerificationModelState();
 }
 
-class _EmailVerificationModalState extends State<EmailVerificationModal> {
+class _MobileVerificationModelState extends State<MobileVerificationModel> {
   final _formKey = GlobalKey<FormState>();
   final _otpController = TextEditingController();
-  bool _inValidOtp = false;
+  // bool _inValidOtp = false;
+  /// Create FocusNode
+  final _pinputFocusNode = FocusNode();
+
+  @override
+  void initState() {
+    _pinputFocusNode.requestFocus();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -43,16 +51,11 @@ class _EmailVerificationModalState extends State<EmailVerificationModal> {
           mainAxisSize: MainAxisSize.min,
           children: [
             const SizedBox(height: 8),
-            BlocConsumer<AuthBloc, AuthState>(
-              bloc: widget.authBloc,
-              listener: (context, state) {
-                if (state.emailOtpStatus == EmailOtpStatus.failed) {
-                  _inValidOtp = true;
-                }
-              },
+            BlocBuilder<WizardBloc, WizardState>(
+              bloc: widget.wizardBloc,
               builder: (context, state) {
-                switch (state.emailOtpStatus) {
-                  case EmailOtpStatus.verified:
+                switch (state.mobileOtpStatus) {
+                  case MobileOtpStatus.verified:
                     return Column(
                       children: [
                         SizedBox(
@@ -64,7 +67,7 @@ class _EmailVerificationModalState extends State<EmailVerificationModal> {
                         ),
                         const SizedBox(height: 24),
                         const Text(
-                          'E-mail verified',
+                          'Mobile number verified',
                           style: TextStyle(
                             fontSize: 24,
                             fontWeight: FontWeight.w600,
@@ -105,17 +108,14 @@ class _EmailVerificationModalState extends State<EmailVerificationModal> {
                           ),
                           const SizedBox(height: 24),
                           OtpWidget(
-                            length: 6,
                             pinController: _otpController,
-                            onChange: (otp) {
-                              _inValidOtp = false;
-                              return null;
-                            },
+                            isError:
+                                state.mobileOtpStatus == MobileOtpStatus.failed,
+                            errorText: state.failure?.message,
                             validator: (otp) {
+                              debugPrint('OTP validator: $otp');
                               if (otp!.isEmpty) {
                                 return 'Please enter OTP';
-                              } else if (_inValidOtp) {
-                                return 'Invalid OTP';
                               }
 
                               return null;
@@ -135,7 +135,7 @@ class _EmailVerificationModalState extends State<EmailVerificationModal> {
                             children: [
                               Text(
                                 ObscureTextUtil.obfuscateEmail(
-                                  widget.email,
+                                  widget.mobile,
                                 ),
                                 style: const TextStyle(
                                   decoration: TextDecoration.underline,
@@ -149,7 +149,7 @@ class _EmailVerificationModalState extends State<EmailVerificationModal> {
                               CustomTextButton(
                                 fontSize: 14,
                                 fontWeight: FontWeight.w600,
-                                text: 'CHANGE MAIL ID',
+                                text: 'CHANGE NUMBER',
                                 textColor: LegalReferralColors.textBlue100,
                                 onPressed: () => context.pop(),
                               ),
@@ -167,7 +167,12 @@ class _EmailVerificationModalState extends State<EmailVerificationModal> {
                                 text: 'RESEND OTP',
                                 textColor: LegalReferralColors.textBlue100,
                                 onPressed: () {
-                                  widget.authBloc.add(EmailOtpResend());
+                                  context.pop();
+                                  widget.wizardBloc.add(
+                                    MobileOtpSent(
+                                      mobile: widget.mobile,
+                                    ),
+                                  );
                                 },
                               ),
                             ],
@@ -193,9 +198,10 @@ class _EmailVerificationModalState extends State<EmailVerificationModal> {
 
   void _onVerify() {
     if (_formKey.currentState!.validate()) {
-      widget.authBloc.add(
-        EmailOtpVerified(
-          otp: int.parse(_otpController.text),
+      widget.wizardBloc.add(
+        MobileOtpVerified(
+          otp: _otpController.text,
+          mobile: widget.mobile,
         ),
       );
     }

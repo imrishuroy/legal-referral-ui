@@ -11,7 +11,7 @@ import 'package:legal_referral_ui/src/features/auth/domain/domain.dart';
 part 'auth_event.dart';
 part 'auth_state.dart';
 
-@lazySingleton
+@singleton
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   AuthBloc({
     required AuthUseCase authUseCase,
@@ -265,49 +265,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       },
     );
   }
-
-  // Future<void> _onAuthUserCreated(
-  //   AuthUserCreated event,
-  //   Emitter<AuthState> emit,
-  // ) async {
-  //   emit(
-  //     state.copyWith(
-  //       authStatus: AuthStatus.loading,
-  //     ),
-  //   );
-  //   final response = await _authUseCase.createUser(
-  //     appUser: AppUser(
-  //       email: event.email,
-  //       name: event.name,
-  //     ),
-  //   );
-
-  //   await response.fold(
-  //     (failure) {
-  //       emit(
-  //         state.copyWith(
-  //           failure: failure,
-  //           authStatus: AuthStatus.failure,
-  //         ),
-  //       );
-  //     },
-  //     (user) async {
-  //       await SharedPrefs.setAppUser(
-  //         appUser: AppUser(
-  //           id: user.id,
-  //           email: user.email,
-  //           name: user.name,
-  //         ),
-  //       );
-  //       emit(
-  //         state.copyWith(
-  //           userStatus: UserStatus.authorized,
-  //           user: user,
-  //         ),
-  //       );
-  //     },
-  //   );
-  // }
 
   Future<void> _onAuthSignOutRequested(
     AuthSignOutRequested event,
