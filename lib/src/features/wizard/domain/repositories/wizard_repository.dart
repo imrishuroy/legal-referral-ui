@@ -19,4 +19,8 @@ abstract class WizardRepository {
   Future<Either<Failure, License?>> saveLicense({
     required License license,
   });
+
+  Future<Either<Failure, ResponseMsg?>> saveAboutYou({
+    required AboutYouReq aboutYouReq,
+  });
 }

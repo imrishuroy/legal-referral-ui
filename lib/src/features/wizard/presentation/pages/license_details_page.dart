@@ -12,7 +12,11 @@ import 'package:legal_referral_ui/src/features/wizard/domain/domain.dart';
 import 'package:legal_referral_ui/src/features/wizard/presentation/presentation.dart';
 
 class LicenseDetailPage extends StatefulWidget {
-  const LicenseDetailPage({super.key});
+  const LicenseDetailPage({
+    required this.wizardBloc,
+    super.key,
+  });
+  final WizardBloc wizardBloc;
 
   @override
   State<LicenseDetailPage> createState() => _LicenseDetailPageState();
@@ -25,7 +29,6 @@ class _LicenseDetailPageState extends State<LicenseDetailPage> {
   final _issuestate = TextEditingController();
   final _formKey = GlobalKey<FormState>();
   final _authBloc = getIt<AuthBloc>();
-  final _wizardBloc = getIt<WizardBloc>();
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +43,7 @@ class _LicenseDetailPageState extends State<LicenseDetailPage> {
         ),
       ),
       body: BlocConsumer<WizardBloc, WizardState>(
-        bloc: _wizardBloc,
+        bloc: widget.wizardBloc,
         listener: (context, state) {
           if (state.wizardStatus == WizardStatus.success) {
             _successBottomSheet(context);
@@ -71,8 +74,7 @@ class _LicenseDetailPageState extends State<LicenseDetailPage> {
                           const SizedBox(height: 16),
                           CustomTextField(
                             controller: _issueDate,
-                            hintText:
-                                'St. Thomas Street, Anchorage, Alaska, USA',
+                            hintText: 'mm/dd/yyyy',
                             labelText: 'Issue Date',
                           ),
                           const SizedBox(height: 16),
@@ -108,7 +110,7 @@ class _LicenseDetailPageState extends State<LicenseDetailPage> {
         issueDate: _issueDate.text,
         issueState: _issuestate.text,
       );
-      _wizardBloc.add(LicenseSaved(license: license));
+      widget.wizardBloc.add(LicenseSaved(license: license));
     }
   }
 

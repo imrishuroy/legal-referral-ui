@@ -1,5 +1,4 @@
 import 'package:equatable/equatable.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:legal_referral_ui/src/core/config/config.dart';
@@ -21,6 +20,7 @@ class WizardBloc extends Bloc<WizardEvent, WizardState> {
     on<MobileOtpSent>(_onMobileOtpSent);
     on<MobileOtpVerified>(_onMobileOtpVerified);
     on<LicenseSaved>(_onLicenseSaved);
+    on<AboutYouSaved>(_onAboutYouSaved);
   }
 
   final WizardUseCase _wizardUseCase;
@@ -49,7 +49,7 @@ class WizardBloc extends Bloc<WizardEvent, WizardState> {
         );
       },
       (step) {
-        debugPrint('Wizard step: $step');
+        AppLogger.info('Wizard step: $step');
         final wizardStep = _wizardStep(step ?? 0);
 
         emit(
@@ -100,7 +100,6 @@ class WizardBloc extends Bloc<WizardEvent, WizardState> {
         );
       },
       (data) {
-        debugPrint('Mobile OTP sent');
         emit(
           state.copyWith(
             wizardStatus: WizardStatus.success,
@@ -189,6 +188,40 @@ class WizardBloc extends Bloc<WizardEvent, WizardState> {
           state.copyWith(
             wizardStatus: WizardStatus.success,
             wizardStep: WizardStep.aboutYou,
+          ),
+        );
+      },
+    );
+  }
+
+  Future<void> _onAboutYouSaved(
+    AboutYouSaved event,
+    Emitter<WizardState> emit,
+  ) async {
+    emit(
+      state.copyWith(
+        wizardStatus: WizardStatus.loading,
+      ),
+    );
+
+    final response = await _wizardUseCase.saveAboutYou(
+      aboutYouReq: event.aboutYouReq,
+    );
+
+    response.fold(
+      (failure) {
+        emit(
+          state.copyWith(
+            wizardStatus: WizardStatus.failure,
+            failure: failure,
+          ),
+        );
+      },
+      (data) {
+        emit(
+          state.copyWith(
+            wizardStatus: WizardStatus.success,
+            wizardStep: WizardStep.socialAvatar,
           ),
         );
       },

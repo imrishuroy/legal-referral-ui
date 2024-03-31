@@ -15,6 +15,7 @@ class AppUser with _$AppUser {
     @JsonKey(name: 'wizard_completed') @Default(false) bool isWizardCompleted,
     @JsonKey(name: 'join_date', includeToJson: false) DateTime? joinDate,
     String? mobile,
+    String? address,
     @JsonKey(includeToJson: false) String? id,
   }) = _AppUser;
 

@@ -90,4 +90,24 @@ class WizardRepositoryImpl implements WizardRepository {
       );
     }
   }
+
+  @override
+  Future<Either<Failure, ResponseMsg?>> saveAboutYou({
+    required AboutYouReq aboutYouReq,
+  }) async {
+    try {
+      final response = await _wizardDataSource.saveAboutYou(
+        aboutYouReq: aboutYouReq,
+      );
+      return Right(response);
+    } on DioException catch (error) {
+      final dioError = DioExceptions.fromDioError(error);
+      return Left(
+        Failure(
+          statusCode: dioError.statusCode,
+          message: dioError.message,
+        ),
+      );
+    }
+  }
 }

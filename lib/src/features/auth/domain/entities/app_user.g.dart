@@ -19,6 +19,7 @@ _$AppUserImpl _$$AppUserImplFromJson(Map<String, dynamic> json) =>
           ? null
           : DateTime.parse(json['join_date'] as String),
       mobile: json['mobile'] as String?,
+      address: json['address'] as String?,
       id: json['id'] as String?,
     );
 
@@ -32,4 +33,5 @@ Map<String, dynamic> _$$AppUserImplToJson(_$AppUserImpl instance) =>
       'wizard_step': instance.wizardStep,
       'wizard_completed': instance.isWizardCompleted,
       'mobile': instance.mobile,
+      'address': instance.address,
     };

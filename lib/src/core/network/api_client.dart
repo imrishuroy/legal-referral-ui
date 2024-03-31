@@ -67,4 +67,9 @@ abstract class APIClient {
   Future<License?> saveLicense(
     @Body() License license,
   );
+
+  @POST('/about-you')
+  Future<ResponseMsg?> saveAboutYou(
+    @Body() AboutYouReq aboutYouReq,
+  );
 }

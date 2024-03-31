@@ -42,4 +42,12 @@ class WizardUseCase {
       license: license,
     );
   }
+
+  Future<Either<Failure, ResponseMsg?>> saveAboutYou({
+    required AboutYouReq aboutYouReq,
+  }) async {
+    return _wizardRepository.saveAboutYou(
+      aboutYouReq: aboutYouReq,
+    );
+  }
 }

@@ -36,8 +36,18 @@ class _WizardInspectionPageState extends State<WizardInspectionPage> {
   Widget build(BuildContext context) {
     return PopScope(
       canPop: false,
-      child: BlocBuilder<WizardBloc, WizardState>(
+      child: BlocConsumer<WizardBloc, WizardState>(
         bloc: _wizardBloc,
+        listener: (context, state) {
+          if (state.wizardStatus == WizardStatus.failure) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content:
+                    Text(state.failure?.message ?? 'something went wrong,'),
+              ),
+            );
+          }
+        },
         builder: (context, state) {
           if (state.wizardStepStatus == WizardStepStatus.wizardStepLoading) {
             return const Scaffold(
@@ -53,7 +63,14 @@ class _WizardInspectionPageState extends State<WizardInspectionPage> {
                 wizardBloc: _wizardBloc,
               );
             case WizardStep.license:
-              return const LicenseDetailPage();
+              return LicenseDetailPage(
+                wizardBloc: _wizardBloc,
+              );
+
+            case WizardStep.aboutYou:
+              return ShareAboutYouPage(
+                wizardBloc: _wizardBloc,
+              );
 
             default:
               return const SizedBox.shrink();

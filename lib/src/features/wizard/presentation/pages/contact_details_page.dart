@@ -10,7 +10,6 @@ class ContactDetailsPage extends StatefulWidget {
     required this.wizardBloc,
     super.key,
   });
-  static const String name = 'ContactDetailsPage';
 
   final WizardBloc wizardBloc;
 
@@ -21,7 +20,6 @@ class ContactDetailsPage extends StatefulWidget {
 class _ContactDetailsPageState extends State<ContactDetailsPage> {
   final _formKey = GlobalKey<FormState>();
   final _mobileTextController = TextEditingController();
-  // final _wizardBloc = getIt<WizardBloc>();
   final _focusNode = FocusNode();
 
   @override

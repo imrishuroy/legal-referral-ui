@@ -57,4 +57,16 @@ class WizardDataSource {
       rethrow;
     }
   }
+
+  Future<ResponseMsg?> saveAboutYou({
+    required AboutYouReq aboutYouReq,
+  }) async {
+    try {
+      return await _apiClient.saveAboutYou(
+        aboutYouReq,
+      );
+    } catch (error) {
+      rethrow;
+    }
+  }
 }

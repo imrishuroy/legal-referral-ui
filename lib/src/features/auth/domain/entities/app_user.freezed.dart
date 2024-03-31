@@ -36,6 +36,7 @@ mixin _$AppUser {
   @JsonKey(name: 'join_date', includeToJson: false)
   DateTime? get joinDate => throw _privateConstructorUsedError;
   String? get mobile => throw _privateConstructorUsedError;
+  String? get address => throw _privateConstructorUsedError;
   @JsonKey(includeToJson: false)
   String? get id => throw _privateConstructorUsedError;
 
@@ -59,6 +60,7 @@ abstract class $AppUserCopyWith<$Res> {
       @JsonKey(name: 'wizard_completed') bool isWizardCompleted,
       @JsonKey(name: 'join_date', includeToJson: false) DateTime? joinDate,
       String? mobile,
+      String? address,
       @JsonKey(includeToJson: false) String? id});
 }
 
@@ -84,6 +86,7 @@ class _$AppUserCopyWithImpl<$Res, $Val extends AppUser>
     Object? isWizardCompleted = null,
     Object? joinDate = freezed,
     Object? mobile = freezed,
+    Object? address = freezed,
     Object? id = freezed,
   }) {
     return _then(_value.copyWith(
@@ -123,6 +126,10 @@ class _$AppUserCopyWithImpl<$Res, $Val extends AppUser>
           ? _value.mobile
           : mobile // ignore: cast_nullable_to_non_nullable
               as String?,
+      address: freezed == address
+          ? _value.address
+          : address // ignore: cast_nullable_to_non_nullable
+              as String?,
       id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
@@ -148,6 +155,7 @@ abstract class _$$AppUserImplCopyWith<$Res> implements $AppUserCopyWith<$Res> {
       @JsonKey(name: 'wizard_completed') bool isWizardCompleted,
       @JsonKey(name: 'join_date', includeToJson: false) DateTime? joinDate,
       String? mobile,
+      String? address,
       @JsonKey(includeToJson: false) String? id});
 }
 
@@ -171,6 +179,7 @@ class __$$AppUserImplCopyWithImpl<$Res>
     Object? isWizardCompleted = null,
     Object? joinDate = freezed,
     Object? mobile = freezed,
+    Object? address = freezed,
     Object? id = freezed,
   }) {
     return _then(_$AppUserImpl(
@@ -210,6 +219,10 @@ class __$$AppUserImplCopyWithImpl<$Res>
           ? _value.mobile
           : mobile // ignore: cast_nullable_to_non_nullable
               as String?,
+      address: freezed == address
+          ? _value.address
+          : address // ignore: cast_nullable_to_non_nullable
+              as String?,
       id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
@@ -231,6 +244,7 @@ class _$AppUserImpl implements _AppUser {
       @JsonKey(name: 'wizard_completed') this.isWizardCompleted = false,
       @JsonKey(name: 'join_date', includeToJson: false) this.joinDate,
       this.mobile,
+      this.address,
       @JsonKey(includeToJson: false) this.id});
 
   factory _$AppUserImpl.fromJson(Map<String, dynamic> json) =>
@@ -262,12 +276,14 @@ class _$AppUserImpl implements _AppUser {
   @override
   final String? mobile;
   @override
+  final String? address;
+  @override
   @JsonKey(includeToJson: false)
   final String? id;
 
   @override
   String toString() {
-    return 'AppUser(email: $email, firstName: $firstName, lastName: $lastName, isEmailVerified: $isEmailVerified, isMobileVerified: $isMobileVerified, wizardStep: $wizardStep, isWizardCompleted: $isWizardCompleted, joinDate: $joinDate, mobile: $mobile, id: $id)';
+    return 'AppUser(email: $email, firstName: $firstName, lastName: $lastName, isEmailVerified: $isEmailVerified, isMobileVerified: $isMobileVerified, wizardStep: $wizardStep, isWizardCompleted: $isWizardCompleted, joinDate: $joinDate, mobile: $mobile, address: $address, id: $id)';
   }
 
   @override
@@ -291,6 +307,7 @@ class _$AppUserImpl implements _AppUser {
             (identical(other.joinDate, joinDate) ||
                 other.joinDate == joinDate) &&
             (identical(other.mobile, mobile) || other.mobile == mobile) &&
+            (identical(other.address, address) || other.address == address) &&
             (identical(other.id, id) || other.id == id));
   }
 
@@ -307,6 +324,7 @@ class _$AppUserImpl implements _AppUser {
       isWizardCompleted,
       joinDate,
       mobile,
+      address,
       id);
 
   @JsonKey(ignore: true)
@@ -335,6 +353,7 @@ abstract class _AppUser implements AppUser {
       @JsonKey(name: 'join_date', includeToJson: false)
       final DateTime? joinDate,
       final String? mobile,
+      final String? address,
       @JsonKey(includeToJson: false) final String? id}) = _$AppUserImpl;
 
   factory _AppUser.fromJson(Map<String, dynamic> json) = _$AppUserImpl.fromJson;
@@ -364,6 +383,8 @@ abstract class _AppUser implements AppUser {
   DateTime? get joinDate;
   @override
   String? get mobile;
+  @override
+  String? get address;
   @override
   @JsonKey(includeToJson: false)
   String? get id;

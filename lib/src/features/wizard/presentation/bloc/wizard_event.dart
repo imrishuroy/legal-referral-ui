@@ -61,3 +61,14 @@ class LicenseSaved extends WizardEvent {
   @override
   List<Object> get props => [license];
 }
+
+class AboutYouSaved extends WizardEvent {
+  const AboutYouSaved({
+    required this.aboutYouReq,
+  });
+
+  final AboutYouReq aboutYouReq;
+
+  @override
+  List<Object> get props => [aboutYouReq];
+}
