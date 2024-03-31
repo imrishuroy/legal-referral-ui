@@ -93,4 +93,24 @@ class AuthRepositoryImpl extends AuthRepository {
       );
     }
   }
+
+  @override
+  Future<Either<Failure, AppUser?>> getUser({
+    required String userId,
+  }) async {
+    try {
+      final user = await _authDataSource.getUser(
+        userId: userId,
+      );
+      return Right(user);
+    } on DioException catch (error) {
+      final dioError = DioExceptions.fromDioError(error);
+      return Left(
+        Failure(
+          statusCode: dioError.statusCode,
+          message: dioError.message,
+        ),
+      );
+    }
+  }
 }

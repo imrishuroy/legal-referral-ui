@@ -11,6 +11,14 @@ class WizardUseCase {
 
   final WizardRepository _wizardRepository;
 
+  Future<Either<Failure, int?>> getWizardStep({
+    required String userId,
+  }) async {
+    return _wizardRepository.getWizardStep(
+      userId: userId,
+    );
+  }
+
   Future<Either<Failure, ResponseMsg?>> sendMobileOtp({
     required SendMobileOtpReq sendMobileOtpReq,
   }) async {
@@ -24,6 +32,14 @@ class WizardUseCase {
   }) async {
     return _wizardRepository.verifyMobileOtp(
       verifyMobileOtpReq: verifyMobileOtpReq,
+    );
+  }
+
+  Future<Either<Failure, License?>> saveLicense({
+    required License license,
+  }) async {
+    return _wizardRepository.saveLicense(
+      license: license,
     );
   }
 }

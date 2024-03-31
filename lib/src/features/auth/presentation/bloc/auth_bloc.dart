@@ -21,6 +21,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         super(AuthState.initial()) {
     on<AuthSignedUp>(_onAuthSignedUp);
     on<AuthSignedIn>(_onAuthSignedIn);
+    on<AuthUserRequested>(_onAuthUserRequested);
     on<AuthSignOutRequested>(_onAuthSignOutRequested);
     on<EmailOtpResend>(_onEmailOtpResend);
     on<EmailOtpVerified>(_onEmailOtpVerified);
@@ -77,7 +78,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         // }
       },
       (res) async {
-        debugPrint('userRes: ${res?.appUser}');
+        debugPrint('userRes auth bloc: ${res?.appUser}');
         if (res?.appUser == null) {
           emit(
             state.copyWith(
@@ -185,6 +186,46 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         ),
       );
     }
+  }
+
+  Future<void> _onAuthUserRequested(
+    AuthUserRequested event,
+    Emitter<AuthState> emit,
+  ) async {
+    emit(
+      state.copyWith(
+        authStatus: AuthStatus.loading,
+      ),
+    );
+
+    final userRes = await _authUseCase.getUser(
+      userId: event.userId,
+    );
+
+    await userRes.fold(
+      (failure) {
+        emit(
+          state.copyWith(
+            authStatus: AuthStatus.failure,
+            failure: failure,
+          ),
+        );
+      },
+      (user) async {
+        if (user != null) {
+          await SharedPrefs.setAppUser(
+            appUser: user,
+          );
+          emit(
+            state.copyWith(
+              user: user,
+              authStatus: AuthStatus.signedIn,
+              userStatus: UserStatus.authorized,
+            ),
+          );
+        }
+      },
+    );
   }
 
   Future<void> _onEmailOtpVerified(

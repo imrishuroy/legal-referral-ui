@@ -18,6 +18,7 @@ Future<void> main() async {
   configureDependencies();
   getIt<Dio>().interceptors.add(AuthInterceptor());
   await SharedPrefs.init();
+  AppLogger.init();
   runApp(const MyApp());
 }
 

@@ -1,14 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:legal_referral_ui/src/core/config/config.dart';
 import 'package:legal_referral_ui/src/core/constants/colors.dart';
 import 'package:legal_referral_ui/src/core/widgets/custom_button.dart';
 import 'package:legal_referral_ui/src/features/auth/presentation/widgets/custom_textfield.dart';
 import 'package:legal_referral_ui/src/features/wizard/presentation/presentation.dart';
 
 class ContactDetailsPage extends StatefulWidget {
-  const ContactDetailsPage({super.key});
+  const ContactDetailsPage({
+    required this.wizardBloc,
+    super.key,
+  });
   static const String name = 'ContactDetailsPage';
+
+  final WizardBloc wizardBloc;
 
   @override
   State<ContactDetailsPage> createState() => _ContactDetailsPageState();
@@ -17,8 +21,7 @@ class ContactDetailsPage extends StatefulWidget {
 class _ContactDetailsPageState extends State<ContactDetailsPage> {
   final _formKey = GlobalKey<FormState>();
   final _mobileTextController = TextEditingController();
-
-  final _wizardBloc = getIt<WizardBloc>();
+  // final _wizardBloc = getIt<WizardBloc>();
   final _focusNode = FocusNode();
 
   @override
@@ -34,7 +37,7 @@ class _ContactDetailsPageState extends State<ContactDetailsPage> {
         ),
       ),
       body: BlocConsumer<WizardBloc, WizardState>(
-        bloc: _wizardBloc,
+        bloc: widget.wizardBloc,
         listener: (context, state) {
           if (state.mobileOtpStatus == MobileOtpStatus.sent &&
               state.wizardStatus == WizardStatus.success) {
@@ -85,10 +88,11 @@ class _ContactDetailsPageState extends State<ContactDetailsPage> {
 
   void _verifyOtp() {
     debugPrint('Verify OTP');
-    _focusNode.unfocus();
+    //_focusNode.unfocus();
+    FocusManager.instance.primaryFocus?.unfocus();
     if (_formKey.currentState!.validate()) {
       debugPrint('Mobile number: ${_mobileTextController.text}');
-      _wizardBloc.add(
+      widget.wizardBloc.add(
         MobileOtpSent(
           mobile: _mobileTextController.text,
         ),
@@ -107,7 +111,7 @@ class _ContactDetailsPageState extends State<ContactDetailsPage> {
       context: context,
       builder: (context) => MobileVerificationModel(
         mobile: _mobileTextController.text,
-        wizardBloc: _wizardBloc,
+        wizardBloc: widget.wizardBloc,
       ),
     );
   }

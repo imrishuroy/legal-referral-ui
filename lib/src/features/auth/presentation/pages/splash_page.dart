@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:legal_referral_ui/src/core/config/config.dart';
 import 'package:legal_referral_ui/src/core/constants/colors.dart';
 import 'package:legal_referral_ui/src/core/utils/image_strings_util.dart';
+import 'package:legal_referral_ui/src/features/auth/domain/domain.dart';
 import 'package:legal_referral_ui/src/features/auth/presentation/presentation.dart';
 import 'package:legal_referral_ui/src/features/home_page.dart';
+import 'package:legal_referral_ui/src/features/wizard/presentation/presentation.dart';
 
 class SplashPage extends StatefulWidget {
   const SplashPage({super.key});
@@ -16,19 +19,23 @@ class SplashPage extends StatefulWidget {
 }
 
 class _SplashPageState extends State<SplashPage> {
-  //  with SingleTickerProviderStateMixin {
+  final _authBloc = getIt<AuthBloc>();
+  late AppUser? appUser;
+
   @override
   void initState() {
     super.initState();
-    //SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
+
     Future.delayed(
       const Duration(seconds: 3),
       () {
-        final token = SharedPrefs.getToken();
-        final appUser = SharedPrefs.getUser();
+        appUser = SharedPrefs.getUser();
 
-        if (token != null && appUser != null) {
-          context.goNamed(HomePage.name);
+        AppLogger.info('app user from spalsh $appUser');
+        if (appUser?.id != null) {
+          _authBloc.add(
+            AuthUserRequested(userId: appUser!.id!),
+          );
         } else {
           final onBoarding = SharedPrefs.getOnBoarding();
           if (onBoarding) {
@@ -45,31 +52,44 @@ class _SplashPageState extends State<SplashPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: LegalReferralColors.primaryBackground,
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Expanded(
-            flex: 10,
-            child: Center(
-              child: SizedBox(
-                height: 239,
-                width: 239,
-                child: SvgPicture.asset(
-                  ImageStringsUtil.legalReferralLogo,
+      body: BlocListener<AuthBloc, AuthState>(
+        bloc: _authBloc,
+        listener: (context, state) {
+          if (state.authStatus == AuthStatus.signedIn) {
+            final user = state.user;
+            if (user?.isWizardCompleted ?? false) {
+              context.goNamed(HomePage.name);
+            } else {
+              context.goNamed(WizardInspectionPage.name);
+            }
+          }
+        },
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Expanded(
+              flex: 10,
+              child: Center(
+                child: SizedBox(
+                  height: 239,
+                  width: 239,
+                  child: SvgPicture.asset(
+                    ImageStringsUtil.legalReferralLogo,
+                  ),
                 ),
               ),
             ),
-          ),
-          const Expanded(
-            child: Text(
-              'Access  attorney referral network nationwide',
-              style: TextStyle(
-                fontSize: 14,
-                fontWeight: FontWeight.w400,
+            const Expanded(
+              child: Text(
+                'Access  attorney referral network nationwide',
+                style: TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w400,
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

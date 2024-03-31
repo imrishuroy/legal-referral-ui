@@ -20,4 +20,8 @@ abstract class AuthRepository {
   Future<Either<Failure, ResponseMsg?>> verifyEmailOtp({
     required VerifyEmailOtpReq verifyEmailOtpReq,
   });
+
+  Future<Either<Failure, AppUser?>> getUser({
+    required String userId,
+  });
 }

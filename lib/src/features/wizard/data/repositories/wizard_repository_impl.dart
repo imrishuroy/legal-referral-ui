@@ -52,4 +52,42 @@ class WizardRepositoryImpl implements WizardRepository {
       );
     }
   }
+
+  @override
+  Future<Either<Failure, License?>> saveLicense({
+    required License license,
+  }) async {
+    try {
+      final response = await _wizardDataSource.saveLicense(
+        license: license,
+      );
+      return Right(response);
+    } on DioException catch (error) {
+      final dioError = DioExceptions.fromDioError(error);
+      return Left(
+        Failure(
+          statusCode: dioError.statusCode,
+          message: dioError.message,
+        ),
+      );
+    }
+  }
+
+  @override
+  Future<Either<Failure, int?>> getWizardStep({required String userId}) async {
+    try {
+      final response = await _wizardDataSource.getWizardStep(
+        userId: userId,
+      );
+      return Right(response);
+    } on DioException catch (error) {
+      final dioError = DioExceptions.fromDioError(error);
+      return Left(
+        Failure(
+          statusCode: dioError.statusCode,
+          message: dioError.message,
+        ),
+      );
+    }
+  }
 }

@@ -8,7 +8,7 @@ import 'package:legal_referral_ui/src/core/utils/utils.dart';
 import 'package:legal_referral_ui/src/core/widgets/custom_button.dart';
 import 'package:legal_referral_ui/src/features/auth/presentation/presentation.dart';
 import 'package:legal_referral_ui/src/features/auth/presentation/widgets/otp_widget.dart';
-import 'package:legal_referral_ui/src/features/home_page.dart';
+import 'package:legal_referral_ui/src/features/wizard/presentation/bloc/wizard_bloc.dart';
 import 'package:legal_referral_ui/src/features/wizard/presentation/presentation.dart';
 
 class MobileVerificationModel extends StatefulWidget {
@@ -78,7 +78,11 @@ class _MobileVerificationModelState extends State<MobileVerificationModel> {
                         CustomElevatedButton(
                           onTap: () {
                             context.pop();
-                            context.goNamed(HomePage.name);
+                            widget.wizardBloc.add(
+                              const WizardStepChanged(
+                                wizardStep: WizardStep.license,
+                              ),
+                            );
                           },
                           text: 'Continue',
                         ),
@@ -198,6 +202,7 @@ class _MobileVerificationModelState extends State<MobileVerificationModel> {
   }
 
   void _onVerify() {
+    FocusManager.instance.primaryFocus?.unfocus();
     if (_formKey.currentState!.validate()) {
       widget.wizardBloc.add(
         MobileOtpVerified(

@@ -3,6 +3,7 @@ import 'package:legal_referral_ui/src/core/config/config.dart';
 import 'package:legal_referral_ui/src/features/auth/data/data.dart';
 import 'package:legal_referral_ui/src/features/auth/domain/domain.dart';
 import 'package:legal_referral_ui/src/features/wizard/data/data.dart';
+import 'package:legal_referral_ui/src/features/wizard/domain/domain.dart';
 import 'package:retrofit/retrofit.dart';
 
 part 'api_client.g.dart';
@@ -27,6 +28,11 @@ abstract class APIClient {
     @Body() SignInReq signInReq,
   );
 
+  @GET('/users/{userId}')
+  Future<AppUser?> getUser(
+    @Path('userId') String userId,
+  );
+
   @POST('/otp/email')
   Future<SendEmailOtpRes> sendEmailOtp(
     @Body() SendEmailOtpReq sendEmailOtpReq,
@@ -35,6 +41,11 @@ abstract class APIClient {
   @POST('/otp/email/verify')
   Future<ResponseMsg?> verifyEmailOtp(
     @Body() VerifyEmailOtpReq verifyEmailOtpReq,
+  );
+
+  @GET('/users/{userId}/wizardstep')
+  Future<int?> getWizardStep(
+    @Path('userId') String userId,
   );
 
   @POST('/otp/mobile')
@@ -50,5 +61,10 @@ abstract class APIClient {
   @PUT('/user')
   Future<AppUser?> updateUser(
     @Body() AppUser appUser,
+  );
+
+  @POST('/license')
+  Future<License?> saveLicense(
+    @Body() License license,
   );
 }

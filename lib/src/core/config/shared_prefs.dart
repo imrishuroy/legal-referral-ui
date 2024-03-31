@@ -38,7 +38,7 @@ class SharedPrefs {
       await _sharedPrefs?.setString(
         _appUser,
         jsonEncode(
-          appUser.toJson(),
+          appUser.toJson()..addAll({'id': appUser.id}),
         ),
       );
     }

@@ -3,9 +3,6 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:legal_referral_ui/src/core/config/config.dart';
-import 'package:logger/logger.dart';
-
-final logger = Logger();
 
 class AuthInterceptor extends Interceptor {
   @override
@@ -16,7 +13,8 @@ class AuthInterceptor extends Interceptor {
     final token = SharedPrefs.getToken();
 
     if (token != null) {
-      logger.d('token from inceptor $token');
+      AppLogger.info('token from inceptor $token');
+
       options.headers.addAll(
         {
           HttpHeaders.contentTypeHeader: 'application/json',

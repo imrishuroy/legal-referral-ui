@@ -102,6 +102,33 @@ class _APIClient implements APIClient {
   }
 
   @override
+  Future<AppUser?> getUser(String userId) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    const Map<String, dynamic>? _data = null;
+    final _result =
+        await _dio.fetch<Map<String, dynamic>?>(_setStreamType<AppUser>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              '/users/${userId}',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
+    final value = _result.data == null ? null : AppUser.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
   Future<SendEmailOtpRes> sendEmailOtp(SendEmailOtpReq sendEmailOtpReq) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
@@ -156,6 +183,32 @@ class _APIClient implements APIClient {
             ))));
     final value =
         _result.data == null ? null : ResponseMsg.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<int?> getWizardStep(String userId) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    const Map<String, dynamic>? _data = null;
+    final _result = await _dio.fetch<int>(_setStreamType<int>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+        .compose(
+          _dio.options,
+          '/users/${userId}/wizardstep',
+          queryParameters: queryParameters,
+          data: _data,
+        )
+        .copyWith(
+            baseUrl: _combineBaseUrls(
+          _dio.options.baseUrl,
+          baseUrl,
+        ))));
+    final value = _result.data;
     return value;
   }
 
@@ -243,6 +296,34 @@ class _APIClient implements APIClient {
               baseUrl,
             ))));
     final value = _result.data == null ? null : AppUser.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<License?> saveLicense(License license) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(license.toJson());
+    final _result =
+        await _dio.fetch<Map<String, dynamic>?>(_setStreamType<License>(Options(
+      method: 'POST',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              '/license',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
+    final value = _result.data == null ? null : License.fromJson(_result.data!);
     return value;
   }
 

@@ -62,4 +62,15 @@ class AuthDataSource {
       rethrow;
     }
   }
+
+  Future<AppUser?> getUser({
+    required String userId,
+  }) async {
+    try {
+      final user = await _apiClient.getUser(userId);
+      return user;
+    } catch (_) {
+      rethrow;
+    }
+  }
 }

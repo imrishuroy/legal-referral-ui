@@ -7,6 +7,27 @@ abstract class WizardEvent extends Equatable {
   List<Object> get props => [];
 }
 
+class WizardStepFetched extends WizardEvent {
+  const WizardStepFetched({
+    required this.userId,
+  });
+
+  final String userId;
+
+  @override
+  List<Object> get props => [userId];
+}
+
+class WizardStepChanged extends WizardEvent {
+  const WizardStepChanged({
+    required this.wizardStep,
+  });
+  final WizardStep wizardStep;
+
+  @override
+  List<Object> get props => [wizardStep];
+}
+
 class MobileOtpSent extends WizardEvent {
   const MobileOtpSent({
     required this.mobile,
@@ -28,4 +49,15 @@ class MobileOtpVerified extends WizardEvent {
   final String? userId;
   final String mobile;
   final String otp;
+}
+
+class LicenseSaved extends WizardEvent {
+  const LicenseSaved({
+    required this.license,
+  });
+
+  final License license;
+
+  @override
+  List<Object> get props => [license];
 }
