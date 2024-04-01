@@ -50,4 +50,12 @@ class WizardUseCase {
       aboutYouReq: aboutYouReq,
     );
   }
+
+  Future<Either<Failure, ResponseMsg?>> uploadProfileImage({
+    required UploadProfileImageReq uploadProfileImageReq,
+  }) async {
+    return _wizardRepository.uploadProfileImage(
+      uploadProfileImageReq: uploadProfileImageReq,
+    );
+  }
 }

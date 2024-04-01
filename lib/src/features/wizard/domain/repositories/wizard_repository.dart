@@ -23,4 +23,8 @@ abstract class WizardRepository {
   Future<Either<Failure, ResponseMsg?>> saveAboutYou({
     required AboutYouReq aboutYouReq,
   });
+
+  Future<Either<Failure, ResponseMsg?>> uploadProfileImage({
+    required UploadProfileImageReq uploadProfileImageReq,
+  });
 }

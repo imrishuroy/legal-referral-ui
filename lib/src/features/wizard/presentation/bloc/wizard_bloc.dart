@@ -1,5 +1,11 @@
+import 'dart:io' as io;
+
 import 'package:equatable/equatable.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:injectable/injectable.dart';
 import 'package:legal_referral_ui/src/core/config/config.dart';
 import 'package:legal_referral_ui/src/features/wizard/data/data.dart';
@@ -21,6 +27,8 @@ class WizardBloc extends Bloc<WizardEvent, WizardState> {
     on<MobileOtpVerified>(_onMobileOtpVerified);
     on<LicenseSaved>(_onLicenseSaved);
     on<AboutYouSaved>(_onAboutYouSaved);
+    on<ProfileImageUploaded>(_onProfileImageUploaded);
+    on<SocialSaved>(_onSocialSaved);
   }
 
   final WizardUseCase _wizardUseCase;
@@ -228,26 +236,146 @@ class WizardBloc extends Bloc<WizardEvent, WizardState> {
     );
   }
 
+  Future<void> _onSocialSaved(
+    SocialSaved event,
+    Emitter<WizardState> emit,
+  ) async {
+    emit(
+      state.copyWith(
+        wizardStatus: WizardStatus.loading,
+      ),
+    );
+
+    await _createUser(
+      email: event.email,
+      password: event.password,
+    );
+
+    add(
+      ProfileImageUploaded(
+        userId: event.userId,
+        file: event.file,
+      ),
+    );
+  }
+
+  Future<void> _onProfileImageUploaded(
+    ProfileImageUploaded event,
+    Emitter<WizardState> emit,
+  ) async {
+    // emit(
+    //   state.copyWith(
+    //     wizardStatus: WizardStatus.loading,
+    //   ),
+    // );
+
+    final uploadTask = await uploadFile(
+      file: event.file,
+      filename: event.userId,
+    );
+    final imageUrl = await uploadTask?.snapshot.ref.getDownloadURL();
+    if (imageUrl == null) {
+      emit(
+        state.copyWith(
+          wizardStatus: WizardStatus.failure,
+          failure: const Failure(
+            message: 'Failed to upload profile image',
+          ),
+        ),
+      );
+      return;
+    }
+
+    final response = await _wizardUseCase.uploadProfileImage(
+      uploadProfileImageReq: UploadProfileImageReq(
+        userId: event.userId,
+        imageUrl: imageUrl,
+      ),
+    );
+
+    response.fold(
+      (failure) {
+        emit(
+          state.copyWith(
+            wizardStatus: WizardStatus.failure,
+            failure: failure,
+          ),
+        );
+      },
+      (data) {
+        emit(
+          state.copyWith(
+            wizardStatus: WizardStatus.success,
+            wizardStep: WizardStep.uploadLicense,
+          ),
+        );
+      },
+    );
+  }
+
   WizardStep _wizardStep(int step) {
     switch (step) {
       case 1:
-        return WizardStep.license;
-      case 2:
-        return WizardStep.aboutYou;
-      case 3:
         return WizardStep.socialAvatar;
-      case 4:
+      case 2:
         return WizardStep.uploadLicense;
-      case 5:
-        return WizardStep.experience;
-      case 6:
-        return WizardStep.education;
-      case 7:
-        return WizardStep.social;
-      case 8:
-        return WizardStep.pricing;
+      case 3:
+        return WizardStep.license;
+      case 4:
+        return WizardStep.aboutYou;
+      // case 5:
+      //   return WizardStep.experience;
+      // case 6:
+      //   return WizardStep.education;
+      // case 7:
+      //   return WizardStep.social;
+      // case 8:
+      //   return WizardStep.pricing;
       default:
         return WizardStep.contact;
     }
+  }
+
+  Future<UserCredential?> _createUser({
+    required String email,
+    required String password,
+  }) async {
+    try {
+      final firebaseAuth = FirebaseAuth.instance;
+      return await firebaseAuth.createUserWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+    } catch (error) {
+      AppLogger.error('Error creating user: $error');
+    }
+    return null;
+  }
+
+  /// The user selects a file, and the task is added to the list.
+  Future<UploadTask?> uploadFile({
+    required XFile file,
+    required String filename,
+  }) async {
+    UploadTask uploadTask;
+
+    // Create a Reference to the file
+    final ref = FirebaseStorage.instance
+        .ref()
+        .child('social-avatar')
+        .child('$filename.jpg');
+
+    final metadata = SettableMetadata(
+      contentType: 'image/jpeg',
+      customMetadata: {'picked-file-path': file.path},
+    );
+
+    if (kIsWeb) {
+      uploadTask = ref.putData(await file.readAsBytes(), metadata);
+    } else {
+      uploadTask = ref.putFile(io.File(file.path), metadata);
+    }
+
+    return Future.value(uploadTask);
   }
 }

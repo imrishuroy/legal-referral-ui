@@ -62,6 +62,10 @@ class _WizardInspectionPageState extends State<WizardInspectionPage> {
               return ContactDetailsPage(
                 wizardBloc: _wizardBloc,
               );
+            case WizardStep.socialAvatar:
+              return SocialAvatarPage(
+                wizardBloc: _wizardBloc,
+              );
             case WizardStep.license:
               return LicenseDetailPage(
                 wizardBloc: _wizardBloc,

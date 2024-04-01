@@ -69,4 +69,17 @@ class WizardDataSource {
       rethrow;
     }
   }
+
+  Future<ResponseMsg?> uploadProfileImage({
+    required UploadProfileImageReq uploadProfileImageReq,
+  }) async {
+    try {
+      return await _apiClient.uploadProfileImage(
+        uploadProfileImageReq.userId,
+        uploadProfileImageReq,
+      );
+    } catch (error) {
+      rethrow;
+    }
+  }
 }

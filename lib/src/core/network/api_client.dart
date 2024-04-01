@@ -72,4 +72,11 @@ abstract class APIClient {
   Future<ResponseMsg?> saveAboutYou(
     @Body() AboutYouReq aboutYouReq,
   );
+
+  // /api/users/:user_id/profile-image
+  @POST('/users/{userId}/profile-image')
+  Future<ResponseMsg?> uploadProfileImage(
+    @Path('userId') String userId,
+    @Body() UploadProfileImageReq uploadProfileImageReq,
+  );
 }

@@ -72,3 +72,38 @@ class AboutYouSaved extends WizardEvent {
   @override
   List<Object> get props => [aboutYouReq];
 }
+
+class SocialSaved extends WizardEvent {
+  const SocialSaved({
+    required this.userId,
+    required this.email,
+    required this.password,
+    required this.file,
+  });
+
+  final String userId;
+  final String email;
+  final String password;
+  final XFile file;
+
+  @override
+  List<Object> get props => [
+        userId,
+        email,
+        password,
+        file,
+      ];
+}
+
+class ProfileImageUploaded extends WizardEvent {
+  const ProfileImageUploaded({
+    required this.userId,
+    required this.file,
+  });
+
+  final String userId;
+  final XFile file;
+
+  @override
+  List<Object> get props => [userId, file];
+}

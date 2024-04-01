@@ -24,14 +24,14 @@ enum MobileOtpStatus {
 
 enum WizardStep {
   contact,
-  license,
-  aboutYou,
   socialAvatar,
   uploadLicense,
-  experience,
-  education,
-  social,
-  pricing,
+  license,
+  aboutYou,
+  // experience,
+  // education,
+  // social,
+  // pricing,
 }
 
 class WizardState extends Equatable {
