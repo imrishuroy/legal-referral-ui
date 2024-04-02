@@ -27,8 +27,9 @@ class WizardBloc extends Bloc<WizardEvent, WizardState> {
     on<MobileOtpVerified>(_onMobileOtpVerified);
     on<LicenseSaved>(_onLicenseSaved);
     on<AboutYouSaved>(_onAboutYouSaved);
-    on<ProfileImageUploaded>(_onProfileImageUploaded);
+    on<UserImageUploaded>(_onUserImageUploaded);
     on<SocialSaved>(_onSocialSaved);
+    on<LicenseUploaded>(_onLicenseUploaded);
   }
 
   final WizardUseCase _wizardUseCase;
@@ -195,7 +196,6 @@ class WizardBloc extends Bloc<WizardEvent, WizardState> {
         emit(
           state.copyWith(
             wizardStatus: WizardStatus.success,
-            wizardStep: WizardStep.aboutYou,
           ),
         );
       },
@@ -229,7 +229,6 @@ class WizardBloc extends Bloc<WizardEvent, WizardState> {
         emit(
           state.copyWith(
             wizardStatus: WizardStatus.success,
-            wizardStep: WizardStep.socialAvatar,
           ),
         );
       },
@@ -252,44 +251,108 @@ class WizardBloc extends Bloc<WizardEvent, WizardState> {
     );
 
     add(
-      ProfileImageUploaded(
+      UserImageUploaded(
         userId: event.userId,
         file: event.file,
       ),
     );
   }
 
-  Future<void> _onProfileImageUploaded(
-    ProfileImageUploaded event,
+  Future<void> _onUserImageUploaded(
+    UserImageUploaded event,
     Emitter<WizardState> emit,
   ) async {
-    // emit(
-    //   state.copyWith(
-    //     wizardStatus: WizardStatus.loading,
-    //   ),
-    // );
+    try {
+      final uploadTask = await uploadFile(
+        file: event.file,
+        filename: event.userId,
+        container: 'user_images',
+        fileType: 'jpg',
+      );
+      final imageUrl = await uploadTask?.snapshot.ref.getDownloadURL();
+      if (imageUrl == null) {
+        emit(
+          state.copyWith(
+            wizardStatus: WizardStatus.failure,
+            failure: const Failure(
+              message: 'Failed to upload profile image',
+            ),
+          ),
+        );
+        return;
+      }
+
+      final response = await _wizardUseCase.uploadUserImage(
+        uploadUserImageReq: UploadUserImageReq(
+          userId: event.userId,
+          imageUrl: imageUrl,
+        ),
+      );
+
+      response.fold(
+        (failure) {
+          emit(
+            state.copyWith(
+              wizardStatus: WizardStatus.failure,
+              failure: failure,
+            ),
+          );
+        },
+        (data) {
+          emit(
+            state.copyWith(
+              wizardStatus: WizardStatus.success,
+              wizardStep: WizardStep.license,
+            ),
+          );
+        },
+      );
+    } catch (error) {
+      AppLogger.error('Error uploading profile image: $error');
+      emit(
+        state.copyWith(
+          wizardStatus: WizardStatus.failure,
+          failure: Failure(
+            message: error.toString(),
+          ),
+        ),
+      );
+    }
+  }
+
+  Future<void> _onLicenseUploaded(
+    LicenseUploaded event,
+    Emitter<WizardState> emit,
+  ) async {
+    emit(
+      state.copyWith(
+        wizardStatus: WizardStatus.loading,
+      ),
+    );
 
     final uploadTask = await uploadFile(
-      file: event.file,
+      file: XFile(event.filePath),
       filename: event.userId,
+      container: 'licenses',
+      fileType: 'pdf',
     );
-    final imageUrl = await uploadTask?.snapshot.ref.getDownloadURL();
-    if (imageUrl == null) {
+    final licenseUrl = await uploadTask?.snapshot.ref.getDownloadURL();
+    if (licenseUrl == null) {
       emit(
         state.copyWith(
           wizardStatus: WizardStatus.failure,
           failure: const Failure(
-            message: 'Failed to upload profile image',
+            message: 'Failed to upload license',
           ),
         ),
       );
       return;
     }
 
-    final response = await _wizardUseCase.uploadProfileImage(
-      uploadProfileImageReq: UploadProfileImageReq(
+    final response = await _wizardUseCase.uploadLicense(
+      uploadLicenseReq: UploadLicenseReq(
         userId: event.userId,
-        imageUrl: imageUrl,
+        licensePdf: licenseUrl,
       ),
     );
 
@@ -306,7 +369,7 @@ class WizardBloc extends Bloc<WizardEvent, WizardState> {
         emit(
           state.copyWith(
             wizardStatus: WizardStatus.success,
-            wizardStep: WizardStep.uploadLicense,
+            wizardStep: WizardStep.aboutYou,
           ),
         );
       },
@@ -316,23 +379,13 @@ class WizardBloc extends Bloc<WizardEvent, WizardState> {
   WizardStep _wizardStep(int step) {
     switch (step) {
       case 1:
-        return WizardStep.socialAvatar;
+        return WizardStep.license;
       case 2:
         return WizardStep.uploadLicense;
       case 3:
-        return WizardStep.license;
-      case 4:
         return WizardStep.aboutYou;
-      // case 5:
-      //   return WizardStep.experience;
-      // case 6:
-      //   return WizardStep.education;
-      // case 7:
-      //   return WizardStep.social;
-      // case 8:
-      //   return WizardStep.pricing;
       default:
-        return WizardStep.contact;
+        return WizardStep.socialAvatar;
     }
   }
 
@@ -342,10 +395,12 @@ class WizardBloc extends Bloc<WizardEvent, WizardState> {
   }) async {
     try {
       final firebaseAuth = FirebaseAuth.instance;
-      return await firebaseAuth.createUserWithEmailAndPassword(
+      final userCred = await firebaseAuth.createUserWithEmailAndPassword(
         email: email,
         password: password,
       );
+
+      return userCred;
     } catch (error) {
       AppLogger.error('Error creating user: $error');
     }
@@ -356,26 +411,33 @@ class WizardBloc extends Bloc<WizardEvent, WizardState> {
   Future<UploadTask?> uploadFile({
     required XFile file,
     required String filename,
+    required String container,
+    required String fileType,
   }) async {
-    UploadTask uploadTask;
+    try {
+      UploadTask uploadTask;
 
-    // Create a Reference to the file
-    final ref = FirebaseStorage.instance
-        .ref()
-        .child('social-avatar')
-        .child('$filename.jpg');
+      // Create a Reference to the file
+      final ref = FirebaseStorage.instance
+          .ref()
+          .child(container)
+          .child('$filename.$fileType');
 
-    final metadata = SettableMetadata(
-      contentType: 'image/jpeg',
-      customMetadata: {'picked-file-path': file.path},
-    );
+      final metadata = SettableMetadata(
+        contentType: fileType == 'pdf' ? 'application/pdf' : 'image/jpeg',
+        customMetadata: {'picked-file-path': file.path},
+      );
 
-    if (kIsWeb) {
-      uploadTask = ref.putData(await file.readAsBytes(), metadata);
-    } else {
-      uploadTask = ref.putFile(io.File(file.path), metadata);
+      if (kIsWeb) {
+        uploadTask = ref.putData(await file.readAsBytes(), metadata);
+      } else {
+        uploadTask = ref.putFile(io.File(file.path), metadata);
+      }
+
+      return Future.value(uploadTask);
+    } catch (error) {
+      AppLogger.error('Error uploading file: $error');
+      return null;
     }
-
-    return Future.value(uploadTask);
   }
 }

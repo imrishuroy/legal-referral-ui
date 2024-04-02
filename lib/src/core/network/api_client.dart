@@ -68,15 +68,19 @@ abstract class APIClient {
     @Body() License license,
   );
 
-  @POST('/about-you')
-  Future<ResponseMsg?> saveAboutYou(
-    @Body() AboutYouReq aboutYouReq,
-  );
-
-  // /api/users/:user_id/profile-image
   @POST('/users/{userId}/profile-image')
   Future<ResponseMsg?> uploadProfileImage(
     @Path('userId') String userId,
-    @Body() UploadProfileImageReq uploadProfileImageReq,
+    @Body() UploadUserImageReq uploadUserImageReq,
+  );
+
+  @POST('/license/upload')
+  Future<ResponseMsg?> uploadLicense(
+    @Body() UploadLicenseReq uploadLicenseReq,
+  );
+
+  @POST('/about-you')
+  Future<ResponseMsg?> saveAboutYou(
+    @Body() AboutYouReq aboutYouReq,
   );
 }

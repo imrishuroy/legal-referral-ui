@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:legal_referral_ui/src/core/config/config.dart';
 import 'package:legal_referral_ui/src/features/auth/presentation/presentation.dart';
+import 'package:legal_referral_ui/src/features/home_page.dart';
 import 'package:legal_referral_ui/src/features/wizard/presentation/presentation.dart';
 
 class WizardInspectionPage extends StatefulWidget {
@@ -19,14 +21,19 @@ class _WizardInspectionPageState extends State<WizardInspectionPage> {
 
   @override
   void initState() {
-    final userId = _authBloc.state.user?.id;
-    if (userId != null) {
-      debugPrint('User id: $userId');
-      _wizardBloc.add(
-        WizardStepFetched(
-          userId: userId,
-        ),
-      );
+    final user = _authBloc.state.user;
+    AppLogger.info('User from wizard inspection page: $user');
+
+    if (user?.id != null) {
+      if (user?.isWizardCompleted ?? false) {
+        context.goNamed(HomePage.name);
+      } else {
+        _wizardBloc.add(
+          WizardStepFetched(
+            userId: user!.id!,
+          ),
+        );
+      }
     }
 
     super.initState();
@@ -64,6 +71,10 @@ class _WizardInspectionPageState extends State<WizardInspectionPage> {
               );
             case WizardStep.socialAvatar:
               return SocialAvatarPage(
+                wizardBloc: _wizardBloc,
+              );
+            case WizardStep.uploadLicense:
+              return UploadLicensePage(
                 wizardBloc: _wizardBloc,
               );
             case WizardStep.license:

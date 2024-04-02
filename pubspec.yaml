@@ -16,6 +16,7 @@ dependencies:
   dio: ^5.4.0
   dots_indicator: ^2.1.2
   equatable: ^2.0.5
+  file_picker: ^8.0.0+1
   firebase_analytics: ^10.8.0
   firebase_auth: ^4.17.9
   firebase_core: ^2.27.1

@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:legal_referral_ui/src/core/config/config.dart';
 import 'package:legal_referral_ui/src/core/constants/constants.dart';
 import 'package:legal_referral_ui/src/core/widgets/custom_button.dart';
 import 'package:legal_referral_ui/src/features/auth/presentation/presentation.dart';
 import 'package:legal_referral_ui/src/features/auth/presentation/widgets/custom_textfield.dart';
+import 'package:legal_referral_ui/src/features/home_page.dart';
 import 'package:legal_referral_ui/src/features/wizard/data/data.dart';
 import 'package:legal_referral_ui/src/features/wizard/presentation/presentation.dart';
 
@@ -21,8 +23,6 @@ class ShareAboutYouPage extends StatefulWidget {
 }
 
 class _ShareAboutYouPageState extends State<ShareAboutYouPage> {
-  final _lastNameController = TextEditingController();
-  final _firstNameController = TextEditingController();
   final _addressController = TextEditingController();
   final _practiceAreaController = TextEditingController();
   final _practiceLocationController = TextEditingController();
@@ -48,7 +48,12 @@ class _ShareAboutYouPageState extends State<ShareAboutYouPage> {
       ),
       body: BlocConsumer<WizardBloc, WizardState>(
         bloc: widget.wizardBloc,
-        listener: (context, state) {},
+        listener: (context, state) {
+          if (state.wizardStatus == WizardStatus.success &&
+              state.wizardStep == WizardStep.aboutYou) {
+            context.goNamed(HomePage.name);
+          }
+        },
         builder: (context, state) {
           return state.wizardStatus == WizardStatus.loading
               ? const Center(
@@ -70,22 +75,6 @@ class _ShareAboutYouPageState extends State<ShareAboutYouPage> {
                                 fontWeight: FontWeight.w600,
                                 fontSize: 16,
                               ),
-                            ),
-                            const SizedBox(height: 16),
-                            CustomTextField(
-                              controller: _firstNameController,
-                              hintText: 'John',
-                              labelText: 'First Name',
-                              //validator: (value) =>
-                              // Validators.validateName(value),
-                            ),
-                            const SizedBox(height: 16),
-                            CustomTextField(
-                              controller: _lastNameController,
-                              hintText: 'David',
-                              labelText: 'Last Name',
-                              //validator: (value) =>
-                              // Validators.validateName(value),
                             ),
                             const SizedBox(height: 16),
                             CustomTextField(
@@ -130,7 +119,7 @@ class _ShareAboutYouPageState extends State<ShareAboutYouPage> {
                             ),
                             const SizedBox(height: 24),
                             CustomElevatedButton(
-                              onTap: () => _saveAboutYouInformation(context),
+                              onTap: () => _save(context),
                               text: 'Save and Proceed',
                             ),
                             const SizedBox(height: 58),
@@ -145,7 +134,7 @@ class _ShareAboutYouPageState extends State<ShareAboutYouPage> {
     );
   }
 
-  void _saveAboutYouInformation(BuildContext context) {
+  void _save(BuildContext context) {
     FocusManager.instance.primaryFocus?.unfocus();
     if (_formKey.currentState!.validate()) {
       final userId = _authBloc.state.user?.id;
@@ -154,8 +143,6 @@ class _ShareAboutYouPageState extends State<ShareAboutYouPage> {
       }
       final aboutYouReq = AboutYouReq(
         userId: userId,
-        firstName: _firstNameController.text,
-        lastName: _lastNameController.text,
         address: _addressController.text,
         practiceArea: _practiceAreaController.text,
         practiceLocation: _practiceLocationController.text,
@@ -169,8 +156,6 @@ class _ShareAboutYouPageState extends State<ShareAboutYouPage> {
   @override
   void dispose() {
     super.dispose();
-    _lastNameController.dispose();
-    _firstNameController.dispose();
     _addressController.dispose();
     _practiceAreaController.dispose();
     _practiceLocationController.dispose();

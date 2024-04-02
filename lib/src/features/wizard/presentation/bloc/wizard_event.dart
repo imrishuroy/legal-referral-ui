@@ -95,8 +95,8 @@ class SocialSaved extends WizardEvent {
       ];
 }
 
-class ProfileImageUploaded extends WizardEvent {
-  const ProfileImageUploaded({
+class UserImageUploaded extends WizardEvent {
+  const UserImageUploaded({
     required this.userId,
     required this.file,
   });
@@ -106,4 +106,17 @@ class ProfileImageUploaded extends WizardEvent {
 
   @override
   List<Object> get props => [userId, file];
+}
+
+class LicenseUploaded extends WizardEvent {
+  const LicenseUploaded({
+    required this.userId,
+    required this.filePath,
+  });
+
+  final String userId;
+  final String filePath;
+
+  @override
+  List<Object> get props => [userId, filePath];
 }

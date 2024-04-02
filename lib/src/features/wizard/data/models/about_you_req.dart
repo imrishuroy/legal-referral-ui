@@ -6,8 +6,6 @@ part 'about_you_req.g.dart';
 class AboutYouReq {
   AboutYouReq({
     required this.userId,
-    required this.firstName,
-    required this.lastName,
     required this.address,
     required this.practiceArea,
     required this.practiceLocation,
@@ -19,10 +17,6 @@ class AboutYouReq {
 
   @JsonKey(name: 'user_id')
   final String userId;
-  @JsonKey(name: 'first_name')
-  final String firstName;
-  @JsonKey(name: 'last_name')
-  final String lastName;
   final String address;
   @JsonKey(name: 'practice_area')
   final String practiceArea;

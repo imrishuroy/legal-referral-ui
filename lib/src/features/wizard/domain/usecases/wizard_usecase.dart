@@ -51,11 +51,19 @@ class WizardUseCase {
     );
   }
 
-  Future<Either<Failure, ResponseMsg?>> uploadProfileImage({
-    required UploadProfileImageReq uploadProfileImageReq,
+  Future<Either<Failure, ResponseMsg?>> uploadUserImage({
+    required UploadUserImageReq uploadUserImageReq,
   }) async {
-    return _wizardRepository.uploadProfileImage(
-      uploadProfileImageReq: uploadProfileImageReq,
+    return _wizardRepository.uploadUserImage(
+      uploadUserImageReq: uploadUserImageReq,
+    );
+  }
+
+  Future<Either<Failure, ResponseMsg?>> uploadLicense({
+    required UploadLicenseReq uploadLicenseReq,
+  }) async {
+    return _wizardRepository.uploadLicense(
+      uploadLicenseReq: uploadLicenseReq,
     );
   }
 }

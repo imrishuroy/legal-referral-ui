@@ -99,7 +99,7 @@ class _LicenseDetailPageState extends State<LicenseDetailPage> {
   }
 
   void _saveLicense() {
-    FocusManager.instance.primaryFocus?.unfocus();
+    // FocusManager.instance.primaryFocus?.unfocus();
     final userId = _authBloc.state.user?.id;
 
     if (_formKey.currentState!.validate() && userId != null) {
@@ -142,6 +142,11 @@ class _LicenseDetailPageState extends State<LicenseDetailPage> {
               onTap: () {
                 debugPrint('navigate to home page');
                 context.pop();
+                widget.wizardBloc.add(
+                  const WizardStepChanged(
+                    wizardStep: WizardStep.uploadLicense,
+                  ),
+                );
               },
               text: 'Continue',
             ),
