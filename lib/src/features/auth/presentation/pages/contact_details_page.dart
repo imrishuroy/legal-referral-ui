@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:legal_referral_ui/src/core/config/config.dart';
 import 'package:legal_referral_ui/src/core/constants/colors.dart';
 import 'package:legal_referral_ui/src/core/widgets/custom_button.dart';
+import 'package:legal_referral_ui/src/features/auth/presentation/presentation.dart';
 import 'package:legal_referral_ui/src/features/auth/presentation/widgets/custom_textfield.dart';
-import 'package:legal_referral_ui/src/features/wizard/presentation/presentation.dart';
 
 class ContactDetailsPage extends StatefulWidget {
   const ContactDetailsPage({
-    required this.wizardBloc,
     super.key,
   });
 
-  final WizardBloc wizardBloc;
+  static const name = 'ContactDetailsPage';
 
   @override
   State<ContactDetailsPage> createState() => _ContactDetailsPageState();
@@ -21,6 +21,7 @@ class _ContactDetailsPageState extends State<ContactDetailsPage> {
   final _formKey = GlobalKey<FormState>();
   final _mobileTextController = TextEditingController();
   final _focusNode = FocusNode();
+  final _authBloc = getIt<AuthBloc>();
 
   @override
   Widget build(BuildContext context) {
@@ -34,24 +35,26 @@ class _ContactDetailsPageState extends State<ContactDetailsPage> {
           style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
         ),
       ),
-      body: BlocConsumer<WizardBloc, WizardState>(
-        bloc: widget.wizardBloc,
+      body: BlocConsumer<AuthBloc, AuthState>(
+        bloc: _authBloc,
         listener: (context, state) {
-          if (state.mobileOtpStatus == MobileOtpStatus.sent &&
-              state.wizardStatus == WizardStatus.success) {
+          AppLogger.info('Auth Bloc Contact Details Page $state');
+          if (state.authStatus == AuthStatus.signedUp &&
+                  state.mobileOTPStatus == MobileOTPStatus.sent ||
+              state.mobileOTPStatus == MobileOTPStatus.resent) {
             _verifyMobileBottomSheet(context);
           }
 
-          if (state.wizardStatus == WizardStatus.failure) {
+          if (state.mobileOTPStatus == MobileOTPStatus.failed) {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
-                content: Text(state.failure!.message),
+                content: Text('${state.failure?.message}'),
               ),
             );
           }
         },
         builder: (context, state) {
-          return state.wizardStatus == WizardStatus.loading
+          return state.mobileOTPStatus == MobileOTPStatus.verifying
               ? const Center(
                   child: CircularProgressIndicator(),
                 )
@@ -90,8 +93,8 @@ class _ContactDetailsPageState extends State<ContactDetailsPage> {
     FocusManager.instance.primaryFocus?.unfocus();
     if (_formKey.currentState!.validate()) {
       debugPrint('Mobile number: ${_mobileTextController.text}');
-      widget.wizardBloc.add(
-        MobileOtpSent(
+      _authBloc.add(
+        MobileOTPRequested(
           mobile: _mobileTextController.text,
         ),
       );
@@ -109,7 +112,7 @@ class _ContactDetailsPageState extends State<ContactDetailsPage> {
       context: context,
       builder: (context) => MobileVerificationModel(
         mobile: _mobileTextController.text,
-        wizardBloc: widget.wizardBloc,
+        authBloc: _authBloc,
       ),
     );
   }

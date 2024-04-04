@@ -63,20 +63,44 @@ class AuthUserCreated extends AuthEvent {
 
 class AuthSignOutRequested extends AuthEvent {}
 
-class EmailOtpResend extends AuthEvent {
-  const EmailOtpResend({
+class EmailOTPResend extends AuthEvent {
+  const EmailOTPResend({
     this.email,
   });
 
   final String? email;
 }
 
-class EmailOtpVerified extends AuthEvent {
-  const EmailOtpVerified({
+class EmailOTPVerified extends AuthEvent {
+  const EmailOTPVerified({
     required this.otp,
     this.email,
   });
 
   final String? email;
-  final int otp;
+  final String otp;
+}
+
+class MobileOTPRequested extends AuthEvent {
+  const MobileOTPRequested({
+    required this.mobile,
+  });
+
+  final String mobile;
+
+  @override
+  List<Object> get props => [mobile];
+}
+
+class MobileOTPVerified extends AuthEvent {
+  const MobileOTPVerified({
+    required this.otp,
+    required this.mobile,
+  });
+
+  final String otp;
+  final String mobile;
+
+  @override
+  List<Object> get props => [otp, mobile];
 }

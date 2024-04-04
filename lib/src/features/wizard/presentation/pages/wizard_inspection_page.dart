@@ -24,13 +24,13 @@ class _WizardInspectionPageState extends State<WizardInspectionPage> {
     final user = _authBloc.state.user;
     AppLogger.info('User from wizard inspection page: $user');
 
-    if (user?.id != null) {
+    if (user?.userId != null) {
       if (user?.isWizardCompleted ?? false) {
         context.goNamed(HomePage.name);
       } else {
         _wizardBloc.add(
           WizardStepFetched(
-            userId: user!.id!,
+            userId: user!.userId!,
           ),
         );
       }
@@ -65,10 +65,6 @@ class _WizardInspectionPageState extends State<WizardInspectionPage> {
           }
 
           switch (state.wizardStep) {
-            case WizardStep.contact:
-              return ContactDetailsPage(
-                wizardBloc: _wizardBloc,
-              );
             case WizardStep.socialAvatar:
               return SocialAvatarPage(
                 wizardBloc: _wizardBloc,

@@ -137,7 +137,7 @@ class _ShareAboutYouPageState extends State<ShareAboutYouPage> {
   void _save(BuildContext context) {
     FocusManager.instance.primaryFocus?.unfocus();
     if (_formKey.currentState!.validate()) {
-      final userId = _authBloc.state.user?.id;
+      final userId = _authBloc.state.user?.userId;
       if (userId == null) {
         return;
       }
@@ -146,7 +146,7 @@ class _ShareAboutYouPageState extends State<ShareAboutYouPage> {
         address: _addressController.text,
         practiceArea: _practiceAreaController.text,
         practiceLocation: _practiceLocationController.text,
-        experience: int.parse(_experienceController.text),
+        experience: _experienceController.text,
       );
 
       widget.wizardBloc.add(AboutYouSaved(aboutYouReq: aboutYouReq));

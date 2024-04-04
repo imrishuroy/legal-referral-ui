@@ -22,7 +22,7 @@ class AboutYouReq {
   final String practiceArea;
   @JsonKey(name: 'practice_location')
   final String practiceLocation;
-  final int experience;
+  final String experience;
 
   Map<String, dynamic> toJson() => _$AboutYouReqToJson(this);
 }

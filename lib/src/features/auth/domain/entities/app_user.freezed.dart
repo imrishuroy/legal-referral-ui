@@ -25,9 +25,11 @@ mixin _$AppUser {
   String get firstName => throw _privateConstructorUsedError;
   @JsonKey(name: 'last_name')
   String get lastName => throw _privateConstructorUsedError;
-  @JsonKey(name: 'is_email_verified')
+  @JsonKey(name: 'signup_method', includeToJson: false)
+  int get signupMethod => throw _privateConstructorUsedError;
+  @JsonKey(name: 'email_verified')
   bool get isEmailVerified => throw _privateConstructorUsedError;
-  @JsonKey(name: 'is_mobile_verified')
+  @JsonKey(name: 'mobile_verified')
   bool get isMobileVerified => throw _privateConstructorUsedError;
   @JsonKey(name: 'wizard_step')
   int get wizardStep => throw _privateConstructorUsedError;
@@ -37,8 +39,10 @@ mixin _$AppUser {
   DateTime? get joinDate => throw _privateConstructorUsedError;
   String? get mobile => throw _privateConstructorUsedError;
   String? get address => throw _privateConstructorUsedError;
-  @JsonKey(includeToJson: false)
-  String? get id => throw _privateConstructorUsedError;
+  @JsonKey(name: 'image_url')
+  String? get imageUrl => throw _privateConstructorUsedError;
+  @JsonKey(name: 'user_id', includeToJson: false)
+  String? get userId => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -54,14 +58,16 @@ abstract class $AppUserCopyWith<$Res> {
       {String email,
       @JsonKey(name: 'first_name') String firstName,
       @JsonKey(name: 'last_name') String lastName,
-      @JsonKey(name: 'is_email_verified') bool isEmailVerified,
-      @JsonKey(name: 'is_mobile_verified') bool isMobileVerified,
+      @JsonKey(name: 'signup_method', includeToJson: false) int signupMethod,
+      @JsonKey(name: 'email_verified') bool isEmailVerified,
+      @JsonKey(name: 'mobile_verified') bool isMobileVerified,
       @JsonKey(name: 'wizard_step') int wizardStep,
       @JsonKey(name: 'wizard_completed') bool isWizardCompleted,
       @JsonKey(name: 'join_date', includeToJson: false) DateTime? joinDate,
       String? mobile,
       String? address,
-      @JsonKey(includeToJson: false) String? id});
+      @JsonKey(name: 'image_url') String? imageUrl,
+      @JsonKey(name: 'user_id', includeToJson: false) String? userId});
 }
 
 /// @nodoc
@@ -80,6 +86,7 @@ class _$AppUserCopyWithImpl<$Res, $Val extends AppUser>
     Object? email = null,
     Object? firstName = null,
     Object? lastName = null,
+    Object? signupMethod = null,
     Object? isEmailVerified = null,
     Object? isMobileVerified = null,
     Object? wizardStep = null,
@@ -87,7 +94,8 @@ class _$AppUserCopyWithImpl<$Res, $Val extends AppUser>
     Object? joinDate = freezed,
     Object? mobile = freezed,
     Object? address = freezed,
-    Object? id = freezed,
+    Object? imageUrl = freezed,
+    Object? userId = freezed,
   }) {
     return _then(_value.copyWith(
       email: null == email
@@ -102,6 +110,10 @@ class _$AppUserCopyWithImpl<$Res, $Val extends AppUser>
           ? _value.lastName
           : lastName // ignore: cast_nullable_to_non_nullable
               as String,
+      signupMethod: null == signupMethod
+          ? _value.signupMethod
+          : signupMethod // ignore: cast_nullable_to_non_nullable
+              as int,
       isEmailVerified: null == isEmailVerified
           ? _value.isEmailVerified
           : isEmailVerified // ignore: cast_nullable_to_non_nullable
@@ -130,9 +142,13 @@ class _$AppUserCopyWithImpl<$Res, $Val extends AppUser>
           ? _value.address
           : address // ignore: cast_nullable_to_non_nullable
               as String?,
-      id: freezed == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
+      imageUrl: freezed == imageUrl
+          ? _value.imageUrl
+          : imageUrl // ignore: cast_nullable_to_non_nullable
+              as String?,
+      userId: freezed == userId
+          ? _value.userId
+          : userId // ignore: cast_nullable_to_non_nullable
               as String?,
     ) as $Val);
   }
@@ -149,14 +165,16 @@ abstract class _$$AppUserImplCopyWith<$Res> implements $AppUserCopyWith<$Res> {
       {String email,
       @JsonKey(name: 'first_name') String firstName,
       @JsonKey(name: 'last_name') String lastName,
-      @JsonKey(name: 'is_email_verified') bool isEmailVerified,
-      @JsonKey(name: 'is_mobile_verified') bool isMobileVerified,
+      @JsonKey(name: 'signup_method', includeToJson: false) int signupMethod,
+      @JsonKey(name: 'email_verified') bool isEmailVerified,
+      @JsonKey(name: 'mobile_verified') bool isMobileVerified,
       @JsonKey(name: 'wizard_step') int wizardStep,
       @JsonKey(name: 'wizard_completed') bool isWizardCompleted,
       @JsonKey(name: 'join_date', includeToJson: false) DateTime? joinDate,
       String? mobile,
       String? address,
-      @JsonKey(includeToJson: false) String? id});
+      @JsonKey(name: 'image_url') String? imageUrl,
+      @JsonKey(name: 'user_id', includeToJson: false) String? userId});
 }
 
 /// @nodoc
@@ -173,6 +191,7 @@ class __$$AppUserImplCopyWithImpl<$Res>
     Object? email = null,
     Object? firstName = null,
     Object? lastName = null,
+    Object? signupMethod = null,
     Object? isEmailVerified = null,
     Object? isMobileVerified = null,
     Object? wizardStep = null,
@@ -180,7 +199,8 @@ class __$$AppUserImplCopyWithImpl<$Res>
     Object? joinDate = freezed,
     Object? mobile = freezed,
     Object? address = freezed,
-    Object? id = freezed,
+    Object? imageUrl = freezed,
+    Object? userId = freezed,
   }) {
     return _then(_$AppUserImpl(
       email: null == email
@@ -195,6 +215,10 @@ class __$$AppUserImplCopyWithImpl<$Res>
           ? _value.lastName
           : lastName // ignore: cast_nullable_to_non_nullable
               as String,
+      signupMethod: null == signupMethod
+          ? _value.signupMethod
+          : signupMethod // ignore: cast_nullable_to_non_nullable
+              as int,
       isEmailVerified: null == isEmailVerified
           ? _value.isEmailVerified
           : isEmailVerified // ignore: cast_nullable_to_non_nullable
@@ -223,9 +247,13 @@ class __$$AppUserImplCopyWithImpl<$Res>
           ? _value.address
           : address // ignore: cast_nullable_to_non_nullable
               as String?,
-      id: freezed == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
+      imageUrl: freezed == imageUrl
+          ? _value.imageUrl
+          : imageUrl // ignore: cast_nullable_to_non_nullable
+              as String?,
+      userId: freezed == userId
+          ? _value.userId
+          : userId // ignore: cast_nullable_to_non_nullable
               as String?,
     ));
   }
@@ -238,14 +266,17 @@ class _$AppUserImpl implements _AppUser {
       {required this.email,
       @JsonKey(name: 'first_name') required this.firstName,
       @JsonKey(name: 'last_name') required this.lastName,
-      @JsonKey(name: 'is_email_verified') this.isEmailVerified = false,
-      @JsonKey(name: 'is_mobile_verified') this.isMobileVerified = false,
+      @JsonKey(name: 'signup_method', includeToJson: false)
+      this.signupMethod = 0,
+      @JsonKey(name: 'email_verified') this.isEmailVerified = false,
+      @JsonKey(name: 'mobile_verified') this.isMobileVerified = false,
       @JsonKey(name: 'wizard_step') this.wizardStep = 0,
       @JsonKey(name: 'wizard_completed') this.isWizardCompleted = false,
       @JsonKey(name: 'join_date', includeToJson: false) this.joinDate,
       this.mobile,
       this.address,
-      @JsonKey(includeToJson: false) this.id});
+      @JsonKey(name: 'image_url') this.imageUrl,
+      @JsonKey(name: 'user_id', includeToJson: false) this.userId});
 
   factory _$AppUserImpl.fromJson(Map<String, dynamic> json) =>
       _$$AppUserImplFromJson(json);
@@ -259,10 +290,13 @@ class _$AppUserImpl implements _AppUser {
   @JsonKey(name: 'last_name')
   final String lastName;
   @override
-  @JsonKey(name: 'is_email_verified')
+  @JsonKey(name: 'signup_method', includeToJson: false)
+  final int signupMethod;
+  @override
+  @JsonKey(name: 'email_verified')
   final bool isEmailVerified;
   @override
-  @JsonKey(name: 'is_mobile_verified')
+  @JsonKey(name: 'mobile_verified')
   final bool isMobileVerified;
   @override
   @JsonKey(name: 'wizard_step')
@@ -278,12 +312,15 @@ class _$AppUserImpl implements _AppUser {
   @override
   final String? address;
   @override
-  @JsonKey(includeToJson: false)
-  final String? id;
+  @JsonKey(name: 'image_url')
+  final String? imageUrl;
+  @override
+  @JsonKey(name: 'user_id', includeToJson: false)
+  final String? userId;
 
   @override
   String toString() {
-    return 'AppUser(email: $email, firstName: $firstName, lastName: $lastName, isEmailVerified: $isEmailVerified, isMobileVerified: $isMobileVerified, wizardStep: $wizardStep, isWizardCompleted: $isWizardCompleted, joinDate: $joinDate, mobile: $mobile, address: $address, id: $id)';
+    return 'AppUser(email: $email, firstName: $firstName, lastName: $lastName, signupMethod: $signupMethod, isEmailVerified: $isEmailVerified, isMobileVerified: $isMobileVerified, wizardStep: $wizardStep, isWizardCompleted: $isWizardCompleted, joinDate: $joinDate, mobile: $mobile, address: $address, imageUrl: $imageUrl, userId: $userId)';
   }
 
   @override
@@ -296,6 +333,8 @@ class _$AppUserImpl implements _AppUser {
                 other.firstName == firstName) &&
             (identical(other.lastName, lastName) ||
                 other.lastName == lastName) &&
+            (identical(other.signupMethod, signupMethod) ||
+                other.signupMethod == signupMethod) &&
             (identical(other.isEmailVerified, isEmailVerified) ||
                 other.isEmailVerified == isEmailVerified) &&
             (identical(other.isMobileVerified, isMobileVerified) ||
@@ -308,7 +347,9 @@ class _$AppUserImpl implements _AppUser {
                 other.joinDate == joinDate) &&
             (identical(other.mobile, mobile) || other.mobile == mobile) &&
             (identical(other.address, address) || other.address == address) &&
-            (identical(other.id, id) || other.id == id));
+            (identical(other.imageUrl, imageUrl) ||
+                other.imageUrl == imageUrl) &&
+            (identical(other.userId, userId) || other.userId == userId));
   }
 
   @JsonKey(ignore: true)
@@ -318,6 +359,7 @@ class _$AppUserImpl implements _AppUser {
       email,
       firstName,
       lastName,
+      signupMethod,
       isEmailVerified,
       isMobileVerified,
       wizardStep,
@@ -325,7 +367,8 @@ class _$AppUserImpl implements _AppUser {
       joinDate,
       mobile,
       address,
-      id);
+      imageUrl,
+      userId);
 
   @JsonKey(ignore: true)
   @override
@@ -346,15 +389,19 @@ abstract class _AppUser implements AppUser {
       {required final String email,
       @JsonKey(name: 'first_name') required final String firstName,
       @JsonKey(name: 'last_name') required final String lastName,
-      @JsonKey(name: 'is_email_verified') final bool isEmailVerified,
-      @JsonKey(name: 'is_mobile_verified') final bool isMobileVerified,
+      @JsonKey(name: 'signup_method', includeToJson: false)
+      final int signupMethod,
+      @JsonKey(name: 'email_verified') final bool isEmailVerified,
+      @JsonKey(name: 'mobile_verified') final bool isMobileVerified,
       @JsonKey(name: 'wizard_step') final int wizardStep,
       @JsonKey(name: 'wizard_completed') final bool isWizardCompleted,
       @JsonKey(name: 'join_date', includeToJson: false)
       final DateTime? joinDate,
       final String? mobile,
       final String? address,
-      @JsonKey(includeToJson: false) final String? id}) = _$AppUserImpl;
+      @JsonKey(name: 'image_url') final String? imageUrl,
+      @JsonKey(name: 'user_id', includeToJson: false)
+      final String? userId}) = _$AppUserImpl;
 
   factory _AppUser.fromJson(Map<String, dynamic> json) = _$AppUserImpl.fromJson;
 
@@ -367,10 +414,13 @@ abstract class _AppUser implements AppUser {
   @JsonKey(name: 'last_name')
   String get lastName;
   @override
-  @JsonKey(name: 'is_email_verified')
+  @JsonKey(name: 'signup_method', includeToJson: false)
+  int get signupMethod;
+  @override
+  @JsonKey(name: 'email_verified')
   bool get isEmailVerified;
   @override
-  @JsonKey(name: 'is_mobile_verified')
+  @JsonKey(name: 'mobile_verified')
   bool get isMobileVerified;
   @override
   @JsonKey(name: 'wizard_step')
@@ -386,8 +436,11 @@ abstract class _AppUser implements AppUser {
   @override
   String? get address;
   @override
-  @JsonKey(includeToJson: false)
-  String? get id;
+  @JsonKey(name: 'image_url')
+  String? get imageUrl;
+  @override
+  @JsonKey(name: 'user_id', includeToJson: false)
+  String? get userId;
   @override
   @JsonKey(ignore: true)
   _$$AppUserImplCopyWith<_$AppUserImpl> get copyWith =>

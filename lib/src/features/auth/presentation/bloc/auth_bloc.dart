@@ -23,8 +23,10 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<AuthSignedIn>(_onAuthSignedIn);
     on<AuthUserRequested>(_onAuthUserRequested);
     on<AuthSignOutRequested>(_onAuthSignOutRequested);
-    on<EmailOtpResend>(_onEmailOtpResend);
-    on<EmailOtpVerified>(_onEmailOtpVerified);
+    on<EmailOTPResend>(_onEmailOTPResend);
+    on<EmailOTPVerified>(_onEmailOTPVerified);
+    on<MobileOTPRequested>(_onMobileOTPRequested);
+    on<MobileOTPVerified>(_onMobileOTPVerified);
   }
   final FirebaseAuth _firebaseAuth;
   final AuthUseCase _authUseCase;
@@ -77,9 +79,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         //   );
         // }
       },
-      (res) async {
-        debugPrint('userRes auth bloc: ${res?.appUser}');
-        if (res?.appUser == null) {
+      (user) async {
+        debugPrint('userRes auth bloc: $user}');
+        if (user == null) {
           emit(
             state.copyWith(
               authStatus: AuthStatus.failure,
@@ -91,15 +93,14 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           return;
         }
         await SharedPrefs.setAppUser(
-          appUser: res!.appUser!,
+          appUser: user,
         );
 
         emit(
           state.copyWith(
-            user: res.appUser,
-            sessionId: res.sessionId,
+            user: user,
             authStatus: AuthStatus.signedUp,
-            emailOtpStatus: EmailOtpStatus.sent,
+            emailOTPStatus: EmailOTPStatus.sent,
           ),
         );
       },
@@ -228,8 +229,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     );
   }
 
-  Future<void> _onEmailOtpVerified(
-    EmailOtpVerified event,
+  Future<void> _onEmailOTPVerified(
+    EmailOTPVerified event,
     Emitter<AuthState> emit,
   ) async {
     final user = state.user;
@@ -247,12 +248,12 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
     emit(
       state.copyWith(
-        emailOtpStatus: EmailOtpStatus.verifying,
+        emailOTPStatus: EmailOTPStatus.verifying,
       ),
     );
 
     final email = event.email ?? user?.email;
-    if (email == null) {
+    if (email == null || user?.userId == null) {
       emit(
         state.copyWith(
           authStatus: AuthStatus.failure,
@@ -264,10 +265,10 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       return;
     }
 
-    final response = await _authUseCase.verifyEmailOtp(
-      verifyEmailOtpReq: VerifyEmailOtpReq(
-        email: email,
-        sessionId: state.sessionId!,
+    final response = await _authUseCase.verifyOTP(
+      verifyOtpReq: VerifyOtpReq(
+        userId: user!.userId!,
+        to: email,
         otp: event.otp,
         channel: 'email',
       ),
@@ -277,7 +278,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       (failure) {
         emit(
           state.copyWith(
-            emailOtpStatus: EmailOtpStatus.failed,
+            emailOTPStatus: EmailOTPStatus.failed,
             failure: failure,
           ),
         );
@@ -285,33 +286,22 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       (data) {
         emit(
           state.copyWith(
-            emailOtpStatus: EmailOtpStatus.verified,
+            emailOTPStatus: EmailOTPStatus.verified,
           ),
         );
       },
     );
   }
 
-  Future<void> _onEmailOtpResend(
-    EmailOtpResend event,
+  Future<void> _onEmailOTPResend(
+    EmailOTPResend event,
     Emitter<AuthState> emit,
   ) async {
     final user = state.user;
-    // if (user == null || user.id == null) {
-    //   emit(
-    //     state.copyWith(
-    //       authStatus: AuthStatus.failure,
-    //       failure: const Failure(
-    //         message: 'Failed to resend OTP',
-    //       ),
-    //     ),
-    //   );
-    //   return;
-    // }
 
     emit(
       state.copyWith(
-        emailOtpStatus: EmailOtpStatus.verifying,
+        emailOTPStatus: EmailOTPStatus.verifying,
       ),
     );
 
@@ -328,18 +318,17 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       return;
     }
 
-    final response = await _authUseCase.sendEmailOtp(
-      sendEmailOtpReq: SendEmailOtpReq(
-        email: email,
+    final response = await _authUseCase.sendOTP(
+      sendOtpReq: SendOtpReq(
+        to: email,
         channel: 'email',
       ),
     );
-
     response.fold(
       (failure) {
         emit(
           state.copyWith(
-            emailOtpStatus: EmailOtpStatus.failed,
+            emailOTPStatus: EmailOTPStatus.failed,
             failure: failure,
           ),
         );
@@ -347,8 +336,107 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       (data) {
         emit(
           state.copyWith(
-            sessionId: data?.sessionId,
-            emailOtpStatus: EmailOtpStatus.resent,
+            emailOTPStatus: EmailOTPStatus.resent,
+          ),
+        );
+      },
+    );
+  }
+
+  Future<void> _onMobileOTPRequested(
+    MobileOTPRequested event,
+    Emitter<AuthState> emit,
+  ) async {
+    final user = state.user;
+    if (user == null || user.userId == null) {
+      emit(
+        state.copyWith(
+          authStatus: AuthStatus.failure,
+          failure: const Failure(
+            message: 'Failed to request OTP',
+          ),
+        ),
+      );
+      return;
+    }
+
+    emit(
+      state.copyWith(
+        mobileOTPStatus: MobileOTPStatus.verifying,
+      ),
+    );
+
+    final response = await _authUseCase.sendOTP(
+      sendOtpReq: SendOtpReq(
+        to: event.mobile,
+        channel: 'sms',
+      ),
+    );
+
+    response.fold(
+      (failure) {
+        emit(
+          state.copyWith(
+            mobileOTPStatus: MobileOTPStatus.failed,
+            failure: failure,
+          ),
+        );
+      },
+      (data) {
+        emit(
+          state.copyWith(
+            mobileOTPStatus: MobileOTPStatus.sent,
+          ),
+        );
+      },
+    );
+  }
+
+  Future<void> _onMobileOTPVerified(
+    MobileOTPVerified event,
+    Emitter<AuthState> emit,
+  ) async {
+    final user = state.user;
+    if (user == null || user.userId == null) {
+      emit(
+        state.copyWith(
+          authStatus: AuthStatus.failure,
+          failure: const Failure(
+            message: 'Failed to verify OTP',
+          ),
+        ),
+      );
+      return;
+    }
+
+    emit(
+      state.copyWith(
+        mobileOTPStatus: MobileOTPStatus.verifying,
+      ),
+    );
+
+    final response = await _authUseCase.verifyOTP(
+      verifyOtpReq: VerifyOtpReq(
+        userId: user.userId!,
+        to: event.mobile,
+        otp: event.otp,
+        channel: 'sms',
+      ),
+    );
+
+    response.fold(
+      (failure) {
+        emit(
+          state.copyWith(
+            mobileOTPStatus: MobileOTPStatus.failed,
+            failure: failure,
+          ),
+        );
+      },
+      (data) {
+        emit(
+          state.copyWith(
+            mobileOTPStatus: MobileOTPStatus.verified,
           ),
         );
       },

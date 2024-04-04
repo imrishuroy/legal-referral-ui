@@ -39,18 +39,6 @@ class MobileOtpSent extends WizardEvent {
   List<Object> get props => [mobile];
 }
 
-class MobileOtpVerified extends WizardEvent {
-  const MobileOtpVerified({
-    required this.userId,
-    required this.mobile,
-    required this.otp,
-  });
-
-  final String? userId;
-  final String mobile;
-  final String otp;
-}
-
 class LicenseSaved extends WizardEvent {
   const LicenseSaved({
     required this.license,

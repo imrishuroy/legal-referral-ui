@@ -21,27 +21,7 @@ class AuthDataSource {
     return null;
   }
 
-  Future<SendEmailOtpRes?> sendEmailOtp({
-    required SendEmailOtpReq sendEmailOtpReq,
-  }) async {
-    try {
-      return await _apiClient.sendEmailOtp(sendEmailOtpReq);
-    } catch (error) {
-      rethrow;
-    }
-  }
-
-  Future<ResponseMsg?> verifyEmailOtp({
-    required VerifyEmailOtpReq verifyEmailOtpReq,
-  }) async {
-    try {
-      return await _apiClient.verifyEmailOtp(verifyEmailOtpReq);
-    } catch (error) {
-      rethrow;
-    }
-  }
-
-  Future<SignUpResponse?> signUp({
+  Future<AppUser?> signUp({
     required AppUser appUser,
   }) async {
     try {
@@ -58,6 +38,28 @@ class AuthDataSource {
     try {
       final user = await _apiClient.signIn(signInReq);
       return user;
+    } catch (_) {
+      rethrow;
+    }
+  }
+
+  Future<ResponseMsg?> sendOTP({
+    required SendOtpReq sendOtpReq,
+  }) async {
+    try {
+      final response = await _apiClient.sendOtp(sendOtpReq);
+      return response;
+    } catch (_) {
+      rethrow;
+    }
+  }
+
+  Future<ResponseMsg?> verifyOTP({
+    required VerifyOtpReq verifyOtpReq,
+  }) async {
+    try {
+      final response = await _apiClient.verifyOtp(verifyOtpReq);
+      return response;
     } catch (_) {
       rethrow;
     }

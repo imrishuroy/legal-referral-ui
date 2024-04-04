@@ -2,24 +2,23 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
-import 'package:legal_referral_ui/src/core/config/config.dart';
 import 'package:legal_referral_ui/src/core/constants/constants.dart';
 import 'package:legal_referral_ui/src/core/utils/utils.dart';
 import 'package:legal_referral_ui/src/core/widgets/custom_button.dart';
+import 'package:legal_referral_ui/src/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:legal_referral_ui/src/features/auth/presentation/presentation.dart';
 import 'package:legal_referral_ui/src/features/auth/presentation/widgets/otp_widget.dart';
-import 'package:legal_referral_ui/src/features/wizard/presentation/bloc/wizard_bloc.dart';
 import 'package:legal_referral_ui/src/features/wizard/presentation/presentation.dart';
 
 class MobileVerificationModel extends StatefulWidget {
   const MobileVerificationModel({
     required this.mobile,
-    required this.wizardBloc,
+    required this.authBloc,
     super.key,
   });
 
   final String mobile;
-  final WizardBloc wizardBloc;
+  final AuthBloc authBloc;
 
   @override
   State<MobileVerificationModel> createState() =>
@@ -30,7 +29,6 @@ class _MobileVerificationModelState extends State<MobileVerificationModel> {
   final _formKey = GlobalKey<FormState>();
   final _otpController = TextEditingController();
   final _pinputFocusNode = FocusNode();
-  final _authBloc = getIt<AuthBloc>();
 
   @override
   void initState() {
@@ -52,11 +50,11 @@ class _MobileVerificationModelState extends State<MobileVerificationModel> {
           mainAxisSize: MainAxisSize.min,
           children: [
             const SizedBox(height: 8),
-            BlocBuilder<WizardBloc, WizardState>(
-              bloc: widget.wizardBloc,
+            BlocBuilder<AuthBloc, AuthState>(
+              bloc: widget.authBloc,
               builder: (context, state) {
-                switch (state.mobileOtpStatus) {
-                  case MobileOtpStatus.verified:
+                switch (state.mobileOTPStatus) {
+                  case MobileOTPStatus.verified:
                     return Column(
                       children: [
                         SizedBox(
@@ -78,10 +76,8 @@ class _MobileVerificationModelState extends State<MobileVerificationModel> {
                         CustomElevatedButton(
                           onTap: () {
                             context.pop();
-                            widget.wizardBloc.add(
-                              const WizardStepChanged(
-                                wizardStep: WizardStep.license,
-                              ),
+                            context.goNamed(
+                              WizardInspectionPage.name,
                             );
                           },
                           text: 'Continue',
@@ -116,7 +112,7 @@ class _MobileVerificationModelState extends State<MobileVerificationModel> {
                             pinController: _otpController,
                             focusNode: _pinputFocusNode,
                             isError:
-                                state.mobileOtpStatus == MobileOtpStatus.failed,
+                                state.mobileOTPStatus == MobileOTPStatus.failed,
                             errorText: state.failure?.message,
                             validator: (otp) {
                               debugPrint('OTP validator: $otp');
@@ -173,8 +169,8 @@ class _MobileVerificationModelState extends State<MobileVerificationModel> {
                                 textColor: LegalReferralColors.textBlue100,
                                 onPressed: () {
                                   context.pop();
-                                  widget.wizardBloc.add(
-                                    MobileOtpSent(
+                                  widget.authBloc.add(
+                                    MobileOTPRequested(
                                       mobile: widget.mobile,
                                     ),
                                   );
@@ -204,9 +200,8 @@ class _MobileVerificationModelState extends State<MobileVerificationModel> {
   void _onVerify() {
     FocusManager.instance.primaryFocus?.unfocus();
     if (_formKey.currentState!.validate()) {
-      widget.wizardBloc.add(
-        MobileOtpVerified(
-          userId: _authBloc.state.user?.id,
+      widget.authBloc.add(
+        MobileOTPVerified(
           otp: _otpController.text,
           mobile: widget.mobile,
         ),

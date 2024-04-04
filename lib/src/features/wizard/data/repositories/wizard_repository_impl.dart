@@ -14,46 +14,6 @@ class WizardRepositoryImpl implements WizardRepository {
   final WizardDataSource _wizardDataSource;
 
   @override
-  Future<Either<Failure, ResponseMsg?>> sendMobileOtp({
-    required SendMobileOtpReq sendMobileOtpReq,
-  }) async {
-    try {
-      final response = await _wizardDataSource.sendMobileOtp(
-        sendMobileOtpReq: sendMobileOtpReq,
-      );
-      return Right(response);
-    } on DioException catch (error) {
-      final dioError = DioExceptions.fromDioError(error);
-      return Left(
-        Failure(
-          statusCode: dioError.statusCode,
-          message: dioError.message,
-        ),
-      );
-    }
-  }
-
-  @override
-  Future<Either<Failure, ResponseMsg?>> verifyMobileOtp({
-    required VerifyMobileOtpReq verifyMobileOtpReq,
-  }) async {
-    try {
-      final response = await _wizardDataSource.verifyMobileOtp(
-        verifyMobileOtpReq: verifyMobileOtpReq,
-      );
-      return Right(response);
-    } on DioException catch (error) {
-      final dioError = DioExceptions.fromDioError(error);
-      return Left(
-        Failure(
-          statusCode: dioError.statusCode,
-          message: dioError.message,
-        ),
-      );
-    }
-  }
-
-  @override
   Future<Either<Failure, License?>> saveLicense({
     required License license,
   }) async {

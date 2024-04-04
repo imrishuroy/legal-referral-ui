@@ -22,30 +22,6 @@ class WizardDataSource {
     }
   }
 
-  Future<ResponseMsg?> sendMobileOtp({
-    required SendMobileOtpReq sendMobileOtpReq,
-  }) async {
-    try {
-      return await _apiClient.sendMobileOtp(
-        sendMobileOtpReq,
-      );
-    } catch (error) {
-      rethrow;
-    }
-  }
-
-  Future<ResponseMsg?> verifyMobileOtp({
-    required VerifyMobileOtpReq verifyMobileOtpReq,
-  }) async {
-    try {
-      return await _apiClient.verifyMobileOtp(
-        verifyMobileOtpReq,
-      );
-    } catch (error) {
-      rethrow;
-    }
-  }
-
   Future<License?> saveLicense({
     required License license,
   }) async {
@@ -74,7 +50,7 @@ class WizardDataSource {
     required UploadUserImageReq uploadUserImageReq,
   }) async {
     try {
-      return await _apiClient.uploadProfileImage(
+      return await _apiClient.uploadUserImage(
         uploadUserImageReq.userId,
         uploadUserImageReq,
       );

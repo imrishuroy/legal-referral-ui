@@ -1,6 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-part 'sign_in_req.g.dart';
+part 'signin_req.g.dart';
 
 @JsonSerializable()
 class SignInReq {

@@ -19,22 +19,6 @@ class WizardUseCase {
     );
   }
 
-  Future<Either<Failure, ResponseMsg?>> sendMobileOtp({
-    required SendMobileOtpReq sendMobileOtpReq,
-  }) async {
-    return _wizardRepository.sendMobileOtp(
-      sendMobileOtpReq: sendMobileOtpReq,
-    );
-  }
-
-  Future<Either<Failure, ResponseMsg?>> verifyMobileOtp({
-    required VerifyMobileOtpReq verifyMobileOtpReq,
-  }) async {
-    return _wizardRepository.verifyMobileOtp(
-      verifyMobileOtpReq: verifyMobileOtpReq,
-    );
-  }
-
   Future<Either<Failure, License?>> saveLicense({
     required License license,
   }) async {

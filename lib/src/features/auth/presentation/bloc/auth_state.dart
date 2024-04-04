@@ -8,7 +8,16 @@ enum AuthStatus {
   failure,
 }
 
-enum EmailOtpStatus {
+enum EmailOTPStatus {
+  initial,
+  verifying,
+  sent,
+  resent,
+  verified,
+  failed,
+}
+
+enum MobileOTPStatus {
   initial,
   verifying,
   sent,
@@ -23,10 +32,10 @@ class AuthState extends Equatable {
   const AuthState({
     required this.authStatus,
     required this.userStatus,
-    this.emailOtpStatus = EmailOtpStatus.initial,
+    this.emailOTPStatus = EmailOTPStatus.initial,
+    this.mobileOTPStatus = MobileOTPStatus.initial,
     this.firebaseUser,
     this.user,
-    this.sessionId,
     this.failure,
   });
 
@@ -37,28 +46,28 @@ class AuthState extends Equatable {
 
   final AuthStatus authStatus;
   final UserStatus userStatus;
-  final EmailOtpStatus emailOtpStatus;
+  final EmailOTPStatus emailOTPStatus;
+  final MobileOTPStatus mobileOTPStatus;
   final User? firebaseUser;
   final AppUser? user;
-  final int? sessionId;
   final Failure? failure;
 
   AuthState copyWith({
     AuthStatus? authStatus,
     UserStatus? userStatus,
-    EmailOtpStatus? emailOtpStatus,
+    EmailOTPStatus? emailOTPStatus,
+    MobileOTPStatus? mobileOTPStatus,
     User? firebaseUser,
     AppUser? user,
-    int? sessionId,
     Failure? failure,
   }) {
     return AuthState(
       authStatus: authStatus ?? this.authStatus,
       userStatus: userStatus ?? this.userStatus,
-      emailOtpStatus: emailOtpStatus ?? this.emailOtpStatus,
+      emailOTPStatus: emailOTPStatus ?? this.emailOTPStatus,
+      mobileOTPStatus: mobileOTPStatus ?? this.mobileOTPStatus,
       firebaseUser: firebaseUser ?? this.firebaseUser,
       user: user ?? this.user,
-      sessionId: sessionId ?? this.sessionId,
       failure: failure ?? this.failure,
     );
   }
@@ -70,10 +79,10 @@ class AuthState extends Equatable {
   List<Object?> get props => [
         authStatus,
         userStatus,
-        emailOtpStatus,
+        emailOTPStatus,
+        mobileOTPStatus,
         firebaseUser,
         user,
-        sessionId,
         failure,
       ];
 }

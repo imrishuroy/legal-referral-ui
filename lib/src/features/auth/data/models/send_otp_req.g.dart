@@ -1,19 +1,18 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'send_email_otp_req.dart';
+part of 'send_otp_req.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-SendEmailOtpReq _$SendEmailOtpReqFromJson(Map<String, dynamic> json) =>
-    SendEmailOtpReq(
-      email: json['email'] as String,
+SendOtpReq _$SendOtpReqFromJson(Map<String, dynamic> json) => SendOtpReq(
+      to: json['to'] as String,
       channel: json['channel'] as String,
     );
 
-Map<String, dynamic> _$SendEmailOtpReqToJson(SendEmailOtpReq instance) =>
+Map<String, dynamic> _$SendOtpReqToJson(SendOtpReq instance) =>
     <String, dynamic>{
-      'email': instance.email,
+      'to': instance.to,
       'channel': instance.channel,
     };

@@ -8,6 +8,7 @@ class CustomTextField extends StatelessWidget {
     this.focusNode,
     super.key,
     this.validator,
+    this.obscureText = false,
   });
 
   final FocusNode? focusNode;
@@ -15,6 +16,7 @@ class CustomTextField extends StatelessWidget {
   final String hintText;
   final String labelText;
   final String? Function(String?)? validator;
+  final bool obscureText;
 
   @override
   Widget build(BuildContext context) {
@@ -37,6 +39,7 @@ class CustomTextField extends StatelessWidget {
             controller: controller,
             // focusNode: _model.textFieldFocusNode,
             autofocus: true,
+            obscureText: obscureText,
             decoration: InputDecoration(
               hintText: hintText,
               hintStyle: const TextStyle(

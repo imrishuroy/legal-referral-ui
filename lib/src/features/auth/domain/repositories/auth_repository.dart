@@ -5,7 +5,7 @@ import 'package:legal_referral_ui/src/features/auth/domain/domain.dart';
 import 'package:legal_referral_ui/src/features/auth/domain/entities/app_user.dart';
 
 abstract class AuthRepository {
-  Future<Either<Failure, SignUpResponse?>> signUp({
+  Future<Either<Failure, AppUser?>> signUp({
     required AppUser appUser,
   });
 
@@ -13,12 +13,12 @@ abstract class AuthRepository {
     required String email,
   });
 
-  Future<Either<Failure, SendEmailOtpRes?>> sendEmailOtp({
-    required SendEmailOtpReq sendEmailOtpReq,
+  Future<Either<Failure, ResponseMsg?>> sendOTP({
+    required SendOtpReq sendOtpReq,
   });
 
-  Future<Either<Failure, ResponseMsg?>> verifyEmailOtp({
-    required VerifyEmailOtpReq verifyEmailOtpReq,
+  Future<Either<Failure, ResponseMsg?>> verifyOTP({
+    required VerifyOtpReq verifyOtpReq,
   });
 
   Future<Either<Failure, AppUser?>> getUser({

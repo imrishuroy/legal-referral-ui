@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:dio/dio.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:legal_referral_ui/firebase_options.dart';
 import 'package:legal_referral_ui/src/core/config/config.dart';
@@ -20,6 +21,7 @@ Future<void> main() async {
   await SharedPrefs.init();
   //await SharedPrefs.clear();
   AppLogger.init();
+  Bloc.observer = const SimpleBlocObserver();
   runApp(const MyApp());
 }
 

@@ -19,7 +19,7 @@ abstract class APIClient {
   Future<String> ping();
 
   @POST('/sign-up')
-  Future<SignUpResponse?> signUp(
+  Future<AppUser?> signUp(
     @Body() AppUser appUser,
   );
 
@@ -33,29 +33,19 @@ abstract class APIClient {
     @Path('userId') String userId,
   );
 
-  @POST('/otp/email')
-  Future<SendEmailOtpRes> sendEmailOtp(
-    @Body() SendEmailOtpReq sendEmailOtpReq,
-  );
-
-  @POST('/otp/email/verify')
-  Future<ResponseMsg?> verifyEmailOtp(
-    @Body() VerifyEmailOtpReq verifyEmailOtpReq,
-  );
-
   @GET('/users/{userId}/wizardstep')
   Future<int?> getWizardStep(
     @Path('userId') String userId,
   );
 
-  @POST('/otp/mobile')
-  Future<ResponseMsg?> sendMobileOtp(
-    @Body() SendMobileOtpReq sendMobileOtpReq,
+  @POST('/otp/send')
+  Future<ResponseMsg?> sendOtp(
+    @Body() SendOtpReq sendOtpReq,
   );
 
-  @POST('/otp/mobile/verify')
-  Future<ResponseMsg?> verifyMobileOtp(
-    @Body() VerifyMobileOtpReq verifyMobileOtpReq,
+  @POST('/otp/verify')
+  Future<ResponseMsg?> verifyOtp(
+    @Body() VerifyOtpReq verifyOtpReq,
   );
 
   @PUT('/user')
@@ -69,7 +59,7 @@ abstract class APIClient {
   );
 
   @POST('/users/{userId}/profile-image')
-  Future<ResponseMsg?> uploadProfileImage(
+  Future<ResponseMsg?> uploadUserImage(
     @Path('userId') String userId,
     @Body() UploadUserImageReq uploadUserImageReq,
   );

@@ -15,7 +15,7 @@ class AuthRepositoryImpl extends AuthRepository {
   final AuthDataSource _authDataSource;
 
   @override
-  Future<Either<Failure, SignUpResponse?>> signUp({
+  Future<Either<Failure, AppUser?>> signUp({
     required AppUser appUser,
   }) async {
     try {
@@ -55,46 +55,6 @@ class AuthRepositoryImpl extends AuthRepository {
   }
 
   @override
-  Future<Either<Failure, ResponseMsg?>> verifyEmailOtp({
-    required VerifyEmailOtpReq verifyEmailOtpReq,
-  }) async {
-    try {
-      final response = await _authDataSource.verifyEmailOtp(
-        verifyEmailOtpReq: verifyEmailOtpReq,
-      );
-      return Right(response);
-    } on DioException catch (error) {
-      final dioError = DioExceptions.fromDioError(error);
-      return Left(
-        Failure(
-          statusCode: dioError.statusCode,
-          message: dioError.message,
-        ),
-      );
-    }
-  }
-
-  @override
-  Future<Either<Failure, SendEmailOtpRes?>> sendEmailOtp({
-    required SendEmailOtpReq sendEmailOtpReq,
-  }) async {
-    try {
-      final response = await _authDataSource.sendEmailOtp(
-        sendEmailOtpReq: sendEmailOtpReq,
-      );
-      return Right(response);
-    } on DioException catch (error) {
-      final dioError = DioExceptions.fromDioError(error);
-      return Left(
-        Failure(
-          statusCode: dioError.statusCode,
-          message: dioError.message,
-        ),
-      );
-    }
-  }
-
-  @override
   Future<Either<Failure, AppUser?>> getUser({
     required String userId,
   }) async {
@@ -103,6 +63,46 @@ class AuthRepositoryImpl extends AuthRepository {
         userId: userId,
       );
       return Right(user);
+    } on DioException catch (error) {
+      final dioError = DioExceptions.fromDioError(error);
+      return Left(
+        Failure(
+          statusCode: dioError.statusCode,
+          message: dioError.message,
+        ),
+      );
+    }
+  }
+
+  @override
+  Future<Either<Failure, ResponseMsg?>> sendOTP({
+    required SendOtpReq sendOtpReq,
+  }) async {
+    try {
+      final response = await _authDataSource.sendOTP(
+        sendOtpReq: sendOtpReq,
+      );
+      return Right(response);
+    } on DioException catch (error) {
+      final dioError = DioExceptions.fromDioError(error);
+      return Left(
+        Failure(
+          statusCode: dioError.statusCode,
+          message: dioError.message,
+        ),
+      );
+    }
+  }
+
+  @override
+  Future<Either<Failure, ResponseMsg?>> verifyOTP({
+    required VerifyOtpReq verifyOtpReq,
+  }) async {
+    try {
+      final response = await _authDataSource.verifyOTP(
+        verifyOtpReq: verifyOtpReq,
+      );
+      return Right(response);
     } on DioException catch (error) {
       final dioError = DioExceptions.fromDioError(error);
       return Left(

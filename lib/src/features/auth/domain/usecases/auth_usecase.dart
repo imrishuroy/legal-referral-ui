@@ -12,7 +12,7 @@ class AuthUseCase {
 
   final AuthRepository _authRepository;
 
-  Future<Either<Failure, SignUpResponse?>> signUp({
+  Future<Either<Failure, AppUser?>> signUp({
     required AppUser appUser,
   }) async {
     return _authRepository.signUp(
@@ -28,19 +28,19 @@ class AuthUseCase {
     );
   }
 
-  Future<Either<Failure, ResponseMsg?>> verifyEmailOtp({
-    required VerifyEmailOtpReq verifyEmailOtpReq,
+  Future<Either<Failure, ResponseMsg?>> sendOTP({
+    required SendOtpReq sendOtpReq,
   }) async {
-    return _authRepository.verifyEmailOtp(
-      verifyEmailOtpReq: verifyEmailOtpReq,
+    return _authRepository.sendOTP(
+      sendOtpReq: sendOtpReq,
     );
   }
 
-  Future<Either<Failure, SendEmailOtpRes?>> sendEmailOtp({
-    required SendEmailOtpReq sendEmailOtpReq,
+  Future<Either<Failure, ResponseMsg?>> verifyOTP({
+    required VerifyOtpReq verifyOtpReq,
   }) async {
-    return _authRepository.sendEmailOtp(
-      sendEmailOtpReq: sendEmailOtpReq,
+    return _authRepository.verifyOTP(
+      verifyOtpReq: verifyOtpReq,
     );
   }
 

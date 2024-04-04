@@ -29,6 +29,7 @@ mixin _$License {
   String get issueDate => throw _privateConstructorUsedError;
   @JsonKey(name: 'issue_state')
   String get issueState => throw _privateConstructorUsedError;
+  @JsonKey(name: 'license_id')
   int? get id => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -47,7 +48,7 @@ abstract class $LicenseCopyWith<$Res> {
       @JsonKey(name: 'license_number') String licenseNumber,
       @JsonKey(name: 'issue_date') String issueDate,
       @JsonKey(name: 'issue_state') String issueState,
-      int? id});
+      @JsonKey(name: 'license_id') int? id});
 }
 
 /// @nodoc
@@ -112,7 +113,7 @@ abstract class _$$LicenseImplCopyWith<$Res> implements $LicenseCopyWith<$Res> {
       @JsonKey(name: 'license_number') String licenseNumber,
       @JsonKey(name: 'issue_date') String issueDate,
       @JsonKey(name: 'issue_state') String issueState,
-      int? id});
+      @JsonKey(name: 'license_id') int? id});
 }
 
 /// @nodoc
@@ -171,7 +172,7 @@ class _$LicenseImpl implements _License {
       @JsonKey(name: 'license_number') required this.licenseNumber,
       @JsonKey(name: 'issue_date') required this.issueDate,
       @JsonKey(name: 'issue_state') required this.issueState,
-      this.id});
+      @JsonKey(name: 'license_id') this.id});
 
   factory _$LicenseImpl.fromJson(Map<String, dynamic> json) =>
       _$$LicenseImplFromJson(json);
@@ -191,6 +192,7 @@ class _$LicenseImpl implements _License {
   @JsonKey(name: 'issue_state')
   final String issueState;
   @override
+  @JsonKey(name: 'license_id')
   final int? id;
 
   @override
@@ -240,7 +242,7 @@ abstract class _License implements License {
       @JsonKey(name: 'license_number') required final String licenseNumber,
       @JsonKey(name: 'issue_date') required final String issueDate,
       @JsonKey(name: 'issue_state') required final String issueState,
-      final int? id}) = _$LicenseImpl;
+      @JsonKey(name: 'license_id') final int? id}) = _$LicenseImpl;
 
   factory _License.fromJson(Map<String, dynamic> json) = _$LicenseImpl.fromJson;
 
@@ -259,6 +261,7 @@ abstract class _License implements License {
   @JsonKey(name: 'issue_state')
   String get issueState;
   @override
+  @JsonKey(name: 'license_id')
   int? get id;
   @override
   @JsonKey(ignore: true)

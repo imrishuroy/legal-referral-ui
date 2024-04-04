@@ -102,6 +102,7 @@ class _SocialAvatarPageState extends State<SocialAvatarPage> {
                               controller: _createPasswordController,
                               hintText: '*************',
                               labelText: 'Create Password',
+                              obscureText: true,
                               // validator: (value)
                               //  => Validators.validatePassword(value),
                             ),
@@ -112,6 +113,7 @@ class _SocialAvatarPageState extends State<SocialAvatarPage> {
                               controller: _confirmPasswordController,
                               hintText: '*************',
                               labelText: 'Confirm Password',
+                              obscureText: true,
                               // validator: (value)
                               // => Validators.validateConfirmPassword(
                               //   value,
@@ -169,7 +171,7 @@ class _SocialAvatarPageState extends State<SocialAvatarPage> {
         return;
       }
 
-      if (_authBloc.state.user?.id == null ||
+      if (_authBloc.state.user?.userId == null ||
           _authBloc.state.user?.email == null) {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
@@ -181,7 +183,7 @@ class _SocialAvatarPageState extends State<SocialAvatarPage> {
 
       widget.wizardBloc.add(
         SocialSaved(
-          userId: _authBloc.state.user!.id!,
+          userId: _authBloc.state.user!.userId!,
           email: _authBloc.state.user!.email,
           password: _createPasswordController.text,
           file: XFile(_image!.path),

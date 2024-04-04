@@ -32,9 +32,9 @@ class _SplashPageState extends State<SplashPage> {
         appUser = SharedPrefs.getUser();
 
         AppLogger.info('app user from spalsh $appUser');
-        if (appUser?.id != null) {
+        if (appUser?.userId != null) {
           _authBloc.add(
-            AuthUserRequested(userId: appUser!.id!),
+            AuthUserRequested(userId: appUser!.userId!),
           );
         } else {
           final onBoarding = SharedPrefs.getOnBoarding();

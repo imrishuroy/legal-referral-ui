@@ -13,7 +13,7 @@ _$LicenseImpl _$$LicenseImplFromJson(Map<String, dynamic> json) =>
       licenseNumber: json['license_number'] as String,
       issueDate: json['issue_date'] as String,
       issueState: json['issue_state'] as String,
-      id: json['id'] as int?,
+      id: json['license_id'] as int?,
     );
 
 Map<String, dynamic> _$$LicenseImplToJson(_$LicenseImpl instance) =>
@@ -23,5 +23,5 @@ Map<String, dynamic> _$$LicenseImplToJson(_$LicenseImpl instance) =>
       'license_number': instance.licenseNumber,
       'issue_date': instance.issueDate,
       'issue_state': instance.issueState,
-      'id': instance.id,
+      'license_id': instance.id,
     };

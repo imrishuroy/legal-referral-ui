@@ -23,8 +23,6 @@ class WizardBloc extends Bloc<WizardEvent, WizardState> {
         super(WizardState.initial()) {
     on<WizardStepFetched>(_onWizardStepFetched);
     on<WizardStepChanged>(_onWizardStepChanged);
-    on<MobileOtpSent>(_onMobileOtpSent);
-    on<MobileOtpVerified>(_onMobileOtpVerified);
     on<LicenseSaved>(_onLicenseSaved);
     on<AboutYouSaved>(_onAboutYouSaved);
     on<UserImageUploaded>(_onUserImageUploaded);
@@ -79,93 +77,6 @@ class WizardBloc extends Bloc<WizardEvent, WizardState> {
       state.copyWith(
         wizardStep: event.wizardStep,
       ),
-    );
-  }
-
-  Future<void> _onMobileOtpSent(
-    MobileOtpSent event,
-    Emitter<WizardState> emit,
-  ) async {
-    emit(
-      state.copyWith(
-        wizardStatus: WizardStatus.loading,
-      ),
-    );
-
-    final response = await _wizardUseCase.sendMobileOtp(
-      sendMobileOtpReq: SendMobileOtpReq(
-        mobile: event.mobile,
-      ),
-    );
-
-    response.fold(
-      (failure) {
-        emit(
-          state.copyWith(
-            wizardStatus: WizardStatus.failure,
-            mobileOtpStatus: MobileOtpStatus.failed,
-            failure: failure,
-          ),
-        );
-      },
-      (data) {
-        emit(
-          state.copyWith(
-            wizardStatus: WizardStatus.success,
-            mobileOtpStatus: MobileOtpStatus.sent,
-          ),
-        );
-      },
-    );
-  }
-
-  Future<void> _onMobileOtpVerified(
-    MobileOtpVerified event,
-    Emitter<WizardState> emit,
-  ) async {
-    emit(
-      state.copyWith(
-        mobileOtpStatus: MobileOtpStatus.verifying,
-      ),
-    );
-
-    if (event.userId == null) {
-      emit(
-        state.copyWith(
-          wizardStatus: WizardStatus.failure,
-          mobileOtpStatus: MobileOtpStatus.failed,
-          failure: const Failure(
-            message: 'Failed to verify OTP',
-          ),
-        ),
-      );
-      return;
-    }
-
-    final response = await _wizardUseCase.verifyMobileOtp(
-      verifyMobileOtpReq: VerifyMobileOtpReq(
-        userId: event.userId!,
-        mobile: event.mobile,
-        otp: event.otp,
-      ),
-    );
-
-    response.fold(
-      (failure) {
-        emit(
-          state.copyWith(
-            mobileOtpStatus: MobileOtpStatus.failed,
-            failure: failure,
-          ),
-        );
-      },
-      (data) {
-        emit(
-          state.copyWith(
-            mobileOtpStatus: MobileOtpStatus.verified,
-          ),
-        );
-      },
     );
   }
 
@@ -263,13 +174,14 @@ class WizardBloc extends Bloc<WizardEvent, WizardState> {
     Emitter<WizardState> emit,
   ) async {
     try {
-      final uploadTask = await uploadFile(
+      final uploadTask = await _uploadFile(
         file: event.file,
         filename: event.userId,
         container: 'user_images',
         fileType: 'jpg',
       );
       final imageUrl = await uploadTask?.snapshot.ref.getDownloadURL();
+      AppLogger.info('Image URL: $imageUrl');
       if (imageUrl == null) {
         emit(
           state.copyWith(
@@ -330,13 +242,14 @@ class WizardBloc extends Bloc<WizardEvent, WizardState> {
       ),
     );
 
-    final uploadTask = await uploadFile(
+    final uploadTask = await _uploadFile(
       file: XFile(event.filePath),
       filename: event.userId,
       container: 'licenses',
       fileType: 'pdf',
     );
     final licenseUrl = await uploadTask?.snapshot.ref.getDownloadURL();
+    AppLogger.info('License URL: $licenseUrl');
     if (licenseUrl == null) {
       emit(
         state.copyWith(
@@ -378,6 +291,8 @@ class WizardBloc extends Bloc<WizardEvent, WizardState> {
 
   WizardStep _wizardStep(int step) {
     switch (step) {
+      case 0:
+        return WizardStep.socialAvatar;
       case 1:
         return WizardStep.license;
       case 2:
@@ -408,20 +323,20 @@ class WizardBloc extends Bloc<WizardEvent, WizardState> {
   }
 
   /// The user selects a file, and the task is added to the list.
-  Future<UploadTask?> uploadFile({
+  Future<UploadTask?> _uploadFile({
     required XFile file,
     required String filename,
     required String container,
     required String fileType,
   }) async {
     try {
-      UploadTask uploadTask;
+      UploadTask? uploadTask;
 
       // Create a Reference to the file
       final ref = FirebaseStorage.instance
           .ref()
           .child(container)
-          .child('$filename.$fileType');
+          .child('/$filename.$fileType');
 
       final metadata = SettableMetadata(
         contentType: fileType == 'pdf' ? 'application/pdf' : 'image/jpeg',
@@ -433,8 +348,9 @@ class WizardBloc extends Bloc<WizardEvent, WizardState> {
       } else {
         uploadTask = ref.putFile(io.File(file.path), metadata);
       }
-
       return Future.value(uploadTask);
+
+      //  return Future.value(uploadTask);
     } catch (error) {
       AppLogger.error('Error uploading file: $error');
       return null;

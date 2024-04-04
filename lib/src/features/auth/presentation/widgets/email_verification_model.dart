@@ -7,7 +7,6 @@ import 'package:legal_referral_ui/src/core/utils/utils.dart';
 import 'package:legal_referral_ui/src/core/widgets/custom_button.dart';
 import 'package:legal_referral_ui/src/features/auth/presentation/presentation.dart';
 import 'package:legal_referral_ui/src/features/auth/presentation/widgets/otp_widget.dart';
-import 'package:legal_referral_ui/src/features/wizard/presentation/presentation.dart';
 
 class EmailVerificationModal extends StatefulWidget {
   const EmailVerificationModal({
@@ -52,11 +51,14 @@ class _EmailVerificationModalState extends State<EmailVerificationModal> {
             BlocConsumer<AuthBloc, AuthState>(
               bloc: widget.authBloc,
               listener: (context, state) {
-                if (state.emailOtpStatus == EmailOtpStatus.failed) {}
+                if (state.authStatus == AuthStatus.signedUp &&
+                    state.emailOTPStatus == EmailOTPStatus.sent) {
+                  context.goNamed(ContactDetailsPage.name);
+                }
               },
               builder: (context, state) {
-                switch (state.emailOtpStatus) {
-                  case EmailOtpStatus.verified:
+                switch (state.emailOTPStatus) {
+                  case EmailOTPStatus.verified:
                     return Column(
                       children: [
                         SizedBox(
@@ -78,7 +80,7 @@ class _EmailVerificationModalState extends State<EmailVerificationModal> {
                         CustomElevatedButton(
                           onTap: () {
                             context.pop();
-                            context.goNamed(WizardInspectionPage.name);
+                            context.goNamed(ContactDetailsPage.name);
                           },
                           text: 'Continue',
                         ),
@@ -112,7 +114,7 @@ class _EmailVerificationModalState extends State<EmailVerificationModal> {
                             pinController: _otpController,
                             focusNode: _pinputFocusNode,
                             isError:
-                                state.emailOtpStatus == EmailOtpStatus.failed,
+                                state.emailOTPStatus == EmailOTPStatus.failed,
                             errorText: state.failure?.message,
                             validator: (otp) {
                               debugPrint('OTP validator: $otp');
@@ -169,7 +171,7 @@ class _EmailVerificationModalState extends State<EmailVerificationModal> {
                                 textColor: LegalReferralColors.textBlue100,
                                 onPressed: () {
                                   widget.authBloc.add(
-                                    EmailOtpResend(
+                                    EmailOTPResend(
                                       email: widget.email,
                                     ),
                                   );
@@ -199,9 +201,9 @@ class _EmailVerificationModalState extends State<EmailVerificationModal> {
   void _onVerify() {
     if (_formKey.currentState!.validate()) {
       widget.authBloc.add(
-        EmailOtpVerified(
+        EmailOTPVerified(
           email: widget.email,
-          otp: int.parse(_otpController.text),
+          otp: _otpController.text,
         ),
       );
     }

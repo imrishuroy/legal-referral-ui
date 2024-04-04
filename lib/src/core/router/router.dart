@@ -66,6 +66,19 @@ class AppRouter {
         ),
       ),
       GoRoute(
+        path: '/contact-details',
+        name: ContactDetailsPage.name,
+        parentNavigatorKey: _rootNavigatorKey,
+        pageBuilder: (context, state) => CustomTransitionPage(
+          child: const ContactDetailsPage(),
+          transitionDuration: const Duration(
+            seconds: 2,
+          ),
+          transitionsBuilder: (_, a, __, c) =>
+              FadeTransition(opacity: a, child: c),
+        ),
+      ),
+      GoRoute(
         path: '/wizard',
         name: WizardInspectionPage.name,
         parentNavigatorKey: _rootNavigatorKey,

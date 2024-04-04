@@ -11,7 +11,7 @@ AboutYouReq _$AboutYouReqFromJson(Map<String, dynamic> json) => AboutYouReq(
       address: json['address'] as String,
       practiceArea: json['practice_area'] as String,
       practiceLocation: json['practice_location'] as String,
-      experience: json['experience'] as int,
+      experience: json['experience'] as String,
     );
 
 Map<String, dynamic> _$AboutYouReqToJson(AboutYouReq instance) =>

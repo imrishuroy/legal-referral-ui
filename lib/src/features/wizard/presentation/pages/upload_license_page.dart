@@ -209,7 +209,7 @@ class _UploadLicensePageState extends State<UploadLicensePage> {
       if (_authBloc.state.user != null) {
         widget.wizardBloc.add(
           LicenseUploaded(
-            userId: _authBloc.state.user!.id!,
+            userId: _authBloc.state.user!.userId!,
             filePath: pdfFile!,
           ),
         );

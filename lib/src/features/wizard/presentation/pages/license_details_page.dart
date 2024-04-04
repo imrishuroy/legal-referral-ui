@@ -45,7 +45,8 @@ class _LicenseDetailPageState extends State<LicenseDetailPage> {
       body: BlocConsumer<WizardBloc, WizardState>(
         bloc: widget.wizardBloc,
         listener: (context, state) {
-          if (state.wizardStatus == WizardStatus.success) {
+          if (state.wizardStatus == WizardStatus.success &&
+              state.wizardStep == WizardStep.license) {
             _successBottomSheet(context);
           }
         },
@@ -99,8 +100,8 @@ class _LicenseDetailPageState extends State<LicenseDetailPage> {
   }
 
   void _saveLicense() {
-    // FocusManager.instance.primaryFocus?.unfocus();
-    final userId = _authBloc.state.user?.id;
+    FocusManager.instance.primaryFocus?.unfocus();
+    final userId = _authBloc.state.user?.userId;
 
     if (_formKey.currentState!.validate() && userId != null) {
       final license = License(
@@ -118,6 +119,7 @@ class _LicenseDetailPageState extends State<LicenseDetailPage> {
     return showModalBottomSheet(
       backgroundColor: LegalReferralColors.containerWhite500,
       isScrollControlled: true,
+      isDismissible: false,
       context: context,
       builder: (context) => Padding(
         padding: const EdgeInsets.all(16),
@@ -154,5 +156,14 @@ class _LicenseDetailPageState extends State<LicenseDetailPage> {
         ),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    _name.dispose();
+    _licenseNumber.dispose();
+    _issueDate.dispose();
+    _issuestate.dispose();
+    super.dispose();
   }
 }

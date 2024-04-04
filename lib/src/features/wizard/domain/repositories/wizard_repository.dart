@@ -8,14 +8,6 @@ abstract class WizardRepository {
     required String userId,
   });
 
-  Future<Either<Failure, ResponseMsg?>> sendMobileOtp({
-    required SendMobileOtpReq sendMobileOtpReq,
-  });
-
-  Future<Either<Failure, ResponseMsg?>> verifyMobileOtp({
-    required VerifyMobileOtpReq verifyMobileOtpReq,
-  });
-
   Future<Either<Failure, License?>> saveLicense({
     required License license,
   });
