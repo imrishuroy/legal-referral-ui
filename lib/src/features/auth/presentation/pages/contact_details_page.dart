@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:legal_referral_ui/src/core/config/config.dart';
 import 'package:legal_referral_ui/src/core/constants/colors.dart';
+import 'package:legal_referral_ui/src/core/validators/validators.dart';
 import 'package:legal_referral_ui/src/core/widgets/custom_button.dart';
+import 'package:legal_referral_ui/src/core/widgets/custom_textfield.dart';
 import 'package:legal_referral_ui/src/features/auth/presentation/presentation.dart';
-import 'package:legal_referral_ui/src/features/auth/presentation/widgets/custom_textfield.dart';
 
 class ContactDetailsPage extends StatefulWidget {
   const ContactDetailsPage({
@@ -72,6 +73,9 @@ class _ContactDetailsPageState extends State<ContactDetailsPage> {
                             controller: _mobileTextController,
                             hintText: '+1 347 877 7879',
                             labelText: 'Mobile Number',
+                            keyboardType: TextInputType.phone,
+                            validator: (value) =>
+                                Validator.validateMobile(value),
                           ),
                           const SizedBox(height: 24),
                           CustomElevatedButton(
@@ -89,11 +93,7 @@ class _ContactDetailsPageState extends State<ContactDetailsPage> {
   }
 
   void _verifyOtp() {
-    debugPrint('Verify OTP');
-    //_focusNode.unfocus();
-    FocusManager.instance.primaryFocus?.unfocus();
     if (_formKey.currentState!.validate()) {
-      debugPrint('Mobile number: ${_mobileTextController.text}');
       _authBloc.add(
         MobileOTPRequested(
           mobile: _mobileTextController.text,

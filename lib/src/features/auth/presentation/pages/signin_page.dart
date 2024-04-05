@@ -5,9 +5,10 @@ import 'package:go_router/go_router.dart';
 import 'package:legal_referral_ui/src/core/config/config.dart';
 import 'package:legal_referral_ui/src/core/constants/colors.dart';
 import 'package:legal_referral_ui/src/core/utils/image_strings_util.dart';
+import 'package:legal_referral_ui/src/core/validators/validators.dart';
 import 'package:legal_referral_ui/src/core/widgets/custom_button.dart';
+import 'package:legal_referral_ui/src/core/widgets/custom_textfield.dart';
 import 'package:legal_referral_ui/src/features/auth/presentation/presentation.dart';
-import 'package:legal_referral_ui/src/features/auth/presentation/widgets/custom_textfield.dart';
 import 'package:legal_referral_ui/src/features/home_page.dart';
 
 class SignInPage extends StatefulWidget {
@@ -83,12 +84,17 @@ class _SignInPageState extends State<SignInPage> {
                               controller: _emailController,
                               hintText: 'SamAtman',
                               labelText: 'User Name',
+                              validator: (value) =>
+                                  Validator.validateEmail(value),
                             ),
                             const SizedBox(height: 16),
                             CustomTextField(
                               controller: _passwordController,
                               hintText: 'Enter Password',
                               labelText: 'Password',
+                              obscureText: true,
+                              validator: (value) =>
+                                  Validator.validatePassword(value),
                             ),
                             const SizedBox(height: 16),
                             Container(

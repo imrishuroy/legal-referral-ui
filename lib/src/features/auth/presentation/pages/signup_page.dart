@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:legal_referral_ui/src/core/config/config.dart';
 import 'package:legal_referral_ui/src/core/constants/colors.dart';
 import 'package:legal_referral_ui/src/core/utils/utils.dart';
+import 'package:legal_referral_ui/src/core/validators/validators.dart';
 import 'package:legal_referral_ui/src/core/widgets/custom_button.dart';
-import 'package:legal_referral_ui/src/features/auth/presentation/bloc/auth_bloc.dart';
+import 'package:legal_referral_ui/src/core/widgets/custom_textfield.dart';
 import 'package:legal_referral_ui/src/features/auth/presentation/presentation.dart';
-import 'package:legal_referral_ui/src/features/auth/presentation/widgets/custom_textfield.dart';
-import 'package:legal_referral_ui/src/features/auth/presentation/widgets/email_verification_model.dart';
 
 class SignUpPage extends StatefulWidget {
   const SignUpPage({super.key});
@@ -33,14 +33,14 @@ class _SignUpPageState extends State<SignUpPage> {
       backgroundColor: LegalReferralColors.primaryBackground,
       body: BlocConsumer<AuthBloc, AuthState>(
         bloc: _authBloc,
-        listener: (_, state) {
+        listener: (_, state) async {
           if (state.authStatus == AuthStatus.signedUp &&
                   state.emailOTPStatus == EmailOTPStatus.sent ||
               state.emailOTPStatus == EmailOTPStatus.resent) {
-            debugPrint('checking bottom sheet');
-            _verifyEmailBottomSheet(context);
+            await _verifyEmailBottomSheet(context);
           }
           if (state.authStatus == AuthStatus.failure) {
+            if (!context.mounted) return;
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
                 content: Text('${state.failure?.message}'),
@@ -66,8 +66,6 @@ class _SignUpPageState extends State<SignUpPage> {
                                 ImageStringsUtil.legalReferralLogo,
                               ),
                             ),
-
-                            // Sign Up fiels
                             Container(
                               alignment: Alignment.centerLeft,
                               child: const Text(
@@ -83,39 +81,26 @@ class _SignUpPageState extends State<SignUpPage> {
                               controller: _firstNameController,
                               hintText: 'David',
                               labelText: 'First Name',
-                              // validator: () {
-                              //   return null;
-                              // },
+                              validator: (value) =>
+                                  Validator.validateFirstName(value),
                             ),
                             const SizedBox(height: 16),
                             CustomTextField(
                               controller: _lastNameController,
                               hintText: 'John',
                               labelText: 'Last Name',
-                              // validator: () {
-                              //   return null;
-                              // },
+                              validator: (value) =>
+                                  Validator.validateLastName(value),
                             ),
                             const SizedBox(height: 16),
                             CustomTextField(
                               controller: _emailController,
                               hintText: 'JohnDavid22@gmail.com',
                               labelText: 'Email address',
-                              // validator: () {
-                              //   return null;
-                              // },
+                              validator: (value) =>
+                                  Validator.validateEmail(value),
                             ),
-                            // const SizedBox(height: 24),
-                            // CustomTextField(
-                            //   controller: _passwordController,
-                            //   hintText: '*********',
-                            //   labelText: 'Password',
-                            //   // validator: () {
-                            //   //   return null;
-                            //   // },
-                            // ),
                             const SizedBox(height: 24),
-                            // verify button
                             CustomElevatedButton(
                               onTap: _signUp,
                               text: 'Sign Up',
@@ -136,7 +121,8 @@ class _SignUpPageState extends State<SignUpPage> {
                                   fontWeight: FontWeight.w600,
                                   textColor: LegalReferralColors.textBlue100,
                                   text: 'LOG IN',
-                                  onPressed: () {},
+                                  onPressed: () =>
+                                      context.goNamed(SignInPage.name),
                                 ),
                               ],
                             ),
@@ -175,43 +161,6 @@ class _SignUpPageState extends State<SignUpPage> {
       builder: (context) => EmailVerificationModal(
         email: _emailController.text,
         authBloc: _authBloc,
-      ),
-    );
-  }
-
-  Future<dynamic> successBottomSheet(BuildContext context) {
-    return showModalBottomSheet(
-      backgroundColor: LegalReferralColors.containerWhite500,
-      isScrollControlled: true,
-      context: context,
-      builder: (context) => Padding(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            const SizedBox(height: 24),
-            SizedBox(
-              height: 114,
-              width: 114,
-              child: SvgPicture.asset(
-                ImageStringsUtil.successLogo,
-              ),
-            ),
-            const SizedBox(height: 24),
-            const Text(
-              'Mobile number verified',
-              style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.w600,
-              ),
-            ),
-            const SizedBox(height: 40),
-            CustomElevatedButton(
-              onTap: () {},
-              text: 'Continue',
-            ),
-          ],
-        ),
       ),
     );
   }

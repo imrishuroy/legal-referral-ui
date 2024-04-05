@@ -7,16 +7,18 @@ class CustomTextField extends StatelessWidget {
     required this.labelText,
     this.focusNode,
     super.key,
-    this.validator,
+    this.keyboardType = TextInputType.text,
     this.obscureText = false,
+    this.validator,
   });
 
   final FocusNode? focusNode;
   final TextEditingController controller;
   final String hintText;
   final String labelText;
-  final String? Function(String?)? validator;
+  final TextInputType keyboardType;
   final bool obscureText;
+  final String? Function(String?)? validator;
 
   @override
   Widget build(BuildContext context) {
@@ -38,6 +40,7 @@ class CustomTextField extends StatelessWidget {
             focusNode: focusNode,
             controller: controller,
             obscureText: obscureText,
+            keyboardType: keyboardType,
             decoration: InputDecoration(
               hintText: hintText,
               hintStyle: const TextStyle(
@@ -72,7 +75,6 @@ class CustomTextField extends StatelessWidget {
               filled: true,
               fillColor: const Color.fromRGBO(255, 255, 255, 1),
             ),
-            // style: FlutterFlowTheme.of(context).bodyMedium,
             validator: validator,
           ),
         ],

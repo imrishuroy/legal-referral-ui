@@ -5,9 +5,10 @@ import 'package:go_router/go_router.dart';
 import 'package:legal_referral_ui/src/core/config/config.dart';
 import 'package:legal_referral_ui/src/core/constants/colors.dart';
 import 'package:legal_referral_ui/src/core/utils/image_strings_util.dart';
+import 'package:legal_referral_ui/src/core/validators/validators.dart';
 import 'package:legal_referral_ui/src/core/widgets/custom_button.dart';
+import 'package:legal_referral_ui/src/core/widgets/custom_textfield.dart';
 import 'package:legal_referral_ui/src/features/auth/presentation/presentation.dart';
-import 'package:legal_referral_ui/src/features/auth/presentation/widgets/custom_textfield.dart';
 import 'package:legal_referral_ui/src/features/wizard/domain/domain.dart';
 import 'package:legal_referral_ui/src/features/wizard/presentation/presentation.dart';
 
@@ -65,28 +66,36 @@ class _LicenseDetailPageState extends State<LicenseDetailPage> {
                             controller: _name,
                             hintText: 'as in license',
                             labelText: 'Name',
+                            validator: (value) =>
+                                Validator.validateLicenseName(value),
                           ),
                           const SizedBox(height: 16),
                           CustomTextField(
                             controller: _licenseNumber,
                             hintText: '23ude675',
                             labelText: 'License Number',
+                            validator: (value) =>
+                                Validator.validateLicenseNumber(value),
                           ),
                           const SizedBox(height: 16),
                           CustomTextField(
                             controller: _issueDate,
                             hintText: 'mm/dd/yyyy',
                             labelText: 'Issue Date',
+                            validator: (value) =>
+                                Validator.validateIssueDate(value),
                           ),
                           const SizedBox(height: 16),
                           CustomTextField(
                             controller: _issuestate,
                             hintText: 'State',
                             labelText: 'Issue State',
+                            validator: (value) =>
+                                Validator.validateIssueState(value),
                           ),
                           const SizedBox(height: 24),
                           CustomElevatedButton(
-                            onTap: _saveLicense,
+                            onTap: _save,
                             text: 'Save and Proceed',
                           ),
                         ],
@@ -99,8 +108,7 @@ class _LicenseDetailPageState extends State<LicenseDetailPage> {
     );
   }
 
-  void _saveLicense() {
-    FocusManager.instance.primaryFocus?.unfocus();
+  void _save() {
     final userId = _authBloc.state.user?.userId;
 
     if (_formKey.currentState!.validate() && userId != null) {
@@ -115,7 +123,7 @@ class _LicenseDetailPageState extends State<LicenseDetailPage> {
     }
   }
 
-  Future<dynamic> _successBottomSheet(BuildContext context) {
+  Future<void> _successBottomSheet(BuildContext context) {
     return showModalBottomSheet(
       backgroundColor: LegalReferralColors.containerWhite500,
       isScrollControlled: true,

@@ -6,9 +6,10 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:legal_referral_ui/src/core/config/config.dart';
 import 'package:legal_referral_ui/src/core/constants/colors.dart';
+import 'package:legal_referral_ui/src/core/validators/validators.dart';
 import 'package:legal_referral_ui/src/core/widgets/custom_button.dart';
+import 'package:legal_referral_ui/src/core/widgets/custom_textfield.dart';
 import 'package:legal_referral_ui/src/features/auth/presentation/presentation.dart';
-import 'package:legal_referral_ui/src/features/auth/presentation/widgets/custom_textfield.dart';
 import 'package:legal_referral_ui/src/features/wizard/presentation/presentation.dart';
 
 class SocialAvatarPage extends StatefulWidget {
@@ -103,8 +104,9 @@ class _SocialAvatarPageState extends State<SocialAvatarPage> {
                               hintText: '*************',
                               labelText: 'Create Password',
                               obscureText: true,
-                              // validator: (value)
-                              //  => Validators.validatePassword(value),
+                              validator: (value) => Validator.validatePassword(
+                                value,
+                              ),
                             ),
                             const SizedBox(
                               height: 16,
@@ -114,11 +116,9 @@ class _SocialAvatarPageState extends State<SocialAvatarPage> {
                               hintText: '*************',
                               labelText: 'Confirm Password',
                               obscureText: true,
-                              // validator: (value)
-                              // => Validators.validateConfirmPassword(
-                              //   value,
-                              //   _confirmPassword.text,
-                              // ),
+                              validator: (value) => Validator.validatePassword(
+                                value,
+                              ),
                             ),
                             const SizedBox(
                               height: 24,

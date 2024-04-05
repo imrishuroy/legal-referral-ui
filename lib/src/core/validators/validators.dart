@@ -12,6 +12,20 @@ class Validator {
     return null;
   }
 
+  // validate mobile
+  static String? validateMobile(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Please enter your mobile number';
+    }
+    final phoneRegExp = RegExp(
+      r'^\d{10}$',
+    ); // Regex for phone number validation
+    if (!phoneRegExp.hasMatch(value)) {
+      return 'Please enter a valid mobile number';
+    }
+    return null;
+  }
+
   static String? validatePassword(String? value) {
     if (value == null || value.isEmpty) {
       return 'Please enter a password';
@@ -24,6 +38,83 @@ class Validator {
   static String? validateName(String? value) {
     if (value == null || value.isEmpty) {
       return 'Please enter your name';
+    }
+    return null;
+  }
+
+  static String? validateFirstName(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Please enter your first name';
+    }
+    return null;
+  }
+
+  static String? validateLastName(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Please enter your last name';
+    }
+    return null;
+  }
+
+  static String? validatePhoneNumber(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Please enter your phone number';
+    }
+    final phoneRegExp = RegExp(
+      r'^\d{10}$',
+    ); // Regex for phone number validation
+    if (!phoneRegExp.hasMatch(value)) {
+      return 'Please enter a valid phone number';
+    }
+    return null;
+  }
+
+  static String? validateAddress(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Please enter your address';
+    }
+    return null;
+  }
+
+  static String? validateCity(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Please enter your city';
+    }
+    return null;
+  }
+
+  static String? validateLicenseName(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Please enter your name as in license';
+    }
+    return null;
+  }
+
+  static String? validateIssueDate(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Please enter the issue date';
+    }
+
+    final dateRegExp = RegExp(
+      r'^\d{2}\/\d{2}\/\d{4}$',
+    );
+
+    if (!dateRegExp.hasMatch(value)) {
+      return 'Please enter a valid date in the format dd/mm/yyyy';
+    }
+    return null;
+  }
+
+  static String? validateLicenseNumber(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Please enter your license number';
+    }
+    return null;
+  }
+
+  static String? validateIssueState(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Please enter the issue state';
     }
     return null;
   }

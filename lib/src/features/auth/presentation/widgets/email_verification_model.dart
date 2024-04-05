@@ -16,7 +16,6 @@ class EmailVerificationModal extends StatefulWidget {
   });
 
   final String email;
-
   final AuthBloc authBloc;
 
   @override
@@ -37,7 +36,10 @@ class _EmailVerificationModalState extends State<EmailVerificationModal> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: double.infinity,
+      constraints: BoxConstraints(
+        maxWidth: MediaQuery.of(context).size.width - 32,
+      ),
+      // width: double.infinity,
       padding: EdgeInsets.only(
         bottom: MediaQuery.of(context).viewInsets.bottom,
       ),
