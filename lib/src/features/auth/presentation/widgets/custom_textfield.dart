@@ -37,8 +37,6 @@ class CustomTextField extends StatelessWidget {
           TextFormField(
             focusNode: focusNode,
             controller: controller,
-            // focusNode: _model.textFieldFocusNode,
-            autofocus: true,
             obscureText: obscureText,
             decoration: InputDecoration(
               hintText: hintText,

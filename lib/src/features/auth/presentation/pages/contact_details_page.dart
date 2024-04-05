@@ -39,7 +39,8 @@ class _ContactDetailsPageState extends State<ContactDetailsPage> {
         bloc: _authBloc,
         listener: (context, state) {
           AppLogger.info('Auth Bloc Contact Details Page $state');
-          if (state.authStatus == AuthStatus.signedUp &&
+          if (state.authStatus == AuthStatus.signedUp ||
+              state.authStatus == AuthStatus.signedIn &&
                   state.mobileOTPStatus == MobileOTPStatus.sent ||
               state.mobileOTPStatus == MobileOTPStatus.resent) {
             _verifyMobileBottomSheet(context);

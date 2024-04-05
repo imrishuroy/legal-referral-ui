@@ -4,6 +4,7 @@ import 'package:equatable/equatable.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:injectable/injectable.dart';
 import 'package:legal_referral_ui/src/core/config/config.dart';
 import 'package:legal_referral_ui/src/features/auth/data/data.dart';
@@ -17,19 +18,22 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   AuthBloc({
     required AuthUseCase authUseCase,
   })  : _firebaseAuth = FirebaseAuth.instance,
+        _googleSignIn = GoogleSignIn(),
         _authUseCase = authUseCase,
         super(AuthState.initial()) {
     on<AuthSignedUp>(_onAuthSignedUp);
     on<AuthSignedIn>(_onAuthSignedIn);
+    on<AuthGoogleSignedIn>(_onAuthGoogleSignedIn);
     on<AuthUserRequested>(_onAuthUserRequested);
-    on<AuthSignOutRequested>(_onAuthSignOutRequested);
     on<EmailOTPResend>(_onEmailOTPResend);
     on<EmailOTPVerified>(_onEmailOTPVerified);
     on<MobileOTPRequested>(_onMobileOTPRequested);
     on<MobileOTPVerified>(_onMobileOTPVerified);
+    on<AuthSignOutRequested>(_onAuthSignOutRequested);
   }
   final FirebaseAuth _firebaseAuth;
   final AuthUseCase _authUseCase;
+  final GoogleSignIn _googleSignIn;
 
   Future<void> _onAuthSignedUp(
     AuthSignedUp event,
@@ -189,6 +193,107 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     }
   }
 
+  Future<void> _onAuthGoogleSignedIn(
+    AuthGoogleSignedIn event,
+    Emitter<AuthState> emit,
+  ) async {
+    emit(
+      state.copyWith(
+        authStatus: AuthStatus.loading,
+      ),
+    );
+
+    await _googleSignIn.signOut();
+
+    final googleUser = await _googleSignIn.signIn();
+
+    final googleAuth = await googleUser?.authentication;
+
+    final credential = GoogleAuthProvider.credential(
+      accessToken: googleAuth?.accessToken,
+      idToken: googleAuth?.idToken,
+    );
+
+    final userCred =
+        await FirebaseAuth.instance.signInWithCredential(credential);
+
+    final idToken = await FirebaseAuth.instance.currentUser?.getIdToken();
+    if (idToken != null) {
+      debugPrint('Id Token: $idToken');
+      await SharedPrefs.setToken(token: idToken);
+    }
+
+    final user = userCred.user;
+    if (user == null) {
+      emit(
+        state.copyWith(
+          authStatus: AuthStatus.failure,
+          failure: const Failure(
+            message: 'Failed to sign in',
+          ),
+        ),
+      );
+      return;
+    }
+    final displayName = user.displayName;
+
+    String? firstName = '';
+    String? lastName = '';
+
+    if (displayName != null && displayName.isNotEmpty) {
+      final nameParts = displayName.split(' ');
+      if (nameParts.isNotEmpty) {
+        firstName = nameParts.first;
+      }
+      if (nameParts.length >= 2) {
+        lastName = nameParts.last;
+      }
+    }
+
+    final userRes = await _authUseCase.signUp(
+      appUser: AppUser(
+        email: user.email!,
+        firstName: firstName,
+        lastName: lastName,
+        isEmailVerified: true,
+      ),
+    );
+
+    await userRes.fold(
+      (failure) {
+        emit(
+          state.copyWith(
+            authStatus: AuthStatus.failure,
+            failure: failure,
+          ),
+        );
+      },
+      (user) async {
+        if (user == null) {
+          emit(
+            state.copyWith(
+              authStatus: AuthStatus.failure,
+              failure: const Failure(
+                message: 'Failed to sign in',
+              ),
+            ),
+          );
+          return;
+        }
+        await SharedPrefs.setAppUser(
+          appUser: user,
+        );
+        emit(
+          state.copyWith(
+            user: user,
+            authStatus: AuthStatus.signedIn,
+            userStatus: UserStatus.authorized,
+          ),
+        );
+      },
+    );
+  }
+
   Future<void> _onAuthUserRequested(
     AuthUserRequested event,
     Emitter<AuthState> emit,
@@ -204,7 +309,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     );
 
     await userRes.fold(
-      (failure) {
+      (failure) async {
+        await SharedPrefs.removeUser();
         emit(
           state.copyWith(
             authStatus: AuthStatus.failure,
@@ -447,10 +553,11 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     AuthSignOutRequested event,
     Emitter<AuthState> emit,
   ) async {
-    await _firebaseAuth.signOut();
-    await SharedPrefs.clear();
     emit(
       AuthState.initial(),
     );
+    await _googleSignIn.signOut();
+    await _firebaseAuth.signOut();
+    await SharedPrefs.removeUser();
   }
 }

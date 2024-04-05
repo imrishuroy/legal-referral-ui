@@ -3,7 +3,6 @@ import 'dart:io' as io;
 import 'package:equatable/equatable.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:injectable/injectable.dart';
@@ -174,13 +173,12 @@ class WizardBloc extends Bloc<WizardEvent, WizardState> {
     Emitter<WizardState> emit,
   ) async {
     try {
-      final uploadTask = await _uploadFile(
+      final imageUrl = await _uploadFile(
         file: event.file,
         filename: event.userId,
         container: 'user_images',
         fileType: 'jpg',
       );
-      final imageUrl = await uploadTask?.snapshot.ref.getDownloadURL();
       AppLogger.info('Image URL: $imageUrl');
       if (imageUrl == null) {
         emit(
@@ -242,13 +240,12 @@ class WizardBloc extends Bloc<WizardEvent, WizardState> {
       ),
     );
 
-    final uploadTask = await _uploadFile(
+    final licenseUrl = await _uploadFile(
       file: XFile(event.filePath),
       filename: event.userId,
       container: 'licenses',
       fileType: 'pdf',
     );
-    final licenseUrl = await uploadTask?.snapshot.ref.getDownloadURL();
     AppLogger.info('License URL: $licenseUrl');
     if (licenseUrl == null) {
       emit(
@@ -323,14 +320,14 @@ class WizardBloc extends Bloc<WizardEvent, WizardState> {
   }
 
   /// The user selects a file, and the task is added to the list.
-  Future<UploadTask?> _uploadFile({
+  Future<String?> _uploadFile({
     required XFile file,
     required String filename,
     required String container,
     required String fileType,
   }) async {
     try {
-      UploadTask? uploadTask;
+      String? downloadUrl;
 
       // Create a Reference to the file
       final ref = FirebaseStorage.instance
@@ -338,19 +335,20 @@ class WizardBloc extends Bloc<WizardEvent, WizardState> {
           .child(container)
           .child('/$filename.$fileType');
 
+      AppLogger.info('file path: ${file.path}');
+
       final metadata = SettableMetadata(
         contentType: fileType == 'pdf' ? 'application/pdf' : 'image/jpeg',
         customMetadata: {'picked-file-path': file.path},
       );
 
-      if (kIsWeb) {
-        uploadTask = ref.putData(await file.readAsBytes(), metadata);
-      } else {
-        uploadTask = ref.putFile(io.File(file.path), metadata);
-      }
-      return Future.value(uploadTask);
+      final uploadTask = await ref.putFile(io.File(file.path), metadata);
 
-      //  return Future.value(uploadTask);
+      await Future.delayed(const Duration(seconds: 5));
+      if (uploadTask.state == TaskState.success) {
+        downloadUrl = await uploadTask.ref.getDownloadURL();
+      }
+      return downloadUrl;
     } catch (error) {
       AppLogger.error('Error uploading file: $error');
       return null;

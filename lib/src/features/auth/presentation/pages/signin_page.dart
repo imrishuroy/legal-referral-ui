@@ -33,7 +33,12 @@ class _SignInPageState extends State<SignInPage> {
           bloc: _authBloc,
           listener: (context, state) {
             if (state.authStatus == AuthStatus.signedIn &&
-                state.userStatus == UserStatus.authorized) {
+                state.user?.isMobileVerified == false) {
+              context.goNamed(ContactDetailsPage.name);
+            }
+
+            if (state.authStatus == AuthStatus.signedIn &&
+                state.user?.isWizardCompleted == true) {
               context.goNamed(HomePage.name);
             }
 
@@ -62,7 +67,6 @@ class _SignInPageState extends State<SignInPage> {
                                 ImageStringsUtil.legalReferralLogo,
                               ),
                             ),
-
                             Container(
                               alignment: Alignment.centerLeft,
                               child: const Text(
@@ -74,25 +78,19 @@ class _SignInPageState extends State<SignInPage> {
                                 ),
                               ),
                             ),
-
                             const SizedBox(height: 16),
-
                             CustomTextField(
                               controller: _emailController,
                               hintText: 'SamAtman',
                               labelText: 'User Name',
                             ),
-
                             const SizedBox(height: 16),
-
                             CustomTextField(
                               controller: _passwordController,
                               hintText: 'Enter Password',
                               labelText: 'Password',
                             ),
-
                             const SizedBox(height: 16),
-
                             Container(
                               alignment: Alignment.centerRight,
                               child: CustomTextButton(
@@ -103,17 +101,12 @@ class _SignInPageState extends State<SignInPage> {
                                 textColor: LegalReferralColors.textgrey300,
                               ),
                             ),
-
                             const SizedBox(height: 24),
-
                             CustomElevatedButton(
                               onTap: _signIn,
                               text: 'LOG IN',
                             ),
                             const SizedBox(height: 24),
-
-                            //* --- horizontal divider ---
-
                             const Row(
                               children: [
                                 Expanded(
@@ -133,12 +126,9 @@ class _SignInPageState extends State<SignInPage> {
                               ],
                             ),
                             const SizedBox(height: 24),
-
-                            //* --- google login ---
-
                             CustomOutlinedButton(
                               text: 'Log in using Google',
-                              onPressed: () {},
+                              onPressed: _googleSignIn,
                             ),
                             const SizedBox(height: 24),
                             Row(
@@ -181,6 +171,10 @@ class _SignInPageState extends State<SignInPage> {
         ),
       );
     }
+  }
+
+  void _googleSignIn() {
+    _authBloc.add(AuthGoogleSignedIn());
   }
 
   @override

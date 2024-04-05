@@ -48,6 +48,8 @@ class AuthSignedIn extends AuthEvent {
   List<Object> get props => [email, password];
 }
 
+class AuthGoogleSignedIn extends AuthEvent {}
+
 class AuthUserCreated extends AuthEvent {
   const AuthUserCreated({
     required this.email,

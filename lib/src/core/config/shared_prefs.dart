@@ -72,6 +72,11 @@ class SharedPrefs {
     return _sharedPrefs?.getBool(_onBoarding) ?? false;
   }
 
+  static Future<void> removeUser() async {
+    await _sharedPrefs?.remove(_appUser);
+    await _sharedPrefs?.remove(_token);
+  }
+
   static Future<void> clear() async {
     await _sharedPrefs?.clear();
   }

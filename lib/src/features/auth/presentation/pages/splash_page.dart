@@ -63,6 +63,10 @@ class _SplashPageState extends State<SplashPage> {
               context.goNamed(WizardInspectionPage.name);
             }
           }
+
+          if (state.authStatus == AuthStatus.failure) {
+            context.goNamed(SignInPage.name);
+          }
         },
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
