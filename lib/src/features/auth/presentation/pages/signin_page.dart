@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:legal_referral_ui/src/core/config/config.dart';
 import 'package:legal_referral_ui/src/core/constants/colors.dart';
 import 'package:legal_referral_ui/src/core/utils/image_strings_util.dart';
 import 'package:legal_referral_ui/src/core/widgets/custom_button.dart';
+import 'package:legal_referral_ui/src/core/widgets/custom_snackbar.dart';
+import 'package:legal_referral_ui/src/core/widgets/custom_textfield.dart';
 import 'package:legal_referral_ui/src/features/auth/presentation/presentation.dart';
-import 'package:legal_referral_ui/src/features/auth/presentation/widgets/custom_textfield.dart';
 import 'package:legal_referral_ui/src/features/home_page.dart';
+import 'package:toastification/toastification.dart';
 
 class SignInPage extends StatefulWidget {
   const SignInPage({super.key});
@@ -38,10 +41,11 @@ class _SignInPageState extends State<SignInPage> {
             }
 
             if (state.authStatus == AuthStatus.failure) {
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  content: Text('Failure: ${state.failure?.message}'),
-                ),
+              CustomSnackbar.showToast(
+                context,
+                title: 'Error',
+                description: state.failure?.message,
+                type: ToastificationType.error,
               );
             }
           },
@@ -52,12 +56,12 @@ class _SignInPageState extends State<SignInPage> {
                     child: Form(
                       key: _formKey,
                       child: Padding(
-                        padding: const EdgeInsets.all(16),
+                        padding: EdgeInsets.symmetric(horizontal: 16.w),
                         child: Column(
                           children: [
                             SizedBox(
-                              height: 160,
-                              width: 160,
+                              height: 160.h,
+                              width: 160.w,
                               child: SvgPicture.asset(
                                 ImageStringsUtil.legalReferralLogo,
                               ),
@@ -65,17 +69,17 @@ class _SignInPageState extends State<SignInPage> {
 
                             Container(
                               alignment: Alignment.centerLeft,
-                              child: const Text(
+                              child: Text(
                                 'Log In',
                                 textAlign: TextAlign.left,
                                 style: TextStyle(
                                   fontWeight: FontWeight.w600,
-                                  fontSize: 24,
+                                  fontSize: 24.h,
                                 ),
                               ),
                             ),
 
-                            const SizedBox(height: 16),
+                            SizedBox(height: 16.h),
 
                             CustomTextField(
                               controller: _emailController,
@@ -83,7 +87,7 @@ class _SignInPageState extends State<SignInPage> {
                               labelText: 'User Name',
                             ),
 
-                            const SizedBox(height: 16),
+                            SizedBox(height: 16.h),
 
                             CustomTextField(
                               controller: _passwordController,
@@ -91,12 +95,12 @@ class _SignInPageState extends State<SignInPage> {
                               labelText: 'Password',
                             ),
 
-                            const SizedBox(height: 16),
+                            SizedBox(height: 16.h),
 
                             Container(
                               alignment: Alignment.centerRight,
                               child: CustomTextButton(
-                                fontSize: 14,
+                                fontSize: 14.h,
                                 fontWeight: FontWeight.w300,
                                 onPressed: () {},
                                 text: 'Forgot Password?',
@@ -104,35 +108,35 @@ class _SignInPageState extends State<SignInPage> {
                               ),
                             ),
 
-                            const SizedBox(height: 24),
+                            SizedBox(height: 24.h),
 
                             CustomElevatedButton(
                               onTap: _signIn,
                               text: 'LOG IN',
                             ),
-                            const SizedBox(height: 24),
+                            SizedBox(height: 24.h),
 
                             //* --- horizontal divider ---
 
-                            const Row(
+                            Row(
                               children: [
-                                Expanded(
+                                const Expanded(
                                   child: Divider(),
                                 ),
                                 Text(
                                   '  Or continue using  ',
                                   style: TextStyle(
-                                    fontSize: 14,
+                                    fontSize: 14.h,
                                     fontWeight: FontWeight.w400,
                                     color: LegalReferralColors.textGrey400,
                                   ),
                                 ),
-                                Expanded(
+                                const Expanded(
                                   child: Divider(),
                                 ),
                               ],
                             ),
-                            const SizedBox(height: 24),
+                            SizedBox(height: 24.h),
 
                             //* --- google login ---
 
@@ -140,19 +144,19 @@ class _SignInPageState extends State<SignInPage> {
                               text: 'Log in using Google',
                               onPressed: () {},
                             ),
-                            const SizedBox(height: 24),
+                            SizedBox(height: 24.h),
                             Row(
                               children: [
-                                const Text(
+                                Text(
                                   'Not a member yet? ',
                                   style: TextStyle(
-                                    fontSize: 14,
+                                    fontSize: 14.h,
                                     fontWeight: FontWeight.w400,
                                     color: LegalReferralColors.textgrey300,
                                   ),
                                 ),
                                 CustomTextButton(
-                                  fontSize: 14,
+                                  fontSize: 14.h,
                                   fontWeight: FontWeight.w600,
                                   textColor: LegalReferralColors.textBlue100,
                                   text: 'SIGN UP',

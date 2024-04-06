@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:legal_referral_ui/src/core/constants/colors.dart';
 import 'package:legal_referral_ui/src/core/widgets/custom_button.dart';
-import 'package:legal_referral_ui/src/features/profile/presentation/widgets/customtextfield.dart';
+import 'package:legal_referral_ui/src/core/widgets/custom_textfield.dart';
 
 class ExperiencePage extends StatelessWidget {
   ExperiencePage({super.key});
@@ -19,66 +20,66 @@ class ExperiencePage extends StatelessWidget {
       appBar: AppBar(
         centerTitle: false,
         backgroundColor: LegalReferralColors.primaryBackground,
-        title: const Text(
+        title: Text(
           'Experience Details',
           style: TextStyle(
             fontWeight: FontWeight.w600,
-            fontSize: 20,
+            fontSize: 20.h,
           ),
         ),
       ),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
+            padding: EdgeInsets.symmetric(horizontal: 16.w),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const SizedBox(height: 24),
+                SizedBox(height: 24.h),
                 CustomTextField(
                   controller: _title,
                   hintText: 'Senior attorney',
                   labelText: 'title',
                 ),
-                const SizedBox(height: 16),
+                SizedBox(height: 16.h),
                 CustomTextField(
                   controller: _companyName,
                   hintText: 'Simon LAW firm',
                   labelText: 'Company name',
                 ),
-                const SizedBox(height: 16),
+                SizedBox(height: 16.h),
                 CustomTextField(
                   controller: _startDate,
                   hintText: 'dd/mm/yyyy',
                   labelText: 'Start date',
                 ),
-                const SizedBox(height: 16),
+                SizedBox(height: 16.h),
                 Row(
                   children: [
                     Checkbox(
                       value: isCurrentlyWorkingHere,
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(4),
+                        borderRadius: BorderRadius.circular(4.r),
                       ),
                       onChanged: (value) {},
                     ),
                     const Text('Currently work here'),
                   ],
                 ),
-                const SizedBox(height: 16),
+                SizedBox(height: 16.h),
                 CustomTextField(
                   controller: _endDate,
                   hintText: 'dd/mm/yyyy',
                   labelText: 'End date',
                 ),
-                const SizedBox(height: 16),
+                SizedBox(height: 16.h),
                 CustomTextField(
                   controller: _description,
                   hintText: 'Job summary',
                   maxLines: 3,
                   labelText: 'Description',
                 ),
-                const SizedBox(height: 24),
+                SizedBox(height: 24.h),
                 CustomElevatedButton(
                   onTap: () {
                     // Navigator.of(context).push(MaterialPageRoute(
@@ -86,7 +87,7 @@ class ExperiencePage extends StatelessWidget {
                   },
                   text: 'Save and Proceed',
                 ),
-                const SizedBox(height: 58),
+                SizedBox(height: 58.h),
               ],
             ),
           ),

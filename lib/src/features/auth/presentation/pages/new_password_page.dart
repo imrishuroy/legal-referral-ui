@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:legal_referral_ui/src/core/constants/colors.dart';
 import 'package:legal_referral_ui/src/core/utils/image_strings_util.dart';
+import 'package:legal_referral_ui/src/core/widgets/custom_bottomsheet.dart';
 import 'package:legal_referral_ui/src/core/widgets/custom_button.dart';
+import 'package:legal_referral_ui/src/core/widgets/custom_textfield.dart';
 import 'package:legal_referral_ui/src/features/auth/presentation/presentation.dart';
-import 'package:legal_referral_ui/src/features/auth/presentation/widgets/custom_textfield.dart';
 
 class NewPasswordPage extends StatelessWidget {
   NewPasswordPage({super.key});
@@ -17,33 +19,33 @@ class NewPasswordPage extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: LegalReferralColors.primaryBackground,
         centerTitle: false,
-        title: const Text(
+        title: Text(
           'New Password',
-          style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
+          style: TextStyle(fontSize: 20.h, fontWeight: FontWeight.w600),
         ),
       ),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(
-            padding: const EdgeInsets.all(16),
+            padding: EdgeInsets.symmetric(horizontal: 19.w),
             child: Column(
               children: [
-                const SizedBox(
-                  height: 24,
+                SizedBox(
+                  height: 24.h,
                 ),
                 CustomTextField(
                   controller: _password,
                   hintText: 'Enter new password',
                   labelText: 'New password',
                 ),
-                const SizedBox(height: 8),
+                SizedBox(height: 8.h),
                 CustomTextField(
                   controller: _confirmpassword,
                   hintText: 'Confirm password',
                   labelText: 'Confirm password',
                 ),
-                const SizedBox(
-                  height: 24,
+                SizedBox(
+                  height: 24.h,
                 ),
                 CustomElevatedButton(
                   onTap: () => successBottomSheet(context),
@@ -58,46 +60,40 @@ class NewPasswordPage extends StatelessWidget {
   }
 
   Future<dynamic> successBottomSheet(BuildContext context) {
-    return showModalBottomSheet(
-      backgroundColor: LegalReferralColors.containerWhite500,
+    return CustomBottomSheet.show(
       context: context,
-      builder: (context) {
-        return Padding(
-          padding: const EdgeInsets.all(16),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              const SizedBox(height: 24),
-              SizedBox(
-                height: 114,
-                width: 114,
-                child: SvgPicture.asset(
-                  ImageStringsUtil.successLogo,
-                ),
-              ),
-              const SizedBox(height: 24),
-              const Text(
-                'New Password Saved',
-                style: TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-              const SizedBox(height: 40),
-              CustomElevatedButton(
-                onTap: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) => const SignInPage(),
-                    ),
-                  );
-                },
-                text: 'Log In',
-              ),
-            ],
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          SizedBox(height: 24.h),
+          SizedBox(
+            height: 114.h,
+            width: 114.w,
+            child: SvgPicture.asset(
+              ImageStringsUtil.successLogo,
+            ),
           ),
-        );
-      },
+          SizedBox(height: 24.h),
+          Text(
+            'New Password Saved',
+            style: TextStyle(
+              fontSize: 24.h,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+          SizedBox(height: 40.h),
+          CustomElevatedButton(
+            onTap: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => const SignInPage(),
+                ),
+              );
+            },
+            text: 'Log In',
+          ),
+        ],
+      ),
     );
   }
 }

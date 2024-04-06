@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:legal_referral_ui/src/core/config/config.dart';
+import 'package:legal_referral_ui/src/core/widgets/custom_snackbar.dart';
 import 'package:legal_referral_ui/src/features/auth/presentation/presentation.dart';
 import 'package:legal_referral_ui/src/features/home_page.dart';
 import 'package:legal_referral_ui/src/features/wizard/presentation/presentation.dart';
+import 'package:toastification/toastification.dart';
 
 class WizardInspectionPage extends StatefulWidget {
   const WizardInspectionPage({super.key});
@@ -47,11 +49,11 @@ class _WizardInspectionPageState extends State<WizardInspectionPage> {
         bloc: _wizardBloc,
         listener: (context, state) {
           if (state.wizardStatus == WizardStatus.failure) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content:
-                    Text(state.failure?.message ?? 'something went wrong,'),
-              ),
+            CustomSnackbar.showToast(
+              context,
+              title: 'Error',
+              description: state.failure?.message ?? 'Something went wrong',
+              type: ToastificationType.error,
             );
           }
         },

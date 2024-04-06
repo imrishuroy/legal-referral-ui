@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:legal_referral_ui/src/core/constants/colors.dart';
 import 'package:legal_referral_ui/src/core/utils/image_strings_util.dart';
 import 'package:legal_referral_ui/src/core/widgets/custom_button.dart';
+import 'package:legal_referral_ui/src/core/widgets/custom_textfield.dart';
 import 'package:legal_referral_ui/src/features/profile/presentation/pages/upload_license_page.dart';
-import 'package:legal_referral_ui/src/features/profile/presentation/widgets/customtextfield.dart';
 
 class SocialAvatarPage extends StatelessWidget {
   SocialAvatarPage({super.key});
@@ -18,9 +19,12 @@ class SocialAvatarPage extends StatelessWidget {
       appBar: AppBar(
         centerTitle: false,
         backgroundColor: LegalReferralColors.primaryBackground,
-        title: const Text(
+        title: Text(
           'Social Avatar',
-          style: TextStyle(fontWeight: FontWeight.w600, fontSize: 20),
+          style: TextStyle(
+            fontWeight: FontWeight.w600,
+            fontSize: 20.h,
+          ),
         ),
       ),
       body: SafeArea(
@@ -31,21 +35,23 @@ class SocialAvatarPage extends StatelessWidget {
               children: [
                 // ---- Profile picture
                 CircleAvatar(
-                  radius: 86,
+                  radius: 86.r,
                   backgroundColor: LegalReferralColors.containerWhite500,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       SizedBox(
-                        height: 81,
-                        width: 81,
-                        child: SvgPicture.asset(ImageStringsUtil.personIcon),
+                        height: 81.h,
+                        width: 81.w,
+                        child: SvgPicture.asset(
+                          ImageStringsUtil.personIcon,
+                        ),
                       ),
-                      const Text(
+                      Text(
                         'ADD PROFILE\nPICTURE',
                         textAlign: TextAlign.center,
                         style: TextStyle(
-                          fontSize: 12,
+                          fontSize: 12.h,
                           fontWeight: FontWeight.w500,
                           color: LegalReferralColors.textBlue100,
                         ),
@@ -53,8 +59,8 @@ class SocialAvatarPage extends StatelessWidget {
                     ],
                   ),
                 ),
-                const SizedBox(
-                  height: 16,
+                SizedBox(
+                  height: 16.h,
                 ),
                 //------ User Name
                 CustomTextField(
@@ -62,8 +68,8 @@ class SocialAvatarPage extends StatelessWidget {
                   hintText: 'John Dev',
                   labelText: 'User Name',
                 ),
-                const SizedBox(
-                  height: 16,
+                SizedBox(
+                  height: 16.h,
                 ),
                 //------ Create Password
                 CustomTextField(
@@ -71,8 +77,8 @@ class SocialAvatarPage extends StatelessWidget {
                   hintText: 'David',
                   labelText: 'Create Password',
                 ),
-                const SizedBox(
-                  height: 16,
+                SizedBox(
+                  height: 16.h,
                 ),
                 //------ Confirm password
                 CustomTextField(
@@ -80,8 +86,8 @@ class SocialAvatarPage extends StatelessWidget {
                   hintText: '+1 347 877 7879',
                   labelText: 'Confirm Password',
                 ),
-                const SizedBox(
-                  height: 24,
+                SizedBox(
+                  height: 24.h,
                 ),
                 CustomElevatedButton(
                   onTap: () {

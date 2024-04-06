@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:legal_referral_ui/src/core/constants/constants.dart';
 
 class CustomOutlinedButton extends StatelessWidget {
@@ -21,22 +22,22 @@ class CustomOutlinedButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       highlightColor: Colors.transparent,
-      borderRadius: BorderRadius.circular(4),
+      borderRadius: BorderRadius.circular(4.r),
       onTap: onPressed,
       child: Container(
-        height: 57,
+        height: 57.h,
         width: double.infinity,
         decoration: BoxDecoration(
           border: Border.all(
             color: borderColor ?? LegalReferralColors.textGrey400,
           ),
-          borderRadius: BorderRadius.circular(4),
+          borderRadius: BorderRadius.circular(4.r),
         ),
         child: Center(
           child: Text(
             text,
             style: TextStyle(
-              fontSize: 18,
+              fontSize: 18.h,
               fontWeight: FontWeight.w600,
               color: textColor ?? LegalReferralColors.textGrey400,
             ),
@@ -67,6 +68,7 @@ class CustomTextButton extends StatelessWidget {
     return InkWell(
       splashColor: Colors.transparent,
       highlightColor: Colors.transparent,
+      hoverColor: Colors.transparent,
       onTap: onPressed,
       child: Text(
         text,
@@ -95,23 +97,42 @@ class CustomElevatedButton extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        height: 57,
+        height: 57.h,
         width: double.infinity,
         decoration: BoxDecoration(
-          color: const Color.fromRGBO(89, 158, 217, 1),
-          borderRadius: BorderRadius.circular(4),
+          color: LegalReferralColors.containerBlue100,
+          borderRadius: BorderRadius.circular(4.r),
         ),
         child: Center(
           child: Text(
             text,
-            style: const TextStyle(
-              color: Color.fromRGBO(252, 252, 252, 1),
+            style: TextStyle(
+              color: LegalReferralColors.textWhite450,
               fontWeight: FontWeight.w600,
-              fontSize: 18,
+              fontSize: 18.h,
             ),
           ),
         ),
       ),
+    );
+  }
+}
+
+class CustomIconButton extends StatelessWidget {
+  const CustomIconButton({
+    required this.onTap,
+    required this.icon,
+    super.key,
+  });
+
+  final VoidCallback onTap;
+  final Widget icon;
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: onTap,
+      child: Center(child: icon),
     );
   }
 }

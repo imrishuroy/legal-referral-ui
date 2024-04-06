@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:legal_referral_ui/src/core/constants/constants.dart';
@@ -39,7 +40,7 @@ class _EmailVerificationModalState extends State<EmailVerificationModal> {
     return Container(
       width: double.infinity,
       padding: EdgeInsets.only(
-        bottom: MediaQuery.of(context).viewInsets.bottom,
+        bottom: MediaQuery.of(context).viewInsets.bottom.h,
       ),
       child: Padding(
         padding: const EdgeInsets.all(16),
@@ -47,7 +48,7 @@ class _EmailVerificationModalState extends State<EmailVerificationModal> {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
           children: [
-            const SizedBox(height: 8),
+            SizedBox(height: 8.h),
             BlocConsumer<AuthBloc, AuthState>(
               bloc: widget.authBloc,
               listener: (context, state) {
@@ -62,13 +63,13 @@ class _EmailVerificationModalState extends State<EmailVerificationModal> {
                     return Column(
                       children: [
                         SizedBox(
-                          height: 114,
-                          width: 114,
+                          height: 114.h,
+                          width: 114.w,
                           child: SvgPicture.asset(
                             ImageStringsUtil.successLogo,
                           ),
                         ),
-                        const SizedBox(height: 24),
+                        SizedBox(height: 24.h),
                         const Text(
                           'E-mail verified',
                           style: TextStyle(
@@ -76,7 +77,7 @@ class _EmailVerificationModalState extends State<EmailVerificationModal> {
                             fontWeight: FontWeight.w600,
                           ),
                         ),
-                        const SizedBox(height: 40),
+                        SizedBox(height: 40.h),
                         CustomElevatedButton(
                           onTap: () {
                             context.pop();
@@ -109,7 +110,7 @@ class _EmailVerificationModalState extends State<EmailVerificationModal> {
                               ),
                             ],
                           ),
-                          const SizedBox(height: 24),
+                          SizedBox(height: 24.h),
                           OtpWidget(
                             pinController: _otpController,
                             focusNode: _pinputFocusNode,
@@ -124,8 +125,8 @@ class _EmailVerificationModalState extends State<EmailVerificationModal> {
                               return null;
                             },
                           ),
-                          const SizedBox(
-                            height: 24,
+                          SizedBox(
+                            height: 24.h,
                           ),
                           const Text(
                             ' 4 digit OTP has been send to ',
@@ -140,17 +141,17 @@ class _EmailVerificationModalState extends State<EmailVerificationModal> {
                                 ObscureTextUtil.obfuscateEmail(
                                   widget.email,
                                 ),
-                                style: const TextStyle(
+                                style: TextStyle(
                                   decoration: TextDecoration.underline,
-                                  fontSize: 14,
+                                  fontSize: 14.h,
                                   fontWeight: FontWeight.w400,
                                 ),
                               ),
-                              const SizedBox(
-                                width: 8,
+                              SizedBox(
+                                width: 8.w,
                               ),
                               CustomTextButton(
-                                fontSize: 14,
+                                fontSize: 14.h,
                                 fontWeight: FontWeight.w600,
                                 text: 'CHANGE MAIL ID',
                                 textColor: LegalReferralColors.textBlue100,
@@ -158,14 +159,14 @@ class _EmailVerificationModalState extends State<EmailVerificationModal> {
                               ),
                             ],
                           ),
-                          const SizedBox(
-                            height: 24,
+                          SizedBox(
+                            height: 24.h,
                           ),
                           Wrap(
                             children: [
                               const Text("Didn't Received OTP? "),
                               CustomTextButton(
-                                fontSize: 14,
+                                fontSize: 14.h,
                                 fontWeight: FontWeight.w600,
                                 text: 'RESEND OTP',
                                 textColor: LegalReferralColors.textBlue100,
@@ -179,8 +180,8 @@ class _EmailVerificationModalState extends State<EmailVerificationModal> {
                               ),
                             ],
                           ),
-                          const SizedBox(
-                            height: 24,
+                          SizedBox(
+                            height: 24.h,
                           ),
                           CustomElevatedButton(
                             onTap: _onVerify,

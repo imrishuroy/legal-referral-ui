@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:legal_referral_ui/src/core/config/config.dart';
@@ -71,19 +72,19 @@ class _SplashPageState extends State<SplashPage> {
               flex: 10,
               child: Center(
                 child: SizedBox(
-                  height: 239,
-                  width: 239,
+                  height: 239.h,
+                  width: 239.w,
                   child: SvgPicture.asset(
                     ImageStringsUtil.legalReferralLogo,
                   ),
                 ),
               ),
             ),
-            const Expanded(
+            Expanded(
               child: Text(
                 'Access  attorney referral network nationwide',
                 style: TextStyle(
-                  fontSize: 14,
+                  fontSize: 14.h,
                   fontWeight: FontWeight.w400,
                 ),
               ),

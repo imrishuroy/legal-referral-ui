@@ -1,14 +1,16 @@
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:legal_referral_ui/src/core/config/config.dart';
 import 'package:legal_referral_ui/src/core/constants/colors.dart';
 import 'package:legal_referral_ui/src/core/utils/utils.dart';
 import 'package:legal_referral_ui/src/core/widgets/custom_button.dart';
-import 'package:legal_referral_ui/src/core/widgets/custom_icon_button.dart';
+import 'package:legal_referral_ui/src/core/widgets/custom_snackbar.dart';
 import 'package:legal_referral_ui/src/features/auth/presentation/presentation.dart';
 import 'package:legal_referral_ui/src/features/wizard/presentation/presentation.dart';
+import 'package:toastification/toastification.dart';
 
 class UploadLicensePage extends StatefulWidget {
   const UploadLicensePage({
@@ -34,9 +36,9 @@ class _UploadLicensePageState extends State<UploadLicensePage> {
       appBar: AppBar(
         centerTitle: false,
         backgroundColor: LegalReferralColors.primaryBackground,
-        title: const Text(
+        title: Text(
           'Upload License',
-          style: TextStyle(fontWeight: FontWeight.w600, fontSize: 20),
+          style: TextStyle(fontWeight: FontWeight.w600, fontSize: 20.h),
         ),
       ),
       body: BlocBuilder<WizardBloc, WizardState>(
@@ -55,7 +57,7 @@ class _UploadLicensePageState extends State<UploadLicensePage> {
                             child: GestureDetector(
                               onTap: () => _uploadLicense(context),
                               child: Container(
-                                height: 150,
+                                height: 150.h,
                                 width: double.infinity,
                                 color: LegalReferralColors.containerWhite500,
                                 child: pdfFile == null
@@ -64,17 +66,17 @@ class _UploadLicensePageState extends State<UploadLicensePage> {
                                             MainAxisAlignment.center,
                                         children: [
                                           SizedBox(
-                                            height: 24,
-                                            width: 24,
+                                            height: 24.h,
+                                            width: 24.w,
                                             child: SvgPicture.asset(
                                               ImageStringsUtil.uploadIcon,
                                             ),
                                           ),
-                                          const Text(
+                                          Text(
                                             'Upload license .pdf\n2 MB max',
                                             textAlign: TextAlign.center,
                                             style: TextStyle(
-                                              fontSize: 12,
+                                              fontSize: 12.h,
                                               fontWeight: FontWeight.w400,
                                               color: LegalReferralColors
                                                   .textGrey400,
@@ -84,8 +86,8 @@ class _UploadLicensePageState extends State<UploadLicensePage> {
                                       )
                                     : Center(
                                         child: SizedBox(
-                                          height: 50,
-                                          width: 50,
+                                          height: 50.h,
+                                          width: 50.w,
                                           child: SvgPicture.asset(
                                             ImageStringsUtil.pdfIcon,
                                           ),
@@ -94,8 +96,8 @@ class _UploadLicensePageState extends State<UploadLicensePage> {
                               ),
                             ),
                           ),
-                          const SizedBox(
-                            height: 24,
+                          SizedBox(
+                            height: 24.h,
                           ),
                           // uploaded file status
                           Column(
@@ -109,28 +111,28 @@ class _UploadLicensePageState extends State<UploadLicensePage> {
                                   color: LegalReferralColors.textGrey500,
                                 ),
                               ),
-                              const SizedBox(
-                                height: 12,
+                              SizedBox(
+                                height: 12.h,
                               ),
                               Container(
                                 color: LegalReferralColors.containerWhite500,
-                                height: 44,
+                                height: 44.h,
                                 width: double.infinity,
                                 child: Padding(
                                   padding:
-                                      const EdgeInsets.symmetric(horizontal: 8),
+                                      EdgeInsets.symmetric(horizontal: 8.w),
                                   child: Row(
                                     children: [
                                       SvgPicture.asset(
                                         ImageStringsUtil.pdfIcon,
                                       ),
-                                      const SizedBox(
-                                        width: 8,
+                                      SizedBox(
+                                        width: 8.w,
                                       ),
-                                      const Text(
+                                      Text(
                                         'License.pdf',
                                         style: TextStyle(
-                                          fontSize: 14,
+                                          fontSize: 14.h,
                                           fontWeight: FontWeight.w400,
                                           color:
                                               LegalReferralColors.textGrey500,
@@ -154,8 +156,8 @@ class _UploadLicensePageState extends State<UploadLicensePage> {
                               ),
                             ],
                           ),
-                          const SizedBox(
-                            height: 24,
+                          SizedBox(
+                            height: 24.h,
                           ),
                           CustomElevatedButton(
                             onTap: _save,
@@ -200,10 +202,11 @@ class _UploadLicensePageState extends State<UploadLicensePage> {
 
   void _save() {
     if (pdfFile == null) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Please upload license.'),
-        ),
+      CustomSnackbar.showToast(
+        context,
+        type: ToastificationType.warning,
+        description: 'Please upload License',
+        title: 'Alert',
       );
     } else {
       if (_authBloc.state.user != null) {
@@ -214,10 +217,11 @@ class _UploadLicensePageState extends State<UploadLicensePage> {
           ),
         );
       } else {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('User not found.'),
-          ),
+        CustomSnackbar.showToast(
+          context,
+          type: ToastificationType.warning,
+          description: 'User not found',
+          title: 'Error',
         );
       }
     }
