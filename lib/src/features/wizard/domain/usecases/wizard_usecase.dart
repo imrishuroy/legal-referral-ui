@@ -35,14 +35,6 @@ class WizardUseCase {
     );
   }
 
-  Future<Either<Failure, ResponseMsg?>> uploadUserImage({
-    required UploadUserImageReq uploadUserImageReq,
-  }) async {
-    return _wizardRepository.uploadUserImage(
-      uploadUserImageReq: uploadUserImageReq,
-    );
-  }
-
   Future<Either<Failure, ResponseMsg?>> uploadLicense({
     required UploadLicenseReq uploadLicenseReq,
   }) async {

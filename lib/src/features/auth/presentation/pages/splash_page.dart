@@ -30,9 +30,10 @@ class _SplashPageState extends State<SplashPage> {
       const Duration(seconds: 3),
       () {
         appUser = SharedPrefs.getUser();
+        final token = SharedPrefs.getToken();
 
         AppLogger.info('app user from spalsh $appUser');
-        if (appUser?.userId != null) {
+        if (appUser?.userId != null && token != null) {
           _authBloc.add(
             AuthUserRequested(userId: appUser!.userId!),
           );
@@ -57,7 +58,7 @@ class _SplashPageState extends State<SplashPage> {
         listener: (context, state) {
           if (state.authStatus == AuthStatus.signedIn) {
             final user = state.user;
-            if (user?.isWizardCompleted ?? false) {
+            if (user?.wizardCompleted ?? false) {
               context.goNamed(HomePage.name);
             } else {
               context.goNamed(WizardInspectionPage.name);
@@ -96,14 +97,5 @@ class _SplashPageState extends State<SplashPage> {
         ),
       ),
     );
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    // SystemChrome.setEnabledSystemUIMode(
-    //   SystemUiMode.manual,
-    //   overlays: SystemUiOverlay.values,
-    // );
   }
 }

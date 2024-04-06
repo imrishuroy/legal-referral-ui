@@ -46,19 +46,6 @@ class WizardDataSource {
     }
   }
 
-  Future<ResponseMsg?> uploadProfileImage({
-    required UploadUserImageReq uploadUserImageReq,
-  }) async {
-    try {
-      return await _apiClient.uploadUserImage(
-        uploadUserImageReq.userId,
-        uploadUserImageReq,
-      );
-    } catch (error) {
-      rethrow;
-    }
-  }
-
   Future<ResponseMsg?> uploadLicense({
     required UploadLicenseReq uploadLicenseReq,
   }) async {

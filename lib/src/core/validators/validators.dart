@@ -17,8 +17,9 @@ class Validator {
     if (value == null || value.isEmpty) {
       return 'Please enter your mobile number';
     }
+
     final phoneRegExp = RegExp(
-      r'^\d{10}$',
+      r'^(\+?\d{1,4}[\s-]?)?\d{10}$',
     ); // Regex for phone number validation
     if (!phoneRegExp.hasMatch(value)) {
       return 'Please enter a valid mobile number';

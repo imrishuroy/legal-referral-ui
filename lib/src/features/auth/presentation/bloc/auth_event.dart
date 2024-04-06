@@ -7,6 +7,23 @@ sealed class AuthEvent extends Equatable {
   List<Object> get props => [];
 }
 
+class AuthInitialized extends AuthEvent {}
+
+class AuthTempSignedUp extends AuthEvent {
+  const AuthTempSignedUp({
+    required this.email,
+    required this.firstName,
+    required this.lastName,
+  });
+
+  final String email;
+  final String firstName;
+  final String lastName;
+
+  @override
+  List<Object> get props => [email, firstName, lastName];
+}
+
 class AuthUserRequested extends AuthEvent {
   const AuthUserRequested({
     required this.userId,
@@ -20,19 +37,15 @@ class AuthUserRequested extends AuthEvent {
 
 class AuthSignedUp extends AuthEvent {
   const AuthSignedUp({
-    required this.email,
     required this.password,
-    required this.firstName,
-    required this.lastName,
+    required this.userImageFile,
   });
 
-  final String email;
   final String password;
-  final String firstName;
-  final String lastName;
+  final XFile userImageFile;
 
   @override
-  List<Object> get props => [email, password, firstName, lastName];
+  List<Object> get props => [password, userImageFile];
 }
 
 class AuthSignedIn extends AuthEvent {
@@ -65,13 +78,7 @@ class AuthUserCreated extends AuthEvent {
 
 class AuthSignOutRequested extends AuthEvent {}
 
-class EmailOTPResend extends AuthEvent {
-  const EmailOTPResend({
-    this.email,
-  });
-
-  final String? email;
-}
+class EmailOTPSent extends AuthEvent {}
 
 class EmailOTPVerified extends AuthEvent {
   const EmailOTPVerified({
@@ -83,8 +90,8 @@ class EmailOTPVerified extends AuthEvent {
   final String otp;
 }
 
-class MobileOTPRequested extends AuthEvent {
-  const MobileOTPRequested({
+class MobileOTPRSent extends AuthEvent {
+  const MobileOTPRSent({
     required this.mobile,
   });
 
@@ -105,4 +112,15 @@ class MobileOTPVerified extends AuthEvent {
 
   @override
   List<Object> get props => [otp, mobile];
+}
+
+class AuthResetPassword extends AuthEvent {
+  const AuthResetPassword({
+    required this.email,
+  });
+
+  final String email;
+
+  @override
+  List<Object> get props => [email];
 }

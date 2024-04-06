@@ -5,9 +5,9 @@ import 'package:go_router/go_router.dart';
 import 'package:legal_referral_ui/src/core/constants/constants.dart';
 import 'package:legal_referral_ui/src/core/utils/utils.dart';
 import 'package:legal_referral_ui/src/core/widgets/custom_button.dart';
-import 'package:legal_referral_ui/src/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:legal_referral_ui/src/features/auth/presentation/presentation.dart';
 import 'package:legal_referral_ui/src/features/auth/presentation/widgets/otp_widget.dart';
+import 'package:legal_referral_ui/src/features/home_page.dart';
 import 'package:legal_referral_ui/src/features/wizard/presentation/presentation.dart';
 
 class MobileVerificationModel extends StatefulWidget {
@@ -76,9 +76,17 @@ class _MobileVerificationModelState extends State<MobileVerificationModel> {
                         CustomElevatedButton(
                           onTap: () {
                             context.pop();
-                            context.goNamed(
-                              WizardInspectionPage.name,
-                            );
+                            if (state.user?.wizardCompleted == true) {
+                              context.goNamed(HomePage.name);
+                            } else if (state.user?.signupMethod == 1) {
+                              // google sing up users will
+                              // be redirected to wizard page
+                              context.goNamed(WizardInspectionPage.name);
+                            } else {
+                              context.goNamed(
+                                SocialAvatarPage.name,
+                              );
+                            }
                           },
                           text: 'Continue',
                         ),
@@ -170,7 +178,7 @@ class _MobileVerificationModelState extends State<MobileVerificationModel> {
                                 onPressed: () {
                                   context.pop();
                                   widget.authBloc.add(
-                                    MobileOTPRequested(
+                                    MobileOTPRSent(
                                       mobile: widget.mobile,
                                     ),
                                   );

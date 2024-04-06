@@ -72,26 +72,6 @@ class WizardRepositoryImpl implements WizardRepository {
   }
 
   @override
-  Future<Either<Failure, ResponseMsg?>> uploadUserImage({
-    required UploadUserImageReq uploadUserImageReq,
-  }) async {
-    try {
-      final response = await _wizardDataSource.uploadProfileImage(
-        uploadUserImageReq: uploadUserImageReq,
-      );
-      return Right(response);
-    } on DioException catch (error) {
-      final dioError = DioExceptions.fromDioError(error);
-      return Left(
-        Failure(
-          statusCode: dioError.statusCode,
-          message: dioError.message,
-        ),
-      );
-    }
-  }
-
-  @override
   Future<Either<Failure, ResponseMsg?>> uploadLicense({
     required UploadLicenseReq uploadLicenseReq,
   }) async {

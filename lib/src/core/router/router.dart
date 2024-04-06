@@ -66,11 +66,37 @@ class AppRouter {
         ),
       ),
       GoRoute(
+        path: '/reset-password',
+        name: ResetPasswordPage.name,
+        parentNavigatorKey: _rootNavigatorKey,
+        pageBuilder: (context, state) => CustomTransitionPage(
+          child: const ResetPasswordPage(),
+          transitionDuration: const Duration(
+            seconds: 2,
+          ),
+          transitionsBuilder: (_, a, __, c) =>
+              FadeTransition(opacity: a, child: c),
+        ),
+      ),
+      GoRoute(
         path: '/contact-details',
         name: ContactDetailsPage.name,
         parentNavigatorKey: _rootNavigatorKey,
         pageBuilder: (context, state) => CustomTransitionPage(
           child: const ContactDetailsPage(),
+          transitionDuration: const Duration(
+            seconds: 2,
+          ),
+          transitionsBuilder: (_, a, __, c) =>
+              FadeTransition(opacity: a, child: c),
+        ),
+      ),
+      GoRoute(
+        path: '/social-avatar',
+        name: SocialAvatarPage.name,
+        parentNavigatorKey: _rootNavigatorKey,
+        pageBuilder: (context, state) => CustomTransitionPage(
+          child: const SocialAvatarPage(),
           transitionDuration: const Duration(
             seconds: 2,
           ),

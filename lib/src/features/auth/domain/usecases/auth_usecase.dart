@@ -12,6 +12,30 @@ class AuthUseCase {
 
   final AuthRepository _authRepository;
 
+  Future<Either<Failure, AppUser?>> createUser({
+    required AppUser appUser,
+  }) async {
+    return _authRepository.createUser(
+      appUser: appUser,
+    );
+  }
+
+  Future<Either<Failure, ResponseMsg?>> uploadUserImage({
+    required UploadUserImageReq uploadUserImageReq,
+  }) async {
+    return _authRepository.uploadUserImage(
+      uploadUserImageReq: uploadUserImageReq,
+    );
+  }
+
+  Future<Either<Failure, String?>> customSignUp({
+    required AppUser appUser,
+  }) async {
+    return _authRepository.customSignUp(
+      appUser: appUser,
+    );
+  }
+
   Future<Either<Failure, AppUser?>> signUp({
     required AppUser appUser,
   }) async {

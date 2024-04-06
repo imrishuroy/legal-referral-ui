@@ -12,6 +12,17 @@ class AuthDataSource {
 
   final APIClient _apiClient;
 
+  Future<AppUser?> createUser({
+    required AppUser appUser,
+  }) async {
+    try {
+      final user = await _apiClient.createUser(appUser);
+      return user;
+    } catch (_) {
+      rethrow;
+    }
+  }
+
   Future<String?> ping() async {
     try {
       return _apiClient.ping();
@@ -19,6 +30,30 @@ class AuthDataSource {
       debugPrint('Error in ping $error');
     }
     return null;
+  }
+
+  Future<ResponseMsg?> uploadProfileImage({
+    required UploadUserImageReq uploadUserImageReq,
+  }) async {
+    try {
+      return await _apiClient.uploadUserImage(
+        uploadUserImageReq.userId,
+        uploadUserImageReq,
+      );
+    } catch (error) {
+      rethrow;
+    }
+  }
+
+  Future<String?> customSignUp({
+    required AppUser appUser,
+  }) async {
+    try {
+      final res = await _apiClient.customSignUp(appUser);
+      return res;
+    } catch (_) {
+      rethrow;
+    }
   }
 
   Future<AppUser?> signUp({

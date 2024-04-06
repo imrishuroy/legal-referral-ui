@@ -40,10 +40,7 @@ class _ContactDetailsPageState extends State<ContactDetailsPage> {
         bloc: _authBloc,
         listener: (context, state) {
           AppLogger.info('Auth Bloc Contact Details Page $state');
-          if (state.authStatus == AuthStatus.signedUp ||
-              state.authStatus == AuthStatus.signedIn &&
-                  state.mobileOTPStatus == MobileOTPStatus.sent ||
-              state.mobileOTPStatus == MobileOTPStatus.resent) {
+          if (state.mobileOTPStatus == MobileOTPStatus.sent) {
             _verifyMobileBottomSheet(context);
           }
 
@@ -56,7 +53,7 @@ class _ContactDetailsPageState extends State<ContactDetailsPage> {
           }
         },
         builder: (context, state) {
-          return state.mobileOTPStatus == MobileOTPStatus.verifying
+          return state.mobileOTPStatus == MobileOTPStatus.loading
               ? const Center(
                   child: CircularProgressIndicator(),
                 )
@@ -95,7 +92,7 @@ class _ContactDetailsPageState extends State<ContactDetailsPage> {
   void _verifyOtp() {
     if (_formKey.currentState!.validate()) {
       _authBloc.add(
-        MobileOTPRequested(
+        MobileOTPRSent(
           mobile: _mobileTextController.text,
         ),
       );
@@ -103,8 +100,6 @@ class _ContactDetailsPageState extends State<ContactDetailsPage> {
   }
 
   Future<void> _verifyMobileBottomSheet(BuildContext context) async {
-    debugPrint('Verify Mobile Bottom Sheet');
-    // TODO(Satyam): Add animation to it, smooth closing and smooth opening
     return showModalBottomSheet(
       isDismissible: false,
       backgroundColor: LegalReferralColors.containerWhite500,

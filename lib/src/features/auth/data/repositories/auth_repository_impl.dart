@@ -15,6 +15,66 @@ class AuthRepositoryImpl extends AuthRepository {
   final AuthDataSource _authDataSource;
 
   @override
+  Future<Either<Failure, AppUser?>> createUser({
+    required AppUser appUser,
+  }) async {
+    try {
+      final user = await _authDataSource.createUser(
+        appUser: appUser,
+      );
+      return Right(user);
+    } on DioException catch (error) {
+      final dioError = DioExceptions.fromDioError(error);
+      return Left(
+        Failure(
+          statusCode: dioError.statusCode,
+          message: dioError.message,
+        ),
+      );
+    }
+  }
+
+  @override
+  Future<Either<Failure, ResponseMsg?>> uploadUserImage({
+    required UploadUserImageReq uploadUserImageReq,
+  }) async {
+    try {
+      final response = await _authDataSource.uploadProfileImage(
+        uploadUserImageReq: uploadUserImageReq,
+      );
+      return Right(response);
+    } on DioException catch (error) {
+      final dioError = DioExceptions.fromDioError(error);
+      return Left(
+        Failure(
+          statusCode: dioError.statusCode,
+          message: dioError.message,
+        ),
+      );
+    }
+  }
+
+  @override
+  Future<Either<Failure, String?>> customSignUp({
+    required AppUser appUser,
+  }) async {
+    try {
+      final response = await _authDataSource.customSignUp(
+        appUser: appUser,
+      );
+      return Right(response);
+    } on DioException catch (error) {
+      final dioError = DioExceptions.fromDioError(error);
+      return Left(
+        Failure(
+          statusCode: dioError.statusCode,
+          message: dioError.message,
+        ),
+      );
+    }
+  }
+
+  @override
   Future<Either<Failure, AppUser?>> signUp({
     required AppUser appUser,
   }) async {

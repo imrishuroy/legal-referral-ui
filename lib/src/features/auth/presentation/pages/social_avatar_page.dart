@@ -3,22 +3,23 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:legal_referral_ui/src/core/config/config.dart';
 import 'package:legal_referral_ui/src/core/constants/colors.dart';
 import 'package:legal_referral_ui/src/core/validators/validators.dart';
 import 'package:legal_referral_ui/src/core/widgets/custom_button.dart';
 import 'package:legal_referral_ui/src/core/widgets/custom_textfield.dart';
+import 'package:legal_referral_ui/src/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:legal_referral_ui/src/features/auth/presentation/presentation.dart';
 import 'package:legal_referral_ui/src/features/wizard/presentation/presentation.dart';
 
 class SocialAvatarPage extends StatefulWidget {
   const SocialAvatarPage({
-    required this.wizardBloc,
     super.key,
   });
 
-  final WizardBloc wizardBloc;
+  static const name = 'SocialAvatarPage';
 
   @override
   State<SocialAvatarPage> createState() => _SocialAvatarPageState();
@@ -41,13 +42,29 @@ class _SocialAvatarPageState extends State<SocialAvatarPage> {
         backgroundColor: LegalReferralColors.primaryBackground,
         title: const Text(
           'Social Avatar',
-          style: TextStyle(fontWeight: FontWeight.w600, fontSize: 20),
+          style: TextStyle(
+            fontWeight: FontWeight.w600,
+            fontSize: 20,
+          ),
         ),
       ),
-      body: BlocBuilder<WizardBloc, WizardState>(
-        bloc: widget.wizardBloc,
+      body: BlocConsumer<AuthBloc, AuthState>(
+        bloc: _authBloc,
+        listener: (context, state) {
+          if (state.authStatus == AuthStatus.signedUp) {
+            context.goNamed(WizardInspectionPage.name);
+          } else if (state.authStatus == AuthStatus.failure) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text(
+                  state.failure?.message ?? 'something went wrong',
+                ),
+              ),
+            );
+          }
+        },
         builder: (context, state) {
-          return state.wizardStatus == WizardStatus.loading
+          return state.authStatus == AuthStatus.loading
               ? const Center(
                   child: CircularProgressIndicator(),
                 )
@@ -74,7 +91,6 @@ class _SocialAvatarPageState extends State<SocialAvatarPage> {
                                             height: 81,
                                             width: 81,
                                             child: SvgPicture.asset(
-                                              //LegalReferralImg.personIcon,
                                               'assets/icons/avatar.svg',
                                             ),
                                           ),
@@ -171,22 +187,10 @@ class _SocialAvatarPageState extends State<SocialAvatarPage> {
         return;
       }
 
-      if (_authBloc.state.user?.userId == null ||
-          _authBloc.state.user?.email == null) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('User not found. Please sign in again.'),
-          ),
-        );
-        return;
-      }
-
-      widget.wizardBloc.add(
-        SocialSaved(
-          userId: _authBloc.state.user!.userId!,
-          email: _authBloc.state.user!.email,
+      _authBloc.add(
+        AuthSignedUp(
           password: _createPasswordController.text,
-          file: XFile(_image!.path),
+          userImageFile: XFile(_image!.path),
         ),
       );
     }

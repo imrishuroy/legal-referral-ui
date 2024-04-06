@@ -1,12 +1,9 @@
-import 'dart:io' as io;
-
 import 'package:equatable/equatable.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:injectable/injectable.dart';
 import 'package:legal_referral_ui/src/core/config/config.dart';
+import 'package:legal_referral_ui/src/core/utils/utils.dart';
 import 'package:legal_referral_ui/src/features/wizard/data/data.dart';
 import 'package:legal_referral_ui/src/features/wizard/domain/domain.dart';
 import 'package:legal_referral_ui/src/features/wizard/domain/usecases/wizard_usecase.dart';
@@ -24,8 +21,6 @@ class WizardBloc extends Bloc<WizardEvent, WizardState> {
     on<WizardStepChanged>(_onWizardStepChanged);
     on<LicenseSaved>(_onLicenseSaved);
     on<AboutYouSaved>(_onAboutYouSaved);
-    on<UserImageUploaded>(_onUserImageUploaded);
-    on<SocialSaved>(_onSocialSaved);
     on<LicenseUploaded>(_onLicenseUploaded);
   }
 
@@ -145,91 +140,6 @@ class WizardBloc extends Bloc<WizardEvent, WizardState> {
     );
   }
 
-  Future<void> _onSocialSaved(
-    SocialSaved event,
-    Emitter<WizardState> emit,
-  ) async {
-    emit(
-      state.copyWith(
-        wizardStatus: WizardStatus.loading,
-      ),
-    );
-
-    await _createUser(
-      email: event.email,
-      password: event.password,
-    );
-
-    add(
-      UserImageUploaded(
-        userId: event.userId,
-        file: event.file,
-      ),
-    );
-  }
-
-  Future<void> _onUserImageUploaded(
-    UserImageUploaded event,
-    Emitter<WizardState> emit,
-  ) async {
-    try {
-      final imageUrl = await _uploadFile(
-        file: event.file,
-        filename: event.userId,
-        container: 'user_images',
-        fileType: 'jpg',
-      );
-      AppLogger.info('Image URL: $imageUrl');
-      if (imageUrl == null) {
-        emit(
-          state.copyWith(
-            wizardStatus: WizardStatus.failure,
-            failure: const Failure(
-              message: 'Failed to upload profile image',
-            ),
-          ),
-        );
-        return;
-      }
-
-      final response = await _wizardUseCase.uploadUserImage(
-        uploadUserImageReq: UploadUserImageReq(
-          userId: event.userId,
-          imageUrl: imageUrl,
-        ),
-      );
-
-      response.fold(
-        (failure) {
-          emit(
-            state.copyWith(
-              wizardStatus: WizardStatus.failure,
-              failure: failure,
-            ),
-          );
-        },
-        (data) {
-          emit(
-            state.copyWith(
-              wizardStatus: WizardStatus.success,
-              wizardStep: WizardStep.license,
-            ),
-          );
-        },
-      );
-    } catch (error) {
-      AppLogger.error('Error uploading profile image: $error');
-      emit(
-        state.copyWith(
-          wizardStatus: WizardStatus.failure,
-          failure: Failure(
-            message: error.toString(),
-          ),
-        ),
-      );
-    }
-  }
-
   Future<void> _onLicenseUploaded(
     LicenseUploaded event,
     Emitter<WizardState> emit,
@@ -240,7 +150,7 @@ class WizardBloc extends Bloc<WizardEvent, WizardState> {
       ),
     );
 
-    final licenseUrl = await _uploadFile(
+    final licenseUrl = await ImageUtil.uploadFile(
       file: XFile(event.filePath),
       filename: event.userId,
       container: 'licenses',
@@ -289,69 +199,14 @@ class WizardBloc extends Bloc<WizardEvent, WizardState> {
   WizardStep _wizardStep(int step) {
     switch (step) {
       case 0:
-        return WizardStep.socialAvatar;
-      case 1:
         return WizardStep.license;
-      case 2:
+      case 1:
         return WizardStep.uploadLicense;
-      case 3:
+      case 2:
         return WizardStep.aboutYou;
+
       default:
-        return WizardStep.socialAvatar;
-    }
-  }
-
-  Future<UserCredential?> _createUser({
-    required String email,
-    required String password,
-  }) async {
-    try {
-      final firebaseAuth = FirebaseAuth.instance;
-      final userCred = await firebaseAuth.createUserWithEmailAndPassword(
-        email: email,
-        password: password,
-      );
-
-      return userCred;
-    } catch (error) {
-      AppLogger.error('Error creating user: $error');
-    }
-    return null;
-  }
-
-  /// The user selects a file, and the task is added to the list.
-  Future<String?> _uploadFile({
-    required XFile file,
-    required String filename,
-    required String container,
-    required String fileType,
-  }) async {
-    try {
-      String? downloadUrl;
-
-      // Create a Reference to the file
-      final ref = FirebaseStorage.instance
-          .ref()
-          .child(container)
-          .child('/$filename.$fileType');
-
-      AppLogger.info('file path: ${file.path}');
-
-      final metadata = SettableMetadata(
-        contentType: fileType == 'pdf' ? 'application/pdf' : 'image/jpeg',
-        customMetadata: {'picked-file-path': file.path},
-      );
-
-      final uploadTask = await ref.putFile(io.File(file.path), metadata);
-
-      await Future.delayed(const Duration(seconds: 5));
-      if (uploadTask.state == TaskState.success) {
-        downloadUrl = await uploadTask.ref.getDownloadURL();
-      }
-      return downloadUrl;
-    } catch (error) {
-      AppLogger.error('Error uploading file: $error');
-      return null;
+        return WizardStep.license;
     }
   }
 }

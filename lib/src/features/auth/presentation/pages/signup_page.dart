@@ -12,6 +12,7 @@ import 'package:legal_referral_ui/src/features/auth/presentation/presentation.da
 
 class SignUpPage extends StatefulWidget {
   const SignUpPage({super.key});
+
   static const name = 'SignUpPage';
 
   @override
@@ -28,18 +29,30 @@ class _SignUpPageState extends State<SignUpPage> {
   final _authBloc = getIt<AuthBloc>();
 
   @override
+  void initState() {
+    _authBloc.add(AuthInitialized());
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: LegalReferralColors.primaryBackground,
       body: BlocConsumer<AuthBloc, AuthState>(
         bloc: _authBloc,
         listener: (_, state) async {
-          if (state.authStatus == AuthStatus.signedUp &&
-                  state.emailOTPStatus == EmailOTPStatus.sent ||
-              state.emailOTPStatus == EmailOTPStatus.resent) {
+          if (state.emailOTPStatus == EmailOTPStatus.sent) {
             await _verifyEmailBottomSheet(context);
           }
-          if (state.authStatus == AuthStatus.failure) {
+          if (state.emailOTPStatus == EmailOTPStatus.failure) {
+            if (!context.mounted) return;
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text('${state.failure?.message}'),
+              ),
+            );
+          }
+          if (state.emailOTPStatus == EmailOTPStatus.failure) {
             if (!context.mounted) return;
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
@@ -49,8 +62,9 @@ class _SignUpPageState extends State<SignUpPage> {
           }
         },
         builder: (_, state) {
+          AppLogger.debug('Auth Bloc SignUp Page $state');
           return SafeArea(
-            child: state.authStatus == AuthStatus.loading
+            child: state.emailOTPStatus == EmailOTPStatus.loading
                 ? const Center(child: CircularProgressIndicator())
                 : Form(
                     key: _formKey,
@@ -140,9 +154,8 @@ class _SignUpPageState extends State<SignUpPage> {
   void _signUp() {
     if (_formKey.currentState!.validate()) {
       _authBloc.add(
-        AuthSignedUp(
+        AuthTempSignedUp(
           email: _emailController.text,
-          password: _passwordController.text,
           firstName: _firstNameController.text,
           lastName: _lastNameController.text,
         ),

@@ -2,7 +2,6 @@ part of 'wizard_bloc.dart';
 
 enum WizardStatus {
   initial,
-
   loading,
   success,
   failure,

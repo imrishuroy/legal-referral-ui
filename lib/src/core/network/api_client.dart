@@ -18,6 +18,16 @@ abstract class APIClient {
   @GET('/')
   Future<String> ping();
 
+  @POST('/custom-signup')
+  Future<String?> customSignUp(
+    @Body() AppUser appUser,
+  );
+
+  @POST('/users')
+  Future<AppUser?> createUser(
+    @Body() AppUser appUser,
+  );
+
   @POST('/sign-up')
   Future<AppUser?> signUp(
     @Body() AppUser appUser,

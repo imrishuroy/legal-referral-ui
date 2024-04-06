@@ -5,6 +5,14 @@ import 'package:legal_referral_ui/src/features/auth/domain/domain.dart';
 import 'package:legal_referral_ui/src/features/auth/domain/entities/app_user.dart';
 
 abstract class AuthRepository {
+  Future<Either<Failure, AppUser?>> createUser({
+    required AppUser appUser,
+  });
+
+  Future<Either<Failure, String?>> customSignUp({
+    required AppUser appUser,
+  });
+
   Future<Either<Failure, AppUser?>> signUp({
     required AppUser appUser,
   });
@@ -23,5 +31,9 @@ abstract class AuthRepository {
 
   Future<Either<Failure, AppUser?>> getUser({
     required String userId,
+  });
+
+  Future<Either<Failure, ResponseMsg?>> uploadUserImage({
+    required UploadUserImageReq uploadUserImageReq,
   });
 }

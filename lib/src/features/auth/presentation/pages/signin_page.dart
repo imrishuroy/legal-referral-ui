@@ -34,19 +34,19 @@ class _SignInPageState extends State<SignInPage> {
           bloc: _authBloc,
           listener: (context, state) {
             if (state.authStatus == AuthStatus.signedIn &&
-                state.user?.isMobileVerified == false) {
+                state.user?.mobileVerified == false) {
               context.goNamed(ContactDetailsPage.name);
             }
 
             if (state.authStatus == AuthStatus.signedIn &&
-                state.user?.isWizardCompleted == true) {
+                state.user?.wizardCompleted == true) {
               context.goNamed(HomePage.name);
             }
 
             if (state.authStatus == AuthStatus.failure) {
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
-                  content: Text('Failure: ${state.failure?.message}'),
+                  content: Text('${state.failure?.message}'),
                 ),
               );
             }
@@ -102,7 +102,8 @@ class _SignInPageState extends State<SignInPage> {
                               child: CustomTextButton(
                                 fontSize: 14,
                                 fontWeight: FontWeight.w300,
-                                onPressed: () {},
+                                onPressed: () =>
+                                    context.goNamed(ResetPasswordPage.name),
                                 text: 'Forgot Password?',
                                 textColor: LegalReferralColors.textgrey300,
                               ),

@@ -50,14 +50,8 @@ class _EmailVerificationModalState extends State<EmailVerificationModal> {
           mainAxisSize: MainAxisSize.min,
           children: [
             const SizedBox(height: 8),
-            BlocConsumer<AuthBloc, AuthState>(
+            BlocBuilder<AuthBloc, AuthState>(
               bloc: widget.authBloc,
-              listener: (context, state) {
-                if (state.authStatus == AuthStatus.signedUp &&
-                    state.emailOTPStatus == EmailOTPStatus.sent) {
-                  context.goNamed(ContactDetailsPage.name);
-                }
-              },
               builder: (context, state) {
                 switch (state.emailOTPStatus) {
                   case EmailOTPStatus.verified:
@@ -116,7 +110,7 @@ class _EmailVerificationModalState extends State<EmailVerificationModal> {
                             pinController: _otpController,
                             focusNode: _pinputFocusNode,
                             isError:
-                                state.emailOTPStatus == EmailOTPStatus.failed,
+                                state.emailOTPStatus == EmailOTPStatus.failure,
                             errorText: state.failure?.message,
                             validator: (otp) {
                               debugPrint('OTP validator: $otp');
@@ -173,9 +167,7 @@ class _EmailVerificationModalState extends State<EmailVerificationModal> {
                                 textColor: LegalReferralColors.textBlue100,
                                 onPressed: () {
                                   widget.authBloc.add(
-                                    EmailOTPResend(
-                                      email: widget.email,
-                                    ),
+                                    EmailOTPSent(),
                                   );
                                 },
                               ),
