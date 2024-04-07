@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:legal_referral_ui/src/core/config/config.dart';
 import 'package:legal_referral_ui/src/core/constants/colors.dart';
 import 'package:legal_referral_ui/src/core/utils/image_strings_util.dart';
 import 'package:legal_referral_ui/src/core/validators/validators.dart';
+import 'package:legal_referral_ui/src/core/widgets/custom_bottomsheet.dart';
 import 'package:legal_referral_ui/src/core/widgets/custom_button.dart';
 import 'package:legal_referral_ui/src/core/widgets/custom_textfield.dart';
 import 'package:legal_referral_ui/src/features/auth/presentation/presentation.dart';
@@ -38,9 +40,9 @@ class _LicenseDetailPageState extends State<LicenseDetailPage> {
       appBar: AppBar(
         backgroundColor: LegalReferralColors.primaryBackground,
         centerTitle: false,
-        title: const Text(
+        title: Text(
           'License Details',
-          style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
+          style: TextStyle(fontSize: 20.h, fontWeight: FontWeight.w600),
         ),
       ),
       body: BlocConsumer<WizardBloc, WizardState>(
@@ -61,7 +63,7 @@ class _LicenseDetailPageState extends State<LicenseDetailPage> {
                       padding: const EdgeInsets.all(16),
                       child: Column(
                         children: [
-                          const SizedBox(height: 24),
+                          SizedBox(height: 24.h),
                           CustomTextField(
                             controller: _name,
                             hintText: 'as in license',
@@ -69,7 +71,7 @@ class _LicenseDetailPageState extends State<LicenseDetailPage> {
                             validator: (value) =>
                                 Validator.validateLicenseName(value),
                           ),
-                          const SizedBox(height: 16),
+                          SizedBox(height: 16.h),
                           CustomTextField(
                             controller: _licenseNumber,
                             hintText: '23ude675',
@@ -77,7 +79,7 @@ class _LicenseDetailPageState extends State<LicenseDetailPage> {
                             validator: (value) =>
                                 Validator.validateLicenseNumber(value),
                           ),
-                          const SizedBox(height: 16),
+                          SizedBox(height: 16.h),
                           CustomTextField(
                             controller: _issueDate,
                             hintText: 'mm/dd/yyyy',
@@ -85,7 +87,7 @@ class _LicenseDetailPageState extends State<LicenseDetailPage> {
                             validator: (value) =>
                                 Validator.validateIssueDate(value),
                           ),
-                          const SizedBox(height: 16),
+                          SizedBox(height: 16.h),
                           CustomTextField(
                             controller: _issuestate,
                             hintText: 'State',
@@ -93,7 +95,7 @@ class _LicenseDetailPageState extends State<LicenseDetailPage> {
                             validator: (value) =>
                                 Validator.validateIssueState(value),
                           ),
-                          const SizedBox(height: 24),
+                          SizedBox(height: 24.h),
                           CustomElevatedButton(
                             onTap: _save,
                             text: 'Save and Proceed',
@@ -123,45 +125,39 @@ class _LicenseDetailPageState extends State<LicenseDetailPage> {
     }
   }
 
-  Future<void> _successBottomSheet(BuildContext context) {
-    return showModalBottomSheet(
-      backgroundColor: LegalReferralColors.containerWhite500,
-      isScrollControlled: true,
-      isDismissible: false,
+  Future<dynamic> _successBottomSheet(BuildContext context) {
+    return CustomBottomSheet.show(
       context: context,
-      builder: (context) => Padding(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            const SizedBox(height: 24),
-            SizedBox(
-              height: 114,
-              width: 114,
-              child: SvgPicture.asset(
-                ImageStringsUtil.successLogo,
-              ),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          SizedBox(height: 24.h),
+          SizedBox(
+            height: 114.h,
+            width: 114.w,
+            child: SvgPicture.asset(
+              ImageStringsUtil.successLogo,
             ),
-            const SizedBox(height: 24),
-            const Text(
-              'Your license details are submitted for '
-              'verification and  will be verified within 2 days',
-            ),
-            const SizedBox(height: 32),
-            CustomElevatedButton(
-              onTap: () {
-                debugPrint('navigate to home page');
-                context.pop();
-                widget.wizardBloc.add(
-                  const WizardStepChanged(
-                    wizardStep: WizardStep.uploadLicense,
-                  ),
-                );
-              },
-              text: 'Continue',
-            ),
-          ],
-        ),
+          ),
+          SizedBox(height: 24.h),
+          const Text(
+            'Your license details are submitted for '
+            'verification and  will be verified within 2 days',
+          ),
+          SizedBox(height: 32.h),
+          CustomElevatedButton(
+            onTap: () {
+              debugPrint('navigate to home page');
+              context.pop();
+              widget.wizardBloc.add(
+                const WizardStepChanged(
+                  wizardStep: WizardStep.uploadLicense,
+                ),
+              );
+            },
+            text: 'Continue',
+          ),
+        ],
       ),
     );
   }

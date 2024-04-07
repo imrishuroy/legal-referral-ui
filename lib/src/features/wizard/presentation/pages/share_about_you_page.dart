@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:legal_referral_ui/src/core/config/config.dart';
 import 'package:legal_referral_ui/src/core/constants/constants.dart';
@@ -38,11 +39,11 @@ class _ShareAboutYouPageState extends State<ShareAboutYouPage> {
       appBar: AppBar(
         centerTitle: false,
         backgroundColor: LegalReferralColors.primaryBackground,
-        title: const Text(
+        title: Text(
           'Share About You',
           style: TextStyle(
             fontWeight: FontWeight.w600,
-            fontSize: 20,
+            fontSize: 20.h,
           ),
         ),
       ),
@@ -64,19 +65,19 @@ class _ShareAboutYouPageState extends State<ShareAboutYouPage> {
                     child: Form(
                       key: _formKey,
                       child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 16),
+                        padding: EdgeInsets.symmetric(horizontal: 16.w),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const SizedBox(height: 24),
-                            const Text(
+                            SizedBox(height: 24.h),
+                            Text(
                               'Personal',
                               style: TextStyle(
                                 fontWeight: FontWeight.w600,
-                                fontSize: 16,
+                                fontSize: 16.h,
                               ),
                             ),
-                            const SizedBox(height: 16),
+                            SizedBox(height: 16.h),
                             CustomTextField(
                               controller: _addressController,
                               hintText:
@@ -85,15 +86,15 @@ class _ShareAboutYouPageState extends State<ShareAboutYouPage> {
                               //  validator: (value) =>
                               // Validators.validateName(value),
                             ),
-                            const SizedBox(height: 24),
-                            const Text(
+                            SizedBox(height: 24.h),
+                            Text(
                               'Share About Your Experience',
                               style: TextStyle(
                                 fontWeight: FontWeight.w600,
-                                fontSize: 16,
+                                fontSize: 16.h,
                               ),
                             ),
-                            const SizedBox(height: 16),
+                            SizedBox(height: 16.h),
                             CustomTextField(
                               controller: _practiceAreaController,
                               hintText: 'Real estate, Finance etc',
@@ -101,7 +102,7 @@ class _ShareAboutYouPageState extends State<ShareAboutYouPage> {
                               //  validator: (value) =>
                               // Validators.validateName(value),
                             ),
-                            const SizedBox(height: 16),
+                            SizedBox(height: 16.h),
                             CustomTextField(
                               controller: _practiceLocationController,
                               hintText: 'Alaska, Florida',
@@ -109,7 +110,7 @@ class _ShareAboutYouPageState extends State<ShareAboutYouPage> {
                               // validator: (value) =>
                               // Validators.validateName(value),
                             ),
-                            const SizedBox(height: 16),
+                            SizedBox(height: 16.h),
                             CustomTextField(
                               controller: _experienceController,
                               hintText: '4 years',
@@ -117,12 +118,12 @@ class _ShareAboutYouPageState extends State<ShareAboutYouPage> {
                               // validator: (value) =>
                               // Validators.validateName(value),
                             ),
-                            const SizedBox(height: 24),
+                            SizedBox(height: 24.h),
                             CustomElevatedButton(
                               onTap: () => _save(context),
                               text: 'Save and Proceed',
                             ),
-                            const SizedBox(height: 58),
+                            SizedBox(height: 58.h),
                           ],
                         ),
                       ),

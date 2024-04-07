@@ -1,14 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:legal_referral_ui/src/core/config/config.dart';
 import 'package:legal_referral_ui/src/core/constants/colors.dart';
 import 'package:legal_referral_ui/src/core/utils/utils.dart';
 import 'package:legal_referral_ui/src/core/validators/validators.dart';
+import 'package:legal_referral_ui/src/core/widgets/custom_bottomsheet.dart';
 import 'package:legal_referral_ui/src/core/widgets/custom_button.dart';
+import 'package:legal_referral_ui/src/core/widgets/custom_snackbar.dart';
 import 'package:legal_referral_ui/src/core/widgets/custom_textfield.dart';
 import 'package:legal_referral_ui/src/features/auth/presentation/presentation.dart';
+import 'package:toastification/toastification.dart';
 
 class SignUpPage extends StatefulWidget {
   const SignUpPage({super.key});
@@ -46,18 +50,11 @@ class _SignUpPageState extends State<SignUpPage> {
           }
           if (state.emailOTPStatus == EmailOTPStatus.failure) {
             if (!context.mounted) return;
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: Text('${state.failure?.message}'),
-              ),
-            );
-          }
-          if (state.emailOTPStatus == EmailOTPStatus.failure) {
-            if (!context.mounted) return;
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: Text('${state.failure?.message}'),
-              ),
+            CustomSnackbar.showToast(
+              context,
+              title: 'Error',
+              description: state.failure?.message,
+              type: ToastificationType.error,
             );
           }
         },
@@ -69,28 +66,28 @@ class _SignUpPageState extends State<SignUpPage> {
                 : Form(
                     key: _formKey,
                     child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 16),
+                      padding: EdgeInsets.symmetric(horizontal: 16.w),
                       child: SingleChildScrollView(
                         child: Column(
                           children: [
                             SizedBox(
-                              height: 160,
-                              width: 160,
+                              height: 160.h,
+                              width: 160.w,
                               child: SvgPicture.asset(
                                 ImageStringsUtil.legalReferralLogo,
                               ),
                             ),
                             Container(
                               alignment: Alignment.centerLeft,
-                              child: const Text(
+                              child: Text(
                                 'Sign Up',
                                 style: TextStyle(
-                                  fontSize: 24,
+                                  fontSize: 24.h,
                                   fontWeight: FontWeight.w600,
                                 ),
                               ),
                             ),
-                            const SizedBox(height: 16),
+                            SizedBox(height: 16.h),
                             CustomTextField(
                               controller: _firstNameController,
                               hintText: 'David',
@@ -98,7 +95,7 @@ class _SignUpPageState extends State<SignUpPage> {
                               validator: (value) =>
                                   Validator.validateFirstName(value),
                             ),
-                            const SizedBox(height: 16),
+                            SizedBox(height: 16.h),
                             CustomTextField(
                               controller: _lastNameController,
                               hintText: 'John',
@@ -106,7 +103,7 @@ class _SignUpPageState extends State<SignUpPage> {
                               validator: (value) =>
                                   Validator.validateLastName(value),
                             ),
-                            const SizedBox(height: 16),
+                            SizedBox(height: 16.h),
                             CustomTextField(
                               controller: _emailController,
                               hintText: 'JohnDavid22@gmail.com',
@@ -114,24 +111,24 @@ class _SignUpPageState extends State<SignUpPage> {
                               validator: (value) =>
                                   Validator.validateEmail(value),
                             ),
-                            const SizedBox(height: 24),
+                            SizedBox(height: 24.h),
                             CustomElevatedButton(
                               onTap: _signUp,
                               text: 'Sign Up',
                             ),
-                            const SizedBox(height: 24),
+                            SizedBox(height: 24.h),
                             Row(
                               children: [
-                                const Text(
+                                Text(
                                   'Already a member? ',
                                   style: TextStyle(
-                                    fontSize: 14,
+                                    fontSize: 14.h,
                                     fontWeight: FontWeight.w400,
                                     color: LegalReferralColors.textgrey300,
                                   ),
                                 ),
                                 CustomTextButton(
-                                  fontSize: 14,
+                                  fontSize: 14.h,
                                   fontWeight: FontWeight.w600,
                                   textColor: LegalReferralColors.textBlue100,
                                   text: 'LOG IN',
@@ -140,6 +137,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                 ),
                               ],
                             ),
+                            SizedBox(height: 156.h),
                           ],
                         ),
                       ),
@@ -164,14 +162,9 @@ class _SignUpPageState extends State<SignUpPage> {
   }
 
   Future<void> _verifyEmailBottomSheet(BuildContext context) async {
-    // TODO(Satyam): Add animation to it, smooth closing and smooth opening
-    return showModalBottomSheet(
-      isDismissible: false,
-      backgroundColor: LegalReferralColors.containerWhite500,
-      isScrollControlled: true,
-      enableDrag: false,
+    return CustomBottomSheet.show(
       context: context,
-      builder: (context) => EmailVerificationModal(
+      child: EmailVerificationModal(
         email: _emailController.text,
         authBloc: _authBloc,
       ),

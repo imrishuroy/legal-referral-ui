@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:legal_referral_ui/src/core/config/config.dart';
 import 'package:legal_referral_ui/src/core/constants/colors.dart';
@@ -29,9 +30,12 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
       appBar: AppBar(
         centerTitle: false,
         backgroundColor: LegalReferralColors.primaryBackground,
-        title: const Text(
+        title: Text(
           'Reset Password',
-          style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
+          style: TextStyle(
+            fontSize: 20.h,
+            fontWeight: FontWeight.w600,
+          ),
         ),
       ),
       body: BlocConsumer<AuthBloc, AuthState>(
@@ -68,13 +72,13 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                       key: _formKey,
                       child: Column(
                         children: [
-                          const SizedBox(height: 24),
+                          SizedBox(height: 24.h),
                           const Text(
                             'Enter your registered email address '
                             'o reset the password',
                           ),
-                          const SizedBox(
-                            height: 8,
+                          SizedBox(
+                            height: 8.h,
                           ),
                           CustomTextField(
                             controller: _emailController,
@@ -83,7 +87,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                             validator: (value) =>
                                 Validator.validateEmail(value),
                           ),
-                          const SizedBox(height: 24),
+                          SizedBox(height: 24.h),
                           CustomElevatedButton(
                             onTap: _submit,
                             text: 'Receive Eamil',

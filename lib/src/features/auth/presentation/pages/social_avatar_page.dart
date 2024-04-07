@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
@@ -9,10 +10,11 @@ import 'package:legal_referral_ui/src/core/config/config.dart';
 import 'package:legal_referral_ui/src/core/constants/colors.dart';
 import 'package:legal_referral_ui/src/core/validators/validators.dart';
 import 'package:legal_referral_ui/src/core/widgets/custom_button.dart';
+import 'package:legal_referral_ui/src/core/widgets/custom_snackbar.dart';
 import 'package:legal_referral_ui/src/core/widgets/custom_textfield.dart';
-import 'package:legal_referral_ui/src/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:legal_referral_ui/src/features/auth/presentation/presentation.dart';
 import 'package:legal_referral_ui/src/features/wizard/presentation/presentation.dart';
+import 'package:toastification/toastification.dart';
 
 class SocialAvatarPage extends StatefulWidget {
   const SocialAvatarPage({
@@ -40,12 +42,9 @@ class _SocialAvatarPageState extends State<SocialAvatarPage> {
       appBar: AppBar(
         centerTitle: false,
         backgroundColor: LegalReferralColors.primaryBackground,
-        title: const Text(
+        title: Text(
           'Social Avatar',
-          style: TextStyle(
-            fontWeight: FontWeight.w600,
-            fontSize: 20,
-          ),
+          style: TextStyle(fontWeight: FontWeight.w600, fontSize: 20.h),
         ),
       ),
       body: BlocConsumer<AuthBloc, AuthState>(
@@ -80,7 +79,7 @@ class _SocialAvatarPageState extends State<SocialAvatarPage> {
                               onTap: _pickFile,
                               child: _image == null
                                   ? CircleAvatar(
-                                      radius: 86,
+                                      radius: 86.r,
                                       backgroundColor:
                                           LegalReferralColors.containerWhite500,
                                       child: Column(
@@ -88,17 +87,17 @@ class _SocialAvatarPageState extends State<SocialAvatarPage> {
                                             MainAxisAlignment.center,
                                         children: [
                                           SizedBox(
-                                            height: 81,
-                                            width: 81,
+                                            height: 81.h,
+                                            width: 81.w,
                                             child: SvgPicture.asset(
                                               'assets/icons/avatar.svg',
                                             ),
                                           ),
-                                          const Text(
+                                          Text(
                                             'ADD PROFILE\nPICTURE',
                                             textAlign: TextAlign.center,
                                             style: TextStyle(
-                                              fontSize: 12,
+                                              fontSize: 12.h,
                                               fontWeight: FontWeight.w500,
                                               color: LegalReferralColors
                                                   .textBlue100,
@@ -112,8 +111,8 @@ class _SocialAvatarPageState extends State<SocialAvatarPage> {
                                       backgroundImage: FileImage(_image!),
                                     ),
                             ),
-                            const SizedBox(
-                              height: 16,
+                            SizedBox(
+                              height: 16.h,
                             ),
                             CustomTextField(
                               controller: _createPasswordController,
@@ -124,8 +123,8 @@ class _SocialAvatarPageState extends State<SocialAvatarPage> {
                                 value,
                               ),
                             ),
-                            const SizedBox(
-                              height: 16,
+                            SizedBox(
+                              height: 16.h,
                             ),
                             CustomTextField(
                               controller: _confirmPasswordController,
@@ -136,8 +135,8 @@ class _SocialAvatarPageState extends State<SocialAvatarPage> {
                                 value,
                               ),
                             ),
-                            const SizedBox(
-                              height: 24,
+                            SizedBox(
+                              height: 24.h,
                             ),
                             CustomElevatedButton(
                               onTap: _save,
@@ -169,21 +168,24 @@ class _SocialAvatarPageState extends State<SocialAvatarPage> {
 
   void _save() {
     if (_image == null) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Please select a profile picture.'),
-        ),
+      CustomSnackbar.showToast(
+        context,
+        type: ToastificationType.warning,
+        description: 'Please select a profile picture',
+        title: 'Alert',
       );
       return;
     }
 
     if (_formKey.currentState!.validate()) {
       if (_createPasswordController.text != _confirmPasswordController.text) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('Passwords do not match.'),
-          ),
+        CustomSnackbar.showToast(
+          context,
+          type: ToastificationType.error,
+          description: 'Password do not match',
+          title: 'Error',
         );
+
         return;
       }
 

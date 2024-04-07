@@ -10,6 +10,7 @@ class CustomTextField extends StatelessWidget {
     this.keyboardType = TextInputType.text,
     this.obscureText = false,
     this.validator,
+    this.maxLines = 1,
   });
 
   final FocusNode? focusNode;
@@ -19,6 +20,7 @@ class CustomTextField extends StatelessWidget {
   final TextInputType keyboardType;
   final bool obscureText;
   final String? Function(String?)? validator;
+  final int maxLines;
 
   @override
   Widget build(BuildContext context) {
@@ -41,6 +43,7 @@ class CustomTextField extends StatelessWidget {
             controller: controller,
             obscureText: obscureText,
             keyboardType: keyboardType,
+            maxLines: maxLines,
             decoration: InputDecoration(
               hintText: hintText,
               hintStyle: const TextStyle(
