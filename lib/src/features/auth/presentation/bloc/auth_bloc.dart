@@ -527,7 +527,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
             state.copyWith(
               user: user,
               authStatus: AuthStatus.signedIn,
-              userStatus: UserStatus.authorized,
             ),
           );
         }

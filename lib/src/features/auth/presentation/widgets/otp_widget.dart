@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:legal_referral_ui/src/core/constants/colors.dart';
 import 'package:pinput/pinput.dart';
 
@@ -25,58 +26,58 @@ class OtpWidget extends StatelessWidget {
   final String? errorText;
 
   final defaultPinTheme = PinTheme(
-    width: 48,
-    height: 54,
-    textStyle: const TextStyle(
-      fontSize: 20,
+    width: 48.w,
+    height: 54.h,
+    textStyle: TextStyle(
+      fontSize: 20.h,
       color: LegalReferralColors.black,
       fontWeight: FontWeight.w600,
     ),
     decoration: BoxDecoration(
       border: Border.all(color: LegalReferralColors.borderBlue300),
-      borderRadius: BorderRadius.circular(8),
+      borderRadius: BorderRadius.circular(8.r),
     ),
   );
 
   final focusedPinTheme = PinTheme(
-    width: 48,
-    height: 54,
-    textStyle: const TextStyle(
-      fontSize: 20,
+    width: 48.w,
+    height: 54.h,
+    textStyle: TextStyle(
+      fontSize: 20.h,
       color: LegalReferralColors.black,
       fontWeight: FontWeight.w600,
     ),
     decoration: BoxDecoration(
       border: Border.all(color: LegalReferralColors.borderBlue300),
-      borderRadius: BorderRadius.circular(4),
+      borderRadius: BorderRadius.circular(4.r),
     ),
   );
 
   final submittedPinTheme = PinTheme(
-    width: 48,
-    height: 54,
-    textStyle: const TextStyle(
-      fontSize: 20,
+    width: 48.w,
+    height: 54.h,
+    textStyle: TextStyle(
+      fontSize: 20.h,
       color: LegalReferralColors.textBlack,
       fontWeight: FontWeight.w600,
     ),
     decoration: BoxDecoration(
       border: Border.all(color: LegalReferralColors.borderBlue300),
-      borderRadius: BorderRadius.circular(8),
+      borderRadius: BorderRadius.circular(8.r),
       color: LegalReferralColors.containerBlue50,
     ),
   );
   final errorPinTheme = PinTheme(
-    width: 48,
-    height: 54,
-    textStyle: const TextStyle(
-      fontSize: 20,
+    width: 48.w,
+    height: 54.h,
+    textStyle: TextStyle(
+      fontSize: 20.h,
       color: LegalReferralColors.error,
       fontWeight: FontWeight.w600,
     ),
     decoration: BoxDecoration(
       border: Border.all(color: LegalReferralColors.error),
-      borderRadius: BorderRadius.circular(8),
+      borderRadius: BorderRadius.circular(8.r),
       color: LegalReferralColors.containerWhite500,
     ),
   );

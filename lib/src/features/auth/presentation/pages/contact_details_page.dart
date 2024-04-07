@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:legal_referral_ui/src/core/config/config.dart';
 import 'package:legal_referral_ui/src/core/constants/colors.dart';
 import 'package:legal_referral_ui/src/core/validators/validators.dart';
+import 'package:legal_referral_ui/src/core/widgets/custom_bottomsheet.dart';
 import 'package:legal_referral_ui/src/core/widgets/custom_button.dart';
+import 'package:legal_referral_ui/src/core/widgets/custom_snackbar.dart';
 import 'package:legal_referral_ui/src/core/widgets/custom_textfield.dart';
 import 'package:legal_referral_ui/src/features/auth/presentation/presentation.dart';
+import 'package:toastification/toastification.dart';
 
 class ContactDetailsPage extends StatefulWidget {
   const ContactDetailsPage({
@@ -31,9 +35,9 @@ class _ContactDetailsPageState extends State<ContactDetailsPage> {
       appBar: AppBar(
         backgroundColor: LegalReferralColors.primaryBackground,
         centerTitle: false,
-        title: const Text(
+        title: Text(
           'Contact Details',
-          style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
+          style: TextStyle(fontSize: 20.h, fontWeight: FontWeight.w600),
         ),
       ),
       body: BlocConsumer<AuthBloc, AuthState>(
@@ -45,10 +49,11 @@ class _ContactDetailsPageState extends State<ContactDetailsPage> {
           }
 
           if (state.mobileOTPStatus == MobileOTPStatus.failed) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: Text('${state.failure?.message}'),
-              ),
+            CustomSnackbar.showToast(
+              context,
+              title: 'Error',
+              description: state.failure?.message,
+              type: ToastificationType.error,
             );
           }
         },
@@ -61,10 +66,10 @@ class _ContactDetailsPageState extends State<ContactDetailsPage> {
                   child: Form(
                     key: _formKey,
                     child: Padding(
-                      padding: const EdgeInsets.all(16),
+                      padding: EdgeInsets.symmetric(horizontal: 16.w),
                       child: Column(
                         children: [
-                          const SizedBox(height: 24),
+                          SizedBox(height: 24.h),
                           CustomTextField(
                             focusNode: _focusNode,
                             controller: _mobileTextController,
@@ -74,7 +79,7 @@ class _ContactDetailsPageState extends State<ContactDetailsPage> {
                             validator: (value) =>
                                 Validator.validateMobile(value),
                           ),
-                          const SizedBox(height: 24),
+                          SizedBox(height: 24.h),
                           CustomElevatedButton(
                             onTap: _verifyOtp,
                             text: 'Verify OTP',
@@ -100,13 +105,11 @@ class _ContactDetailsPageState extends State<ContactDetailsPage> {
   }
 
   Future<void> _verifyMobileBottomSheet(BuildContext context) async {
-    return showModalBottomSheet(
-      isDismissible: false,
-      backgroundColor: LegalReferralColors.containerWhite500,
-      isScrollControlled: true,
-      enableDrag: false,
+    debugPrint('Verify Mobile Bottom Sheet');
+    // TODO(Satyam): Add animation to it, smooth closing and smooth opening
+    return CustomBottomSheet.show(
       context: context,
-      builder: (context) => MobileVerificationModel(
+      child: MobileVerificationModel(
         mobile: _mobileTextController.text,
         authBloc: _authBloc,
       ),

@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:legal_referral_ui/src/core/constants/colors.dart';
 import 'package:legal_referral_ui/src/core/widgets/custom_button.dart';
+import 'package:legal_referral_ui/src/core/widgets/custom_textfield.dart';
 import 'package:legal_referral_ui/src/features/profile/presentation/pages/social_avatar_page.dart';
-import 'package:legal_referral_ui/src/features/profile/presentation/widgets/customtextfield.dart';
 
 class PersonalDetailsPage extends StatelessWidget {
   PersonalDetailsPage({super.key});
@@ -19,74 +20,74 @@ class PersonalDetailsPage extends StatelessWidget {
       appBar: AppBar(
         centerTitle: false,
         backgroundColor: LegalReferralColors.primaryBackground,
-        title: const Text(
+        title: Text(
           'Share About You',
           style: TextStyle(
             fontWeight: FontWeight.w600,
-            fontSize: 20,
+            fontSize: 20.h,
           ),
         ),
       ),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
+            padding: EdgeInsets.symmetric(horizontal: 16.w),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const SizedBox(height: 24),
-                const Text(
+                SizedBox(height: 24.h),
+                Text(
                   'Personal',
                   style: TextStyle(
                     fontWeight: FontWeight.w600,
-                    fontSize: 16,
+                    fontSize: 16.h,
                   ),
                 ),
-                const SizedBox(height: 16),
+                SizedBox(height: 16.h),
                 CustomTextField(
                   controller: _firstName,
                   hintText: 'John',
                   labelText: 'First Name',
                 ),
-                const SizedBox(height: 16),
+                SizedBox(height: 16.h),
                 CustomTextField(
                   controller: _lastName,
                   hintText: 'David',
                   labelText: 'Last Name',
                 ),
-                const SizedBox(height: 16),
+                SizedBox(height: 16.h),
                 CustomTextField(
                   controller: _address,
                   hintText: 'St. Thomas Street, Anchorage, Alaska, USA',
                   labelText: 'Address',
                 ),
-                const SizedBox(height: 24),
-                const Text(
+                SizedBox(height: 24.h),
+                Text(
                   'Share About Your Experience',
                   style: TextStyle(
                     fontWeight: FontWeight.w600,
-                    fontSize: 16,
+                    fontSize: 16.h,
                   ),
                 ),
-                const SizedBox(height: 16),
+                SizedBox(height: 16.h),
                 CustomTextField(
                   controller: _practiceArea,
                   hintText: 'Real estate, Finance etc',
                   labelText: 'Practice Area',
                 ),
-                const SizedBox(height: 16),
+                SizedBox(height: 16.h),
                 CustomTextField(
                   controller: _practiceLocation,
                   hintText: 'Alaska, Florida',
                   labelText: 'Practice Location',
                 ),
-                const SizedBox(height: 16),
+                SizedBox(height: 16.h),
                 CustomTextField(
                   controller: _experience,
                   hintText: '4 years',
                   labelText: 'Experience',
                 ),
-                const SizedBox(height: 24),
+                SizedBox(height: 24.h),
                 CustomElevatedButton(
                   onTap: () {
                     Navigator.of(context).push(
@@ -97,7 +98,7 @@ class PersonalDetailsPage extends StatelessWidget {
                   },
                   text: 'Save and Proceed',
                 ),
-                const SizedBox(height: 58),
+                SizedBox(height: 58.h),
               ],
             ),
           ),

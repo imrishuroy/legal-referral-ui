@@ -8,19 +8,10 @@ import 'package:legal_referral_ui/src/core/widgets/custom_button.dart';
 import 'package:legal_referral_ui/src/core/widgets/custom_textfield.dart';
 import 'package:legal_referral_ui/src/features/auth/presentation/presentation.dart';
 
-class ForgotPasswordPage extends StatefulWidget {
-  const ForgotPasswordPage({super.key});
-
-  static const String name = 'ForgotPasswordPage';
-
-  @override
-  State<ForgotPasswordPage> createState() => _ForgotPasswordPageState();
-}
-
-class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
-  final _passwordController = TextEditingController();
-  final _confirmPasswordController = TextEditingController();
-
+class NewPasswordPage extends StatelessWidget {
+  NewPasswordPage({super.key});
+  final _password = TextEditingController();
+  final _confirmpassword = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -43,13 +34,13 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                   height: 24.h,
                 ),
                 CustomTextField(
-                  controller: _passwordController,
+                  controller: _password,
                   hintText: 'Enter new password',
                   labelText: 'New password',
                 ),
                 SizedBox(height: 8.h),
                 CustomTextField(
-                  controller: _confirmPasswordController,
+                  controller: _confirmpassword,
                   hintText: 'Confirm password',
                   labelText: 'Confirm password',
                 ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:legal_referral_ui/src/core/constants/colors.dart';
 import 'package:legal_referral_ui/src/core/utils/image_strings_util.dart';
@@ -15,9 +16,12 @@ class UploadLicensePage extends StatelessWidget {
       appBar: AppBar(
         centerTitle: false,
         backgroundColor: LegalReferralColors.primaryBackground,
-        title: const Text(
+        title: Text(
           'Upload License',
-          style: TextStyle(fontWeight: FontWeight.w600, fontSize: 20),
+          style: TextStyle(
+            fontWeight: FontWeight.w600,
+            fontSize: 20.h,
+          ),
         ),
       ),
       body: SafeArea(
@@ -28,24 +32,24 @@ class UploadLicensePage extends StatelessWidget {
               children: [
                 // ------ license upload container
                 Container(
-                  height: 150,
+                  height: 150.h,
                   width: double.infinity,
                   color: LegalReferralColors.containerWhite500,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       SizedBox(
-                        height: 24,
-                        width: 24,
+                        height: 24.h,
+                        width: 24.w,
                         child: SvgPicture.asset(
                           ImageStringsUtil.uploadIcon,
                         ),
                       ),
-                      const Text(
+                      Text(
                         'Upload license .pdf\n2 MB max',
                         textAlign: TextAlign.center,
                         style: TextStyle(
-                          fontSize: 12,
+                          fontSize: 12.h,
                           fontWeight: FontWeight.w400,
                           color: LegalReferralColors.textGrey400,
                         ),
@@ -53,40 +57,40 @@ class UploadLicensePage extends StatelessWidget {
                     ],
                   ),
                 ),
-                const SizedBox(
-                  height: 24,
+                SizedBox(
+                  height: 24.h,
                 ),
                 // uploaded file status
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text(
+                    Text(
                       'UPLOADED FILES',
                       style: TextStyle(
-                        fontSize: 12,
+                        fontSize: 12.h,
                         fontWeight: FontWeight.w400,
                         color: LegalReferralColors.textGrey500,
                       ),
                     ),
-                    const SizedBox(
-                      height: 12,
+                    SizedBox(
+                      height: 12.h,
                     ),
                     Container(
                       color: LegalReferralColors.containerWhite500,
-                      height: 44,
+                      height: 44.h,
                       width: double.infinity,
                       child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 8),
+                        padding: EdgeInsets.symmetric(horizontal: 8.w),
                         child: Row(
                           children: [
                             SvgPicture.asset(ImageStringsUtil.pdfIcon),
-                            const SizedBox(
-                              width: 8,
+                            SizedBox(
+                              width: 8.w,
                             ),
-                            const Text(
+                            Text(
                               'License.pdf',
                               style: TextStyle(
-                                fontSize: 14,
+                                fontSize: 14.h,
                                 fontWeight: FontWeight.w400,
                                 color: LegalReferralColors.textGrey500,
                               ),
@@ -99,8 +103,8 @@ class UploadLicensePage extends StatelessWidget {
                     ),
                   ],
                 ),
-                const SizedBox(
-                  height: 24,
+                SizedBox(
+                  height: 24.h,
                 ),
                 CustomElevatedButton(
                   onTap: () {

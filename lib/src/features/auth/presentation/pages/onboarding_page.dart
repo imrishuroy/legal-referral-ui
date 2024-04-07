@@ -5,6 +5,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:introduction_screen/introduction_screen.dart';
 import 'package:legal_referral_ui/src/core/config/config.dart';
+import 'package:legal_referral_ui/src/core/constants/colors.dart';
 import 'package:legal_referral_ui/src/core/widgets/custom_button.dart';
 import 'package:legal_referral_ui/src/features/auth/presentation/presentation.dart';
 
@@ -44,30 +45,30 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
                   padding: EdgeInsets.symmetric(
                     horizontal: 20.w,
                   ),
-                  child: const SizedBox(
-                    height: 262,
-                    width: 226,
-                    child: OnBoardingImage(
+                  child: SizedBox(
+                    height: 262.h,
+                    width: 226.w,
+                    child: const OnBoardingImage(
                       assetName: 'on_boarding1.svg',
                     ),
                   ),
                 ),
                 SizedBox(height: 54.h),
-                const Text(
+                Text(
                   'Access attorneys nationwide across the USA',
                   textAlign: TextAlign.left,
                   style: TextStyle(
-                    fontSize: 24,
+                    fontSize: 24.h,
                     fontWeight: FontWeight.w500,
                   ),
                 ),
                 SizedBox(height: 24.h),
-                const Text(
+                Text(
                   'Effortlessly connect with attorneys across various '
                   'practice areas spanning all states within the USA.',
                   textAlign: TextAlign.left,
                   style: TextStyle(
-                    fontSize: 16,
+                    fontSize: 16.h,
                     fontWeight: FontWeight.w400,
                   ),
                 ),
@@ -96,21 +97,21 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
                   ),
                 ),
                 SizedBox(height: 54.h),
-                const Text(
+                Text(
                   'Stay informed with the latest developments in legal news',
                   textAlign: TextAlign.left,
                   style: TextStyle(
-                    fontSize: 24,
+                    fontSize: 24.h,
                     fontWeight: FontWeight.w500,
                   ),
                 ),
                 SizedBox(height: 24.h),
-                const Text(
+                Text(
                   'Stay up to date with the latest developments in the '
                   'legal landscape, news and updates to your field',
                   textAlign: TextAlign.left,
                   style: TextStyle(
-                    fontSize: 16,
+                    fontSize: 16.h,
                     fontWeight: FontWeight.w400,
                   ),
                 ),
@@ -130,30 +131,30 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
                   padding: EdgeInsets.symmetric(
                     horizontal: 20.w,
                   ),
-                  child: const SizedBox(
-                    height: 262,
-                    width: 226,
-                    child: OnBoardingImage(
+                  child: SizedBox(
+                    height: 262.h,
+                    width: 226.w,
+                    child: const OnBoardingImage(
                       assetName: 'on_boarding3.svg',
                     ),
                   ),
                 ),
                 SizedBox(height: 54.h),
-                const Text(
+                Text(
                   'Access attorney referrals from across the entire USA',
                   textAlign: TextAlign.left,
                   style: TextStyle(
-                    fontSize: 24,
+                    fontSize: 24.h,
                     fontWeight: FontWeight.w500,
                   ),
                 ),
                 SizedBox(height: 24.h),
-                const Text(
+                Text(
                   'Obtain trusted referrals from an extensive network of '
                   'attorneys spanning every region of the USA',
                   textAlign: TextAlign.left,
                   style: TextStyle(
-                    fontSize: 16,
+                    fontSize: 16.h,
                     fontWeight: FontWeight.w400,
                   ),
                 ),
@@ -189,7 +190,7 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
                   decorator: DotsDecorator(
                     activeSize: Size(22.w, 7.h),
                     activeShape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(5),
+                      borderRadius: BorderRadius.circular(5.r),
                     ),
                     activeColor: const Color(0xff599ed9),
                   ),
@@ -199,7 +200,7 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
             SizedBox(height: 24.h),
             Row(
               children: [
-                const SizedBox(width: 10),
+                SizedBox(width: 10.w),
                 Expanded(
                   child: CustomElevatedButton(
                     onTap: () async {
@@ -213,7 +214,7 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
                     text: 'LOG IN',
                   ),
                 ),
-                const SizedBox(width: 10),
+                SizedBox(width: 10.w),
                 Expanded(
                   child: CustomElevatedButton(
                     onTap: () async {
@@ -229,11 +230,11 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
                     text: 'REGISTER',
                   ),
                 ),
-                const SizedBox(width: 10),
+                SizedBox(width: 10.w),
               ],
             ),
-            const SizedBox(height: 24),
-            TextButton(
+            SizedBox(height: 24.h),
+            CustomTextButton(
               onPressed: () async {
                 await SharedPrefs.setOnBoarding(onBoarding: true);
                 if (context.mounted) {
@@ -242,13 +243,10 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
                   );
                 }
               },
-              child: const Text(
-                'SKIP',
-                style: TextStyle(
-                  fontWeight: FontWeight.w600,
-                  color: Colors.black,
-                ),
-              ),
+              text: 'SKIP',
+              fontSize: 14.h,
+              fontWeight: FontWeight.w600,
+              textColor: LegalReferralColors.black,
             ),
           ],
         ),
@@ -271,7 +269,7 @@ class OnBoardingImage extends StatelessWidget {
   Widget build(BuildContext context) {
     return SvgPicture.asset(
       'assets/images/$assetName',
-      width: width,
+      width: width.w,
     );
   }
 }
