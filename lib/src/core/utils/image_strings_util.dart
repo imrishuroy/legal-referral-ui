@@ -13,6 +13,7 @@ class ImageStringsUtil {
   static const String uploadIcon = 'assets/icons/upload.svg';
   static const String pdfIcon = 'assets/icons/pdfIcon.svg';
   static const String deleteIcon = 'assets/icons/deleteIcon.svg';
+  static const String editIcon = 'assets/icons/editIcon.svg';
 
   // -- Brand Icons
 

@@ -157,6 +157,9 @@ class _LicenseDetailPageState extends State<LicenseDetailPage> {
             },
             text: 'Continue',
           ),
+          SizedBox(
+            height: 24.h,
+          ),
         ],
       ),
     );
