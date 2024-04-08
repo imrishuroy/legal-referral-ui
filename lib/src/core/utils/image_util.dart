@@ -29,7 +29,6 @@ class ImageUtil {
 
       final uploadTask = await ref.putFile(io.File(file.path), metadata);
 
-      await Future.delayed(const Duration(seconds: 2));
       if (uploadTask.state == TaskState.success) {
         downloadUrl = await uploadTask.ref.getDownloadURL();
       }

@@ -53,7 +53,7 @@ extension GetItInjectableX on _i1.GetIt {
         () => _i10.AuthUseCase(authRepository: gh<_i8.AuthRepository>()));
     gh.lazySingleton<_i11.WizardUseCase>(
         () => _i11.WizardUseCase(wizardRepository: gh<_i6.WizardRepository>()));
-    gh.singleton<_i12.AuthBloc>(
+    gh.lazySingleton<_i12.AuthBloc>(
         () => _i12.AuthBloc(authUseCase: gh<_i8.AuthUseCase>()));
     gh.factory<_i13.WizardBloc>(
         () => _i13.WizardBloc(wizardUseCase: gh<_i11.WizardUseCase>()));

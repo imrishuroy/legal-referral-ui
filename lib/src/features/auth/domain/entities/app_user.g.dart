@@ -16,9 +16,8 @@ _$AppUserImpl _$$AppUserImplFromJson(Map<String, dynamic> json) =>
       mobileVerified: json['mobile_verified'] as bool? ?? false,
       wizardStep: json['wizard_step'] as int? ?? 0,
       wizardCompleted: json['wizard_completed'] as bool? ?? false,
-      joinDate: json['join_date'] == null
-          ? null
-          : DateTime.parse(json['join_date'] as String),
+      joinDate: _$JsonConverterFromJson<String, DateTime?>(
+          json['join_date'], const DateTimeConverter().fromJson),
       mobile: json['mobile'] as String?,
       address: json['address'] as String?,
       imageUrl: json['image_url'] as String?,
@@ -40,3 +39,9 @@ Map<String, dynamic> _$$AppUserImplToJson(_$AppUserImpl instance) =>
       'image_url': instance.imageUrl,
       'user_id': instance.userId,
     };
+
+Value? _$JsonConverterFromJson<Json, Value>(
+  Object? json,
+  Value? Function(Json json) fromJson,
+) =>
+    json == null ? null : fromJson(json as Json);

@@ -12,6 +12,7 @@ import 'package:legal_referral_ui/src/core/widgets/custom_snackbar.dart';
 import 'package:legal_referral_ui/src/core/widgets/custom_textfield.dart';
 import 'package:legal_referral_ui/src/features/auth/presentation/presentation.dart';
 import 'package:legal_referral_ui/src/features/home_page.dart';
+import 'package:legal_referral_ui/src/features/wizard/presentation/presentation.dart';
 import 'package:toastification/toastification.dart';
 
 class SignInPage extends StatefulWidget {
@@ -35,7 +36,8 @@ class _SignInPageState extends State<SignInPage> {
       body: SafeArea(
         child: BlocConsumer<AuthBloc, AuthState>(
           bloc: _authBloc,
-          listener: (context, state) {
+          listener: (_, state) {
+            AppLogger.info('User from sign in page: ${state.user}');
             if (state.authStatus == AuthStatus.signedIn &&
                 state.user?.mobileVerified == false) {
               context.goNamed(ContactDetailsPage.name);
@@ -44,6 +46,12 @@ class _SignInPageState extends State<SignInPage> {
             if (state.authStatus == AuthStatus.signedIn &&
                 state.user?.wizardCompleted == true) {
               context.goNamed(HomePage.name);
+            }
+
+            if (state.authStatus == AuthStatus.signedIn &&
+                state.user?.wizardCompleted == false) {
+              AppLogger.info('User from sign in page 2: ${state.user}');
+              context.goNamed(WizardInspectionPage.name);
             }
 
             if (state.authStatus == AuthStatus.failure) {

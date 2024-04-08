@@ -18,12 +18,14 @@ class WizardInspectionPage extends StatefulWidget {
 }
 
 class _WizardInspectionPageState extends State<WizardInspectionPage> {
-  final _authBloc = getIt<AuthBloc>();
+  late final AuthBloc _authBloc;
   final _wizardBloc = getIt<WizardBloc>();
 
   @override
   void initState() {
+    _authBloc = getIt<AuthBloc>();
     final user = _authBloc.state.user;
+
     AppLogger.info('User from wizard inspection page: $user');
 
     if (user?.userId != null) {

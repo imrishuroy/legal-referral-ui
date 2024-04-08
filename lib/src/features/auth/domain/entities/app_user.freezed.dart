@@ -35,6 +35,7 @@ mixin _$AppUser {
   int get wizardStep => throw _privateConstructorUsedError;
   @JsonKey(name: 'wizard_completed')
   bool get wizardCompleted => throw _privateConstructorUsedError;
+  @DateTimeConverter()
   @JsonKey(name: 'join_date', includeToJson: false)
   DateTime? get joinDate => throw _privateConstructorUsedError;
   String? get mobile => throw _privateConstructorUsedError;
@@ -63,7 +64,9 @@ abstract class $AppUserCopyWith<$Res> {
       @JsonKey(name: 'mobile_verified') bool mobileVerified,
       @JsonKey(name: 'wizard_step') int wizardStep,
       @JsonKey(name: 'wizard_completed') bool wizardCompleted,
-      @JsonKey(name: 'join_date', includeToJson: false) DateTime? joinDate,
+      @DateTimeConverter()
+      @JsonKey(name: 'join_date', includeToJson: false)
+      DateTime? joinDate,
       String? mobile,
       String? address,
       @JsonKey(name: 'image_url') String? imageUrl,
@@ -170,7 +173,9 @@ abstract class _$$AppUserImplCopyWith<$Res> implements $AppUserCopyWith<$Res> {
       @JsonKey(name: 'mobile_verified') bool mobileVerified,
       @JsonKey(name: 'wizard_step') int wizardStep,
       @JsonKey(name: 'wizard_completed') bool wizardCompleted,
-      @JsonKey(name: 'join_date', includeToJson: false) DateTime? joinDate,
+      @DateTimeConverter()
+      @JsonKey(name: 'join_date', includeToJson: false)
+      DateTime? joinDate,
       String? mobile,
       String? address,
       @JsonKey(name: 'image_url') String? imageUrl,
@@ -271,7 +276,9 @@ class _$AppUserImpl implements _AppUser {
       @JsonKey(name: 'mobile_verified') this.mobileVerified = false,
       @JsonKey(name: 'wizard_step') this.wizardStep = 0,
       @JsonKey(name: 'wizard_completed') this.wizardCompleted = false,
-      @JsonKey(name: 'join_date', includeToJson: false) this.joinDate,
+      @DateTimeConverter()
+      @JsonKey(name: 'join_date', includeToJson: false)
+      this.joinDate,
       this.mobile,
       this.address,
       @JsonKey(name: 'image_url') this.imageUrl,
@@ -304,6 +311,7 @@ class _$AppUserImpl implements _AppUser {
   @JsonKey(name: 'wizard_completed')
   final bool wizardCompleted;
   @override
+  @DateTimeConverter()
   @JsonKey(name: 'join_date', includeToJson: false)
   final DateTime? joinDate;
   @override
@@ -393,6 +401,7 @@ abstract class _AppUser implements AppUser {
       @JsonKey(name: 'mobile_verified') final bool mobileVerified,
       @JsonKey(name: 'wizard_step') final int wizardStep,
       @JsonKey(name: 'wizard_completed') final bool wizardCompleted,
+      @DateTimeConverter()
       @JsonKey(name: 'join_date', includeToJson: false)
       final DateTime? joinDate,
       final String? mobile,
@@ -426,6 +435,7 @@ abstract class _AppUser implements AppUser {
   @JsonKey(name: 'wizard_completed')
   bool get wizardCompleted;
   @override
+  @DateTimeConverter()
   @JsonKey(name: 'join_date', includeToJson: false)
   DateTime? get joinDate;
   @override

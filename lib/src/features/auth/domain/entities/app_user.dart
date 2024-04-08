@@ -1,4 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:legal_referral_ui/src/core/utils/utils.dart';
 
 part 'app_user.freezed.dart';
 part 'app_user.g.dart';
@@ -14,7 +15,9 @@ class AppUser with _$AppUser {
     @JsonKey(name: 'mobile_verified') @Default(false) bool mobileVerified,
     @JsonKey(name: 'wizard_step') @Default(0) int wizardStep,
     @JsonKey(name: 'wizard_completed') @Default(false) bool wizardCompleted,
-    @JsonKey(name: 'join_date', includeToJson: false) DateTime? joinDate,
+    @DateTimeConverter()
+    @JsonKey(name: 'join_date', includeToJson: false)
+    DateTime? joinDate,
     String? mobile,
     String? address,
     @JsonKey(name: 'image_url') String? imageUrl,
@@ -23,4 +26,17 @@ class AppUser with _$AppUser {
 
   factory AppUser.fromJson(Map<String, dynamic> json) =>
       _$AppUserFromJson(json);
+}
+
+class DateTimeConverter implements JsonConverter<DateTime?, String> {
+  const DateTimeConverter();
+  @override
+  DateTime fromJson(String json) {
+    return DateTimeUtil.getFormatedDateTime(json);
+  }
+
+  @override
+  String toJson(DateTime? object) {
+    return '';
+  }
 }

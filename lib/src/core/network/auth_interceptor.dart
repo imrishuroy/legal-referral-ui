@@ -26,12 +26,19 @@ class AuthInterceptor extends Interceptor {
   }
 
   @override
-  void onResponse(Response response, ResponseInterceptorHandler handler) {
+  Future<void> onResponse(
+    Response response,
+    ResponseInterceptorHandler handler,
+  ) async {
     // final prefs = getIt<SharedPreferences>();
     // final refreshToken = response.headers.value('token');
     // if (refreshToken != null) {
     //   prefs.setString('accessToken', refreshToken);
     // }
+
+    if (response.statusCode == 401) {
+      await LogoutManager.performLogout();
+    }
 
     super.onResponse(response, handler);
   }
