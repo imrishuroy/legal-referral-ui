@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
+import 'package:legal_referral_ui/src/core/config/config.dart';
 import 'package:legal_referral_ui/src/core/constants/constants.dart';
 import 'package:legal_referral_ui/src/core/utils/utils.dart';
 import 'package:legal_referral_ui/src/core/widgets/custom_button.dart';
@@ -13,11 +14,13 @@ class EmailVerificationModal extends StatefulWidget {
   const EmailVerificationModal({
     required this.email,
     required this.authBloc,
+    this.isFromResetPassword = false,
     super.key,
   });
 
   final String email;
   final AuthBloc authBloc;
+  final bool isFromResetPassword;
 
   @override
   State<EmailVerificationModal> createState() => _EmailVerificationModalState();
@@ -77,9 +80,24 @@ class _EmailVerificationModalState extends State<EmailVerificationModal> {
                         CustomElevatedButton(
                           onTap: () {
                             context.pop();
-                            context.goNamed(ContactDetailsPage.name);
+                            AppLogger.info(
+                              'is from reset password: '
+                              '${widget.isFromResetPassword}',
+                            );
+                            if (widget.isFromResetPassword) {
+                              context.goNamed(
+                                NewPasswordPage.name,
+                                pathParameters: {
+                                  'email': widget.email,
+                                },
+                              );
+                            } else {
+                              context.goNamed(ContactDetailsPage.name);
+                            }
                           },
-                          text: 'Continue',
+                          text: widget.isFromResetPassword
+                              ? 'Set New Password'
+                              : 'Continue',
                         ),
                       ],
                     );
@@ -168,7 +186,9 @@ class _EmailVerificationModalState extends State<EmailVerificationModal> {
                                 textColor: LegalReferralColors.textBlue100,
                                 onPressed: () {
                                   widget.authBloc.add(
-                                    EmailOTPSent(),
+                                    EmailOTPSent(
+                                      email: widget.email,
+                                    ),
                                   );
                                 },
                               ),

@@ -30,6 +30,12 @@ class _SignInPageState extends State<SignInPage> {
   final _authBloc = getIt<AuthBloc>();
 
   @override
+  void initState() {
+    _authBloc.add(AuthInitialized());
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: LegalReferralColors.primaryBackground,
@@ -58,7 +64,7 @@ class _SignInPageState extends State<SignInPage> {
               CustomSnackbar.showToast(
                 context,
                 title: 'Error',
-                description: state.failure?.message,
+                description: state.failure?.message ?? 'Failed to sign in',
                 type: ToastificationType.error,
               );
             }

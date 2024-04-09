@@ -100,6 +100,17 @@ class AuthDataSource {
     }
   }
 
+  Future<ResponseMsg?> resetPassword({
+    required ResetPasswordReq resetPasswordReq,
+  }) async {
+    try {
+      final response = await _apiClient.resetPassword(resetPasswordReq);
+      return response;
+    } catch (_) {
+      rethrow;
+    }
+  }
+
   Future<AppUser?> getUser({
     required String userId,
   }) async {

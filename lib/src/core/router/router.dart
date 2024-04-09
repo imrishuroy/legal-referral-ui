@@ -79,6 +79,21 @@ class AppRouter {
         ),
       ),
       GoRoute(
+        path: '/new-password/:email',
+        name: NewPasswordPage.name,
+        parentNavigatorKey: _rootNavigatorKey,
+        pageBuilder: (context, state) => CustomTransitionPage(
+          child: NewPasswordPage(
+            email: state.pathParameters['email']!,
+          ),
+          transitionDuration: const Duration(
+            seconds: 2,
+          ),
+          transitionsBuilder: (_, a, __, c) =>
+              FadeTransition(opacity: a, child: c),
+        ),
+      ),
+      GoRoute(
         path: '/contact-details',
         name: ContactDetailsPage.name,
         parentNavigatorKey: _rootNavigatorKey,

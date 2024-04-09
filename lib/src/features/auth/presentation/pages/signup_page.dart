@@ -46,19 +46,25 @@ class _SignUpPageState extends State<SignUpPage> {
         bloc: _authBloc,
         listener: (_, state) async {
           if (state.emailOTPStatus == EmailOTPStatus.sent) {
-            await _verifyEmailBottomSheet(context);
+            await CustomBottomSheet.show(
+              context: context,
+              child: EmailVerificationModal(
+                email: _emailController.text,
+                authBloc: _authBloc,
+              ),
+            );
           }
           if (state.emailOTPStatus == EmailOTPStatus.failure) {
             if (!context.mounted) return;
             CustomSnackbar.showToast(
               context,
               title: 'Error',
-              description: state.failure?.message,
+              description: state.failure?.message ?? 'Failed to send OTP',
               type: ToastificationType.error,
             );
           }
         },
-        builder: (_, state) {
+        builder: (context, state) {
           AppLogger.debug('Auth Bloc SignUp Page $state');
           return SafeArea(
             child: state.emailOTPStatus == EmailOTPStatus.loading
@@ -159,16 +165,6 @@ class _SignUpPageState extends State<SignUpPage> {
         ),
       );
     }
-  }
-
-  Future<void> _verifyEmailBottomSheet(BuildContext context) async {
-    return CustomBottomSheet.show(
-      context: context,
-      child: EmailVerificationModal(
-        email: _emailController.text,
-        authBloc: _authBloc,
-      ),
-    );
   }
 
   @override

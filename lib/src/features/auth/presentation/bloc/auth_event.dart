@@ -78,16 +78,24 @@ class AuthUserCreated extends AuthEvent {
 
 class AuthSignOutRequested extends AuthEvent {}
 
-class EmailOTPSent extends AuthEvent {}
+class EmailOTPSent extends AuthEvent {
+  const EmailOTPSent({
+    required this.email,
+  });
+  final String email;
+}
 
 class EmailOTPVerified extends AuthEvent {
   const EmailOTPVerified({
     required this.otp,
-    this.email,
+    required this.email,
   });
 
-  final String? email;
+  final String email;
   final String otp;
+
+  @override
+  List<Object> get props => [email, otp];
 }
 
 class MobileOTPRSent extends AuthEvent {
@@ -114,13 +122,15 @@ class MobileOTPVerified extends AuthEvent {
   List<Object> get props => [otp, mobile];
 }
 
-class AuthResetPassword extends AuthEvent {
-  const AuthResetPassword({
+class PasswordChanged extends AuthEvent {
+  const PasswordChanged({
     required this.email,
+    required this.password,
   });
 
   final String email;
+  final String password;
 
   @override
-  List<Object> get props => [email];
+  List<Object> get props => [email, password];
 }

@@ -52,7 +52,7 @@ class _ContactDetailsPageState extends State<ContactDetailsPage> {
             CustomSnackbar.showToast(
               context,
               title: 'Error',
-              description: state.failure?.message,
+              description: state.failure?.message ?? 'Failed to send OTP',
               type: ToastificationType.error,
             );
           }

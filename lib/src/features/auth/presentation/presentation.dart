@@ -1,6 +1,6 @@
 export 'bloc/auth_bloc.dart';
 export 'pages/contact_details_page.dart';
-export 'pages/forgor_password_page.dart';
+export 'pages/new_password_page.dart';
 export 'pages/onboarding_page.dart';
 export 'pages/reset_password_page.dart';
 export 'pages/signin_page.dart';
@@ -9,3 +9,4 @@ export 'pages/social_avatar_page.dart';
 export 'pages/splash_page.dart';
 export 'widgets/email_verification_model.dart';
 export 'widgets/mobile_verification_model.dart';
+export 'widgets/password_reseted_model.dart';

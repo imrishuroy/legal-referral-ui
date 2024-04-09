@@ -1,17 +1,36 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:legal_referral_ui/src/core/config/config.dart';
 import 'package:legal_referral_ui/src/core/constants/colors.dart';
-import 'package:legal_referral_ui/src/core/utils/image_strings_util.dart';
 import 'package:legal_referral_ui/src/core/widgets/custom_bottomsheet.dart';
 import 'package:legal_referral_ui/src/core/widgets/custom_button.dart';
+import 'package:legal_referral_ui/src/core/widgets/custom_snackbar.dart';
 import 'package:legal_referral_ui/src/core/widgets/custom_textfield.dart';
 import 'package:legal_referral_ui/src/features/auth/presentation/presentation.dart';
+import 'package:toastification/toastification.dart';
 
-class NewPasswordPage extends StatelessWidget {
-  NewPasswordPage({super.key});
-  final _password = TextEditingController();
-  final _confirmpassword = TextEditingController();
+class NewPasswordPage extends StatefulWidget {
+  const NewPasswordPage({
+    required this.email,
+    super.key,
+  });
+
+  final String email;
+
+  static const String name = 'NewPasswordPage';
+
+  @override
+  State<NewPasswordPage> createState() => _NewPasswordPageState();
+}
+
+class _NewPasswordPageState extends State<NewPasswordPage> {
+  final _formKey = GlobalKey<FormState>();
+  final _passwordController = TextEditingController();
+  final _confirmPasswordController = TextEditingController();
+
+  final _authBloc = getIt<AuthBloc>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,76 +43,101 @@ class NewPasswordPage extends StatelessWidget {
           style: TextStyle(fontSize: 20.h, fontWeight: FontWeight.w600),
         ),
       ),
-      body: SafeArea(
-        child: SingleChildScrollView(
-          child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 19.w),
-            child: Column(
-              children: [
-                SizedBox(
-                  height: 24.h,
-                ),
-                CustomTextField(
-                  controller: _password,
-                  hintText: 'Enter new password',
-                  labelText: 'New password',
-                ),
-                SizedBox(height: 8.h),
-                CustomTextField(
-                  controller: _confirmpassword,
-                  hintText: 'Confirm password',
-                  labelText: 'Confirm password',
-                ),
-                SizedBox(
-                  height: 24.h,
-                ),
-                CustomElevatedButton(
-                  onTap: () => successBottomSheet(context),
-                  text: 'Reset Password',
-                ),
-              ],
-            ),
-          ),
-        ),
+      body: BlocConsumer<AuthBloc, AuthState>(
+        bloc: _authBloc,
+        listener: (context, state) {
+          if (state.resetPasswordStatus == ResetPasswordStatus.success) {
+            CustomBottomSheet.show(
+              context: context,
+              child: const PasswordResetModel(),
+            );
+          }
+
+          if (state.resetPasswordStatus == ResetPasswordStatus.failed) {
+            CustomSnackbar.showToast(
+              context,
+              title: 'Error',
+              description: state.failure?.message ?? 'Failed to reset password',
+              type: ToastificationType.error,
+            );
+          }
+        },
+        builder: (context, state) {
+          return state.resetPasswordStatus == ResetPasswordStatus.loading
+              ? const Center(
+                  child: CircularProgressIndicator(),
+                )
+              : SafeArea(
+                  child: SingleChildScrollView(
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 19.w),
+                      child: Form(
+                        key: _formKey,
+                        child: Column(
+                          children: [
+                            SizedBox(
+                              height: 24.h,
+                            ),
+                            CustomTextField(
+                              controller: _passwordController,
+                              hintText: 'Enter new password',
+                              labelText: 'New password',
+                              obscureText: true,
+                            ),
+                            SizedBox(height: 8.h),
+                            CustomTextField(
+                              controller: _confirmPasswordController,
+                              hintText: 'Confirm password',
+                              labelText: 'Confirm password',
+                              obscureText: true,
+                            ),
+                            SizedBox(
+                              height: 24.h,
+                            ),
+                            CustomElevatedButton(
+                              onTap: _resetPassword,
+                              text: 'Reset Password',
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                );
+        },
       ),
     );
   }
 
-  Future<dynamic> successBottomSheet(BuildContext context) {
-    return CustomBottomSheet.show(
-      context: context,
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          SizedBox(height: 24.h),
-          SizedBox(
-            height: 114.h,
-            width: 114.w,
-            child: SvgPicture.asset(
-              ImageStringsUtil.successLogo,
-            ),
-          ),
-          SizedBox(height: 24.h),
-          Text(
-            'New Password Saved',
-            style: TextStyle(
-              fontSize: 24.h,
-              fontWeight: FontWeight.w600,
-            ),
-          ),
-          SizedBox(height: 40.h),
-          CustomElevatedButton(
-            onTap: () {
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (context) => const SignInPage(),
-                ),
-              );
-            },
-            text: 'Log In',
-          ),
-        ],
-      ),
-    );
+  void _resetPassword() {
+    FocusScope.of(context).unfocus();
+    if (_formKey.currentState!.validate()) {
+      final password = _passwordController.text.trim();
+      final confirmPassword = _confirmPasswordController.text.trim();
+
+      if (password != confirmPassword) {
+        CustomSnackbar.showToast(
+          context,
+          title: 'Error',
+          description: 'Passwords do not match',
+          type: ToastificationType.error,
+        );
+        return;
+      }
+
+      _authBloc.add(
+        PasswordChanged(
+          email: widget.email,
+          password: password,
+        ),
+      );
+    }
+  }
+
+  @override
+  void dispose() {
+    _passwordController.dispose();
+    _confirmPasswordController.dispose();
+    super.dispose();
   }
 }
