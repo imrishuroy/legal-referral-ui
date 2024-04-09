@@ -1,19 +1,35 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:legal_referral_ui/src/core/constants/colors.dart';
 import 'package:legal_referral_ui/src/core/utils/utils.dart';
 
-class EditProfilePicture extends StatelessWidget {
-  const EditProfilePicture({super.key});
+class EditProfileAvatar extends StatelessWidget {
+  const EditProfileAvatar({
+    required this.image,
+    required this.onEdit,
+    required this.onDelete,
+    super.key,
+  });
+
+  final File? image;
+  final VoidCallback onEdit;
+  final VoidCallback onDelete;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: LegalReferralColors.primaryBackground,
-      appBar: AppBar(
-        title: const Text('Profile Picture'),
-        backgroundColor: LegalReferralColors.primaryBackground,
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(kToolbarHeight),
+        child: AppBar(
+          title: const Text('Profile Picture'),
+          backgroundColor: LegalReferralColors.primaryBackground,
+          centerTitle: false,
+          titleSpacing: 0,
+        ),
       ),
       body: Column(
         children: [
@@ -24,9 +40,12 @@ class EditProfilePicture extends StatelessWidget {
             child: CircleAvatar(
               radius: 148.5.r,
               backgroundColor: LegalReferralColors.containerWhite500,
-              child: SvgPicture.asset(
-                'assets/icons/avatar.svg',
-              ),
+              backgroundImage: image != null ? FileImage(image!) : null,
+              child: image == null
+                  ? SvgPicture.asset(
+                      'assets/icons/avatar.svg',
+                    )
+                  : null,
             ),
           ),
           const Spacer(),
@@ -41,7 +60,7 @@ class EditProfilePicture extends StatelessWidget {
                   splashColor: Colors.transparent,
                   highlightColor: Colors.transparent,
                   hoverColor: Colors.transparent,
-                  onTap: () {},
+                  onTap: onEdit,
                   child: Column(
                     children: [
                       SvgPicture.asset(ImageStringsUtil.editIcon),
@@ -60,7 +79,7 @@ class EditProfilePicture extends StatelessWidget {
                   splashColor: Colors.transparent,
                   highlightColor: Colors.transparent,
                   hoverColor: Colors.transparent,
-                  onTap: () {},
+                  onTap: onDelete,
                   child: Column(
                     children: [
                       SvgPicture.asset(ImageStringsUtil.deleteIcon),

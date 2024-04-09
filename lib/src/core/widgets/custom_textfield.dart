@@ -11,6 +11,7 @@ class CustomTextField extends StatelessWidget {
     this.obscureText = false,
     this.validator,
     this.maxLines = 1,
+    this.enabled = true,
   });
 
   final FocusNode? focusNode;
@@ -21,6 +22,7 @@ class CustomTextField extends StatelessWidget {
   final bool obscureText;
   final String? Function(String?)? validator;
   final int maxLines;
+  final bool enabled;
 
   @override
   Widget build(BuildContext context) {
@@ -44,6 +46,12 @@ class CustomTextField extends StatelessWidget {
             obscureText: obscureText,
             keyboardType: keyboardType,
             maxLines: maxLines,
+            enabled: enabled,
+            style: const TextStyle(
+              fontWeight: FontWeight.w400,
+              fontSize: 14,
+              color: Color.fromRGBO(0, 0, 0, 1),
+            ),
             decoration: InputDecoration(
               hintText: hintText,
               hintStyle: const TextStyle(
@@ -58,6 +66,12 @@ class CustomTextField extends StatelessWidget {
                 borderRadius: BorderRadius.circular(4),
               ),
               focusedBorder: OutlineInputBorder(
+                borderSide: const BorderSide(
+                  color: Color.fromRGBO(131, 166, 193, 1),
+                ),
+                borderRadius: BorderRadius.circular(4),
+              ),
+              disabledBorder: OutlineInputBorder(
                 borderSide: const BorderSide(
                   color: Color.fromRGBO(131, 166, 193, 1),
                 ),

@@ -7,6 +7,7 @@ import 'package:legal_referral_ui/src/core/config/config.dart';
 import 'package:legal_referral_ui/src/core/constants/colors.dart';
 import 'package:legal_referral_ui/src/core/utils/utils.dart';
 import 'package:legal_referral_ui/src/core/widgets/custom_button.dart';
+import 'package:legal_referral_ui/src/core/widgets/custom_loading_indicator.dart';
 import 'package:legal_referral_ui/src/core/widgets/custom_snackbar.dart';
 import 'package:legal_referral_ui/src/features/auth/presentation/presentation.dart';
 import 'package:legal_referral_ui/src/features/wizard/presentation/presentation.dart';
@@ -45,7 +46,7 @@ class _UploadLicensePageState extends State<UploadLicensePage> {
         bloc: widget.wizardBloc,
         builder: (context, state) {
           return state.wizardStatus == WizardStatus.loading
-              ? const Center(child: CircularProgressIndicator())
+              ? const CustomLoadingIndicator()
               : SafeArea(
                   child: SingleChildScrollView(
                     child: Padding(
@@ -190,10 +191,11 @@ class _UploadLicensePageState extends State<UploadLicensePage> {
         });
       } else {
         if (context.mounted) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: Text('File size exceeds 2 MB.'),
-            ),
+          CustomSnackbar.showToast(
+            context,
+            type: ToastificationType.error,
+            description: 'File size exceeds 2 MB.',
+            title: 'Error',
           );
         }
       }

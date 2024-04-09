@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:legal_referral_ui/src/core/config/config.dart';
 import 'package:legal_referral_ui/src/core/constants/constants.dart';
 import 'package:legal_referral_ui/src/core/widgets/custom_button.dart';
+import 'package:legal_referral_ui/src/core/widgets/custom_loading_indicator.dart';
 import 'package:legal_referral_ui/src/core/widgets/custom_textfield.dart';
 import 'package:legal_referral_ui/src/features/auth/presentation/presentation.dart';
 import 'package:legal_referral_ui/src/features/home_page.dart';
@@ -57,9 +58,7 @@ class _ShareAboutYouPageState extends State<ShareAboutYouPage> {
         },
         builder: (context, state) {
           return state.wizardStatus == WizardStatus.loading
-              ? const Center(
-                  child: CircularProgressIndicator(),
-                )
+              ? const CustomLoadingIndicator()
               : SafeArea(
                   child: SingleChildScrollView(
                     child: Form(

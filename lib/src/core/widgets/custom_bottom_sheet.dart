@@ -1,34 +1,31 @@
-// import 'package:flutter/material.dart';
-// import 'package:legal_referral_ui/src/core/constants/constants.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:legal_referral_ui/src/core/constants/colors.dart';
 
-// class CustomBottomSheet {
-//   static Future<dynamic> show({
-//     required BuildContext context,
-//     required Widget child,
-//     bool isScrollControlled = true,
-//   }) {
-//     return showModalBottomSheet(
-//       // constraints: BoxConstraints(
-//       //   maxWidth: MediaQuery.of(context).size.width - 32,
-//       // ),
-//       backgroundColor: LegalReferralColors.containerWhite500,
-//       isScrollControlled: isScrollControlled,
-//       enableDrag: false,
-//       context: context,
-//       builder: (context) => Padding(
-//         padding: EdgeInsets.only(
-//           left: 16,
-//           right: 16,
-//           bottom: MediaQuery.of(context).viewInsets.bottom,
-//         ),
-//         child: child,
-
-//         // Column(
-//         //   crossAxisAlignment: CrossAxisAlignment.start,
-//         //   mainAxisSize: MainAxisSize.min,
-//         //   children: children,
-//         // ),
-//       ),
-//     );
-//   }
-// }
+class CustomBottomSheet {
+  static Future<dynamic> show({
+    required BuildContext context,
+    required Widget child,
+    bool isScrollControlled = true,
+  }) {
+    return showModalBottomSheet(
+      constraints: BoxConstraints(
+        maxWidth: MediaQuery.of(context).size.width - 32.w,
+      ),
+      isDismissible: false,
+      backgroundColor: LegalReferralColors.containerWhite500,
+      enableDrag: false,
+      isScrollControlled: isScrollControlled,
+      context: context,
+      builder: (context) => Padding(
+        padding: EdgeInsets.only(
+          left: 16.w,
+          right: 16.w,
+          // bottom: MediaQuery.of(context).viewInsets.bottom,
+          // bottom: MediaQuery.of(context).viewInsets.bottom.h,
+        ),
+        child: child,
+      ),
+    );
+  }
+}

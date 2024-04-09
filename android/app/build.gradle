@@ -51,7 +51,6 @@ android {
         targetSdkVersion 33
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
-        manifestPlaceholders += [auth0Domain: "dev-5c6eook6rrlaobtv.us.auth0.com", auth0Scheme: "https"]
     }
 
     // signingConfigs {
