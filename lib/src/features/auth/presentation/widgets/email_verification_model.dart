@@ -70,7 +70,7 @@ class _EmailVerificationModalState extends State<EmailVerificationModal> {
                         ),
                         SizedBox(height: 24.h),
                         const Text(
-                          'E-mail verified',
+                          'Verified',
                           style: TextStyle(
                             fontSize: 24,
                             fontWeight: FontWeight.w600,
@@ -110,10 +110,10 @@ class _EmailVerificationModalState extends State<EmailVerificationModal> {
                         children: [
                           Row(
                             children: [
-                              const Text(
+                              Text(
                                 'Enter OTP',
                                 style: TextStyle(
-                                  fontSize: 20,
+                                  fontSize: 20.h,
                                   fontWeight: FontWeight.w600,
                                 ),
                               ),
@@ -142,10 +142,10 @@ class _EmailVerificationModalState extends State<EmailVerificationModal> {
                           SizedBox(
                             height: 24.h,
                           ),
-                          const Text(
-                            ' 4 digit OTP has been send to ',
+                          Text(
+                            '4 digit OTP has been send to ',
                             style: TextStyle(
-                              fontSize: 14,
+                              fontSize: 14.h,
                               fontWeight: FontWeight.w400,
                             ),
                           ),

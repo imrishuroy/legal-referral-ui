@@ -121,7 +121,7 @@ class _SignUpPageState extends State<SignUpPage> {
                             SizedBox(height: 24.h),
                             CustomElevatedButton(
                               onTap: _signUp,
-                              text: 'Sign Up',
+                              text: 'Verify Email',
                             ),
                             SizedBox(height: 24.h),
                             Row(

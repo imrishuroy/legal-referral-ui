@@ -136,7 +136,7 @@ class _MobileVerificationModelState extends State<MobileVerificationModel> {
                             height: 24.h,
                           ),
                           Text(
-                            ' 4 digit OTP has been send to ',
+                            '4 digit OTP has been send to ',
                             style: TextStyle(
                               fontSize: 14.h,
                               fontWeight: FontWeight.w400,

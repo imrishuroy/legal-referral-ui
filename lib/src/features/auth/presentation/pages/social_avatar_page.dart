@@ -75,6 +75,9 @@ class _SocialAvatarPageState extends State<SocialAvatarPage> {
                         padding: const EdgeInsets.all(16),
                         child: Column(
                           children: [
+                            SizedBox(
+                              height: 8.w,
+                            ),
                             GestureDetector(
                               onTap: _pickFile,
                               child: _image == null

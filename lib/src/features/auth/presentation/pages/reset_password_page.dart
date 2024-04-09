@@ -87,15 +87,16 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
               ? const CustomLoadingIndicator()
               : SafeArea(
                   child: Padding(
-                    padding: const EdgeInsets.all(16),
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
                     child: Form(
                       key: _formKey,
                       child: Column(
                         children: [
                           SizedBox(height: 24.h),
-                          const Text(
-                            'Enter your registered email address '
-                            'to reset the password',
+                          Text(
+                            'Enter your registered email address or mobile '
+                            'to receive the OTP to reset the password.',
+                            style: TextStyle(fontSize: 14.h),
                           ),
                           SizedBox(
                             height: 8.h,
