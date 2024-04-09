@@ -68,6 +68,14 @@ class AuthUseCase {
     );
   }
 
+  Future<Either<Failure, ResponseMsg?>> resetPassword({
+    required ResetPasswordReq resetPasswordReq,
+  }) async {
+    return _authRepository.resetPassword(
+      resetPasswordReq: resetPasswordReq,
+    );
+  }
+
   Future<Either<Failure, AppUser?>> getUser({
     required String userId,
   }) async {

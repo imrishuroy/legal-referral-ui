@@ -32,7 +32,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<AuthSignedIn>(_onAuthSignedIn);
     on<AuthGoogleSignedIn>(_onAuthGoogleSignedIn);
     on<AuthUserRequested>(_onAuthUserRequested);
-    on<AuthResetPassword>(_onAuthResetPassword);
+    on<PasswordChanged>(_onPassworChanged);
     on<AuthSignOutRequested>(_onAuthSignOutRequested);
   }
 
@@ -61,37 +61,16 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       ),
     );
 
-    add(EmailOTPSent());
+    add(EmailOTPSent(email: event.email));
   }
 
   Future<void> _onEmailOTPSent(
     EmailOTPSent event,
     Emitter<AuthState> emit,
   ) async {
-    final user = state.user;
-
-    emit(
-      state.copyWith(
-        emailOTPStatus: EmailOTPStatus.loading,
-      ),
-    );
-
-    final email = user?.email;
-    if (email == null) {
-      emit(
-        state.copyWith(
-          emailOTPStatus: EmailOTPStatus.failure,
-          failure: const Failure(
-            message: 'Failed to resend OTP',
-          ),
-        ),
-      );
-      return;
-    }
-
     final response = await _authUseCase.sendOTP(
       sendOtpReq: SendOtpReq(
-        to: email,
+        to: event.email,
         channel: 'email',
       ),
     );
@@ -118,19 +97,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     EmailOTPVerified event,
     Emitter<AuthState> emit,
   ) async {
-    final user = state.user;
-    if (user == null) {
-      emit(
-        state.copyWith(
-          emailOTPStatus: EmailOTPStatus.failure,
-          failure: const Failure(
-            message: 'Failed to verify OTP',
-          ),
-        ),
-      );
-      return;
-    }
-
     emit(
       state.copyWith(
         emailOTPStatus: EmailOTPStatus.loading,
@@ -139,7 +105,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
     final response = await _authUseCase.verifyOTP(
       verifyOtpReq: VerifyOtpReq(
-        to: user.email,
+        to: event.email,
         otp: event.otp,
         channel: 'email',
       ),
@@ -666,43 +632,40 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     );
   }
 
-  Future<void> _onAuthResetPassword(
-    AuthResetPassword event,
+  Future<void> _onPassworChanged(
+    PasswordChanged event,
     Emitter<AuthState> emit,
   ) async {
-    try {
-      emit(
-        state.copyWith(
-          resetPasswordStatus: ResetPasswordStatus.loading,
-        ),
-      );
+    emit(
+      state.copyWith(
+        resetPasswordStatus: ResetPasswordStatus.loading,
+      ),
+    );
 
-      await _firebaseAuth.sendPasswordResetEmail(
+    final response = await _authUseCase.resetPassword(
+      resetPasswordReq: ResetPasswordReq(
         email: event.email,
-        // actionCodeSettings: ActionCodeSettings(
-        //   url:
-        //      //  https://legalreferralui.page.link/verify?email=${event.email}',
-        //       'http://legal-referral-2f3cc.firebaseapp.com/verify?email=${event.email}',
-        //   androidPackageName: 'network.legalreferral.legalreferral',
-        //   handleCodeInApp: true,
-        // ),
-      );
+        password: event.password,
+      ),
+    );
 
-      emit(
-        state.copyWith(
-          resetPasswordStatus: ResetPasswordStatus.sent,
-        ),
-      );
-    } on FirebaseAuthException catch (error) {
-      emit(
-        state.copyWith(
-          resetPasswordStatus: ResetPasswordStatus.failed,
-          failure: Failure(
-            message: error.message ?? 'Failed to reset password',
+    response.fold(
+      (failure) {
+        emit(
+          state.copyWith(
+            resetPasswordStatus: ResetPasswordStatus.failed,
+            failure: failure,
           ),
-        ),
-      );
-    }
+        );
+      },
+      (data) {
+        emit(
+          state.copyWith(
+            resetPasswordStatus: ResetPasswordStatus.success,
+          ),
+        );
+      },
+    );
   }
 
   Future<void> _onAuthSignOutRequested(

@@ -37,6 +37,7 @@ enum ResetPasswordStatus {
   loading,
   sent,
   failed,
+  success,
 }
 
 class AuthState extends Equatable {

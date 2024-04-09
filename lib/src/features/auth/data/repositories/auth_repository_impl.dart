@@ -173,4 +173,24 @@ class AuthRepositoryImpl extends AuthRepository {
       );
     }
   }
+
+  @override
+  Future<Either<Failure, ResponseMsg?>> resetPassword({
+    required ResetPasswordReq resetPasswordReq,
+  }) async {
+    try {
+      final response = await _authDataSource.resetPassword(
+        resetPasswordReq: resetPasswordReq,
+      );
+      return Right(response);
+    } on DioException catch (error) {
+      final dioError = DioExceptions.fromDioError(error);
+      return Left(
+        Failure(
+          statusCode: dioError.statusCode,
+          message: dioError.message,
+        ),
+      );
+    }
+  }
 }

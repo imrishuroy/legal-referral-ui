@@ -29,6 +29,10 @@ abstract class AuthRepository {
     required VerifyOtpReq verifyOtpReq,
   });
 
+  Future<Either<Failure, ResponseMsg?>> resetPassword({
+    required ResetPasswordReq resetPasswordReq,
+  });
+
   Future<Either<Failure, AppUser?>> getUser({
     required String userId,
   });

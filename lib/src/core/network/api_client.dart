@@ -38,6 +38,11 @@ abstract class APIClient {
     @Body() SignInReq signInReq,
   );
 
+  @POST('/reset-password')
+  Future<ResponseMsg?> resetPassword(
+    @Body() ResetPasswordReq resetPasswordReq,
+  );
+
   @GET('/users/{userId}')
   Future<AppUser?> getUser(
     @Path('userId') String userId,

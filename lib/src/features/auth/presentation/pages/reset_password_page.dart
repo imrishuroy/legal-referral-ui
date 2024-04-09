@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:go_router/go_router.dart';
 import 'package:legal_referral_ui/src/core/config/config.dart';
 import 'package:legal_referral_ui/src/core/constants/colors.dart';
 import 'package:legal_referral_ui/src/core/validators/validators.dart';
+import 'package:legal_referral_ui/src/core/widgets/custom_bottomsheet.dart';
 import 'package:legal_referral_ui/src/core/widgets/custom_button.dart';
+import 'package:legal_referral_ui/src/core/widgets/custom_snackbar.dart';
 import 'package:legal_referral_ui/src/core/widgets/custom_textfield.dart';
 import 'package:legal_referral_ui/src/features/auth/presentation/presentation.dart';
+import 'package:toastification/toastification.dart';
 
 class ResetPasswordPage extends StatefulWidget {
   const ResetPasswordPage({super.key});
@@ -22,6 +24,12 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
   final _formKey = GlobalKey<FormState>();
   final _emailController = TextEditingController();
   final _authBloc = getIt<AuthBloc>();
+
+  @override
+  void initState() {
+    _authBloc.add(AuthInitialized());
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -40,30 +48,41 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
       ),
       body: BlocConsumer<AuthBloc, AuthState>(
         bloc: _authBloc,
-        listener: (context, state) {
-          if (state.resetPasswordStatus == ResetPasswordStatus.sent) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(
-                content: Text(
-                  'Password reset link has been sent to your email',
-                ),
+        listener: (context, state) async {
+          if (state.emailOTPStatus == EmailOTPStatus.sent) {
+            await CustomBottomSheet.show(
+              context: context,
+              child: EmailVerificationModal(
+                email: _emailController.text,
+                authBloc: _authBloc,
+                isFromResetPassword: true,
               ),
             );
-            context.goNamed(SignInPage.name);
           }
 
           if (state.resetPasswordStatus == ResetPasswordStatus.failed) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: Text(
-                  state.failure?.message ?? 'Failed to reset password',
-                ),
-              ),
+            if (!context.mounted) return;
+            CustomSnackbar.showToast(
+              context,
+              title: 'Error',
+              description: state.failure?.message ?? 'Failed to reset password',
+              type: ToastificationType.error,
+            );
+          }
+
+          if (state.emailOTPStatus == EmailOTPStatus.failure) {
+            if (!context.mounted) return;
+            AppLogger.error('Error in sending OTP');
+            CustomSnackbar.showToast(
+              context,
+              title: 'Error',
+              description: state.failure?.message ?? 'Failed to send OTP',
+              type: ToastificationType.error,
             );
           }
         },
         builder: (context, state) {
-          return state.resetPasswordStatus == ResetPasswordStatus.loading
+          return state.emailOTPStatus == EmailOTPStatus.loading
               ? const Center(child: CircularProgressIndicator())
               : SafeArea(
                   child: Padding(
@@ -75,7 +94,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                           SizedBox(height: 24.h),
                           const Text(
                             'Enter your registered email address '
-                            'o reset the password',
+                            'to reset the password',
                           ),
                           SizedBox(
                             height: 8.h,
@@ -90,7 +109,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                           SizedBox(height: 24.h),
                           CustomElevatedButton(
                             onTap: _submit,
-                            text: 'Receive Eamil',
+                            text: 'Receive OTP',
                           ),
                         ],
                       ),
@@ -105,7 +124,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
   void _submit() {
     if (_formKey.currentState!.validate()) {
       _authBloc.add(
-        AuthResetPassword(
+        EmailOTPSent(
           email: _emailController.text,
         ),
       );
