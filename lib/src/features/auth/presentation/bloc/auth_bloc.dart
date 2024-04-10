@@ -68,6 +68,11 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     EmailOTPSent event,
     Emitter<AuthState> emit,
   ) async {
+    emit(
+      state.copyWith(
+        emailOTPStatus: EmailOTPStatus.loading,
+      ),
+    );
     final response = await _authUseCase.sendOTP(
       sendOtpReq: SendOtpReq(
         to: event.email,

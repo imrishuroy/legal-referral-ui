@@ -119,4 +119,32 @@ class Validator {
     }
     return null;
   }
+
+  static String? validateAddressLine(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Please enter your address';
+    }
+    return null;
+  }
+
+  static String? validatePracticeArea(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Please enter your practice area';
+    }
+    return null;
+  }
+
+  static String? validatePracticeLocation(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Please enter your practice location';
+    }
+    return null;
+  }
+
+  static String? validateExperience(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Please enter your experience';
+    }
+    return null;
+  }
 }

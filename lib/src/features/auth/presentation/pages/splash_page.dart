@@ -60,15 +60,14 @@ class _SplashPageState extends State<SplashPage> {
         bloc: _authBloc,
         listener: (context, state) {
           if (state.authStatus == AuthStatus.signedIn) {
-            final user = state.user;
-            if (user?.wizardCompleted ?? false) {
+            if (state.user?.mobileVerified == false) {
+              context.goNamed(ContactDetailsPage.name);
+            } else if (state.user?.wizardCompleted == true) {
               context.goNamed(HomePage.name);
             } else {
               context.goNamed(WizardInspectionPage.name);
             }
-          }
-
-          if (state.authStatus == AuthStatus.failure) {
+          } else if (state.authStatus == AuthStatus.failure) {
             context.goNamed(SignInPage.name);
           }
         },

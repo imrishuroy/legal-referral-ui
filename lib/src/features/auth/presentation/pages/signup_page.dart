@@ -54,9 +54,7 @@ class _SignUpPageState extends State<SignUpPage> {
                 authBloc: _authBloc,
               ),
             );
-          }
-          if (state.emailOTPStatus == EmailOTPStatus.failure) {
-            if (!context.mounted) return;
+          } else if (state.emailOTPStatus == EmailOTPStatus.failure) {
             CustomSnackbar.showToast(
               context,
               title: 'Error',

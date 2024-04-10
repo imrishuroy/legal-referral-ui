@@ -66,7 +66,16 @@ class _SocialAvatarPageState extends State<SocialAvatarPage> {
         },
         builder: (context, state) {
           return state.authStatus == AuthStatus.loading
-              ? const CustomLoadingIndicator()
+              ? Center(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      const CustomLoadingIndicator(),
+                      SizedBox(height: 8.h),
+                      const Text('Account is being created, please wait...'),
+                    ],
+                  ),
+                )
               : SafeArea(
                   child: SingleChildScrollView(
                     child: Form(
