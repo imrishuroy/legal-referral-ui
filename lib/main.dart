@@ -12,7 +12,6 @@ import 'package:legal_referral_ui/src/core/network/network.dart';
 import 'package:legal_referral_ui/src/core/router/router.dart';
 
 Future<void> main() async {
-  // await dotenv.load();
   WidgetsFlutterBinding.ensureInitialized();
   await SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,

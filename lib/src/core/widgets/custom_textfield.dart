@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:legal_referral_ui/src/core/constants/colors.dart';
 
 class CustomTextField extends StatelessWidget {
   const CustomTextField({
@@ -11,6 +13,7 @@ class CustomTextField extends StatelessWidget {
     this.obscureText = false,
     this.validator,
     this.maxLines = 1,
+    this.enabled = true,
   });
 
   final FocusNode? focusNode;
@@ -21,6 +24,7 @@ class CustomTextField extends StatelessWidget {
   final bool obscureText;
   final String? Function(String?)? validator;
   final int maxLines;
+  final bool enabled;
 
   @override
   Widget build(BuildContext context) {
@@ -34,49 +38,62 @@ class CustomTextField extends StatelessWidget {
             style: const TextStyle(
               fontWeight: FontWeight.w400,
               fontSize: 14,
-              color: Color.fromRGBO(0, 0, 0, 1),
+              color: LegalReferralColors.black,
             ),
           ),
           const SizedBox(height: 8),
           TextFormField(
+            cursorColor: LegalReferralColors.borderBlue300,
             focusNode: focusNode,
             controller: controller,
             obscureText: obscureText,
             keyboardType: keyboardType,
             maxLines: maxLines,
+            enabled: enabled,
+            style: TextStyle(
+              fontWeight: FontWeight.w400,
+              fontSize: 14.h,
+              color: LegalReferralColors.black,
+            ),
             decoration: InputDecoration(
               hintText: hintText,
               hintStyle: const TextStyle(
                 fontWeight: FontWeight.w400,
                 fontSize: 14,
-                color: Color.fromRGBO(168, 164, 168, 1),
+                color: LegalReferralColors.textgrey300,
               ),
               enabledBorder: OutlineInputBorder(
                 borderSide: const BorderSide(
-                  color: Color.fromRGBO(131, 166, 193, 1),
+                  color: LegalReferralColors.borderBlue300,
                 ),
                 borderRadius: BorderRadius.circular(4),
               ),
               focusedBorder: OutlineInputBorder(
                 borderSide: const BorderSide(
-                  color: Color.fromRGBO(131, 166, 193, 1),
+                  color: LegalReferralColors.borderBlue300,
+                ),
+                borderRadius: BorderRadius.circular(4),
+              ),
+              disabledBorder: OutlineInputBorder(
+                borderSide: const BorderSide(
+                  color: LegalReferralColors.borderBlue300,
                 ),
                 borderRadius: BorderRadius.circular(4),
               ),
               errorBorder: OutlineInputBorder(
                 borderSide: const BorderSide(
-                  color: Color.fromRGBO(131, 166, 193, 1),
+                  color: LegalReferralColors.borderBlue300,
                 ),
                 borderRadius: BorderRadius.circular(4),
               ),
               focusedErrorBorder: OutlineInputBorder(
                 borderSide: const BorderSide(
-                  color: Color.fromRGBO(131, 166, 193, 1),
+                  color: LegalReferralColors.borderBlue300,
                 ),
                 borderRadius: BorderRadius.circular(4),
               ),
               filled: true,
-              fillColor: const Color.fromRGBO(255, 255, 255, 1),
+              fillColor: LegalReferralColors.containerWhite500,
             ),
             validator: validator,
           ),

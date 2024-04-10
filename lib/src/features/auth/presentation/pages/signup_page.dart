@@ -7,8 +7,9 @@ import 'package:legal_referral_ui/src/core/config/config.dart';
 import 'package:legal_referral_ui/src/core/constants/colors.dart';
 import 'package:legal_referral_ui/src/core/utils/utils.dart';
 import 'package:legal_referral_ui/src/core/validators/validators.dart';
-import 'package:legal_referral_ui/src/core/widgets/custom_bottomsheet.dart';
+import 'package:legal_referral_ui/src/core/widgets/custom_bottom_sheet.dart';
 import 'package:legal_referral_ui/src/core/widgets/custom_button.dart';
+import 'package:legal_referral_ui/src/core/widgets/custom_loading_indicator.dart';
 import 'package:legal_referral_ui/src/core/widgets/custom_snackbar.dart';
 import 'package:legal_referral_ui/src/core/widgets/custom_textfield.dart';
 import 'package:legal_referral_ui/src/features/auth/presentation/presentation.dart';
@@ -68,7 +69,7 @@ class _SignUpPageState extends State<SignUpPage> {
           AppLogger.debug('Auth Bloc SignUp Page $state');
           return SafeArea(
             child: state.emailOTPStatus == EmailOTPStatus.loading
-                ? const Center(child: CircularProgressIndicator())
+                ? const CustomLoadingIndicator()
                 : Form(
                     key: _formKey,
                     child: Padding(
@@ -120,7 +121,7 @@ class _SignUpPageState extends State<SignUpPage> {
                             SizedBox(height: 24.h),
                             CustomElevatedButton(
                               onTap: _signUp,
-                              text: 'Sign Up',
+                              text: 'Verify Email',
                             ),
                             SizedBox(height: 24.h),
                             Row(

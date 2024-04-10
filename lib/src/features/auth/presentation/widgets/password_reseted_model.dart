@@ -33,7 +33,7 @@ class PasswordResetModel extends StatelessWidget {
             ),
             SizedBox(height: 24.h),
             Text(
-              'New Password Saved',
+              'New Password Saved!',
               style: TextStyle(
                 fontSize: 24.h,
                 fontWeight: FontWeight.w600,

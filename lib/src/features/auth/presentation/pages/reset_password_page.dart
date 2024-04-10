@@ -4,8 +4,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:legal_referral_ui/src/core/config/config.dart';
 import 'package:legal_referral_ui/src/core/constants/colors.dart';
 import 'package:legal_referral_ui/src/core/validators/validators.dart';
-import 'package:legal_referral_ui/src/core/widgets/custom_bottomsheet.dart';
+import 'package:legal_referral_ui/src/core/widgets/custom_bottom_sheet.dart';
 import 'package:legal_referral_ui/src/core/widgets/custom_button.dart';
+import 'package:legal_referral_ui/src/core/widgets/custom_loading_indicator.dart';
 import 'package:legal_referral_ui/src/core/widgets/custom_snackbar.dart';
 import 'package:legal_referral_ui/src/core/widgets/custom_textfield.dart';
 import 'package:legal_referral_ui/src/features/auth/presentation/presentation.dart';
@@ -83,18 +84,19 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
         },
         builder: (context, state) {
           return state.emailOTPStatus == EmailOTPStatus.loading
-              ? const Center(child: CircularProgressIndicator())
+              ? const CustomLoadingIndicator()
               : SafeArea(
                   child: Padding(
-                    padding: const EdgeInsets.all(16),
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
                     child: Form(
                       key: _formKey,
                       child: Column(
                         children: [
                           SizedBox(height: 24.h),
-                          const Text(
+                          Text(
                             'Enter your registered email address '
-                            'to reset the password',
+                            'to receive the OTP to reset the password.',
+                            style: TextStyle(fontSize: 14.h),
                           ),
                           SizedBox(
                             height: 8.h,

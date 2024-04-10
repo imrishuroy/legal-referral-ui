@@ -10,8 +10,10 @@ import 'package:legal_referral_ui/src/core/config/config.dart';
 import 'package:legal_referral_ui/src/core/constants/colors.dart';
 import 'package:legal_referral_ui/src/core/validators/validators.dart';
 import 'package:legal_referral_ui/src/core/widgets/custom_button.dart';
+import 'package:legal_referral_ui/src/core/widgets/custom_loading_indicator.dart';
 import 'package:legal_referral_ui/src/core/widgets/custom_snackbar.dart';
 import 'package:legal_referral_ui/src/core/widgets/custom_textfield.dart';
+import 'package:legal_referral_ui/src/features/auth/presentation/pages/edit_social_avatar.dart';
 import 'package:legal_referral_ui/src/features/auth/presentation/presentation.dart';
 import 'package:legal_referral_ui/src/features/wizard/presentation/presentation.dart';
 import 'package:toastification/toastification.dart';
@@ -53,20 +55,18 @@ class _SocialAvatarPageState extends State<SocialAvatarPage> {
           if (state.authStatus == AuthStatus.signedUp) {
             context.goNamed(WizardInspectionPage.name);
           } else if (state.authStatus == AuthStatus.failure) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: Text(
-                  state.failure?.message ?? 'something went wrong',
-                ),
-              ),
+            CustomSnackbar.showToast(
+              context,
+              type: ToastificationType.error,
+              description: state.failure?.message ?? 'something went wrong',
+              title: 'Error',
             );
+            context.goNamed(SignInPage.name);
           }
         },
         builder: (context, state) {
           return state.authStatus == AuthStatus.loading
-              ? const Center(
-                  child: CircularProgressIndicator(),
-                )
+              ? const CustomLoadingIndicator()
               : SafeArea(
                   child: SingleChildScrollView(
                     child: Form(
@@ -75,6 +75,9 @@ class _SocialAvatarPageState extends State<SocialAvatarPage> {
                         padding: const EdgeInsets.all(16),
                         child: Column(
                           children: [
+                            SizedBox(
+                              height: 8.w,
+                            ),
                             GestureDetector(
                               onTap: _pickFile,
                               child: _image == null
@@ -106,9 +109,12 @@ class _SocialAvatarPageState extends State<SocialAvatarPage> {
                                         ],
                                       ),
                                     )
-                                  : CircleAvatar(
-                                      radius: 86,
-                                      backgroundImage: FileImage(_image!),
+                                  : GestureDetector(
+                                      onTap: _showAvatarEditSheet,
+                                      child: CircleAvatar(
+                                        radius: 86,
+                                        backgroundImage: FileImage(_image!),
+                                      ),
                                     ),
                             ),
                             SizedBox(
@@ -150,6 +156,32 @@ class _SocialAvatarPageState extends State<SocialAvatarPage> {
                 );
         },
       ),
+    );
+  }
+
+  Future<void> _showAvatarEditSheet() async {
+    await showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      useSafeArea: true,
+      builder: (context) {
+        return EditProfileAvatar(
+          image: _image,
+          onEdit: () {
+            setState(() {
+              _image = null;
+            });
+            context.pop();
+            _pickFile();
+          },
+          onDelete: () {
+            setState(() {
+              _image = null;
+            });
+            context.pop();
+          },
+        );
+      },
     );
   }
 

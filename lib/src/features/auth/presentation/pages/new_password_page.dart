@@ -3,8 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:legal_referral_ui/src/core/config/config.dart';
 import 'package:legal_referral_ui/src/core/constants/colors.dart';
-import 'package:legal_referral_ui/src/core/widgets/custom_bottomsheet.dart';
+import 'package:legal_referral_ui/src/core/widgets/custom_bottom_sheet.dart';
 import 'package:legal_referral_ui/src/core/widgets/custom_button.dart';
+import 'package:legal_referral_ui/src/core/widgets/custom_loading_indicator.dart';
 import 'package:legal_referral_ui/src/core/widgets/custom_snackbar.dart';
 import 'package:legal_referral_ui/src/core/widgets/custom_textfield.dart';
 import 'package:legal_referral_ui/src/features/auth/presentation/presentation.dart';
@@ -64,9 +65,7 @@ class _NewPasswordPageState extends State<NewPasswordPage> {
         },
         builder: (context, state) {
           return state.resetPasswordStatus == ResetPasswordStatus.loading
-              ? const Center(
-                  child: CircularProgressIndicator(),
-                )
+              ? const CustomLoadingIndicator()
               : SafeArea(
                   child: SingleChildScrollView(
                     child: Padding(

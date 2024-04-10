@@ -5,10 +5,12 @@ import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:legal_referral_ui/src/core/config/config.dart';
 import 'package:legal_referral_ui/src/core/constants/colors.dart';
+import 'package:legal_referral_ui/src/core/utils/date_time_util.dart';
 import 'package:legal_referral_ui/src/core/utils/image_strings_util.dart';
 import 'package:legal_referral_ui/src/core/validators/validators.dart';
-import 'package:legal_referral_ui/src/core/widgets/custom_bottomsheet.dart';
+import 'package:legal_referral_ui/src/core/widgets/custom_bottom_sheet.dart';
 import 'package:legal_referral_ui/src/core/widgets/custom_button.dart';
+import 'package:legal_referral_ui/src/core/widgets/custom_loading_indicator.dart';
 import 'package:legal_referral_ui/src/core/widgets/custom_textfield.dart';
 import 'package:legal_referral_ui/src/features/auth/presentation/presentation.dart';
 import 'package:legal_referral_ui/src/features/wizard/domain/domain.dart';
@@ -55,7 +57,7 @@ class _LicenseDetailPageState extends State<LicenseDetailPage> {
         },
         builder: (context, state) {
           return state.wizardStatus == WizardStatus.loading
-              ? const Center(child: CircularProgressIndicator())
+              ? const CustomLoadingIndicator()
               : SingleChildScrollView(
                   child: Form(
                     key: _formKey,
@@ -80,12 +82,42 @@ class _LicenseDetailPageState extends State<LicenseDetailPage> {
                                 Validator.validateLicenseNumber(value),
                           ),
                           SizedBox(height: 16.h),
-                          CustomTextField(
-                            controller: _issueDate,
-                            hintText: 'mm/dd/yyyy',
-                            labelText: 'Issue Date',
-                            validator: (value) =>
-                                Validator.validateIssueDate(value),
+                          GestureDetector(
+                            onTap: () async {
+                              final pickedDate = await showDatePicker(
+                                context: context,
+                                firstDate: DateTime(1900),
+                                lastDate: DateTime.now(),
+                                initialDate: DateTime.now(),
+                                builder: (context, child) {
+                                  return Theme(
+                                    data: ThemeData.light().copyWith(
+                                      colorScheme: const ColorScheme.light(
+                                        primary:
+                                            LegalReferralColors.buttonPrimary,
+                                      ),
+                                      dialogBackgroundColor:
+                                          LegalReferralColors.primaryBackground,
+                                    ),
+                                    child: child!,
+                                  );
+                                },
+                              );
+
+                              if (pickedDate != null) {
+                                _issueDate.text = DateTimeUtil.getFormattedDate(
+                                  pickedDate,
+                                );
+                              }
+                            },
+                            child: CustomTextField(
+                              controller: _issueDate,
+                              hintText: 'mm/dd/yyyy',
+                              labelText: 'Issue Date',
+                              validator: (value) =>
+                                  Validator.validateIssueDate(value),
+                              enabled: false,
+                            ),
                           ),
                           SizedBox(height: 16.h),
                           CustomTextField(

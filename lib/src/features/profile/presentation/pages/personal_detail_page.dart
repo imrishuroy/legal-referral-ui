@@ -3,7 +3,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:legal_referral_ui/src/core/constants/colors.dart';
 import 'package:legal_referral_ui/src/core/widgets/custom_button.dart';
 import 'package:legal_referral_ui/src/core/widgets/custom_textfield.dart';
-import 'package:legal_referral_ui/src/features/profile/presentation/pages/social_avatar_page.dart';
 
 class PersonalDetailsPage extends StatelessWidget {
   PersonalDetailsPage({super.key});
@@ -89,13 +88,7 @@ class PersonalDetailsPage extends StatelessWidget {
                 ),
                 SizedBox(height: 24.h),
                 CustomElevatedButton(
-                  onTap: () {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) => SocialAvatarPage(),
-                      ),
-                    );
-                  },
+                  onTap: () {},
                   text: 'Save and Proceed',
                 ),
                 SizedBox(height: 58.h),
