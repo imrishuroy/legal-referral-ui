@@ -94,7 +94,7 @@ class CustomAutoComplete extends StatelessWidget {
               optionsBuilder: (TextEditingValue textEditingValue) async {
                 final searchQuery = textEditingValue.text.toLowerCase();
                 if (searchQuery == '') {
-                  return const Iterable<String>.empty();
+                  return CountriesConstant.countries;
                 }
                 final startWithQuery = <String>[];
                 final containsQuery = <String>[];
