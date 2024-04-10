@@ -15,3 +15,6 @@ keytool -genkey -v -keystore ~/legal-referral-dev.jks -keyalg RSA -keysize 2048 
 
 ## Generate Code
     dart run build_runner build --delete-conflicting-outputs
+
+## Build APK
+    flutter build apk --release --no-tree-shake-icons
