@@ -43,25 +43,22 @@ class _SignInPageState extends State<SignInPage> {
       body: SafeArea(
         child: BlocConsumer<AuthBloc, AuthState>(
           bloc: _authBloc,
-          listener: (_, state) {
-            AppLogger.info('User from sign in page: ${state.user}');
-            if (state.authStatus == AuthStatus.signedIn &&
-                state.user?.mobileVerified == false) {
-              context.goNamed(ContactDetailsPage.name);
-            }
+          listener: (context, state) {
+            AppLogger.info('User from sign in page: ${state.user}\n');
+            AppLogger.info(
+              'Auth status from sign in page: ${state.authStatus}',
+            );
 
-            if (state.authStatus == AuthStatus.signedIn &&
-                state.user?.wizardCompleted == true) {
-              context.goNamed(HomePage.name);
-            }
-
-            if (state.authStatus == AuthStatus.signedIn &&
-                state.user?.wizardCompleted == false) {
-              AppLogger.info('User from sign in page 2: ${state.user}');
-              context.goNamed(WizardInspectionPage.name);
-            }
-
-            if (state.authStatus == AuthStatus.failure) {
+            if (state.authStatus == AuthStatus.signedIn) {
+              if (state.user?.mobileVerified == false) {
+                context.goNamed(ContactDetailsPage.name);
+              } else if (state.user?.wizardCompleted == true) {
+                context.goNamed(HomePage.name);
+              } else {
+                AppLogger.info('User from sign in page 2: ${state.user}');
+                context.goNamed(WizardInspectionPage.name);
+              }
+            } else if (state.authStatus == AuthStatus.failure) {
               CustomSnackbar.showToast(
                 context,
                 title: 'Error',
@@ -173,7 +170,7 @@ class _SignInPageState extends State<SignInPage> {
                                   textColor: LegalReferralColors.textBlue100,
                                   text: 'SIGN UP',
                                   onPressed: () =>
-                                      context.goNamed(SignUpPage.name),
+                                      context.pushNamed(SignUpPage.name),
                                 ),
                               ],
                             ),

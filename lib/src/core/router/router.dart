@@ -33,7 +33,7 @@ class AppRouter {
         pageBuilder: (context, state) => CustomTransitionPage(
           child: const OnBoardingPage(),
           transitionDuration: const Duration(
-            seconds: 2,
+            milliseconds: 500,
           ),
           transitionsBuilder: (_, a, __, c) =>
               FadeTransition(opacity: a, child: c),
@@ -46,7 +46,7 @@ class AppRouter {
         pageBuilder: (context, state) => CustomTransitionPage(
           child: const SignInPage(),
           transitionDuration: const Duration(
-            seconds: 2,
+            milliseconds: 500,
           ),
           transitionsBuilder: (_, a, __, c) =>
               FadeTransition(opacity: a, child: c),
@@ -59,7 +59,7 @@ class AppRouter {
         pageBuilder: (context, state) => CustomTransitionPage(
           child: const SignUpPage(),
           transitionDuration: const Duration(
-            seconds: 2,
+            milliseconds: 500,
           ),
           transitionsBuilder: (_, a, __, c) =>
               FadeTransition(opacity: a, child: c),
@@ -72,7 +72,7 @@ class AppRouter {
         pageBuilder: (context, state) => CustomTransitionPage(
           child: const ResetPasswordPage(),
           transitionDuration: const Duration(
-            seconds: 2,
+            milliseconds: 500,
           ),
           transitionsBuilder: (_, a, __, c) =>
               FadeTransition(opacity: a, child: c),
@@ -87,7 +87,7 @@ class AppRouter {
             email: state.pathParameters['email']!,
           ),
           transitionDuration: const Duration(
-            seconds: 2,
+            milliseconds: 500,
           ),
           transitionsBuilder: (_, a, __, c) =>
               FadeTransition(opacity: a, child: c),
@@ -100,7 +100,7 @@ class AppRouter {
         pageBuilder: (context, state) => CustomTransitionPage(
           child: const ContactDetailsPage(),
           transitionDuration: const Duration(
-            seconds: 2,
+            milliseconds: 500,
           ),
           transitionsBuilder: (_, a, __, c) =>
               FadeTransition(opacity: a, child: c),
@@ -113,7 +113,7 @@ class AppRouter {
         pageBuilder: (context, state) => CustomTransitionPage(
           child: const SocialAvatarPage(),
           transitionDuration: const Duration(
-            seconds: 2,
+            milliseconds: 500,
           ),
           transitionsBuilder: (_, a, __, c) =>
               FadeTransition(opacity: a, child: c),
@@ -126,7 +126,7 @@ class AppRouter {
         pageBuilder: (context, state) => CustomTransitionPage(
           child: const WizardInspectionPage(),
           transitionDuration: const Duration(
-            seconds: 2,
+            milliseconds: 500,
           ),
           transitionsBuilder: (_, a, __, c) =>
               FadeTransition(opacity: a, child: c),
@@ -139,7 +139,7 @@ class AppRouter {
         pageBuilder: (context, state) => CustomTransitionPage(
           child: const HomePage(),
           transitionDuration: const Duration(
-            seconds: 2,
+            milliseconds: 500,
           ),
           transitionsBuilder: (_, a, __, c) =>
               FadeTransition(opacity: a, child: c),

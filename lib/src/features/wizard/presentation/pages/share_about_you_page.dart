@@ -4,6 +4,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:legal_referral_ui/src/core/config/config.dart';
 import 'package:legal_referral_ui/src/core/constants/constants.dart';
+import 'package:legal_referral_ui/src/core/validators/validators.dart';
+import 'package:legal_referral_ui/src/core/widgets/custom_autocomplete.dart';
 import 'package:legal_referral_ui/src/core/widgets/custom_button.dart';
 import 'package:legal_referral_ui/src/core/widgets/custom_loading_indicator.dart';
 import 'package:legal_referral_ui/src/core/widgets/custom_textfield.dart';
@@ -82,8 +84,8 @@ class _ShareAboutYouPageState extends State<ShareAboutYouPage> {
                               hintText:
                                   'St. Thomas Street, Anchorage, Alaska, USA',
                               labelText: 'Address',
-                              //  validator: (value) =>
-                              // Validators.validateName(value),
+                              validator: (value) =>
+                                  Validator.validateAddress(value),
                             ),
                             SizedBox(height: 24.h),
                             Text(
@@ -94,28 +96,29 @@ class _ShareAboutYouPageState extends State<ShareAboutYouPage> {
                               ),
                             ),
                             SizedBox(height: 16.h),
-                            CustomTextField(
-                              controller: _practiceAreaController,
+                            CustomAutoComplete(
+                              options: CountriesConstant.countries,
                               hintText: 'Real estate, Finance etc',
                               labelText: 'Practice Area',
-                              //  validator: (value) =>
-                              // Validators.validateName(value),
+                              validator: (value) =>
+                                  Validator.validatePracticeArea(value),
+                              textEditingController: _practiceAreaController,
                             ),
                             SizedBox(height: 16.h),
                             CustomTextField(
                               controller: _practiceLocationController,
                               hintText: 'Alaska, Florida',
                               labelText: 'Practice Location',
-                              // validator: (value) =>
-                              // Validators.validateName(value),
+                              validator: (value) =>
+                                  Validator.validatePracticeLocation(value),
                             ),
                             SizedBox(height: 16.h),
                             CustomTextField(
                               controller: _experienceController,
                               hintText: '4 years',
                               labelText: 'Experience',
-                              // validator: (value) =>
-                              // Validators.validateName(value),
+                              validator: (value) =>
+                                  Validator.validateExperience(value),
                             ),
                             SizedBox(height: 24.h),
                             CustomElevatedButton(
@@ -141,6 +144,8 @@ class _ShareAboutYouPageState extends State<ShareAboutYouPage> {
       if (userId == null) {
         return;
       }
+
+      AppLogger.info('practiceArea: ${_practiceAreaController.text}');
       final aboutYouReq = AboutYouReq(
         userId: userId,
         address: _addressController.text,

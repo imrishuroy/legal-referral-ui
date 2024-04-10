@@ -85,7 +85,7 @@ class _EmailVerificationModalState extends State<EmailVerificationModal> {
                               '${widget.isFromResetPassword}',
                             );
                             if (widget.isFromResetPassword) {
-                              context.goNamed(
+                              context.pushNamed(
                                 NewPasswordPage.name,
                                 pathParameters: {
                                   'email': widget.email,
@@ -185,6 +185,7 @@ class _EmailVerificationModalState extends State<EmailVerificationModal> {
                                 text: 'RESEND OTP',
                                 textColor: LegalReferralColors.textBlue100,
                                 onPressed: () {
+                                  context.pop();
                                   widget.authBloc.add(
                                     EmailOTPSent(
                                       email: widget.email,
