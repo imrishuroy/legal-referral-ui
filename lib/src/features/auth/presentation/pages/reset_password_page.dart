@@ -94,7 +94,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                         children: [
                           SizedBox(height: 24.h),
                           Text(
-                            'Enter your registered email address or mobile '
+                            'Enter your registered email address '
                             'to receive the OTP to reset the password.',
                             style: TextStyle(fontSize: 14.h),
                           ),
