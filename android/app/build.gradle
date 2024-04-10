@@ -2,6 +2,8 @@ plugins {
     id "com.android.application"
     id "kotlin-android"
     id "dev.flutter.flutter-gradle-plugin"
+    id 'com.google.gms.google-services'
+    
 }
 
 def localProperties = new Properties()
@@ -23,8 +25,8 @@ if (flutterVersionName == null) {
 }
 
 android {
-    namespace "com.example.legal_referral_ui"
-    compileSdk flutter.compileSdkVersion
+    namespace "network.legalreferral.legalreferral"
+    compileSdk 34
     ndkVersion flutter.ndkVersion
 
     compileOptions {
@@ -42,16 +44,28 @@ android {
 
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
-        applicationId "com.example.legal_referral_ui"
+        applicationId "network.legalreferral.legalreferral"
         // You can update the following values to match your application needs.
         // For more information, see: https://docs.flutter.dev/deployment/android#reviewing-the-gradle-build-configuration.
-        minSdkVersion flutter.minSdkVersion
-        targetSdkVersion flutter.targetSdkVersion
+        minSdkVersion 21
+        targetSdkVersion 33
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
     }
 
+    // signingConfigs {
+    //     debug {
+    //         keyAlias = 'androiddevkey'
+    //         keyPassword 'Prince2024'
+    //         storeFile file('legal-referral-dev.jks')
+    //         storePassword 'Prince2024'
+    //     }
+    // }
+
     buildTypes {
+        // debug {
+        //     signingConfig signingConfigs.debug
+        // }
         release {
             // TODO: Add your own signing config for the release build.
             // Signing with the debug keys for now, so `flutter run --release` works.
@@ -64,4 +78,7 @@ flutter {
     source '../..'
 }
 
-dependencies {}
+dependencies {
+    implementation platform('com.google.firebase:firebase-bom:32.7.4')
+    implementation 'com.google.firebase:firebase-analytics'
+}
