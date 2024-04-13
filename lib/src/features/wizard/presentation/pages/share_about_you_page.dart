@@ -9,7 +9,6 @@ import 'package:legal_referral_ui/src/core/widgets/custom_autocomplete.dart';
 import 'package:legal_referral_ui/src/core/widgets/custom_button.dart';
 import 'package:legal_referral_ui/src/core/widgets/custom_loading_indicator.dart';
 import 'package:legal_referral_ui/src/core/widgets/custom_textfield.dart';
-import 'package:legal_referral_ui/src/features/auth/presentation/presentation.dart';
 import 'package:legal_referral_ui/src/features/home_page.dart';
 import 'package:legal_referral_ui/src/features/wizard/data/data.dart';
 import 'package:legal_referral_ui/src/features/wizard/presentation/presentation.dart';
@@ -32,8 +31,6 @@ class _ShareAboutYouPageState extends State<ShareAboutYouPage> {
   final _practiceLocationController = TextEditingController();
   final _experienceController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
-
-  final _authBloc = getIt<AuthBloc>();
 
   @override
   Widget build(BuildContext context) {
@@ -140,14 +137,8 @@ class _ShareAboutYouPageState extends State<ShareAboutYouPage> {
   void _save(BuildContext context) {
     FocusManager.instance.primaryFocus?.unfocus();
     if (_formKey.currentState!.validate()) {
-      final userId = _authBloc.state.user?.userId;
-      if (userId == null) {
-        return;
-      }
-
       AppLogger.info('practiceArea: ${_practiceAreaController.text}');
       final aboutYouReq = AboutYouReq(
-        userId: userId,
         address: _addressController.text,
         practiceArea: _practiceAreaController.text,
         practiceLocation: _practiceLocationController.text,

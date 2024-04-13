@@ -5,7 +5,6 @@ part 'about_you_req.g.dart';
 @JsonSerializable()
 class AboutYouReq {
   AboutYouReq({
-    required this.userId,
     required this.address,
     required this.practiceArea,
     required this.practiceLocation,
@@ -15,8 +14,6 @@ class AboutYouReq {
   factory AboutYouReq.fromJson(Map<String, dynamic> json) =>
       _$AboutYouReqFromJson(json);
 
-  @JsonKey(name: 'user_id')
-  final String userId;
   final String address;
   @JsonKey(name: 'practice_area')
   final String practiceArea;

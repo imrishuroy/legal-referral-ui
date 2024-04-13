@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:equatable/equatable.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -7,7 +8,6 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:injectable/injectable.dart';
 import 'package:legal_referral_ui/src/core/config/config.dart';
-import 'package:legal_referral_ui/src/core/utils/utils.dart';
 import 'package:legal_referral_ui/src/features/auth/data/data.dart';
 import 'package:legal_referral_ui/src/features/auth/domain/domain.dart';
 
@@ -175,18 +175,20 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         await SharedPrefs.setToken(token: idToken);
       }
 
-      final imageUrl = await ImageUtil.uploadFile(
-        file: event.userImageFile,
-        filename: '${firebaseUser?.uid}',
-        container: 'user_images',
-        fileType: 'jpg',
-      );
+      // final imageUrl = await ImageUtil.uploadFile(
+      //   file: event.userImageFile,
+      //   filename: '${firebaseUser?.uid}',
+      //   container: 'user_images',
+      //   fileType: 'jpg',
+      // );
 
       final userRes = await _authUseCase.createUser(
-        appUser: user.copyWith(
-          userId: firebaseUser?.uid,
-          imageUrl: imageUrl,
-        ),
+        email: user.email,
+        firstName: user.firstName,
+        lastName: user.lastName,
+        mobile: user.mobile,
+        signUpMethod: 0,
+        userImage: File(event.userImageFile.path),
       );
 
       await userRes.fold(
@@ -274,6 +276,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
       final idToken = await userCredential.user?.getIdToken();
       if (idToken != null) {
+        AppLogger.info('Sign In - Token: $idToken');
         await SharedPrefs.setToken(token: idToken);
       }
 
@@ -428,15 +431,12 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       );
       if (checkUser == null) {
         final userRes = await _authUseCase.createUser(
-          appUser: AppUser(
-            userId: user.uid,
-            email: user.email!,
-            imageUrl: user.photoURL,
-            firstName: firstName,
-            lastName: lastName,
-            emailVerified: true,
-            signupMethod: 1,
-          ),
+          email: user.email!,
+          firstName: firstName,
+          lastName: lastName,
+          mobile: '',
+          imageUrl: user.photoURL,
+          signUpMethod: 1,
         );
 
         await userRes.fold(
@@ -526,6 +526,12 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
             state.copyWith(
               user: user,
               authStatus: AuthStatus.signedIn,
+            ),
+          );
+        } else {
+          emit(
+            state.copyWith(
+              authStatus: AuthStatus.failure,
             ),
           );
         }

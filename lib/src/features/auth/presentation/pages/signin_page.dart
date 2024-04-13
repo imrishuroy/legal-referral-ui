@@ -119,7 +119,7 @@ class _SignInPageState extends State<SignInPage> {
                                 fontSize: 14.h,
                                 fontWeight: FontWeight.w300,
                                 onPressed: () =>
-                                    context.goNamed(ResetPasswordPage.name),
+                                    context.pushNamed(ResetPasswordPage.name),
                                 text: 'Forgot Password?',
                                 textColor: LegalReferralColors.textgrey300,
                               ),

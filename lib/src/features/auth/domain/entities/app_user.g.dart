@@ -37,7 +37,6 @@ Map<String, dynamic> _$$AppUserImplToJson(_$AppUserImpl instance) =>
       'mobile': instance.mobile,
       'address': instance.address,
       'image_url': instance.imageUrl,
-      'user_id': instance.userId,
     };
 
 Value? _$JsonConverterFromJson<Json, Value>(

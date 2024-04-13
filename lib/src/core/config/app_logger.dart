@@ -10,7 +10,7 @@ class AppLogger {
   }
 
   static void info(dynamic message) {
-    _logger?.i(message);
+    _logger?.i('\n\n$message');
   }
 
   static void debug(dynamic message) {

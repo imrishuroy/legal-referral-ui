@@ -5,8 +5,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:legal_referral_ui/src/core/config/config.dart';
 import 'package:legal_referral_ui/src/core/constants/colors.dart';
-import 'package:legal_referral_ui/src/core/utils/date_time_util.dart';
-import 'package:legal_referral_ui/src/core/utils/image_strings_util.dart';
+import 'package:legal_referral_ui/src/core/utils/utils.dart';
 import 'package:legal_referral_ui/src/core/validators/validators.dart';
 import 'package:legal_referral_ui/src/core/widgets/custom_bottom_sheet.dart';
 import 'package:legal_referral_ui/src/core/widgets/custom_button.dart';
@@ -28,12 +27,14 @@ class LicenseDetailPage extends StatefulWidget {
 }
 
 class _LicenseDetailPageState extends State<LicenseDetailPage> {
-  final _name = TextEditingController();
-  final _licenseNumber = TextEditingController();
-  final _issueDate = TextEditingController();
-  final _issuestate = TextEditingController();
+  final _licenseNameController = TextEditingController();
+  final _licenseNumberController = TextEditingController();
+  final _issueDateController = TextEditingController();
+  final _issuestateController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
   final _authBloc = getIt<AuthBloc>();
+
+  DateTime? _issueDate;
 
   @override
   Widget build(BuildContext context) {
@@ -67,7 +68,7 @@ class _LicenseDetailPageState extends State<LicenseDetailPage> {
                         children: [
                           SizedBox(height: 24.h),
                           CustomTextField(
-                            controller: _name,
+                            controller: _licenseNameController,
                             hintText: 'as in license',
                             labelText: 'Name',
                             validator: (value) =>
@@ -75,7 +76,7 @@ class _LicenseDetailPageState extends State<LicenseDetailPage> {
                           ),
                           SizedBox(height: 16.h),
                           CustomTextField(
-                            controller: _licenseNumber,
+                            controller: _licenseNumberController,
                             hintText: '23ude675',
                             labelText: 'License Number',
                             validator: (value) =>
@@ -105,13 +106,15 @@ class _LicenseDetailPageState extends State<LicenseDetailPage> {
                               );
 
                               if (pickedDate != null) {
-                                _issueDate.text = DateTimeUtil.getFormattedDate(
+                                _issueDateController.text =
+                                    DateTimeUtil.getFormattedDate(
                                   pickedDate,
                                 );
+                                _issueDate = pickedDate;
                               }
                             },
                             child: CustomTextField(
-                              controller: _issueDate,
+                              controller: _issueDateController,
                               hintText: 'mm/dd/yyyy',
                               labelText: 'Issue Date',
                               validator: (value) =>
@@ -121,7 +124,7 @@ class _LicenseDetailPageState extends State<LicenseDetailPage> {
                           ),
                           SizedBox(height: 16.h),
                           CustomTextField(
-                            controller: _issuestate,
+                            controller: _issuestateController,
                             hintText: 'State',
                             labelText: 'Issue State',
                             validator: (value) =>
@@ -145,14 +148,18 @@ class _LicenseDetailPageState extends State<LicenseDetailPage> {
   void _save() {
     final userId = _authBloc.state.user?.userId;
 
-    if (_formKey.currentState!.validate() && userId != null) {
+    if (_formKey.currentState!.validate() &&
+        userId != null &&
+        _issueDate != null) {
       final license = License(
         userId: userId,
-        name: _name.text,
-        licenseNumber: _licenseNumber.text,
-        issueDate: _issueDate.text,
-        issueState: _issuestate.text,
+        name: _licenseNameController.text,
+        licenseNumber: _licenseNumberController.text,
+        issueDate: _issueDate!,
+        issueState: _issuestateController.text,
       );
+      AppLogger.info('License ------ tojson ${license.toJson()}');
+
       widget.wizardBloc.add(LicenseSaved(license: license));
     }
   }
@@ -199,10 +206,9 @@ class _LicenseDetailPageState extends State<LicenseDetailPage> {
 
   @override
   void dispose() {
-    _name.dispose();
-    _licenseNumber.dispose();
-    _issueDate.dispose();
-    _issuestate.dispose();
+    _licenseNameController.dispose();
+    _licenseNumberController.dispose();
+    _issuestateController.dispose();
     super.dispose();
   }
 }

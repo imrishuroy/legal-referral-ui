@@ -42,7 +42,7 @@ mixin _$AppUser {
   String? get address => throw _privateConstructorUsedError;
   @JsonKey(name: 'image_url')
   String? get imageUrl => throw _privateConstructorUsedError;
-  @JsonKey(name: 'user_id')
+  @JsonKey(name: 'user_id', includeToJson: false)
   String? get userId => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -70,7 +70,7 @@ abstract class $AppUserCopyWith<$Res> {
       String? mobile,
       String? address,
       @JsonKey(name: 'image_url') String? imageUrl,
-      @JsonKey(name: 'user_id') String? userId});
+      @JsonKey(name: 'user_id', includeToJson: false) String? userId});
 }
 
 /// @nodoc
@@ -179,7 +179,7 @@ abstract class _$$AppUserImplCopyWith<$Res> implements $AppUserCopyWith<$Res> {
       String? mobile,
       String? address,
       @JsonKey(name: 'image_url') String? imageUrl,
-      @JsonKey(name: 'user_id') String? userId});
+      @JsonKey(name: 'user_id', includeToJson: false) String? userId});
 }
 
 /// @nodoc
@@ -282,7 +282,7 @@ class _$AppUserImpl implements _AppUser {
       this.mobile,
       this.address,
       @JsonKey(name: 'image_url') this.imageUrl,
-      @JsonKey(name: 'user_id') this.userId});
+      @JsonKey(name: 'user_id', includeToJson: false) this.userId});
 
   factory _$AppUserImpl.fromJson(Map<String, dynamic> json) =>
       _$$AppUserImplFromJson(json);
@@ -322,7 +322,7 @@ class _$AppUserImpl implements _AppUser {
   @JsonKey(name: 'image_url')
   final String? imageUrl;
   @override
-  @JsonKey(name: 'user_id')
+  @JsonKey(name: 'user_id', includeToJson: false)
   final String? userId;
 
   @override
@@ -407,7 +407,8 @@ abstract class _AppUser implements AppUser {
       final String? mobile,
       final String? address,
       @JsonKey(name: 'image_url') final String? imageUrl,
-      @JsonKey(name: 'user_id') final String? userId}) = _$AppUserImpl;
+      @JsonKey(name: 'user_id', includeToJson: false)
+      final String? userId}) = _$AppUserImpl;
 
   factory _AppUser.fromJson(Map<String, dynamic> json) = _$AppUserImpl.fromJson;
 
@@ -446,7 +447,7 @@ abstract class _AppUser implements AppUser {
   @JsonKey(name: 'image_url')
   String? get imageUrl;
   @override
-  @JsonKey(name: 'user_id')
+  @JsonKey(name: 'user_id', includeToJson: false)
   String? get userId;
   @override
   @JsonKey(ignore: true)
