@@ -69,3 +69,4 @@ flutter:
     - assets/images/
     # - .env
     - assets/icons/
+    - assets/tempImages/

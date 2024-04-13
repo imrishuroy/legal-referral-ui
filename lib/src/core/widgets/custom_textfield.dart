@@ -35,13 +35,9 @@ class CustomTextField extends StatelessWidget {
         children: [
           Text(
             labelText,
-            style: const TextStyle(
-              fontWeight: FontWeight.w400,
-              fontSize: 14,
-              color: LegalReferralColors.black,
-            ),
+            style: Theme.of(context).textTheme.bodyLarge,
           ),
-          const SizedBox(height: 8),
+          SizedBox(height: 8.h),
           TextFormField(
             cursorColor: LegalReferralColors.borderBlue300,
             focusNode: focusNode,
@@ -50,47 +46,41 @@ class CustomTextField extends StatelessWidget {
             keyboardType: keyboardType,
             maxLines: maxLines,
             enabled: enabled,
-            style: TextStyle(
-              fontWeight: FontWeight.w400,
-              fontSize: 14.h,
-              color: LegalReferralColors.black,
-            ),
+            style: Theme.of(context).textTheme.bodyLarge,
             decoration: InputDecoration(
               hintText: hintText,
-              hintStyle: const TextStyle(
-                fontWeight: FontWeight.w400,
-                fontSize: 14,
-                color: LegalReferralColors.textgrey300,
-              ),
+              hintStyle: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                    color: LegalReferralColors.textgrey300,
+                  ),
               enabledBorder: OutlineInputBorder(
                 borderSide: const BorderSide(
                   color: LegalReferralColors.borderBlue300,
                 ),
-                borderRadius: BorderRadius.circular(4),
+                borderRadius: BorderRadius.circular(4.r),
               ),
               focusedBorder: OutlineInputBorder(
                 borderSide: const BorderSide(
                   color: LegalReferralColors.borderBlue300,
                 ),
-                borderRadius: BorderRadius.circular(4),
+                borderRadius: BorderRadius.circular(4.r),
               ),
               disabledBorder: OutlineInputBorder(
                 borderSide: const BorderSide(
                   color: LegalReferralColors.borderBlue300,
                 ),
-                borderRadius: BorderRadius.circular(4),
+                borderRadius: BorderRadius.circular(4.r),
               ),
               errorBorder: OutlineInputBorder(
                 borderSide: const BorderSide(
                   color: LegalReferralColors.borderBlue300,
                 ),
-                borderRadius: BorderRadius.circular(4),
+                borderRadius: BorderRadius.circular(4.r),
               ),
               focusedErrorBorder: OutlineInputBorder(
                 borderSide: const BorderSide(
                   color: LegalReferralColors.borderBlue300,
                 ),
-                borderRadius: BorderRadius.circular(4),
+                borderRadius: BorderRadius.circular(4.r),
               ),
               filled: true,
               fillColor: LegalReferralColors.containerWhite500,

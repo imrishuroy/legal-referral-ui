@@ -26,11 +26,7 @@ class CustomDropDown extends StatelessWidget {
       children: [
         Text(
           labelText,
-          style: TextStyle(
-            fontWeight: FontWeight.w400,
-            fontSize: 14.h,
-            color: LegalReferralColors.textBlack,
-          ),
+          style: Theme.of(context).textTheme.bodyLarge,
         ),
         SizedBox(height: 8.h),
         DropdownButtonFormField2<String>(
@@ -39,11 +35,9 @@ class CustomDropDown extends StatelessWidget {
             fillColor: LegalReferralColors.containerWhite500,
             errorStyle: const TextStyle(color: LegalReferralColors.error),
             hintText: hintText,
-            hintStyle: TextStyle(
-              fontWeight: FontWeight.w400,
-              fontSize: 14.h,
-              color: LegalReferralColors.textgrey300,
-            ),
+            hintStyle: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                  color: LegalReferralColors.textgrey300,
+                ),
             enabledBorder: OutlineInputBorder(
               borderSide: const BorderSide(
                 color: LegalReferralColors.borderBlue300,
@@ -71,11 +65,9 @@ class CustomDropDown extends StatelessWidget {
           ),
           hint: Text(
             hintText,
-            style: TextStyle(
-              fontWeight: FontWeight.w400,
-              fontSize: 14.h,
-              color: LegalReferralColors.textgrey300,
-            ),
+            style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                  color: LegalReferralColors.textgrey300,
+                ),
           ),
           items: items
               .map(
@@ -84,10 +76,7 @@ class CustomDropDown extends StatelessWidget {
                   value: item,
                   child: Text(
                     item,
-                    style: const TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.normal,
-                    ),
+                    style: Theme.of(context).textTheme.bodyLarge,
                   ),
                 ),
               )
