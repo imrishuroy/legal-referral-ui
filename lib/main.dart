@@ -10,6 +10,7 @@ import 'package:legal_referral_ui/firebase_options.dart';
 import 'package:legal_referral_ui/src/core/config/config.dart';
 import 'package:legal_referral_ui/src/core/network/network.dart';
 import 'package:legal_referral_ui/src/core/router/router.dart';
+import 'package:legal_referral_ui/src/core/theme/theme.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -42,9 +43,8 @@ class MyApp extends StatelessWidget {
         return MaterialApp.router(
           debugShowCheckedModeBanner: false,
           title: 'Legal Referral',
-          theme: ThemeData(
-            useMaterial3: true,
-          ),
+          themeMode: ThemeMode.light,
+          theme: LegalReferralTheme.lightTheme,
           routerConfig: appRouter.router,
         );
       },

@@ -5,8 +5,8 @@ class ImageStringsUtil {
   static const String successLogo = 'assets/logos/success.svg';
 
   // -- Social Logos
-  static const String google = '';
-  static const String facebook = '';
+  static const String twitter = 'assets/logos/twitter.svg';
+  static const String facebook = 'assets/logos/fb.svg';
 
   // -- Category Icons
   static const String personIcon = 'assets/icons/person.svg';
@@ -14,6 +14,14 @@ class ImageStringsUtil {
   static const String pdfIcon = 'assets/icons/pdfIcon.svg';
   static const String deleteIcon = 'assets/icons/deleteIcon.svg';
   static const String editIcon = 'assets/icons/editIcon.svg';
+  static const String addIcon = 'assets/icons/addIcon.svg';
+  static const String favIcon = 'assets/icons/favIcon.svg';
+  static const String threeDots = 'assets/icons/3dots.svg';
+  static const String thumbUp = 'assets/icons/thumb-up.svg';
+  static const String share = 'assets/icons/share.svg';
+  static const String reply = 'assets/icons/reply.svg';
+  static const String discuss = 'assets/icons/discuss.svg';
+  static const String comment = 'assets/icons/comment.svg';
 
   // -- Brand Icons
 
