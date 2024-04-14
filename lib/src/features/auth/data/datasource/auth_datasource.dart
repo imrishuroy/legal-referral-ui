@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/foundation.dart';
 import 'package:legal_referral_ui/src/core/config/config.dart';
 import 'package:legal_referral_ui/src/core/network/network.dart';
@@ -13,10 +15,24 @@ class AuthDataSource {
   final APIClient _apiClient;
 
   Future<AppUser?> createUser({
-    required AppUser appUser,
+    required String email,
+    required String firstName,
+    required String lastName,
+    required String? mobile,
+    required int signUpMethod,
+    String? imageUrl,
+    File? userImage,
   }) async {
     try {
-      final user = await _apiClient.createUser(appUser);
+      final user = await _apiClient.createUser(
+        email: email,
+        firstName: firstName,
+        lastName: lastName,
+        signUpMethod: signUpMethod,
+        mobile: mobile,
+        imageUrl: imageUrl,
+        userImage: userImage,
+      );
       return user;
     } catch (_) {
       rethrow;
@@ -30,19 +46,6 @@ class AuthDataSource {
       debugPrint('Error in ping $error');
     }
     return null;
-  }
-
-  Future<ResponseMsg?> uploadProfileImage({
-    required UploadUserImageReq uploadUserImageReq,
-  }) async {
-    try {
-      return await _apiClient.uploadUserImage(
-        uploadUserImageReq.userId,
-        uploadUserImageReq,
-      );
-    } catch (error) {
-      rethrow;
-    }
   }
 
   Future<String?> customSignUp({

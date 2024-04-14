@@ -1,13 +1,44 @@
 PODS:
-  - Auth0 (2.5.0):
-    - JWTDecode (~> 3.1)
-    - SimpleKeychain (~> 1.1)
-  - auth0_flutter (1.5.0):
-    - Auth0 (= 2.5.0)
+  - AppAuth (1.7.3):
+    - AppAuth/Core (= 1.7.3)
+    - AppAuth/ExternalUserAgent (= 1.7.3)
+  - AppAuth/Core (1.7.3)
+  - AppAuth/ExternalUserAgent (1.7.3):
+    - AppAuth/Core
+  - DKImagePickerController/Core (4.3.4):
+    - DKImagePickerController/ImageDataManager
+    - DKImagePickerController/Resource
+  - DKImagePickerController/ImageDataManager (4.3.4)
+  - DKImagePickerController/PhotoGallery (4.3.4):
+    - DKImagePickerController/Core
+    - DKPhotoGallery
+  - DKImagePickerController/Resource (4.3.4)
+  - DKPhotoGallery (0.0.17):
+    - DKPhotoGallery/Core (= 0.0.17)
+    - DKPhotoGallery/Model (= 0.0.17)
+    - DKPhotoGallery/Preview (= 0.0.17)
+    - DKPhotoGallery/Resource (= 0.0.17)
+    - SDWebImage
+    - SwiftyGif
+  - DKPhotoGallery/Core (0.0.17):
+    - DKPhotoGallery/Model
+    - DKPhotoGallery/Preview
+    - SDWebImage
+    - SwiftyGif
+  - DKPhotoGallery/Model (0.0.17):
+    - SDWebImage
+    - SwiftyGif
+  - DKPhotoGallery/Preview (0.0.17):
+    - DKPhotoGallery/Model
+    - DKPhotoGallery/Resource
+    - SDWebImage
+    - SwiftyGif
+  - DKPhotoGallery/Resource (0.0.17):
+    - SDWebImage
+    - SwiftyGif
+  - file_picker (0.0.1):
+    - DKImagePickerController/PhotoGallery
     - Flutter
-    - FlutterMacOS
-    - JWTDecode (= 3.1.0)
-    - SimpleKeychain (= 1.1.0)
   - Firebase/Analytics (10.22.0):
     - Firebase/Core
   - Firebase/Auth (10.22.0):
@@ -21,19 +52,26 @@ PODS:
   - Firebase/Performance (10.22.0):
     - Firebase/CoreOnly
     - FirebasePerformance (~> 10.22.0)
-  - firebase_analytics (10.8.8):
+  - Firebase/Storage (10.22.0):
+    - Firebase/CoreOnly
+    - FirebaseStorage (~> 10.22.0)
+  - firebase_analytics (10.10.1):
     - Firebase/Analytics (= 10.22.0)
     - firebase_core
     - Flutter
-  - firebase_auth (4.17.7):
+  - firebase_auth (4.19.1):
     - Firebase/Auth (= 10.22.0)
     - firebase_core
     - Flutter
-  - firebase_core (2.26.0):
+  - firebase_core (2.29.0):
     - Firebase/CoreOnly (= 10.22.0)
     - Flutter
-  - firebase_performance (0.9.3-16):
+  - firebase_performance (0.9.4-1):
     - Firebase/Performance (= 10.22.0)
+    - firebase_core
+    - Flutter
+  - firebase_storage (11.7.1):
+    - Firebase/Storage (= 10.22.0)
     - firebase_core
     - Flutter
   - FirebaseABTesting (10.22.0):
@@ -64,6 +102,7 @@ PODS:
     - GoogleUtilities/Environment (~> 7.8)
     - GTMSessionFetcher/Core (< 4.0, >= 2.1)
     - RecaptchaInterop (~> 100.0)
+  - FirebaseAuthInterop (10.24.0)
   - FirebaseCore (10.22.0):
     - FirebaseCoreInternal (~> 10.0)
     - GoogleUtilities/Environment (~> 7.12)
@@ -103,7 +142,19 @@ PODS:
     - nanopb (< 2.30911.0, >= 2.30908.0)
     - PromisesSwift (~> 2.1)
   - FirebaseSharedSwift (10.22.0)
+  - FirebaseStorage (10.22.0):
+    - FirebaseAppCheckInterop (~> 10.0)
+    - FirebaseAuthInterop (~> 10.0)
+    - FirebaseCore (~> 10.0)
+    - FirebaseCoreExtension (~> 10.0)
+    - GTMSessionFetcher/Core (< 4.0, >= 2.1)
   - Flutter (1.0.0)
+  - flutter_keyboard_visibility (0.0.1):
+    - Flutter
+  - google_sign_in_ios (0.0.1):
+    - Flutter
+    - FlutterMacOS
+    - GoogleSignIn (~> 7.0.0)
   - GoogleAppMeasurement (10.22.0):
     - GoogleAppMeasurement/AdIdSupport (= 10.22.0)
     - GoogleUtilities/AppDelegateSwizzler (~> 7.11)
@@ -128,6 +179,10 @@ PODS:
     - GoogleUtilities/Environment (~> 7.7)
     - nanopb (< 2.30911.0, >= 2.30908.0)
     - PromisesObjC (< 3.0, >= 1.2)
+  - GoogleSignIn (7.0.0):
+    - AppAuth (~> 1.5)
+    - GTMAppAuth (< 3.0, >= 1.3)
+    - GTMSessionFetcher/Core (< 4.0, >= 1.1)
   - GoogleUtilities/AppDelegateSwizzler (7.13.0):
     - GoogleUtilities/Environment
     - GoogleUtilities/Logger
@@ -158,8 +213,12 @@ PODS:
   - GoogleUtilities/UserDefaults (7.13.0):
     - GoogleUtilities/Logger
     - GoogleUtilities/Privacy
+  - GTMAppAuth (2.0.0):
+    - AppAuth/Core (~> 1.6)
+    - GTMSessionFetcher/Core (< 4.0, >= 1.5)
   - GTMSessionFetcher/Core (3.3.1)
-  - JWTDecode (3.1.0)
+  - image_picker_ios (0.0.1):
+    - Flutter
   - nanopb (2.30910.0):
     - nanopb/decode (= 2.30910.0)
     - nanopb/encode (= 2.30910.0)
@@ -169,31 +228,44 @@ PODS:
   - PromisesSwift (2.4.0):
     - PromisesObjC (= 2.4.0)
   - RecaptchaInterop (100.0.0)
+  - SDWebImage (5.19.1):
+    - SDWebImage/Core (= 5.19.1)
+  - SDWebImage/Core (5.19.1)
   - shared_preferences_foundation (0.0.1):
     - Flutter
     - FlutterMacOS
-  - SimpleKeychain (1.1.0)
+  - smart_auth (0.0.1):
+    - Flutter
+  - SwiftyGif (5.4.5)
   - url_launcher_ios (0.0.1):
     - Flutter
 
 DEPENDENCIES:
-  - auth0_flutter (from `.symlinks/plugins/auth0_flutter/darwin`)
+  - file_picker (from `.symlinks/plugins/file_picker/ios`)
   - firebase_analytics (from `.symlinks/plugins/firebase_analytics/ios`)
   - firebase_auth (from `.symlinks/plugins/firebase_auth/ios`)
   - firebase_core (from `.symlinks/plugins/firebase_core/ios`)
   - firebase_performance (from `.symlinks/plugins/firebase_performance/ios`)
+  - firebase_storage (from `.symlinks/plugins/firebase_storage/ios`)
   - Flutter (from `Flutter`)
+  - flutter_keyboard_visibility (from `.symlinks/plugins/flutter_keyboard_visibility/ios`)
+  - google_sign_in_ios (from `.symlinks/plugins/google_sign_in_ios/darwin`)
+  - image_picker_ios (from `.symlinks/plugins/image_picker_ios/ios`)
   - shared_preferences_foundation (from `.symlinks/plugins/shared_preferences_foundation/darwin`)
+  - smart_auth (from `.symlinks/plugins/smart_auth/ios`)
   - url_launcher_ios (from `.symlinks/plugins/url_launcher_ios/ios`)
 
 SPEC REPOS:
   trunk:
-    - Auth0
+    - AppAuth
+    - DKImagePickerController
+    - DKPhotoGallery
     - Firebase
     - FirebaseABTesting
     - FirebaseAnalytics
     - FirebaseAppCheckInterop
     - FirebaseAuth
+    - FirebaseAuthInterop
     - FirebaseCore
     - FirebaseCoreExtension
     - FirebaseCoreInternal
@@ -202,20 +274,23 @@ SPEC REPOS:
     - FirebaseRemoteConfig
     - FirebaseSessions
     - FirebaseSharedSwift
+    - FirebaseStorage
     - GoogleAppMeasurement
     - GoogleDataTransport
+    - GoogleSignIn
     - GoogleUtilities
+    - GTMAppAuth
     - GTMSessionFetcher
-    - JWTDecode
     - nanopb
     - PromisesObjC
     - PromisesSwift
     - RecaptchaInterop
-    - SimpleKeychain
+    - SDWebImage
+    - SwiftyGif
 
 EXTERNAL SOURCES:
-  auth0_flutter:
-    :path: ".symlinks/plugins/auth0_flutter/darwin"
+  file_picker:
+    :path: ".symlinks/plugins/file_picker/ios"
   firebase_analytics:
     :path: ".symlinks/plugins/firebase_analytics/ios"
   firebase_auth:
@@ -224,25 +299,39 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/firebase_core/ios"
   firebase_performance:
     :path: ".symlinks/plugins/firebase_performance/ios"
+  firebase_storage:
+    :path: ".symlinks/plugins/firebase_storage/ios"
   Flutter:
     :path: Flutter
+  flutter_keyboard_visibility:
+    :path: ".symlinks/plugins/flutter_keyboard_visibility/ios"
+  google_sign_in_ios:
+    :path: ".symlinks/plugins/google_sign_in_ios/darwin"
+  image_picker_ios:
+    :path: ".symlinks/plugins/image_picker_ios/ios"
   shared_preferences_foundation:
     :path: ".symlinks/plugins/shared_preferences_foundation/darwin"
+  smart_auth:
+    :path: ".symlinks/plugins/smart_auth/ios"
   url_launcher_ios:
     :path: ".symlinks/plugins/url_launcher_ios/ios"
 
 SPEC CHECKSUMS:
-  Auth0: 72f19ad566fdf57f07bf37f828afd0c1570769a5
-  auth0_flutter: ae5ebf94520af57ebce16af395820b9e07abbc9f
+  AppAuth: a13994980c1ec792f7e2e665acd4d4aa6be43240
+  DKImagePickerController: b512c28220a2b8ac7419f21c491fc8534b7601ac
+  DKPhotoGallery: fdfad5125a9fdda9cc57df834d49df790dbb4179
+  file_picker: 09aa5ec1ab24135ccd7a1621c46c84134bfd6655
   Firebase: 797fd7297b7e1be954432743a0b3f90038e45a71
-  firebase_analytics: d00f42e1cfb2a75e62150e6a1e03236dc949f0d3
-  firebase_auth: cd5d79ba9a9a81151066d75f7cc8f6e698e33ed9
-  firebase_core: 8e100adc478919c6f3224f854ce8fa0bd98e36fd
-  firebase_performance: 96bba18922dca0d04ddc11de447634f7e7b90626
+  firebase_analytics: 8e6cecb9b9541db49ac40a46eec7c0f519de7252
+  firebase_auth: 35e39b82fa6703db53401e2d8708341597edc7be
+  firebase_core: aaadbddb3cb2ee3792b9804f9dbb63e5f6f7b55c
+  firebase_performance: 0a7767812b911db8daa8c542d64f4cdc0c0d7cc1
+  firebase_storage: 8d42f27f702499161335b5075aa67bf6f2d821fb
   FirebaseABTesting: 66d2594b36d4ff6e7d3c8719802100990de05857
   FirebaseAnalytics: 8d0ff929c63b7f72260f332b86ccf569776b75d3
   FirebaseAppCheckInterop: 58db3e9494751399cf3e7b7e3e705cff71099153
   FirebaseAuth: bbe4c68f958504ba9e54aee181adbdf5b664fbc6
+  FirebaseAuthInterop: 29336ab84df12fc0f340ba5fe58d3e5811a4192d
   FirebaseCore: 0326ec9b05fbed8f8716cddbf0e36894a13837f7
   FirebaseCoreExtension: 6394c00b887d0bebadbc7049c464aa0cbddc5d41
   FirebaseCoreInternal: bca337352024b18424a61e478460547d46c4c753
@@ -251,18 +340,25 @@ SPEC CHECKSUMS:
   FirebaseRemoteConfig: e1b992a94d3674dddbcaf5d0d31a0312156ceb1c
   FirebaseSessions: cd97fb07674f3906619c871eefbd260a1546c9d3
   FirebaseSharedSwift: 48076404e6e52372290d15a07d2ed1d2f1754023
+  FirebaseStorage: bc7bddc743548a89cfb896843a77cf4bdde2c231
   Flutter: e0871f40cf51350855a761d2e70bf5af5b9b5de7
+  flutter_keyboard_visibility: 0339d06371254c3eb25eeb90ba8d17dca8f9c069
+  google_sign_in_ios: 7c205d44fdc266640375c6ac33d96ba3983dbe02
   GoogleAppMeasurement: ccefe3eac9b0aa27f96066809fb1a7fe4b462626
   GoogleDataTransport: 6c09b596d841063d76d4288cc2d2f42cc36e1e2a
+  GoogleSignIn: b232380cf495a429b8095d3178a8d5855b42e842
   GoogleUtilities: d053d902a8edaa9904e1bd00c37535385b8ed152
+  GTMAppAuth: 99fb010047ba3973b7026e45393f51f27ab965ae
   GTMSessionFetcher: 8a1b34ad97ebe6f909fb8b9b77fba99943007556
-  JWTDecode: 3eaab1e06b6f4dcbdd6716aff09ba4c2104ca8b7
+  image_picker_ios: b545a5f16c0fa88e3ecbbce3ed4de45567a8ec18
   nanopb: 438bc412db1928dac798aa6fd75726007be04262
   PromisesObjC: f5707f49cb48b9636751c5b2e7d227e43fba9f47
   PromisesSwift: 9d77319bbe72ebf6d872900551f7eeba9bce2851
   RecaptchaInterop: 7d1a4a01a6b2cb1610a47ef3f85f0c411434cb21
+  SDWebImage: 40b0b4053e36c660a764958bff99eed16610acbb
   shared_preferences_foundation: b4c3b4cddf1c21f02770737f147a3f5da9d39695
-  SimpleKeychain: f8707c8e97b38c6a6e687b17732afc9bcef06439
+  smart_auth: 4bedbc118723912d0e45a07e8ab34039c19e04f2
+  SwiftyGif: 706c60cf65fa2bc5ee0313beece843c8eb8194d4
   url_launcher_ios: 6116280ddcfe98ab8820085d8d76ae7449447586
 
 PODFILE CHECKSUM: 819463e6a0290f5a72f145ba7cde16e8b6ef0796

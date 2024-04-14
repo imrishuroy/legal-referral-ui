@@ -1,9 +1,10 @@
+import 'dart:io';
+
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:injectable/injectable.dart';
 import 'package:legal_referral_ui/src/core/config/config.dart';
-import 'package:legal_referral_ui/src/core/utils/utils.dart';
 import 'package:legal_referral_ui/src/features/wizard/data/data.dart';
 import 'package:legal_referral_ui/src/features/wizard/domain/domain.dart';
 import 'package:legal_referral_ui/src/features/wizard/domain/usecases/wizard_usecase.dart';
@@ -150,30 +151,8 @@ class WizardBloc extends Bloc<WizardEvent, WizardState> {
       ),
     );
 
-    final licenseUrl = await ImageUtil.uploadFile(
-      file: XFile(event.filePath),
-      filename: event.userId,
-      container: 'licenses',
-      fileType: 'pdf',
-    );
-    AppLogger.info('License URL: $licenseUrl');
-    if (licenseUrl == null) {
-      emit(
-        state.copyWith(
-          wizardStatus: WizardStatus.failure,
-          failure: const Failure(
-            message: 'Failed to upload license',
-          ),
-        ),
-      );
-      return;
-    }
-
     final response = await _wizardUseCase.uploadLicense(
-      uploadLicenseReq: UploadLicenseReq(
-        userId: event.userId,
-        licensePdf: licenseUrl,
-      ),
+      licensePdf: File(event.filePath),
     );
 
     response.fold(

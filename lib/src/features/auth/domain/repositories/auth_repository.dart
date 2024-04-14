@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:dartz/dartz.dart';
 import 'package:legal_referral_ui/src/core/config/config.dart';
 import 'package:legal_referral_ui/src/features/auth/data/data.dart';
@@ -6,7 +8,13 @@ import 'package:legal_referral_ui/src/features/auth/domain/entities/app_user.dar
 
 abstract class AuthRepository {
   Future<Either<Failure, AppUser?>> createUser({
-    required AppUser appUser,
+    required String email,
+    required String firstName,
+    required String lastName,
+    required String? mobile,
+    required int signUpMethod,
+    String? imageUrl,
+    File? userImage,
   });
 
   Future<Either<Failure, String?>> customSignUp({
@@ -35,9 +43,5 @@ abstract class AuthRepository {
 
   Future<Either<Failure, AppUser?>> getUser({
     required String userId,
-  });
-
-  Future<Either<Failure, ResponseMsg?>> uploadUserImage({
-    required UploadUserImageReq uploadUserImageReq,
   });
 }

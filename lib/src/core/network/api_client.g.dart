@@ -72,17 +72,63 @@ class _APIClient implements APIClient {
   }
 
   @override
-  Future<AppUser?> createUser(AppUser appUser) async {
+  Future<AppUser?> createUser({
+    required String email,
+    required String firstName,
+    required String lastName,
+    required int signUpMethod,
+    String? mobile,
+    String? imageUrl,
+    File? userImage,
+  }) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
+    queryParameters.removeWhere((k, v) => v == null);
     final _headers = <String, dynamic>{};
-    final _data = <String, dynamic>{};
-    _data.addAll(appUser.toJson());
+    final _data = FormData();
+    _data.fields.add(MapEntry(
+      'email',
+      email,
+    ));
+    _data.fields.add(MapEntry(
+      'first_name',
+      firstName,
+    ));
+    _data.fields.add(MapEntry(
+      'last_name',
+      lastName,
+    ));
+    _data.fields.add(MapEntry(
+      'signup_method',
+      signUpMethod.toString(),
+    ));
+    if (mobile != null) {
+      _data.fields.add(MapEntry(
+        'mobile',
+        mobile,
+      ));
+    }
+    if (imageUrl != null) {
+      _data.fields.add(MapEntry(
+        'image_url',
+        imageUrl,
+      ));
+    }
+    if (userImage != null) {
+      _data.files.add(MapEntry(
+        'user_image',
+        MultipartFile.fromFileSync(
+          userImage.path,
+          filename: userImage.path.split(Platform.pathSeparator).last,
+        ),
+      ));
+    }
     final _result =
         await _dio.fetch<Map<String, dynamic>?>(_setStreamType<AppUser>(Options(
       method: 'POST',
       headers: _headers,
       extra: _extra,
+      contentType: 'multipart/form-data',
     )
             .compose(
               _dio.options,
@@ -352,49 +398,24 @@ class _APIClient implements APIClient {
   }
 
   @override
-  Future<ResponseMsg?> uploadUserImage(
-    String userId,
-    UploadUserImageReq uploadUserImageReq,
-  ) async {
+  Future<ResponseMsg?> uploadLicense(File licensePdf) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final _data = <String, dynamic>{};
-    _data.addAll(uploadUserImageReq.toJson());
+    final _data = FormData();
+    _data.files.add(MapEntry(
+      'license_pdf',
+      MultipartFile.fromFileSync(
+        licensePdf.path,
+        filename: licensePdf.path.split(Platform.pathSeparator).last,
+      ),
+    ));
     final _result = await _dio
         .fetch<Map<String, dynamic>?>(_setStreamType<ResponseMsg>(Options(
       method: 'POST',
       headers: _headers,
       extra: _extra,
-    )
-            .compose(
-              _dio.options,
-              '/users/${userId}/profile-image',
-              queryParameters: queryParameters,
-              data: _data,
-            )
-            .copyWith(
-                baseUrl: _combineBaseUrls(
-              _dio.options.baseUrl,
-              baseUrl,
-            ))));
-    final value =
-        _result.data == null ? null : ResponseMsg.fromJson(_result.data!);
-    return value;
-  }
-
-  @override
-  Future<ResponseMsg?> uploadLicense(UploadLicenseReq uploadLicenseReq) async {
-    final _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
-    final _headers = <String, dynamic>{};
-    final _data = <String, dynamic>{};
-    _data.addAll(uploadLicenseReq.toJson());
-    final _result = await _dio
-        .fetch<Map<String, dynamic>?>(_setStreamType<ResponseMsg>(Options(
-      method: 'POST',
-      headers: _headers,
-      extra: _extra,
+      contentType: 'multipart/form-data',
     )
             .compose(
               _dio.options,

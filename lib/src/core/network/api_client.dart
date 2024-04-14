@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:dio/dio.dart';
 import 'package:legal_referral_ui/src/core/config/config.dart';
 import 'package:legal_referral_ui/src/features/auth/data/data.dart';
@@ -24,9 +26,16 @@ abstract class APIClient {
   );
 
   @POST('/users')
-  Future<AppUser?> createUser(
-    @Body() AppUser appUser,
-  );
+  @MultiPart()
+  Future<AppUser?> createUser({
+    @Part(name: 'email') required String email,
+    @Part(name: 'first_name') required String firstName,
+    @Part(name: 'last_name') required String lastName,
+    @Part(name: 'signup_method') required int signUpMethod,
+    @Part(name: 'mobile') String? mobile,
+    @Part(name: 'image_url') String? imageUrl,
+    @Part(name: 'user_image') File? userImage,
+  });
 
   @POST('/sign-up')
   Future<AppUser?> signUp(
@@ -73,15 +82,10 @@ abstract class APIClient {
     @Body() License license,
   );
 
-  @POST('/users/{userId}/profile-image')
-  Future<ResponseMsg?> uploadUserImage(
-    @Path('userId') String userId,
-    @Body() UploadUserImageReq uploadUserImageReq,
-  );
-
   @POST('/license/upload')
+  @MultiPart()
   Future<ResponseMsg?> uploadLicense(
-    @Body() UploadLicenseReq uploadLicenseReq,
+    @Part(name: 'license_pdf') File licensePdf,
   );
 
   @POST('/about-you')

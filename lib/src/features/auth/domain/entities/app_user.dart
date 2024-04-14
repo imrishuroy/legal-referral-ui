@@ -21,7 +21,7 @@ class AppUser with _$AppUser {
     String? mobile,
     String? address,
     @JsonKey(name: 'image_url') String? imageUrl,
-    @JsonKey(name: 'user_id') String? userId,
+    @JsonKey(name: 'user_id', includeToJson: false) String? userId,
   }) = _AppUser;
 
   factory AppUser.fromJson(Map<String, dynamic> json) =>
