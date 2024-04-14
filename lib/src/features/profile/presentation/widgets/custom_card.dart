@@ -7,17 +7,20 @@ import 'package:legal_referral_ui/src/core/widgets/custom_button.dart';
 
 class CustomCard extends StatelessWidget {
   const CustomCard({
+    required this.onTap,
     super.key,
     this.title,
     this.subTitle,
     this.child,
     this.isNewdetails = false,
+    this.visibility = true,
   });
   final String? title;
   final String? subTitle;
   final Widget? child;
   final bool? isNewdetails;
-
+  final bool? visibility;
+  final VoidCallback onTap;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -41,26 +44,26 @@ class CustomCard extends StatelessWidget {
                 style: Theme.of(context).textTheme.headlineSmall,
               ),
               const Spacer(),
-              if (isNewdetails!)
-                CustomIconButton(
-                  onTap: () {},
-                  icon: SizedBox(
-                    height: 24.h,
-                    width: 24.w,
-                    child: SvgPicture.asset(ImageStringsUtil.addIcon),
-                  ),
-                )
+              if (visibility!)
+                isNewdetails!
+                    ? CustomIconButton(
+                        onTap: onTap,
+                        icon: SizedBox(
+                          height: 24.h,
+                          width: 24.w,
+                          child: SvgPicture.asset(ImageStringsUtil.addIcon),
+                        ),
+                      )
+                    : CustomIconButton(
+                        onTap: onTap,
+                        icon: SizedBox(
+                          height: 24.h,
+                          width: 24.w,
+                          child: SvgPicture.asset(ImageStringsUtil.editIcon),
+                        ),
+                      )
               else
-                CustomIconButton(
-                  onTap: () {},
-                  icon: SizedBox(
-                    height: 24.h,
-                    width: 24.w,
-                    child: SvgPicture.asset(
-                      ImageStringsUtil.editIcon,
-                    ),
-                  ),
-                ),
+                const SizedBox.shrink(),
             ],
           ),
           SizedBox(

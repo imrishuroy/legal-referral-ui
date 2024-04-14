@@ -3,7 +3,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:legal_referral_ui/src/core/constants/colors.dart';
 import 'package:legal_referral_ui/src/core/utils/utils.dart';
 import 'package:legal_referral_ui/src/core/widgets/custom_button.dart';
-import 'package:legal_referral_ui/src/features/profile/presentation/pages/add_pricing_page.dart';
 import 'package:legal_referral_ui/src/features/profile/presentation/widgets/socialmedia_details.dart';
 
 class AddSocialPage extends StatefulWidget {
@@ -63,13 +62,7 @@ class _AddSocialPageState extends State<AddSocialPage> {
               ),
               SizedBox(height: 28.h),
               CustomElevatedButton(
-                onTap: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) => AddPricePage(),
-                    ),
-                  );
-                },
+                onTap: () {},
                 text: 'Save and Proceed',
               ),
               SizedBox(height: 12.h),

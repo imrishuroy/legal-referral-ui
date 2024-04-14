@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:legal_referral_ui/src/core/constants/colors.dart';
+import 'package:legal_referral_ui/src/core/constants/social_constants.dart';
 import 'package:legal_referral_ui/src/core/widgets/custom_dropdown.dart';
 import 'package:legal_referral_ui/src/core/widgets/custom_textfield.dart';
 
@@ -23,7 +24,7 @@ class SocialMediaDetails extends StatelessWidget {
         children: [
           SizedBox(height: 12.h),
           CustomDropDown(
-            items: const [],
+            items: SocialMediaConstants.socialMediaList,
             onChange: (practiceArea) {},
             hintText: 'Select social media',
             labelText: 'Social Media',

@@ -4,13 +4,21 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:legal_referral_ui/src/core/constants/constants.dart';
 import 'package:legal_referral_ui/src/core/utils/utils.dart';
-import 'package:legal_referral_ui/src/core/widgets/custom_button.dart';
 import 'package:legal_referral_ui/src/core/widgets/custom_switch.dart';
+import 'package:legal_referral_ui/src/features/profile/presentation/pages/add_education_page.dart';
+import 'package:legal_referral_ui/src/features/profile/presentation/pages/add_experience_page.dart';
+import 'package:legal_referral_ui/src/features/profile/presentation/pages/add_pricing_page.dart';
+import 'package:legal_referral_ui/src/features/profile/presentation/pages/add_social_page.dart';
+import 'package:legal_referral_ui/src/features/profile/presentation/widgets/activity_widget.dart';
 import 'package:legal_referral_ui/src/features/profile/presentation/widgets/custom_card.dart';
+import 'package:legal_referral_ui/src/features/profile/presentation/widgets/education_widget.dart';
+import 'package:legal_referral_ui/src/features/profile/presentation/widgets/experience_widget.dart';
+import 'package:legal_referral_ui/src/features/profile/presentation/widgets/feature_widget.dart';
+import 'package:legal_referral_ui/src/features/profile/presentation/widgets/review_widget.dart';
+import 'package:legal_referral_ui/src/features/profile/presentation/widgets/social_widget.dart';
 
 class ProfilePage extends StatelessWidget {
-  ProfilePage({super.key});
-  bool _showMoreText = true;
+  const ProfilePage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -123,6 +131,11 @@ class ProfilePage extends StatelessWidget {
                 height: 2.h,
               ),
               CustomCard(
+                onTap: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) => AddPricePage()),
+                  );
+                },
                 title: 'Pricing',
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -155,6 +168,11 @@ class ProfilePage extends StatelessWidget {
                 ),
               ),
               CustomCard(
+                onTap: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) => AddPricePage()),
+                  );
+                },
                 title: 'Average billing per client',
                 child: Text.rich(
                   TextSpan(
@@ -170,6 +188,7 @@ class ProfilePage extends StatelessWidget {
                 ),
               ),
               CustomCard(
+                onTap: () {},
                 title: 'Case resolution rate',
                 child: Text(
                   '71%',
@@ -177,6 +196,7 @@ class ProfilePage extends StatelessWidget {
                 ),
               ),
               CustomCard(
+                onTap: () {},
                 title: 'About',
                 child: Text(
                   'Lorem ipsum dolor sit amet consectetur.'
@@ -193,279 +213,83 @@ class ProfilePage extends StatelessWidget {
                 ),
               ),
               CustomCard(
+                onTap: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => const AddSocialPage(),
+                    ),
+                  );
+                },
                 title: 'Social',
-                child: Column(
-                  children: [
-                    // this will be generating dynamically list based on User
-                    // wraping in listview.builder
-                    Row(
-                      children: [
-                        SizedBox(
-                          height: 24.h,
-                          width: 24.w,
-                          child: SvgPicture.asset(ImageStringsUtil.facebook),
-                        ),
-                        SizedBox(
-                          width: 8.w,
-                        ),
-                        Text(
-                          'Barry.E123',
-                          style:
-                              Theme.of(context).textTheme.bodyLarge?.copyWith(
-                                    color: LegalReferralColors.textBlue100,
-                                  ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
+                child: const SocialWidget(),
               ),
               CustomCard(
+                onTap: () {},
                 title: 'Featured',
-                child: Container(
-                  decoration: BoxDecoration(
-                    borderRadius:
-                        BorderRadius.circular(8), // Adjust the radius as needed
-                    border: Border.all(
-                      color: LegalReferralColors
-                          .borderLightGrey300, // Border color
+                visibility: false,
+                child: SizedBox(
+                  height: 330.h,
+                  child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    shrinkWrap: true,
+                    itemCount: 2,
+                    itemBuilder: (context, index) => SizedBox(
+                      width: 253.w,
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 2.w),
+                        child: const FeaturedWidget(),
+                      ),
                     ),
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      SizedBox(height: 12.h),
-                      Padding(
-                        padding: EdgeInsets.only(left: 12.w),
-                        child: Text(
-                          'post'.toUpperCase(),
-                          style:
-                              Theme.of(context).textTheme.bodyMedium?.copyWith(
-                                    color: LegalReferralColors.textGrey400,
-                                  ),
-                        ),
-                      ),
-                      SizedBox(height: 8.h),
-                      SizedBox(
-                        height: 212.h,
-                        width: 253.w,
-                        child: Image.asset(
-                          'assets/tempImages/Frame 202.png',
-                          fit: BoxFit.fill,
-                        ),
-                      ),
-                      SizedBox(height: 8.h),
-                      Padding(
-                        padding: EdgeInsets.only(left: 12.w),
-                        child: Text(
-                          'Guidelines to file bankruptcy',
-                          style: Theme.of(context).textTheme.titleSmall,
-                        ),
-                      ),
-                      SizedBox(height: 4.h),
-                      Padding(
-                        padding: EdgeInsets.only(left: 12.w),
-                        child: Text(
-                          'Lorem ipsum dolor sit amet',
-                          style:
-                              Theme.of(context).textTheme.bodyMedium?.copyWith(
-                                    color: LegalReferralColors.textGrey400,
-                                  ),
-                        ),
-                      ),
-                      SizedBox(height: 19.h),
-                    ],
                   ),
                 ),
               ),
               CustomCard(
+                onTap: () {},
                 title: 'Activity',
-                child: Column(
-                  children: [
-                    const Text('898 Followers'),
-                    CustomOutlinedButton(
-                      text: 'Posts',
-                      onPressed: () {},
-                      borderRadius: 64,
-                    ),
-                    Row(
-                      children: [
-                        Container(
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            border: Border.all(
-                              color: LegalReferralColors.borderGrey300,
-                              width: 1.w,
-                            ),
-                          ),
-                          child: CircleAvatar(
-                            radius: 27.r,
-                            backgroundImage: const AssetImage(
-                              'assets/tempImages/Ellipse 38.png',
-                            ),
-                          ),
-                        ),
-                        const Column(
-                          children: [
-                            Text('Barry E. Janay'),
-                            Text('Founder, ONYX • 2nd'),
-                            Text('13 min ago'),
-                          ],
-                        ),
-                        SvgPicture.asset(ImageStringsUtil.threeDots),
-                      ],
-                    ),
-                    Text(
-                      'Nam pellentesque magna ac ex convallis ullamcorper.'
-                      ' Mauris iaculis semper malesuada. '
-                      'Donec mi massa, '
-                      'iaculis non porttitor ut,'
-                      ' volutpat nec arcu. Fusce quis finibus felis',
-                      // Display only 4 lines initially
-                      maxLines: _showMoreText ? null : 2,
-                      // overflow: TextOverflow.ellipsis,
-                    ),
-                    CustomTextButton(
-                      onPressed: () {
-                        _showMoreText = true;
-                      },
-                      text: !_showMoreText ? 'Read more...' : '\nShow less...',
-                    ),
-                    Row(
-                      children: [
-                        Row(
-                          children: [
-                            SvgPicture.asset(
-                              ImageStringsUtil.thumbUp,
-                              height: 12.h,
-                              width: 12.w,
-                            ),
-                            const Text('21 Likes'),
-                          ],
-                        ),
-                        const Spacer(),
-                        Row(
-                          children: [
-                            SvgPicture.asset(
-                              ImageStringsUtil.comment,
-                              height: 12.h,
-                              width: 12.w,
-                            ),
-                            const Text('Comments'),
-                          ],
-                        ),
-                      ],
-                    ),
-                    const Divider(
-                      thickness: 1,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Column(
-                          children: [
-                            SvgPicture.asset(
-                              ImageStringsUtil.thumbUp,
-                            ),
-                            const Text('Like'),
-                          ],
-                        ),
-                        Column(
-                          children: [
-                            SvgPicture.asset(
-                              ImageStringsUtil.comment,
-                            ),
-                            const Text('Comment'),
-                          ],
-                        ),
-                        Column(
-                          children: [
-                            SvgPicture.asset(
-                              ImageStringsUtil.discuss,
-                            ),
-                            const Text('Discuss'),
-                          ],
-                        ),
-                        Column(
-                          children: [
-                            SvgPicture.asset(
-                              ImageStringsUtil.share,
-                            ),
-                            const Text('Share'),
-                          ],
-                        ),
-                      ],
-                    ),
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Image.asset(
-                          'assets/tempImages/Likes.png',
-                        ),
-                        Column(
-                          children: [
-                            Container(
-                              width: 295.w,
-                              color: LegalReferralColors.containerWhite400,
-                              child: const Column(
-                                children: [
-                                  Text('Sinan Rakib • 1st'),
-                                  Text('Finance attorney'),
-                                  Text(
-                                    'Lorem ipsum dolor sit amet consectetur.'
-                                    ' Risus lectus sit maecenas et.'
-                                    ' Adipiscing viverra ac risus blandit'
-                                    ' dignissim condimentum gravida.',
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Row(
-                              children: [
-                                Row(
-                                  children: [
-                                    SvgPicture.asset(
-                                      ImageStringsUtil.thumbUp,
-                                      height: 16.h,
-                                      width: 16.w,
-                                    ),
-                                    const Text('Like •4'),
-                                  ],
-                                ),
-                                Row(
-                                  children: [
-                                    SvgPicture.asset(
-                                      ImageStringsUtil.reply,
-                                      height: 16.h,
-                                      width: 16.w,
-                                    ),
-                                    const Text('Reply'),
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                    Divider(
-                      thickness: 1.w,
-                    ),
-                    CustomOutlinedButton(
-                      onPressed: () {},
-                      text: 'See All Posts',
-                    ),
-                  ],
-                ),
+                visibility: false,
+                child: const ActivityWidget(),
               ),
-              const CustomCard(
+              CustomCard(
+                onTap: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => const ExperiencePage(),
+                    ),
+                  );
+                },
                 title: 'Experience',
+                child: const ExperienceWidget(),
               ),
-              const CustomCard(
+              CustomCard(
+                onTap: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => const EducationPage(),
+                    ),
+                  );
+                },
                 title: 'Education',
+                child: const EducationWidget(),
               ),
-              const CustomCard(
+              CustomCard(
+                onTap: () {},
                 title: 'Review',
+                visibility: false,
+                child: SizedBox(
+                  height: 200.h,
+                  child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    shrinkWrap: true,
+                    itemCount: 2,
+                    itemBuilder: (context, index) => SizedBox(
+                      width: 318.w,
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 2.w),
+                        child: const ReviewWidget(),
+                      ),
+                    ),
+                  ),
+                ),
               ),
             ],
           ),

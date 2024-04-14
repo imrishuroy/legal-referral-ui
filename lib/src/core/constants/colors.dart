@@ -37,6 +37,7 @@ class LegalReferralColors {
   static const Color borderPrimary = Color.fromRGBO(67, 119, 163, 1);
   static const Color borderLightGrey300 = Color.fromRGBO(235, 229, 235, 1);
   static const Color borderGrey300 = Color.fromRGBO(168, 164, 168, 1);
+  static const Color borderGrey200 = Color.fromRGBO(235, 229, 235, 1);
   static const Color borderGrey100 = Color.fromRGBO(219, 214, 219, 1);
 
   // Error and validation colors

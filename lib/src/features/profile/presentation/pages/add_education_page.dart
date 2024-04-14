@@ -3,7 +3,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:legal_referral_ui/src/core/constants/colors.dart';
 import 'package:legal_referral_ui/src/core/utils/utils.dart';
 import 'package:legal_referral_ui/src/core/widgets/custom_button.dart';
-import 'package:legal_referral_ui/src/features/profile/presentation/pages/add_social_page.dart';
 import 'package:legal_referral_ui/src/features/profile/presentation/widgets/education_details.dart';
 
 class EducationPage extends StatefulWidget {
@@ -91,13 +90,7 @@ class _EducationPageState extends State<EducationPage> {
               ),
               SizedBox(height: 24.h),
               CustomElevatedButton(
-                onTap: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) => const AddSocialPage(),
-                    ),
-                  );
-                },
+                onTap: () {},
                 text: 'Save and Proceed',
               ),
               SizedBox(height: 12.h),

@@ -11,12 +11,16 @@ class CustomOutlinedButton extends StatelessWidget {
     this.borderColor,
     this.borderRadius,
     this.textColor,
+    this.height,
+    this.width,
   });
 
   final String text;
   final VoidCallback onPressed;
   final Color? borderColor;
   final double? borderRadius;
+  final double? height;
+  final double? width;
   final Color? textColor;
 
   @override
@@ -26,8 +30,8 @@ class CustomOutlinedButton extends StatelessWidget {
       borderRadius: BorderRadius.circular(4.r),
       onTap: onPressed,
       child: Container(
-        height: 57.h,
-        width: double.infinity,
+        height: height ?? 57.h,
+        width: width ?? double.infinity,
         decoration: BoxDecoration(
           border: Border.all(
             color: borderColor ?? LegalReferralColors.textGrey400,
@@ -173,6 +177,45 @@ class HorizontalIconButon extends StatelessWidget {
           Text(
             text,
             style: style,
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class VerticalIconButton extends StatelessWidget {
+  const VerticalIconButton({
+    required this.icon,
+    required this.text,
+    required this.onTap,
+    super.key,
+    this.height,
+    this.width,
+    this.textColor,
+  });
+  final double? height;
+  final double? width;
+  final String icon;
+  final String text;
+  final Color? textColor;
+  final VoidCallback onTap;
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: onTap,
+      child: Column(
+        children: [
+          SvgPicture.asset(
+            height: height ?? 20.h,
+            width: width ?? 20.w,
+            icon,
+          ),
+          Text(
+            text,
+            style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                  color: textColor,
+                ),
           ),
         ],
       ),
