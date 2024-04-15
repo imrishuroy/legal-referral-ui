@@ -9,6 +9,7 @@ class CustomDropDown extends StatelessWidget {
     required this.onChange,
     required this.hintText,
     required this.labelText,
+    this.showSelectedValue = true,
     super.key,
     this.validator,
   });
@@ -17,6 +18,7 @@ class CustomDropDown extends StatelessWidget {
 
   final String hintText;
   final String labelText;
+  final bool showSelectedValue;
   final String? Function(String?)? validator;
 
   @override
@@ -34,10 +36,17 @@ class CustomDropDown extends StatelessWidget {
             filled: true,
             fillColor: LegalReferralColors.containerWhite500,
             errorStyle: const TextStyle(color: LegalReferralColors.error),
-            hintText: hintText,
+            // hintText: hintText,
             hintStyle: Theme.of(context).textTheme.bodyLarge?.copyWith(
                   color: LegalReferralColors.textgrey300,
                 ),
+            // labelText: labelText,
+            // labelStyle: Theme.of(context).textTheme.bodyLarge,
+            // floatingLabelBehavior: FloatingLabelBehavior.never,
+            // label: Text(
+            //   labelText,
+            //   style: Theme.of(context).textTheme.bodyLarge,
+            // ),
             enabledBorder: OutlineInputBorder(
               borderSide: const BorderSide(
                 color: LegalReferralColors.borderBlue300,
@@ -72,11 +81,12 @@ class CustomDropDown extends StatelessWidget {
           items: items
               .map(
                 (item) => DropdownMenuItem<String>(
-                  alignment: Alignment.center,
+                  alignment: Alignment.centerLeft,
                   value: item,
                   child: Text(
                     item,
                     style: Theme.of(context).textTheme.bodyLarge,
+                    overflow: TextOverflow.ellipsis,
                   ),
                 ),
               )
@@ -90,6 +100,8 @@ class CustomDropDown extends StatelessWidget {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(4.r),
             ),
+            maxHeight: 250,
+            padding: EdgeInsets.symmetric(horizontal: 4.w, vertical: 8.h),
           ),
           menuItemStyleData: const MenuItemStyleData(
             padding: EdgeInsets.zero,

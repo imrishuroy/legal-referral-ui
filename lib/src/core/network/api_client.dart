@@ -4,6 +4,8 @@ import 'package:dio/dio.dart';
 import 'package:legal_referral_ui/src/core/config/config.dart';
 import 'package:legal_referral_ui/src/features/auth/data/data.dart';
 import 'package:legal_referral_ui/src/features/auth/domain/domain.dart';
+import 'package:legal_referral_ui/src/features/profile/data/models/add_experience_req.dart';
+import 'package:legal_referral_ui/src/features/profile/domain/domain.dart';
 import 'package:legal_referral_ui/src/features/wizard/data/data.dart';
 import 'package:legal_referral_ui/src/features/wizard/domain/domain.dart';
 import 'package:retrofit/retrofit.dart';
@@ -91,5 +93,19 @@ abstract class APIClient {
   @POST('/about-you')
   Future<ResponseMsg?> saveAboutYou(
     @Body() AboutYouReq aboutYouReq,
+  );
+
+  // profile
+
+  @GET('/firms')
+  Future<List<Firm?>> searchFirm(
+    @Query('query') String query,
+    @Query('limit') int limit,
+    @Query('offset') int offset,
+  );
+
+  @POST('/experience')
+  Future<Experience?> addExperience(
+    @Body() AddExperienceReq addExperienceReq,
   );
 }

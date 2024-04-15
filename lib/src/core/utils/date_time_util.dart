@@ -19,7 +19,8 @@ class DateTimeUtil {
 
   static String getFormattedDate(DateTime dateTime) {
     final outputDateFormat = DateFormat(
-      'MM/dd/yyyy',
+      // 'MM/dd/yyyy',
+      'dd/MM/yyyy',
     );
     return outputDateFormat.format(dateTime);
   }

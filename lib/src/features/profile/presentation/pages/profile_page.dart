@@ -2,13 +2,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:legal_referral_ui/src/core/constants/constants.dart';
 import 'package:legal_referral_ui/src/core/utils/utils.dart';
+import 'package:legal_referral_ui/src/core/widgets/custom_button.dart';
 import 'package:legal_referral_ui/src/core/widgets/custom_switch.dart';
 import 'package:legal_referral_ui/src/features/profile/presentation/pages/add_education_page.dart';
-import 'package:legal_referral_ui/src/features/profile/presentation/pages/add_experience_page.dart';
 import 'package:legal_referral_ui/src/features/profile/presentation/pages/add_pricing_page.dart';
 import 'package:legal_referral_ui/src/features/profile/presentation/pages/add_social_page.dart';
+import 'package:legal_referral_ui/src/features/profile/presentation/presentation.dart';
 import 'package:legal_referral_ui/src/features/profile/presentation/widgets/activity_widget.dart';
 import 'package:legal_referral_ui/src/features/profile/presentation/widgets/custom_card.dart';
 import 'package:legal_referral_ui/src/features/profile/presentation/widgets/education_widget.dart';
@@ -19,6 +21,8 @@ import 'package:legal_referral_ui/src/features/profile/presentation/widgets/soci
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});
+
+  static const String name = 'ProfilePage';
 
   @override
   Widget build(BuildContext context) {
@@ -47,6 +51,14 @@ class ProfilePage extends StatelessWidget {
                             child: Image.asset(
                               'assets/tempImages/Banner.png',
                               fit: BoxFit.fitWidth,
+                            ),
+                          ),
+                          Positioned(
+                            right: 16.w,
+                            top: 148.h,
+                            child: CustomIconButton(
+                              onTap: () {},
+                              icon: SvgPicture.asset(ImageStringsUtil.editIcon),
                             ),
                           ),
                           Positioned(
@@ -249,17 +261,42 @@ class ProfilePage extends StatelessWidget {
                 visibility: false,
                 child: const ActivityWidget(),
               ),
-              CustomCard(
-                onTap: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) => const ExperiencePage(),
-                    ),
-                  );
-                },
+              ProfileSection(
                 title: 'Experience',
+                actions: [
+                  CustomIconButton(
+                    onTap: () => context.pushNamed(AddExperiencePage.name),
+                    icon: SizedBox(
+                      height: 20.h,
+                      width: 20.w,
+                      child: SvgPicture.asset(ImageStringsUtil.addIcon),
+                    ),
+                  ),
+                  SizedBox(
+                    width: 12.w,
+                  ),
+                  CustomIconButton(
+                    onTap: () {},
+                    icon: SizedBox(
+                      height: 18.h,
+                      width: 18.w,
+                      child: SvgPicture.asset(ImageStringsUtil.editIcon),
+                    ),
+                  ),
+                ],
                 child: const ExperienceWidget(),
               ),
+              // CustomCard(
+              //   onTap: () {
+              //     Navigator.of(context).push(
+              //       MaterialPageRoute(
+              //         builder: (context) => const AddExperiencePage(),
+              //       ),
+              //     );
+              //   },
+              //   title: 'Experience',
+              //   child: const ExperienceWidget(),
+              // ),
               CustomCard(
                 onTap: () {
                   Navigator.of(context).push(

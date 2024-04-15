@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:legal_referral_ui/src/core/config/config.dart';
+import 'package:legal_referral_ui/src/features/auth/presentation/presentation.dart';
+import 'package:legal_referral_ui/src/features/profile/presentation/pages/profile_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -10,6 +13,8 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  final _authBloc = getIt<AuthBloc>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -18,6 +23,19 @@ class _HomePageState extends State<HomePage> {
         centerTitle: true,
         backgroundColor: Colors.transparent,
         elevation: 0,
+        leading: Padding(
+          padding: const EdgeInsets.symmetric(
+            horizontal: 8,
+          ),
+          child: GestureDetector(
+            onTap: () => context.pushNamed(ProfilePage.name),
+            child: CircleAvatar(
+              backgroundImage: NetworkImage(
+                _authBloc.state.user?.imageUrl ?? '',
+              ),
+            ),
+          ),
+        ),
       ),
       body: Center(
         child: TextButton(

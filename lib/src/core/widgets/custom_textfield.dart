@@ -11,9 +11,11 @@ class CustomTextField extends StatelessWidget {
     super.key,
     this.keyboardType = TextInputType.text,
     this.obscureText = false,
+    this.onChanged,
     this.validator,
     this.maxLines = 1,
     this.enabled = true,
+    this.showLabel = true,
   });
 
   final FocusNode? focusNode;
@@ -22,9 +24,11 @@ class CustomTextField extends StatelessWidget {
   final String labelText;
   final TextInputType keyboardType;
   final bool obscureText;
+  final String? Function(String?)? onChanged;
   final String? Function(String?)? validator;
   final int maxLines;
   final bool enabled;
+  final bool showLabel;
 
   @override
   Widget build(BuildContext context) {
@@ -33,11 +37,12 @@ class CustomTextField extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            labelText,
-            style: Theme.of(context).textTheme.bodyLarge,
-          ),
-          SizedBox(height: 8.h),
+          if (showLabel)
+            Text(
+              labelText,
+              style: Theme.of(context).textTheme.bodyLarge,
+            ),
+          if (showLabel) SizedBox(height: 8.h),
           TextFormField(
             cursorColor: LegalReferralColors.borderBlue300,
             focusNode: focusNode,
@@ -46,6 +51,7 @@ class CustomTextField extends StatelessWidget {
             keyboardType: keyboardType,
             maxLines: maxLines,
             enabled: enabled,
+            onChanged: onChanged,
             style: Theme.of(context).textTheme.bodyLarge,
             decoration: InputDecoration(
               hintText: hintText,
@@ -83,7 +89,8 @@ class CustomTextField extends StatelessWidget {
                 borderRadius: BorderRadius.circular(4.r),
               ),
               filled: true,
-              fillColor: LegalReferralColors.containerWhite500,
+              // fillColor: LegalReferralColors.containerWhite500,
+              fillColor: Colors.white,
             ),
             validator: validator,
           ),

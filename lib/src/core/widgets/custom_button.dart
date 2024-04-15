@@ -171,7 +171,7 @@ class HorizontalIconButon extends StatelessWidget {
             icon,
             height: height ?? 24.h,
             width: width ?? 24.w,
-            color: iconColor,
+            // color: iconColor,
           ),
           SizedBox(width: 8.w),
           Text(
