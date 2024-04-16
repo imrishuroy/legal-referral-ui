@@ -43,6 +43,7 @@ dependencies:
   pinput: ^4.0.0
   retrofit: ^4.1.0
   shared_preferences: ^2.2.2
+  shimmer: ^3.0.0
   stream_transform: ^2.1.0
   timeago: ^3.6.0
   toastification: ^1.2.1
