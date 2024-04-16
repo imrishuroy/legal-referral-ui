@@ -4,7 +4,7 @@ import 'package:dio/dio.dart';
 import 'package:legal_referral_ui/src/core/config/config.dart';
 import 'package:legal_referral_ui/src/features/auth/data/data.dart';
 import 'package:legal_referral_ui/src/features/auth/domain/domain.dart';
-import 'package:legal_referral_ui/src/features/profile/data/models/add_experience_req.dart';
+import 'package:legal_referral_ui/src/features/profile/data/data.dart';
 import 'package:legal_referral_ui/src/features/profile/domain/domain.dart';
 import 'package:legal_referral_ui/src/features/wizard/data/data.dart';
 import 'package:legal_referral_ui/src/features/wizard/domain/domain.dart';
@@ -107,5 +107,15 @@ abstract class APIClient {
   @POST('/experience')
   Future<Experience?> addExperience(
     @Body() AddExperienceReq addExperienceReq,
+  );
+
+  @POST('/education')
+  Future<Education?> addEducation(
+    @Body() Education education,
+  );
+
+  @PUT('/users/info')
+  Future<AppUser?> uploadUserInfo(
+    @Body() UploadUserInfoReq uploadUserInfoReq,
   );
 }

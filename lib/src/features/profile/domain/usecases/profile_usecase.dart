@@ -1,7 +1,8 @@
 import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
 import 'package:legal_referral_ui/src/core/config/config.dart';
-import 'package:legal_referral_ui/src/features/profile/data/models/add_experience_req.dart';
+import 'package:legal_referral_ui/src/features/auth/domain/domain.dart';
+import 'package:legal_referral_ui/src/features/profile/data/data.dart';
 import 'package:legal_referral_ui/src/features/profile/domain/domain.dart';
 
 @lazySingleton
@@ -26,6 +27,24 @@ class ProfileUseCase {
   Future<Either<Failure, Experience?>> addExperience({
     required AddExperienceReq addExperienceReq,
   }) async {
-    return _profileRepository.addExperience(addExperienceReq: addExperienceReq);
+    return _profileRepository.addExperience(
+      addExperienceReq: addExperienceReq,
+    );
+  }
+
+  Future<Either<Failure, Education?>> addEducation({
+    required Education education,
+  }) async {
+    return _profileRepository.addEducation(
+      education: education,
+    );
+  }
+
+  Future<Either<Failure, AppUser?>> uploadUserInfo({
+    required UploadUserInfoReq uploadUserInfoReq,
+  }) async {
+    return _profileRepository.uploadUserInfo(
+      uploadUserInfoReq: uploadUserInfoReq,
+    );
   }
 }

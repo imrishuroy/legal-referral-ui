@@ -92,7 +92,9 @@ class _AddExperiencePageState extends State<AddExperiencePage> {
                               hintText: 'Senior attorney',
                               labelText: 'Title',
                               validator: (value) =>
-                                  value!.isEmpty ? 'Title is required' : null,
+                                  value == null || value.isEmpty
+                                      ? 'Title is required'
+                                      : null,
                             ),
                             SizedBox(height: 16.h),
                             CustomDropDown(
@@ -226,8 +228,9 @@ class _AddExperiencePageState extends State<AddExperiencePage> {
                                 onTap: () async {
                                   final pickedDate = await showDatePicker(
                                     context: context,
-                                    // TODO: check if we can have end date after start date
-                                    firstDate: DateTime(1900),
+                                    firstDate: _startDate != null
+                                        ? _startDate!
+                                        : DateTime(1900),
                                     lastDate: DateTime.now(),
                                     builder: (context, child) {
                                       return Theme(
@@ -259,10 +262,13 @@ class _AddExperiencePageState extends State<AddExperiencePage> {
                                   hintText: 'dd/mm/yyyy',
                                   labelText: 'End date',
                                   enabled: false,
-                                  validator: (value) =>
-                                      value == null || value.isEmpty
-                                          ? 'End date is required'
-                                          : null,
+                                  validator: (value) {
+                                    if (!_current &&
+                                        (value == null || value.isEmpty)) {
+                                      return 'End date is required';
+                                    }
+                                    return null;
+                                  },
                                 ),
                               ),
                             SizedBox(height: 16.h),

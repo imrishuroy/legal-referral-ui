@@ -32,3 +32,25 @@ class ExperienceAdded extends ProfileEvent {
   @override
   List<Object> get props => [addExperienceReq];
 }
+
+class EducationAdded extends ProfileEvent {
+  const EducationAdded({
+    required this.education,
+  });
+
+  final Education education;
+
+  @override
+  List<Object> get props => [education];
+}
+
+class UserInfoUpdated extends ProfileEvent {
+  const UserInfoUpdated({
+    required this.uploadUserInfoReq,
+  });
+
+  final UploadUserInfoReq uploadUserInfoReq;
+
+  @override
+  List<Object> get props => [uploadUserInfoReq];
+}

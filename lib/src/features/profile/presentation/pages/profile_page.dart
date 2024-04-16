@@ -57,7 +57,9 @@ class ProfilePage extends StatelessWidget {
                             right: 16.w,
                             top: 148.h,
                             child: CustomIconButton(
-                              onTap: () {},
+                              onTap: () => context.pushNamed(
+                                UpdateUserInfoPage.name,
+                              ),
                               icon: SvgPicture.asset(ImageStringsUtil.editIcon),
                             ),
                           ),
@@ -286,6 +288,32 @@ class ProfilePage extends StatelessWidget {
                 ],
                 child: const ExperienceWidget(),
               ),
+
+              ProfileSection(
+                title: 'Education',
+                actions: [
+                  CustomIconButton(
+                    onTap: () => context.pushNamed(AddEducationPage.name),
+                    icon: SizedBox(
+                      height: 20.h,
+                      width: 20.w,
+                      child: SvgPicture.asset(ImageStringsUtil.addIcon),
+                    ),
+                  ),
+                  SizedBox(
+                    width: 12.w,
+                  ),
+                  CustomIconButton(
+                    onTap: () {},
+                    icon: SizedBox(
+                      height: 18.h,
+                      width: 18.w,
+                      child: SvgPicture.asset(ImageStringsUtil.editIcon),
+                    ),
+                  ),
+                ],
+                child: const EducationWidget(),
+              ),
               // CustomCard(
               //   onTap: () {
               //     Navigator.of(context).push(
@@ -297,17 +325,17 @@ class ProfilePage extends StatelessWidget {
               //   title: 'Experience',
               //   child: const ExperienceWidget(),
               // ),
-              CustomCard(
-                onTap: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) => const EducationPage(),
-                    ),
-                  );
-                },
-                title: 'Education',
-                child: const EducationWidget(),
-              ),
+              // CustomCard(
+              //   onTap: () {
+              //     Navigator.of(context).push(
+              //       MaterialPageRoute(
+              //         builder: (context) => const AddEducationPage(),
+              //       ),
+              //     );
+              //   },
+              //   title: 'Education',
+              //   child: const EducationWidget(),
+              // ),
               CustomCard(
                 onTap: () {},
                 title: 'Review',

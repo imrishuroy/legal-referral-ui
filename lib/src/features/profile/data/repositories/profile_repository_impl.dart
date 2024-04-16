@@ -3,6 +3,7 @@ import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 import 'package:legal_referral_ui/src/core/config/config.dart';
 import 'package:legal_referral_ui/src/core/network/network.dart';
+import 'package:legal_referral_ui/src/features/auth/domain/entities/app_user.dart';
 import 'package:legal_referral_ui/src/features/profile/data/data.dart';
 import 'package:legal_referral_ui/src/features/profile/domain/domain.dart';
 
@@ -45,6 +46,46 @@ class ProfileRepositoryImpl extends ProfileRepository {
     try {
       final res = await _profileDataSource.addExperience(
         addExperienceReq: addExperienceReq,
+      );
+      return Right(res);
+    } on DioException catch (error) {
+      final dioError = DioExceptions.fromDioError(error);
+      return Left(
+        Failure(
+          statusCode: dioError.statusCode,
+          message: dioError.message,
+        ),
+      );
+    }
+  }
+
+  @override
+  Future<Either<Failure, Education?>> addEducation({
+    required Education education,
+  }) async {
+    try {
+      final res = await _profileDataSource.addEducation(
+        education: education,
+      );
+      return Right(res);
+    } on DioException catch (error) {
+      final dioError = DioExceptions.fromDioError(error);
+      return Left(
+        Failure(
+          statusCode: dioError.statusCode,
+          message: dioError.message,
+        ),
+      );
+    }
+  }
+
+  @override
+  Future<Either<Failure, AppUser?>> uploadUserInfo({
+    required UploadUserInfoReq uploadUserInfoReq,
+  }) async {
+    try {
+      final res = await _profileDataSource.uploadUserInfo(
+        uploadUserInfoReq: uploadUserInfoReq,
       );
       return Right(res);
     } on DioException catch (error) {

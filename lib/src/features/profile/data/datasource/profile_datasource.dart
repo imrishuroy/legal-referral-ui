@@ -1,6 +1,7 @@
 import 'package:injectable/injectable.dart';
 import 'package:legal_referral_ui/src/core/network/network.dart';
-import 'package:legal_referral_ui/src/features/profile/data/models/add_experience_req.dart';
+import 'package:legal_referral_ui/src/features/auth/domain/domain.dart';
+import 'package:legal_referral_ui/src/features/profile/data/data.dart';
 import 'package:legal_referral_ui/src/features/profile/domain/domain.dart';
 
 @singleton
@@ -33,6 +34,28 @@ class ProfileDataSource {
   }) async {
     try {
       final res = await _apiClient.addExperience(addExperienceReq);
+      return res;
+    } catch (_) {
+      rethrow;
+    }
+  }
+
+  Future<Education?> addEducation({
+    required Education education,
+  }) async {
+    try {
+      final res = await _apiClient.addEducation(education);
+      return res;
+    } catch (_) {
+      rethrow;
+    }
+  }
+
+  Future<AppUser?> uploadUserInfo({
+    required UploadUserInfoReq uploadUserInfoReq,
+  }) async {
+    try {
+      final res = await _apiClient.uploadUserInfo(uploadUserInfoReq);
       return res;
     } catch (_) {
       rethrow;
