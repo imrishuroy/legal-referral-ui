@@ -97,6 +97,11 @@ abstract class APIClient {
 
   // profile
 
+  @GET('/users/{userId}/profile')
+  Future<UserProfile?> fetchUserProfile(
+    @Path('userId') String userId,
+  );
+
   @GET('/firms')
   Future<List<Firm?>> searchFirm(
     @Query('query') String query,
@@ -117,5 +122,34 @@ abstract class APIClient {
   @PUT('/users/info')
   Future<AppUser?> uploadUserInfo(
     @Body() UploadUserInfoReq uploadUserInfoReq,
+  );
+
+  @POST('/social')
+  Future<Social?> addSocial(
+    @Body() Social social,
+  );
+
+  @POST('/price')
+  Future<Price?> addPrice(
+    @Body() Price price,
+  );
+
+  @PUT('/price/{priceId}')
+  Future<Price?> updatePrice(
+    @Path('priceId') int priceId,
+    @Body() Price price,
+  );
+
+  @PUT('/users/{userId}/toggle-referral')
+  Future<ResponseMsg?> toggleReferral(
+    @Path('userId') String userId,
+    @Body() ToggleReferralReq toggleReferralReq,
+  );
+
+  @PUT('/users/{userId}/banner')
+  @MultiPart()
+  Future<String?> updateUserBanner(
+    @Path('userId') String userId,
+    @Part(name: 'file') File file,
   );
 }

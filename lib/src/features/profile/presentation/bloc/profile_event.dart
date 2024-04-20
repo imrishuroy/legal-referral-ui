@@ -7,6 +7,19 @@ sealed class ProfileEvent extends Equatable {
   List<Object> get props => [];
 }
 
+class ProfileFetched extends ProfileEvent {
+  const ProfileFetched({
+    required this.userId,
+  });
+
+  final String userId;
+
+  @override
+  List<Object> get props => [
+        userId,
+      ];
+}
+
 class FirmSearched extends ProfileEvent {
   const FirmSearched({
     required this.query,
@@ -53,4 +66,77 @@ class UserInfoUpdated extends ProfileEvent {
 
   @override
   List<Object> get props => [uploadUserInfoReq];
+}
+
+class PricingOptionSelected extends ProfileEvent {
+  const PricingOptionSelected({
+    required this.pricinServiceType,
+  });
+
+  final PriceServiceType pricinServiceType;
+
+  @override
+  List<Object> get props => [pricinServiceType];
+}
+
+class PriceAdded extends ProfileEvent {
+  const PriceAdded({
+    required this.price,
+  });
+
+  final Price price;
+
+  @override
+  List<Object> get props => [price];
+}
+
+class PriceUpdated extends ProfileEvent {
+  const PriceUpdated({
+    required this.priceId,
+    required this.price,
+  });
+
+  final int priceId;
+  final Price price;
+
+  @override
+  List<Object> get props => [priceId, price];
+}
+
+class SocialAdded extends ProfileEvent {
+  const SocialAdded({
+    required this.social,
+  });
+
+  final Social social;
+
+  @override
+  List<Object> get props => [social];
+}
+
+class ReferralToggled extends ProfileEvent {
+  @override
+  List<Object> get props => [];
+}
+
+class BannerUpdated extends ProfileEvent {
+  const BannerUpdated({
+    required this.file,
+  });
+
+  final File file;
+
+  @override
+  List<Object> get props => [file];
+}
+
+class UserProfileUpdated extends ProfileEvent {
+  const UserProfileUpdated({
+    required this.userProfile,
+  });
+
+  final UserProfile userProfile;
+
+  @override
+  List<Object> get props => [userProfile];
 }

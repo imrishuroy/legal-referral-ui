@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:legal_referral_ui/src/features/auth/presentation/presentation.dart';
 import 'package:legal_referral_ui/src/features/home_page.dart';
+import 'package:legal_referral_ui/src/features/profile/domain/domain.dart';
 import 'package:legal_referral_ui/src/features/profile/presentation/pages/add_education_page.dart';
 import 'package:legal_referral_ui/src/features/profile/presentation/presentation.dart';
 import 'package:legal_referral_ui/src/features/wizard/presentation/presentation.dart';
@@ -204,7 +205,37 @@ class AppRouter {
         name: UpdateUserInfoPage.name,
         parentNavigatorKey: _rootNavigatorKey,
         pageBuilder: (context, state) => CustomTransitionPage(
-          child: const UpdateUserInfoPage(),
+          child: UpdateUserInfoPage(
+            user: state.extra as UserProfile?,
+          ),
+          transitionDuration: const Duration(
+            milliseconds: 500,
+          ),
+          transitionsBuilder: (_, a, __, c) =>
+              FadeTransition(opacity: a, child: c),
+        ),
+      ),
+      GoRoute(
+        path: '/add-edit-price',
+        name: AddEditPricePage.name,
+        parentNavigatorKey: _rootNavigatorKey,
+        pageBuilder: (context, state) => CustomTransitionPage(
+          child: AddEditPricePage(
+            args: state.extra as AddEditPricePageArgs,
+          ),
+          transitionDuration: const Duration(
+            milliseconds: 500,
+          ),
+          transitionsBuilder: (_, a, __, c) =>
+              FadeTransition(opacity: a, child: c),
+        ),
+      ),
+      GoRoute(
+        path: '/add-social',
+        name: AddSocialPage.name,
+        parentNavigatorKey: _rootNavigatorKey,
+        pageBuilder: (context, state) => CustomTransitionPage(
+          child: const AddSocialPage(),
           transitionDuration: const Duration(
             milliseconds: 500,
           ),

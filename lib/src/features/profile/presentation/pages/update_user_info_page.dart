@@ -4,14 +4,21 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:legal_referral_ui/src/core/config/config.dart';
 import 'package:legal_referral_ui/src/core/widgets/custom_button.dart';
+import 'package:legal_referral_ui/src/core/widgets/custom_loading_indicator.dart';
 import 'package:legal_referral_ui/src/core/widgets/custom_snackbar.dart';
 import 'package:legal_referral_ui/src/core/widgets/custom_textfield.dart';
 import 'package:legal_referral_ui/src/features/profile/data/data.dart';
+import 'package:legal_referral_ui/src/features/profile/domain/domain.dart';
 import 'package:legal_referral_ui/src/features/profile/presentation/presentation.dart';
 import 'package:toastification/toastification.dart';
 
 class UpdateUserInfoPage extends StatefulWidget {
-  const UpdateUserInfoPage({super.key});
+  const UpdateUserInfoPage({
+    required this.user,
+    super.key,
+  });
+
+  final UserProfile? user;
 
   static const String name = 'UpdateUserInfoPage';
 
@@ -27,6 +34,28 @@ class _UpdateUserInfoPageState extends State<UpdateUserInfoPage> {
   final _averageBillingPerClientController = TextEditingController();
   final _caseResolutionRateController = TextEditingController();
   final _aboutController = TextEditingController();
+
+  @override
+  void initState() {
+    final user = widget.user;
+    _firstNameController.text = user?.firstName ?? '';
+    _lastNameController.text = user?.lastName ?? '';
+
+    _averageBillingPerClientController.text =
+        user?.averageBillingPerClient != null
+            ? user!.averageBillingPerClient.toString()
+            : '';
+
+    _caseResolutionRateController.text = user?.caseResolutionRate != null
+        ? user!.caseResolutionRate.toString()
+        : '';
+
+    _aboutController.text = widget.user?.about ?? '';
+
+    AppLogger.info('firstName: ${_firstNameController.text}');
+
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -56,9 +85,7 @@ class _UpdateUserInfoPageState extends State<UpdateUserInfoPage> {
         },
         builder: (context, state) {
           return state.profileStatus == ProfileStatus.loading
-              ? const Center(
-                  child: CircularProgressIndicator(),
-                )
+              ? const CustomLoadingIndicator()
               : SafeArea(
                   child: SingleChildScrollView(
                     child: Form(
@@ -106,18 +133,27 @@ class _UpdateUserInfoPageState extends State<UpdateUserInfoPage> {
                                 return null;
                               },
                               labelText: 'Average Billing Per Client',
+                              keyboardType: TextInputType.number,
                             ),
                             SizedBox(height: 16.h),
                             CustomTextField(
                               controller: _caseResolutionRateController,
-                              hintText: 'Case Resolution Rate',
+                              hintText: 'Case Resolution Rate in %',
                               validator: (value) {
                                 if (value == null || value.isEmpty) {
                                   return 'Case Resolution Rate is required';
+                                } else if (int.tryParse(value) == null) {
+                                  return 'Case Resolution Rate must '
+                                      'be a number';
+                                } else if (int.tryParse(value)! > 100) {
+                                  return 'Case Resolution Rate must '
+                                      'be less than 100';
                                 }
+
                                 return null;
                               },
                               labelText: 'Case Resolution Rate',
+                              keyboardType: TextInputType.number,
                             ),
                             SizedBox(height: 16.h),
                             CustomTextField(

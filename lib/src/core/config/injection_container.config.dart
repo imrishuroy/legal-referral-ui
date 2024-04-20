@@ -18,7 +18,7 @@ import '../../features/auth/domain/domain.dart' as _i12;
 import '../../features/auth/domain/usecases/auth_usecase.dart' as _i14;
 import '../../features/auth/presentation/bloc/auth_bloc.dart' as _i17;
 import '../../features/profile/data/data.dart' as _i11;
-import '../../features/profile/data/datasource/profile_datasource.dart' as _i6;
+import '../../features/profile/data/datasources/profile_datasource.dart' as _i6;
 import '../../features/profile/data/repositories/profile_repository_impl.dart'
     as _i10;
 import '../../features/profile/domain/domain.dart' as _i9;

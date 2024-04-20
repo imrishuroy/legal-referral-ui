@@ -463,6 +463,34 @@ class _APIClient implements APIClient {
   }
 
   @override
+  Future<UserProfile?> fetchUserProfile(String userId) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    const Map<String, dynamic>? _data = null;
+    final _result = await _dio
+        .fetch<Map<String, dynamic>?>(_setStreamType<UserProfile>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              '/users/${userId}/profile',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
+    final value =
+        _result.data == null ? null : UserProfile.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
   Future<List<Firm?>> searchFirm(
     String query,
     int limit,
@@ -583,6 +611,162 @@ class _APIClient implements APIClient {
               baseUrl,
             ))));
     final value = _result.data == null ? null : AppUser.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<Social?> addSocial(Social social) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(social.toJson());
+    final _result =
+        await _dio.fetch<Map<String, dynamic>?>(_setStreamType<Social>(Options(
+      method: 'POST',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              '/social',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
+    final value = _result.data == null ? null : Social.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<Price?> addPrice(Price price) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(price.toJson());
+    final _result =
+        await _dio.fetch<Map<String, dynamic>?>(_setStreamType<Price>(Options(
+      method: 'POST',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              '/price',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
+    final value = _result.data == null ? null : Price.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<Price?> updatePrice(
+    int priceId,
+    Price price,
+  ) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(price.toJson());
+    final _result =
+        await _dio.fetch<Map<String, dynamic>?>(_setStreamType<Price>(Options(
+      method: 'PUT',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              '/price/${priceId}',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
+    final value = _result.data == null ? null : Price.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<ResponseMsg?> toggleReferral(
+    String userId,
+    ToggleReferralReq toggleReferralReq,
+  ) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(toggleReferralReq.toJson());
+    final _result = await _dio
+        .fetch<Map<String, dynamic>?>(_setStreamType<ResponseMsg>(Options(
+      method: 'PUT',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              '/users/${userId}/toggle-referral',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
+    final value =
+        _result.data == null ? null : ResponseMsg.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<String?> updateUserBanner(
+    String userId,
+    File file,
+  ) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = FormData();
+    _data.files.add(MapEntry(
+      'file',
+      MultipartFile.fromFileSync(
+        file.path,
+        filename: file.path.split(Platform.pathSeparator).last,
+      ),
+    ));
+    final _result = await _dio.fetch<String>(_setStreamType<String>(Options(
+      method: 'PUT',
+      headers: _headers,
+      extra: _extra,
+      contentType: 'multipart/form-data',
+    )
+        .compose(
+          _dio.options,
+          '/users/${userId}/banner',
+          queryParameters: queryParameters,
+          data: _data,
+        )
+        .copyWith(
+            baseUrl: _combineBaseUrls(
+          _dio.options.baseUrl,
+          baseUrl,
+        ))));
+    final value = _result.data;
     return value;
   }
 

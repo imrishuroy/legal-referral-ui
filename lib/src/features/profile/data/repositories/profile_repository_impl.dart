@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
@@ -14,6 +16,34 @@ class ProfileRepositoryImpl extends ProfileRepository {
   }) : _profileDataSource = profileDataSource;
 
   final ProfileDataSource _profileDataSource;
+
+  @override
+  Future<Either<Failure, UserProfile?>> fetchUserProfile({
+    required String userId,
+  }) async {
+    try {
+      final res = await _profileDataSource.fetchUserProfile(
+        userId: userId,
+      );
+      return Right(res);
+    } on DioException catch (error) {
+      final dioError = DioExceptions.fromDioError(error);
+      return Left(
+        Failure(
+          statusCode: dioError.statusCode,
+          message: dioError.message,
+        ),
+      );
+    } catch (e) {
+      AppLogger.error('Error fetching user profile: $e');
+      return Left(
+        Failure(
+          statusCode: 500,
+          message: e.toString(),
+        ),
+      );
+    }
+  }
 
   @override
   Future<Either<Failure, List<Firm?>>> searchFirm({
@@ -86,6 +116,112 @@ class ProfileRepositoryImpl extends ProfileRepository {
     try {
       final res = await _profileDataSource.uploadUserInfo(
         uploadUserInfoReq: uploadUserInfoReq,
+      );
+      return Right(res);
+    } on DioException catch (error) {
+      final dioError = DioExceptions.fromDioError(error);
+      return Left(
+        Failure(
+          statusCode: dioError.statusCode,
+          message: dioError.message,
+        ),
+      );
+    }
+  }
+
+  @override
+  Future<Either<Failure, Price?>> addPrice({
+    required Price price,
+  }) async {
+    try {
+      final res = await _profileDataSource.addPrice(
+        price: price,
+      );
+      return Right(res);
+    } on DioException catch (error) {
+      final dioError = DioExceptions.fromDioError(error);
+      return Left(
+        Failure(
+          statusCode: dioError.statusCode,
+          message: dioError.message,
+        ),
+      );
+    }
+  }
+
+  @override
+  Future<Either<Failure, Price?>> updatePrice({
+    required int priceId,
+    required Price price,
+  }) async {
+    try {
+      final res = await _profileDataSource.updatePrice(
+        priceId: priceId,
+        price: price,
+      );
+      return Right(res);
+    } on DioException catch (error) {
+      final dioError = DioExceptions.fromDioError(error);
+      return Left(
+        Failure(
+          statusCode: dioError.statusCode,
+          message: dioError.message,
+        ),
+      );
+    }
+  }
+
+  @override
+  Future<Either<Failure, Social?>> addSocial({
+    required Social social,
+  }) async {
+    try {
+      final res = await _profileDataSource.addSocial(
+        social: social,
+      );
+      return Right(res);
+    } on DioException catch (error) {
+      final dioError = DioExceptions.fromDioError(error);
+      return Left(
+        Failure(
+          statusCode: dioError.statusCode,
+          message: dioError.message,
+        ),
+      );
+    }
+  }
+
+  @override
+  Future<Either<Failure, ResponseMsg?>> toggleReferral({
+    required String userId,
+    required ToggleReferralReq toggleReferralReq,
+  }) async {
+    try {
+      final res = await _profileDataSource.toggleReferral(
+        userId: userId,
+        toggleReferralReq: toggleReferralReq,
+      );
+      return Right(res);
+    } on DioException catch (error) {
+      final dioError = DioExceptions.fromDioError(error);
+      return Left(
+        Failure(
+          statusCode: dioError.statusCode,
+          message: dioError.message,
+        ),
+      );
+    }
+  }
+
+  @override
+  Future<Either<Failure, String?>> updateUserBanner({
+    required String userId,
+    required File file,
+  }) async {
+    try {
+      final res = await _profileDataSource.updateUserBanner(
+        userId: userId,
+        file: file,
       );
       return Right(res);
     } on DioException catch (error) {

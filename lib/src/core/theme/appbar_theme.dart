@@ -6,6 +6,6 @@ class LegalReferralAppBarTheme {
   static AppBarTheme lightAppBarTheme = const AppBarTheme(
     centerTitle: false,
     surfaceTintColor: LegalReferralColors.containerWhite500,
-    titleSpacing: 0,
+    //   titleSpacing: 0,
   );
 }
