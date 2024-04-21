@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:legal_referral_ui/src/core/widgets/root_layout.dart';
 import 'package:legal_referral_ui/src/features/auth/presentation/presentation.dart';
 import 'package:legal_referral_ui/src/features/home_page.dart';
+import 'package:legal_referral_ui/src/features/network/presentation/pages/network_page.dart';
 import 'package:legal_referral_ui/src/features/profile/presentation/pages/add_education_page.dart';
 import 'package:legal_referral_ui/src/features/profile/presentation/presentation.dart';
 import 'package:legal_referral_ui/src/features/wizard/presentation/presentation.dart';
@@ -20,7 +22,7 @@ class AppRouter {
         name: SplashPage.name,
         parentNavigatorKey: _rootNavigatorKey,
         pageBuilder: (context, state) => CustomTransitionPage(
-          child: const SplashPage(),
+          child: NetworkPage(),
           transitionDuration: const Duration(
             seconds: _routeAnimationDuration,
           ),
@@ -139,7 +141,26 @@ class AppRouter {
         name: HomePage.name,
         parentNavigatorKey: _rootNavigatorKey,
         pageBuilder: (context, state) => CustomTransitionPage(
-          child: const HomePage(),
+          child: const RootLayout(
+            currentIndex: 0,
+            child: HomePage(),
+          ),
+          transitionDuration: const Duration(
+            milliseconds: 500,
+          ),
+          transitionsBuilder: (_, a, __, c) =>
+              FadeTransition(opacity: a, child: c),
+        ),
+      ),
+      GoRoute(
+        path: '/network',
+        name: NetworkPage.name,
+        parentNavigatorKey: _rootNavigatorKey,
+        pageBuilder: (context, state) => CustomTransitionPage(
+          child: RootLayout(
+            currentIndex: 3,
+            child: NetworkPage(),
+          ),
           transitionDuration: const Duration(
             milliseconds: 500,
           ),

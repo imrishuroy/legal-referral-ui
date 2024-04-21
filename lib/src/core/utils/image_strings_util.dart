@@ -22,6 +22,13 @@ class ImageStringsUtil {
   static const String reply = 'assets/icons/reply.svg';
   static const String discuss = 'assets/icons/discuss.svg';
   static const String comment = 'assets/icons/comment.svg';
+  static const String cross = 'assets/icons/crossIcon.svg';
+  static const String filter = 'assets/icons/filter.svg';
+  static const String referral = 'assets/icons/referral.svg';
+  static const String network = 'assets/icons/network.svg';
+  static const String home = 'assets/icons/home.svg';
+  static const String message = 'assets/icons/message.svg';
+  static const String removeConnection = 'assets/icons/removeConnection.svg';
 
   // -- Brand Icons
 
