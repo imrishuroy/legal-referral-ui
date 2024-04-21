@@ -167,7 +167,7 @@ class ProfileDataSource {
   // profile/experiences
   Future<UserExperience?> addExperience({
     required String userId,
-    required AddExperienceReq addExperienceReq,
+    required AddUpdateExperienceReq addExperienceReq,
   }) async {
     try {
       final res = await _apiClient.addExperience(
@@ -180,16 +180,16 @@ class ProfileDataSource {
     }
   }
 
-  Future<Experience?> updateExperience({
+  Future<UserExperience?> updateExperience({
     required String userId,
     required int experienceId,
-    required Experience experience,
+    required AddUpdateExperienceReq experienceReq,
   }) async {
     try {
       final res = await _apiClient.updateExperience(
         userId,
         experienceId,
-        experience,
+        experienceReq,
       );
       return res;
     } catch (_) {

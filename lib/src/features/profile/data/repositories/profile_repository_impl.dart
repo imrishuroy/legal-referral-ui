@@ -263,12 +263,12 @@ class ProfileRepositoryImpl extends ProfileRepository {
   @override
   Future<Either<Failure, UserExperience?>> addExperience({
     required String userId,
-    required AddExperienceReq addExperienceReq,
+    required AddUpdateExperienceReq experienceReq,
   }) async {
     try {
       final res = await _profileDataSource.addExperience(
         userId: userId,
-        addExperienceReq: addExperienceReq,
+        addExperienceReq: experienceReq,
       );
       return Right(res);
     } on DioException catch (error) {
@@ -289,6 +289,30 @@ class ProfileRepositoryImpl extends ProfileRepository {
     try {
       final res = await _profileDataSource.fetchExperiences(
         userId: userId,
+      );
+      return Right(res);
+    } on DioException catch (error) {
+      final dioError = DioExceptions.fromDioError(error);
+      return Left(
+        Failure(
+          statusCode: dioError.statusCode,
+          message: dioError.message,
+        ),
+      );
+    }
+  }
+
+  @override
+  Future<Either<Failure, UserExperience?>> updateExperience({
+    required String userId,
+    required int experienceId,
+    required AddUpdateExperienceReq experienceReq,
+  }) async {
+    try {
+      final res = await _profileDataSource.updateExperience(
+        userId: userId,
+        experienceId: experienceId,
+        experienceReq: experienceReq,
       );
       return Right(res);
     } on DioException catch (error) {

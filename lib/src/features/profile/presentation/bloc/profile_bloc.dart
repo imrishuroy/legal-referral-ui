@@ -43,6 +43,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     on<UserProfileUpdated>(_onUserProfileUpdated);
     on<ExperienceAdded>(_onExperienceAdded);
     on<ExperienceFetched>(_onExperienceFetched);
+    on<ExperienceUpdated>(_onExperienceUpdated);
   }
 
   final AuthBloc _authBloc;
@@ -129,7 +130,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     );
     final res = await _profileUseCase.addExperience(
       userId: _authBloc.state.user?.userId ?? '',
-      addExperienceReq: event.addExperienceReq,
+      experienceReq: event.addExperienceReq,
     );
 
     res.fold(
@@ -558,6 +559,52 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
             experiences: experiences,
           ),
         );
+      },
+    );
+  }
+
+  Future<void> _onExperienceUpdated(
+    ExperienceUpdated event,
+    Emitter<ProfileState> emit,
+  ) async {
+    emit(
+      state.copyWith(
+        experienceStatus: ExperienceStatus.loading,
+      ),
+    );
+
+    final res = await _profileUseCase.updateExperience(
+      userId: _authBloc.state.user?.userId ?? '',
+      experienceId: event.experienceId,
+      experienceReq: event.experienceReq,
+    );
+
+    res.fold(
+      (failure) {
+        emit(
+          state.copyWith(
+            experienceStatus: ExperienceStatus.failure,
+            failure: failure,
+          ),
+        );
+      },
+      (userExp) {
+        if (userExp != null) {
+          final updatedExperiences = state.experiences.map((e) {
+            if (e?.experience?.experienceId ==
+                userExp.experience?.experienceId) {
+              return userExp;
+            }
+            return e;
+          }).toList();
+
+          emit(
+            state.copyWith(
+              experienceStatus: ExperienceStatus.success,
+              experiences: updatedExperiences,
+            ),
+          );
+        }
       },
     );
   }

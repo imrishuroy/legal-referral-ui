@@ -808,7 +808,7 @@ class _APIClient implements APIClient {
   @override
   Future<UserExperience?> addExperience(
     String userId,
-    AddExperienceReq addExperienceReq,
+    AddUpdateExperienceReq addExperienceReq,
   ) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
@@ -838,25 +838,25 @@ class _APIClient implements APIClient {
   }
 
   @override
-  Future<Experience?> updateExperience(
+  Future<UserExperience?> updateExperience(
     String userId,
     int experienceId,
-    Experience experience,
+    AddUpdateExperienceReq experienceReq,
   ) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    _data.addAll(experience.toJson());
+    _data.addAll(experienceReq.toJson());
     final _result = await _dio
-        .fetch<Map<String, dynamic>?>(_setStreamType<Experience>(Options(
+        .fetch<Map<String, dynamic>?>(_setStreamType<UserExperience>(Options(
       method: 'PUT',
       headers: _headers,
       extra: _extra,
     )
             .compose(
               _dio.options,
-              '/users/${userId}/experiences/{experience_id}',
+              '/users/${userId}/experiences/${experienceId}',
               queryParameters: queryParameters,
               data: _data,
             )
@@ -866,7 +866,7 @@ class _APIClient implements APIClient {
               baseUrl,
             ))));
     final value =
-        _result.data == null ? null : Experience.fromJson(_result.data!);
+        _result.data == null ? null : UserExperience.fromJson(_result.data!);
     return value;
   }
 

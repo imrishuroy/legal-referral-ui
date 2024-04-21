@@ -164,14 +164,14 @@ abstract class APIClient {
   @POST('/users/{userId}/experiences')
   Future<UserExperience?> addExperience(
     @Path('userId') String userId,
-    @Body() AddExperienceReq addExperienceReq,
+    @Body() AddUpdateExperienceReq addExperienceReq,
   );
 
-  @PUT('/users/{userId}/experiences/{experience_id}')
-  Future<Experience?> updateExperience(
+  @PUT('/users/{userId}/experiences/{experienceId}')
+  Future<UserExperience?> updateExperience(
     @Path('userId') String userId,
     @Path('experienceId') int experienceId,
-    @Body() Experience experience,
+    @Body() AddUpdateExperienceReq experienceReq,
   );
 
   @GET('/users/{userId}/experiences')

@@ -19,10 +19,10 @@ import 'package:toastification/toastification.dart';
 class AddUpdateExperiencePageArgs {
   AddUpdateExperiencePageArgs({
     required this.profileBloc,
-    this.experience,
+    this.userExp,
   });
   final ProfileBloc profileBloc;
-  final UserExperience? experience;
+  final UserExperience? userExp;
 }
 
 class AddUpdateExperiencePage extends StatefulWidget {
@@ -48,19 +48,47 @@ class _AddUpdateExperiencePageState extends State<AddUpdateExperiencePage> {
   final _startDateController = TextEditingController();
   final _endDateController = TextEditingController();
   final _descriptionController = TextEditingController();
-  late String? _practiceArea;
-  late String? _practiceLocation;
+  String? _practiceArea;
+  String? _practiceLocation;
   late DateTime? _startDate;
   late DateTime? _endDate;
   bool _current = false;
-  final List<String> _skills = [];
+  final List<String?> _skills = [];
   late int? firmId;
+
+  @override
+  void initState() {
+    final experience = widget.args.userExp?.experience;
+    if (experience != null) {
+      _titleController.text = experience.title;
+      _practiceArea = experience.practiceArea;
+      _firmNameController.text = widget.args.userExp?.firm?.name ?? '';
+      firmId = experience.firmId;
+      _practiceLocation = experience.practiceLocation;
+
+      _startDateController.text = experience.startDate != null
+          ? DateTimeUtil.getFormattedDate(
+              experience.startDate!,
+            )
+          : '';
+      _startDate = experience.startDate;
+      _endDateController.text = experience.endDate != null
+          ? DateTimeUtil.getFormattedDate(
+              experience.endDate!,
+            )
+          : '';
+      _endDate = experience.endDate;
+      _current = experience.current ?? false;
+      _skills.addAll(experience.skills);
+      _descriptionController.text = experience.description ?? '';
+    }
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.transparent,
         title: const Text(
           'Experience Details',
           style: TextStyle(
@@ -113,6 +141,7 @@ class _AddUpdateExperiencePageState extends State<AddUpdateExperiencePage> {
                             SizedBox(height: 16.h),
                             CustomDropDown(
                               items: PracticeAreaConstants.allPracticeAreas,
+                              selectedValue: _practiceArea,
                               onChange: (value) {
                                 if (value != null) {
                                   setState(() {
@@ -152,6 +181,7 @@ class _AddUpdateExperiencePageState extends State<AddUpdateExperiencePage> {
                             SizedBox(height: 16.h),
                             CustomDropDown(
                               items: StateConstants.statesList,
+                              selectedValue: _practiceLocation,
                               onChange: (value) {
                                 if (value != null) {
                                   setState(() {
@@ -226,6 +256,8 @@ class _AddUpdateExperiencePageState extends State<AddUpdateExperiencePage> {
                                     if (value != null) {
                                       setState(() {
                                         _current = value;
+                                        _endDateController.clear();
+                                        _endDate = null;
                                       });
                                     }
                                   },
@@ -323,7 +355,7 @@ class _AddUpdateExperiencePageState extends State<AddUpdateExperiencePage> {
                                           left: 8.w,
                                           right: 8.w,
                                         ),
-                                        label: Text(skill),
+                                        label: Text(skill ?? 'N/A'),
                                         onDeleted: () {
                                           setState(() {
                                             _skills.remove(skill);
@@ -396,19 +428,32 @@ class _AddUpdateExperiencePageState extends State<AddUpdateExperiencePage> {
         return;
       }
 
-      final addExperienceReq = AddExperienceReq(
+      final addExperienceReq = AddUpdateExperienceReq(
         title: _titleController.text,
         practiceArea: _practiceArea!,
         firmId: firmId!,
         practiceLocation: _practiceLocation!,
         startDate: _startDate!,
-        endDate: _endDate!,
+        endDate: _current ? null : _endDate!,
         current: _current,
         skills: _skills,
         description: _descriptionController.text,
       );
 
-      profileBloc.add(ExperienceAdded(addExperienceReq: addExperienceReq));
+      if (widget.args.userExp?.experience?.experienceId != null) {
+        profileBloc.add(
+          ExperienceUpdated(
+            experienceReq: addExperienceReq,
+            experienceId: widget.args.userExp!.experience!.experienceId!,
+          ),
+        );
+      } else {
+        profileBloc.add(
+          ExperienceAdded(
+            addExperienceReq: addExperienceReq,
+          ),
+        );
+      }
     }
   }
 

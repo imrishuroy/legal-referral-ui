@@ -177,6 +177,21 @@ class AppRouter {
         ),
       ),
       GoRoute(
+        path: '/list-experiences',
+        name: ListExperiencesPage.name,
+        parentNavigatorKey: _rootNavigatorKey,
+        pageBuilder: (context, state) => CustomTransitionPage(
+          child: ListExperiencesPage(
+            profileBloc: state.extra as ProfileBloc,
+          ),
+          transitionDuration: const Duration(
+            milliseconds: 500,
+          ),
+          transitionsBuilder: (_, a, __, c) =>
+              FadeTransition(opacity: a, child: c),
+        ),
+      ),
+      GoRoute(
         path: '/search-firm',
         name: SearchFirmPage.name,
         parentNavigatorKey: _rootNavigatorKey,

@@ -61,14 +61,14 @@ abstract class ProfileRepository {
   // profile/experiences
   Future<Either<Failure, UserExperience?>> addExperience({
     required String userId,
-    required AddExperienceReq addExperienceReq,
+    required AddUpdateExperienceReq experienceReq,
   });
 
-  // Future<Either<Failure, Experience?>> updateExperience({
-  //   required String userId,
-  //   required int experienceId,
-  //   required Experience experience,
-  // });
+  Future<Either<Failure, UserExperience?>> updateExperience({
+    required String userId,
+    required int experienceId,
+    required AddUpdateExperienceReq experienceReq,
+  });
 
   Future<Either<Failure, List<UserExperience?>>> fetchExperiences({
     required String userId,

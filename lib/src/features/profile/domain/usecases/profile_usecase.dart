@@ -120,11 +120,11 @@ class ProfileUseCase {
 
   Future<Either<Failure, UserExperience?>> addExperience({
     required String userId,
-    required AddExperienceReq addExperienceReq,
+    required AddUpdateExperienceReq experienceReq,
   }) async {
     return _profileRepository.addExperience(
       userId: userId,
-      addExperienceReq: addExperienceReq,
+      experienceReq: experienceReq,
     );
   }
 
@@ -133,6 +133,18 @@ class ProfileUseCase {
   }) async {
     return _profileRepository.fetchExperiences(
       userId: userId,
+    );
+  }
+
+  Future<Either<Failure, UserExperience?>> updateExperience({
+    required String userId,
+    required int experienceId,
+    required AddUpdateExperienceReq experienceReq,
+  }) async {
+    return _profileRepository.updateExperience(
+      userId: userId,
+      experienceId: experienceId,
+      experienceReq: experienceReq,
     );
   }
 }

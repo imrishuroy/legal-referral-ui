@@ -1,11 +1,11 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:legal_referral_ui/src/core/utils/utils.dart';
 
-part 'add_experience_req.g.dart';
+part 'add_update_experience_req.g.dart';
 
 @JsonSerializable()
-class AddExperienceReq {
-  AddExperienceReq({
+class AddUpdateExperienceReq {
+  AddUpdateExperienceReq({
     required this.title,
     required this.practiceArea,
     required this.firmId,
@@ -29,12 +29,12 @@ class AddExperienceReq {
   final DateTime startDate;
   @AddExperienceReqDateTimeConverter()
   @JsonKey(name: 'end_date')
-  final DateTime endDate;
+  final DateTime? endDate;
   final bool current;
   final String description;
-  final List<String> skills;
+  final List<String?> skills;
 
-  Map<String, dynamic> toJson() => _$AddExperienceReqToJson(this);
+  Map<String, dynamic> toJson() => _$AddUpdateExperienceReqToJson(this);
 }
 
 class AddExperienceReqDateTimeConverter

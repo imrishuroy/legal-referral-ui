@@ -32,7 +32,7 @@ class DateTimeUtil {
     return outputDateFormat.format(dateTime);
   }
 
-  String formatDateRange(DateTime start, DateTime? end) {
+  static String formatDateRange(DateTime start, DateTime? end) {
     final formattedStart = DateFormat('MMMM yyyy').format(start);
     String formattedEnd;
 
