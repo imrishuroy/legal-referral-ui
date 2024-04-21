@@ -7,6 +7,9 @@ class ImageStringsUtil {
   // -- Social Logos
   static const String twitter = 'assets/logos/twitter.svg';
   static const String facebook = 'assets/logos/fb.svg';
+  static const String instagram = 'assets/logos/instagram.svg';
+  static const String linkedin = 'assets/logos/linkedin.svg';
+  static const String snapchat = 'assets/logos/snapchat.svg';
 
   // -- Category Icons
   static const String personIcon = 'assets/icons/person.svg';

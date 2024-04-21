@@ -39,8 +39,8 @@ class _ProfilePricingSectionState extends State<ProfilePricingSection> {
         if (widget.user?.priceId == null)
           CustomIconButton(
             onTap: () => context.pushNamed(
-              AddEditPricePage.name,
-              extra: AddEditPricePageArgs(
+              AddUpdatePricePage.name,
+              extra: AddUpdatePricePageArgs(
                 profileBloc: widget.profileBloc,
                 price: price,
               ),
@@ -54,8 +54,8 @@ class _ProfilePricingSectionState extends State<ProfilePricingSection> {
         if (widget.user?.priceId != null)
           CustomIconButton(
             onTap: () => context.pushNamed(
-              AddEditPricePage.name,
-              extra: AddEditPricePageArgs(
+              AddUpdatePricePage.name,
+              extra: AddUpdatePricePageArgs(
                 profileBloc: widget.profileBloc,
                 price: price,
               ),
@@ -73,14 +73,7 @@ class _ProfilePricingSectionState extends State<ProfilePricingSection> {
           Text.rich(
             TextSpan(
               text: _priceLabel(
-                Price(
-                  priceId: widget.user?.priceId,
-                  serviceType: widget.user?.serviceType,
-                  perHourPrice: widget.user?.perHourPrice,
-                  perHearingPrice: widget.user?.perHearingPrice,
-                  contingencyPrice: widget.user?.contingencyPrice,
-                  hybridPrice: widget.user?.hybridPrice,
-                ),
+                price,
               ),
               style: Theme.of(context).textTheme.displaySmall,
               children: <TextSpan>[

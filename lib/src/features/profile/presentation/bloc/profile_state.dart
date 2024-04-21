@@ -4,21 +4,22 @@ enum ProfileStatus { initial, loading, success, failure }
 
 enum PricingStatus { initial, loading, success, failure }
 
+enum SocialStatus { initial, loading, success, failure }
+
 enum ExperienceStatus { initial, loading, success, failure }
 
 enum EducationStatus { initial, loading, success, failure }
 
 enum CompanyStatus { initial, loading, success, failure }
 
-enum SocialEnity { linkedin, twitter, facebook, instagram }
-
 class ProfileState extends Equatable {
   const ProfileState({
     this.profileStatus = ProfileStatus.initial,
     this.pricingStatus = PricingStatus.initial,
+    this.socialStatus = SocialStatus.initial,
     this.experienceStatus = ExperienceStatus.initial,
     this.educationStatus = EducationStatus.initial,
-    this.experiences = const <Experience>[],
+    this.experiences = const <UserExperience>[],
     this.companyStatus = CompanyStatus.initial,
     this.selectedPriceServiceType = PriceServiceType.perHour,
     this.userProfile,
@@ -33,12 +34,12 @@ class ProfileState extends Equatable {
 
   final ProfileStatus profileStatus;
   final PricingStatus pricingStatus;
+  final SocialStatus socialStatus;
   final ExperienceStatus experienceStatus;
   final EducationStatus educationStatus;
-  final List<Experience> experiences;
+  final List<UserExperience?> experiences;
   final CompanyStatus companyStatus;
   final PriceServiceType selectedPriceServiceType;
-
   final UserProfile? userProfile;
   final List<Firm?> firms;
   final List<Social?> socials;
@@ -47,9 +48,10 @@ class ProfileState extends Equatable {
   ProfileState copyWith({
     ProfileStatus? profileStatus,
     PricingStatus? pricingStatus,
+    SocialStatus? socialStatus,
     ExperienceStatus? experienceStatus,
     EducationStatus? educationStatus,
-    List<Experience>? experiences,
+    List<UserExperience?>? experiences,
     CompanyStatus? companyStatus,
     PriceServiceType? selectedPriceServiceType,
     UserProfile? userProfile,
@@ -60,6 +62,7 @@ class ProfileState extends Equatable {
     return ProfileState(
       profileStatus: profileStatus ?? this.profileStatus,
       pricingStatus: pricingStatus ?? this.pricingStatus,
+      socialStatus: socialStatus ?? this.socialStatus,
       experienceStatus: experienceStatus ?? this.experienceStatus,
       educationStatus: educationStatus ?? this.educationStatus,
       experiences: experiences ?? this.experiences,
@@ -77,6 +80,7 @@ class ProfileState extends Equatable {
   List<Object?> get props => [
         profileStatus,
         pricingStatus,
+        socialStatus,
         experienceStatus,
         educationStatus,
         experiences,

@@ -35,17 +35,6 @@ class FirmSearched extends ProfileEvent {
   List<Object> get props => [query, limit, offset];
 }
 
-class ExperienceAdded extends ProfileEvent {
-  const ExperienceAdded({
-    required this.addExperienceReq,
-  });
-
-  final AddExperienceReq addExperienceReq;
-
-  @override
-  List<Object> get props => [addExperienceReq];
-}
-
 class EducationAdded extends ProfileEvent {
   const EducationAdded({
     required this.education,
@@ -114,6 +103,32 @@ class SocialAdded extends ProfileEvent {
   List<Object> get props => [social];
 }
 
+class SocialUpdated extends ProfileEvent {
+  const SocialUpdated({
+    required this.socialId,
+    required this.social,
+  });
+
+  final int socialId;
+  final Social social;
+
+  @override
+  List<Object> get props => [socialId, social];
+}
+
+class SocialsFetched extends ProfileEvent {
+  const SocialsFetched({
+    required this.entityType,
+    required this.entityId,
+  });
+
+  final EntityType entityType;
+  final String entityId;
+
+  @override
+  List<Object> get props => [entityType, entityId];
+}
+
 class ReferralToggled extends ProfileEvent {
   @override
   List<Object> get props => [];
@@ -139,4 +154,22 @@ class UserProfileUpdated extends ProfileEvent {
 
   @override
   List<Object> get props => [userProfile];
+}
+
+// profile/experiences
+
+class ExperienceAdded extends ProfileEvent {
+  const ExperienceAdded({
+    required this.addExperienceReq,
+  });
+
+  final AddExperienceReq addExperienceReq;
+
+  @override
+  List<Object> get props => [addExperienceReq];
+}
+
+class ExperienceFetched extends ProfileEvent {
+  @override
+  List<Object> get props => [];
 }

@@ -34,14 +34,6 @@ class ProfileUseCase {
     );
   }
 
-  Future<Either<Failure, Experience?>> addExperience({
-    required AddExperienceReq addExperienceReq,
-  }) async {
-    return _profileRepository.addExperience(
-      addExperienceReq: addExperienceReq,
-    );
-  }
-
   Future<Either<Failure, Education?>> addEducation({
     required Education education,
   }) async {
@@ -63,6 +55,26 @@ class ProfileUseCase {
   }) async {
     return _profileRepository.addSocial(
       social: social,
+    );
+  }
+
+  Future<Either<Failure, Social?>> updateSocial({
+    required int socialId,
+    required Social social,
+  }) async {
+    return _profileRepository.updateSocial(
+      socialId: socialId,
+      social: social,
+    );
+  }
+
+  Future<Either<Failure, List<Social?>>> fetchSocials({
+    required EntityType entityType,
+    required String entityId,
+  }) async {
+    return _profileRepository.fetchSocials(
+      entityType: entityType,
+      entityId: entityId,
     );
   }
 
@@ -101,6 +113,26 @@ class ProfileUseCase {
     return _profileRepository.updateUserBanner(
       userId: userId,
       file: file,
+    );
+  }
+
+  // profile/experiences
+
+  Future<Either<Failure, UserExperience?>> addExperience({
+    required String userId,
+    required AddExperienceReq addExperienceReq,
+  }) async {
+    return _profileRepository.addExperience(
+      userId: userId,
+      addExperienceReq: addExperienceReq,
+    );
+  }
+
+  Future<Either<Failure, List<UserExperience?>>> fetchExperiences({
+    required String userId,
+  }) async {
+    return _profileRepository.fetchExperiences(
+      userId: userId,
     );
   }
 }

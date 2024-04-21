@@ -70,26 +70,6 @@ class ProfileRepositoryImpl extends ProfileRepository {
   }
 
   @override
-  Future<Either<Failure, Experience?>> addExperience({
-    required AddExperienceReq addExperienceReq,
-  }) async {
-    try {
-      final res = await _profileDataSource.addExperience(
-        addExperienceReq: addExperienceReq,
-      );
-      return Right(res);
-    } on DioException catch (error) {
-      final dioError = DioExceptions.fromDioError(error);
-      return Left(
-        Failure(
-          statusCode: dioError.statusCode,
-          message: dioError.message,
-        ),
-      );
-    }
-  }
-
-  @override
   Future<Either<Failure, Education?>> addEducation({
     required Education education,
   }) async {
@@ -192,6 +172,50 @@ class ProfileRepositoryImpl extends ProfileRepository {
   }
 
   @override
+  Future<Either<Failure, Social?>> updateSocial({
+    required int socialId,
+    required Social social,
+  }) async {
+    try {
+      final res = await _profileDataSource.updateSocial(
+        socialId: socialId,
+        social: social,
+      );
+      return Right(res);
+    } on DioException catch (error) {
+      final dioError = DioExceptions.fromDioError(error);
+      return Left(
+        Failure(
+          statusCode: dioError.statusCode,
+          message: dioError.message,
+        ),
+      );
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<Social?>>> fetchSocials({
+    required EntityType entityType,
+    required String entityId,
+  }) async {
+    try {
+      final res = await _profileDataSource.fetchSocials(
+        entityType: entityType,
+        entityId: entityId,
+      );
+      return Right(res);
+    } on DioException catch (error) {
+      final dioError = DioExceptions.fromDioError(error);
+      return Left(
+        Failure(
+          statusCode: dioError.statusCode,
+          message: dioError.message,
+        ),
+      );
+    }
+  }
+
+  @override
   Future<Either<Failure, ResponseMsg?>> toggleReferral({
     required String userId,
     required ToggleReferralReq toggleReferralReq,
@@ -222,6 +246,49 @@ class ProfileRepositoryImpl extends ProfileRepository {
       final res = await _profileDataSource.updateUserBanner(
         userId: userId,
         file: file,
+      );
+      return Right(res);
+    } on DioException catch (error) {
+      final dioError = DioExceptions.fromDioError(error);
+      return Left(
+        Failure(
+          statusCode: dioError.statusCode,
+          message: dioError.message,
+        ),
+      );
+    }
+  }
+
+  // profile/experiences
+  @override
+  Future<Either<Failure, UserExperience?>> addExperience({
+    required String userId,
+    required AddExperienceReq addExperienceReq,
+  }) async {
+    try {
+      final res = await _profileDataSource.addExperience(
+        userId: userId,
+        addExperienceReq: addExperienceReq,
+      );
+      return Right(res);
+    } on DioException catch (error) {
+      final dioError = DioExceptions.fromDioError(error);
+      return Left(
+        Failure(
+          statusCode: dioError.statusCode,
+          message: dioError.message,
+        ),
+      );
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<UserExperience?>>> fetchExperiences({
+    required String userId,
+  }) async {
+    try {
+      final res = await _profileDataSource.fetchExperiences(
+        userId: userId,
       );
       return Right(res);
     } on DioException catch (error) {

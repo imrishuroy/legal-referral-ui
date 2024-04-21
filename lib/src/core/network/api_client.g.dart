@@ -529,35 +529,6 @@ class _APIClient implements APIClient {
   }
 
   @override
-  Future<Experience?> addExperience(AddExperienceReq addExperienceReq) async {
-    final _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
-    final _headers = <String, dynamic>{};
-    final _data = <String, dynamic>{};
-    _data.addAll(addExperienceReq.toJson());
-    final _result = await _dio
-        .fetch<Map<String, dynamic>?>(_setStreamType<Experience>(Options(
-      method: 'POST',
-      headers: _headers,
-      extra: _extra,
-    )
-            .compose(
-              _dio.options,
-              '/experience',
-              queryParameters: queryParameters,
-              data: _data,
-            )
-            .copyWith(
-                baseUrl: _combineBaseUrls(
-              _dio.options.baseUrl,
-              baseUrl,
-            ))));
-    final value =
-        _result.data == null ? null : Experience.fromJson(_result.data!);
-    return value;
-  }
-
-  @override
   Future<Education?> addEducation(Education education) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
@@ -629,7 +600,71 @@ class _APIClient implements APIClient {
     )
             .compose(
               _dio.options,
-              '/social',
+              '/socials',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
+    final value = _result.data == null ? null : Social.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<List<Social?>> fetchSocials(
+    EntityType entityType,
+    String entityId,
+  ) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    const Map<String, dynamic>? _data = null;
+    final _result =
+        await _dio.fetch<List<dynamic>>(_setStreamType<List<Social>>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              '/socials/${entityType.name}/${entityId}',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
+    var value = _result.data!
+        .map((dynamic i) =>
+            i == null ? null : Social.fromJson(i as Map<String, dynamic>))
+        .toList();
+    return value;
+  }
+
+  @override
+  Future<Social?> updateSocial(
+    int socialId,
+    Social social,
+  ) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(social.toJson());
+    final _result =
+        await _dio.fetch<Map<String, dynamic>?>(_setStreamType<Social>(Options(
+      method: 'PUT',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              '/socials/${socialId}',
               queryParameters: queryParameters,
               data: _data,
             )
@@ -767,6 +802,100 @@ class _APIClient implements APIClient {
           baseUrl,
         ))));
     final value = _result.data;
+    return value;
+  }
+
+  @override
+  Future<UserExperience?> addExperience(
+    String userId,
+    AddExperienceReq addExperienceReq,
+  ) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(addExperienceReq.toJson());
+    final _result = await _dio
+        .fetch<Map<String, dynamic>?>(_setStreamType<UserExperience>(Options(
+      method: 'POST',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              '/users/${userId}/experiences',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
+    final value =
+        _result.data == null ? null : UserExperience.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<Experience?> updateExperience(
+    String userId,
+    int experienceId,
+    Experience experience,
+  ) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(experience.toJson());
+    final _result = await _dio
+        .fetch<Map<String, dynamic>?>(_setStreamType<Experience>(Options(
+      method: 'PUT',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              '/users/${userId}/experiences/{experience_id}',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
+    final value =
+        _result.data == null ? null : Experience.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<List<UserExperience>> fetchExperiences(String userId) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    const Map<String, dynamic>? _data = null;
+    final _result = await _dio
+        .fetch<List<dynamic>>(_setStreamType<List<UserExperience>>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              '/users/${userId}/experiences',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
+    var value = _result.data!
+        .map((dynamic i) => UserExperience.fromJson(i as Map<String, dynamic>))
+        .toList();
     return value;
   }
 

@@ -12,8 +12,8 @@ import 'package:legal_referral_ui/src/features/profile/domain/domain.dart';
 import 'package:legal_referral_ui/src/features/profile/presentation/presentation.dart';
 import 'package:toastification/toastification.dart';
 
-class AddEditPricePageArgs {
-  AddEditPricePageArgs({
+class AddUpdatePricePageArgs {
+  AddUpdatePricePageArgs({
     required this.profileBloc,
     this.price,
   });
@@ -21,21 +21,21 @@ class AddEditPricePageArgs {
   final Price? price;
 }
 
-class AddEditPricePage extends StatefulWidget {
-  const AddEditPricePage({
+class AddUpdatePricePage extends StatefulWidget {
+  const AddUpdatePricePage({
     required this.args,
     super.key,
   });
 
-  final AddEditPricePageArgs args;
+  final AddUpdatePricePageArgs args;
 
-  static const String name = 'AddEditPricePage';
+  static const String name = 'AddUpdatePricePage';
 
   @override
-  State<AddEditPricePage> createState() => _AddEditPricePageState();
+  State<AddUpdatePricePage> createState() => _AddUpdatePricePageState();
 }
 
-class _AddEditPricePageState extends State<AddEditPricePage> {
+class _AddUpdatePricePageState extends State<AddUpdatePricePage> {
   final _formKey = GlobalKey<FormState>();
   final _priceController = TextEditingController();
 

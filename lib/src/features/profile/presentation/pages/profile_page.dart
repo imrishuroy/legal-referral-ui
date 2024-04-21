@@ -150,7 +150,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         ),
                         CustomCard(
                           onTap: () {
-                            context.pushNamed(AddEditPricePage.name);
+                            context.pushNamed(AddUpdatePricePage.name);
                           },
                           title: 'Average billing per client',
                           visibility: false,
@@ -192,7 +192,9 @@ class _ProfilePageState extends State<ProfilePage> {
                             style: Theme.of(context).textTheme.bodyLarge,
                           ),
                         ),
-                        const ProfileSocialSection(),
+                        ProfileSocialSection(
+                          profileBloc: _profileBloc,
+                        ),
                         const ProfileFeaturedSection(),
                         CustomCard(
                           onTap: () {},
@@ -200,7 +202,9 @@ class _ProfilePageState extends State<ProfilePage> {
                           visibility: false,
                           child: const ActivityWidget(),
                         ),
-                        const ProfileExperienceSection(),
+                        ExperienceSection(
+                          profileBloc: _profileBloc,
+                        ),
                         const ProfileEducationSection(),
                         const ProfileReviewsSection(),
                       ],

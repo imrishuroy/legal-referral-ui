@@ -17,10 +17,6 @@ abstract class ProfileRepository {
     required int offset,
   });
 
-  Future<Either<Failure, Experience?>> addExperience({
-    required AddExperienceReq addExperienceReq,
-  });
-
   Future<Either<Failure, Education?>> addEducation({
     required Education education,
   });
@@ -31,6 +27,16 @@ abstract class ProfileRepository {
 
   Future<Either<Failure, Social?>> addSocial({
     required Social social,
+  });
+
+  Future<Either<Failure, Social?>> updateSocial({
+    required int socialId,
+    required Social social,
+  });
+
+  Future<Either<Failure, List<Social?>>> fetchSocials({
+    required EntityType entityType,
+    required String entityId,
   });
 
   Future<Either<Failure, Price?>> addPrice({
@@ -50,5 +56,21 @@ abstract class ProfileRepository {
   Future<Either<Failure, String?>> updateUserBanner({
     required String userId,
     required File file,
+  });
+
+  // profile/experiences
+  Future<Either<Failure, UserExperience?>> addExperience({
+    required String userId,
+    required AddExperienceReq addExperienceReq,
+  });
+
+  // Future<Either<Failure, Experience?>> updateExperience({
+  //   required String userId,
+  //   required int experienceId,
+  //   required Experience experience,
+  // });
+
+  Future<Either<Failure, List<UserExperience?>>> fetchExperiences({
+    required String userId,
   });
 }

@@ -42,6 +42,20 @@ class Validator {
     return null;
   }
 
+  static String? validateURL(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Please enter a URL';
+    }
+
+    final urlRegExp = RegExp(
+      r'^(https?|ftp):\/\/[^\s/$.?#].[^\s]*$',
+    ); // Regex for URL validation
+    if (!urlRegExp.hasMatch(value)) {
+      return 'Please enter a valid URL';
+    }
+    return null;
+  }
+
   static bool _containsUpperCase(String value) {
     return value.contains(RegExp('[A-Z]'));
   }

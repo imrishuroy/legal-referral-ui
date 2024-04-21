@@ -23,8 +23,6 @@ mixin _$Experience {
   String get title => throw _privateConstructorUsedError;
   @JsonKey(name: 'practice_area')
   String? get practiceArea => throw _privateConstructorUsedError;
-  @JsonKey(name: 'firm')
-  Firm? get firm => throw _privateConstructorUsedError;
   @JsonKey(name: 'practice_location')
   String? get practiceLocation => throw _privateConstructorUsedError;
   @ExperienceDateTimeConverter()
@@ -33,11 +31,15 @@ mixin _$Experience {
   @ExperienceDateTimeConverter()
   @JsonKey(name: 'end_date')
   DateTime? get endDate => throw _privateConstructorUsedError;
-  bool get current => throw _privateConstructorUsedError;
-  List<String> get skills => throw _privateConstructorUsedError;
+  List<String?> get skills => throw _privateConstructorUsedError;
   String? get description => throw _privateConstructorUsedError;
+  bool? get current => throw _privateConstructorUsedError;
+  @JsonKey(name: 'firm_id', includeIfNull: false)
+  int? get firmId => throw _privateConstructorUsedError;
   @JsonKey(name: 'experience_id', includeToJson: false)
   int? get experienceId => throw _privateConstructorUsedError;
+  @JsonKey(name: 'user_id', includeToJson: false)
+  String? get userId => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -54,7 +56,6 @@ abstract class $ExperienceCopyWith<$Res> {
   $Res call(
       {String title,
       @JsonKey(name: 'practice_area') String? practiceArea,
-      @JsonKey(name: 'firm') Firm? firm,
       @JsonKey(name: 'practice_location') String? practiceLocation,
       @ExperienceDateTimeConverter()
       @JsonKey(name: 'start_date')
@@ -62,12 +63,12 @@ abstract class $ExperienceCopyWith<$Res> {
       @ExperienceDateTimeConverter()
       @JsonKey(name: 'end_date')
       DateTime? endDate,
-      bool current,
-      List<String> skills,
+      List<String?> skills,
       String? description,
-      @JsonKey(name: 'experience_id', includeToJson: false) int? experienceId});
-
-  $FirmCopyWith<$Res>? get firm;
+      bool? current,
+      @JsonKey(name: 'firm_id', includeIfNull: false) int? firmId,
+      @JsonKey(name: 'experience_id', includeToJson: false) int? experienceId,
+      @JsonKey(name: 'user_id', includeToJson: false) String? userId});
 }
 
 /// @nodoc
@@ -85,14 +86,15 @@ class _$ExperienceCopyWithImpl<$Res, $Val extends Experience>
   $Res call({
     Object? title = null,
     Object? practiceArea = freezed,
-    Object? firm = freezed,
     Object? practiceLocation = freezed,
     Object? startDate = freezed,
     Object? endDate = freezed,
-    Object? current = null,
     Object? skills = null,
     Object? description = freezed,
+    Object? current = freezed,
+    Object? firmId = freezed,
     Object? experienceId = freezed,
+    Object? userId = freezed,
   }) {
     return _then(_value.copyWith(
       title: null == title
@@ -103,10 +105,6 @@ class _$ExperienceCopyWithImpl<$Res, $Val extends Experience>
           ? _value.practiceArea
           : practiceArea // ignore: cast_nullable_to_non_nullable
               as String?,
-      firm: freezed == firm
-          ? _value.firm
-          : firm // ignore: cast_nullable_to_non_nullable
-              as Firm?,
       practiceLocation: freezed == practiceLocation
           ? _value.practiceLocation
           : practiceLocation // ignore: cast_nullable_to_non_nullable
@@ -119,35 +117,31 @@ class _$ExperienceCopyWithImpl<$Res, $Val extends Experience>
           ? _value.endDate
           : endDate // ignore: cast_nullable_to_non_nullable
               as DateTime?,
-      current: null == current
-          ? _value.current
-          : current // ignore: cast_nullable_to_non_nullable
-              as bool,
       skills: null == skills
           ? _value.skills
           : skills // ignore: cast_nullable_to_non_nullable
-              as List<String>,
+              as List<String?>,
       description: freezed == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String?,
+      current: freezed == current
+          ? _value.current
+          : current // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      firmId: freezed == firmId
+          ? _value.firmId
+          : firmId // ignore: cast_nullable_to_non_nullable
+              as int?,
       experienceId: freezed == experienceId
           ? _value.experienceId
           : experienceId // ignore: cast_nullable_to_non_nullable
               as int?,
+      userId: freezed == userId
+          ? _value.userId
+          : userId // ignore: cast_nullable_to_non_nullable
+              as String?,
     ) as $Val);
-  }
-
-  @override
-  @pragma('vm:prefer-inline')
-  $FirmCopyWith<$Res>? get firm {
-    if (_value.firm == null) {
-      return null;
-    }
-
-    return $FirmCopyWith<$Res>(_value.firm!, (value) {
-      return _then(_value.copyWith(firm: value) as $Val);
-    });
   }
 }
 
@@ -162,7 +156,6 @@ abstract class _$$ExperienceImplCopyWith<$Res>
   $Res call(
       {String title,
       @JsonKey(name: 'practice_area') String? practiceArea,
-      @JsonKey(name: 'firm') Firm? firm,
       @JsonKey(name: 'practice_location') String? practiceLocation,
       @ExperienceDateTimeConverter()
       @JsonKey(name: 'start_date')
@@ -170,13 +163,12 @@ abstract class _$$ExperienceImplCopyWith<$Res>
       @ExperienceDateTimeConverter()
       @JsonKey(name: 'end_date')
       DateTime? endDate,
-      bool current,
-      List<String> skills,
+      List<String?> skills,
       String? description,
-      @JsonKey(name: 'experience_id', includeToJson: false) int? experienceId});
-
-  @override
-  $FirmCopyWith<$Res>? get firm;
+      bool? current,
+      @JsonKey(name: 'firm_id', includeIfNull: false) int? firmId,
+      @JsonKey(name: 'experience_id', includeToJson: false) int? experienceId,
+      @JsonKey(name: 'user_id', includeToJson: false) String? userId});
 }
 
 /// @nodoc
@@ -192,14 +184,15 @@ class __$$ExperienceImplCopyWithImpl<$Res>
   $Res call({
     Object? title = null,
     Object? practiceArea = freezed,
-    Object? firm = freezed,
     Object? practiceLocation = freezed,
     Object? startDate = freezed,
     Object? endDate = freezed,
-    Object? current = null,
     Object? skills = null,
     Object? description = freezed,
+    Object? current = freezed,
+    Object? firmId = freezed,
     Object? experienceId = freezed,
+    Object? userId = freezed,
   }) {
     return _then(_$ExperienceImpl(
       title: null == title
@@ -210,10 +203,6 @@ class __$$ExperienceImplCopyWithImpl<$Res>
           ? _value.practiceArea
           : practiceArea // ignore: cast_nullable_to_non_nullable
               as String?,
-      firm: freezed == firm
-          ? _value.firm
-          : firm // ignore: cast_nullable_to_non_nullable
-              as Firm?,
       practiceLocation: freezed == practiceLocation
           ? _value.practiceLocation
           : practiceLocation // ignore: cast_nullable_to_non_nullable
@@ -226,22 +215,30 @@ class __$$ExperienceImplCopyWithImpl<$Res>
           ? _value.endDate
           : endDate // ignore: cast_nullable_to_non_nullable
               as DateTime?,
-      current: null == current
-          ? _value.current
-          : current // ignore: cast_nullable_to_non_nullable
-              as bool,
       skills: null == skills
           ? _value._skills
           : skills // ignore: cast_nullable_to_non_nullable
-              as List<String>,
+              as List<String?>,
       description: freezed == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String?,
+      current: freezed == current
+          ? _value.current
+          : current // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      firmId: freezed == firmId
+          ? _value.firmId
+          : firmId // ignore: cast_nullable_to_non_nullable
+              as int?,
       experienceId: freezed == experienceId
           ? _value.experienceId
           : experienceId // ignore: cast_nullable_to_non_nullable
               as int?,
+      userId: freezed == userId
+          ? _value.userId
+          : userId // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -252,7 +249,6 @@ class _$ExperienceImpl implements _Experience {
   const _$ExperienceImpl(
       {required this.title,
       @JsonKey(name: 'practice_area') required this.practiceArea,
-      @JsonKey(name: 'firm') required this.firm,
       @JsonKey(name: 'practice_location') required this.practiceLocation,
       @ExperienceDateTimeConverter()
       @JsonKey(name: 'start_date')
@@ -260,10 +256,12 @@ class _$ExperienceImpl implements _Experience {
       @ExperienceDateTimeConverter()
       @JsonKey(name: 'end_date')
       required this.endDate,
-      required this.current,
-      required final List<String> skills,
+      required final List<String?> skills,
       required this.description,
-      @JsonKey(name: 'experience_id', includeToJson: false) this.experienceId})
+      this.current = false,
+      @JsonKey(name: 'firm_id', includeIfNull: false) this.firmId,
+      @JsonKey(name: 'experience_id', includeToJson: false) this.experienceId,
+      @JsonKey(name: 'user_id', includeToJson: false) this.userId})
       : _skills = skills;
 
   factory _$ExperienceImpl.fromJson(Map<String, dynamic> json) =>
@@ -275,9 +273,6 @@ class _$ExperienceImpl implements _Experience {
   @JsonKey(name: 'practice_area')
   final String? practiceArea;
   @override
-  @JsonKey(name: 'firm')
-  final Firm? firm;
-  @override
   @JsonKey(name: 'practice_location')
   final String? practiceLocation;
   @override
@@ -288,11 +283,9 @@ class _$ExperienceImpl implements _Experience {
   @ExperienceDateTimeConverter()
   @JsonKey(name: 'end_date')
   final DateTime? endDate;
+  final List<String?> _skills;
   @override
-  final bool current;
-  final List<String> _skills;
-  @override
-  List<String> get skills {
+  List<String?> get skills {
     if (_skills is EqualUnmodifiableListView) return _skills;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_skills);
@@ -301,12 +294,21 @@ class _$ExperienceImpl implements _Experience {
   @override
   final String? description;
   @override
+  @JsonKey()
+  final bool? current;
+  @override
+  @JsonKey(name: 'firm_id', includeIfNull: false)
+  final int? firmId;
+  @override
   @JsonKey(name: 'experience_id', includeToJson: false)
   final int? experienceId;
+  @override
+  @JsonKey(name: 'user_id', includeToJson: false)
+  final String? userId;
 
   @override
   String toString() {
-    return 'Experience(title: $title, practiceArea: $practiceArea, firm: $firm, practiceLocation: $practiceLocation, startDate: $startDate, endDate: $endDate, current: $current, skills: $skills, description: $description, experienceId: $experienceId)';
+    return 'Experience(title: $title, practiceArea: $practiceArea, practiceLocation: $practiceLocation, startDate: $startDate, endDate: $endDate, skills: $skills, description: $description, current: $current, firmId: $firmId, experienceId: $experienceId, userId: $userId)';
   }
 
   @override
@@ -317,18 +319,19 @@ class _$ExperienceImpl implements _Experience {
             (identical(other.title, title) || other.title == title) &&
             (identical(other.practiceArea, practiceArea) ||
                 other.practiceArea == practiceArea) &&
-            (identical(other.firm, firm) || other.firm == firm) &&
             (identical(other.practiceLocation, practiceLocation) ||
                 other.practiceLocation == practiceLocation) &&
             (identical(other.startDate, startDate) ||
                 other.startDate == startDate) &&
             (identical(other.endDate, endDate) || other.endDate == endDate) &&
-            (identical(other.current, current) || other.current == current) &&
             const DeepCollectionEquality().equals(other._skills, _skills) &&
             (identical(other.description, description) ||
                 other.description == description) &&
+            (identical(other.current, current) || other.current == current) &&
+            (identical(other.firmId, firmId) || other.firmId == firmId) &&
             (identical(other.experienceId, experienceId) ||
-                other.experienceId == experienceId));
+                other.experienceId == experienceId) &&
+            (identical(other.userId, userId) || other.userId == userId));
   }
 
   @JsonKey(ignore: true)
@@ -337,14 +340,15 @@ class _$ExperienceImpl implements _Experience {
       runtimeType,
       title,
       practiceArea,
-      firm,
       practiceLocation,
       startDate,
       endDate,
-      current,
       const DeepCollectionEquality().hash(_skills),
       description,
-      experienceId);
+      current,
+      firmId,
+      experienceId,
+      userId);
 
   @JsonKey(ignore: true)
   @override
@@ -364,7 +368,6 @@ abstract class _Experience implements Experience {
   const factory _Experience(
       {required final String title,
       @JsonKey(name: 'practice_area') required final String? practiceArea,
-      @JsonKey(name: 'firm') required final Firm? firm,
       @JsonKey(name: 'practice_location')
       required final String? practiceLocation,
       @ExperienceDateTimeConverter()
@@ -373,11 +376,14 @@ abstract class _Experience implements Experience {
       @ExperienceDateTimeConverter()
       @JsonKey(name: 'end_date')
       required final DateTime? endDate,
-      required final bool current,
-      required final List<String> skills,
+      required final List<String?> skills,
       required final String? description,
+      final bool? current,
+      @JsonKey(name: 'firm_id', includeIfNull: false) final int? firmId,
       @JsonKey(name: 'experience_id', includeToJson: false)
-      final int? experienceId}) = _$ExperienceImpl;
+      final int? experienceId,
+      @JsonKey(name: 'user_id', includeToJson: false)
+      final String? userId}) = _$ExperienceImpl;
 
   factory _Experience.fromJson(Map<String, dynamic> json) =
       _$ExperienceImpl.fromJson;
@@ -387,9 +393,6 @@ abstract class _Experience implements Experience {
   @override
   @JsonKey(name: 'practice_area')
   String? get practiceArea;
-  @override
-  @JsonKey(name: 'firm')
-  Firm? get firm;
   @override
   @JsonKey(name: 'practice_location')
   String? get practiceLocation;
@@ -402,14 +405,20 @@ abstract class _Experience implements Experience {
   @JsonKey(name: 'end_date')
   DateTime? get endDate;
   @override
-  bool get current;
-  @override
-  List<String> get skills;
+  List<String?> get skills;
   @override
   String? get description;
   @override
+  bool? get current;
+  @override
+  @JsonKey(name: 'firm_id', includeIfNull: false)
+  int? get firmId;
+  @override
   @JsonKey(name: 'experience_id', includeToJson: false)
   int? get experienceId;
+  @override
+  @JsonKey(name: 'user_id', includeToJson: false)
+  String? get userId;
   @override
   @JsonKey(ignore: true)
   _$$ExperienceImplCopyWith<_$ExperienceImpl> get copyWith =>

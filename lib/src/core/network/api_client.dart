@@ -109,11 +109,6 @@ abstract class APIClient {
     @Query('offset') int offset,
   );
 
-  @POST('/experience')
-  Future<Experience?> addExperience(
-    @Body() AddExperienceReq addExperienceReq,
-  );
-
   @POST('/education')
   Future<Education?> addEducation(
     @Body() Education education,
@@ -124,8 +119,20 @@ abstract class APIClient {
     @Body() UploadUserInfoReq uploadUserInfoReq,
   );
 
-  @POST('/social')
+  @POST('/socials')
   Future<Social?> addSocial(
+    @Body() Social social,
+  );
+
+  @GET('/socials/{entityType}/{entityId}')
+  Future<List<Social?>> fetchSocials(
+    @Path('entityType') EntityType entityType,
+    @Path('entityId') String entityId,
+  );
+
+  @PUT('/socials/{socialId}')
+  Future<Social?> updateSocial(
+    @Path('socialId') int socialId,
     @Body() Social social,
   );
 
@@ -151,5 +158,24 @@ abstract class APIClient {
   Future<String?> updateUserBanner(
     @Path('userId') String userId,
     @Part(name: 'file') File file,
+  );
+
+  // profile/experiences
+  @POST('/users/{userId}/experiences')
+  Future<UserExperience?> addExperience(
+    @Path('userId') String userId,
+    @Body() AddExperienceReq addExperienceReq,
+  );
+
+  @PUT('/users/{userId}/experiences/{experience_id}')
+  Future<Experience?> updateExperience(
+    @Path('userId') String userId,
+    @Path('experienceId') int experienceId,
+    @Body() Experience experience,
+  );
+
+  @GET('/users/{userId}/experiences')
+  Future<List<UserExperience>> fetchExperiences(
+    @Path('userId') String userId,
   );
 }

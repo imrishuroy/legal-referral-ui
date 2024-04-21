@@ -1,6 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:legal_referral_ui/src/core/utils/utils.dart';
-import 'package:legal_referral_ui/src/features/profile/domain/domain.dart';
 
 part 'experience.freezed.dart';
 part 'experience.g.dart';
@@ -10,7 +9,6 @@ class Experience with _$Experience {
   const factory Experience({
     required String title,
     @JsonKey(name: 'practice_area') required String? practiceArea,
-    @JsonKey(name: 'firm') required Firm? firm,
     @JsonKey(name: 'practice_location') required String? practiceLocation,
     @ExperienceDateTimeConverter()
     @JsonKey(name: 'start_date')
@@ -18,10 +16,12 @@ class Experience with _$Experience {
     @ExperienceDateTimeConverter()
     @JsonKey(name: 'end_date')
     required DateTime? endDate,
-    required bool current,
-    required List<String> skills,
+    required List<String?> skills,
     required String? description,
+    @Default(false) bool? current,
+    @JsonKey(name: 'firm_id', includeIfNull: false) int? firmId,
     @JsonKey(name: 'experience_id', includeToJson: false) int? experienceId,
+    @JsonKey(name: 'user_id', includeToJson: false) String? userId,
   }) = _Experience;
 
   factory Experience.fromJson(Map<String, dynamic> json) =>

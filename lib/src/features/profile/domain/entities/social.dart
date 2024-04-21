@@ -3,9 +3,25 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'social.freezed.dart';
 part 'social.g.dart';
 
-enum EntityType { user, firm }
+enum EntityType {
+  @JsonValue('user')
+  user,
+  @JsonValue('firm')
+  firm,
+}
 
-enum SocialPlatform { facebook, twitter, linkedin, instagram, snapchat }
+enum SocialPlatform {
+  @JsonValue('facebook')
+  facebook,
+  @JsonValue('twitter')
+  twitter,
+  @JsonValue('linkedin')
+  linkedin,
+  @JsonValue('instagram')
+  instagram,
+  @JsonValue('snapchat')
+  snapchat,
+}
 
 @freezed
 class Social with _$Social {

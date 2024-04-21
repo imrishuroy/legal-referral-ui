@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
-import 'package:legal_referral_ui/src/core/config/config.dart';
 import 'package:legal_referral_ui/src/core/constants/constants.dart';
 import 'package:legal_referral_ui/src/core/constants/practice_area_constants.dart';
 import 'package:legal_referral_ui/src/core/constants/skills_constants.dart';
@@ -17,18 +16,33 @@ import 'package:legal_referral_ui/src/features/profile/domain/domain.dart';
 import 'package:legal_referral_ui/src/features/profile/presentation/presentation.dart';
 import 'package:toastification/toastification.dart';
 
-class AddExperiencePage extends StatefulWidget {
-  const AddExperiencePage({super.key});
-
-  static const String name = 'AddExperiencePage';
-
-  @override
-  State<AddExperiencePage> createState() => _AddExperiencePageState();
+class AddUpdateExperiencePageArgs {
+  AddUpdateExperiencePageArgs({
+    required this.profileBloc,
+    this.experience,
+  });
+  final ProfileBloc profileBloc;
+  final UserExperience? experience;
 }
 
-class _AddExperiencePageState extends State<AddExperiencePage> {
+class AddUpdateExperiencePage extends StatefulWidget {
+  const AddUpdateExperiencePage({
+    required this.args,
+    super.key,
+  });
+
+  final AddUpdateExperiencePageArgs args;
+
+  static const String name = 'AddUpdateExperiencePage';
+
+  @override
+  State<AddUpdateExperiencePage> createState() =>
+      _AddUpdateExperiencePageState();
+}
+
+class _AddUpdateExperiencePageState extends State<AddUpdateExperiencePage> {
   final _formKey = GlobalKey<FormState>();
-  final _profileBloc = getIt<ProfileBloc>();
+
   final _titleController = TextEditingController();
   final _firmNameController = TextEditingController();
   final _startDateController = TextEditingController();
@@ -56,7 +70,7 @@ class _AddExperiencePageState extends State<AddExperiencePage> {
         ),
       ),
       body: BlocConsumer<ProfileBloc, ProfileState>(
-        bloc: _profileBloc,
+        bloc: widget.args.profileBloc,
         listener: (context, state) {
           if (state.experienceStatus == ExperienceStatus.success) {
             context.pop();
@@ -333,7 +347,9 @@ class _AddExperiencePageState extends State<AddExperiencePage> {
                             SizedBox(height: 16.h),
                             SizedBox(height: 24.h),
                             CustomElevatedButton(
-                              onTap: _addExperience,
+                              onTap: () => _addExperience(
+                                profileBloc: widget.args.profileBloc,
+                              ),
                               text: 'Save and Proceed',
                             ),
                             SizedBox(height: 12.h),
@@ -348,7 +364,7 @@ class _AddExperiencePageState extends State<AddExperiencePage> {
     );
   }
 
-  void _addExperience() {
+  void _addExperience({required ProfileBloc profileBloc}) {
     if (_formKey.currentState!.validate()) {
       if (!_current && _endDate == null) {
         CustomSnackbar.showToast(
@@ -392,7 +408,7 @@ class _AddExperiencePageState extends State<AddExperiencePage> {
         description: _descriptionController.text,
       );
 
-      _profileBloc.add(ExperienceAdded(addExperienceReq: addExperienceReq));
+      profileBloc.add(ExperienceAdded(addExperienceReq: addExperienceReq));
     }
   }
 

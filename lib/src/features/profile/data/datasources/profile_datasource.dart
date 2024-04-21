@@ -41,17 +41,6 @@ class ProfileDataSource {
     }
   }
 
-  Future<Experience?> addExperience({
-    required AddExperienceReq addExperienceReq,
-  }) async {
-    try {
-      final res = await _apiClient.addExperience(addExperienceReq);
-      return res;
-    } catch (_) {
-      rethrow;
-    }
-  }
-
   Future<Education?> addEducation({
     required Education education,
   }) async {
@@ -79,6 +68,36 @@ class ProfileDataSource {
   }) async {
     try {
       final response = await _apiClient.addSocial(social);
+      return response;
+    } catch (_) {
+      rethrow;
+    }
+  }
+
+  Future<Social?> updateSocial({
+    required int socialId,
+    required Social social,
+  }) async {
+    try {
+      final response = await _apiClient.updateSocial(
+        socialId,
+        social,
+      );
+      return response;
+    } catch (_) {
+      rethrow;
+    }
+  }
+
+  Future<List<Social?>> fetchSocials({
+    required EntityType entityType,
+    required String entityId,
+  }) async {
+    try {
+      final response = await _apiClient.fetchSocials(
+        entityType,
+        entityId,
+      );
       return response;
     } catch (_) {
       rethrow;
@@ -140,6 +159,50 @@ class ProfileDataSource {
         file,
       );
       return response;
+    } catch (_) {
+      rethrow;
+    }
+  }
+
+  // profile/experiences
+  Future<UserExperience?> addExperience({
+    required String userId,
+    required AddExperienceReq addExperienceReq,
+  }) async {
+    try {
+      final res = await _apiClient.addExperience(
+        userId,
+        addExperienceReq,
+      );
+      return res;
+    } catch (_) {
+      rethrow;
+    }
+  }
+
+  Future<Experience?> updateExperience({
+    required String userId,
+    required int experienceId,
+    required Experience experience,
+  }) async {
+    try {
+      final res = await _apiClient.updateExperience(
+        userId,
+        experienceId,
+        experience,
+      );
+      return res;
+    } catch (_) {
+      rethrow;
+    }
+  }
+
+  Future<List<UserExperience?>> fetchExperiences({
+    required String userId,
+  }) async {
+    try {
+      final res = await _apiClient.fetchExperiences(userId);
+      return res;
     } catch (_) {
       rethrow;
     }

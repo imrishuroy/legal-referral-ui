@@ -4,6 +4,7 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:legal_referral_ui/src/core/config/config.dart';
+import 'package:legal_referral_ui/src/features/auth/presentation/presentation.dart';
 import 'package:legal_referral_ui/src/features/profile/data/data.dart';
 import 'package:legal_referral_ui/src/features/profile/domain/domain.dart';
 import 'package:legal_referral_ui/src/features/profile/domain/usecases/profile_usecase.dart';
@@ -21,23 +22,30 @@ EventTransformer<Event> debounce<Event>(Duration duration) {
 @injectable
 class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
   ProfileBloc({
+    required AuthBloc authBloc,
     required ProfileUseCase profileUseCase,
   })  : _profileUseCase = profileUseCase,
+        _authBloc = authBloc,
         super(ProfileState.initial()) {
     on<ProfileFetched>(_onProfileFetched);
     on<FirmSearched>(_onFirmSearched, transformer: debounce(_duration));
-    on<ExperienceAdded>(_onExperienceAdded);
+
     on<EducationAdded>(_onEducationAdded);
     on<UserInfoUpdated>(_onUserInfoUpdated);
     on<PricingOptionSelected>(_onPricingOptionSelected);
     on<PriceAdded>(_onPriceAdded);
     on<PriceUpdated>(_onPriceUpdated);
     on<SocialAdded>(_onSocialAdded);
+    on<SocialUpdated>(_onSocialUpdated);
+    on<SocialsFetched>(_onSocialsFetched);
     on<ReferralToggled>(_onReferralToggled);
     on<BannerUpdated>(_onBannerUpdated);
     on<UserProfileUpdated>(_onUserProfileUpdated);
+    on<ExperienceAdded>(_onExperienceAdded);
+    on<ExperienceFetched>(_onExperienceFetched);
   }
 
+  final AuthBloc _authBloc;
   final ProfileUseCase _profileUseCase;
 
   Future<void> _onProfileFetched(
@@ -120,6 +128,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
       ),
     );
     final res = await _profileUseCase.addExperience(
+      userId: _authBloc.state.user?.userId ?? '',
       addExperienceReq: event.addExperienceReq,
     );
 
@@ -134,6 +143,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
       },
       (experience) {
         if (experience != null) {
+          AppLogger.info('Experience added $experience');
           emit(
             state.copyWith(
               experienceStatus: ExperienceStatus.success,
@@ -321,7 +331,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
   ) async {
     emit(
       state.copyWith(
-        profileStatus: ProfileStatus.loading,
+        socialStatus: SocialStatus.loading,
       ),
     );
 
@@ -333,7 +343,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
       (failure) {
         emit(
           state.copyWith(
-            profileStatus: ProfileStatus.failure,
+            socialStatus: SocialStatus.failure,
             failure: failure,
           ),
         );
@@ -342,10 +352,90 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
         if (social != null) {
           emit(
             state.copyWith(
-              profileStatus: ProfileStatus.success,
+              socialStatus: SocialStatus.success,
+              socials: [...state.socials, social],
             ),
           );
         }
+      },
+    );
+  }
+
+  Future<void> _onSocialUpdated(
+    SocialUpdated event,
+    Emitter<ProfileState> emit,
+  ) async {
+    emit(
+      state.copyWith(
+        socialStatus: SocialStatus.loading,
+      ),
+    );
+
+    final res = await _profileUseCase.updateSocial(
+      socialId: event.socialId,
+      social: event.social,
+    );
+
+    res.fold(
+      (failure) {
+        emit(
+          state.copyWith(
+            socialStatus: SocialStatus.failure,
+            failure: failure,
+          ),
+        );
+      },
+      (social) {
+        if (social != null) {
+          final updatedSocials = state.socials.map((s) {
+            if (s?.socialId == social.socialId) {
+              return social;
+            }
+            return s;
+          }).toList();
+
+          emit(
+            state.copyWith(
+              socialStatus: SocialStatus.success,
+              socials: updatedSocials,
+            ),
+          );
+        }
+      },
+    );
+  }
+
+  Future<void> _onSocialsFetched(
+    SocialsFetched event,
+    Emitter<ProfileState> emit,
+  ) async {
+    emit(
+      state.copyWith(
+        socialStatus: SocialStatus.loading,
+      ),
+    );
+
+    final res = await _profileUseCase.fetchSocials(
+      entityType: event.entityType,
+      entityId: event.entityId,
+    );
+
+    res.fold(
+      (failure) {
+        emit(
+          state.copyWith(
+            socialStatus: SocialStatus.failure,
+            failure: failure,
+          ),
+        );
+      },
+      (socials) {
+        emit(
+          state.copyWith(
+            socialStatus: SocialStatus.success,
+            socials: socials,
+          ),
+        );
       },
     );
   }
@@ -432,6 +522,43 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
         profileStatus: ProfileStatus.success,
         userProfile: event.userProfile,
       ),
+    );
+  }
+
+  // profile/experiences
+  Future<void> _onExperienceFetched(
+    ExperienceFetched event,
+    Emitter<ProfileState> emit,
+  ) async {
+    emit(
+      state.copyWith(
+        experienceStatus: ExperienceStatus.loading,
+      ),
+    );
+
+    final res = await _profileUseCase.fetchExperiences(
+      userId: _authBloc.state.user?.userId ?? '',
+    );
+
+    res.fold(
+      (failure) {
+        AppLogger.error('Error fetching experiences $failure');
+        emit(
+          state.copyWith(
+            experienceStatus: ExperienceStatus.failure,
+            failure: failure,
+          ),
+        );
+      },
+      (experiences) {
+        AppLogger.info('Experiences fetched $experiences');
+        emit(
+          state.copyWith(
+            experienceStatus: ExperienceStatus.success,
+            experiences: experiences,
+          ),
+        );
+      },
     );
   }
 }

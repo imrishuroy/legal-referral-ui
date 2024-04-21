@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:legal_referral_ui/src/core/config/config.dart';
 import 'package:legal_referral_ui/src/core/constants/colors.dart';
 import 'package:legal_referral_ui/src/core/constants/social_constants.dart';
+import 'package:legal_referral_ui/src/core/validators/validators.dart';
 import 'package:legal_referral_ui/src/core/widgets/custom_button.dart';
 import 'package:legal_referral_ui/src/core/widgets/custom_dropdown.dart';
 import 'package:legal_referral_ui/src/core/widgets/custom_loading_indicator.dart';
@@ -14,23 +15,50 @@ import 'package:legal_referral_ui/src/features/profile/domain/domain.dart';
 import 'package:legal_referral_ui/src/features/profile/presentation/presentation.dart';
 import 'package:toastification/toastification.dart';
 
-class AddSocialPage extends StatefulWidget {
-  const AddSocialPage({super.key});
-
-  static const String name = 'AddSocialPage';
-
-  @override
-  State<AddSocialPage> createState() => _AddSocialPageState();
+class AddUpdateSocialPageArg {
+  AddUpdateSocialPageArg({
+    required this.profileBloc,
+    this.social,
+  });
+  final ProfileBloc profileBloc;
+  final Social? social;
 }
 
-class _AddSocialPageState extends State<AddSocialPage> {
+class AddUpdateSocialPage extends StatefulWidget {
+  const AddUpdateSocialPage({
+    required this.arg,
+    super.key,
+  });
+
+  final AddUpdateSocialPageArg arg;
+
+  static const String name = 'AddUpdateSocialPage';
+
+  @override
+  State<AddUpdateSocialPage> createState() => _AddUpdateSocialPageState();
+}
+
+class _AddUpdateSocialPageState extends State<AddUpdateSocialPage> {
   final _formKey = GlobalKey<FormState>();
-  final _profileBloc = getIt<ProfileBloc>();
   final _platformController = TextEditingController();
   final _linkController = TextEditingController();
 
   @override
+  void initState() {
+    final social = widget.arg.social;
+    if (social?.socialId != null && social?.platform != null) {
+      _platformController.text = _getSocialPlatformName(social!.platform);
+    }
+
+    _linkController.text = social?.link ?? '';
+
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    final profileBloc = widget.arg.profileBloc;
+
     return Scaffold(
       appBar: AppBar(
         elevation: 2.h,
@@ -41,11 +69,11 @@ class _AddSocialPageState extends State<AddSocialPage> {
         ),
       ),
       body: BlocConsumer<ProfileBloc, ProfileState>(
-        bloc: _profileBloc,
+        bloc: profileBloc,
         listener: (context, state) {
-          if (state.profileStatus == ProfileStatus.success) {
+          if (state.socialStatus == SocialStatus.success) {
             context.pop();
-          } else if (state.profileStatus == ProfileStatus.failure) {
+          } else if (state.socialStatus == SocialStatus.failure) {
             CustomSnackbar.showToast(
               context,
               title: 'Error',
@@ -55,7 +83,7 @@ class _AddSocialPageState extends State<AddSocialPage> {
           }
         },
         builder: (context, state) {
-          return state.profileStatus == ProfileStatus.loading
+          return state.socialStatus == SocialStatus.loading
               ? const CustomLoadingIndicator()
               : SafeArea(
                   child: SingleChildScrollView(
@@ -73,6 +101,9 @@ class _AddSocialPageState extends State<AddSocialPage> {
                                 SizedBox(height: 12.h),
                                 CustomDropDown(
                                   items: SocialMediaConstants.socialMediaList,
+                                  selectedValue: _platformController.text == ''
+                                      ? null
+                                      : _platformController.text,
                                   onChange: (value) {
                                     if (value != null) {
                                       _platformController.text = value;
@@ -92,6 +123,7 @@ class _AddSocialPageState extends State<AddSocialPage> {
                                   controller: _linkController,
                                   hintText: 'https://www.linkedin.com',
                                   labelText: 'Link',
+                                  validator: Validator.validateURL,
                                 ),
                                 SizedBox(height: 16.h),
                               ],
@@ -101,7 +133,9 @@ class _AddSocialPageState extends State<AddSocialPage> {
                           Padding(
                             padding: EdgeInsets.symmetric(horizontal: 16.h),
                             child: CustomElevatedButton(
-                              onTap: _addSocial,
+                              onTap: () => _addEditSocial(
+                                profileBloc: profileBloc,
+                              ),
                               text: 'Save and Proceed',
                             ),
                           ),
@@ -116,7 +150,7 @@ class _AddSocialPageState extends State<AddSocialPage> {
     );
   }
 
-  void _addSocial() {
+  void _addEditSocial({required ProfileBloc profileBloc}) {
     if (_formKey.currentState!.validate()) {
       final social = Social(
         entityType: EntityType.user,
@@ -124,7 +158,18 @@ class _AddSocialPageState extends State<AddSocialPage> {
         link: _linkController.text,
       );
 
-      _profileBloc.add(SocialAdded(social: social));
+      final socialId = widget.arg.social?.socialId;
+
+      if (socialId != null) {
+        profileBloc.add(
+          SocialUpdated(
+            social: social,
+            socialId: socialId,
+          ),
+        );
+      } else {
+        profileBloc.add(SocialAdded(social: social));
+      }
     }
   }
 
@@ -135,12 +180,29 @@ class _AddSocialPageState extends State<AddSocialPage> {
       case 'Twitter':
         return SocialPlatform.twitter;
       case 'Instagram':
-        return SocialPlatform.linkedin;
-      case 'LinkedIn':
         return SocialPlatform.instagram;
-
+      case 'LinkedIn':
+        return SocialPlatform.linkedin;
       default:
         return SocialPlatform.snapchat;
+    }
+  }
+
+  String _getSocialPlatformName(SocialPlatform platform) {
+    AppLogger.info('Platform to check: $platform');
+    switch (platform) {
+      case SocialPlatform.facebook:
+        return 'Facebook';
+      case SocialPlatform.twitter:
+        return 'Twitter';
+      case SocialPlatform.instagram:
+        return 'Instagram';
+      case SocialPlatform.linkedin:
+        return 'LinkedIn';
+      case SocialPlatform.snapchat:
+        return 'Snapchat';
+      default:
+        return '';
     }
   }
 

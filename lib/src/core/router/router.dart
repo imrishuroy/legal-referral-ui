@@ -162,11 +162,13 @@ class AppRouter {
         ),
       ),
       GoRoute(
-        path: '/add-experience',
-        name: AddExperiencePage.name,
+        path: '/add-update-experience',
+        name: AddUpdateExperiencePage.name,
         parentNavigatorKey: _rootNavigatorKey,
         pageBuilder: (context, state) => CustomTransitionPage(
-          child: const AddExperiencePage(),
+          child: AddUpdateExperiencePage(
+            args: state.extra as AddUpdateExperiencePageArgs,
+          ),
           transitionDuration: const Duration(
             milliseconds: 500,
           ),
@@ -188,7 +190,7 @@ class AppRouter {
         ),
       ),
       GoRoute(
-        path: '/add-education',
+        path: '/add-update-education',
         name: AddEducationPage.name,
         parentNavigatorKey: _rootNavigatorKey,
         pageBuilder: (context, state) => CustomTransitionPage(
@@ -217,11 +219,11 @@ class AppRouter {
       ),
       GoRoute(
         path: '/add-edit-price',
-        name: AddEditPricePage.name,
+        name: AddUpdatePricePage.name,
         parentNavigatorKey: _rootNavigatorKey,
         pageBuilder: (context, state) => CustomTransitionPage(
-          child: AddEditPricePage(
-            args: state.extra as AddEditPricePageArgs,
+          child: AddUpdatePricePage(
+            args: state.extra as AddUpdatePricePageArgs,
           ),
           transitionDuration: const Duration(
             milliseconds: 500,
@@ -231,11 +233,13 @@ class AppRouter {
         ),
       ),
       GoRoute(
-        path: '/add-social',
-        name: AddSocialPage.name,
+        path: '/add-update-social',
+        name: AddUpdateSocialPage.name,
         parentNavigatorKey: _rootNavigatorKey,
         pageBuilder: (context, state) => CustomTransitionPage(
-          child: const AddSocialPage(),
+          child: AddUpdateSocialPage(
+            arg: state.extra as AddUpdateSocialPageArg,
+          ),
           transitionDuration: const Duration(
             milliseconds: 500,
           ),

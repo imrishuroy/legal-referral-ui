@@ -9,17 +9,18 @@ class CustomDropDown extends StatelessWidget {
     required this.onChange,
     required this.hintText,
     required this.labelText,
+    this.selectedValue,
     this.showSelectedValue = true,
     super.key,
     this.validator,
   });
   final List<String> items;
   final Function(String?) onChange;
-
   final String hintText;
   final String labelText;
   final bool showSelectedValue;
   final String? Function(String?)? validator;
+  final String? selectedValue;
 
   @override
   Widget build(BuildContext context) {
@@ -72,6 +73,7 @@ class CustomDropDown extends StatelessWidget {
               borderRadius: BorderRadius.circular(4.r),
             ),
           ),
+          value: selectedValue,
           hint: Text(
             hintText,
             style: Theme.of(context).textTheme.bodyLarge?.copyWith(
@@ -101,7 +103,10 @@ class CustomDropDown extends StatelessWidget {
               borderRadius: BorderRadius.circular(4.r),
             ),
             maxHeight: 250,
-            padding: EdgeInsets.symmetric(horizontal: 4.w, vertical: 8.h),
+            padding: EdgeInsets.symmetric(
+              horizontal: 4.w,
+              vertical: 8.h,
+            ),
           ),
           menuItemStyleData: const MenuItemStyleData(
             padding: EdgeInsets.zero,
