@@ -17,10 +17,6 @@ abstract class ProfileRepository {
     required int offset,
   });
 
-  Future<Either<Failure, Education?>> addEducation({
-    required Education education,
-  });
-
   Future<Either<Failure, AppUser?>> uploadUserInfo({
     required UploadUserInfoReq uploadUserInfoReq,
   });
@@ -77,5 +73,26 @@ abstract class ProfileRepository {
   Future<Either<Failure, ResponseMsg?>> deleteExperience({
     required String userId,
     required int experienceId,
+  });
+
+  // profile/educations
+
+  Future<Either<Failure, Education?>> addEducation({
+    required Education education,
+  });
+
+  Future<Either<Failure, List<Education?>>> fetchEducations({
+    required String userId,
+  });
+
+  Future<Either<Failure, Education?>> updateEducation({
+    required String userId,
+    required int educationId,
+    required Education education,
+  });
+
+  Future<Either<Failure, ResponseMsg?>> deleteEducation({
+    required String userId,
+    required int educationId,
   });
 }

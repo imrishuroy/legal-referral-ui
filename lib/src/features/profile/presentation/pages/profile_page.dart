@@ -205,7 +205,9 @@ class _ProfilePageState extends State<ProfilePage> {
                         ExperienceSection(
                           profileBloc: _profileBloc,
                         ),
-                        const ProfileEducationSection(),
+                        EducationSection(
+                          profileBloc: _profileBloc,
+                        ),
                         const ProfileReviewsSection(),
                       ],
                     ),

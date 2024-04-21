@@ -20,6 +20,7 @@ class ProfileState extends Equatable {
     this.experienceStatus = ExperienceStatus.initial,
     this.educationStatus = EducationStatus.initial,
     this.experiences = const <UserExperience>[],
+    this.educations = const <Education>[],
     this.companyStatus = CompanyStatus.initial,
     this.selectedPriceServiceType = PriceServiceType.perHour,
     this.userProfile,
@@ -38,6 +39,7 @@ class ProfileState extends Equatable {
   final ExperienceStatus experienceStatus;
   final EducationStatus educationStatus;
   final List<UserExperience?> experiences;
+  final List<Education?> educations;
   final CompanyStatus companyStatus;
   final PriceServiceType selectedPriceServiceType;
   final UserProfile? userProfile;
@@ -52,6 +54,7 @@ class ProfileState extends Equatable {
     ExperienceStatus? experienceStatus,
     EducationStatus? educationStatus,
     List<UserExperience?>? experiences,
+    List<Education?>? educations,
     CompanyStatus? companyStatus,
     PriceServiceType? selectedPriceServiceType,
     UserProfile? userProfile,
@@ -66,6 +69,7 @@ class ProfileState extends Equatable {
       experienceStatus: experienceStatus ?? this.experienceStatus,
       educationStatus: educationStatus ?? this.educationStatus,
       experiences: experiences ?? this.experiences,
+      educations: educations ?? this.educations,
       companyStatus: companyStatus ?? this.companyStatus,
       selectedPriceServiceType:
           selectedPriceServiceType ?? this.selectedPriceServiceType,
@@ -84,6 +88,7 @@ class ProfileState extends Equatable {
         experienceStatus,
         educationStatus,
         experiences,
+        educations,
         companyStatus,
         selectedPriceServiceType,
         userProfile,

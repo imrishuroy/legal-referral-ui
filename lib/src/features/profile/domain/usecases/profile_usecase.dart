@@ -34,14 +34,6 @@ class ProfileUseCase {
     );
   }
 
-  Future<Either<Failure, Education?>> addEducation({
-    required Education education,
-  }) async {
-    return _profileRepository.addEducation(
-      education: education,
-    );
-  }
-
   Future<Either<Failure, AppUser?>> uploadUserInfo({
     required UploadUserInfoReq uploadUserInfoReq,
   }) async {
@@ -155,6 +147,46 @@ class ProfileUseCase {
     return _profileRepository.deleteExperience(
       userId: userId,
       experienceId: experienceId,
+    );
+  }
+
+  // profile/educations
+
+  Future<Either<Failure, Education?>> addEducation({
+    required Education education,
+  }) async {
+    return _profileRepository.addEducation(
+      education: education,
+    );
+  }
+
+  Future<Either<Failure, List<Education?>>> fetchEducations({
+    required String userId,
+  }) async {
+    return _profileRepository.fetchEducations(
+      userId: userId,
+    );
+  }
+
+  Future<Either<Failure, Education?>> updateEducation({
+    required String userId,
+    required int educationId,
+    required Education education,
+  }) async {
+    return _profileRepository.updateEducation(
+      userId: userId,
+      educationId: educationId,
+      education: education,
+    );
+  }
+
+  Future<Either<Failure, ResponseMsg?>> deleteEducation({
+    required String userId,
+    required int educationId,
+  }) async {
+    return _profileRepository.deleteEducation(
+      userId: userId,
+      educationId: educationId,
     );
   }
 }

@@ -2,30 +2,44 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
-import 'package:legal_referral_ui/src/core/config/config.dart';
 import 'package:legal_referral_ui/src/core/constants/colors.dart';
 import 'package:legal_referral_ui/src/core/constants/skills_constants.dart';
 import 'package:legal_referral_ui/src/core/utils/utils.dart';
 import 'package:legal_referral_ui/src/core/widgets/custom_button.dart';
 import 'package:legal_referral_ui/src/core/widgets/custom_dropdown.dart';
+import 'package:legal_referral_ui/src/core/widgets/custom_loading_indicator.dart';
 import 'package:legal_referral_ui/src/core/widgets/custom_snackbar.dart';
 import 'package:legal_referral_ui/src/core/widgets/custom_textfield.dart';
 import 'package:legal_referral_ui/src/features/profile/domain/domain.dart';
+import 'package:legal_referral_ui/src/features/profile/presentation/bloc/profile_bloc.dart';
 import 'package:legal_referral_ui/src/features/profile/presentation/presentation.dart';
 import 'package:toastification/toastification.dart';
 
-class AddEducationPage extends StatefulWidget {
-  const AddEducationPage({super.key});
+class AddUpdateEducationPageArgs {
+  AddUpdateEducationPageArgs({
+    required this.profileBloc,
+    this.education,
+  });
+  final ProfileBloc profileBloc;
+  final Education? education;
+}
+
+class AddUpdateEducationPage extends StatefulWidget {
+  const AddUpdateEducationPage({
+    required this.args,
+    super.key,
+  });
+
+  final AddUpdateEducationPageArgs args;
 
   static const String name = 'AddEducationPage';
 
   @override
-  State<AddEducationPage> createState() => _AddEducationPageState();
+  State<AddUpdateEducationPage> createState() => _AddUpdateEducationPageState();
 }
 
-class _AddEducationPageState extends State<AddEducationPage> {
+class _AddUpdateEducationPageState extends State<AddUpdateEducationPage> {
   final _formKey = GlobalKey<FormState>();
-  final _profileBloc = getIt<ProfileBloc>();
   final _schoolController = TextEditingController();
   final _degreeController = TextEditingController();
   final _fieldOfStudyController = TextEditingController();
@@ -39,18 +53,49 @@ class _AddEducationPageState extends State<AddEducationPage> {
   final List<String> _skills = [];
 
   @override
+  void initState() {
+    if (widget.args.education != null) {
+      final education = widget.args.education!;
+
+      _schoolController.text = education.school ?? '';
+      _degreeController.text = education.degree ?? '';
+
+      _fieldOfStudyController.text = education.fieldOfStudy ?? '';
+      _startDateController.text = education.startDate != null
+          ? DateTimeUtil.getFormattedDate(
+              education.startDate!,
+            )
+          : '';
+      _startDate = education.startDate;
+      _endDateController.text = education.endDate != null
+          ? DateTimeUtil.getFormattedDate(
+              education.endDate!,
+            )
+          : '';
+
+      _endDate = education.endDate;
+      _current = education.current;
+      _gradeController.text = education.grade ?? '';
+      _achievementsController.text = education.achievements ?? '';
+      _skills.addAll(education.skills);
+    }
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    final profileBloc = widget.args.profileBloc;
+    final education = widget.args.education;
     return Scaffold(
       appBar: AppBar(
         elevation: 2.h,
-        shadowColor: const Color.fromRGBO(0, 0, 0, 0.08),
         title: Text(
-          'Education Details',
+          education?.educationId == null ? 'Add Education' : 'Update Education',
           style: Theme.of(context).textTheme.headlineLarge,
         ),
       ),
       body: BlocConsumer<ProfileBloc, ProfileState>(
-        bloc: _profileBloc,
+        bloc: profileBloc,
         listener: (context, state) {
           if (state.educationStatus == EducationStatus.success) {
             context.pop();
@@ -65,9 +110,7 @@ class _AddEducationPageState extends State<AddEducationPage> {
         },
         builder: (context, state) {
           return state.educationStatus == EducationStatus.loading
-              ? const Center(
-                  child: CircularProgressIndicator(),
-                )
+              ? const CustomLoadingIndicator()
               : SafeArea(
                   child: SingleChildScrollView(
                     child: Padding(
@@ -97,6 +140,12 @@ class _AddEducationPageState extends State<AddEducationPage> {
                               controller: _degreeController,
                               hintText: "Bachelor's",
                               labelText: 'Degree',
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Degree is required';
+                                }
+                                return null;
+                              },
                             ),
                             SizedBox(height: 16.h),
                             CustomTextField(
@@ -168,9 +217,13 @@ class _AddEducationPageState extends State<AddEducationPage> {
                                   checkColor: LegalReferralColors.textBlue100,
                                   activeColor: Colors.transparent,
                                   onChanged: (value) {
-                                    setState(() {
-                                      _current = value!;
-                                    });
+                                    if (value != null) {
+                                      setState(() {
+                                        _current = value;
+                                        _endDateController.clear();
+                                        _endDate = null;
+                                      });
+                                    }
                                   },
                                 ),
                                 Text(
@@ -189,7 +242,6 @@ class _AddEducationPageState extends State<AddEducationPage> {
                                         ? _startDate!
                                         : DateTime(1900),
                                     lastDate: DateTime.now(),
-                                    initialDate: DateTime.now(),
                                     builder: (context, child) {
                                       return Theme(
                                         data: ThemeData.light().copyWith(
@@ -256,11 +308,13 @@ class _AddEducationPageState extends State<AddEducationPage> {
                             SizedBox(height: 16.h),
                             CustomDropDown(
                               items: LawyerSkillsConstants.lawyerSkills,
-                              onChange: (skills) {
-                                if (skills != null) {
-                                  setState(() {
-                                    _skills.add(skills);
-                                  });
+                              onChange: (skill) {
+                                if (skill != null) {
+                                  if (!_skills.contains(skill)) {
+                                    setState(() {
+                                      _skills.add(skill);
+                                    });
+                                  }
                                 }
                               },
                               hintText: 'Skills',
@@ -301,8 +355,33 @@ class _AddEducationPageState extends State<AddEducationPage> {
                                 ),
                               ),
                             SizedBox(height: 24.h),
+                            if (education?.educationId != null)
+                              Center(
+                                child: TextButton(
+                                  onPressed: () {
+                                    final educationId = education?.educationId;
+
+                                    if (educationId != null) {
+                                      profileBloc.add(
+                                        EducationDeleted(
+                                          educationId: educationId,
+                                        ),
+                                      );
+                                    }
+                                  },
+                                  child: const Text(
+                                    'Delete Education',
+                                    style: TextStyle(
+                                      color: Colors.red,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            SizedBox(height: 24.h),
                             CustomElevatedButton(
-                              onTap: _addEducation,
+                              onTap: () => _addEducation(
+                                profileBloc: profileBloc,
+                              ),
                               text: 'Save and Proceed',
                             ),
                             SizedBox(height: 12.h),
@@ -317,8 +396,28 @@ class _AddEducationPageState extends State<AddEducationPage> {
     );
   }
 
-  void _addEducation() {
+  void _addEducation({required ProfileBloc profileBloc}) {
     if (_formKey.currentState!.validate()) {
+      if (!_current && _endDate == null) {
+        CustomSnackbar.showToast(
+          context,
+          title: 'Error',
+          description: 'End date is required',
+          type: ToastificationType.error,
+        );
+        return;
+      }
+
+      if (!_current && _endDate!.isBefore(_startDate!)) {
+        CustomSnackbar.showToast(
+          context,
+          title: 'Error',
+          description: 'End date cannot be before start date',
+          type: ToastificationType.error,
+        );
+        return;
+      }
+
       final education = Education(
         school: _schoolController.text,
         degree: _degreeController.text,
@@ -331,9 +430,32 @@ class _AddEducationPageState extends State<AddEducationPage> {
         skills: _skills,
       );
 
-      _profileBloc.add(
-        EducationAdded(education: education),
-      );
+      final educationId = widget.args.education?.educationId;
+
+      if (educationId != null) {
+        profileBloc.add(
+          EducationUpdated(
+            educationId: educationId,
+            education: education,
+          ),
+        );
+      } else {
+        profileBloc.add(
+          EducationAdded(education: education),
+        );
+      }
     }
+  }
+
+  @override
+  void dispose() {
+    _schoolController.dispose();
+    _degreeController.dispose();
+    _fieldOfStudyController.dispose();
+    _startDateController.dispose();
+    _endDateController.dispose();
+    _gradeController.dispose();
+    _achievementsController.dispose();
+    super.dispose();
   }
 }

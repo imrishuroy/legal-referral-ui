@@ -30,7 +30,6 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     on<ProfileFetched>(_onProfileFetched);
     on<FirmSearched>(_onFirmSearched, transformer: debounce(_duration));
 
-    on<EducationAdded>(_onEducationAdded);
     on<UserInfoUpdated>(_onUserInfoUpdated);
     on<PricingOptionSelected>(_onPricingOptionSelected);
     on<PriceAdded>(_onPriceAdded);
@@ -45,6 +44,10 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     on<ExperienceFetched>(_onExperienceFetched);
     on<ExperienceUpdated>(_onExperienceUpdated);
     on<ExperienceDeleted>(_onExperienceDeleted);
+    on<EducationAdded>(_onEducationAdded);
+    on<EducationFetched>(_onEducationFetched);
+    on<EducationUpdated>(_onEducationUpdated);
+    on<EducationDeleted>(_onEducationDeleted);
   }
 
   final AuthBloc _authBloc;
@@ -644,6 +647,126 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
             state.copyWith(
               experienceStatus: ExperienceStatus.success,
               experiences: updatedExperiences,
+            ),
+          );
+        }
+      },
+    );
+  }
+
+  Future<void> _onEducationFetched(
+    EducationFetched event,
+    Emitter<ProfileState> emit,
+  ) async {
+    emit(
+      state.copyWith(
+        educationStatus: EducationStatus.loading,
+      ),
+    );
+
+    final res = await _profileUseCase.fetchEducations(
+      userId: _authBloc.state.user?.userId ?? '',
+    );
+
+    res.fold(
+      (failure) {
+        emit(
+          state.copyWith(
+            educationStatus: EducationStatus.failure,
+            failure: failure,
+          ),
+        );
+      },
+      (educations) {
+        emit(
+          state.copyWith(
+            educationStatus: EducationStatus.success,
+            educations: educations,
+          ),
+        );
+      },
+    );
+  }
+
+  Future<void> _onEducationUpdated(
+    EducationUpdated event,
+    Emitter<ProfileState> emit,
+  ) async {
+    emit(
+      state.copyWith(
+        educationStatus: EducationStatus.loading,
+      ),
+    );
+
+    final res = await _profileUseCase.updateEducation(
+      userId: _authBloc.state.user?.userId ?? '',
+      educationId: event.educationId,
+      education: event.education,
+    );
+
+    res.fold(
+      (failure) {
+        emit(
+          state.copyWith(
+            educationStatus: EducationStatus.failure,
+            failure: failure,
+          ),
+        );
+      },
+      (education) {
+        if (education != null) {
+          final updatedEducations = state.educations.map((e) {
+            if (e?.educationId == education.educationId) {
+              return education;
+            }
+            return e;
+          }).toList();
+
+          emit(
+            state.copyWith(
+              educationStatus: EducationStatus.success,
+              educations: updatedEducations,
+            ),
+          );
+        }
+      },
+    );
+  }
+
+  Future<void> _onEducationDeleted(
+    EducationDeleted event,
+    Emitter<ProfileState> emit,
+  ) async {
+    emit(
+      state.copyWith(
+        educationStatus: EducationStatus.loading,
+      ),
+    );
+
+    final res = await _profileUseCase.deleteEducation(
+      userId: _authBloc.state.user?.userId ?? '',
+      educationId: event.educationId,
+    );
+
+    res.fold(
+      (failure) {
+        emit(
+          state.copyWith(
+            educationStatus: EducationStatus.failure,
+            failure: failure,
+          ),
+        );
+      },
+      (res) {
+        if (res != null) {
+          final updatedEducations = state.educations
+              .where((e) => e?.educationId != event.educationId)
+              .toList();
+
+          emit(
+            state.copyWith(
+              educationStatus: EducationStatus.success,
+              educations: updatedEducations,
             ),
           );
         }

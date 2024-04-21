@@ -347,4 +347,71 @@ class ProfileRepositoryImpl extends ProfileRepository {
       );
     }
   }
+
+  // profile/educations
+  @override
+  Future<Either<Failure, List<Education?>>> fetchEducations({
+    required String userId,
+  }) async {
+    try {
+      final res = await _profileDataSource.fetchEducations(
+        userId: userId,
+      );
+      return Right(res);
+    } on DioException catch (error) {
+      final dioError = DioExceptions.fromDioError(error);
+      return Left(
+        Failure(
+          statusCode: dioError.statusCode,
+          message: dioError.message,
+        ),
+      );
+    }
+  }
+
+  @override
+  Future<Either<Failure, Education?>> updateEducation({
+    required String userId,
+    required int educationId,
+    required Education education,
+  }) async {
+    try {
+      final res = await _profileDataSource.updateEducation(
+        userId: userId,
+        educationId: educationId,
+        education: education,
+      );
+      return Right(res);
+    } on DioException catch (error) {
+      final dioError = DioExceptions.fromDioError(error);
+      return Left(
+        Failure(
+          statusCode: dioError.statusCode,
+          message: dioError.message,
+        ),
+      );
+    }
+  }
+
+  @override
+  Future<Either<Failure, ResponseMsg?>> deleteEducation({
+    required String userId,
+    required int educationId,
+  }) async {
+    try {
+      final res = await _profileDataSource.deleteEducation(
+        userId: userId,
+        educationId: educationId,
+      );
+      return Right(res);
+    } on DioException catch (error) {
+      final dioError = DioExceptions.fromDioError(error);
+      return Left(
+        Failure(
+          statusCode: dioError.statusCode,
+          message: dioError.message,
+        ),
+      );
+    }
+  }
 }

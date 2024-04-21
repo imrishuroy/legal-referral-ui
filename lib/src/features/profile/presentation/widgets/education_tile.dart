@@ -3,18 +3,17 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:legal_referral_ui/src/core/constants/constants.dart';
 import 'package:legal_referral_ui/src/core/utils/utils.dart';
-import 'package:legal_referral_ui/src/core/widgets/custom_avatar.dart';
 import 'package:legal_referral_ui/src/core/widgets/custom_button.dart';
 import 'package:legal_referral_ui/src/features/profile/domain/domain.dart';
 
-class ExperienceTile extends StatelessWidget {
-  const ExperienceTile({
-    required this.userExp,
+class EducationTile extends StatelessWidget {
+  const EducationTile({
+    required this.education,
     this.onTapEdit,
     super.key,
   });
 
-  final UserExperience? userExp;
+  final Education? education;
   final VoidCallback? onTapEdit;
 
   @override
@@ -22,9 +21,11 @@ class ExperienceTile extends StatelessWidget {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        CustomAvatar(
+        CircleAvatar(
           radius: 24.r,
-          imageUrl: userExp?.firm?.logoUrl,
+          backgroundImage: const AssetImage(
+            'assets/tempImages/Ellipse 39.png',
+          ),
         ),
         SizedBox(
           width: 12.w,
@@ -34,42 +35,43 @@ class ExperienceTile extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                userExp?.experience?.title ?? '',
+                education?.school ?? '',
                 style: Theme.of(context).textTheme.headlineSmall,
               ),
               Text(
-                userExp?.experience?.practiceArea ?? '',
+                education?.degree ?? '',
                 style: Theme.of(context).textTheme.bodyLarge,
               ),
               Text(
-                userExp?.experience?.startDate != null
+                education?.startDate != null
                     ? DateTimeUtil.formatDateRange(
-                        userExp!.experience!.startDate!,
-                        userExp?.experience?.endDate,
+                        education!.startDate!,
+                        education?.endDate,
                       )
                     : '',
                 style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                       color: LegalReferralColors.textGrey500,
                     ),
               ),
-              Text(
-                userExp?.firm?.location ?? '',
-                style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                      color: LegalReferralColors.textGrey500,
-                    ),
-              ),
               SizedBox(
-                height: 12.h,
+                height: 8.h,
               ),
               Text(
-                userExp?.experience?.description ?? '',
+                'Grade: ${education?.grade}',
                 style: Theme.of(context).textTheme.bodyLarge,
               ),
               SizedBox(
-                height: 12.h,
+                height: 2.h,
               ),
               Text(
-                'Skills: ${userExp?.experience?.skills.join(', ')}',
+                'Achievements: ${education?.achievements}',
+                style: Theme.of(context).textTheme.bodyLarge,
+              ),
+              SizedBox(
+                height: 2.h,
+              ),
+              Text(
+                'Skills: ${education?.skills.join(', ')}',
                 style: Theme.of(context).textTheme.bodyLarge,
               ),
             ],

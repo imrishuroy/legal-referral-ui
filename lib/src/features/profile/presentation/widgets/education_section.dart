@@ -8,8 +8,8 @@ import 'package:legal_referral_ui/src/core/widgets/custom_button.dart';
 import 'package:legal_referral_ui/src/core/widgets/custom_loading_indicator.dart';
 import 'package:legal_referral_ui/src/features/profile/presentation/presentation.dart';
 
-class ExperienceSection extends StatefulWidget {
-  const ExperienceSection({
+class EducationSection extends StatefulWidget {
+  const EducationSection({
     required this.profileBloc,
     super.key,
   });
@@ -17,25 +17,25 @@ class ExperienceSection extends StatefulWidget {
   final ProfileBloc profileBloc;
 
   @override
-  State<ExperienceSection> createState() => _ExperienceSectionState();
+  State<EducationSection> createState() => _EducationSectionState();
 }
 
-class _ExperienceSectionState extends State<ExperienceSection> {
+class _EducationSectionState extends State<EducationSection> {
   @override
   void initState() {
-    widget.profileBloc.add(ExperienceFetched());
+    widget.profileBloc.add(EducationFetched());
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     return ProfileSection(
-      title: 'Experience',
+      title: 'Education',
       actions: [
         CustomIconButton(
           onTap: () => context.pushNamed(
-            AddUpdateExperiencePage.name,
-            extra: AddUpdateExperiencePageArgs(
+            AddUpdateEducationPage.name,
+            extra: AddUpdateEducationPageArgs(
               profileBloc: widget.profileBloc,
             ),
           ),
@@ -50,7 +50,7 @@ class _ExperienceSectionState extends State<ExperienceSection> {
         ),
         CustomIconButton(
           onTap: () => context.pushNamed(
-            ListExperiencePage.name,
+            ListEducationPage.name,
             extra: widget.profileBloc,
           ),
           icon: SizedBox(
@@ -63,19 +63,21 @@ class _ExperienceSectionState extends State<ExperienceSection> {
       child: BlocBuilder<ProfileBloc, ProfileState>(
         bloc: widget.profileBloc,
         builder: (context, state) {
-          return state.experienceStatus == ExperienceStatus.loading
+          return state.educationStatus == EducationStatus.loading
               ? const CustomLoadingIndicator()
               : ListView.separated(
-                  itemCount: state.experiences.length,
+                  itemCount: state.educations.length,
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
                   itemBuilder: (context, index) {
-                    final experience = state.experiences[index];
+                    final education = state.educations[index];
                     return Padding(
                       padding: EdgeInsets.symmetric(
                         vertical: 12.h,
                       ),
-                      child: ExperienceTile(userExp: experience),
+                      child: EducationTile(
+                        education: education,
+                      ),
                     );
                   },
                   separatorBuilder: (context, index) => Divider(

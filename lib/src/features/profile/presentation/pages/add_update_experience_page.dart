@@ -9,6 +9,7 @@ import 'package:legal_referral_ui/src/core/constants/state_constant.dart';
 import 'package:legal_referral_ui/src/core/utils/utils.dart';
 import 'package:legal_referral_ui/src/core/widgets/custom_button.dart';
 import 'package:legal_referral_ui/src/core/widgets/custom_dropdown.dart';
+import 'package:legal_referral_ui/src/core/widgets/custom_loading_indicator.dart';
 import 'package:legal_referral_ui/src/core/widgets/custom_snackbar.dart';
 import 'package:legal_referral_ui/src/core/widgets/custom_textfield.dart';
 import 'package:legal_referral_ui/src/features/profile/data/data.dart';
@@ -87,18 +88,20 @@ class _AddUpdateExperiencePageState extends State<AddUpdateExperiencePage> {
 
   @override
   Widget build(BuildContext context) {
+    final profileBloc = widget.args.profileBloc;
+    final userExp = widget.args.userExp;
+
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          'Experience Details',
-          style: TextStyle(
-            fontWeight: FontWeight.w600,
-            fontSize: 20,
-          ),
+        title: Text(
+          userExp?.experience?.experienceId == null
+              ? 'Add Experience'
+              : 'Update Experience',
+          style: Theme.of(context).textTheme.headlineLarge,
         ),
       ),
       body: BlocConsumer<ProfileBloc, ProfileState>(
-        bloc: widget.args.profileBloc,
+        bloc: profileBloc,
         listener: (context, state) {
           if (state.experienceStatus == ExperienceStatus.success) {
             context.pop();
@@ -113,9 +116,7 @@ class _AddUpdateExperiencePageState extends State<AddUpdateExperiencePage> {
         },
         builder: (context, state) {
           return state.experienceStatus == ExperienceStatus.loading
-              ? const Center(
-                  child: CircularProgressIndicator(),
-                )
+              ? const CustomLoadingIndicator()
               : SafeArea(
                   child: SingleChildScrollView(
                     child: Padding(
@@ -323,9 +324,11 @@ class _AddUpdateExperiencePageState extends State<AddUpdateExperiencePage> {
                               showSelectedValue: false,
                               onChange: (skill) {
                                 if (skill != null) {
-                                  setState(() {
-                                    _skills.add(skill);
-                                  });
+                                  if (!_skills.contains(skill)) {
+                                    setState(() {
+                                      _skills.add(skill);
+                                    });
+                                  }
                                 }
                               },
                               hintText: 'Skills',
@@ -377,13 +380,12 @@ class _AddUpdateExperiencePageState extends State<AddUpdateExperiencePage> {
                                       : null,
                             ),
                             SizedBox(height: 24.h),
-                            if (widget.args.userExp?.experience?.experienceId !=
-                                null)
+                            if (userExp?.experience?.experienceId != null)
                               Center(
                                 child: TextButton(
                                   onPressed: () {
-                                    final experienceId = widget
-                                        .args.userExp?.experience?.experienceId;
+                                    final experienceId =
+                                        userExp?.experience?.experienceId;
 
                                     if (experienceId != null) {
                                       widget.args.profileBloc.add(
@@ -404,7 +406,7 @@ class _AddUpdateExperiencePageState extends State<AddUpdateExperiencePage> {
                             SizedBox(height: 24.h),
                             CustomElevatedButton(
                               onTap: () => _addExperience(
-                                profileBloc: widget.args.profileBloc,
+                                profileBloc: profileBloc,
                               ),
                               text: 'Save and Proceed',
                             ),
@@ -464,11 +466,13 @@ class _AddUpdateExperiencePageState extends State<AddUpdateExperiencePage> {
         description: _descriptionController.text,
       );
 
-      if (widget.args.userExp?.experience?.experienceId != null) {
+      final experienceId = widget.args.userExp?.experience?.experienceId;
+
+      if (experienceId != null) {
         profileBloc.add(
           ExperienceUpdated(
             experienceReq: addExperienceReq,
-            experienceId: widget.args.userExp!.experience!.experienceId!,
+            experienceId: experienceId,
           ),
         );
       } else {

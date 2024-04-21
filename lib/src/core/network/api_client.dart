@@ -109,11 +109,6 @@ abstract class APIClient {
     @Query('offset') int offset,
   );
 
-  @POST('/education')
-  Future<Education?> addEducation(
-    @Body() Education education,
-  );
-
   @PUT('/users/info')
   Future<AppUser?> uploadUserInfo(
     @Body() UploadUserInfoReq uploadUserInfoReq,
@@ -183,5 +178,30 @@ abstract class APIClient {
   Future<ResponseMsg?> deleteExperience(
     @Path('userId') String userId,
     @Path('experienceId') int experienceId,
+  );
+
+  // profile/educations
+
+  @POST('/users/{userId}/educations')
+  Future<Education?> addEducation(
+    @Body() Education education,
+  );
+
+  @PUT('/users/{userId}/educations/{educationId}')
+  Future<Education?> updateEducation(
+    @Path('userId') String userId,
+    @Path('educationId') int educationId,
+    @Body() Education education,
+  );
+
+  @GET('/users/{userId}/educations')
+  Future<List<Education>> fetchEducations(
+    @Path('userId') String userId,
+  );
+
+  @DELETE('/users/{userId}/educations/{educationId}')
+  Future<ResponseMsg?> deleteEducation(
+    @Path('userId') String userId,
+    @Path('educationId') int educationId,
   );
 }

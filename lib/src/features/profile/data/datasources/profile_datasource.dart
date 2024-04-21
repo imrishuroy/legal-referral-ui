@@ -41,22 +41,13 @@ class ProfileDataSource {
     }
   }
 
-  Future<Education?> addEducation({
-    required Education education,
-  }) async {
-    try {
-      final res = await _apiClient.addEducation(education);
-      return res;
-    } catch (_) {
-      rethrow;
-    }
-  }
-
   Future<AppUser?> uploadUserInfo({
     required UploadUserInfoReq uploadUserInfoReq,
   }) async {
     try {
-      final res = await _apiClient.uploadUserInfo(uploadUserInfoReq);
+      final res = await _apiClient.uploadUserInfo(
+        uploadUserInfoReq,
+      );
       return res;
     } catch (_) {
       rethrow;
@@ -216,6 +207,62 @@ class ProfileDataSource {
       final res = await _apiClient.deleteExperience(
         userId,
         experienceId,
+      );
+      return res;
+    } catch (_) {
+      rethrow;
+    }
+  }
+
+  // profile/educations
+
+  Future<Education?> addEducation({
+    required Education education,
+  }) async {
+    try {
+      final res = await _apiClient.addEducation(education);
+      return res;
+    } catch (_) {
+      rethrow;
+    }
+  }
+
+  Future<List<Education?>> fetchEducations({
+    required String userId,
+  }) async {
+    try {
+      final res = await _apiClient.fetchEducations(userId);
+      return res;
+    } catch (_) {
+      rethrow;
+    }
+  }
+
+  Future<Education?> updateEducation({
+    required String userId,
+    required int educationId,
+    required Education education,
+  }) async {
+    try {
+      final res = await _apiClient.updateEducation(
+        userId,
+        educationId,
+        education,
+      );
+      return res;
+    } catch (_) {
+      rethrow;
+    }
+  }
+
+  Future<ResponseMsg?> deleteEducation({
+    required String userId,
+    required int educationId,
+  }) async {
+    try {
+      final res = await _apiClient.deleteEducation(
+        userId,
+        educationId,
       );
       return res;
     } catch (_) {

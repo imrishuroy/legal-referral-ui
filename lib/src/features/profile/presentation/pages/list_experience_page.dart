@@ -5,15 +5,15 @@ import 'package:go_router/go_router.dart';
 import 'package:legal_referral_ui/src/core/widgets/custom_loading_indicator.dart';
 import 'package:legal_referral_ui/src/features/profile/presentation/presentation.dart';
 
-class ListExperiencesPage extends StatelessWidget {
-  const ListExperiencesPage({
+class ListExperiencePage extends StatelessWidget {
+  const ListExperiencePage({
     required this.profileBloc,
     super.key,
   });
 
   final ProfileBloc profileBloc;
 
-  static const String name = 'ListExperiencesPage';
+  static const String name = 'ListExperiencePage';
 
   @override
   Widget build(BuildContext context) {
@@ -38,12 +38,12 @@ class ListExperiencesPage extends StatelessWidget {
                 ? const CustomLoadingIndicator()
                 : ListView.separated(
                     itemCount: state.experiences.length,
-                    shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
                     itemBuilder: (context, index) {
                       final userExp = state.experiences[index];
                       return Padding(
-                        padding: EdgeInsets.only(bottom: 8.h),
+                        padding: EdgeInsets.symmetric(
+                          vertical: 16.h,
+                        ),
                         child: ExperienceTile(
                           userExp: userExp,
                           onTapEdit: () => context.pushNamed(

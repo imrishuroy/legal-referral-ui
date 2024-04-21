@@ -35,17 +35,6 @@ class FirmSearched extends ProfileEvent {
   List<Object> get props => [query, limit, offset];
 }
 
-class EducationAdded extends ProfileEvent {
-  const EducationAdded({
-    required this.education,
-  });
-
-  final Education education;
-
-  @override
-  List<Object> get props => [education];
-}
-
 class UserInfoUpdated extends ProfileEvent {
   const UserInfoUpdated({
     required this.uploadUserInfoReq,
@@ -196,4 +185,42 @@ class ExperienceDeleted extends ProfileEvent {
 
   @override
   List<Object> get props => [experienceId];
+}
+
+// profile/educations
+class EducationAdded extends ProfileEvent {
+  const EducationAdded({
+    required this.education,
+  });
+
+  final Education education;
+
+  @override
+  List<Object> get props => [education];
+}
+
+class EducationFetched extends ProfileEvent {}
+
+class EducationUpdated extends ProfileEvent {
+  const EducationUpdated({
+    required this.educationId,
+    required this.education,
+  });
+
+  final int educationId;
+  final Education education;
+
+  @override
+  List<Object> get props => [educationId, education];
+}
+
+class EducationDeleted extends ProfileEvent {
+  const EducationDeleted({
+    required this.educationId,
+  });
+
+  final int educationId;
+
+  @override
+  List<Object> get props => [educationId];
 }

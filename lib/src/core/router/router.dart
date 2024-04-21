@@ -3,7 +3,6 @@ import 'package:go_router/go_router.dart';
 import 'package:legal_referral_ui/src/features/auth/presentation/presentation.dart';
 import 'package:legal_referral_ui/src/features/home_page.dart';
 import 'package:legal_referral_ui/src/features/profile/domain/domain.dart';
-import 'package:legal_referral_ui/src/features/profile/presentation/pages/add_education_page.dart';
 import 'package:legal_referral_ui/src/features/profile/presentation/presentation.dart';
 import 'package:legal_referral_ui/src/features/wizard/presentation/presentation.dart';
 
@@ -177,11 +176,11 @@ class AppRouter {
         ),
       ),
       GoRoute(
-        path: '/list-experiences',
-        name: ListExperiencesPage.name,
+        path: '/list-experience',
+        name: ListExperiencePage.name,
         parentNavigatorKey: _rootNavigatorKey,
         pageBuilder: (context, state) => CustomTransitionPage(
-          child: ListExperiencesPage(
+          child: ListExperiencePage(
             profileBloc: state.extra as ProfileBloc,
           ),
           transitionDuration: const Duration(
@@ -197,19 +196,6 @@ class AppRouter {
         parentNavigatorKey: _rootNavigatorKey,
         pageBuilder: (context, state) => CustomTransitionPage(
           child: const SearchFirmPage(),
-          transitionDuration: const Duration(
-            milliseconds: 500,
-          ),
-          transitionsBuilder: (_, a, __, c) =>
-              FadeTransition(opacity: a, child: c),
-        ),
-      ),
-      GoRoute(
-        path: '/add-update-education',
-        name: AddEducationPage.name,
-        parentNavigatorKey: _rootNavigatorKey,
-        pageBuilder: (context, state) => CustomTransitionPage(
-          child: const AddEducationPage(),
           transitionDuration: const Duration(
             milliseconds: 500,
           ),
@@ -254,6 +240,36 @@ class AppRouter {
         pageBuilder: (context, state) => CustomTransitionPage(
           child: AddUpdateSocialPage(
             arg: state.extra as AddUpdateSocialPageArg,
+          ),
+          transitionDuration: const Duration(
+            milliseconds: 500,
+          ),
+          transitionsBuilder: (_, a, __, c) =>
+              FadeTransition(opacity: a, child: c),
+        ),
+      ),
+      GoRoute(
+        path: '/add-update-education',
+        name: AddUpdateEducationPage.name,
+        parentNavigatorKey: _rootNavigatorKey,
+        pageBuilder: (context, state) => CustomTransitionPage(
+          child: AddUpdateEducationPage(
+            args: state.extra as AddUpdateEducationPageArgs,
+          ),
+          transitionDuration: const Duration(
+            milliseconds: 500,
+          ),
+          transitionsBuilder: (_, a, __, c) =>
+              FadeTransition(opacity: a, child: c),
+        ),
+      ),
+      GoRoute(
+        path: '/list-education',
+        name: ListEducationPage.name,
+        parentNavigatorKey: _rootNavigatorKey,
+        pageBuilder: (context, state) => CustomTransitionPage(
+          child: ListEducationPage(
+            profileBloc: state.extra as ProfileBloc,
           ),
           transitionDuration: const Duration(
             milliseconds: 500,
