@@ -147,4 +147,14 @@ class ProfileUseCase {
       experienceReq: experienceReq,
     );
   }
+
+  Future<Either<Failure, ResponseMsg?>> deleteExperience({
+    required String userId,
+    required int experienceId,
+  }) async {
+    return _profileRepository.deleteExperience(
+      userId: userId,
+      experienceId: experienceId,
+    );
+  }
 }

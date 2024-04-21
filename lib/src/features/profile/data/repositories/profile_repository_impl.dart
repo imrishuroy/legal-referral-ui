@@ -325,4 +325,26 @@ class ProfileRepositoryImpl extends ProfileRepository {
       );
     }
   }
+
+  @override
+  Future<Either<Failure, ResponseMsg?>> deleteExperience({
+    required String userId,
+    required int experienceId,
+  }) async {
+    try {
+      final res = await _profileDataSource.deleteExperience(
+        userId: userId,
+        experienceId: experienceId,
+      );
+      return Right(res);
+    } on DioException catch (error) {
+      final dioError = DioExceptions.fromDioError(error);
+      return Left(
+        Failure(
+          statusCode: dioError.statusCode,
+          message: dioError.message,
+        ),
+      );
+    }
+  }
 }

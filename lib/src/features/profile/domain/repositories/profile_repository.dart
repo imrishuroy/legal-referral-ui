@@ -73,4 +73,9 @@ abstract class ProfileRepository {
   Future<Either<Failure, List<UserExperience?>>> fetchExperiences({
     required String userId,
   });
+
+  Future<Either<Failure, ResponseMsg?>> deleteExperience({
+    required String userId,
+    required int experienceId,
+  });
 }

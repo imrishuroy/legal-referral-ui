@@ -44,6 +44,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     on<ExperienceAdded>(_onExperienceAdded);
     on<ExperienceFetched>(_onExperienceFetched);
     on<ExperienceUpdated>(_onExperienceUpdated);
+    on<ExperienceDeleted>(_onExperienceDeleted);
   }
 
   final AuthBloc _authBloc;
@@ -597,6 +598,47 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
             }
             return e;
           }).toList();
+
+          emit(
+            state.copyWith(
+              experienceStatus: ExperienceStatus.success,
+              experiences: updatedExperiences,
+            ),
+          );
+        }
+      },
+    );
+  }
+
+  Future<void> _onExperienceDeleted(
+    ExperienceDeleted event,
+    Emitter<ProfileState> emit,
+  ) async {
+    emit(
+      state.copyWith(
+        experienceStatus: ExperienceStatus.loading,
+      ),
+    );
+
+    final res = await _profileUseCase.deleteExperience(
+      userId: _authBloc.state.user?.userId ?? '',
+      experienceId: event.experienceId,
+    );
+
+    res.fold(
+      (failure) {
+        emit(
+          state.copyWith(
+            experienceStatus: ExperienceStatus.failure,
+            failure: failure,
+          ),
+        );
+      },
+      (res) {
+        if (res != null) {
+          final updatedExperiences = state.experiences
+              .where((e) => e?.experience?.experienceId != event.experienceId)
+              .toList();
 
           emit(
             state.copyWith(

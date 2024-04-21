@@ -376,7 +376,31 @@ class _AddUpdateExperiencePageState extends State<AddUpdateExperiencePage> {
                                       ? 'Description is required'
                                       : null,
                             ),
-                            SizedBox(height: 16.h),
+                            SizedBox(height: 24.h),
+                            if (widget.args.userExp?.experience?.experienceId !=
+                                null)
+                              Center(
+                                child: TextButton(
+                                  onPressed: () {
+                                    final experienceId = widget
+                                        .args.userExp?.experience?.experienceId;
+
+                                    if (experienceId != null) {
+                                      widget.args.profileBloc.add(
+                                        ExperienceDeleted(
+                                          experienceId: experienceId,
+                                        ),
+                                      );
+                                    }
+                                  },
+                                  child: const Text(
+                                    'Delete Experience',
+                                    style: TextStyle(
+                                      color: Colors.red,
+                                    ),
+                                  ),
+                                ),
+                              ),
                             SizedBox(height: 24.h),
                             CustomElevatedButton(
                               onTap: () => _addExperience(

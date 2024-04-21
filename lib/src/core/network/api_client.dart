@@ -178,4 +178,10 @@ abstract class APIClient {
   Future<List<UserExperience>> fetchExperiences(
     @Path('userId') String userId,
   );
+
+  @DELETE('/users/{userId}/experiences/{experienceId}')
+  Future<ResponseMsg?> deleteExperience(
+    @Path('userId') String userId,
+    @Path('experienceId') int experienceId,
+  );
 }

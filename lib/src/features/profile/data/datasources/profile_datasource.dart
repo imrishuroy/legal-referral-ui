@@ -207,4 +207,19 @@ class ProfileDataSource {
       rethrow;
     }
   }
+
+  Future<ResponseMsg?> deleteExperience({
+    required String userId,
+    required int experienceId,
+  }) async {
+    try {
+      final res = await _apiClient.deleteExperience(
+        userId,
+        experienceId,
+      );
+      return res;
+    } catch (_) {
+      rethrow;
+    }
+  }
 }

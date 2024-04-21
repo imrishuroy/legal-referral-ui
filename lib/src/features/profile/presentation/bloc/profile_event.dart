@@ -186,3 +186,14 @@ class ExperienceUpdated extends ProfileEvent {
   @override
   List<Object> get props => [experienceId, experienceReq];
 }
+
+class ExperienceDeleted extends ProfileEvent {
+  const ExperienceDeleted({
+    required this.experienceId,
+  });
+
+  final int experienceId;
+
+  @override
+  List<Object> get props => [experienceId];
+}
