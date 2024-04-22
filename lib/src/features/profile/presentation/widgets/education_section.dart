@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
-import 'package:legal_referral_ui/src/core/utils/utils.dart';
-import 'package:legal_referral_ui/src/core/widgets/custom_button.dart';
-import 'package:legal_referral_ui/src/core/widgets/custom_loading_indicator.dart';
+import 'package:legal_referral_ui/src/core/common_widgets/widgets.dart';
 import 'package:legal_referral_ui/src/features/profile/presentation/presentation.dart';
 
 class EducationSection extends StatefulWidget {
@@ -29,39 +26,23 @@ class _EducationSectionState extends State<EducationSection> {
 
   @override
   Widget build(BuildContext context) {
+    final profileBloc = widget.profileBloc;
     return ProfileSection(
       title: 'Education',
-      actions: [
-        CustomIconButton(
-          onTap: () => context.pushNamed(
-            AddUpdateEducationPage.name,
-            extra: AddUpdateEducationPageArgs(
-              profileBloc: widget.profileBloc,
-            ),
-          ),
-          icon: SizedBox(
-            height: 24.h,
-            width: 24.w,
-            child: SvgPicture.asset(ImageStringsUtil.addIcon),
-          ),
+      onTapAdd: () => context.pushNamed(
+        AddUpdateEducationPage.name,
+        extra: AddUpdateEducationPageArgs(
+          profileBloc: profileBloc,
         ),
-        SizedBox(
-          width: 12.w,
-        ),
-        CustomIconButton(
-          onTap: () => context.pushNamed(
-            ListEducationPage.name,
-            extra: widget.profileBloc,
-          ),
-          icon: SizedBox(
-            height: 24.h,
-            width: 24.w,
-            child: SvgPicture.asset(ImageStringsUtil.editIcon),
-          ),
-        ),
-      ],
+      ),
+      onTapEdit: () => context.pushNamed(
+        ListEducationPage.name,
+        extra: widget.profileBloc,
+      ),
+      showAddButton: true,
+      showEditButton: profileBloc.state.educations.isNotEmpty,
       child: BlocBuilder<ProfileBloc, ProfileState>(
-        bloc: widget.profileBloc,
+        bloc: profileBloc,
         builder: (context, state) {
           return state.educationStatus == EducationStatus.loading
               ? const CustomLoadingIndicator()

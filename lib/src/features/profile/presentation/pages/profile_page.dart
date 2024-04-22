@@ -3,16 +3,15 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
+import 'package:legal_referral_ui/src/core/common_widgets/widgets.dart';
 import 'package:legal_referral_ui/src/core/config/config.dart';
 import 'package:legal_referral_ui/src/core/constants/constants.dart';
 import 'package:legal_referral_ui/src/core/utils/utils.dart';
-import 'package:legal_referral_ui/src/core/widgets/custom_loading_indicator.dart';
-import 'package:legal_referral_ui/src/core/widgets/custom_snackbar.dart';
 import 'package:legal_referral_ui/src/features/auth/presentation/presentation.dart';
 import 'package:legal_referral_ui/src/features/profile/presentation/presentation.dart';
 import 'package:legal_referral_ui/src/features/profile/presentation/widgets/activity_widget.dart';
 import 'package:legal_referral_ui/src/features/profile/presentation/widgets/custom_card.dart';
-import 'package:legal_referral_ui/src/features/profile/presentation/widgets/profile_featured_section.dart';
+import 'package:legal_referral_ui/src/features/profile/presentation/widgets/featured_section.dart';
 import 'package:toastification/toastification.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -42,6 +41,7 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: LegalReferralColors.primaryBackground,
       appBar: AppBar(
         backgroundColor: Colors.white,
       ),
@@ -49,7 +49,7 @@ class _ProfilePageState extends State<ProfilePage> {
         bloc: _profileBloc,
         listener: (context, state) {
           if (state.profileStatus == ProfileStatus.failure) {
-            CustomSnackbar.showToast(
+            ToastUtil.showToast(
               context,
               title: 'Error',
               description: state.failure?.message ?? 'something went wrong',
@@ -73,7 +73,7 @@ class _ProfilePageState extends State<ProfilePage> {
                           color: LegalReferralColors.containerWhite500,
                           child: Column(
                             children: [
-                              ProfileHeaderSection(
+                              HeaderSection(
                                 user: user,
                                 profileBloc: _profileBloc,
                               ),
@@ -144,7 +144,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         SizedBox(
                           height: 2.h,
                         ),
-                        ProfilePricingSection(
+                        PricingSection(
                           user: user,
                           profileBloc: _profileBloc,
                         ),
@@ -195,7 +195,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         ProfileSocialSection(
                           profileBloc: _profileBloc,
                         ),
-                        const ProfileFeaturedSection(),
+                        const FeaturedSection(),
                         CustomCard(
                           onTap: () {},
                           title: 'Activity',
@@ -208,7 +208,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         EducationSection(
                           profileBloc: _profileBloc,
                         ),
-                        const ProfileReviewsSection(),
+                        const ReviewsSection(),
                       ],
                     ),
                   ),

@@ -2,21 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
+import 'package:legal_referral_ui/src/core/common_widgets/widgets.dart';
 import 'package:legal_referral_ui/src/core/config/config.dart';
 import 'package:legal_referral_ui/src/core/constants/colors.dart';
 import 'package:legal_referral_ui/src/core/constants/social_constants.dart';
+import 'package:legal_referral_ui/src/core/utils/utils.dart';
 import 'package:legal_referral_ui/src/core/validators/validators.dart';
-import 'package:legal_referral_ui/src/core/widgets/custom_button.dart';
-import 'package:legal_referral_ui/src/core/widgets/custom_dropdown.dart';
-import 'package:legal_referral_ui/src/core/widgets/custom_loading_indicator.dart';
-import 'package:legal_referral_ui/src/core/widgets/custom_snackbar.dart';
-import 'package:legal_referral_ui/src/core/widgets/custom_textfield.dart';
 import 'package:legal_referral_ui/src/features/profile/domain/domain.dart';
 import 'package:legal_referral_ui/src/features/profile/presentation/presentation.dart';
 import 'package:toastification/toastification.dart';
 
-class AddUpdateSocialPageArg {
-  AddUpdateSocialPageArg({
+class AddUpdateSocialPageArgs {
+  AddUpdateSocialPageArgs({
     required this.profileBloc,
     this.social,
   });
@@ -30,7 +27,7 @@ class AddUpdateSocialPage extends StatefulWidget {
     super.key,
   });
 
-  final AddUpdateSocialPageArg arg;
+  final AddUpdateSocialPageArgs arg;
 
   static const String name = 'AddUpdateSocialPage';
 
@@ -74,7 +71,7 @@ class _AddUpdateSocialPageState extends State<AddUpdateSocialPage> {
           if (state.socialStatus == SocialStatus.success) {
             context.pop();
           } else if (state.socialStatus == SocialStatus.failure) {
-            CustomSnackbar.showToast(
+            ToastUtil.showToast(
               context,
               title: 'Error',
               description: state.failure?.message ?? 'something went wrong',
@@ -121,7 +118,11 @@ class _AddUpdateSocialPageState extends State<AddUpdateSocialPage> {
                                 SizedBox(height: 16.h),
                                 CustomTextField(
                                   controller: _linkController,
-                                  hintText: 'https://www.linkedin.com',
+                                  hintText: _hintText(
+                                    _getSocialPlatform(
+                                      _platformController.text,
+                                    ),
+                                  ),
                                   labelText: 'Link',
                                   validator: Validator.validateURL,
                                 ),
@@ -201,6 +202,23 @@ class _AddUpdateSocialPageState extends State<AddUpdateSocialPage> {
         return 'LinkedIn';
       case SocialPlatform.snapchat:
         return 'Snapchat';
+      default:
+        return '';
+    }
+  }
+
+  String _hintText(SocialPlatform platform) {
+    switch (platform) {
+      case SocialPlatform.facebook:
+        return 'https://www.facebook.com';
+      case SocialPlatform.twitter:
+        return 'https://www.twitter.com';
+      case SocialPlatform.instagram:
+        return 'https://www.instagram.com';
+      case SocialPlatform.linkedin:
+        return 'https://www.linkedin.com';
+      case SocialPlatform.snapchat:
+        return 'https://www.snapchat.com';
       default:
         return '';
     }

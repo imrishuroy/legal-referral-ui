@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
-import 'package:legal_referral_ui/src/core/widgets/custom_loading_indicator.dart';
+import 'package:legal_referral_ui/src/core/common_widgets/custom_loading_indicator.dart';
 import 'package:legal_referral_ui/src/features/profile/presentation/presentation.dart';
 
 class ListExperiencePage extends StatelessWidget {

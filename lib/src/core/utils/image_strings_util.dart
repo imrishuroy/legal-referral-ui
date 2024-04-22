@@ -10,6 +10,7 @@ class ImageStringsUtil {
   static const String instagram = 'assets/logos/instagram.svg';
   static const String linkedin = 'assets/logos/linkedin.svg';
   static const String snapchat = 'assets/logos/snapchat.svg';
+  static const String school = 'assets/logos/school.svg';
 
   // -- Category Icons
   static const String personIcon = 'assets/icons/person.svg';
@@ -32,4 +33,9 @@ class ImageStringsUtil {
   static const String onBoardingImage1 = 'assets/images/onBoarding1.svg';
   static const String onBoardingImage2 = 'assets/images/onBoarding2.svg';
   static const String onBoardingImage3 = 'assets/images/onBoarding3.svg';
+
+  // place holders
+  static const String avatarPlaceholder =
+      'assets/images/avatar_placeholder.png';
+  static const String imagePlaceholder = 'assets/images/image_placeholder.jpg';
 }

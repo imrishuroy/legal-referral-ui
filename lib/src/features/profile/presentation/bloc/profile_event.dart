@@ -20,6 +20,17 @@ class ProfileFetched extends ProfileEvent {
       ];
 }
 
+class AvatarUpdated extends ProfileEvent {
+  const AvatarUpdated({
+    required this.file,
+  });
+
+  final File file;
+
+  @override
+  List<Object> get props => [file];
+}
+
 class FirmSearched extends ProfileEvent {
   const FirmSearched({
     required this.query,

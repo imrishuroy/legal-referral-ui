@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:legal_referral_ui/src/core/utils/utils.dart';
 
 class CustomAvatar extends StatelessWidget {
   const CustomAvatar({
@@ -14,7 +15,7 @@ class CustomAvatar extends StatelessWidget {
     final image = imageUrl != null
         ? NetworkImage(imageUrl!)
         : const AssetImage(
-            'assets/images/placeholder_image.png',
+            ImageStringsUtil.avatarPlaceholder,
           );
     return CircleAvatar(
       radius: radius,
@@ -22,14 +23,17 @@ class CustomAvatar extends StatelessWidget {
       child: ClipOval(
         child: FadeInImage(
           placeholder: const AssetImage(
-            'assets/images/placeholder_image.png',
+            ImageStringsUtil.avatarPlaceholder,
           ),
           image: image as ImageProvider,
           fit: BoxFit.cover,
           width: radius * 2,
           height: radius * 2,
           fadeInDuration: const Duration(
-            milliseconds: 200,
+            milliseconds: 300,
+          ),
+          fadeOutDuration: const Duration(
+            milliseconds: 100,
           ),
         ),
       ),

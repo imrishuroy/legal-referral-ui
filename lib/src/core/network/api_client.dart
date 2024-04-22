@@ -180,6 +180,13 @@ abstract class APIClient {
     @Path('experienceId') int experienceId,
   );
 
+  @PUT('/users/{userId}/avatar')
+  @MultiPart()
+  Future<String?> updateUserAvatar(
+    @Path('userId') String userId,
+    @Part(name: 'file') File file,
+  );
+
   // profile/educations
 
   @POST('/users/{userId}/educations')

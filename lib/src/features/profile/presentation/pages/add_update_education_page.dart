@@ -2,14 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
+import 'package:legal_referral_ui/src/core/common_widgets/widgets.dart';
 import 'package:legal_referral_ui/src/core/constants/colors.dart';
 import 'package:legal_referral_ui/src/core/constants/skills_constants.dart';
 import 'package:legal_referral_ui/src/core/utils/utils.dart';
-import 'package:legal_referral_ui/src/core/widgets/custom_button.dart';
-import 'package:legal_referral_ui/src/core/widgets/custom_dropdown.dart';
-import 'package:legal_referral_ui/src/core/widgets/custom_loading_indicator.dart';
-import 'package:legal_referral_ui/src/core/widgets/custom_snackbar.dart';
-import 'package:legal_referral_ui/src/core/widgets/custom_textfield.dart';
 import 'package:legal_referral_ui/src/features/profile/domain/domain.dart';
 import 'package:legal_referral_ui/src/features/profile/presentation/bloc/profile_bloc.dart';
 import 'package:legal_referral_ui/src/features/profile/presentation/presentation.dart';
@@ -100,7 +96,7 @@ class _AddUpdateEducationPageState extends State<AddUpdateEducationPage> {
           if (state.educationStatus == EducationStatus.success) {
             context.pop();
           } else if (state.educationStatus == EducationStatus.failure) {
-            CustomSnackbar.showToast(
+            ToastUtil.showToast(
               context,
               title: 'Error',
               description: state.failure!.message,
@@ -399,7 +395,7 @@ class _AddUpdateEducationPageState extends State<AddUpdateEducationPage> {
   void _addEducation({required ProfileBloc profileBloc}) {
     if (_formKey.currentState!.validate()) {
       if (!_current && _endDate == null) {
-        CustomSnackbar.showToast(
+        ToastUtil.showToast(
           context,
           title: 'Error',
           description: 'End date is required',
@@ -409,7 +405,7 @@ class _AddUpdateEducationPageState extends State<AddUpdateEducationPage> {
       }
 
       if (!_current && _endDate!.isBefore(_startDate!)) {
-        CustomSnackbar.showToast(
+        ToastUtil.showToast(
           context,
           title: 'Error',
           description: 'End date cannot be before start date',

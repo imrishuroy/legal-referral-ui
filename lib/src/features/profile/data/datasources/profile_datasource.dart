@@ -15,6 +15,21 @@ class ProfileDataSource {
 
   final APIClient _apiClient;
 
+  Future<String?> updateUserAvatar({
+    required String userId,
+    required File file,
+  }) async {
+    try {
+      final response = await _apiClient.updateUserAvatar(
+        userId,
+        file,
+      );
+      return response;
+    } catch (_) {
+      rethrow;
+    }
+  }
+
   Future<UserProfile?> fetchUserProfile({required String userId}) async {
     try {
       final res = await _apiClient.fetchUserProfile(userId);

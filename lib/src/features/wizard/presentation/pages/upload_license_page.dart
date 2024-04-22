@@ -3,12 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:legal_referral_ui/src/core/common_widgets/custom_button.dart';
+import 'package:legal_referral_ui/src/core/common_widgets/custom_loading_indicator.dart';
 import 'package:legal_referral_ui/src/core/config/config.dart';
 import 'package:legal_referral_ui/src/core/constants/colors.dart';
 import 'package:legal_referral_ui/src/core/utils/utils.dart';
-import 'package:legal_referral_ui/src/core/widgets/custom_button.dart';
-import 'package:legal_referral_ui/src/core/widgets/custom_loading_indicator.dart';
-import 'package:legal_referral_ui/src/core/widgets/custom_snackbar.dart';
 import 'package:legal_referral_ui/src/features/auth/presentation/presentation.dart';
 import 'package:legal_referral_ui/src/features/wizard/presentation/presentation.dart';
 import 'package:toastification/toastification.dart';
@@ -191,7 +190,7 @@ class _UploadLicensePageState extends State<UploadLicensePage> {
         });
       } else {
         if (context.mounted) {
-          CustomSnackbar.showToast(
+          ToastUtil.showToast(
             context,
             type: ToastificationType.error,
             description: 'File size exceeds 2 MB.',
@@ -204,7 +203,7 @@ class _UploadLicensePageState extends State<UploadLicensePage> {
 
   void _save() {
     if (pdfFile == null) {
-      CustomSnackbar.showToast(
+      ToastUtil.showToast(
         context,
         type: ToastificationType.warning,
         description: 'Please upload License',
@@ -219,7 +218,7 @@ class _UploadLicensePageState extends State<UploadLicensePage> {
           ),
         );
       } else {
-        CustomSnackbar.showToast(
+        ToastUtil.showToast(
           context,
           type: ToastificationType.warning,
           description: 'User not found',

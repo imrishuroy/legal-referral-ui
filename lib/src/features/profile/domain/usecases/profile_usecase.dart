@@ -22,6 +22,16 @@ class ProfileUseCase {
     );
   }
 
+  Future<Either<Failure, String?>> updateUserAvatar({
+    required String userId,
+    required File file,
+  }) async {
+    return _profileRepository.updateUserAvatar(
+      userId: userId,
+      file: file,
+    );
+  }
+
   Future<Either<Failure, List<Firm?>>> searchFirm({
     required String query,
     required int limit,

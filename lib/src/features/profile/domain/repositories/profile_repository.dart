@@ -11,6 +11,11 @@ abstract class ProfileRepository {
     required String userId,
   });
 
+  Future<Either<Failure, String?>> updateUserAvatar({
+    required String userId,
+    required File file,
+  });
+
   Future<Either<Failure, List<Firm?>>> searchFirm({
     required String query,
     required int limit,

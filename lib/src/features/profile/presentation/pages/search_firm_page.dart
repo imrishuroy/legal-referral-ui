@@ -2,10 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
+import 'package:legal_referral_ui/src/core/common_widgets/widgets.dart';
 import 'package:legal_referral_ui/src/core/config/config.dart';
-import 'package:legal_referral_ui/src/core/widgets/custom_avatar.dart';
-import 'package:legal_referral_ui/src/core/widgets/custom_snackbar.dart';
-import 'package:legal_referral_ui/src/core/widgets/custom_textfield.dart';
+import 'package:legal_referral_ui/src/core/utils/utils.dart';
 import 'package:legal_referral_ui/src/features/profile/presentation/presentation.dart';
 import 'package:toastification/toastification.dart';
 
@@ -80,7 +79,7 @@ class _SearchFirmPageState extends State<SearchFirmPage> {
               bloc: _profileBloc,
               listener: (context, state) {
                 if (state.companyStatus == CompanyStatus.failure) {
-                  CustomSnackbar.showToast(
+                  ToastUtil.showToast(
                     context,
                     title: 'Error',
                     description: state.failure?.message ?? 'An error occurred',

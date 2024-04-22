@@ -2,16 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
+import 'package:legal_referral_ui/src/core/common_widgets/widgets.dart';
 import 'package:legal_referral_ui/src/core/constants/constants.dart';
 import 'package:legal_referral_ui/src/core/constants/practice_area_constants.dart';
 import 'package:legal_referral_ui/src/core/constants/skills_constants.dart';
 import 'package:legal_referral_ui/src/core/constants/state_constant.dart';
 import 'package:legal_referral_ui/src/core/utils/utils.dart';
-import 'package:legal_referral_ui/src/core/widgets/custom_button.dart';
-import 'package:legal_referral_ui/src/core/widgets/custom_dropdown.dart';
-import 'package:legal_referral_ui/src/core/widgets/custom_loading_indicator.dart';
-import 'package:legal_referral_ui/src/core/widgets/custom_snackbar.dart';
-import 'package:legal_referral_ui/src/core/widgets/custom_textfield.dart';
 import 'package:legal_referral_ui/src/features/profile/data/data.dart';
 import 'package:legal_referral_ui/src/features/profile/domain/domain.dart';
 import 'package:legal_referral_ui/src/features/profile/presentation/presentation.dart';
@@ -106,7 +102,7 @@ class _AddUpdateExperiencePageState extends State<AddUpdateExperiencePage> {
           if (state.experienceStatus == ExperienceStatus.success) {
             context.pop();
           } else if (state.experienceStatus == ExperienceStatus.failure) {
-            CustomSnackbar.showToast(
+            ToastUtil.showToast(
               context,
               title: 'Error',
               description: state.failure!.message,
@@ -425,7 +421,7 @@ class _AddUpdateExperiencePageState extends State<AddUpdateExperiencePage> {
   void _addExperience({required ProfileBloc profileBloc}) {
     if (_formKey.currentState!.validate()) {
       if (!_current && _endDate == null) {
-        CustomSnackbar.showToast(
+        ToastUtil.showToast(
           context,
           title: 'Error',
           description: 'End date is required',
@@ -435,7 +431,7 @@ class _AddUpdateExperiencePageState extends State<AddUpdateExperiencePage> {
       }
 
       if (firmId == null) {
-        CustomSnackbar.showToast(
+        ToastUtil.showToast(
           context,
           title: 'Error',
           description: 'Firm is required',
@@ -445,7 +441,7 @@ class _AddUpdateExperiencePageState extends State<AddUpdateExperiencePage> {
       }
 
       if (!_current && _endDate!.isBefore(_startDate!)) {
-        CustomSnackbar.showToast(
+        ToastUtil.showToast(
           context,
           title: 'Error',
           description: 'End date cannot be before start date',

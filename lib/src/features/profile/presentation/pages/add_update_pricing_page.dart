@@ -2,12 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
+import 'package:legal_referral_ui/src/core/common_widgets/widgets.dart';
 import 'package:legal_referral_ui/src/core/config/config.dart';
 import 'package:legal_referral_ui/src/core/constants/colors.dart';
-import 'package:legal_referral_ui/src/core/widgets/custom_button.dart';
-import 'package:legal_referral_ui/src/core/widgets/custom_loading_indicator.dart';
-import 'package:legal_referral_ui/src/core/widgets/custom_snackbar.dart';
-import 'package:legal_referral_ui/src/core/widgets/custom_textfield.dart';
+import 'package:legal_referral_ui/src/core/utils/utils.dart';
 import 'package:legal_referral_ui/src/features/profile/domain/domain.dart';
 import 'package:legal_referral_ui/src/features/profile/presentation/presentation.dart';
 import 'package:toastification/toastification.dart';
@@ -81,7 +79,7 @@ class _AddUpdatePricePageState extends State<AddUpdatePricePage> {
             );
             context.pop();
           } else if (state.pricingStatus == PricingStatus.failure) {
-            CustomSnackbar.showToast(
+            ToastUtil.showToast(
               context,
               title: 'Error',
               description: state.failure?.message ?? 'An error occurred',

@@ -3,8 +3,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:legal_referral_ui/src/features/profile/presentation/widgets/custom_card.dart';
 import 'package:legal_referral_ui/src/features/profile/presentation/widgets/review_widget.dart';
 
-class ProfileReviewsSection extends StatelessWidget {
-  const ProfileReviewsSection({super.key});
+class ReviewsSection extends StatelessWidget {
+  const ReviewsSection({super.key});
 
   @override
   Widget build(BuildContext context) {

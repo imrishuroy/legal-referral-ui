@@ -3,8 +3,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:legal_referral_ui/src/features/profile/presentation/widgets/custom_card.dart';
 import 'package:legal_referral_ui/src/features/profile/presentation/widgets/feature_widget.dart';
 
-class ProfileFeaturedSection extends StatelessWidget {
-  const ProfileFeaturedSection({super.key});
+class FeaturedSection extends StatelessWidget {
+  const FeaturedSection({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -1,17 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:legal_referral_ui/src/core/common_widgets/widgets.dart';
 import 'package:legal_referral_ui/src/core/constants/constants.dart';
+import 'package:legal_referral_ui/src/core/utils/utils.dart';
 
 class ProfileSection extends StatelessWidget {
   const ProfileSection({
     required this.title,
-    required this.actions,
+    required this.onTapAdd,
+    required this.onTapEdit,
+    required this.showAddButton,
+    required this.showEditButton,
     required this.child,
     super.key,
   });
 
   final String title;
-  final List<Widget> actions;
+  final VoidCallback onTapAdd;
+  final VoidCallback onTapEdit;
+  final bool showAddButton;
+  final bool showEditButton;
   final Widget child;
 
   @override
@@ -37,30 +46,38 @@ class ProfileSection extends StatelessWidget {
                 style: Theme.of(context).textTheme.headlineSmall,
               ),
               const Spacer(),
-              if (actions.isNotEmpty)
-                Row(
-                  children: actions,
-                )
-              else
-                const SizedBox.shrink(),
+              Row(
+                children: [
+                  if (showAddButton)
+                    CustomIconButton(
+                      onTap: onTapAdd,
+                      icon: SizedBox(
+                        height: 24.h,
+                        width: 24.w,
+                        child: SvgPicture.asset(ImageStringsUtil.addIcon),
+                      ),
+                    ),
+                  if (showEditButton)
+                    SizedBox(
+                      width: 12.w,
+                    ),
+                  if (showEditButton)
+                    CustomIconButton(
+                      onTap: onTapEdit,
+                      icon: SizedBox(
+                        height: 24.h,
+                        width: 24.w,
+                        child: SvgPicture.asset(ImageStringsUtil.editIcon),
+                      ),
+                    ),
+                ],
+              ),
             ],
           ),
           SizedBox(
             height: 12.h,
           ),
           child,
-          // if (isNewdetails!)
-          //   Text(
-          //     'Add details...',
-          //     style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-          //           color: LegalReferralColors.textGrey500,
-          //         ),
-          //   )
-          // else
-          //   child ?? const SizedBox.shrink(),
-          SizedBox(
-            height: 12.h,
-          ),
         ],
       ),
     );

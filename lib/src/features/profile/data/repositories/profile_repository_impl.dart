@@ -46,6 +46,28 @@ class ProfileRepositoryImpl extends ProfileRepository {
   }
 
   @override
+  Future<Either<Failure, String?>> updateUserAvatar({
+    required String userId,
+    required File file,
+  }) async {
+    try {
+      final res = await _profileDataSource.updateUserAvatar(
+        userId: userId,
+        file: file,
+      );
+      return Right(res);
+    } on DioException catch (error) {
+      final dioError = DioExceptions.fromDioError(error);
+      return Left(
+        Failure(
+          statusCode: dioError.statusCode,
+          message: dioError.message,
+        ),
+      );
+    }
+  }
+
+  @override
   Future<Either<Failure, List<Firm?>>> searchFirm({
     required String query,
     required int limit,

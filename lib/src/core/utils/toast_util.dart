@@ -2,7 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:toastification/toastification.dart';
 
-class CustomSnackbar {
+class ToastUtil {
+  ToastUtil._privateConstructor();
+
+  static final ToastUtil _instance = ToastUtil._privateConstructor();
+
+  static ToastUtil get instance {
+    return _instance;
+  }
+
   static void showToast(
     BuildContext context, {
     required String title,

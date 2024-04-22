@@ -28,8 +28,8 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
         _authBloc = authBloc,
         super(ProfileState.initial()) {
     on<ProfileFetched>(_onProfileFetched);
+    on<AvatarUpdated>(_onAvatarUpdated);
     on<FirmSearched>(_onFirmSearched, transformer: debounce(_duration));
-
     on<UserInfoUpdated>(_onUserInfoUpdated);
     on<PricingOptionSelected>(_onPricingOptionSelected);
     on<PriceAdded>(_onPriceAdded);
@@ -85,6 +85,42 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
             ),
           );
         }
+      },
+    );
+  }
+
+  Future<void> _onAvatarUpdated(
+    AvatarUpdated event,
+    Emitter<ProfileState> emit,
+  ) async {
+    emit(
+      state.copyWith(
+        profileStatus: ProfileStatus.loading,
+      ),
+    );
+    final res = await _profileUseCase.updateUserAvatar(
+      userId: _authBloc.state.user?.userId ?? '',
+      file: event.file,
+    );
+
+    res.fold(
+      (failure) {
+        emit(
+          state.copyWith(
+            profileStatus: ProfileStatus.failure,
+            failure: failure,
+          ),
+        );
+      },
+      (res) {
+        emit(
+          state.copyWith(
+            profileStatus: ProfileStatus.success,
+            userProfile: state.userProfile?.copyWith(
+              avatarUrl: res,
+            ),
+          ),
+        );
       },
     );
   }
@@ -187,6 +223,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
           emit(
             state.copyWith(
               educationStatus: EducationStatus.success,
+              educations: [...state.educations, education],
             ),
           );
         }
