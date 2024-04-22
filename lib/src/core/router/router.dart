@@ -18,7 +18,7 @@ class AppRouter {
         name: SplashPage.name,
         parentNavigatorKey: _rootNavigatorKey,
         pageBuilder: (context, state) => CustomTransitionPage(
-          child: const UploadLicensePage(),
+          child: const SplashPage(),
           transitionDuration: const Duration(
             seconds: _routeAnimationDuration,
           ),

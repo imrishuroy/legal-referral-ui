@@ -76,9 +76,9 @@ class _WizardInspectionPageState extends State<WizardInspectionPage> {
               );
 
             case WizardStep.uploadLicense:
-              return const UploadLicensePage(
-                  // wizardBloc: _wizardBloc,
-                  );
+              return UploadLicensePage(
+                wizardBloc: _wizardBloc,
+              );
 
             case WizardStep.aboutYou:
               return ShareAboutYouPage(
