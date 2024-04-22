@@ -11,11 +11,13 @@ class EditProfileAvatar extends StatelessWidget {
     required this.image,
     required this.onEdit,
     required this.onDelete,
+    required this.onTakePhoto,
     super.key,
   });
 
   final File? image;
   final VoidCallback onEdit;
+  final VoidCallback onTakePhoto;
   final VoidCallback onDelete;
 
   @override
@@ -66,6 +68,25 @@ class EditProfileAvatar extends StatelessWidget {
                       SvgPicture.asset(ImageStringsUtil.editIcon),
                       Text(
                         'Edit',
+                        style: TextStyle(
+                          fontSize: 14.h,
+                          fontWeight: FontWeight.w400,
+                          color: LegalReferralColors.textGrey400,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                InkWell(
+                  splashColor: Colors.transparent,
+                  highlightColor: Colors.transparent,
+                  hoverColor: Colors.transparent,
+                  onTap: onTakePhoto,
+                  child: Column(
+                    children: [
+                      SvgPicture.asset(ImageStringsUtil.camera),
+                      Text(
+                        'Take Photo',
                         style: TextStyle(
                           fontSize: 14.h,
                           fontWeight: FontWeight.w400,
