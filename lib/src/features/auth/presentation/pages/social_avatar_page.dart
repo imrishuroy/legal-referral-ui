@@ -88,7 +88,7 @@ class _SocialAvatarPageState extends State<SocialAvatarPage> {
                               height: 8.w,
                             ),
                             GestureDetector(
-                              onTap: _pickFile,
+                              onTap: _showAvatarEditSheet,
                               child: _image == null
                                   ? CircleAvatar(
                                       radius: 86.r,
@@ -181,7 +181,14 @@ class _SocialAvatarPageState extends State<SocialAvatarPage> {
               _image = null;
             });
             context.pop();
-            _pickFile();
+            _pickFile(ImageSource.gallery);
+          },
+          onTakePhoto: () {
+            setState(() {
+              _image = null;
+            });
+            _pickFile(ImageSource.camera);
+            context.pop();
           },
           onDelete: () {
             setState(() {
@@ -194,9 +201,9 @@ class _SocialAvatarPageState extends State<SocialAvatarPage> {
     );
   }
 
-  Future<void> _pickFile() async {
+  Future _pickFile(ImageSource source) async {
     final picker = ImagePicker();
-    final pickedFile = await picker.pickImage(source: ImageSource.gallery);
+    final pickedFile = await picker.pickImage(source: source);
     if (pickedFile != null) {
       AppLogger.info('pickedFile: ${pickedFile.path}');
       setState(() {

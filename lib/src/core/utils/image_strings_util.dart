@@ -14,6 +14,8 @@ class ImageStringsUtil {
   static const String pdfIcon = 'assets/icons/pdfIcon.svg';
   static const String deleteIcon = 'assets/icons/deleteIcon.svg';
   static const String editIcon = 'assets/icons/editIcon.svg';
+  static const String camera = 'assets/icons/camera.svg';
+  static const String file = 'assets/icons/file.svg';
 
   // -- Brand Icons
 

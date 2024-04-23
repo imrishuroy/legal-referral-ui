@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:legal_referral_ui/src/core/constants/constants.dart';
 
 class CustomOutlinedButton extends StatelessWidget {
@@ -133,6 +134,51 @@ class CustomIconButton extends StatelessWidget {
     return InkWell(
       onTap: onTap,
       child: Center(child: icon),
+    );
+  }
+}
+
+class HorizontalIconButon extends StatelessWidget {
+  const HorizontalIconButon({
+    required this.text,
+    required this.icon,
+    required this.onTap,
+    super.key,
+    this.height,
+    this.width,
+    this.iconColor,
+    this.style,
+  });
+  final String text;
+  final String icon;
+  final double? height;
+  final Color? iconColor;
+  final TextStyle? style;
+  final double? width;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      splashColor: Colors.transparent,
+      highlightColor: Colors.transparent,
+      hoverColor: Colors.transparent,
+      onTap: onTap,
+      child: Row(
+        children: [
+          SvgPicture.asset(
+            icon,
+            height: height ?? 24.h,
+            width: width ?? 24.w,
+            color: iconColor,
+          ),
+          SizedBox(width: 8.w),
+          Text(
+            text,
+            style: style,
+          ),
+        ],
+      ),
     );
   }
 }

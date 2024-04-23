@@ -3,9 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:legal_referral_ui/src/core/config/config.dart';
 import 'package:legal_referral_ui/src/core/constants/colors.dart';
 import 'package:legal_referral_ui/src/core/utils/utils.dart';
+import 'package:legal_referral_ui/src/core/widgets/custom_bottom_sheet.dart';
 import 'package:legal_referral_ui/src/core/widgets/custom_button.dart';
 import 'package:legal_referral_ui/src/core/widgets/custom_loading_indicator.dart';
 import 'package:legal_referral_ui/src/core/widgets/custom_snackbar.dart';
@@ -43,7 +45,7 @@ class _UploadLicensePageState extends State<UploadLicensePage> {
         ),
       ),
       body: BlocBuilder<WizardBloc, WizardState>(
-        bloc: widget.wizardBloc,
+        // bloc: widget.wizardBloc,
         builder: (context, state) {
           return state.wizardStatus == WizardStatus.loading
               ? const CustomLoadingIndicator()
@@ -56,7 +58,9 @@ class _UploadLicensePageState extends State<UploadLicensePage> {
                           AbsorbPointer(
                             absorbing: pdfFile != null,
                             child: GestureDetector(
-                              onTap: () => _uploadLicense(context),
+                              onTap: () {
+                                _chooseLicenseUploadFile(context);
+                              },
                               child: Container(
                                 height: 150.h,
                                 width: double.infinity,
@@ -90,7 +94,7 @@ class _UploadLicensePageState extends State<UploadLicensePage> {
                                           height: 50.h,
                                           width: 50.w,
                                           child: SvgPicture.asset(
-                                            ImageStringsUtil.pdfIcon,
+                                            ImageStringsUtil.file,
                                           ),
                                         ),
                                       ),
@@ -125,7 +129,7 @@ class _UploadLicensePageState extends State<UploadLicensePage> {
                                   child: Row(
                                     children: [
                                       SvgPicture.asset(
-                                        ImageStringsUtil.pdfIcon,
+                                        ImageStringsUtil.file,
                                       ),
                                       SizedBox(
                                         width: 8.w,
@@ -174,11 +178,45 @@ class _UploadLicensePageState extends State<UploadLicensePage> {
     );
   }
 
-  Future<void> _uploadLicense(BuildContext context) async {
+  Future<void> _chooseLicenseUploadFile(context) async {
+    await CustomBottomSheet.show(
+      isDismissible: true,
+      context: context,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          SizedBox(
+            height: 20.h,
+          ),
+          HorizontalIconButon(
+            iconColor: LegalReferralColors.buttonPrimary,
+            icon: ImageStringsUtil.file,
+            text: 'Upload License from Gallery',
+            onTap: () => _uploadLicenseFromGallery(context),
+          ),
+          Divider(
+            height: 20.h,
+          ),
+          HorizontalIconButon(
+            iconColor: LegalReferralColors.buttonPrimary,
+            icon: ImageStringsUtil.camera,
+            text: 'Capture License',
+            onTap: () => _pickFile(ImageSource.camera),
+          ),
+          Divider(
+            height: 20.h,
+          ),
+        ],
+      ),
+    );
+  }
+
+  Future<void> _uploadLicenseFromGallery(BuildContext context) async {
     final filePicker = FilePicker.platform;
     final pickedFile = await filePicker.pickFiles(
       type: FileType.custom,
-      allowedExtensions: ['pdf'],
+      allowedExtensions: ['pdf', 'jpg'],
     );
 
     if (pickedFile != null) {
@@ -199,6 +237,19 @@ class _UploadLicensePageState extends State<UploadLicensePage> {
           );
         }
       }
+    }
+  }
+
+  Future _pickFile(ImageSource source) async {
+    final picker = ImagePicker();
+    final pickedFile = await picker.pickImage(source: source, imageQuality: 75);
+    if (pickedFile != null) {
+      AppLogger.info('pickedFile: ${pickedFile.path}');
+      setState(() {
+        pdfFile = pickedFile.path;
+      });
+    } else {
+      AppLogger.info('No image selected');
     }
   }
 
