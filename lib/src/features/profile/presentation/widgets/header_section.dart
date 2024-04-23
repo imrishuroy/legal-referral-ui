@@ -4,13 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
-import 'package:image_picker/image_picker.dart';
+import 'package:image_cropper/image_cropper.dart';
 import 'package:legal_referral_ui/src/core/common_widgets/widgets.dart';
 import 'package:legal_referral_ui/src/core/constants/constants.dart';
 import 'package:legal_referral_ui/src/core/utils/utils.dart';
 import 'package:legal_referral_ui/src/features/profile/domain/domain.dart';
+import 'package:legal_referral_ui/src/features/profile/presentation/pages/camera_page.dart';
 import 'package:legal_referral_ui/src/features/profile/presentation/presentation.dart';
-import 'package:toastification/toastification.dart';
 
 class HeaderSection extends StatefulWidget {
   const HeaderSection({
@@ -35,7 +35,7 @@ class _HeaderSectionState extends State<HeaderSection> {
         children: [
           _UserBannerWidget(
             bannerUrl: widget.user?.bannerUrl,
-            onTapEdit: _updateBannerImage,
+            onTapEdit: () => _updateBannerImage(context),
           ),
           Positioned(
             right: 16.w,
@@ -55,7 +55,7 @@ class _HeaderSectionState extends State<HeaderSection> {
             left: 16.w,
             child: _UserAvatarWidget(
               avatarUrl: widget.user?.avatarUrl,
-              onTapEdit: _updateAvatarImage,
+              onTapEdit: () => _updateAvatarImage(context),
             ),
           ),
         ],
@@ -63,39 +63,69 @@ class _HeaderSectionState extends State<HeaderSection> {
     );
   }
 
-  Future<void> _updateBannerImage() async {
-    final picker = ImagePicker();
-    final pickedFile = await picker.pickImage(source: ImageSource.gallery);
-    if (pickedFile != null) {
-      widget.profileBloc.add(BannerUpdated(file: File(pickedFile.path)));
-    } else {
-      if (mounted) {
-        ToastUtil.showToast(
-          context,
-          title: 'Error',
-          description: 'No image selected',
-          type: ToastificationType.error,
+  Future<void> _updateBannerImage(BuildContext context) async {
+    final imageOption = await ImageUtil.showImageOptionSheet(context);
+    if (imageOption == ImageOption.gallery) {
+      final pickedFile = await ImageUtil.pickImage(
+        cropStyle: CropStyle.rectangle,
+      );
+      if (pickedFile != null) {
+        widget.profileBloc.add(
+          BannerUpdated(
+            file: File(pickedFile.path),
+          ),
+        );
+      }
+    } else if (imageOption == ImageOption.camera) {
+      if (context.mounted) {
+        await context.pushNamed<CameraPageArgs?>(
+          CameraPage.name,
+          extra: CameraPageArgs(
+            cropStyle: CropStyle.rectangle,
+            onImageCaptured: (filePath) {
+              if (filePath != null) {
+                widget.profileBloc.add(
+                  BannerUpdated(
+                    file: File(filePath),
+                  ),
+                );
+              }
+            },
+          ),
         );
       }
     }
   }
 
-  Future<void> _updateAvatarImage() async {
-    final pickedFile = await ImageUtil.pickImage(context);
-
-    if (pickedFile != null) {
-      widget.profileBloc.add(
-        AvatarUpdated(
-          file: File(pickedFile.path),
-        ),
+  Future<void> _updateAvatarImage(BuildContext context) async {
+    final imageOption = await ImageUtil.showImageOptionSheet(context);
+    if (imageOption == ImageOption.gallery) {
+      final pickedFile = await ImageUtil.pickImage(
+        cropStyle: CropStyle.circle,
       );
-    } else {
-      if (mounted) {
-        ToastUtil.showToast(
-          context,
-          title: 'Error',
-          description: 'No image selected',
-          type: ToastificationType.error,
+      if (pickedFile != null) {
+        widget.profileBloc.add(
+          AvatarUpdated(
+            file: File(pickedFile.path),
+          ),
+        );
+      }
+    } else if (imageOption == ImageOption.camera) {
+      if (context.mounted) {
+        await context.pushNamed<CameraPageArgs?>(
+          CameraPage.name,
+          extra: CameraPageArgs(
+            cropStyle: CropStyle.circle,
+            onImageCaptured: (filePath) {
+              if (filePath != null) {
+                widget.profileBloc.add(
+                  AvatarUpdated(
+                    file: File(filePath),
+                  ),
+                );
+              }
+            },
+          ),
         );
       }
     }

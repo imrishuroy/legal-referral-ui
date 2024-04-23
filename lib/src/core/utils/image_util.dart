@@ -1,14 +1,19 @@
+import 'dart:async';
 import 'dart:io';
 
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
+import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:legal_referral_ui/src/core/config/config.dart';
 
+enum ImageOption { gallery, camera }
+
 class ImageUtil {
-  static Future<File?> pickImage(BuildContext context) async {
-    final source = await showModalBottomSheet<ImageSource>(
+  static Future<ImageOption?> showImageOptionSheet(BuildContext context) async {
+    final option = await showModalBottomSheet<ImageOption>(
       context: context,
       builder: (BuildContext context) {
         return SafeArea(
@@ -22,12 +27,12 @@ class ImageUtil {
                 ListTile(
                   leading: const Icon(Icons.photo_library),
                   title: const Text('Gallery'),
-                  onTap: () => Navigator.pop(context, ImageSource.gallery),
+                  onTap: () => context.pop(ImageOption.gallery),
                 ),
                 ListTile(
                   leading: const Icon(Icons.camera_alt),
                   title: const Text('Camera'),
-                  onTap: () => Navigator.pop(context, ImageSource.camera),
+                  onTap: () => context.pop(ImageOption.camera),
                 ),
               ],
             ),
@@ -36,13 +41,53 @@ class ImageUtil {
       },
     );
 
-    if (source != null) {
-      final pickedFile = await ImagePicker().pickImage(source: source);
-      if (pickedFile?.path != null) {
-        return File(pickedFile!.path);
+    return option;
+  }
+
+  static Future<File?> pickImage({
+    required CropStyle cropStyle,
+  }) async {
+    try {
+      final pickedFile = await ImagePicker().pickImage(
+        source: ImageSource.gallery,
+      );
+
+      if (pickedFile != null) {
+        final croppedImage = await ImageUtil.cropImage(
+          filePath: pickedFile.path,
+          cropStyle: cropStyle,
+        );
+
+        return croppedImage;
       }
+
+      return null;
+    } catch (error) {
+      AppLogger.error('Error picking image: $error');
     }
     return null;
+  }
+
+  static Future<File?> cropImage({
+    required String filePath,
+    required CropStyle cropStyle,
+  }) async {
+    final croppedFile = await ImageCropper().cropImage(
+      sourcePath: filePath,
+      cropStyle: cropStyle,
+      androidUiSettings: AndroidUiSettings(
+        toolbarTitle: 'Crop Image',
+        toolbarColor: Colors.grey.shade800,
+        toolbarWidgetColor: Colors.white,
+        initAspectRatio: CropAspectRatioPreset.original,
+        lockAspectRatio: false,
+      ),
+      iosUiSettings: const IOSUiSettings(
+        title: 'Crop Image',
+      ),
+      compressQuality: 70,
+    );
+    return croppedFile;
   }
 
   static Future<String?> uploadFile({

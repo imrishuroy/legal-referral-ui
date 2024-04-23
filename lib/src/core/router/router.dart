@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:legal_referral_ui/src/features/auth/presentation/presentation.dart';
 import 'package:legal_referral_ui/src/features/home_page.dart';
 import 'package:legal_referral_ui/src/features/profile/domain/domain.dart';
+import 'package:legal_referral_ui/src/features/profile/presentation/pages/camera_page.dart';
 import 'package:legal_referral_ui/src/features/profile/presentation/presentation.dart';
 import 'package:legal_referral_ui/src/features/wizard/presentation/presentation.dart';
 
@@ -286,6 +287,21 @@ class AppRouter {
         pageBuilder: (context, state) => CustomTransitionPage(
           child: ListEducationPage(
             profileBloc: state.extra as ProfileBloc,
+          ),
+          transitionDuration: const Duration(
+            milliseconds: _routeTransitionDuration,
+          ),
+          transitionsBuilder: (_, a, __, c) =>
+              FadeTransition(opacity: a, child: c),
+        ),
+      ),
+      GoRoute(
+        path: '/camera',
+        name: CameraPage.name,
+        parentNavigatorKey: _rootNavigatorKey,
+        pageBuilder: (context, state) => CustomTransitionPage(
+          child: CameraPage(
+            args: state.extra as CameraPageArgs,
           ),
           transitionDuration: const Duration(
             milliseconds: _routeTransitionDuration,
