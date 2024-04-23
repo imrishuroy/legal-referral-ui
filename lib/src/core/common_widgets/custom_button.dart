@@ -164,6 +164,9 @@ class HorizontalIconButon extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
+      splashColor: Colors.transparent,
+      highlightColor: Colors.transparent,
+      hoverColor: Colors.transparent,
       onTap: onTap,
       child: Row(
         children: [
@@ -172,6 +175,10 @@ class HorizontalIconButon extends StatelessWidget {
             height: height ?? 24.h,
             width: width ?? 24.w,
             // color: iconColor,
+            colorFilter: ColorFilter.mode(
+              iconColor ?? LegalReferralColors.textGrey400,
+              BlendMode.srcIn,
+            ),
           ),
           SizedBox(width: 8.w),
           Text(

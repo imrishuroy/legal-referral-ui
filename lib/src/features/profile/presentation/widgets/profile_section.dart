@@ -3,7 +3,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:legal_referral_ui/src/core/common_widgets/widgets.dart';
 import 'package:legal_referral_ui/src/core/constants/constants.dart';
-import 'package:legal_referral_ui/src/core/utils/utils.dart';
 
 class ProfileSection extends StatelessWidget {
   const ProfileSection({
@@ -54,7 +53,7 @@ class ProfileSection extends StatelessWidget {
                       icon: SizedBox(
                         height: 24.h,
                         width: 24.w,
-                        child: SvgPicture.asset(ImageStringsConstants.addIcon),
+                        child: SvgPicture.asset(ImageStringConstants.addIcon),
                       ),
                     ),
                   if (showEditButton)
@@ -67,7 +66,7 @@ class ProfileSection extends StatelessWidget {
                       icon: SizedBox(
                         height: 24.h,
                         width: 24.w,
-                        child: SvgPicture.asset(ImageStringsConstants.editIcon),
+                        child: SvgPicture.asset(ImageStringConstants.editIcon),
                       ),
                     ),
                 ],

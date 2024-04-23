@@ -38,10 +38,10 @@ class WizardUseCase {
   }
 
   Future<Either<Failure, ResponseMsg?>> uploadLicense({
-    required File licensePdf,
+    required File file,
   }) async {
     return _wizardRepository.uploadLicense(
-      licensePdf: licensePdf,
+      file: file,
     );
   }
 }

@@ -3,19 +3,20 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:legal_referral_ui/src/core/constants/colors.dart';
-import 'package:legal_referral_ui/src/core/utils/utils.dart';
+import 'package:legal_referral_ui/src/core/constants/constants.dart';
 
 class EditProfileAvatar extends StatelessWidget {
   const EditProfileAvatar({
     required this.image,
     required this.onEdit,
     required this.onDelete,
+    required this.onTakePhoto,
     super.key,
   });
 
   final File? image;
   final VoidCallback onEdit;
+  final VoidCallback onTakePhoto;
   final VoidCallback onDelete;
 
   @override
@@ -63,9 +64,28 @@ class EditProfileAvatar extends StatelessWidget {
                   onTap: onEdit,
                   child: Column(
                     children: [
-                      SvgPicture.asset(ImageStringsConstants.editIcon),
+                      SvgPicture.asset(ImageStringConstants.editIcon),
                       Text(
                         'Edit',
+                        style: TextStyle(
+                          fontSize: 14.h,
+                          fontWeight: FontWeight.w400,
+                          color: LegalReferralColors.textGrey400,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                InkWell(
+                  splashColor: Colors.transparent,
+                  highlightColor: Colors.transparent,
+                  hoverColor: Colors.transparent,
+                  onTap: onTakePhoto,
+                  child: Column(
+                    children: [
+                      SvgPicture.asset(ImageStringConstants.camera),
+                      Text(
+                        'Take Photo',
                         style: TextStyle(
                           fontSize: 14.h,
                           fontWeight: FontWeight.w400,
@@ -82,7 +102,7 @@ class EditProfileAvatar extends StatelessWidget {
                   onTap: onDelete,
                   child: Column(
                     children: [
-                      SvgPicture.asset(ImageStringsConstants.deleteIcon),
+                      SvgPicture.asset(ImageStringConstants.deleteIcon),
                       Text(
                         'Delete',
                         style: TextStyle(

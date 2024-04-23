@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:legal_referral_ui/src/features/auth/presentation/presentation.dart';
 import 'package:legal_referral_ui/src/features/home_page.dart';
-import 'package:legal_referral_ui/src/features/profile/domain/domain.dart';
-import 'package:legal_referral_ui/src/features/profile/presentation/pages/camera_page.dart';
 import 'package:legal_referral_ui/src/features/profile/presentation/presentation.dart';
 import 'package:legal_referral_ui/src/features/wizard/presentation/presentation.dart';
 
@@ -211,7 +209,7 @@ class AppRouter {
         parentNavigatorKey: _rootNavigatorKey,
         pageBuilder: (context, state) => CustomTransitionPage(
           child: UpdateUserInfoPage(
-            user: state.extra as UserProfile?,
+            profileBloc: state.extra as ProfileBloc,
           ),
           transitionDuration: const Duration(
             milliseconds: _routeTransitionDuration,

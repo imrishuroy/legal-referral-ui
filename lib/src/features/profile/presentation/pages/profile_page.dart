@@ -107,7 +107,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                     Row(
                                       children: [
                                         SvgPicture.asset(
-                                          ImageStringsConstants.favIcon,
+                                          ImageStringConstants.favIcon,
                                         ),
                                         Text(
                                           '4.3 by 433 attorneys',
@@ -149,7 +149,12 @@ class _ProfilePageState extends State<ProfilePage> {
                         ),
                         CustomCard(
                           onTap: () {
-                            context.pushNamed(AddUpdatePricePage.name);
+                            context.pushNamed(
+                              AddUpdatePricePage.name,
+                              extra: AddUpdatePricePageArgs(
+                                profileBloc: _profileBloc,
+                              ),
+                            );
                           },
                           title: 'Average billing per client',
                           visibility: false,

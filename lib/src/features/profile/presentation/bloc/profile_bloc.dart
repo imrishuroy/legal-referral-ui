@@ -237,7 +237,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
   ) async {
     emit(
       state.copyWith(
-        profileStatus: ProfileStatus.loading,
+        userInfoStatus: UserInfoStatus.loading,
       ),
     );
     final res = await _profileUseCase.uploadUserInfo(
@@ -248,7 +248,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
       (failure) {
         emit(
           state.copyWith(
-            profileStatus: ProfileStatus.failure,
+            userInfoStatus: UserInfoStatus.failure,
             failure: failure,
           ),
         );
@@ -257,7 +257,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
         if (user != null) {
           emit(
             state.copyWith(
-              profileStatus: ProfileStatus.success,
+              userInfoStatus: UserInfoStatus.success,
             ),
           );
         }

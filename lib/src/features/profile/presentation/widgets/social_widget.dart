@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:legal_referral_ui/src/core/constants/colors.dart';
-import 'package:legal_referral_ui/src/core/utils/utils.dart';
+import 'package:legal_referral_ui/src/core/constants/constants.dart';
 
 class SocialWidget extends StatelessWidget {
   const SocialWidget({
@@ -20,7 +19,7 @@ class SocialWidget extends StatelessWidget {
             SizedBox(
               height: 24.h,
               width: 24.w,
-              child: SvgPicture.asset(ImageStringsConstants.facebook),
+              child: SvgPicture.asset(ImageStringConstants.facebook),
             ),
             SizedBox(
               width: 8.w,

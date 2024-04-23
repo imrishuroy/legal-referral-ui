@@ -4,16 +4,28 @@ import 'dart:io';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:legal_referral_ui/src/core/config/config.dart';
+import 'package:legal_referral_ui/src/core/constants/constants.dart';
 
-enum ImageOption { gallery, camera }
+enum MediaLocation { gallery, camera }
 
 class ImageUtil {
-  static Future<ImageOption?> showImageOptionSheet(BuildContext context) async {
-    final option = await showModalBottomSheet<ImageOption>(
+  ImageUtil._privateConstructor();
+
+  static final ImageUtil _instance = ImageUtil._privateConstructor();
+
+  static ImageUtil get instance {
+    return _instance;
+  }
+
+  static Future<MediaLocation?> showMediaOptionSheet(
+    BuildContext context,
+  ) async {
+    final option = await showModalBottomSheet<MediaLocation>(
       context: context,
       builder: (BuildContext context) {
         return SafeArea(
@@ -25,14 +37,22 @@ class ImageUtil {
             child: Wrap(
               children: <Widget>[
                 ListTile(
-                  leading: const Icon(Icons.photo_library),
+                  leading: SvgPicture.asset(
+                    ImageStringConstants.file,
+                    width: 24.w,
+                    height: 24.h,
+                  ),
                   title: const Text('Gallery'),
-                  onTap: () => context.pop(ImageOption.gallery),
+                  onTap: () => context.pop(MediaLocation.gallery),
                 ),
                 ListTile(
-                  leading: const Icon(Icons.camera_alt),
+                  leading: SvgPicture.asset(
+                    ImageStringConstants.camera,
+                    width: 24.w,
+                    height: 24.h,
+                  ),
                   title: const Text('Camera'),
-                  onTap: () => context.pop(ImageOption.camera),
+                  onTap: () => context.pop(MediaLocation.camera),
                 ),
               ],
             ),

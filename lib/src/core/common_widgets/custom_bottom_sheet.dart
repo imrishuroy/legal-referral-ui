@@ -7,12 +7,13 @@ class CustomBottomSheet {
     required BuildContext context,
     required Widget child,
     bool isScrollControlled = true,
+    bool? isDismissible,
   }) {
     return showModalBottomSheet(
       constraints: BoxConstraints(
         maxWidth: MediaQuery.of(context).size.width - 32.w,
       ),
-      isDismissible: false,
+      isDismissible: isDismissible ?? false,
       backgroundColor: LegalReferralColors.containerWhite500,
       enableDrag: false,
       isScrollControlled: isScrollControlled,

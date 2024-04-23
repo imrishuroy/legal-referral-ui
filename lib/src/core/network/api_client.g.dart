@@ -398,16 +398,16 @@ class _APIClient implements APIClient {
   }
 
   @override
-  Future<ResponseMsg?> uploadLicense(File licensePdf) async {
+  Future<ResponseMsg?> uploadLicense(File file) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = FormData();
     _data.files.add(MapEntry(
-      'license_pdf',
+      'file',
       MultipartFile.fromFileSync(
-        licensePdf.path,
-        filename: licensePdf.path.split(Platform.pathSeparator).last,
+        file.path,
+        filename: file.path.split(Platform.pathSeparator).last,
       ),
     ));
     final _result = await _dio

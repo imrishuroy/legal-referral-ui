@@ -4,19 +4,19 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:legal_referral_ui/src/core/common_widgets/widgets.dart';
 import 'package:legal_referral_ui/src/core/config/config.dart';
+import 'package:legal_referral_ui/src/core/constants/constants.dart';
 import 'package:legal_referral_ui/src/core/utils/utils.dart';
 import 'package:legal_referral_ui/src/features/profile/data/data.dart';
-import 'package:legal_referral_ui/src/features/profile/domain/domain.dart';
 import 'package:legal_referral_ui/src/features/profile/presentation/presentation.dart';
 import 'package:toastification/toastification.dart';
 
 class UpdateUserInfoPage extends StatefulWidget {
   const UpdateUserInfoPage({
-    required this.user,
+    required this.profileBloc,
     super.key,
   });
 
-  final UserProfile? user;
+  final ProfileBloc profileBloc;
 
   static const String name = 'UpdateUserInfoPage';
 
@@ -26,7 +26,7 @@ class UpdateUserInfoPage extends StatefulWidget {
 
 class _UpdateUserInfoPageState extends State<UpdateUserInfoPage> {
   final _formKey = GlobalKey<FormState>();
-  final _profileBloc = getIt<ProfileBloc>();
+
   final _firstNameController = TextEditingController();
   final _lastNameController = TextEditingController();
   final _averageBillingPerClientController = TextEditingController();
@@ -35,7 +35,7 @@ class _UpdateUserInfoPageState extends State<UpdateUserInfoPage> {
 
   @override
   void initState() {
-    final user = widget.user;
+    final user = widget.profileBloc.state.userProfile;
     _firstNameController.text = user?.firstName ?? '';
     _lastNameController.text = user?.lastName ?? '';
 
@@ -48,7 +48,7 @@ class _UpdateUserInfoPageState extends State<UpdateUserInfoPage> {
         ? user!.caseResolutionRate.toString()
         : '';
 
-    _aboutController.text = widget.user?.about ?? '';
+    _aboutController.text = user?.about ?? '';
 
     AppLogger.info('firstName: ${_firstNameController.text}');
 
@@ -58,6 +58,7 @@ class _UpdateUserInfoPageState extends State<UpdateUserInfoPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: LegalReferralColors.primaryBackground,
       appBar: AppBar(
         title: const Text('Edit Info'),
         leading: IconButton(
@@ -68,11 +69,11 @@ class _UpdateUserInfoPageState extends State<UpdateUserInfoPage> {
         ),
       ),
       body: BlocConsumer<ProfileBloc, ProfileState>(
-        bloc: _profileBloc,
+        bloc: widget.profileBloc,
         listener: (context, state) {
-          if (state.profileStatus == ProfileStatus.success) {
+          if (state.userInfoStatus == UserInfoStatus.success) {
             context.pop();
-          } else if (state.profileStatus == ProfileStatus.failure) {
+          } else if (state.userInfoStatus == UserInfoStatus.failure) {
             ToastUtil.showToast(
               context,
               title: 'Error',
@@ -82,7 +83,7 @@ class _UpdateUserInfoPageState extends State<UpdateUserInfoPage> {
           }
         },
         builder: (context, state) {
-          return state.profileStatus == ProfileStatus.loading
+          return state.userInfoStatus == UserInfoStatus.loading
               ? const CustomLoadingIndicator()
               : SafeArea(
                   child: SingleChildScrollView(
@@ -194,7 +195,7 @@ class _UpdateUserInfoPageState extends State<UpdateUserInfoPage> {
             int.tryParse(_caseResolutionRateController.text) ?? 1,
         about: _aboutController.text,
       );
-      _profileBloc.add(
+      widget.profileBloc.add(
         UserInfoUpdated(
           uploadUserInfoReq: uploadUserInfoReq,
         ),

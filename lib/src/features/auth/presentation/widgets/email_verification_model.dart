@@ -65,7 +65,7 @@ class _EmailVerificationModalState extends State<EmailVerificationModal> {
                           height: 114.h,
                           width: 114.w,
                           child: SvgPicture.asset(
-                            ImageStringsConstants.successLogo,
+                            ImageStringConstants.successLogo,
                           ),
                         ),
                         SizedBox(height: 24.h),

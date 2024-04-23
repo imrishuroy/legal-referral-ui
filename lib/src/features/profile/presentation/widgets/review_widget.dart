@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:legal_referral_ui/src/core/constants/colors.dart';
-import 'package:legal_referral_ui/src/core/utils/utils.dart';
+import 'package:legal_referral_ui/src/core/constants/constants.dart';
 
 class ReviewWidget extends StatelessWidget {
   const ReviewWidget({
@@ -68,7 +67,7 @@ class ReviewWidget extends StatelessWidget {
               Row(
                 children: [
                   SvgPicture.asset(
-                    ImageStringsConstants.favIcon,
+                    ImageStringConstants.favIcon,
                     height: 18.h,
                     width: 18.w,
                   ),

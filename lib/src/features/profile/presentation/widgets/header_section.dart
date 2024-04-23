@@ -9,7 +9,6 @@ import 'package:legal_referral_ui/src/core/common_widgets/widgets.dart';
 import 'package:legal_referral_ui/src/core/constants/constants.dart';
 import 'package:legal_referral_ui/src/core/utils/utils.dart';
 import 'package:legal_referral_ui/src/features/profile/domain/domain.dart';
-import 'package:legal_referral_ui/src/features/profile/presentation/pages/camera_page.dart';
 import 'package:legal_referral_ui/src/features/profile/presentation/presentation.dart';
 
 class HeaderSection extends StatefulWidget {
@@ -43,10 +42,10 @@ class _HeaderSectionState extends State<HeaderSection> {
             child: CustomIconButton(
               onTap: () => context.pushNamed(
                 UpdateUserInfoPage.name,
-                extra: widget.user,
+                extra: widget.profileBloc,
               ),
               icon: SvgPicture.asset(
-                ImageStringsConstants.editIcon,
+                ImageStringConstants.editIcon,
               ),
             ),
           ),
@@ -64,8 +63,8 @@ class _HeaderSectionState extends State<HeaderSection> {
   }
 
   Future<void> _updateBannerImage(BuildContext context) async {
-    final imageOption = await ImageUtil.showImageOptionSheet(context);
-    if (imageOption == ImageOption.gallery) {
+    final imageOption = await ImageUtil.showMediaOptionSheet(context);
+    if (imageOption == MediaLocation.gallery) {
       final pickedFile = await ImageUtil.pickImage(
         cropStyle: CropStyle.rectangle,
       );
@@ -76,7 +75,7 @@ class _HeaderSectionState extends State<HeaderSection> {
           ),
         );
       }
-    } else if (imageOption == ImageOption.camera) {
+    } else if (imageOption == MediaLocation.camera) {
       if (context.mounted) {
         await context.pushNamed<CameraPageArgs?>(
           CameraPage.name,
@@ -98,8 +97,8 @@ class _HeaderSectionState extends State<HeaderSection> {
   }
 
   Future<void> _updateAvatarImage(BuildContext context) async {
-    final imageOption = await ImageUtil.showImageOptionSheet(context);
-    if (imageOption == ImageOption.gallery) {
+    final mediaLocation = await ImageUtil.showMediaOptionSheet(context);
+    if (mediaLocation == MediaLocation.gallery) {
       final pickedFile = await ImageUtil.pickImage(
         cropStyle: CropStyle.circle,
       );
@@ -110,7 +109,7 @@ class _HeaderSectionState extends State<HeaderSection> {
           ),
         );
       }
-    } else if (imageOption == ImageOption.camera) {
+    } else if (mediaLocation == MediaLocation.camera) {
       if (context.mounted) {
         await context.pushNamed<CameraPageArgs?>(
           CameraPage.name,
@@ -162,7 +161,7 @@ class _UserBannerWidget extends StatelessWidget {
             child: CustomIconButton(
               onTap: onTapEdit,
               icon: SvgPicture.asset(
-                ImageStringsConstants.editIcon,
+                ImageStringConstants.editIcon,
                 height: 20.h,
                 width: 20.w,
               ),
@@ -212,7 +211,7 @@ class _UserAvatarWidget extends StatelessWidget {
             child: CustomIconButton(
               onTap: onTapEdit,
               icon: SvgPicture.asset(
-                ImageStringsConstants.editIcon,
+                ImageStringConstants.editIcon,
                 height: 20.h,
                 width: 20.w,
               ),

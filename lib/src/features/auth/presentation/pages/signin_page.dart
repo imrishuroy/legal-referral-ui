@@ -5,7 +5,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:legal_referral_ui/src/core/common_widgets/widgets.dart';
 import 'package:legal_referral_ui/src/core/config/config.dart';
-import 'package:legal_referral_ui/src/core/constants/colors.dart';
+import 'package:legal_referral_ui/src/core/constants/constants.dart';
 import 'package:legal_referral_ui/src/core/utils/utils.dart';
 import 'package:legal_referral_ui/src/core/validators/validators.dart';
 import 'package:legal_referral_ui/src/features/auth/presentation/presentation.dart';
@@ -78,7 +78,7 @@ class _SignInPageState extends State<SignInPage> {
                               height: 160.h,
                               width: 160.w,
                               child: SvgPicture.asset(
-                                ImageStringsConstants.legalReferralLogo,
+                                ImageStringConstants.legalReferralLogo,
                               ),
                             ),
                             Container(

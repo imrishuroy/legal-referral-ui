@@ -1,6 +1,8 @@
 part of 'profile_bloc.dart';
 
-enum ProfileStatus { initial, loading, success, failure }
+enum ProfileStatus { initial, loading, success, userInfoUpdated, failure }
+
+enum UserInfoStatus { initial, loading, success, failure }
 
 enum PricingStatus { initial, loading, success, failure }
 
@@ -15,6 +17,7 @@ enum CompanyStatus { initial, loading, success, failure }
 class ProfileState extends Equatable {
   const ProfileState({
     this.profileStatus = ProfileStatus.initial,
+    this.userInfoStatus = UserInfoStatus.initial,
     this.pricingStatus = PricingStatus.initial,
     this.socialStatus = SocialStatus.initial,
     this.experienceStatus = ExperienceStatus.initial,
@@ -34,6 +37,7 @@ class ProfileState extends Equatable {
   }
 
   final ProfileStatus profileStatus;
+  final UserInfoStatus userInfoStatus;
   final PricingStatus pricingStatus;
   final SocialStatus socialStatus;
   final ExperienceStatus experienceStatus;
@@ -49,6 +53,7 @@ class ProfileState extends Equatable {
 
   ProfileState copyWith({
     ProfileStatus? profileStatus,
+    UserInfoStatus? userInfoStatus,
     PricingStatus? pricingStatus,
     SocialStatus? socialStatus,
     ExperienceStatus? experienceStatus,
@@ -64,6 +69,7 @@ class ProfileState extends Equatable {
   }) {
     return ProfileState(
       profileStatus: profileStatus ?? this.profileStatus,
+      userInfoStatus: userInfoStatus ?? this.userInfoStatus,
       pricingStatus: pricingStatus ?? this.pricingStatus,
       socialStatus: socialStatus ?? this.socialStatus,
       experienceStatus: experienceStatus ?? this.experienceStatus,
@@ -83,6 +89,7 @@ class ProfileState extends Equatable {
   @override
   List<Object?> get props => [
         profileStatus,
+        userInfoStatus,
         pricingStatus,
         socialStatus,
         experienceStatus,

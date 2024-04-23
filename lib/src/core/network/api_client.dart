@@ -87,7 +87,7 @@ abstract class APIClient {
   @POST('/license/upload')
   @MultiPart()
   Future<ResponseMsg?> uploadLicense(
-    @Part(name: 'license_pdf') File licensePdf,
+    @Part(name: 'file') File file,
   );
 
   @POST('/about-you')

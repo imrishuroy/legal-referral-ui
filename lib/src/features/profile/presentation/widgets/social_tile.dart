@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:legal_referral_ui/src/core/utils/utils.dart';
+import 'package:legal_referral_ui/src/core/constants/constants.dart';
 import 'package:legal_referral_ui/src/features/profile/domain/domain.dart';
 import 'package:legal_referral_ui/src/features/profile/domain/entities/social.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -45,7 +45,7 @@ class SocialTile extends StatelessWidget {
                 width: 24.w,
                 height: 24.h,
                 child: SvgPicture.asset(
-                  ImageStringsConstants.editIcon,
+                  ImageStringConstants.editIcon,
                 ),
               ),
             )
@@ -56,17 +56,17 @@ class SocialTile extends StatelessWidget {
   String _socialIcon(SocialPlatform? platform) {
     switch (platform) {
       case SocialPlatform.linkedin:
-        return ImageStringsConstants.linkedin;
+        return ImageStringConstants.linkedin;
       case SocialPlatform.twitter:
-        return ImageStringsConstants.twitter;
+        return ImageStringConstants.twitter;
       case SocialPlatform.facebook:
-        return ImageStringsConstants.facebook;
+        return ImageStringConstants.facebook;
       case SocialPlatform.instagram:
-        return ImageStringsConstants.instagram;
+        return ImageStringConstants.instagram;
       case SocialPlatform.snapchat:
-        return ImageStringsConstants.snapchat;
+        return ImageStringConstants.snapchat;
       default:
-        return ImageStringsConstants.favIcon;
+        return ImageStringConstants.favIcon;
     }
   }
 

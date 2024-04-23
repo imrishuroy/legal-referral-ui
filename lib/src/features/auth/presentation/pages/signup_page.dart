@@ -8,7 +8,7 @@ import 'package:legal_referral_ui/src/core/common_widgets/custom_button.dart';
 import 'package:legal_referral_ui/src/core/common_widgets/custom_loading_indicator.dart';
 import 'package:legal_referral_ui/src/core/common_widgets/custom_textfield.dart';
 import 'package:legal_referral_ui/src/core/config/config.dart';
-import 'package:legal_referral_ui/src/core/constants/colors.dart';
+import 'package:legal_referral_ui/src/core/constants/constants.dart';
 import 'package:legal_referral_ui/src/core/utils/utils.dart';
 import 'package:legal_referral_ui/src/core/validators/validators.dart';
 import 'package:legal_referral_ui/src/features/auth/presentation/presentation.dart';
@@ -78,7 +78,7 @@ class _SignUpPageState extends State<SignUpPage> {
                               height: 160.h,
                               width: 160.w,
                               child: SvgPicture.asset(
-                                ImageStringsConstants.legalReferralLogo,
+                                ImageStringConstants.legalReferralLogo,
                               ),
                             ),
                             Container(

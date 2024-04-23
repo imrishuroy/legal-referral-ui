@@ -1,7 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:legal_referral_ui/src/core/utils/utils.dart';
+import 'package:legal_referral_ui/src/core/constants/constants.dart';
 
 class CustomNetworkImage extends StatelessWidget {
   const CustomNetworkImage({
@@ -22,7 +22,7 @@ class CustomNetworkImage extends StatelessWidget {
       width: double.infinity,
       child: FadeInImage(
         placeholder: const AssetImage(
-          ImageStringsConstants.imagePlaceholder,
+          ImageStringConstants.imagePlaceholder,
         ),
         image: CachedNetworkImageProvider(
           imageUrl ?? '',
@@ -37,7 +37,7 @@ class CustomNetworkImage extends StatelessWidget {
           milliseconds: 100,
         ),
         imageErrorBuilder: (context, url, error) => Image.asset(
-          ImageStringsConstants.imagePlaceholder,
+          ImageStringConstants.imagePlaceholder,
           fit: BoxFit.cover,
           height: 140.h,
           width: double.infinity,

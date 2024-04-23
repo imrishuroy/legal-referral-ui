@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:legal_referral_ui/src/core/common_widgets/custom_button.dart';
-import 'package:legal_referral_ui/src/core/constants/colors.dart';
-import 'package:legal_referral_ui/src/core/utils/utils.dart';
+import 'package:legal_referral_ui/src/core/constants/constants.dart';
 
 class ActivityWidget extends StatelessWidget {
   const ActivityWidget({
@@ -77,7 +76,7 @@ class ActivityWidget extends StatelessWidget {
               ],
             ),
             const Spacer(),
-            SvgPicture.asset(ImageStringsConstants.threeDots),
+            SvgPicture.asset(ImageStringConstants.threeDots),
           ],
         ),
         SizedBox(
@@ -107,7 +106,7 @@ class ActivityWidget extends StatelessWidget {
             Row(
               children: [
                 SvgPicture.asset(
-                  ImageStringsConstants.thumbUp,
+                  ImageStringConstants.thumbUp,
                   height: 12.h,
                   width: 12.w,
                 ),
@@ -124,7 +123,7 @@ class ActivityWidget extends StatelessWidget {
             Row(
               children: [
                 SvgPicture.asset(
-                  ImageStringsConstants.comment,
+                  ImageStringConstants.comment,
                   height: 12.h,
                   width: 12.w,
                 ),
@@ -149,25 +148,25 @@ class ActivityWidget extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             VerticalIconButton(
-              icon: ImageStringsConstants.thumbUp,
+              icon: ImageStringConstants.thumbUp,
               text: 'Like',
               textColor: LegalReferralColors.textGrey500,
               onTap: () {},
             ),
             VerticalIconButton(
-              icon: ImageStringsConstants.comment,
+              icon: ImageStringConstants.comment,
               text: 'Comment',
               textColor: LegalReferralColors.textGrey500,
               onTap: () {},
             ),
             VerticalIconButton(
-              icon: ImageStringsConstants.discuss,
+              icon: ImageStringConstants.discuss,
               text: 'Discuss',
               textColor: LegalReferralColors.textGrey500,
               onTap: () {},
             ),
             VerticalIconButton(
-              icon: ImageStringsConstants.share,
+              icon: ImageStringConstants.share,
               text: 'Share',
               textColor: LegalReferralColors.textGrey500,
               onTap: () {},
@@ -232,7 +231,7 @@ class ActivityWidget extends StatelessWidget {
                       style: Theme.of(context).textTheme.titleSmall,
                       height: 16.h,
                       width: 16.w,
-                      icon: ImageStringsConstants.thumbUp,
+                      icon: ImageStringConstants.thumbUp,
                       onTap: () {},
                     ),
                     SizedBox(
@@ -243,7 +242,7 @@ class ActivityWidget extends StatelessWidget {
                       style: Theme.of(context).textTheme.titleSmall,
                       height: 16.h,
                       width: 16.w,
-                      icon: ImageStringsConstants.reply,
+                      icon: ImageStringConstants.reply,
                       onTap: () {},
                     ),
                   ],
