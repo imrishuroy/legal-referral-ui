@@ -54,7 +54,7 @@ class ProfileSection extends StatelessWidget {
                       icon: SizedBox(
                         height: 24.h,
                         width: 24.w,
-                        child: SvgPicture.asset(ImageStringsUtil.addIcon),
+                        child: SvgPicture.asset(ImageStringsConstants.addIcon),
                       ),
                     ),
                   if (showEditButton)
@@ -67,7 +67,7 @@ class ProfileSection extends StatelessWidget {
                       icon: SizedBox(
                         height: 24.h,
                         width: 24.w,
-                        child: SvgPicture.asset(ImageStringsUtil.editIcon),
+                        child: SvgPicture.asset(ImageStringsConstants.editIcon),
                       ),
                     ),
                 ],

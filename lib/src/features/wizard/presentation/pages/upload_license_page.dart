@@ -69,7 +69,7 @@ class _UploadLicensePageState extends State<UploadLicensePage> {
                                             height: 24.h,
                                             width: 24.w,
                                             child: SvgPicture.asset(
-                                              ImageStringsUtil.uploadIcon,
+                                              ImageStringsConstants.uploadIcon,
                                             ),
                                           ),
                                           Text(
@@ -89,7 +89,7 @@ class _UploadLicensePageState extends State<UploadLicensePage> {
                                           height: 50.h,
                                           width: 50.w,
                                           child: SvgPicture.asset(
-                                            ImageStringsUtil.pdfIcon,
+                                            ImageStringsConstants.pdfIcon,
                                           ),
                                         ),
                                       ),
@@ -124,7 +124,7 @@ class _UploadLicensePageState extends State<UploadLicensePage> {
                                   child: Row(
                                     children: [
                                       SvgPicture.asset(
-                                        ImageStringsUtil.pdfIcon,
+                                        ImageStringsConstants.pdfIcon,
                                       ),
                                       SizedBox(
                                         width: 8.w,
@@ -147,7 +147,7 @@ class _UploadLicensePageState extends State<UploadLicensePage> {
                                             });
                                           },
                                           icon: SvgPicture.asset(
-                                            ImageStringsUtil.deleteIcon,
+                                            ImageStringsConstants.deleteIcon,
                                           ),
                                         ),
                                     ],

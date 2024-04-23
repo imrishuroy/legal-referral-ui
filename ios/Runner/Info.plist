@@ -18,6 +18,19 @@
 		</dict>
 	</array>
 
+	<!-- for image picker & camera -->
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>To empower users to select and upload images from their photo library.</string>
+
+	<key>NSCameraUsageDescription</key>
+	<string>To capture moments with the camera and share them seamlessly.</string>
+
+	<key>NSMicrophoneUsageDescription</key>
+	<string>To enrich user experience by enabling audio recording for videos.</string>
+
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>To enhance content with location data, providing a richer experience.</string>
+
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>

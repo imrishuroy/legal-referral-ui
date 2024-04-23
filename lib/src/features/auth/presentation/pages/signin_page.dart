@@ -78,7 +78,7 @@ class _SignInPageState extends State<SignInPage> {
                               height: 160.h,
                               width: 160.w,
                               child: SvgPicture.asset(
-                                ImageStringsUtil.legalReferralLogo,
+                                ImageStringsConstants.legalReferralLogo,
                               ),
                             ),
                             Container(

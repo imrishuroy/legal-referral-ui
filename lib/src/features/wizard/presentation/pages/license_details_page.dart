@@ -175,7 +175,7 @@ class _LicenseDetailPageState extends State<LicenseDetailPage> {
             height: 114.h,
             width: 114.w,
             child: SvgPicture.asset(
-              ImageStringsUtil.successLogo,
+              ImageStringsConstants.successLogo,
             ),
           ),
           SizedBox(height: 24.h),

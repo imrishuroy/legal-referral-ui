@@ -45,7 +45,7 @@ class SocialTile extends StatelessWidget {
                 width: 24.w,
                 height: 24.h,
                 child: SvgPicture.asset(
-                  ImageStringsUtil.editIcon,
+                  ImageStringsConstants.editIcon,
                 ),
               ),
             )
@@ -56,17 +56,17 @@ class SocialTile extends StatelessWidget {
   String _socialIcon(SocialPlatform? platform) {
     switch (platform) {
       case SocialPlatform.linkedin:
-        return ImageStringsUtil.linkedin;
+        return ImageStringsConstants.linkedin;
       case SocialPlatform.twitter:
-        return ImageStringsUtil.twitter;
+        return ImageStringsConstants.twitter;
       case SocialPlatform.facebook:
-        return ImageStringsUtil.facebook;
+        return ImageStringsConstants.facebook;
       case SocialPlatform.instagram:
-        return ImageStringsUtil.instagram;
+        return ImageStringsConstants.instagram;
       case SocialPlatform.snapchat:
-        return ImageStringsUtil.snapchat;
+        return ImageStringsConstants.snapchat;
       default:
-        return ImageStringsUtil.favIcon;
+        return ImageStringsConstants.favIcon;
     }
   }
 

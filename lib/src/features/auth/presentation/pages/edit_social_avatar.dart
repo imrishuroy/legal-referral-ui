@@ -63,7 +63,7 @@ class EditProfileAvatar extends StatelessWidget {
                   onTap: onEdit,
                   child: Column(
                     children: [
-                      SvgPicture.asset(ImageStringsUtil.editIcon),
+                      SvgPicture.asset(ImageStringsConstants.editIcon),
                       Text(
                         'Edit',
                         style: TextStyle(
@@ -82,7 +82,7 @@ class EditProfileAvatar extends StatelessWidget {
                   onTap: onDelete,
                   child: Column(
                     children: [
-                      SvgPicture.asset(ImageStringsUtil.deleteIcon),
+                      SvgPicture.asset(ImageStringsConstants.deleteIcon),
                       Text(
                         'Delete',
                         style: TextStyle(

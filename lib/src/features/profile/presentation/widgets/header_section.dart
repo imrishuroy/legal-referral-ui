@@ -46,7 +46,7 @@ class _HeaderSectionState extends State<HeaderSection> {
                 extra: widget.user,
               ),
               icon: SvgPicture.asset(
-                ImageStringsUtil.editIcon,
+                ImageStringsConstants.editIcon,
               ),
             ),
           ),
@@ -162,7 +162,7 @@ class _UserBannerWidget extends StatelessWidget {
             child: CustomIconButton(
               onTap: onTapEdit,
               icon: SvgPicture.asset(
-                ImageStringsUtil.editIcon,
+                ImageStringsConstants.editIcon,
                 height: 20.h,
                 width: 20.w,
               ),
@@ -212,7 +212,7 @@ class _UserAvatarWidget extends StatelessWidget {
             child: CustomIconButton(
               onTap: onTapEdit,
               icon: SvgPicture.asset(
-                ImageStringsUtil.editIcon,
+                ImageStringsConstants.editIcon,
                 height: 20.h,
                 width: 20.w,
               ),
