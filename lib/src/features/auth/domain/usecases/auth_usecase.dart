@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
 import 'package:legal_referral_ui/src/core/config/config.dart';
@@ -13,18 +15,22 @@ class AuthUseCase {
   final AuthRepository _authRepository;
 
   Future<Either<Failure, AppUser?>> createUser({
-    required AppUser appUser,
+    required String email,
+    required String firstName,
+    required String lastName,
+    required int signUpMethod,
+    String? mobile,
+    String? imageUrl,
+    File? userImage,
   }) async {
     return _authRepository.createUser(
-      appUser: appUser,
-    );
-  }
-
-  Future<Either<Failure, ResponseMsg?>> uploadUserImage({
-    required UploadUserImageReq uploadUserImageReq,
-  }) async {
-    return _authRepository.uploadUserImage(
-      uploadUserImageReq: uploadUserImageReq,
+      email: email,
+      firstName: firstName,
+      lastName: lastName,
+      mobile: mobile,
+      signUpMethod: signUpMethod,
+      imageUrl: imageUrl,
+      userImage: userImage,
     );
   }
 

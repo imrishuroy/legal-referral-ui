@@ -66,12 +66,12 @@ class UserImageUploaded extends WizardEvent {
 class LicenseUploaded extends WizardEvent {
   const LicenseUploaded({
     required this.userId,
-    required this.filePath,
+    required this.file,
   });
 
   final String userId;
-  final String filePath;
+  final File file;
 
   @override
-  List<Object> get props => [userId, filePath];
+  List<Object> get props => [userId, file];
 }

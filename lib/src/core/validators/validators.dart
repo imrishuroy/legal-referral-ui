@@ -30,10 +30,42 @@ class Validator {
   static String? validatePassword(String? value) {
     if (value == null || value.isEmpty) {
       return 'Please enter a password';
-    } else if (value.length < 6) {
-      return 'Password must be at least 6 characters';
+    } else if (value.length < 8) {
+      return 'Password must be at least 8 characters';
+    } else if (!_containsUpperCase(value)) {
+      return 'Password must contain at least one uppercase letter';
+    } else if (!_containsLowerCase(value)) {
+      return 'Password must contain at least one lowercase letter';
+    } else if (!_containsSpecialCharacter(value)) {
+      return 'Password must contain at least one special character';
     }
     return null;
+  }
+
+  static String? validateURL(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Please enter a URL';
+    }
+
+    final urlRegExp = RegExp(
+      r'^(https?|ftp):\/\/[^\s/$.?#].[^\s]*$',
+    ); // Regex for URL validation
+    if (!urlRegExp.hasMatch(value)) {
+      return 'Please enter a valid URL';
+    }
+    return null;
+  }
+
+  static bool _containsUpperCase(String value) {
+    return value.contains(RegExp('[A-Z]'));
+  }
+
+  static bool _containsLowerCase(String value) {
+    return value.contains(RegExp('[a-z]'));
+  }
+
+  static bool _containsSpecialCharacter(String value) {
+    return value.contains(RegExp(r'[!@#$%^&*(),.?":{}|<>]'));
   }
 
   static String? validateName(String? value) {

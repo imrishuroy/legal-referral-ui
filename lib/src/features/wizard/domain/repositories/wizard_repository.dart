@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:dartz/dartz.dart';
 import 'package:legal_referral_ui/src/core/config/config.dart';
 import 'package:legal_referral_ui/src/features/wizard/data/data.dart';
@@ -17,6 +19,6 @@ abstract class WizardRepository {
   });
 
   Future<Either<Failure, ResponseMsg?>> uploadLicense({
-    required UploadLicenseReq uploadLicenseReq,
+    required File file,
   });
 }

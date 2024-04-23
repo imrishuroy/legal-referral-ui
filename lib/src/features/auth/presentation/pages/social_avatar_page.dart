@@ -6,13 +6,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:legal_referral_ui/src/core/common_widgets/widgets.dart';
 import 'package:legal_referral_ui/src/core/config/config.dart';
 import 'package:legal_referral_ui/src/core/constants/colors.dart';
+import 'package:legal_referral_ui/src/core/utils/utils.dart';
 import 'package:legal_referral_ui/src/core/validators/validators.dart';
-import 'package:legal_referral_ui/src/core/widgets/custom_button.dart';
-import 'package:legal_referral_ui/src/core/widgets/custom_loading_indicator.dart';
-import 'package:legal_referral_ui/src/core/widgets/custom_snackbar.dart';
-import 'package:legal_referral_ui/src/core/widgets/custom_textfield.dart';
 import 'package:legal_referral_ui/src/features/auth/presentation/pages/edit_social_avatar.dart';
 import 'package:legal_referral_ui/src/features/auth/presentation/presentation.dart';
 import 'package:legal_referral_ui/src/features/wizard/presentation/presentation.dart';
@@ -55,7 +53,7 @@ class _SocialAvatarPageState extends State<SocialAvatarPage> {
           if (state.authStatus == AuthStatus.signedUp) {
             context.goNamed(WizardInspectionPage.name);
           } else if (state.authStatus == AuthStatus.failure) {
-            CustomSnackbar.showToast(
+            ToastUtil.showToast(
               context,
               type: ToastificationType.error,
               description: state.failure?.message ?? 'something went wrong',
@@ -216,7 +214,7 @@ class _SocialAvatarPageState extends State<SocialAvatarPage> {
 
   void _save() {
     if (_image == null) {
-      CustomSnackbar.showToast(
+      ToastUtil.showToast(
         context,
         type: ToastificationType.warning,
         description: 'Please select a profile picture',
@@ -227,7 +225,7 @@ class _SocialAvatarPageState extends State<SocialAvatarPage> {
 
     if (_formKey.currentState!.validate()) {
       if (_createPasswordController.text != _confirmPasswordController.text) {
-        CustomSnackbar.showToast(
+        ToastUtil.showToast(
           context,
           type: ToastificationType.error,
           description: 'Password do not match',

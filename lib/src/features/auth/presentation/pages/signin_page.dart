@@ -3,14 +3,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
+import 'package:legal_referral_ui/src/core/common_widgets/widgets.dart';
 import 'package:legal_referral_ui/src/core/config/config.dart';
-import 'package:legal_referral_ui/src/core/constants/colors.dart';
-import 'package:legal_referral_ui/src/core/utils/image_strings_util.dart';
+import 'package:legal_referral_ui/src/core/constants/constants.dart';
+import 'package:legal_referral_ui/src/core/utils/utils.dart';
 import 'package:legal_referral_ui/src/core/validators/validators.dart';
-import 'package:legal_referral_ui/src/core/widgets/custom_button.dart';
-import 'package:legal_referral_ui/src/core/widgets/custom_loading_indicator.dart';
-import 'package:legal_referral_ui/src/core/widgets/custom_snackbar.dart';
-import 'package:legal_referral_ui/src/core/widgets/custom_textfield.dart';
 import 'package:legal_referral_ui/src/features/auth/presentation/presentation.dart';
 import 'package:legal_referral_ui/src/features/home_page.dart';
 import 'package:legal_referral_ui/src/features/wizard/presentation/presentation.dart';
@@ -59,7 +56,7 @@ class _SignInPageState extends State<SignInPage> {
                 context.goNamed(WizardInspectionPage.name);
               }
             } else if (state.authStatus == AuthStatus.failure) {
-              CustomSnackbar.showToast(
+              ToastUtil.showToast(
                 context,
                 title: 'Error',
                 description: state.failure?.message ?? 'Failed to sign in',
@@ -81,7 +78,7 @@ class _SignInPageState extends State<SignInPage> {
                               height: 160.h,
                               width: 160.w,
                               child: SvgPicture.asset(
-                                ImageStringsUtil.legalReferralLogo,
+                                ImageStringConstants.legalReferralLogo,
                               ),
                             ),
                             Container(
@@ -119,7 +116,7 @@ class _SignInPageState extends State<SignInPage> {
                                 fontSize: 14.h,
                                 fontWeight: FontWeight.w300,
                                 onPressed: () =>
-                                    context.goNamed(ResetPasswordPage.name),
+                                    context.pushNamed(ResetPasswordPage.name),
                                 text: 'Forgot Password?',
                                 textColor: LegalReferralColors.textgrey300,
                               ),

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:legal_referral_ui/src/core/config/config.dart';
 import 'package:legal_referral_ui/src/core/network/network.dart';
 import 'package:legal_referral_ui/src/features/wizard/data/data.dart';
@@ -47,11 +49,11 @@ class WizardDataSource {
   }
 
   Future<ResponseMsg?> uploadLicense({
-    required UploadLicenseReq uploadLicenseReq,
+    required File file,
   }) async {
     try {
       return await _apiClient.uploadLicense(
-        uploadLicenseReq,
+        file,
       );
     } catch (error) {
       rethrow;

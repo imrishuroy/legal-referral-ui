@@ -20,16 +20,17 @@ License _$LicenseFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$License {
-  @JsonKey(name: 'user_id')
+  @JsonKey(name: 'user_id', includeToJson: false)
   String get userId => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
   @JsonKey(name: 'license_number')
   String get licenseNumber => throw _privateConstructorUsedError;
+  @LicenseDateTimeConverter()
   @JsonKey(name: 'issue_date')
-  String get issueDate => throw _privateConstructorUsedError;
+  DateTime get issueDate => throw _privateConstructorUsedError;
   @JsonKey(name: 'issue_state')
   String get issueState => throw _privateConstructorUsedError;
-  @JsonKey(name: 'license_id')
+  @JsonKey(name: 'license_id', includeToJson: false)
   int? get id => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -43,12 +44,14 @@ abstract class $LicenseCopyWith<$Res> {
       _$LicenseCopyWithImpl<$Res, License>;
   @useResult
   $Res call(
-      {@JsonKey(name: 'user_id') String userId,
+      {@JsonKey(name: 'user_id', includeToJson: false) String userId,
       String name,
       @JsonKey(name: 'license_number') String licenseNumber,
-      @JsonKey(name: 'issue_date') String issueDate,
+      @LicenseDateTimeConverter()
+      @JsonKey(name: 'issue_date')
+      DateTime issueDate,
       @JsonKey(name: 'issue_state') String issueState,
-      @JsonKey(name: 'license_id') int? id});
+      @JsonKey(name: 'license_id', includeToJson: false) int? id});
 }
 
 /// @nodoc
@@ -87,7 +90,7 @@ class _$LicenseCopyWithImpl<$Res, $Val extends License>
       issueDate: null == issueDate
           ? _value.issueDate
           : issueDate // ignore: cast_nullable_to_non_nullable
-              as String,
+              as DateTime,
       issueState: null == issueState
           ? _value.issueState
           : issueState // ignore: cast_nullable_to_non_nullable
@@ -108,12 +111,14 @@ abstract class _$$LicenseImplCopyWith<$Res> implements $LicenseCopyWith<$Res> {
   @override
   @useResult
   $Res call(
-      {@JsonKey(name: 'user_id') String userId,
+      {@JsonKey(name: 'user_id', includeToJson: false) String userId,
       String name,
       @JsonKey(name: 'license_number') String licenseNumber,
-      @JsonKey(name: 'issue_date') String issueDate,
+      @LicenseDateTimeConverter()
+      @JsonKey(name: 'issue_date')
+      DateTime issueDate,
       @JsonKey(name: 'issue_state') String issueState,
-      @JsonKey(name: 'license_id') int? id});
+      @JsonKey(name: 'license_id', includeToJson: false) int? id});
 }
 
 /// @nodoc
@@ -150,7 +155,7 @@ class __$$LicenseImplCopyWithImpl<$Res>
       issueDate: null == issueDate
           ? _value.issueDate
           : issueDate // ignore: cast_nullable_to_non_nullable
-              as String,
+              as DateTime,
       issueState: null == issueState
           ? _value.issueState
           : issueState // ignore: cast_nullable_to_non_nullable
@@ -167,18 +172,20 @@ class __$$LicenseImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$LicenseImpl implements _License {
   const _$LicenseImpl(
-      {@JsonKey(name: 'user_id') required this.userId,
+      {@JsonKey(name: 'user_id', includeToJson: false) required this.userId,
       required this.name,
       @JsonKey(name: 'license_number') required this.licenseNumber,
-      @JsonKey(name: 'issue_date') required this.issueDate,
+      @LicenseDateTimeConverter()
+      @JsonKey(name: 'issue_date')
+      required this.issueDate,
       @JsonKey(name: 'issue_state') required this.issueState,
-      @JsonKey(name: 'license_id') this.id});
+      @JsonKey(name: 'license_id', includeToJson: false) this.id});
 
   factory _$LicenseImpl.fromJson(Map<String, dynamic> json) =>
       _$$LicenseImplFromJson(json);
 
   @override
-  @JsonKey(name: 'user_id')
+  @JsonKey(name: 'user_id', includeToJson: false)
   final String userId;
   @override
   final String name;
@@ -186,13 +193,14 @@ class _$LicenseImpl implements _License {
   @JsonKey(name: 'license_number')
   final String licenseNumber;
   @override
+  @LicenseDateTimeConverter()
   @JsonKey(name: 'issue_date')
-  final String issueDate;
+  final DateTime issueDate;
   @override
   @JsonKey(name: 'issue_state')
   final String issueState;
   @override
-  @JsonKey(name: 'license_id')
+  @JsonKey(name: 'license_id', includeToJson: false)
   final int? id;
 
   @override
@@ -237,17 +245,21 @@ class _$LicenseImpl implements _License {
 
 abstract class _License implements License {
   const factory _License(
-      {@JsonKey(name: 'user_id') required final String userId,
-      required final String name,
-      @JsonKey(name: 'license_number') required final String licenseNumber,
-      @JsonKey(name: 'issue_date') required final String issueDate,
-      @JsonKey(name: 'issue_state') required final String issueState,
-      @JsonKey(name: 'license_id') final int? id}) = _$LicenseImpl;
+          {@JsonKey(name: 'user_id', includeToJson: false)
+          required final String userId,
+          required final String name,
+          @JsonKey(name: 'license_number') required final String licenseNumber,
+          @LicenseDateTimeConverter()
+          @JsonKey(name: 'issue_date')
+          required final DateTime issueDate,
+          @JsonKey(name: 'issue_state') required final String issueState,
+          @JsonKey(name: 'license_id', includeToJson: false) final int? id}) =
+      _$LicenseImpl;
 
   factory _License.fromJson(Map<String, dynamic> json) = _$LicenseImpl.fromJson;
 
   @override
-  @JsonKey(name: 'user_id')
+  @JsonKey(name: 'user_id', includeToJson: false)
   String get userId;
   @override
   String get name;
@@ -255,13 +267,14 @@ abstract class _License implements License {
   @JsonKey(name: 'license_number')
   String get licenseNumber;
   @override
+  @LicenseDateTimeConverter()
   @JsonKey(name: 'issue_date')
-  String get issueDate;
+  DateTime get issueDate;
   @override
   @JsonKey(name: 'issue_state')
   String get issueState;
   @override
-  @JsonKey(name: 'license_id')
+  @JsonKey(name: 'license_id', includeToJson: false)
   int? get id;
   @override
   @JsonKey(ignore: true)

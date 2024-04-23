@@ -5,7 +5,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:legal_referral_ui/src/core/config/config.dart';
 import 'package:legal_referral_ui/src/core/constants/colors.dart';
-import 'package:legal_referral_ui/src/core/utils/image_strings_util.dart';
+import 'package:legal_referral_ui/src/core/constants/image_string_constants.dart';
 import 'package:legal_referral_ui/src/features/auth/domain/domain.dart';
 import 'package:legal_referral_ui/src/features/auth/presentation/presentation.dart';
 import 'package:legal_referral_ui/src/features/home_page.dart';
@@ -81,14 +81,14 @@ class _SplashPageState extends State<SplashPage> {
                   height: 239.h,
                   width: 239.w,
                   child: SvgPicture.asset(
-                    ImageStringsUtil.legalReferralLogo,
+                    ImageStringConstants.legalReferralLogo,
                   ),
                 ),
               ),
             ),
             Expanded(
               child: Text(
-                'Access  attorney referral network nationwide',
+                'Access attorney referral network nationwide',
                 style: TextStyle(
                   fontSize: 14.h,
                   fontWeight: FontWeight.w400,

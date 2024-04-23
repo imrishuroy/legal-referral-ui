@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
@@ -73,11 +75,11 @@ class WizardRepositoryImpl implements WizardRepository {
 
   @override
   Future<Either<Failure, ResponseMsg?>> uploadLicense({
-    required UploadLicenseReq uploadLicenseReq,
+    required File file,
   }) async {
     try {
       final response = await _wizardDataSource.uploadLicense(
-        uploadLicenseReq: uploadLicenseReq,
+        file: file,
       );
       return Right(response);
     } on DioException catch (error) {

@@ -3,8 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:legal_referral_ui/src/core/constants/colors.dart';
-import 'package:legal_referral_ui/src/core/utils/utils.dart';
+import 'package:legal_referral_ui/src/core/constants/constants.dart';
 
 class EditProfileAvatar extends StatelessWidget {
   const EditProfileAvatar({
@@ -65,7 +64,7 @@ class EditProfileAvatar extends StatelessWidget {
                   onTap: onEdit,
                   child: Column(
                     children: [
-                      SvgPicture.asset(ImageStringsUtil.editIcon),
+                      SvgPicture.asset(ImageStringConstants.editIcon),
                       Text(
                         'Edit',
                         style: TextStyle(
@@ -84,7 +83,7 @@ class EditProfileAvatar extends StatelessWidget {
                   onTap: onTakePhoto,
                   child: Column(
                     children: [
-                      SvgPicture.asset(ImageStringsUtil.camera),
+                      SvgPicture.asset(ImageStringConstants.camera),
                       Text(
                         'Take Photo',
                         style: TextStyle(
@@ -103,7 +102,7 @@ class EditProfileAvatar extends StatelessWidget {
                   onTap: onDelete,
                   child: Column(
                     children: [
-                      SvgPicture.asset(ImageStringsUtil.deleteIcon),
+                      SvgPicture.asset(ImageStringConstants.deleteIcon),
                       Text(
                         'Delete',
                         style: TextStyle(
