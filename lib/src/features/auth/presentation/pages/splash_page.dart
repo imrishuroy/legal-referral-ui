@@ -88,7 +88,7 @@ class _SplashPageState extends State<SplashPage> {
             ),
             Expanded(
               child: Text(
-                'Access  attorney referral network nationwide',
+                'Access attorney referral network nationwide',
                 style: TextStyle(
                   fontSize: 14.h,
                   fontWeight: FontWeight.w400,

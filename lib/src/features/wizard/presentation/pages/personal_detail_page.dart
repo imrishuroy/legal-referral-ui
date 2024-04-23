@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:legal_referral_ui/src/core/common_widgets/custom_button.dart';
+import 'package:legal_referral_ui/src/core/common_widgets/custom_textfield.dart';
 import 'package:legal_referral_ui/src/core/constants/colors.dart';
-import 'package:legal_referral_ui/src/core/widgets/custom_button.dart';
-import 'package:legal_referral_ui/src/core/widgets/custom_textfield.dart';
 
 class PersonalDetailsPage extends StatelessWidget {
   PersonalDetailsPage({super.key});

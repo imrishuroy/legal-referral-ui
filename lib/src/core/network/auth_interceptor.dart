@@ -1,3 +1,4 @@
+import 'dart:developer' as dev;
 import 'dart:io';
 
 import 'package:dio/dio.dart';
@@ -14,6 +15,9 @@ class AuthInterceptor extends Interceptor {
 
     if (token != null) {
       AppLogger.info('token from inceptor $token');
+      dev.log(
+        '\n\ntoken from inceptor $token',
+      );
 
       options.headers.addAll(
         {

@@ -19,7 +19,8 @@ class DateTimeUtil {
 
   static String getFormattedDate(DateTime dateTime) {
     final outputDateFormat = DateFormat(
-      'MM/dd/yyyy',
+      // 'MM/dd/yyyy',
+      'dd/MM/yyyy',
     );
     return outputDateFormat.format(dateTime);
   }
@@ -29,5 +30,18 @@ class DateTimeUtil {
       'yyyy-MM-dd',
     );
     return outputDateFormat.format(dateTime);
+  }
+
+  static String formatDateRange(DateTime start, DateTime? end) {
+    final formattedStart = DateFormat('MMMM yyyy').format(start);
+    String formattedEnd;
+
+    if (end != null) {
+      formattedEnd = DateFormat('MMMM yyyy').format(end);
+    } else {
+      formattedEnd = 'Current';
+    }
+
+    return '$formattedStart - $formattedEnd';
   }
 }

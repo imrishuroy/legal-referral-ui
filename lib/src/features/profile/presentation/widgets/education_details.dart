@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:legal_referral_ui/src/core/common_widgets/custom_dropdown.dart';
+import 'package:legal_referral_ui/src/core/common_widgets/custom_textfield.dart';
 import 'package:legal_referral_ui/src/core/constants/colors.dart';
 import 'package:legal_referral_ui/src/core/constants/skills_constants.dart';
 import 'package:legal_referral_ui/src/core/utils/utils.dart';
-import 'package:legal_referral_ui/src/core/widgets/custom_dropdown.dart';
-import 'package:legal_referral_ui/src/core/widgets/custom_textfield.dart';
 
 class SchoolDetails extends StatelessWidget {
   const SchoolDetails({
