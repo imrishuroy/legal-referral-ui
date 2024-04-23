@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:legal_referral_ui/src/core/widgets/custom_shimmer.dart';
+import 'package:legal_referral_ui/src/core/common_widgets/widgets.dart';
 
 class ProfileShimmer extends StatelessWidget {
   const ProfileShimmer({super.key});
@@ -8,106 +8,125 @@ class ProfileShimmer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CustomShimmer(
-      child: Column(
-        children: [
-          SizedBox(height: 4.h),
-          Column(
-            children: [
-              SizedBox(
-                height: 220.h,
-                child: Stack(
-                  children: [
-                    SizedBox(
-                      height: 140.h,
-                      width: double.infinity,
-                      child: Container(
-                        decoration: const BoxDecoration(
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
-                    Positioned(
-                      top: 61.h,
-                      left: 14.w,
-                      child: CircleAvatar(
-                        radius: 78.r,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              SizedBox(height: 8.h),
-              Container(
-                padding: EdgeInsets.only(left: 14.w),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Container(
-                      height: 14.h,
-                      width: 180.w,
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(4.r),
-                      ),
-                    ),
-                    SizedBox(height: 8.h),
-                    Container(
-                      height: 14.h,
-                      width: 120.w,
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(4.r),
-                      ),
-                    ),
-                    SizedBox(height: 8.h),
-                    Row(
-                      children: [
-                        Container(
-                          height: 14.h,
-                          width: 20.w,
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(4.r),
-                          ),
-                        ),
-                        SizedBox(width: 8.w),
-                        Container(
-                          height: 14.h,
-                          width: 160.w,
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(4.r),
-                          ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(height: 8.h),
-                    Container(
-                      height: 14.h,
-                      width: 240.w,
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(4.r),
-                      ),
-                    ),
-                    SizedBox(height: 8.h),
-                  ],
-                ),
-              ),
-            ],
-          ),
-        ],
+      child: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            SizedBox(height: 4.h),
+            _ProfileHeaderShimmer(),
+            _PriceShimmer(),
+            _AverageBillingShimmer(),
+            _CaseResolutionShimmer(),
+            _AboutShimmer(),
+            _SocialShimmer(),
+            _ExperienceShimmer(),
+            _EducationShimmer(),
+          ],
+        ),
       ),
     );
   }
 }
 
-class PriceShimmer extends StatelessWidget {
-  const PriceShimmer({super.key});
-
+class _ProfileHeaderShimmer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return CustomShimmer(
+    return Column(
+      children: [
+        SizedBox(
+          height: 220.h,
+          child: Stack(
+            children: [
+              SizedBox(
+                height: 140.h,
+                width: double.infinity,
+                child: Container(
+                  decoration: const BoxDecoration(
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+              Positioned(
+                top: 61.h,
+                left: 14.w,
+                child: CircleAvatar(
+                  radius: 78.r,
+                ),
+              ),
+            ],
+          ),
+        ),
+        SizedBox(height: 8.h),
+        Container(
+          padding: EdgeInsets.only(left: 16.w),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                height: 14.h,
+                width: 180.w,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(4.r),
+                ),
+              ),
+              SizedBox(height: 8.h),
+              Container(
+                height: 14.h,
+                width: 120.w,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(4.r),
+                ),
+              ),
+              SizedBox(height: 8.h),
+              Row(
+                children: [
+                  Container(
+                    height: 14.h,
+                    width: 20.w,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(4.r),
+                    ),
+                  ),
+                  SizedBox(width: 8.w),
+                  Container(
+                    height: 14.h,
+                    width: 160.w,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(4.r),
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(height: 8.h),
+              Container(
+                height: 14.h,
+                width: 240.w,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(4.r),
+                ),
+              ),
+              SizedBox(height: 8.h),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class _PriceShimmer extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.symmetric(
+        horizontal: 16.w,
+        vertical: 8.h,
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -147,12 +166,14 @@ class PriceShimmer extends StatelessWidget {
   }
 }
 
-class AverageBillingShimmer extends StatelessWidget {
-  const AverageBillingShimmer({super.key});
-
+class _AverageBillingShimmer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return CustomShimmer(
+    return Padding(
+      padding: EdgeInsets.symmetric(
+        horizontal: 16.w,
+        vertical: 8.h,
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -181,58 +202,62 @@ class AverageBillingShimmer extends StatelessWidget {
   }
 }
 
-class CaseResolutionShimmer extends StatelessWidget {
-  const CaseResolutionShimmer({super.key});
-
+class _CaseResolutionShimmer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return const AverageBillingShimmer();
+    return _AverageBillingShimmer();
   }
 }
 
-class AboutShimmer extends StatelessWidget {
-  const AboutShimmer({super.key});
-
+class _AboutShimmer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: List.generate(
-        6,
-        (index) {
-          final containerWidths = <double>[
-            100,
-            double.maxFinite,
-            250,
-            double.maxFinite,
-            double.maxFinite,
-            300,
-          ];
-          return CustomShimmer(
-            child: Container(
-              width: containerWidths[index].w,
-              height: 14.h,
-              margin: EdgeInsets.symmetric(
-                vertical: 4.h,
+    return Padding(
+      padding: EdgeInsets.symmetric(
+        horizontal: 16.w,
+        vertical: 8.h,
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: List.generate(
+          6,
+          (index) {
+            final containerWidths = <double>[
+              100,
+              double.maxFinite,
+              250,
+              double.maxFinite,
+              double.maxFinite,
+              300,
+            ];
+            return CustomShimmer(
+              child: Container(
+                width: containerWidths[index].w,
+                height: 14.h,
+                margin: EdgeInsets.symmetric(
+                  vertical: 4.h,
+                ),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(4.r),
+                ),
               ),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(4.r),
-              ),
-            ),
-          );
-        },
+            );
+          },
+        ),
       ),
     );
   }
 }
 
-class SocialShimmer extends StatelessWidget {
-  const SocialShimmer({super.key});
-
+class _SocialShimmer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return CustomShimmer(
+    return Padding(
+      padding: EdgeInsets.symmetric(
+        horizontal: 16.w,
+        vertical: 8.h,
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -284,12 +309,14 @@ class SocialShimmer extends StatelessWidget {
   }
 }
 
-class ExperienceShimmer extends StatelessWidget {
-  const ExperienceShimmer({super.key});
-
+class _ExperienceShimmer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return CustomShimmer(
+    return Padding(
+      padding: EdgeInsets.symmetric(
+        horizontal: 16.w,
+        vertical: 8.h,
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -403,12 +430,14 @@ class ExperienceShimmer extends StatelessWidget {
   }
 }
 
-class EducationShimmer extends StatelessWidget {
-  const EducationShimmer({super.key});
-
+class _EducationShimmer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return CustomShimmer(
+    return Padding(
+      padding: EdgeInsets.symmetric(
+        horizontal: 16.w,
+        vertical: 8.h,
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

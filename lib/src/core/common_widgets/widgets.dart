@@ -5,5 +5,6 @@ export 'custom_button.dart';
 export 'custom_dropdown.dart';
 export 'custom_loading_indicator.dart';
 export 'custom_network_image.dart';
+export 'custom_shimmer.dart';
 export 'custom_switch.dart';
 export 'custom_textfield.dart';
