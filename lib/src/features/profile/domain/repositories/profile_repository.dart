@@ -26,20 +26,6 @@ abstract class ProfileRepository {
     required UploadUserInfoReq uploadUserInfoReq,
   });
 
-  Future<Either<Failure, Social?>> addSocial({
-    required Social social,
-  });
-
-  Future<Either<Failure, Social?>> updateSocial({
-    required int socialId,
-    required Social social,
-  });
-
-  Future<Either<Failure, List<Social?>>> fetchSocials({
-    required EntityType entityType,
-    required String entityId,
-  });
-
   Future<Either<Failure, Price?>> addPrice({
     required Price price,
   });
@@ -57,6 +43,26 @@ abstract class ProfileRepository {
   Future<Either<Failure, String?>> updateUserBanner({
     required String userId,
     required File file,
+  });
+
+  // profile/socials
+
+  Future<Either<Failure, Social?>> addSocial({
+    required Social social,
+  });
+
+  Future<Either<Failure, Social?>> updateSocial({
+    required int socialId,
+    required Social social,
+  });
+
+  Future<Either<Failure, List<Social?>>> fetchSocials({
+    required EntityType entityType,
+    required String entityId,
+  });
+
+  Future<Either<Failure, ResponseMsg?>> deleteSocial({
+    required int socialId,
   });
 
   // profile/experiences

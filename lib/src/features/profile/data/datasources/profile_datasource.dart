@@ -69,47 +69,6 @@ class ProfileDataSource {
     }
   }
 
-  Future<Social?> addSocial({
-    required Social social,
-  }) async {
-    try {
-      final response = await _apiClient.addSocial(social);
-      return response;
-    } catch (_) {
-      rethrow;
-    }
-  }
-
-  Future<Social?> updateSocial({
-    required int socialId,
-    required Social social,
-  }) async {
-    try {
-      final response = await _apiClient.updateSocial(
-        socialId,
-        social,
-      );
-      return response;
-    } catch (_) {
-      rethrow;
-    }
-  }
-
-  Future<List<Social?>> fetchSocials({
-    required EntityType entityType,
-    required String entityId,
-  }) async {
-    try {
-      final response = await _apiClient.fetchSocials(
-        entityType,
-        entityId,
-      );
-      return response;
-    } catch (_) {
-      rethrow;
-    }
-  }
-
   Future<Price?> addPrice({
     required Price price,
   }) async {
@@ -164,6 +123,60 @@ class ProfileDataSource {
         userId,
         file,
       );
+      return response;
+    } catch (_) {
+      rethrow;
+    }
+  }
+
+  // profile/socials
+
+  Future<Social?> addSocial({
+    required Social social,
+  }) async {
+    try {
+      final response = await _apiClient.addSocial(social);
+      return response;
+    } catch (_) {
+      rethrow;
+    }
+  }
+
+  Future<Social?> updateSocial({
+    required int socialId,
+    required Social social,
+  }) async {
+    try {
+      final response = await _apiClient.updateSocial(
+        socialId,
+        social,
+      );
+      return response;
+    } catch (_) {
+      rethrow;
+    }
+  }
+
+  Future<List<Social?>> fetchSocials({
+    required EntityType entityType,
+    required String entityId,
+  }) async {
+    try {
+      final response = await _apiClient.fetchSocials(
+        entityType,
+        entityId,
+      );
+      return response;
+    } catch (_) {
+      rethrow;
+    }
+  }
+
+  Future<ResponseMsg?> deleteSocial({
+    required int socialId,
+  }) async {
+    try {
+      final response = await _apiClient.deleteSocial(socialId);
       return response;
     } catch (_) {
       rethrow;

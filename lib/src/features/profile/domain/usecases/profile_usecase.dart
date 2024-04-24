@@ -80,6 +80,14 @@ class ProfileUseCase {
     );
   }
 
+  Future<Either<Failure, ResponseMsg?>> deleteSocial({
+    required int socialId,
+  }) async {
+    return _profileRepository.deleteSocial(
+      socialId: socialId,
+    );
+  }
+
   Future<Either<Failure, Price?>> addPrice({
     required Price price,
   }) async {

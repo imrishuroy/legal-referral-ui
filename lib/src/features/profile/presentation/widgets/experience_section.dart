@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
-import 'package:legal_referral_ui/src/core/common_widgets/widgets.dart';
 import 'package:legal_referral_ui/src/features/profile/presentation/presentation.dart';
 
 class ExperienceSection extends StatefulWidget {
@@ -44,7 +43,7 @@ class _ExperienceSectionState extends State<ExperienceSection> {
         bloc: widget.profileBloc,
         builder: (context, state) {
           return state.experienceStatus == ExperienceStatus.loading
-              ? const CustomLoadingIndicator()
+              ? const ExperienceShimmer()
               : ListView.separated(
                   itemCount: state.experiences.length,
                   shrinkWrap: true,

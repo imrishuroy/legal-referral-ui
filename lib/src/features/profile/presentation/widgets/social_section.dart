@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:legal_referral_ui/src/core/common_widgets/widgets.dart';
 import 'package:legal_referral_ui/src/core/config/config.dart';
 import 'package:legal_referral_ui/src/features/auth/presentation/presentation.dart';
 import 'package:legal_referral_ui/src/features/profile/domain/domain.dart';
@@ -58,7 +57,7 @@ class _ProfileSocialSectionState extends State<ProfileSocialSection> {
         bloc: widget.profileBloc,
         builder: (context, state) {
           return state.socialStatus == SocialStatus.loading
-              ? const CustomLoadingIndicator()
+              ? const SocialShimmer()
               : ListView.builder(
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),

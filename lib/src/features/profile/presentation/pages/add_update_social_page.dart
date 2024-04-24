@@ -9,6 +9,7 @@ import 'package:legal_referral_ui/src/core/constants/social_constants.dart';
 import 'package:legal_referral_ui/src/core/utils/utils.dart';
 import 'package:legal_referral_ui/src/core/validators/validators.dart';
 import 'package:legal_referral_ui/src/features/profile/domain/domain.dart';
+import 'package:legal_referral_ui/src/features/profile/presentation/bloc/profile_bloc.dart';
 import 'package:legal_referral_ui/src/features/profile/presentation/presentation.dart';
 import 'package:toastification/toastification.dart';
 
@@ -55,6 +56,7 @@ class _AddUpdateSocialPageState extends State<AddUpdateSocialPage> {
   @override
   Widget build(BuildContext context) {
     final profileBloc = widget.arg.profileBloc;
+    final social = widget.arg.social;
 
     return Scaffold(
       appBar: AppBar(
@@ -130,7 +132,30 @@ class _AddUpdateSocialPageState extends State<AddUpdateSocialPage> {
                               ],
                             ),
                           ),
-                          SizedBox(height: 28.h),
+                          SizedBox(height: 12.h),
+                          if (social?.socialId != null)
+                            Center(
+                              child: TextButton(
+                                onPressed: () {
+                                  final socialId = social?.socialId;
+
+                                  if (socialId != null) {
+                                    profileBloc.add(
+                                      SocialDeleted(
+                                        socialId: socialId,
+                                      ),
+                                    );
+                                  }
+                                },
+                                child: const Text(
+                                  'Delete Social',
+                                  style: TextStyle(
+                                    color: Colors.red,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          SizedBox(height: 24.h),
                           Padding(
                             padding: EdgeInsets.symmetric(horizontal: 16.h),
                             child: CustomElevatedButton(
