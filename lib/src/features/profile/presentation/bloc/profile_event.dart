@@ -129,6 +129,17 @@ class SocialsFetched extends ProfileEvent {
   List<Object> get props => [entityType, entityId];
 }
 
+class SocialDeleted extends ProfileEvent {
+  const SocialDeleted({
+    required this.socialId,
+  });
+
+  final int socialId;
+
+  @override
+  List<Object> get props => [socialId];
+}
+
 class ReferralToggled extends ProfileEvent {
   @override
   List<Object> get props => [];

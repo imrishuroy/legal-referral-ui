@@ -26,7 +26,6 @@ class UpdateUserInfoPage extends StatefulWidget {
 
 class _UpdateUserInfoPageState extends State<UpdateUserInfoPage> {
   final _formKey = GlobalKey<FormState>();
-
   final _firstNameController = TextEditingController();
   final _lastNameController = TextEditingController();
   final _averageBillingPerClientController = TextEditingController();

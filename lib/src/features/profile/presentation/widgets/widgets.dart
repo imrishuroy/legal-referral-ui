@@ -6,5 +6,6 @@ export 'header_section.dart';
 export 'pricing_section.dart';
 export 'profile_shimmer.dart';
 export 'reviews_section.dart';
+export 'shimmers/shimmers.dart';
 export 'social_section.dart';
 export 'social_tile.dart';

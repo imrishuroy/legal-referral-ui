@@ -37,6 +37,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     on<SocialAdded>(_onSocialAdded);
     on<SocialUpdated>(_onSocialUpdated);
     on<SocialsFetched>(_onSocialsFetched);
+    on<SocialDeleted>(_onSocialDeleted);
     on<ReferralToggled>(_onReferralToggled);
     on<BannerUpdated>(_onBannerUpdated);
     on<UserProfileUpdated>(_onUserProfileUpdated);
@@ -258,6 +259,13 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
           emit(
             state.copyWith(
               userInfoStatus: UserInfoStatus.success,
+              userProfile: state.userProfile?.copyWith(
+                firstName: user.firstName,
+                lastName: user.lastName,
+                averageBillingPerClient: user.averageBillingPerClient,
+                caseResolutionRate: user.caseResolutionRate,
+                about: user.about,
+              ),
             ),
           );
         }
@@ -478,6 +486,46 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
             socials: socials,
           ),
         );
+      },
+    );
+  }
+
+  Future<void> _onSocialDeleted(
+    SocialDeleted event,
+    Emitter<ProfileState> emit,
+  ) async {
+    emit(
+      state.copyWith(
+        socialStatus: SocialStatus.loading,
+      ),
+    );
+
+    final res = await _profileUseCase.deleteSocial(
+      socialId: event.socialId,
+    );
+
+    res.fold(
+      (failure) {
+        emit(
+          state.copyWith(
+            socialStatus: SocialStatus.failure,
+            failure: failure,
+          ),
+        );
+      },
+      (res) {
+        if (res != null) {
+          final updatedSocials = state.socials
+              .where((s) => s?.socialId != event.socialId)
+              .toList();
+
+          emit(
+            state.copyWith(
+              socialStatus: SocialStatus.success,
+              socials: updatedSocials,
+            ),
+          );
+        }
       },
     );
   }

@@ -114,23 +114,6 @@ abstract class APIClient {
     @Body() UploadUserInfoReq uploadUserInfoReq,
   );
 
-  @POST('/socials')
-  Future<Social?> addSocial(
-    @Body() Social social,
-  );
-
-  @GET('/socials/{entityType}/{entityId}')
-  Future<List<Social?>> fetchSocials(
-    @Path('entityType') EntityType entityType,
-    @Path('entityId') String entityId,
-  );
-
-  @PUT('/socials/{socialId}')
-  Future<Social?> updateSocial(
-    @Path('socialId') int socialId,
-    @Body() Social social,
-  );
-
   @POST('/price')
   Future<Price?> addPrice(
     @Body() Price price,
@@ -153,6 +136,30 @@ abstract class APIClient {
   Future<String?> updateUserBanner(
     @Path('userId') String userId,
     @Part(name: 'file') File file,
+  );
+
+  // profile/socials
+
+  @POST('/socials')
+  Future<Social?> addSocial(
+    @Body() Social social,
+  );
+
+  @GET('/socials/{entityType}/{entityId}')
+  Future<List<Social?>> fetchSocials(
+    @Path('entityType') EntityType entityType,
+    @Path('entityId') String entityId,
+  );
+
+  @PUT('/socials/{socialId}')
+  Future<Social?> updateSocial(
+    @Path('socialId') int socialId,
+    @Body() Social social,
+  );
+
+  @DELETE('/socials/{socialId}')
+  Future<ResponseMsg?> deleteSocial(
+    @Path('socialId') int socialId,
   );
 
   // profile/experiences

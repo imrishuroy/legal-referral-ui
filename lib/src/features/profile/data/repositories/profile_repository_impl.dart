@@ -238,6 +238,26 @@ class ProfileRepositoryImpl extends ProfileRepository {
   }
 
   @override
+  Future<Either<Failure, ResponseMsg?>> deleteSocial({
+    required int socialId,
+  }) async {
+    try {
+      final res = await _profileDataSource.deleteSocial(
+        socialId: socialId,
+      );
+      return Right(res);
+    } on DioException catch (error) {
+      final dioError = DioExceptions.fromDioError(error);
+      return Left(
+        Failure(
+          statusCode: dioError.statusCode,
+          message: dioError.message,
+        ),
+      );
+    }
+  }
+
+  @override
   Future<Either<Failure, ResponseMsg?>> toggleReferral({
     required String userId,
     required ToggleReferralReq toggleReferralReq,
