@@ -8,6 +8,9 @@ class LegalReferralTheme {
   LegalReferralTheme._();
   static ThemeData lightTheme = ThemeData(
     brightness: Brightness.light,
+    chipTheme: const ChipThemeData(
+      backgroundColor: LegalReferralColors.containerWhite500,
+    ),
     textTheme: LegalReferralTextTheme.lightTextTheme,
     switchTheme: LegalReferralSwitchTheme.lightSwitchTheme,
     scaffoldBackgroundColor: LegalReferralColors.primaryBackground,
