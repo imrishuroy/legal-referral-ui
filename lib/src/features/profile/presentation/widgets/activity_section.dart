@@ -4,8 +4,8 @@ import 'package:flutter_svg/svg.dart';
 import 'package:legal_referral_ui/src/core/common_widgets/custom_button.dart';
 import 'package:legal_referral_ui/src/core/constants/constants.dart';
 
-class ActivityWidget extends StatelessWidget {
-  const ActivityWidget({
+class ActivitySection extends StatelessWidget {
+  const ActivitySection({
     super.key,
   });
 

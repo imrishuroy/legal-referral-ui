@@ -8,9 +8,6 @@ import 'package:legal_referral_ui/src/core/constants/constants.dart';
 import 'package:legal_referral_ui/src/core/utils/utils.dart';
 import 'package:legal_referral_ui/src/features/auth/presentation/presentation.dart';
 import 'package:legal_referral_ui/src/features/profile/presentation/presentation.dart';
-import 'package:legal_referral_ui/src/features/profile/presentation/widgets/activity_widget.dart';
-import 'package:legal_referral_ui/src/features/profile/presentation/widgets/custom_card.dart';
-import 'package:legal_referral_ui/src/features/profile/presentation/widgets/featured_section.dart';
 import 'package:toastification/toastification.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -85,14 +82,14 @@ class _ProfilePageState extends State<ProfilePage> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
-                                      '${user?.firstName ?? 'N/A'} '
+                                      '${user?.firstName ?? ''} '
                                       '${user?.lastName}',
                                       style: Theme.of(context)
                                           .textTheme
                                           .headlineMedium,
                                     ),
                                     Text(
-                                      user?.practiceArea ?? 'N/A',
+                                      user?.practiceArea ?? '',
                                       style: Theme.of(context)
                                           .textTheme
                                           .bodyLarge
@@ -161,7 +158,7 @@ class _ProfilePageState extends State<ProfilePage> {
                           child: Text.rich(
                             TextSpan(
                               text: user?.averageBillingPerClient == null
-                                  ? 'N/A'
+                                  ? ''
                                   : '\$${user?.averageBillingPerClient}',
                               style: Theme.of(context).textTheme.displaySmall,
                               children: <TextSpan>[
@@ -182,7 +179,7 @@ class _ProfilePageState extends State<ProfilePage> {
                           title: 'Case resolution rate',
                           child: Text(
                             user?.caseResolutionRate == null
-                                ? 'N/A'
+                                ? ''
                                 : '${user?.caseResolutionRate}%',
                             style: Theme.of(context).textTheme.displaySmall,
                           ),
@@ -192,7 +189,7 @@ class _ProfilePageState extends State<ProfilePage> {
                           title: 'About',
                           visibility: false,
                           child: Text(
-                            user?.about ?? 'N/A',
+                            user?.about ?? '',
                             style: Theme.of(context).textTheme.bodyLarge,
                           ),
                         ),
@@ -204,7 +201,7 @@ class _ProfilePageState extends State<ProfilePage> {
                           onTap: () {},
                           title: 'Activity',
                           visibility: false,
-                          child: const ActivityWidget(),
+                          child: const ActivitySection(),
                         ),
                         ExperienceSection(
                           profileBloc: _profileBloc,
