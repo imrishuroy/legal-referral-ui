@@ -71,9 +71,9 @@ class SocialTile extends StatelessWidget {
   }
 
   Future<void> _launchURL(String url) async {
-    if (await canLaunchUrl(Uri.parse(url))) {
+    try {
       await launchUrl(Uri.parse(url));
-    } else {
+    } catch (e) {
       throw 'Could not launch $url';
     }
   }
