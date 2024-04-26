@@ -95,8 +95,8 @@ class _SignInPageState extends State<SignInPage> {
                             SizedBox(height: 16.h),
                             CustomTextField(
                               controller: _emailController,
-                              hintText: 'SamAtman',
-                              labelText: 'User Name',
+                              hintText: 'Enter Email Address',
+                              labelText: 'Email Address',
                               validator: (value) =>
                                   Validator.validateEmail(value),
                             ),

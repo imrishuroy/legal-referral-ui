@@ -235,7 +235,9 @@ class _AddUpdateEducationPageState extends State<AddUpdateEducationPage> {
                                   final pickedDate = await showDatePicker(
                                     context: context,
                                     firstDate: _startDate != null
-                                        ? _startDate!
+                                        ? _startDate!.add(
+                                            const Duration(days: 1),
+                                          )
                                         : DateTime(1900),
                                     lastDate: DateTime.now(),
                                     builder: (context, child) {
@@ -404,7 +406,8 @@ class _AddUpdateEducationPageState extends State<AddUpdateEducationPage> {
         return;
       }
 
-      if (!_current && _endDate!.isBefore(_startDate!)) {
+      if (!_current &&
+          (_endDate!.isBefore(_startDate!) || _endDate == _startDate)) {
         ToastUtil.showToast(
           context,
           title: 'Error',
