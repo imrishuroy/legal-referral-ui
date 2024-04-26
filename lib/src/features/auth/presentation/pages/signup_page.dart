@@ -95,14 +95,14 @@ class _SignUpPageState extends State<SignUpPage> {
                             CustomTextField(
                               controller: _firstNameController,
                               hintText: 'David',
-                              labelText: 'First Name',
+                              labelText: 'Enter first name',
                               validator: (value) =>
                                   Validator.validateFirstName(value),
                             ),
                             SizedBox(height: 16.h),
                             CustomTextField(
                               controller: _lastNameController,
-                              hintText: 'John',
+                              hintText: 'Enter last name',
                               labelText: 'Last Name',
                               validator: (value) =>
                                   Validator.validateLastName(value),
@@ -110,7 +110,7 @@ class _SignUpPageState extends State<SignUpPage> {
                             SizedBox(height: 16.h),
                             CustomTextField(
                               controller: _emailController,
-                              hintText: 'JohnDavid22@gmail.com',
+                              hintText: 'Enter email address',
                               labelText: 'Email address',
                               validator: (value) =>
                                   Validator.validateEmail(value),
