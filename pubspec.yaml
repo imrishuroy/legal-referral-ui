@@ -51,6 +51,7 @@ dependencies:
   shimmer: ^3.0.0
   stream_transform: ^2.1.0
   timeago: ^3.6.0
+  timeline_tile: ^2.0.0
   toastification: ^1.2.1
   universal_platform: ^1.0.0+1
   url_launcher: ^6.2.2

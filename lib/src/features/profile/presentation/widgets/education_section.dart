@@ -45,7 +45,7 @@ class _EducationSectionState extends State<EducationSection> {
         builder: (context, state) {
           return state.educationStatus == EducationStatus.loading
               ? const EducationShimmer()
-              : ListView.separated(
+              : ListView.builder(
                   itemCount: state.educations.length,
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
@@ -53,17 +53,13 @@ class _EducationSectionState extends State<EducationSection> {
                     final education = state.educations[index];
                     return Padding(
                       padding: EdgeInsets.symmetric(
-                        vertical: 12.h,
+                        vertical: 8.h,
                       ),
                       child: EducationTile(
                         education: education,
                       ),
                     );
                   },
-                  separatorBuilder: (context, index) => Divider(
-                    color: Colors.grey[300],
-                    thickness: 1.h,
-                  ),
                 );
         },
       ),

@@ -44,23 +44,20 @@ class _ExperienceSectionState extends State<ExperienceSection> {
         builder: (context, state) {
           return state.experienceStatus == ExperienceStatus.loading
               ? const ExperienceShimmer()
-              : ListView.separated(
+              : ListView.builder(
                   itemCount: state.experiences.length,
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
+                  padding: EdgeInsets.zero,
                   itemBuilder: (context, index) {
-                    final experience = state.experiences[index];
+                    final userExp = state.experiences[index];
                     return Padding(
                       padding: EdgeInsets.symmetric(
-                        vertical: 12.h,
+                        vertical: 8.h,
                       ),
-                      child: ExperienceTile(userExp: experience),
+                      child: ExperienceTile(userExp: userExp),
                     );
                   },
-                  separatorBuilder: (context, index) => Divider(
-                    color: Colors.grey[300],
-                    thickness: 1.h,
-                  ),
                 );
         },
       ),
