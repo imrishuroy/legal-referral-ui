@@ -7,25 +7,45 @@ part 'internet_check_state.dart';
 
 class InternetCheckBloc extends Bloc<InternetCheckEvent, InternetCheckState> {
   InternetCheckBloc() : super(InternetCheckState.initial()) {
-    // final result = Connectivity().checkConnectivity();
-    on<CheckConnectivity>((event, emit) {
-      Connectivity().onConnectivityChanged.listen((event) {
-        if (event[0] == ConnectivityResult.none) {
-          emit(
-            state.copyWith(
-              internetStatus: InternetCheck.disconnected,
-              connectionMessage: 'Check internet connection',
-            ),
-          );
-        } else {
-          emit(
-            state.copyWith(
-              internetStatus: InternetCheck.connected,
-              connectionMessage: 'Connecteed to internet',
-            ),
-          );
-        }
-      });
-    });
+    final connectivity = Connectivity();
+    on<CheckConnectivity>(
+      (event, emit) async {
+        final connectivityResult = await connectivity.checkConnectivity();
+
+        _mapConnectivityResultToState(
+          connectivityResult,
+          emit,
+        );
+        connectivity.onConnectivityChanged.listen(
+          (result) {
+            _mapConnectivityResultToState(
+              result,
+              emit,
+            );
+          },
+        );
+      },
+    );
+  }
+
+  void _mapConnectivityResultToState(
+    List<ConnectivityResult> result,
+    Emitter<InternetCheckState> emit,
+  ) {
+    for (final connectivityresult in result) {
+      if (connectivityresult == ConnectivityResult.none) {
+        emit(
+          state.copyWith(
+            internetStatus: InternetCheck.disconnected,
+          ),
+        );
+      } else {
+        emit(
+          state.copyWith(
+            internetStatus: InternetCheck.connected,
+          ),
+        );
+      }
+    }
   }
 }

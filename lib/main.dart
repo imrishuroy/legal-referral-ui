@@ -10,6 +10,7 @@ import 'package:legal_referral_ui/firebase_options.dart';
 import 'package:legal_referral_ui/src/core/config/config.dart';
 import 'package:legal_referral_ui/src/core/network/network.dart';
 import 'package:legal_referral_ui/src/core/router/router.dart';
+import 'package:legal_referral_ui/src/features/internet_check/presentation/bloc/internet_check_bloc.dart';
 
 Future<void> main() async {
   // await dotenv.load();
@@ -40,13 +41,16 @@ class MyApp extends StatelessWidget {
       minTextAdapt: true,
       splitScreenMode: true,
       builder: (context, child) {
-        return MaterialApp.router(
-          debugShowCheckedModeBanner: false,
-          title: 'Legal Referral',
-          theme: ThemeData(
-            useMaterial3: true,
+        return BlocProvider<InternetCheckBloc>(
+          create: (context) => InternetCheckBloc()..add(CheckConnectivity()),
+          child: MaterialApp.router(
+            debugShowCheckedModeBanner: false,
+            title: 'Legal Referral',
+            theme: ThemeData(
+              useMaterial3: true,
+            ),
+            routerConfig: appRouter.router,
           ),
-          routerConfig: appRouter.router,
         );
       },
     );

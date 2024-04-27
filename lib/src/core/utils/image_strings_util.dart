@@ -21,4 +21,5 @@ class ImageStringsUtil {
   static const String onBoardingImage1 = 'assets/images/onBoarding1.svg';
   static const String onBoardingImage2 = 'assets/images/onBoarding2.svg';
   static const String onBoardingImage3 = 'assets/images/onBoarding3.svg';
+  static const String noConnection = 'assets/images/noConnection.svg';
 }
