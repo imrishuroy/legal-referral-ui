@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:legal_referral_ui/src/core/constants/colors.dart';
-import 'package:legal_referral_ui/src/core/utils/utils.dart';
-import 'package:legal_referral_ui/src/core/widgets/custom_button.dart';
+import 'package:legal_referral_ui/src/core/common_widgets/custom_button.dart';
+import 'package:legal_referral_ui/src/core/constants/constants.dart';
 
 class CustomCard extends StatelessWidget {
   const CustomCard({
@@ -51,7 +50,7 @@ class CustomCard extends StatelessWidget {
                         icon: SizedBox(
                           height: 24.h,
                           width: 24.w,
-                          child: SvgPicture.asset(ImageStringsUtil.addIcon),
+                          child: SvgPicture.asset(ImageStringConstants.addIcon),
                         ),
                       )
                     : CustomIconButton(
@@ -59,7 +58,8 @@ class CustomCard extends StatelessWidget {
                         icon: SizedBox(
                           height: 24.h,
                           width: 24.w,
-                          child: SvgPicture.asset(ImageStringsUtil.editIcon),
+                          child:
+                              SvgPicture.asset(ImageStringConstants.editIcon),
                         ),
                       )
               else

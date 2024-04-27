@@ -75,11 +75,11 @@ class WizardRepositoryImpl implements WizardRepository {
 
   @override
   Future<Either<Failure, ResponseMsg?>> uploadLicense({
-    required File licensePdf,
+    required File file,
   }) async {
     try {
       final response = await _wizardDataSource.uploadLicense(
-        licensePdf: licensePdf,
+        file: file,
       );
       return Right(response);
     } on DioException catch (error) {

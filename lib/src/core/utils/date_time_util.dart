@@ -31,4 +31,17 @@ class DateTimeUtil {
     );
     return outputDateFormat.format(dateTime);
   }
+
+  static String formatDateRange(DateTime start, DateTime? end) {
+    final formattedStart = DateFormat('MMMM yyyy').format(start);
+    String formattedEnd;
+
+    if (end != null) {
+      formattedEnd = DateFormat('MMMM yyyy').format(end);
+    } else {
+      formattedEnd = 'Current';
+    }
+
+    return '$formattedStart - $formattedEnd';
+  }
 }

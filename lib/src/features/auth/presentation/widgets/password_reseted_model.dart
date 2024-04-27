@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
-import 'package:legal_referral_ui/src/core/utils/utils.dart';
-import 'package:legal_referral_ui/src/core/widgets/custom_button.dart';
+import 'package:legal_referral_ui/src/core/common_widgets/custom_button.dart';
+import 'package:legal_referral_ui/src/core/constants/constants.dart';
 import 'package:legal_referral_ui/src/features/auth/presentation/presentation.dart';
 
 class PasswordResetModel extends StatelessWidget {
@@ -28,7 +28,7 @@ class PasswordResetModel extends StatelessWidget {
               height: 114.h,
               width: 114.w,
               child: SvgPicture.asset(
-                ImageStringsUtil.successLogo,
+                ImageStringConstants.successLogo,
               ),
             ),
             SizedBox(height: 24.h),

@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:legal_referral_ui/src/core/widgets/root_layout.dart';
+import 'package:legal_referral_ui/src/core/common_widgets/widgets.dart';
 import 'package:legal_referral_ui/src/features/auth/presentation/presentation.dart';
 import 'package:legal_referral_ui/src/features/home_page.dart';
 import 'package:legal_referral_ui/src/features/network/presentation/pages/network_page.dart';
-import 'package:legal_referral_ui/src/features/profile/presentation/pages/add_education_page.dart';
 import 'package:legal_referral_ui/src/features/profile/presentation/presentation.dart';
 import 'package:legal_referral_ui/src/features/wizard/presentation/presentation.dart';
 
 final _rootNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'parent');
 
 const _routeAnimationDuration = 1;
+const _routeTransitionDuration = 500;
 
 class AppRouter {
   GoRouter router = GoRouter(
@@ -37,7 +37,7 @@ class AppRouter {
         pageBuilder: (context, state) => CustomTransitionPage(
           child: const OnBoardingPage(),
           transitionDuration: const Duration(
-            milliseconds: 500,
+            milliseconds: _routeTransitionDuration,
           ),
           transitionsBuilder: (_, a, __, c) =>
               FadeTransition(opacity: a, child: c),
@@ -50,7 +50,7 @@ class AppRouter {
         pageBuilder: (context, state) => CustomTransitionPage(
           child: const SignInPage(),
           transitionDuration: const Duration(
-            milliseconds: 500,
+            milliseconds: _routeTransitionDuration,
           ),
           transitionsBuilder: (_, a, __, c) =>
               FadeTransition(opacity: a, child: c),
@@ -63,7 +63,7 @@ class AppRouter {
         pageBuilder: (context, state) => CustomTransitionPage(
           child: const SignUpPage(),
           transitionDuration: const Duration(
-            milliseconds: 500,
+            milliseconds: _routeTransitionDuration,
           ),
           transitionsBuilder: (_, a, __, c) =>
               FadeTransition(opacity: a, child: c),
@@ -76,7 +76,7 @@ class AppRouter {
         pageBuilder: (context, state) => CustomTransitionPage(
           child: const ResetPasswordPage(),
           transitionDuration: const Duration(
-            milliseconds: 500,
+            milliseconds: _routeTransitionDuration,
           ),
           transitionsBuilder: (_, a, __, c) =>
               FadeTransition(opacity: a, child: c),
@@ -91,7 +91,7 @@ class AppRouter {
             email: state.pathParameters['email']!,
           ),
           transitionDuration: const Duration(
-            milliseconds: 500,
+            milliseconds: _routeTransitionDuration,
           ),
           transitionsBuilder: (_, a, __, c) =>
               FadeTransition(opacity: a, child: c),
@@ -104,7 +104,7 @@ class AppRouter {
         pageBuilder: (context, state) => CustomTransitionPage(
           child: const ContactDetailsPage(),
           transitionDuration: const Duration(
-            milliseconds: 500,
+            milliseconds: _routeTransitionDuration,
           ),
           transitionsBuilder: (_, a, __, c) =>
               FadeTransition(opacity: a, child: c),
@@ -117,7 +117,7 @@ class AppRouter {
         pageBuilder: (context, state) => CustomTransitionPage(
           child: const SocialAvatarPage(),
           transitionDuration: const Duration(
-            milliseconds: 500,
+            milliseconds: _routeTransitionDuration,
           ),
           transitionsBuilder: (_, a, __, c) =>
               FadeTransition(opacity: a, child: c),
@@ -130,7 +130,7 @@ class AppRouter {
         pageBuilder: (context, state) => CustomTransitionPage(
           child: const WizardInspectionPage(),
           transitionDuration: const Duration(
-            milliseconds: 500,
+            milliseconds: _routeTransitionDuration,
           ),
           transitionsBuilder: (_, a, __, c) =>
               FadeTransition(opacity: a, child: c),
@@ -162,7 +162,7 @@ class AppRouter {
             child: NetworkPage(),
           ),
           transitionDuration: const Duration(
-            milliseconds: 500,
+            milliseconds: _routeTransitionDuration,
           ),
           transitionsBuilder: (_, a, __, c) =>
               FadeTransition(opacity: a, child: c),
@@ -175,20 +175,37 @@ class AppRouter {
         pageBuilder: (context, state) => CustomTransitionPage(
           child: const ProfilePage(),
           transitionDuration: const Duration(
-            milliseconds: 500,
+            milliseconds: _routeTransitionDuration,
           ),
           transitionsBuilder: (_, a, __, c) =>
               FadeTransition(opacity: a, child: c),
         ),
       ),
       GoRoute(
-        path: '/add-experience',
-        name: AddExperiencePage.name,
+        path: '/add-update-experience',
+        name: AddUpdateExperiencePage.name,
         parentNavigatorKey: _rootNavigatorKey,
         pageBuilder: (context, state) => CustomTransitionPage(
-          child: const AddExperiencePage(),
+          child: AddUpdateExperiencePage(
+            args: state.extra as AddUpdateExperiencePageArgs,
+          ),
           transitionDuration: const Duration(
-            milliseconds: 500,
+            milliseconds: _routeTransitionDuration,
+          ),
+          transitionsBuilder: (_, a, __, c) =>
+              FadeTransition(opacity: a, child: c),
+        ),
+      ),
+      GoRoute(
+        path: '/list-experience',
+        name: ListExperiencePage.name,
+        parentNavigatorKey: _rootNavigatorKey,
+        pageBuilder: (context, state) => CustomTransitionPage(
+          child: ListExperiencePage(
+            profileBloc: state.extra as ProfileBloc,
+          ),
+          transitionDuration: const Duration(
+            milliseconds: _routeTransitionDuration,
           ),
           transitionsBuilder: (_, a, __, c) =>
               FadeTransition(opacity: a, child: c),
@@ -201,20 +218,7 @@ class AppRouter {
         pageBuilder: (context, state) => CustomTransitionPage(
           child: const SearchFirmPage(),
           transitionDuration: const Duration(
-            milliseconds: 500,
-          ),
-          transitionsBuilder: (_, a, __, c) =>
-              FadeTransition(opacity: a, child: c),
-        ),
-      ),
-      GoRoute(
-        path: '/add-education',
-        name: AddEducationPage.name,
-        parentNavigatorKey: _rootNavigatorKey,
-        pageBuilder: (context, state) => CustomTransitionPage(
-          child: const AddEducationPage(),
-          transitionDuration: const Duration(
-            milliseconds: 500,
+            milliseconds: _routeTransitionDuration,
           ),
           transitionsBuilder: (_, a, __, c) =>
               FadeTransition(opacity: a, child: c),
@@ -225,9 +229,101 @@ class AppRouter {
         name: UpdateUserInfoPage.name,
         parentNavigatorKey: _rootNavigatorKey,
         pageBuilder: (context, state) => CustomTransitionPage(
-          child: const UpdateUserInfoPage(),
+          child: UpdateUserInfoPage(
+            profileBloc: state.extra as ProfileBloc,
+          ),
           transitionDuration: const Duration(
-            milliseconds: 500,
+            milliseconds: _routeTransitionDuration,
+          ),
+          transitionsBuilder: (_, a, __, c) =>
+              FadeTransition(opacity: a, child: c),
+        ),
+      ),
+      GoRoute(
+        path: '/add-edit-price',
+        name: AddUpdatePricePage.name,
+        parentNavigatorKey: _rootNavigatorKey,
+        pageBuilder: (context, state) => CustomTransitionPage(
+          child: AddUpdatePricePage(
+            args: state.extra as AddUpdatePricePageArgs,
+          ),
+          transitionDuration: const Duration(
+            milliseconds: _routeTransitionDuration,
+          ),
+          transitionsBuilder: (_, a, __, c) =>
+              FadeTransition(opacity: a, child: c),
+        ),
+      ),
+      GoRoute(
+        path: '/add-update-social',
+        name: AddUpdateSocialPage.name,
+        parentNavigatorKey: _rootNavigatorKey,
+        pageBuilder: (context, state) => CustomTransitionPage(
+          child: AddUpdateSocialPage(
+            arg: state.extra as AddUpdateSocialPageArgs,
+          ),
+          transitionDuration: const Duration(
+            milliseconds: _routeTransitionDuration,
+          ),
+          transitionsBuilder: (_, a, __, c) =>
+              FadeTransition(opacity: a, child: c),
+        ),
+      ),
+      GoRoute(
+        path: '/list-social',
+        name: ListSocialPage.name,
+        parentNavigatorKey: _rootNavigatorKey,
+        pageBuilder: (context, state) => CustomTransitionPage(
+          child: ListSocialPage(
+            profileBloc: state.extra as ProfileBloc,
+          ),
+          transitionDuration: const Duration(
+            milliseconds: _routeTransitionDuration,
+          ),
+          transitionsBuilder: (_, a, __, c) =>
+              FadeTransition(opacity: a, child: c),
+        ),
+      ),
+      GoRoute(
+        path: '/add-update-education',
+        name: AddUpdateEducationPage.name,
+        parentNavigatorKey: _rootNavigatorKey,
+        pageBuilder: (context, state) => CustomTransitionPage(
+          child: AddUpdateEducationPage(
+            args: state.extra as AddUpdateEducationPageArgs,
+          ),
+          transitionDuration: const Duration(
+            milliseconds: _routeTransitionDuration,
+          ),
+          transitionsBuilder: (_, a, __, c) =>
+              FadeTransition(opacity: a, child: c),
+        ),
+      ),
+      GoRoute(
+        path: '/list-education',
+        name: ListEducationPage.name,
+        parentNavigatorKey: _rootNavigatorKey,
+        pageBuilder: (context, state) => CustomTransitionPage(
+          child: ListEducationPage(
+            profileBloc: state.extra as ProfileBloc,
+          ),
+          transitionDuration: const Duration(
+            milliseconds: _routeTransitionDuration,
+          ),
+          transitionsBuilder: (_, a, __, c) =>
+              FadeTransition(opacity: a, child: c),
+        ),
+      ),
+      GoRoute(
+        path: '/camera',
+        name: CameraPage.name,
+        parentNavigatorKey: _rootNavigatorKey,
+        pageBuilder: (context, state) => CustomTransitionPage(
+          child: CameraPage(
+            args: state.extra as CameraPageArgs,
+          ),
+          transitionDuration: const Duration(
+            milliseconds: _routeTransitionDuration,
           ),
           transitionsBuilder: (_, a, __, c) =>
               FadeTransition(opacity: a, child: c),

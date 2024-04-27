@@ -17,21 +17,22 @@ import '../../features/auth/data/repositories/auth_repository_impl.dart'
 import '../../features/auth/domain/domain.dart' as _i12;
 import '../../features/auth/domain/usecases/auth_usecase.dart' as _i14;
 import '../../features/auth/presentation/bloc/auth_bloc.dart' as _i17;
+import '../../features/auth/presentation/presentation.dart' as _i20;
 import '../../features/profile/data/data.dart' as _i11;
-import '../../features/profile/data/datasource/profile_datasource.dart' as _i6;
+import '../../features/profile/data/datasources/profile_datasource.dart' as _i6;
 import '../../features/profile/data/repositories/profile_repository_impl.dart'
     as _i10;
 import '../../features/profile/domain/domain.dart' as _i9;
 import '../../features/profile/domain/usecases/profile_usecase.dart' as _i15;
-import '../../features/profile/presentation/bloc/profile_bloc.dart' as _i18;
+import '../../features/profile/presentation/bloc/profile_bloc.dart' as _i19;
 import '../../features/wizard/data/data.dart' as _i5;
 import '../../features/wizard/data/repositories/wizard_repository_impl.dart'
     as _i8;
 import '../../features/wizard/domain/domain.dart' as _i7;
 import '../../features/wizard/domain/usecases/wizard_usecase.dart' as _i16;
-import '../../features/wizard/presentation/bloc/wizard_bloc.dart' as _i19;
+import '../../features/wizard/presentation/bloc/wizard_bloc.dart' as _i18;
 import '../network/network.dart' as _i3;
-import 'api_client_module.dart' as _i20;
+import 'api_client_module.dart' as _i21;
 
 extension GetItInjectableX on _i1.GetIt {
 // initializes the registration of main-scope dependencies inside of GetIt
@@ -69,12 +70,14 @@ extension GetItInjectableX on _i1.GetIt {
         () => _i16.WizardUseCase(wizardRepository: gh<_i7.WizardRepository>()));
     gh.lazySingleton<_i17.AuthBloc>(
         () => _i17.AuthBloc(authUseCase: gh<_i12.AuthUseCase>()));
-    gh.factory<_i18.ProfileBloc>(
-        () => _i18.ProfileBloc(profileUseCase: gh<_i15.ProfileUseCase>()));
-    gh.factory<_i19.WizardBloc>(
-        () => _i19.WizardBloc(wizardUseCase: gh<_i16.WizardUseCase>()));
+    gh.factory<_i18.WizardBloc>(
+        () => _i18.WizardBloc(wizardUseCase: gh<_i16.WizardUseCase>()));
+    gh.factory<_i19.ProfileBloc>(() => _i19.ProfileBloc(
+          authBloc: gh<_i20.AuthBloc>(),
+          profileUseCase: gh<_i15.ProfileUseCase>(),
+        ));
     return this;
   }
 }
 
-class _$APIClientModule extends _i20.APIClientModule {}
+class _$APIClientModule extends _i21.APIClientModule {}

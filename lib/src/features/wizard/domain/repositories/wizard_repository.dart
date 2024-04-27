@@ -19,6 +19,6 @@ abstract class WizardRepository {
   });
 
   Future<Either<Failure, ResponseMsg?>> uploadLicense({
-    required File licensePdf,
+    required File file,
   });
 }

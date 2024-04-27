@@ -152,7 +152,7 @@ class WizardBloc extends Bloc<WizardEvent, WizardState> {
     );
 
     final response = await _wizardUseCase.uploadLicense(
-      licensePdf: File(event.filePath),
+      file: event.file,
     );
 
     response.fold(

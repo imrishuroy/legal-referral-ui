@@ -49,11 +49,11 @@ class WizardDataSource {
   }
 
   Future<ResponseMsg?> uploadLicense({
-    required File licensePdf,
+    required File file,
   }) async {
     try {
       return await _apiClient.uploadLicense(
-        licensePdf,
+        file,
       );
     } catch (error) {
       rethrow;

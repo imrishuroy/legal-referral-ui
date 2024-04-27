@@ -2,16 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
+import 'package:legal_referral_ui/src/core/common_widgets/widgets.dart';
 import 'package:legal_referral_ui/src/core/config/config.dart';
-import 'package:legal_referral_ui/src/core/widgets/custom_button.dart';
-import 'package:legal_referral_ui/src/core/widgets/custom_snackbar.dart';
-import 'package:legal_referral_ui/src/core/widgets/custom_textfield.dart';
+import 'package:legal_referral_ui/src/core/constants/constants.dart';
+import 'package:legal_referral_ui/src/core/utils/utils.dart';
 import 'package:legal_referral_ui/src/features/profile/data/data.dart';
 import 'package:legal_referral_ui/src/features/profile/presentation/presentation.dart';
 import 'package:toastification/toastification.dart';
 
 class UpdateUserInfoPage extends StatefulWidget {
-  const UpdateUserInfoPage({super.key});
+  const UpdateUserInfoPage({
+    required this.profileBloc,
+    super.key,
+  });
+
+  final ProfileBloc profileBloc;
 
   static const String name = 'UpdateUserInfoPage';
 
@@ -21,7 +26,6 @@ class UpdateUserInfoPage extends StatefulWidget {
 
 class _UpdateUserInfoPageState extends State<UpdateUserInfoPage> {
   final _formKey = GlobalKey<FormState>();
-  final _profileBloc = getIt<ProfileBloc>();
   final _firstNameController = TextEditingController();
   final _lastNameController = TextEditingController();
   final _averageBillingPerClientController = TextEditingController();
@@ -29,8 +33,31 @@ class _UpdateUserInfoPageState extends State<UpdateUserInfoPage> {
   final _aboutController = TextEditingController();
 
   @override
+  void initState() {
+    final user = widget.profileBloc.state.userProfile;
+    _firstNameController.text = user?.firstName ?? '';
+    _lastNameController.text = user?.lastName ?? '';
+
+    _averageBillingPerClientController.text =
+        user?.averageBillingPerClient != null
+            ? user!.averageBillingPerClient.toString()
+            : '';
+
+    _caseResolutionRateController.text = user?.caseResolutionRate != null
+        ? user!.caseResolutionRate.toString()
+        : '';
+
+    _aboutController.text = user?.about ?? '';
+
+    AppLogger.info('firstName: ${_firstNameController.text}');
+
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: LegalReferralColors.primaryBackground,
       appBar: AppBar(
         title: const Text('Edit Info'),
         leading: IconButton(
@@ -41,12 +68,12 @@ class _UpdateUserInfoPageState extends State<UpdateUserInfoPage> {
         ),
       ),
       body: BlocConsumer<ProfileBloc, ProfileState>(
-        bloc: _profileBloc,
+        bloc: widget.profileBloc,
         listener: (context, state) {
-          if (state.profileStatus == ProfileStatus.success) {
+          if (state.userInfoStatus == UserInfoStatus.success) {
             context.pop();
-          } else if (state.profileStatus == ProfileStatus.failure) {
-            CustomSnackbar.showToast(
+          } else if (state.userInfoStatus == UserInfoStatus.failure) {
+            ToastUtil.showToast(
               context,
               title: 'Error',
               description: state.failure!.message,
@@ -55,10 +82,8 @@ class _UpdateUserInfoPageState extends State<UpdateUserInfoPage> {
           }
         },
         builder: (context, state) {
-          return state.profileStatus == ProfileStatus.loading
-              ? const Center(
-                  child: CircularProgressIndicator(),
-                )
+          return state.userInfoStatus == UserInfoStatus.loading
+              ? const CustomLoadingIndicator()
               : SafeArea(
                   child: SingleChildScrollView(
                     child: Form(
@@ -106,18 +131,27 @@ class _UpdateUserInfoPageState extends State<UpdateUserInfoPage> {
                                 return null;
                               },
                               labelText: 'Average Billing Per Client',
+                              keyboardType: TextInputType.number,
                             ),
                             SizedBox(height: 16.h),
                             CustomTextField(
                               controller: _caseResolutionRateController,
-                              hintText: 'Case Resolution Rate',
+                              hintText: 'Case Resolution Rate in %',
                               validator: (value) {
                                 if (value == null || value.isEmpty) {
                                   return 'Case Resolution Rate is required';
+                                } else if (int.tryParse(value) == null) {
+                                  return 'Case Resolution Rate must '
+                                      'be a number';
+                                } else if (int.tryParse(value)! > 100) {
+                                  return 'Case Resolution Rate must '
+                                      'be less than 100';
                                 }
+
                                 return null;
                               },
                               labelText: 'Case Resolution Rate',
+                              keyboardType: TextInputType.number,
                             ),
                             SizedBox(height: 16.h),
                             CustomTextField(
@@ -160,7 +194,7 @@ class _UpdateUserInfoPageState extends State<UpdateUserInfoPage> {
             int.tryParse(_caseResolutionRateController.text) ?? 1,
         about: _aboutController.text,
       );
-      _profileBloc.add(
+      widget.profileBloc.add(
         UserInfoUpdated(
           uploadUserInfoReq: uploadUserInfoReq,
         ),
