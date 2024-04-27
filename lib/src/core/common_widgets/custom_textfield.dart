@@ -1,3 +1,4 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:legal_referral_ui/src/core/constants/colors.dart';
@@ -7,11 +8,13 @@ class CustomTextField extends StatelessWidget {
     required this.controller,
     required this.hintText,
     required this.labelText,
-    this.focusNode,
     super.key,
+    this.focusNode,
     this.keyboardType = TextInputType.text,
     this.obscureText = false,
     this.onChanged,
+    this.borderColor,
+    this.fillColor,
     this.validator,
     this.maxLines = 1,
     this.enabled = true,
@@ -23,6 +26,8 @@ class CustomTextField extends StatelessWidget {
   final String hintText;
   final String labelText;
   final TextInputType keyboardType;
+  final Color? borderColor;
+  final Color? fillColor;
   final bool obscureText;
   final String? Function(String?)? onChanged;
   final String? Function(String?)? validator;
@@ -54,43 +59,45 @@ class CustomTextField extends StatelessWidget {
             onChanged: onChanged,
             style: Theme.of(context).textTheme.bodyLarge,
             decoration: InputDecoration(
+              contentPadding:
+                  EdgeInsets.symmetric(vertical: 0.h, horizontal: 12.w),
               hintText: hintText,
               hintStyle: Theme.of(context).textTheme.bodyLarge?.copyWith(
                     color: LegalReferralColors.textgrey300,
                   ),
               enabledBorder: OutlineInputBorder(
-                borderSide: const BorderSide(
-                  color: LegalReferralColors.borderBlue300,
+                borderSide: BorderSide(
+                  color: borderColor ?? LegalReferralColors.borderBlue300,
                 ),
                 borderRadius: BorderRadius.circular(4.r),
               ),
               focusedBorder: OutlineInputBorder(
-                borderSide: const BorderSide(
-                  color: LegalReferralColors.borderBlue300,
+                borderSide: BorderSide(
+                  color: borderColor ?? LegalReferralColors.borderBlue300,
                 ),
                 borderRadius: BorderRadius.circular(4.r),
               ),
               disabledBorder: OutlineInputBorder(
-                borderSide: const BorderSide(
-                  color: LegalReferralColors.borderBlue300,
+                borderSide: BorderSide(
+                  color: borderColor ?? LegalReferralColors.borderBlue300,
                 ),
                 borderRadius: BorderRadius.circular(4.r),
               ),
               errorBorder: OutlineInputBorder(
-                borderSide: const BorderSide(
-                  color: LegalReferralColors.borderBlue300,
+                borderSide: BorderSide(
+                  color: borderColor ?? LegalReferralColors.borderBlue300,
                 ),
                 borderRadius: BorderRadius.circular(4.r),
               ),
               focusedErrorBorder: OutlineInputBorder(
-                borderSide: const BorderSide(
-                  color: LegalReferralColors.borderBlue300,
+                borderSide: BorderSide(
+                  color: borderColor ?? LegalReferralColors.borderBlue300,
                 ),
                 borderRadius: BorderRadius.circular(4.r),
               ),
               filled: true,
               // fillColor: LegalReferralColors.containerWhite500,
-              fillColor: Colors.white,
+              fillColor: fillColor ?? Colors.white,
             ),
             validator: validator,
           ),
