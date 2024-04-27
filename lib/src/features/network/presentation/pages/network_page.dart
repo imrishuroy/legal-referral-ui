@@ -1,16 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:legal_referral_ui/src/core/common_widgets/custom_button.dart';
+import 'package:legal_referral_ui/src/core/common_widgets/custom_textfield.dart';
 import 'package:legal_referral_ui/src/core/constants/colors.dart';
-import 'package:legal_referral_ui/src/core/utils/utils.dart';
-import 'package:legal_referral_ui/src/core/widgets/custom_button.dart';
-import 'package:legal_referral_ui/src/core/widgets/custom_textfield.dart';
+import 'package:legal_referral_ui/src/core/constants/image_string_constants.dart';
 import 'package:legal_referral_ui/src/features/network/presentation/pages/connection_page.dart';
 import 'package:legal_referral_ui/src/features/network/presentation/pages/invite_page.dart';
 import 'package:legal_referral_ui/src/features/network/presentation/pages/recommendation_page.dart';
-import 'package:legal_referral_ui/src/features/network/presentation/widgets/connection_listtile.dart';
-import 'package:legal_referral_ui/src/features/network/presentation/widgets/invite_card.dart';
-import 'package:legal_referral_ui/src/features/network/presentation/widgets/recommendation_card.dart';
+import 'package:legal_referral_ui/src/features/network/presentation/widgets/shimmers/network_shimmer.dart';
 
 class NetworkPage extends StatelessWidget {
   NetworkPage({super.key});
@@ -40,7 +38,7 @@ class NetworkPage extends StatelessWidget {
                 width: 8.w,
               ),
               SvgPicture.asset(
-                ImageStringsUtil.comment,
+                ImageStringConstants.comment,
               ),
             ],
           ),
@@ -78,7 +76,8 @@ class NetworkPage extends StatelessWidget {
                 shrinkWrap: true,
                 itemCount: 2,
                 itemBuilder: (BuildContext context, int index) {
-                  return const InviteCard();
+                  return const InviteShimmer();
+                  // InviteCard();
                 },
               ),
               SizedBox(height: 24.h),
@@ -116,7 +115,8 @@ class NetworkPage extends StatelessWidget {
                   // childAspectRatio: 0.75,
                 ),
                 itemBuilder: (BuildContext context, int index) {
-                  return const RecommendationCard();
+                  return const RecommendationShimmer();
+                  // RecommendationCard();
                 },
               ),
               SizedBox(height: 24.h),
@@ -152,7 +152,8 @@ class NetworkPage extends StatelessWidget {
                   itemCount: 6,
                   itemBuilder: (context, index) => Column(
                     children: [
-                      const ConnectionListTile(),
+                      const ConnectionShimmer(),
+                      // ConnectionListTile(),
                       Divider(
                         height: 0.h,
                       ),

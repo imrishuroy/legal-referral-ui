@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:legal_referral_ui/src/core/common_widgets/widgets.dart';
 import 'package:legal_referral_ui/src/core/constants/colors.dart';
-import 'package:legal_referral_ui/src/core/utils/utils.dart';
-import 'package:legal_referral_ui/src/core/widgets/custom_button.dart';
+import 'package:legal_referral_ui/src/core/constants/image_string_constants.dart';
 
 class RecommendationCard extends StatelessWidget {
   const RecommendationCard({super.key});
@@ -38,7 +38,7 @@ class RecommendationCard extends StatelessWidget {
               Align(
                 alignment: Alignment.centerRight,
                 child: SvgPicture.asset(
-                  ImageStringsUtil.cross,
+                  ImageStringConstants.cross,
                   height: 24.h,
                   width: 24.w,
                 ),

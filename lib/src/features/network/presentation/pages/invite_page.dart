@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:legal_referral_ui/src/features/network/presentation/widgets/invite_card.dart';
+import 'package:legal_referral_ui/src/features/network/presentation/widgets/shimmers/network_shimmer.dart';
 
 class InvitePage extends StatelessWidget {
   const InvitePage({super.key});
@@ -22,7 +22,8 @@ class InvitePage extends StatelessWidget {
           itemBuilder: (BuildContext context, int index) {
             return Padding(
               padding: EdgeInsets.symmetric(horizontal: 16.w),
-              child: const InviteCard(),
+              child: const InviteShimmer(),
+              // InviteCard(),
             );
           },
         ),

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:legal_referral_ui/src/core/common_widgets/custom_bottom_sheet.dart';
+import 'package:legal_referral_ui/src/core/common_widgets/custom_button.dart';
 import 'package:legal_referral_ui/src/core/constants/colors.dart';
-import 'package:legal_referral_ui/src/core/utils/utils.dart';
-import 'package:legal_referral_ui/src/core/widgets/custom_bottom_sheet.dart';
-import 'package:legal_referral_ui/src/core/widgets/custom_button.dart';
+import 'package:legal_referral_ui/src/core/constants/image_string_constants.dart';
 
 class ConnectionListTile extends StatelessWidget {
   const ConnectionListTile({
@@ -61,7 +61,7 @@ class ConnectionListTile extends StatelessWidget {
           const Spacer(),
           CustomIconButton(
             icon: SvgPicture.asset(
-              ImageStringsUtil.threeDots,
+              ImageStringConstants.threeDots,
             ),
             onTap: () {
               CustomBottomSheet.show(
@@ -79,7 +79,7 @@ class ConnectionListTile extends StatelessWidget {
                             color: LegalReferralColors.textGrey500,
                           ),
                       text: 'Message',
-                      icon: ImageStringsUtil.message,
+                      icon: ImageStringConstants.message,
                       onTap: () {},
                     ),
                     const Divider(),
@@ -88,7 +88,7 @@ class ConnectionListTile extends StatelessWidget {
                             color: LegalReferralColors.textGrey500,
                           ),
                       text: 'Remote Connection',
-                      icon: ImageStringsUtil.removeConnection,
+                      icon: ImageStringConstants.removeConnection,
                       onTap: () {},
                     ),
                     const Divider(),

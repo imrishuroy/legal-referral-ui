@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:legal_referral_ui/src/features/network/presentation/widgets/recommendation_card.dart';
+import 'package:legal_referral_ui/src/features/network/presentation/widgets/shimmers/network_shimmer.dart';
 
 class RecommendationPage extends StatelessWidget {
   const RecommendationPage({super.key});
@@ -27,7 +27,8 @@ class RecommendationPage extends StatelessWidget {
             // childAspectRatio: 0.75,
           ),
           itemBuilder: (BuildContext context, int index) {
-            return const RecommendationCard();
+            return const RecommendationShimmer();
+            // RecommendationCard();
           },
         ),
       ),
