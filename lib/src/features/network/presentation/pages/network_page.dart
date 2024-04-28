@@ -1,21 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:legal_referral_ui/src/core/constants/colors.dart';
-import 'package:legal_referral_ui/src/core/utils/utils.dart';
-import 'package:legal_referral_ui/src/core/widgets/custom_button.dart';
-import 'package:legal_referral_ui/src/core/widgets/custom_textfield.dart';
+import 'package:legal_referral_ui/src/core/common_widgets/widgets.dart';
+import 'package:legal_referral_ui/src/core/config/config.dart';
+import 'package:legal_referral_ui/src/core/constants/constants.dart';
 import 'package:legal_referral_ui/src/features/network/presentation/pages/connection_page.dart';
-import 'package:legal_referral_ui/src/features/network/presentation/pages/invite_page.dart';
+import 'package:legal_referral_ui/src/features/network/presentation/pages/invities_page.dart';
 import 'package:legal_referral_ui/src/features/network/presentation/pages/recommendation_page.dart';
-import 'package:legal_referral_ui/src/features/network/presentation/widgets/connection_listtile.dart';
-import 'package:legal_referral_ui/src/features/network/presentation/widgets/invite_card.dart';
-import 'package:legal_referral_ui/src/features/network/presentation/widgets/recommendation_card.dart';
+import 'package:legal_referral_ui/src/features/network/presentation/presentation.dart';
 
-class NetworkPage extends StatelessWidget {
-  NetworkPage({super.key});
-  static const String name = 'networkPage';
+class NetworkPage extends StatefulWidget {
+  const NetworkPage({super.key});
+  static const String name = 'NetworkPage';
+
+  @override
+  State<NetworkPage> createState() => _NetworkPageState();
+}
+
+class _NetworkPageState extends State<NetworkPage> {
   final TextEditingController _search = TextEditingController();
+
+  final _networkBloc = getIt<NetworkBloc>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,7 +46,7 @@ class NetworkPage extends StatelessWidget {
                 width: 8.w,
               ),
               SvgPicture.asset(
-                ImageStringsUtil.comment,
+                ImageStringConstants.comment,
               ),
             ],
           ),
@@ -65,7 +71,7 @@ class NetworkPage extends StatelessWidget {
                     onPressed: () {
                       Navigator.of(context).push(
                         MaterialPageRoute(
-                          builder: (context) => const InvitePage(),
+                          builder: (context) => const InvitesPage(),
                         ),
                       );
                     },
@@ -73,13 +79,8 @@ class NetworkPage extends StatelessWidget {
                 ],
               ),
               SizedBox(height: 12.h),
-              ListView.builder(
-                physics: const NeverScrollableScrollPhysics(),
-                shrinkWrap: true,
-                itemCount: 2,
-                itemBuilder: (BuildContext context, int index) {
-                  return const InviteCard();
-                },
+              InvitesSection(
+                networkBloc: _networkBloc,
               ),
               SizedBox(height: 24.h),
               Row(
@@ -103,21 +104,8 @@ class NetworkPage extends StatelessWidget {
                 ],
               ),
               SizedBox(height: 12.h),
-              GridView.builder(
-                physics: const NeverScrollableScrollPhysics(),
-                shrinkWrap: true,
-                itemCount: 4,
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  crossAxisSpacing: 8.w,
-                  mainAxisSpacing: 8.h,
-                  mainAxisExtent: 226.h,
-
-                  // childAspectRatio: 0.75,
-                ),
-                itemBuilder: (BuildContext context, int index) {
-                  return const RecommendationCard();
-                },
+              RecommendationsSection(
+                networkBloc: _networkBloc,
               ),
               SizedBox(height: 24.h),
               Row(
@@ -141,24 +129,8 @@ class NetworkPage extends StatelessWidget {
                 ],
               ),
               SizedBox(height: 12.h),
-              Container(
-                decoration: BoxDecoration(
-                  color: LegalReferralColors.containerWhite500,
-                  borderRadius: BorderRadius.circular(12.r),
-                ),
-                child: ListView.builder(
-                  physics: const NeverScrollableScrollPhysics(),
-                  shrinkWrap: true,
-                  itemCount: 6,
-                  itemBuilder: (context, index) => Column(
-                    children: [
-                      const ConnectionListTile(),
-                      Divider(
-                        height: 0.h,
-                      ),
-                    ],
-                  ),
-                ),
+              ConnectionsSection(
+                networkBloc: _networkBloc,
               ),
               SizedBox(height: 20.h),
             ],

@@ -8,6 +8,7 @@ import 'package:legal_referral_ui/src/features/profile/presentation/presentation
 import 'package:legal_referral_ui/src/features/wizard/presentation/presentation.dart';
 
 final _rootNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'parent');
+const _scaffoldKey = ValueKey('_scaffoldKey');
 
 const _routeAnimationDuration = 1;
 const _routeTransitionDuration = 500;
@@ -22,7 +23,7 @@ class AppRouter {
         name: SplashPage.name,
         parentNavigatorKey: _rootNavigatorKey,
         pageBuilder: (context, state) => CustomTransitionPage(
-          child: NetworkPage(),
+          child: const SplashPage(),
           transitionDuration: const Duration(
             seconds: _routeAnimationDuration,
           ),
@@ -139,9 +140,11 @@ class AppRouter {
       GoRoute(
         path: '/home',
         name: HomePage.name,
-        parentNavigatorKey: _rootNavigatorKey,
+        // parentNavigatorKey: _rootNavigatorKey,
         pageBuilder: (context, state) => CustomTransitionPage(
+          key: state.pageKey,
           child: const RootLayout(
+            key: _scaffoldKey,
             currentIndex: 0,
             child: HomePage(),
           ),
@@ -155,10 +158,10 @@ class AppRouter {
       GoRoute(
         path: '/network',
         name: NetworkPage.name,
-        parentNavigatorKey: _rootNavigatorKey,
         pageBuilder: (context, state) => CustomTransitionPage(
-          child: RootLayout(
-            currentIndex: 3,
+          child: const RootLayout(
+            key: _scaffoldKey,
+            currentIndex: 1,
             child: NetworkPage(),
           ),
           transitionDuration: const Duration(

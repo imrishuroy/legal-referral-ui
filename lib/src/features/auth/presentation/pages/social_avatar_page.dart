@@ -5,14 +5,15 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
+import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:legal_referral_ui/src/core/common_widgets/widgets.dart';
 import 'package:legal_referral_ui/src/core/config/config.dart';
 import 'package:legal_referral_ui/src/core/constants/colors.dart';
 import 'package:legal_referral_ui/src/core/utils/utils.dart';
 import 'package:legal_referral_ui/src/core/validators/validators.dart';
-import 'package:legal_referral_ui/src/features/auth/presentation/pages/edit_social_avatar.dart';
 import 'package:legal_referral_ui/src/features/auth/presentation/presentation.dart';
+import 'package:legal_referral_ui/src/features/profile/presentation/presentation.dart';
 import 'package:legal_referral_ui/src/features/wizard/presentation/presentation.dart';
 import 'package:toastification/toastification.dart';
 
@@ -29,10 +30,9 @@ class SocialAvatarPage extends StatefulWidget {
 
 class _SocialAvatarPageState extends State<SocialAvatarPage> {
   final _formKey = GlobalKey<FormState>();
-  File? _image;
+  File? _file;
   final _createPasswordController = TextEditingController();
   final _confirmPasswordController = TextEditingController();
-
   final _authBloc = getIt<AuthBloc>();
 
   @override
@@ -86,8 +86,14 @@ class _SocialAvatarPageState extends State<SocialAvatarPage> {
                               height: 8.w,
                             ),
                             GestureDetector(
-                              onTap: _showAvatarEditSheet,
-                              child: _image == null
+                              onTap: () async {
+                                if (_file != null) {
+                                  await _showAvatarEditSheet();
+                                  return;
+                                }
+                                await _pickMedia(context);
+                              },
+                              child: _file == null
                                   ? CircleAvatar(
                                       radius: 86.r,
                                       backgroundColor:
@@ -120,7 +126,7 @@ class _SocialAvatarPageState extends State<SocialAvatarPage> {
                                       onTap: _showAvatarEditSheet,
                                       child: CircleAvatar(
                                         radius: 86,
-                                        backgroundImage: FileImage(_image!),
+                                        backgroundImage: FileImage(_file!),
                                       ),
                                     ),
                             ),
@@ -166,6 +172,39 @@ class _SocialAvatarPageState extends State<SocialAvatarPage> {
     );
   }
 
+  Future _pickMedia(BuildContext context) async {
+    final mediaLocation = await ImageUtil.showMediaOptionSheet(context);
+    if (mediaLocation == MediaLocation.gallery) {
+      final pickedFile = await FilePickerUtil.pickFile(
+        allowedExtensions: [
+          FileExtension.jpg,
+          FileExtension.jpeg,
+          FileExtension.png,
+        ],
+      );
+
+      setState(() {
+        _file = pickedFile;
+      });
+    } else if (mediaLocation == MediaLocation.camera) {
+      if (context.mounted) {
+        await context.pushNamed<CameraPageArgs?>(
+          CameraPage.name,
+          extra: CameraPageArgs(
+            cropStyle: CropStyle.rectangle,
+            onImageCaptured: (filePath) {
+              if (filePath != null) {
+                setState(() {
+                  _file = File(filePath);
+                });
+              }
+            },
+          ),
+        );
+      }
+    }
+  }
+
   Future<void> _showAvatarEditSheet() async {
     await showModalBottomSheet(
       context: context,
@@ -173,24 +212,45 @@ class _SocialAvatarPageState extends State<SocialAvatarPage> {
       useSafeArea: true,
       builder: (context) {
         return EditProfileAvatar(
-          image: _image,
-          onEdit: () {
+          image: _file,
+          onEdit: () async {
             setState(() {
-              _image = null;
+              _file = null;
             });
             context.pop();
-            _pickFile(ImageSource.gallery);
+            final file = await ImageUtil.pickImage(
+              cropStyle: CropStyle.circle,
+            );
+            if (file != null) {
+              setState(() {
+                _file = file;
+              });
+            }
           },
-          onTakePhoto: () {
+          onTakePhoto: () async {
             setState(() {
-              _image = null;
+              _file = null;
             });
-            _pickFile(ImageSource.camera);
-            context.pop();
+            await context.pushNamed<CameraPageArgs?>(
+              CameraPage.name,
+              extra: CameraPageArgs(
+                cropStyle: CropStyle.rectangle,
+                onImageCaptured: (filePath) {
+                  if (filePath != null) {
+                    setState(() {
+                      _file = File(filePath);
+                    });
+                  }
+                },
+              ),
+            );
+            if (context.mounted) {
+              context.pop();
+            }
           },
           onDelete: () {
             setState(() {
-              _image = null;
+              _file = null;
             });
             context.pop();
           },
@@ -199,21 +259,8 @@ class _SocialAvatarPageState extends State<SocialAvatarPage> {
     );
   }
 
-  Future _pickFile(ImageSource source) async {
-    final picker = ImagePicker();
-    final pickedFile = await picker.pickImage(source: source);
-    if (pickedFile != null) {
-      AppLogger.info('pickedFile: ${pickedFile.path}');
-      setState(() {
-        _image = File(pickedFile.path);
-      });
-    } else {
-      AppLogger.info('No image selected');
-    }
-  }
-
   void _save() {
-    if (_image == null) {
+    if (_file == null) {
       ToastUtil.showToast(
         context,
         type: ToastificationType.warning,
@@ -238,7 +285,7 @@ class _SocialAvatarPageState extends State<SocialAvatarPage> {
       _authBloc.add(
         AuthSignedUp(
           password: _createPasswordController.text,
-          userImageFile: XFile(_image!.path),
+          userImageFile: XFile(_file!.path),
         ),
       );
     }

@@ -94,7 +94,7 @@ class _ShareAboutYouPageState extends State<ShareAboutYouPage> {
                             ),
                             SizedBox(height: 16.h),
                             CustomAutoComplete(
-                              options: CountriesConstant.countries,
+                              options: PracticeAreaConstants.allPracticeAreas,
                               hintText: 'Real estate, Finance etc',
                               labelText: 'Practice Area',
                               validator: (value) =>

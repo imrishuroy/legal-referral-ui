@@ -14,7 +14,7 @@ _$LicenseImpl _$$LicenseImplFromJson(Map<String, dynamic> json) =>
       issueDate: const LicenseDateTimeConverter()
           .fromJson(json['issue_date'] as String),
       issueState: json['issue_state'] as String,
-      id: json['license_id'] as int?,
+      id: (json['license_id'] as num?)?.toInt(),
     );
 
 Map<String, dynamic> _$$LicenseImplToJson(_$LicenseImpl instance) =>

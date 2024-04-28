@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:legal_referral_ui/src/core/constants/colors.dart';
-import 'package:legal_referral_ui/src/core/utils/utils.dart';
-import 'package:legal_referral_ui/src/core/widgets/custom_button.dart';
-import 'package:legal_referral_ui/src/core/widgets/custom_textfield.dart';
-import 'package:legal_referral_ui/src/features/network/presentation/widgets/connection_listtile.dart';
+import 'package:legal_referral_ui/src/core/common_widgets/widgets.dart';
+import 'package:legal_referral_ui/src/core/constants/constants.dart';
+import 'package:legal_referral_ui/src/features/network/presentation/widgets/connection_tile.dart';
 
 class ConnectionPage extends StatelessWidget {
   ConnectionPage({super.key});
@@ -85,7 +83,7 @@ class ConnectionPage extends StatelessWidget {
                   width: 8.w,
                 ),
                 SvgPicture.asset(
-                  ImageStringsUtil.filter,
+                  ImageStringConstants.filter,
                 ),
               ],
             ),
@@ -113,7 +111,9 @@ class ConnectionPage extends StatelessWidget {
                   itemCount: 20,
                   itemBuilder: (context, index) => Column(
                     children: [
-                      const ConnectionListTile(),
+                      const ConnectionTile(
+                        connection: null,
+                      ),
                       Divider(
                         height: 0.h,
                       ),

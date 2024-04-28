@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:legal_referral_ui/src/core/constants/nav_destinations.dart';
-import 'package:legal_referral_ui/src/core/widgets/adaptive_navigation.dart';
+import 'package:legal_referral_ui/src/core/common_widgets/widgets.dart';
+import 'package:legal_referral_ui/src/core/constants/constants.dart';
 
 class RootLayout extends StatelessWidget {
   const RootLayout({

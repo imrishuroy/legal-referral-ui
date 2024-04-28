@@ -20,7 +20,7 @@ _$EducationImpl _$$EducationImplFromJson(Map<String, dynamic> json) =>
       achievements: json['achievements'] as String?,
       skills:
           (json['skills'] as List<dynamic>).map((e) => e as String).toList(),
-      educationId: json['education_id'] as int?,
+      educationId: (json['education_id'] as num?)?.toInt(),
     );
 
 Map<String, dynamic> _$$EducationImplToJson(_$EducationImpl instance) =>

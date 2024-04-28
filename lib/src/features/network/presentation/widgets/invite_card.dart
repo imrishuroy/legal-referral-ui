@@ -1,10 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:legal_referral_ui/src/core/common_widgets/widgets.dart';
 import 'package:legal_referral_ui/src/core/constants/colors.dart';
-import 'package:legal_referral_ui/src/core/widgets/custom_button.dart';
+import 'package:legal_referral_ui/src/features/network/domain/domain.dart';
 
 class InviteCard extends StatelessWidget {
-  const InviteCard({super.key});
+  const InviteCard({
+    required this.invitation,
+    required this.onAccept,
+    required this.onReject,
+    super.key,
+  });
+
+  final ConnectionInvitation? invitation;
+  final VoidCallback onAccept;
+  final VoidCallback onReject;
 
   @override
   Widget build(BuildContext context) {
@@ -36,11 +46,9 @@ class InviteCard extends StatelessWidget {
                     width: 1.w,
                   ),
                 ),
-                child: CircleAvatar(
+                child: CustomAvatar(
+                  imageUrl: invitation?.avatarUrl,
                   radius: 25.r,
-                  backgroundImage: const AssetImage(
-                    'assets/tempImages/Ellipse 41.png',
-                  ),
                 ),
               ),
               SizedBox(
@@ -50,11 +58,12 @@ class InviteCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'John Tim',
+                    '${invitation?.firstName ?? ''} '
+                    '${invitation?.lastName ?? ''}',
                     style: Theme.of(context).textTheme.labelMedium,
                   ),
                   Text(
-                    'Legal Advisor, ONIO • 2nd',
+                    invitation?.about ?? '',
                     style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                           color: LegalReferralColors.textGrey500,
                         ),
@@ -74,7 +83,10 @@ class InviteCard extends StatelessWidget {
               Expanded(
                 child: SizedBox(
                   height: 36.h,
-                  child: CustomOutlinedButton(onPressed: () {}, text: 'Reject'),
+                  child: CustomOutlinedButton(
+                    onPressed: onReject,
+                    text: 'Reject',
+                  ),
                 ),
               ),
               SizedBox(
@@ -83,7 +95,10 @@ class InviteCard extends StatelessWidget {
               Expanded(
                 child: SizedBox(
                   height: 36.h,
-                  child: CustomElevatedButton(onTap: () {}, text: 'Accept'),
+                  child: CustomElevatedButton(
+                    onTap: onAccept,
+                    text: 'Accept',
+                  ),
                 ),
               ),
             ],

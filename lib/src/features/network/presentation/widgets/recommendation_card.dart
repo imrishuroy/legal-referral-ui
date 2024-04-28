@@ -1,12 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:legal_referral_ui/src/core/constants/colors.dart';
-import 'package:legal_referral_ui/src/core/utils/utils.dart';
-import 'package:legal_referral_ui/src/core/widgets/custom_button.dart';
+import 'package:legal_referral_ui/src/core/common_widgets/widgets.dart';
+import 'package:legal_referral_ui/src/core/constants/constants.dart';
+import 'package:legal_referral_ui/src/features/network/domain/domain.dart';
 
 class RecommendationCard extends StatelessWidget {
-  const RecommendationCard({super.key});
+  const RecommendationCard({
+    required this.recommendation,
+    required this.onConnect,
+    required this.onCancel,
+    super.key,
+  });
+
+  final Recommendation? recommendation;
+  final VoidCallback onConnect;
+  final VoidCallback onCancel;
 
   @override
   Widget build(BuildContext context) {
@@ -17,11 +26,13 @@ class RecommendationCard extends StatelessWidget {
       children: [
         ClipRRect(
           borderRadius: BorderRadius.circular(4.r),
-          child: Image.asset(
-            'assets/tempImages/person.jpg',
-            fit: BoxFit.cover,
-            // width: 167.w,
+          child: CustomNetworkImage(
+            imageUrl: recommendation?.avatarUrl,
+            width: double.infinity,
             height: 226.h,
+            placeholder: const AssetImage(
+              ImageStringConstants.avatarPlaceholder,
+            ),
           ),
         ),
         Container(
@@ -37,27 +48,41 @@ class RecommendationCard extends StatelessWidget {
             children: [
               Align(
                 alignment: Alignment.centerRight,
-                child: SvgPicture.asset(
-                  ImageStringsUtil.cross,
-                  height: 24.h,
-                  width: 24.w,
+                child: GestureDetector(
+                  onTap: onCancel,
+                  child: SvgPicture.asset(
+                    ImageStringConstants.cross,
+                    height: 24.h,
+                    width: 24.w,
+                  ),
                 ),
               ),
               const Spacer(),
               Text(
-                'John Do',
+                '${recommendation?.firstName ?? ''} '
+                '${recommendation?.lastName ?? ''}',
                 style: theme.textTheme.headlineSmall
                     ?.copyWith(color: textWhite450),
               ),
               Text(
-                'Real estate attorney',
-                style:
-                    theme.textTheme.bodyMedium?.copyWith(color: textWhite450),
+                recommendation?.about ?? '',
+                style: theme.textTheme.bodyMedium?.copyWith(
+                  color: textWhite450,
+                ),
               ),
               SizedBox(height: 12.h),
               SizedBox(
                 height: 36.h,
-                child: CustomElevatedButton(onTap: () {}, text: 'Connect'),
+                child: CustomElevatedButton(
+                  onTap: recommendation?.status !=
+                          ConnectionInvitationStatus.pending
+                      ? onConnect
+                      : null,
+                  text: recommendation?.status ==
+                          ConnectionInvitationStatus.pending
+                      ? 'Pending'
+                      : 'Connect',
+                ),
               ),
             ],
           ),

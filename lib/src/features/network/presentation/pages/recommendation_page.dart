@@ -23,11 +23,13 @@ class RecommendationPage extends StatelessWidget {
             crossAxisSpacing: 8.w,
             mainAxisSpacing: 8.h,
             mainAxisExtent: 226.h,
-
-            // childAspectRatio: 0.75,
           ),
           itemBuilder: (BuildContext context, int index) {
-            return const RecommendationCard();
+            return RecommendationCard(
+              recommendation: null,
+              onConnect: () {},
+              onCancel: () {},
+            );
           },
         ),
       ),

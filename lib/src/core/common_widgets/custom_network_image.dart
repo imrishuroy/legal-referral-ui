@@ -8,39 +8,44 @@ class CustomNetworkImage extends StatelessWidget {
     required this.imageUrl,
     required this.height,
     required this.width,
+    this.fit = BoxFit.cover,
+    this.placeholder,
     super.key,
   });
 
   final String? imageUrl;
-  final double height;
-  final double width;
+  final double? height;
+  final double? width;
+  final BoxFit fit;
+  final ImageProvider? placeholder;
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 140.h,
-      width: double.infinity,
+      height: height ?? 140.h,
+      width: width ?? double.infinity,
       child: FadeInImage(
-        placeholder: const AssetImage(
-          ImageStringConstants.imagePlaceholder,
-        ),
+        placeholder: placeholder ??
+            const AssetImage(
+              ImageStringConstants.imagePlaceholder,
+            ),
         image: CachedNetworkImageProvider(
           imageUrl ?? '',
         ),
-        fit: BoxFit.cover,
-        height: 140.h,
-        width: double.infinity,
+        fit: fit,
+        height: height ?? 140.h,
+        width: width ?? double.infinity,
         fadeInDuration: const Duration(
-          milliseconds: 300,
+          milliseconds: 200,
         ),
         fadeOutDuration: const Duration(
           milliseconds: 100,
         ),
         imageErrorBuilder: (context, url, error) => Image.asset(
           ImageStringConstants.imagePlaceholder,
-          fit: BoxFit.cover,
-          height: 140.h,
-          width: double.infinity,
+          fit: fit,
+          height: height ?? 140.h,
+          width: width ?? double.infinity,
         ),
       ),
     );

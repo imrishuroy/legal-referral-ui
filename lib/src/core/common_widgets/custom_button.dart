@@ -93,29 +93,32 @@ class CustomElevatedButton extends StatelessWidget {
     required this.text,
     super.key,
   });
-  final VoidCallback onTap;
+  final VoidCallback? onTap;
 
   final String text;
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        height: 57.h,
-        width: double.infinity,
-        decoration: BoxDecoration(
-          color: LegalReferralColors.containerBlue100,
-          borderRadius: BorderRadius.circular(4.r),
+    return SizedBox(
+      height: 57.h,
+      width: double.infinity,
+      child: ElevatedButton(
+        onPressed: onTap,
+        style: ElevatedButton.styleFrom(
+          elevation: 2,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(4.r),
+          ),
+          backgroundColor: LegalReferralColors.containerBlue100,
+          disabledBackgroundColor: Colors.grey,
+          disabledForegroundColor: Colors.white,
         ),
-        child: Center(
-          child: Text(
-            text,
-            style: TextStyle(
-              color: LegalReferralColors.textWhite450,
-              fontWeight: FontWeight.w600,
-              fontSize: 18.h,
-            ),
+        child: Text(
+          text,
+          style: TextStyle(
+            color: LegalReferralColors.textWhite450,
+            fontWeight: onTap != null ? FontWeight.w600 : FontWeight.w500,
+            fontSize: 18.h,
           ),
         ),
       ),

@@ -13,7 +13,7 @@ _$PriceImpl _$$PriceImplFromJson(Map<String, dynamic> json) => _$PriceImpl(
       perHearingPrice: (json['per_hearing_price'] as num?)?.toDouble(),
       contingencyPrice: json['contingency_price'] as String?,
       hybridPrice: json['hybrid_price'] as String?,
-      priceId: json['price_id'] as int?,
+      priceId: (json['price_id'] as num?)?.toInt(),
       userId: json['user_id'] as String?,
     );
 
