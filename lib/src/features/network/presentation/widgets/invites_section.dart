@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:legal_referral_ui/src/core/common_widgets/widgets.dart';
 import 'package:legal_referral_ui/src/core/config/config.dart';
 import 'package:legal_referral_ui/src/features/auth/presentation/presentation.dart';
 import 'package:legal_referral_ui/src/features/network/presentation/presentation.dart';
@@ -42,7 +41,9 @@ class _InvitesSectionState extends State<InvitesSection> {
       listener: (context, state) {},
       builder: (context, state) {
         if (state.inviteStatus == InviteStatus.loading) {
-          return const CustomLoadingIndicator();
+          return const InviteShimmer(
+            itemCount: 2,
+          );
         }
         return ListView.builder(
           physics: const NeverScrollableScrollPhysics(),

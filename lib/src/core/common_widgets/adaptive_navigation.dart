@@ -23,6 +23,9 @@ class AdaptiveNavigation extends StatelessWidget {
         return Scaffold(
           bottomNavigationBar: NavigationBar(
             indicatorColor: Colors.transparent,
+            backgroundColor: Colors.white,
+            surfaceTintColor: Colors.white,
+            elevation: 12,
             destinations: destinations.map((item) {
               return NavigationDestination(
                 icon: item.icon,

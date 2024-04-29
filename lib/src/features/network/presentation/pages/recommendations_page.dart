@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:legal_referral_ui/src/core/common_widgets/widgets.dart';
 import 'package:legal_referral_ui/src/core/config/config.dart';
 import 'package:legal_referral_ui/src/features/auth/presentation/presentation.dart';
 import 'package:legal_referral_ui/src/features/network/presentation/presentation.dart';
@@ -49,7 +48,9 @@ class _RecommendationPageState extends State<RecommendationPage> {
         listener: (context, state) {},
         builder: (context, state) {
           if (state.status == NetworkStatus.loading) {
-            return const CustomLoadingIndicator();
+            return const RecommendationsShimmer(
+              itemCount: 4,
+            );
           }
 
           final recommendations = state.recommendations;

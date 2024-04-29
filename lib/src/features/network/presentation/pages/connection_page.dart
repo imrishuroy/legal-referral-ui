@@ -132,7 +132,7 @@ class _ConnectionPageState extends State<ConnectionPage> {
                 listener: (context, state) {},
                 builder: (context, state) {
                   if (state.status == NetworkStatus.loading) {
-                    return const CustomLoadingIndicator();
+                    return const InviteShimmer(itemCount: 10);
                   }
                   return Column(
                     crossAxisAlignment: CrossAxisAlignment.start,

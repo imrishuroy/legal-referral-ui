@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:legal_referral_ui/src/core/common_widgets/widgets.dart';
 import 'package:legal_referral_ui/src/core/config/config.dart';
 import 'package:legal_referral_ui/src/core/constants/constants.dart';
 import 'package:legal_referral_ui/src/features/auth/presentation/presentation.dart';
@@ -41,7 +40,9 @@ class _ConnectionsSectionState extends State<ConnectionsSection> {
       bloc: widget.networkBloc,
       builder: (context, state) {
         if (state.connectionStatus == ConnectionStatus.loading) {
-          return const CustomLoadingIndicator();
+          return const ConnectionsShimmer(
+            itemCount: 6,
+          );
         }
 
         if (state.connectionStatus == ConnectionStatus.success) {

@@ -8,3 +8,4 @@ export 'widgets/invite_card.dart';
 export 'widgets/invites_section.dart';
 export 'widgets/recommendation_card.dart';
 export 'widgets/recommendations_section.dart';
+export 'widgets/shimmers/shimmers.dart';
