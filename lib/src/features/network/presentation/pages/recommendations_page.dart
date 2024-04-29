@@ -6,16 +6,16 @@ import 'package:legal_referral_ui/src/core/config/config.dart';
 import 'package:legal_referral_ui/src/features/auth/presentation/presentation.dart';
 import 'package:legal_referral_ui/src/features/network/presentation/presentation.dart';
 
-class InvitesPage extends StatefulWidget {
-  const InvitesPage({super.key});
+class RecommendationPage extends StatefulWidget {
+  const RecommendationPage({super.key});
 
-  static const String name = 'InvitesPage';
+  static const String name = 'RecommendationPage';
 
   @override
-  State<InvitesPage> createState() => _InvitesPageState();
+  State<RecommendationPage> createState() => _RecommendationPageState();
 }
 
-class _InvitesPageState extends State<InvitesPage> {
+class _RecommendationPageState extends State<RecommendationPage> {
   final _authBloc = getIt<AuthBloc>();
   final _networkBloc = getIt<NetworkBloc>();
 
@@ -24,13 +24,14 @@ class _InvitesPageState extends State<InvitesPage> {
     final userId = _authBloc.state.user?.userId;
     if (userId != null) {
       _networkBloc.add(
-        ConnectionInvitationsFetched(
+        RecommendationsFetched(
           userId: userId,
           offset: 1,
           limit: 10,
         ),
       );
     }
+
     super.initState();
   }
 
@@ -39,7 +40,7 @@ class _InvitesPageState extends State<InvitesPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Invites',
+          'Recommendation',
           style: Theme.of(context).textTheme.headlineLarge,
         ),
       ),
@@ -50,30 +51,24 @@ class _InvitesPageState extends State<InvitesPage> {
           if (state.status == NetworkStatus.loading) {
             return const CustomLoadingIndicator();
           }
-          final invitations = state.connectionInvitations;
+
+          final recommendations = state.recommendations;
           return Padding(
-            padding: EdgeInsets.symmetric(vertical: 12.h),
-            child: ListView.builder(
-              itemCount: invitations.length,
+            padding: const EdgeInsets.all(16),
+            child: GridView.builder(
+              itemCount: recommendations.length,
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                crossAxisSpacing: 8.w,
+                mainAxisSpacing: 8.h,
+                mainAxisExtent: 226.h,
+              ),
               itemBuilder: (BuildContext context, int index) {
-                final invitation = invitations[index];
-                return Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 16.w),
-                  child: InviteCard(
-                    invitation: invitation,
-                    onAccept: () {
-                      final userId = _authBloc.state.user?.userId;
-                      if (invitation?.id != null && userId != null) {
-                        _networkBloc.add(
-                          ConnectionAccepted(
-                            connectionId: invitation!.id!,
-                            userId: userId,
-                          ),
-                        );
-                      }
-                    },
-                    onReject: () {},
-                  ),
+                final recommendation = recommendations[index];
+                return RecommendationCard(
+                  recommendation: recommendation,
+                  onConnect: () {},
+                  onCancel: () {},
                 );
               },
             ),

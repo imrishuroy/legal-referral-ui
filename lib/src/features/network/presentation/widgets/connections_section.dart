@@ -58,7 +58,8 @@ class _ConnectionsSectionState extends State<ConnectionsSection> {
                 connection: state.connections[index],
               ),
               separatorBuilder: (context, index) => Divider(
-                height: 0.h,
+                height: 2.h,
+                color: LegalReferralColors.borderGrey100,
               ),
             ),
           );

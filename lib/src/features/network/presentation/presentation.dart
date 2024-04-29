@@ -1,4 +1,7 @@
 export 'bloc/network_bloc.dart';
+export 'pages/connection_page.dart';
+export 'pages/invities_page.dart';
+export 'pages/recommendations_page.dart';
 export 'widgets/connection_tile.dart';
 export 'widgets/connections_section.dart';
 export 'widgets/invite_card.dart';

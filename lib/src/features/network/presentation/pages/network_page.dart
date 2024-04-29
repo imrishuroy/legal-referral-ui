@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:legal_referral_ui/src/core/common_widgets/widgets.dart';
 import 'package:legal_referral_ui/src/core/config/config.dart';
 import 'package:legal_referral_ui/src/core/constants/constants.dart';
-import 'package:legal_referral_ui/src/features/network/presentation/pages/connection_page.dart';
-import 'package:legal_referral_ui/src/features/network/presentation/pages/invities_page.dart';
-import 'package:legal_referral_ui/src/features/network/presentation/pages/recommendation_page.dart';
 import 'package:legal_referral_ui/src/features/network/presentation/presentation.dart';
 
 class NetworkPage extends StatefulWidget {
@@ -18,7 +16,7 @@ class NetworkPage extends StatefulWidget {
 }
 
 class _NetworkPageState extends State<NetworkPage> {
-  final TextEditingController _search = TextEditingController();
+  final TextEditingController _searchController = TextEditingController();
 
   final _networkBloc = getIt<NetworkBloc>();
 
@@ -33,7 +31,7 @@ class _NetworkPageState extends State<NetworkPage> {
               Expanded(
                 child: SizedBox(
                   child: CustomTextField(
-                    controller: _search,
+                    controller: _searchController,
                     hintText: 'search',
                     labelText: '',
                     showLabel: false,
@@ -68,13 +66,9 @@ class _NetworkPageState extends State<NetworkPage> {
                   CustomTextButton(
                     fontSize: Theme.of(context).textTheme.bodyLarge?.fontSize,
                     text: 'View All',
-                    onPressed: () {
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context) => const InvitesPage(),
-                        ),
-                      );
-                    },
+                    onPressed: () => context.pushNamed(
+                      InvitesPage.name,
+                    ),
                   ),
                 ],
               ),
@@ -93,13 +87,9 @@ class _NetworkPageState extends State<NetworkPage> {
                   CustomTextButton(
                     fontSize: Theme.of(context).textTheme.bodyLarge?.fontSize,
                     text: 'View All',
-                    onPressed: () {
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context) => const RecommendationPage(),
-                        ),
-                      );
-                    },
+                    onPressed: () => context.pushNamed(
+                      RecommendationPage.name,
+                    ),
                   ),
                 ],
               ),
@@ -118,13 +108,9 @@ class _NetworkPageState extends State<NetworkPage> {
                   CustomTextButton(
                     fontSize: Theme.of(context).textTheme.bodyLarge?.fontSize,
                     text: 'View All',
-                    onPressed: () {
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context) => ConnectionPage(),
-                        ),
-                      );
-                    },
+                    onPressed: () => context.pushNamed(
+                      ConnectionPage.name,
+                    ),
                   ),
                 ],
               ),
@@ -138,5 +124,11 @@ class _NetworkPageState extends State<NetworkPage> {
         ),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    _searchController.dispose();
+    super.dispose();
   }
 }

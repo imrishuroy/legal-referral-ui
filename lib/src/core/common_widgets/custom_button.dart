@@ -25,27 +25,28 @@ class CustomOutlinedButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      highlightColor: Colors.transparent,
-      borderRadius: BorderRadius.circular(4.r),
-      onTap: onPressed,
-      child: Container(
-        height: height ?? 57.h,
-        width: width ?? double.infinity,
-        decoration: BoxDecoration(
-          border: Border.all(
+    return SizedBox(
+      height: height ?? 57.h,
+      width: width ?? double.infinity,
+      child: ElevatedButton(
+        onPressed: onPressed,
+        style: ElevatedButton.styleFrom(
+          side: BorderSide(
             color: borderColor ?? LegalReferralColors.textGrey400,
+            width: 0.4,
           ),
-          borderRadius: BorderRadius.circular(borderRadius ?? 4.r),
+          elevation: 2,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(4.r),
+          ),
+          backgroundColor: Colors.white,
+          foregroundColor: LegalReferralColors.textGrey400,
         ),
-        child: Center(
-          child: Text(
-            text,
-            style: TextStyle(
-              fontSize: 18.h,
-              fontWeight: FontWeight.w600,
-              color: textColor ?? LegalReferralColors.textGrey400,
-            ),
+        child: Text(
+          text,
+          style: TextStyle(
+            color: textColor ?? LegalReferralColors.textGrey400,
+            fontSize: 16.h,
           ),
         ),
       ),
@@ -117,8 +118,7 @@ class CustomElevatedButton extends StatelessWidget {
           text,
           style: TextStyle(
             color: LegalReferralColors.textWhite450,
-            fontWeight: onTap != null ? FontWeight.w600 : FontWeight.w500,
-            fontSize: 18.h,
+            fontSize: 16.h,
           ),
         ),
       ),

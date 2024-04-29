@@ -1,13 +1,42 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:legal_referral_ui/src/core/common_widgets/widgets.dart';
+import 'package:legal_referral_ui/src/core/config/config.dart';
 import 'package:legal_referral_ui/src/core/constants/constants.dart';
-import 'package:legal_referral_ui/src/features/network/presentation/widgets/connection_tile.dart';
+import 'package:legal_referral_ui/src/features/auth/presentation/presentation.dart';
+import 'package:legal_referral_ui/src/features/network/presentation/presentation.dart';
 
-class ConnectionPage extends StatelessWidget {
-  ConnectionPage({super.key});
-  final TextEditingController _search = TextEditingController();
+class ConnectionPage extends StatefulWidget {
+  const ConnectionPage({super.key});
+
+  static const String name = 'ConnectionPage';
+
+  @override
+  State<ConnectionPage> createState() => _ConnectionPageState();
+}
+
+class _ConnectionPageState extends State<ConnectionPage> {
+  final TextEditingController _searchController = TextEditingController();
+  final _authBloc = getIt<AuthBloc>();
+  final _networkBloc = getIt<NetworkBloc>();
+
+  @override
+  void initState() {
+    final userId = _authBloc.state.user?.userId;
+    if (userId != null) {
+      _networkBloc.add(
+        ConnectionsFetched(
+          userId: userId,
+          offset: 1,
+          limit: 10,
+        ),
+      );
+    }
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,31 +54,38 @@ class ConnectionPage extends StatelessWidget {
               50.h,
             ),
             child: Padding(
-              padding: const EdgeInsets.all(8),
+              padding: EdgeInsets.only(
+                left: 16.w,
+                right: 16.w,
+                bottom: 16.h,
+              ),
               child: Row(
                 children: [
-                  CustomOutlinedButton(
-                    borderRadius: 52.r,
-                    height: 35.h,
-                    width: 52.w,
-                    onPressed: () {},
-                    text: 'All',
+                  Chip(
+                    label: const Text('All'),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(18.r),
+                      ),
+                    ),
                   ),
                   SizedBox(width: 8.w),
-                  CustomOutlinedButton(
-                    borderRadius: 52.r,
-                    height: 35.h,
-                    width: 52.w,
-                    onPressed: () {},
-                    text: '1st',
+                  Chip(
+                    label: const Text('1st'),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(18.r),
+                      ),
+                    ),
                   ),
                   SizedBox(width: 8.w),
-                  CustomOutlinedButton(
-                    borderRadius: 52.r,
-                    height: 35.h,
-                    width: 52.w,
-                    onPressed: () {},
-                    text: '2nd',
+                  Chip(
+                    label: const Text('2nd'),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(18.r),
+                      ),
+                    ),
                   ),
                 ],
               ),
@@ -70,7 +106,7 @@ class ConnectionPage extends StatelessWidget {
                 Expanded(
                   child: SizedBox(
                     child: CustomTextField(
-                      controller: _search,
+                      controller: _searchController,
                       hintText: 'search',
                       labelText: '',
                       showLabel: false,
@@ -90,40 +126,53 @@ class ConnectionPage extends StatelessWidget {
             SizedBox(
               height: 16.h,
             ),
-            Text(
-              '132 CONNECTIONS',
-              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                    color: LegalReferralColors.textGrey500,
-                  ),
-            ),
-            SizedBox(
-              height: 8.h,
-            ),
             Expanded(
-              child: Container(
-                decoration: BoxDecoration(
-                  color: LegalReferralColors.containerWhite500,
-                  borderRadius: BorderRadius.circular(12.r),
-                ),
-                child: ListView.builder(
-                  // physics: const NeverScrollableScrollPhysics(),
-                  shrinkWrap: true,
-                  itemCount: 20,
-                  itemBuilder: (context, index) => Column(
+              child: BlocConsumer<NetworkBloc, NetworkState>(
+                bloc: _networkBloc,
+                listener: (context, state) {},
+                builder: (context, state) {
+                  if (state.status == NetworkStatus.loading) {
+                    return const CustomLoadingIndicator();
+                  }
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const ConnectionTile(
-                        connection: null,
+                      Text(
+                        '${state.connections.length} CONNECTIONS',
+                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                              color: LegalReferralColors.textGrey500,
+                            ),
                       ),
-                      Divider(
-                        height: 0.h,
+                      SizedBox(
+                        height: 8.h,
+                      ),
+                      Expanded(
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: LegalReferralColors.containerWhite500,
+                            borderRadius: BorderRadius.circular(12.r),
+                          ),
+                          child: ListView.separated(
+                            itemCount: state.connections.length,
+                            itemBuilder: (context, index) {
+                              return ConnectionTile(
+                                connection: state.connections[index],
+                              );
+                            },
+                            separatorBuilder: (context, index) => Divider(
+                              height: 2.h,
+                              color: LegalReferralColors.borderGrey100,
+                            ),
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 8.h,
                       ),
                     ],
-                  ),
-                ),
+                  );
+                },
               ),
-            ),
-            SizedBox(
-              height: 8.h,
             ),
           ],
         ),

@@ -4,6 +4,7 @@ import 'package:legal_referral_ui/src/core/common_widgets/widgets.dart';
 import 'package:legal_referral_ui/src/features/auth/presentation/presentation.dart';
 import 'package:legal_referral_ui/src/features/home_page.dart';
 import 'package:legal_referral_ui/src/features/network/presentation/pages/network_page.dart';
+import 'package:legal_referral_ui/src/features/network/presentation/presentation.dart';
 import 'package:legal_referral_ui/src/features/profile/presentation/presentation.dart';
 import 'package:legal_referral_ui/src/features/wizard/presentation/presentation.dart';
 
@@ -170,6 +171,47 @@ class AppRouter {
           transitionsBuilder: (_, a, __, c) =>
               FadeTransition(opacity: a, child: c),
         ),
+        routes: [
+          GoRoute(
+            path: 'connection',
+            name: ConnectionPage.name,
+            parentNavigatorKey: _rootNavigatorKey,
+            pageBuilder: (context, state) => CustomTransitionPage(
+              child: const ConnectionPage(),
+              transitionDuration: const Duration(
+                milliseconds: _routeTransitionDuration,
+              ),
+              transitionsBuilder: (_, a, __, c) =>
+                  FadeTransition(opacity: a, child: c),
+            ),
+          ),
+          GoRoute(
+            path: 'recommendation',
+            name: RecommendationPage.name,
+            parentNavigatorKey: _rootNavigatorKey,
+            pageBuilder: (context, state) => CustomTransitionPage(
+              child: const RecommendationPage(),
+              transitionDuration: const Duration(
+                milliseconds: _routeTransitionDuration,
+              ),
+              transitionsBuilder: (_, a, __, c) =>
+                  FadeTransition(opacity: a, child: c),
+            ),
+          ),
+          GoRoute(
+            path: 'invites',
+            name: InvitesPage.name,
+            parentNavigatorKey: _rootNavigatorKey,
+            pageBuilder: (context, state) => CustomTransitionPage(
+              child: const InvitesPage(),
+              transitionDuration: const Duration(
+                milliseconds: _routeTransitionDuration,
+              ),
+              transitionsBuilder: (_, a, __, c) =>
+                  FadeTransition(opacity: a, child: c),
+            ),
+          ),
+        ],
       ),
       GoRoute(
         path: '/profile',
