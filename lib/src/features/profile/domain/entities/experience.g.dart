@@ -19,8 +19,8 @@ _$ExperienceImpl _$$ExperienceImplFromJson(Map<String, dynamic> json) =>
           (json['skills'] as List<dynamic>).map((e) => e as String?).toList(),
       description: json['description'] as String?,
       current: json['current'] as bool? ?? false,
-      firmId: json['firm_id'] as int?,
-      experienceId: json['experience_id'] as int?,
+      firmId: (json['firm_id'] as num?)?.toInt(),
+      experienceId: (json['experience_id'] as num?)?.toInt(),
       userId: json['user_id'] as String?,
     );
 

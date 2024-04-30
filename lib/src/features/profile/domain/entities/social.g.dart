@@ -10,7 +10,7 @@ _$SocialImpl _$$SocialImplFromJson(Map<String, dynamic> json) => _$SocialImpl(
       entityType: $enumDecode(_$EntityTypeEnumMap, json['entity_type']),
       platform: $enumDecode(_$SocialPlatformEnumMap, json['platform']),
       link: json['link'] as String,
-      socialId: json['social_id'] as int?,
+      socialId: (json['social_id'] as num?)?.toInt(),
       entityId: json['entity_id'] as String?,
     );
 

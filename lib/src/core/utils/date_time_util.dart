@@ -1,4 +1,5 @@
 import 'package:intl/intl.dart';
+import 'package:timeago/timeago.dart' as timeago;
 
 class DateTimeUtil {
   factory DateTimeUtil() => DateTimeUtil._internal();
@@ -43,5 +44,12 @@ class DateTimeUtil {
     }
 
     return '$formattedStart - $formattedEnd';
+  }
+
+  static String timeAgo(DateTime? dateTime) {
+    if (dateTime == null) {
+      return '';
+    }
+    return timeago.format(dateTime, locale: '');
   }
 }

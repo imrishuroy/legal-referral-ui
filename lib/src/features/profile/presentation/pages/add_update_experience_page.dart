@@ -4,7 +4,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:legal_referral_ui/src/core/common_widgets/widgets.dart';
 import 'package:legal_referral_ui/src/core/constants/constants.dart';
-import 'package:legal_referral_ui/src/core/constants/practice_area_constants.dart';
 import 'package:legal_referral_ui/src/core/constants/skills_constants.dart';
 import 'package:legal_referral_ui/src/core/constants/state_constant.dart';
 import 'package:legal_referral_ui/src/core/utils/utils.dart';

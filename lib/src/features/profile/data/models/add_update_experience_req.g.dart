@@ -11,7 +11,7 @@ AddUpdateExperienceReq _$AddUpdateExperienceReqFromJson(
     AddUpdateExperienceReq(
       title: json['title'] as String,
       practiceArea: json['practice_area'] as String,
-      firmId: json['firm_id'] as int,
+      firmId: (json['firm_id'] as num).toInt(),
       practiceLocation: json['practice_location'] as String,
       startDate: const AddExperienceReqDateTimeConverter()
           .fromJson(json['start_date'] as String),

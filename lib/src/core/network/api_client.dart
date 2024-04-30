@@ -4,6 +4,8 @@ import 'package:dio/dio.dart';
 import 'package:legal_referral_ui/src/core/config/config.dart';
 import 'package:legal_referral_ui/src/features/auth/data/data.dart';
 import 'package:legal_referral_ui/src/features/auth/domain/domain.dart';
+import 'package:legal_referral_ui/src/features/network/data/data.dart';
+import 'package:legal_referral_ui/src/features/network/domain/domain.dart';
 import 'package:legal_referral_ui/src/features/profile/data/data.dart';
 import 'package:legal_referral_ui/src/features/profile/domain/domain.dart';
 import 'package:legal_referral_ui/src/features/wizard/data/data.dart';
@@ -217,5 +219,48 @@ abstract class APIClient {
   Future<ResponseMsg?> deleteEducation(
     @Path('userId') String userId,
     @Path('educationId') int educationId,
+  );
+
+  // network
+
+  @POST('/connections/send')
+  Future<ResponseMsg?> sendConnection(
+    @Body() SendConnectionReq sendConnectionReq,
+  );
+
+  @POST('/connections/{id}/accept')
+  Future<Connection?> acceptConnection(
+    @Path('id') int id,
+  );
+
+  @POST('/connections/{id}/reject')
+  Future<ResponseMsg?> rejectConnection(
+    @Path('id') int id,
+  );
+
+  @GET('/connections/invitations/{userId}')
+  Future<List<ConnectionInvitation?>> fetchConnectionInvitations(
+    @Path('userId') String userId,
+    @Query('offset') int offset,
+    @Query('limit') int limit,
+  );
+
+  @GET('/connections/{userId}')
+  Future<List<Connection?>> fetchConnections(
+    @Path('userId') String userId,
+    @Query('offset') int offset,
+    @Query('limit') int limit,
+  );
+
+  @GET('/recommendations/{userId}')
+  Future<List<Recommendation?>> fetchRecommendations(
+    @Path('userId') String userId,
+    @Query('offset') int offset,
+    @Query('limit') int limit,
+  );
+
+  @POST('/recommendations/cancel')
+  Future<ResponseMsg?> cancelRecommendation(
+    @Body() CancelRecommendationReq cancelRecommendationReq,
   );
 }

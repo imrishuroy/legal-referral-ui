@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class NavItem {
   NavItem({
@@ -10,6 +11,6 @@ class NavItem {
 
   final String route;
   final String label;
-  final Icon icon;
+  final SvgPicture icon;
   final Widget? child;
 }

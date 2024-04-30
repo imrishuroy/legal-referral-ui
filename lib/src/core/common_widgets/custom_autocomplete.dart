@@ -94,17 +94,17 @@ class CustomAutoComplete extends StatelessWidget {
               optionsBuilder: (TextEditingValue textEditingValue) async {
                 final searchQuery = textEditingValue.text.toLowerCase();
                 if (searchQuery == '') {
-                  return CountriesConstant.countries;
+                  return options;
                 }
                 final startWithQuery = <String>[];
                 final containsQuery = <String>[];
 
-                for (final country in CountriesConstant.countries) {
-                  final countryLowerCase = country.toLowerCase();
-                  if (countryLowerCase.startsWith(searchQuery)) {
-                    startWithQuery.add(country);
-                  } else if (countryLowerCase.contains(searchQuery)) {
-                    containsQuery.add(country);
+                for (final option in options) {
+                  final optionLowerCase = option.toLowerCase();
+                  if (optionLowerCase.startsWith(searchQuery)) {
+                    startWithQuery.add(option);
+                  } else if (optionLowerCase.contains(searchQuery)) {
+                    containsQuery.add(option);
                   }
                 }
                 return [...startWithQuery, ...containsQuery];

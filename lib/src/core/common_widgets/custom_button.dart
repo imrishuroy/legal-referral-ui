@@ -89,11 +89,11 @@ class CustomTextButton extends StatelessWidget {
 
 class CustomElevatedButton extends StatelessWidget {
   const CustomElevatedButton({
-    required this.onTap,
     required this.text,
+    this.onTap,
     super.key,
   });
-  final VoidCallback onTap;
+  final VoidCallback? onTap;
 
   final String text;
 
@@ -105,16 +105,20 @@ class CustomElevatedButton extends StatelessWidget {
         height: 57.h,
         width: double.infinity,
         decoration: BoxDecoration(
-          color: LegalReferralColors.containerBlue100,
+          color: onTap != null
+              ? LegalReferralColors.containerBlue100
+              : LegalReferralColors.textGrey400,
           borderRadius: BorderRadius.circular(4.r),
         ),
         child: Center(
           child: Text(
             text,
             style: TextStyle(
-              color: LegalReferralColors.textWhite450,
+              color: onTap != null
+                  ? LegalReferralColors.textWhite450
+                  : Colors.grey.shade300,
               fontWeight: FontWeight.w600,
-              fontSize: 18.h,
+              fontSize: 16.h,
             ),
           ),
         ),

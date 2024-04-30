@@ -10,8 +10,9 @@ UploadUserInfoReq _$UploadUserInfoReqFromJson(Map<String, dynamic> json) =>
     UploadUserInfoReq(
       firstName: json['first_name'] as String,
       lastName: json['last_name'] as String,
-      averageBillingPerClient: json['average_billing_per_client'] as int,
-      caseResolutionRate: json['case_resolution_rate'] as int,
+      averageBillingPerClient:
+          (json['average_billing_per_client'] as num).toInt(),
+      caseResolutionRate: (json['case_resolution_rate'] as num).toInt(),
       about: json['about'] as String,
     );
 

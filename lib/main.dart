@@ -31,7 +31,7 @@ Future<void> main() async {
     ),
   ]);
   await SharedPrefs.init();
-  //await SharedPrefs.clear();
+  // await SharedPrefs.clear();
   AppLogger.init();
   Bloc.observer = const SimpleBlocObserver();
   runApp(const MyApp());

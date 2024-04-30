@@ -12,10 +12,10 @@ _$AppUserImpl _$$AppUserImplFromJson(Map<String, dynamic> json) =>
       firstName: json['first_name'] as String,
       lastName: json['last_name'] as String,
       about: json['about'] as String?,
-      signupMethod: json['signup_method'] as int? ?? 0,
+      signupMethod: (json['signup_method'] as num?)?.toInt() ?? 0,
       emailVerified: json['email_verified'] as bool? ?? false,
       mobileVerified: json['mobile_verified'] as bool? ?? false,
-      wizardStep: json['wizard_step'] as int? ?? 0,
+      wizardStep: (json['wizard_step'] as num?)?.toInt() ?? 0,
       wizardCompleted: json['wizard_completed'] as bool? ?? false,
       joinDate: _$JsonConverterFromJson<String, DateTime?>(
           json['join_date'], const DateTimeConverter().fromJson),
@@ -25,8 +25,9 @@ _$AppUserImpl _$$AppUserImplFromJson(Map<String, dynamic> json) =>
       bannerUrl: json['banner_url'] as String?,
       userId: json['user_id'] as String?,
       practiceArea: json['practice_area'] as String?,
-      caseResolutionRate: json['case_resolution_rate'] as int?,
-      averageBillingPerClient: json['average_billing_per_client'] as int?,
+      caseResolutionRate: (json['case_resolution_rate'] as num?)?.toInt(),
+      averageBillingPerClient:
+          (json['average_billing_per_client'] as num?)?.toInt(),
       experience: json['experience'] as String?,
       openToReferral: json['open_to_referral'] as bool? ?? false,
     );

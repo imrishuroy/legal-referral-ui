@@ -13,7 +13,7 @@ _$FirmImpl _$$FirmImplFromJson(Map<String, dynamic> json) => _$FirmImpl(
       website: json['website'] as String,
       location: json['location'] as String,
       about: json['about'] as String,
-      firmId: json['firm_id'] as int?,
+      firmId: (json['firm_id'] as num?)?.toInt(),
     );
 
 Map<String, dynamic> _$$FirmImplToJson(_$FirmImpl instance) =>

@@ -1,20 +1,43 @@
-// import 'package:flutter/material.dart';
-// import 'package:legal_referral_ui/src/core/config/nav_items.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:legal_referral_ui/src/core/config/nav_items.dart';
+import 'package:legal_referral_ui/src/core/constants/constants.dart';
+import 'package:legal_referral_ui/src/features/home_page.dart';
+import 'package:legal_referral_ui/src/features/network/presentation/pages/network_page.dart';
 
-// List<NavItem> destinations = [
-//   NavItem(
-//     route: CachesPage.name,
-//     label: 'Caches',
-//     icon: const Icon(Icons.list_alt_outlined),
-//   ),
-//   NavItem(
-//     route: PublicCachesPage.name,
-//     label: 'Public Caches',
-//     icon: const Icon(Icons.public_outlined),
-//   ),
-//   NavItem(
-//     route: ProfilePage.name,
-//     label: 'Profile',
-//     icon: const Icon(Icons.person_outline),
-//   ),
-// ];
+List<NavItem> destinations = [
+  NavItem(
+    route: HomePage.name,
+    label: 'Home',
+    icon: SvgPicture.asset(
+      ImageStringConstants.home,
+    ),
+  ),
+  // NavItem(
+  //   route: ReferralPage.name,
+  //   label: 'Referrals',
+  //   icon: SvgPicture.asset(
+  //     ImageStringConstants.referral,
+  //   ),
+  // ),
+  // NavItem(
+  //   route: 'PostPage.name',
+  //   label: 'Post',
+  //   icon: SvgPicture.asset(
+  //     ImageStringConstants.addIcon,
+  //   ),
+  // ),
+  NavItem(
+    route: NetworkPage.name,
+    label: 'Network',
+    icon: SvgPicture.asset(
+      ImageStringConstants.network,
+    ),
+  ),
+  // NavItem(
+  //   route: 'DiscussPage.name',
+  //   label: 'Discuss',
+  //   icon: SvgPicture.asset(
+  //     ImageStringConstants.discuss,
+  //   ),
+  // ),
+];

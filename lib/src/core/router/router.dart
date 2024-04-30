@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:legal_referral_ui/src/core/common_widgets/widgets.dart';
 import 'package:legal_referral_ui/src/features/auth/presentation/presentation.dart';
 import 'package:legal_referral_ui/src/features/home_page.dart';
+import 'package:legal_referral_ui/src/features/network/presentation/pages/network_page.dart';
+import 'package:legal_referral_ui/src/features/network/presentation/presentation.dart';
 import 'package:legal_referral_ui/src/features/profile/presentation/presentation.dart';
 import 'package:legal_referral_ui/src/features/wizard/presentation/presentation.dart';
 
 final _rootNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'parent');
+const _scaffoldKey = ValueKey('_scaffoldKey');
 
 const _routeAnimationDuration = 1;
 const _routeTransitionDuration = 500;
@@ -137,15 +141,77 @@ class AppRouter {
       GoRoute(
         path: '/home',
         name: HomePage.name,
-        parentNavigatorKey: _rootNavigatorKey,
+        // parentNavigatorKey: _rootNavigatorKey,
         pageBuilder: (context, state) => CustomTransitionPage(
-          child: const HomePage(),
+          key: state.pageKey,
+          child: const RootLayout(
+            key: _scaffoldKey,
+            currentIndex: 0,
+            child: HomePage(),
+          ),
+          transitionDuration: const Duration(
+            milliseconds: 500,
+          ),
+          transitionsBuilder: (_, a, __, c) =>
+              FadeTransition(opacity: a, child: c),
+        ),
+      ),
+      GoRoute(
+        path: '/network',
+        name: NetworkPage.name,
+        pageBuilder: (context, state) => CustomTransitionPage(
+          child: const RootLayout(
+            key: _scaffoldKey,
+            currentIndex: 1,
+            child: NetworkPage(),
+          ),
           transitionDuration: const Duration(
             milliseconds: _routeTransitionDuration,
           ),
           transitionsBuilder: (_, a, __, c) =>
               FadeTransition(opacity: a, child: c),
         ),
+        routes: [
+          GoRoute(
+            path: 'connection',
+            name: ConnectionPage.name,
+            parentNavigatorKey: _rootNavigatorKey,
+            pageBuilder: (context, state) => CustomTransitionPage(
+              child: const ConnectionPage(),
+              transitionDuration: const Duration(
+                milliseconds: _routeTransitionDuration,
+              ),
+              transitionsBuilder: (_, a, __, c) =>
+                  FadeTransition(opacity: a, child: c),
+            ),
+          ),
+          GoRoute(
+            path: 'recommendation',
+            name: RecommendationPage.name,
+            parentNavigatorKey: _rootNavigatorKey,
+            pageBuilder: (context, state) => CustomTransitionPage(
+              child: const RecommendationPage(),
+              transitionDuration: const Duration(
+                milliseconds: _routeTransitionDuration,
+              ),
+              transitionsBuilder: (_, a, __, c) =>
+                  FadeTransition(opacity: a, child: c),
+            ),
+          ),
+          GoRoute(
+            path: 'invites',
+            name: InvitesPage.name,
+            parentNavigatorKey: _rootNavigatorKey,
+            pageBuilder: (context, state) => CustomTransitionPage(
+              child: const InvitesPage(),
+              transitionDuration: const Duration(
+                milliseconds: _routeTransitionDuration,
+              ),
+              transitionsBuilder: (_, a, __, c) =>
+                  FadeTransition(opacity: a, child: c),
+            ),
+          ),
+        ],
       ),
       GoRoute(
         path: '/profile',
