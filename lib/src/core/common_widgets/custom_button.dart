@@ -25,28 +25,27 @@ class CustomOutlinedButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: height ?? 57.h,
-      width: width ?? double.infinity,
-      child: ElevatedButton(
-        onPressed: onPressed,
-        style: ElevatedButton.styleFrom(
-          side: BorderSide(
+    return InkWell(
+      highlightColor: Colors.transparent,
+      borderRadius: BorderRadius.circular(4.r),
+      onTap: onPressed,
+      child: Container(
+        height: height ?? 57.h,
+        width: width ?? double.infinity,
+        decoration: BoxDecoration(
+          border: Border.all(
             color: borderColor ?? LegalReferralColors.textGrey400,
-            width: 0.4,
           ),
-          elevation: 2,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(4.r),
-          ),
-          backgroundColor: Colors.white,
-          foregroundColor: LegalReferralColors.textGrey400,
+          borderRadius: BorderRadius.circular(borderRadius ?? 4.r),
         ),
-        child: Text(
-          text,
-          style: TextStyle(
-            color: textColor ?? LegalReferralColors.textGrey400,
-            fontSize: 16.h,
+        child: Center(
+          child: Text(
+            text,
+            style: TextStyle(
+              fontSize: 18.h,
+              fontWeight: FontWeight.w600,
+              color: textColor ?? LegalReferralColors.textGrey400,
+            ),
           ),
         ),
       ),
@@ -90,8 +89,8 @@ class CustomTextButton extends StatelessWidget {
 
 class CustomElevatedButton extends StatelessWidget {
   const CustomElevatedButton({
-    required this.onTap,
     required this.text,
+    this.onTap,
     super.key,
   });
   final VoidCallback? onTap;
@@ -100,25 +99,27 @@ class CustomElevatedButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 57.h,
-      width: double.infinity,
-      child: ElevatedButton(
-        onPressed: onTap,
-        style: ElevatedButton.styleFrom(
-          elevation: 2,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(4.r),
-          ),
-          backgroundColor: LegalReferralColors.containerBlue100,
-          disabledBackgroundColor: Colors.grey,
-          disabledForegroundColor: Colors.white,
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        height: 57.h,
+        width: double.infinity,
+        decoration: BoxDecoration(
+          color: onTap != null
+              ? LegalReferralColors.containerBlue100
+              : LegalReferralColors.textGrey400,
+          borderRadius: BorderRadius.circular(4.r),
         ),
-        child: Text(
-          text,
-          style: TextStyle(
-            color: LegalReferralColors.textWhite450,
-            fontSize: 16.h,
+        child: Center(
+          child: Text(
+            text,
+            style: TextStyle(
+              color: onTap != null
+                  ? LegalReferralColors.textWhite450
+                  : Colors.grey.shade300,
+              fontWeight: FontWeight.w600,
+              fontSize: 16.h,
+            ),
           ),
         ),
       ),
@@ -213,9 +214,6 @@ class VerticalIconButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      splashColor: Colors.transparent,
-      highlightColor: Colors.transparent,
-      hoverColor: Colors.transparent,
       onTap: onTap,
       child: Column(
         children: [

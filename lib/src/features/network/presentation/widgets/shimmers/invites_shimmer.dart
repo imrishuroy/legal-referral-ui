@@ -18,15 +18,13 @@ class InviteShimmer extends StatelessWidget {
       shrinkWrap: true,
       itemCount: itemCount,
       itemBuilder: (BuildContext context, int index) {
-        return const _InviteCardShimmer();
+        return _InviteCardShimmer();
       },
     );
   }
 }
 
 class _InviteCardShimmer extends StatelessWidget {
-  const _InviteCardShimmer({super.key});
-
   @override
   Widget build(BuildContext context) {
     return CustomShimmer(

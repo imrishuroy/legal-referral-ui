@@ -23,15 +23,13 @@ class RecommendationsShimmer extends StatelessWidget {
         mainAxisExtent: 226.h,
       ),
       itemBuilder: (context, index) {
-        return const _RecommendationCardShimmer();
+        return _RecommendationCardShimmer();
       },
     );
   }
 }
 
 class _RecommendationCardShimmer extends StatelessWidget {
-  const _RecommendationCardShimmer({super.key});
-
   @override
   Widget build(BuildContext context) {
     return CustomShimmer(
