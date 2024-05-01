@@ -5,7 +5,7 @@ class LegalReferralAppBarTheme {
   LegalReferralAppBarTheme._();
   static AppBarTheme lightAppBarTheme = const AppBarTheme(
     centerTitle: false,
+    backgroundColor: LegalReferralColors.containerWhite500,
     surfaceTintColor: LegalReferralColors.containerWhite500,
-    //   titleSpacing: 0,
   );
 }

@@ -35,6 +35,7 @@ class ImageStringConstants {
   static const String removeConnection = 'assets/icons/removeConnection.svg';
   static const String camera = 'assets/icons/camera.svg';
   static const String file = 'assets/icons/file.svg';
+  static const String historyIcon = 'assets/icons/history.svg';
 
   // -- Brand Icons
 

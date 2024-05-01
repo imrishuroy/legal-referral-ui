@@ -21,6 +21,11 @@ class _ConnectionPageState extends State<ConnectionPage> {
   final TextEditingController _searchController = TextEditingController();
   final _authBloc = getIt<AuthBloc>();
   final _networkBloc = getIt<NetworkBloc>();
+  List<String> filterList = [
+    'All',
+    '1st',
+    '2nd',
+  ];
 
   @override
   void initState() {
@@ -51,43 +56,35 @@ class _ConnectionPageState extends State<ConnectionPage> {
           ),
           bottom: PreferredSize(
             preferredSize: Size.fromHeight(
-              50.h,
+              60.h,
             ),
             child: Padding(
               padding: EdgeInsets.only(
-                left: 16.w,
-                right: 16.w,
                 bottom: 16.h,
               ),
-              child: Row(
-                children: [
-                  Chip(
-                    label: const Text('All'),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(18.r),
-                      ),
-                    ),
+              child: SizedBox(
+                height: 35.h,
+                child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    shrinkWrap: true,
+                    itemCount: filterList.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      return Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 4.w),
+                        child: CustomOutlinedButton(
+                          text: filterList[index],
+                          borderColor: LegalReferralColors.borderGrey400,
+                          textColor: LegalReferralColors.textGrey400,
+                          onPressed: () {},
+                          width: 55.w,
+                          borderRadius: 64.r,
+                        ),
+                      );
+                    },
                   ),
-                  SizedBox(width: 8.w),
-                  Chip(
-                    label: const Text('1st'),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(18.r),
-                      ),
-                    ),
-                  ),
-                  SizedBox(width: 8.w),
-                  Chip(
-                    label: const Text('2nd'),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(18.r),
-                      ),
-                    ),
-                  ),
-                ],
+                ),
               ),
             ),
           ),

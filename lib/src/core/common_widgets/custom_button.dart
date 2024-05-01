@@ -27,6 +27,8 @@ class CustomOutlinedButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       highlightColor: Colors.transparent,
+      splashColor: Colors.transparent,
+      hoverColor: Colors.transparent,
       borderRadius: BorderRadius.circular(4.r),
       onTap: onPressed,
       child: Container(
@@ -146,8 +148,8 @@ class CustomIconButton extends StatelessWidget {
   }
 }
 
-class HorizontalIconButon extends StatelessWidget {
-  const HorizontalIconButon({
+class HorizontalIconButton extends StatelessWidget {
+  const HorizontalIconButton({
     required this.text,
     required this.icon,
     required this.onTap,
