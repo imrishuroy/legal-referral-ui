@@ -6,7 +6,7 @@ import 'package:legal_referral_ui/src/features/home_page.dart';
 import 'package:legal_referral_ui/src/features/network/presentation/pages/network_page.dart';
 import 'package:legal_referral_ui/src/features/network/presentation/presentation.dart';
 import 'package:legal_referral_ui/src/features/profile/presentation/presentation.dart';
-import 'package:legal_referral_ui/src/features/search/presentation/pages/search_page.dart';
+import 'package:legal_referral_ui/src/features/search/presentation/pages/search_page_result.dart';
 import 'package:legal_referral_ui/src/features/wizard/presentation/presentation.dart';
 
 final _rootNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'parent');
@@ -25,7 +25,7 @@ class AppRouter {
         name: SplashPage.name,
         parentNavigatorKey: _rootNavigatorKey,
         pageBuilder: (context, state) => CustomTransitionPage(
-          child: const Searchpage(),
+          child: const SearchPageResult(),
           transitionDuration: const Duration(
             seconds: _routeAnimationDuration,
           ),

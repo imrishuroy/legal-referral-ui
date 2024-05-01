@@ -4,8 +4,8 @@ import 'package:legal_referral_ui/src/core/common_widgets/custom_tile.dart';
 import 'package:legal_referral_ui/src/core/common_widgets/widgets.dart';
 import 'package:legal_referral_ui/src/core/constants/constants.dart';
 
-class SearchResultWIdget extends StatelessWidget {
-  const SearchResultWIdget({
+class SearchResultWidget extends StatelessWidget {
+  const SearchResultWidget({
     super.key,
   });
 

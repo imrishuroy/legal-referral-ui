@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:legal_referral_ui/src/core/common_widgets/widgets.dart';
 import 'package:legal_referral_ui/src/core/constants/constants.dart';
-import 'package:legal_referral_ui/src/features/search/presentation/widgets/recent_search_widget.dart';
+import 'package:legal_referral_ui/src/features/search/presentation/widgets/shimmers/search_shimmer.dart';
 
 class Searchpage extends StatefulWidget {
   const Searchpage({super.key});
@@ -21,16 +21,14 @@ class _SearchpageState extends State<Searchpage> {
         child: AppBar(
           title: Padding(
             padding: EdgeInsets.symmetric(horizontal: 16.w),
-            child: Expanded(
-              child: SizedBox(
-                child: CustomTextField(
-                  controller: _searchController,
-                  hintText: 'search',
-                  labelText: '',
-                  showLabel: false,
-                  borderColor: LegalReferralColors.borderGrey199,
-                  fillColor: LegalReferralColors.containerWhite400,
-                ),
+            child: SizedBox(
+              child: CustomTextField(
+                controller: _searchController,
+                hintText: 'search',
+                labelText: '',
+                showLabel: false,
+                borderColor: LegalReferralColors.borderGrey199,
+                fillColor: LegalReferralColors.containerWhite400,
               ),
             ),
           ),
@@ -40,7 +38,8 @@ class _SearchpageState extends State<Searchpage> {
       body: Column(
         children: [
           SizedBox(height: 8.h),
-          const RecentWidget(),
+          const SearchShimmer(),
+          // const RecentWidget(),
         ],
       ),
     );
