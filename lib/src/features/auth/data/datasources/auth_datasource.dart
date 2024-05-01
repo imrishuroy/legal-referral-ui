@@ -81,6 +81,18 @@ class AuthDataSource {
     }
   }
 
+  Future<LinkedinSignInRes?> signInWithLinkedIn({
+    required LinkedinSignInReq signInWithLinkedInReq,
+  }) async {
+    try {
+      final response =
+          await _apiClient.signInWithLinkedIn(signInWithLinkedInReq);
+      return response;
+    } catch (_) {
+      rethrow;
+    }
+  }
+
   Future<ResponseMsg?> sendOTP({
     required SendOtpReq sendOtpReq,
   }) async {

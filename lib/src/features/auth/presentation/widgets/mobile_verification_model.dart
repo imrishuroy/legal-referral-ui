@@ -79,9 +79,10 @@ class _MobileVerificationModelState extends State<MobileVerificationModel> {
                             context.pop();
                             if (state.user?.wizardCompleted == true) {
                               context.goNamed(HomePage.name);
-                            } else if (state.user?.signupMethod == 1) {
-                              // google sing up users will
-                              // be redirected to wizard page
+                            } else if (state.user?.signupMethod == 1 ||
+                                state.user?.signupMethod == 2) {
+                              // google, Linkedin, apple & facebook, signed up
+                              // users will be redirected to wizard page
                               context.goNamed(WizardInspectionPage.name);
                             } else {
                               context.goNamed(

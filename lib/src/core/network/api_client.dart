@@ -51,6 +51,11 @@ abstract class APIClient {
     @Body() SignInReq signInReq,
   );
 
+  @POST('/sign-in/linkedin')
+  Future<LinkedinSignInRes?> signInWithLinkedIn(
+    @Body() LinkedinSignInReq signInWithLinkedInReq,
+  );
+
   @POST('/reset-password')
   Future<ResponseMsg?> resetPassword(
     @Body() ResetPasswordReq resetPasswordReq,
