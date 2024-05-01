@@ -153,7 +153,9 @@ class _SignInPageState extends State<SignInPage> {
                                 SizedBox(width: 12.w),
                                 SvgButton(
                                   imagePath: ImageStringConstants.facebookIcon,
-                                  onPressed: () {},
+                                  onPressed: () => _authBloc.add(
+                                    AuthFacebookSignedIn(),
+                                  ),
                                 ),
                                 SizedBox(width: 12.w),
                                 SvgButton(

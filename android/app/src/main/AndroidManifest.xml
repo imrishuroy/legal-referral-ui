@@ -5,6 +5,10 @@
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
+    <queries>
+          <provider android:authorities="com.facebook.katana.provider.PlatformProvider" />
+    </queries>
     
     <application
         android:label="Legal Referral"
@@ -27,8 +31,8 @@
                  to determine the Window background behind the Flutter UI. -->
             <meta-data
               android:name="io.flutter.embedding.android.NormalTheme"
-              android:resource="@style/NormalTheme"
-              />
+              android:resource="@style/NormalTheme"/>
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
@@ -44,6 +48,14 @@
         android:name="com.yalantis.ucrop.UCropActivity"
         android:screenOrientation="portrait"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar"/> 
+
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id" />
+
+        <meta-data 
+            android:name="com.facebook.sdk.ClientToken" 
+            android:value="@string/facebook_client_token"/>  
 
     </application>
     <!-- Required to query activities that can process text, see:
