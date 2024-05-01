@@ -79,6 +79,8 @@ class AuthLinkedInSignedIn extends AuthEvent {
   final String? accesToken;
 }
 
+class AuthFacebookSignedIn extends AuthEvent {}
+
 class AuthUserCreated extends AuthEvent {
   const AuthUserCreated({
     required this.email,
