@@ -109,6 +109,26 @@ class AuthRepositoryImpl extends AuthRepository {
   }
 
   @override
+  Future<Either<Failure, LinkedinSignInRes?>> signInWithLinkedIn({
+    required LinkedinSignInReq signInWithLinkedInReq,
+  }) async {
+    try {
+      final response = await _authDataSource.signInWithLinkedIn(
+        signInWithLinkedInReq: signInWithLinkedInReq,
+      );
+      return Right(response);
+    } on DioException catch (error) {
+      final dioError = DioExceptions.fromDioError(error);
+      return Left(
+        Failure(
+          statusCode: dioError.statusCode,
+          message: dioError.message,
+        ),
+      );
+    }
+  }
+
+  @override
   Future<Either<Failure, AppUser?>> getUser({
     required String userId,
   }) async {

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
@@ -11,6 +12,7 @@ import 'package:legal_referral_ui/src/core/validators/validators.dart';
 import 'package:legal_referral_ui/src/features/auth/presentation/presentation.dart';
 import 'package:legal_referral_ui/src/features/home_page.dart';
 import 'package:legal_referral_ui/src/features/wizard/presentation/presentation.dart';
+import 'package:signin_with_linkedin/signin_with_linkedin.dart';
 import 'package:toastification/toastification.dart';
 
 class SignInPage extends StatefulWidget {
@@ -41,18 +43,12 @@ class _SignInPageState extends State<SignInPage> {
         child: BlocConsumer<AuthBloc, AuthState>(
           bloc: _authBloc,
           listener: (context, state) {
-            AppLogger.info('User from sign in page: ${state.user}\n');
-            AppLogger.info(
-              'Auth status from sign in page: ${state.authStatus}',
-            );
-
             if (state.authStatus == AuthStatus.signedIn) {
               if (state.user?.mobileVerified == false) {
                 context.goNamed(ContactDetailsPage.name);
               } else if (state.user?.wizardCompleted == true) {
                 context.goNamed(HomePage.name);
               } else {
-                AppLogger.info('User from sign in page 2: ${state.user}');
                 context.goNamed(WizardInspectionPage.name);
               }
             } else if (state.authStatus == AuthStatus.failure) {
@@ -146,12 +142,46 @@ class _SignInPageState extends State<SignInPage> {
                               ],
                             ),
                             SizedBox(height: 24.h),
-                            CustomOutlinedButton(
-                              text: 'Log in using Google',
-                              onPressed: _googleSignIn,
-                            ),
-                            SizedBox(height: 24.h),
                             Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                SvgButton(
+                                  imagePath: ImageStringConstants.googleIcon,
+                                  onPressed: () =>
+                                      _authBloc.add(AuthGoogleSignedIn()),
+                                ),
+                                SizedBox(width: 12.w),
+                                SvgButton(
+                                  imagePath: ImageStringConstants.facebookIcon,
+                                  onPressed: () {},
+                                ),
+                                SizedBox(width: 12.w),
+                                SvgButton(
+                                  imagePath: ImageStringConstants.appleIcon,
+                                  onPressed: () {},
+                                ),
+                                SizedBox(width: 12.w),
+                                SvgButton(
+                                  imagePath: ImageStringConstants.linkedinIcon,
+                                  onPressed: () async {
+                                    await _linkedinLogin();
+                                    // final data = await context
+                                    //     .pushNamed(LinkedinSignInPage.name);
+
+                                    // if (data is UserSucceededAction) {
+                                    //   _authBloc.add(
+                                    //     AuthLinkedInSignedIn(
+                                    //       userSucceededAction: data,
+                                    //     ),
+                                    //   );
+                                    // }
+                                  },
+                                ),
+                              ],
+                            ),
+                            SizedBox(height: 48.h),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Text(
                                   'Not a member yet? ',
@@ -193,8 +223,36 @@ class _SignInPageState extends State<SignInPage> {
     }
   }
 
-  void _googleSignIn() {
-    _authBloc.add(AuthGoogleSignedIn());
+  Future<void> _linkedinLogin() async {
+    AppLogger.info(
+      'Client ID: ${dotenv.get('LINKEDIN_CLIENT_ID', fallback: '')}',
+    );
+    final linkedInConfig = LinkedInConfig(
+      clientId: dotenv.get('LINKEDIN_CLIENT_ID', fallback: ''),
+      clientSecret: dotenv.get('LINKEDIN_CLIENT_SECRET', fallback: ''),
+      redirectUrl: dotenv.get('LINKEDIN_REDIRECT_URL', fallback: ''),
+      scope: ['openid', 'profile', 'email'],
+    );
+
+    await SignInWithLinkedIn.signIn(
+      context,
+      config: linkedInConfig,
+      onGetAuthToken: (data) {},
+      onGetUserProfile: (token, user) {
+        _authBloc.add(
+          AuthLinkedInSignedIn(
+            email: user.email,
+            firstName: user.givenName,
+            lastName: user.familyName,
+            imageUrl: user.picture,
+            accesToken: token.accessToken,
+          ),
+        );
+      },
+      onSignInError: (error) {
+        AppLogger.error('Error on sign in: $error');
+      },
+    );
   }
 
   @override

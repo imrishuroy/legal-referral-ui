@@ -66,6 +66,14 @@ class AuthUseCase {
     );
   }
 
+  Future<Either<Failure, LinkedinSignInRes?>> signInWithLinkedIn({
+    required LinkedinSignInReq signInWithLinkedInReq,
+  }) async {
+    return _authRepository.signInWithLinkedIn(
+      signInWithLinkedInReq: signInWithLinkedInReq,
+    );
+  }
+
   Future<Either<Failure, ResponseMsg?>> verifyOTP({
     required VerifyOtpReq verifyOtpReq,
   }) async {

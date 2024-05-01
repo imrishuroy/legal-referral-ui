@@ -10,6 +10,7 @@ import 'package:injectable/injectable.dart';
 import 'package:legal_referral_ui/src/core/config/config.dart';
 import 'package:legal_referral_ui/src/features/auth/data/data.dart';
 import 'package:legal_referral_ui/src/features/auth/domain/domain.dart';
+import 'package:signin_with_linkedin/signin_with_linkedin.dart';
 
 part 'auth_event.dart';
 part 'auth_state.dart';
@@ -31,6 +32,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<AuthSignedUp>(_onAuthSignedUp);
     on<AuthSignedIn>(_onAuthSignedIn);
     on<AuthGoogleSignedIn>(_onAuthGoogleSignedIn);
+    on<AuthLinkedInSignedIn>(_onAuthLinkedInSignedIn);
     on<AuthUserRequested>(_onAuthUserRequested);
     on<PasswordChanged>(_onPassworChanged);
     on<AuthSignOutRequested>(_onAuthSignOutRequested);
@@ -493,6 +495,144 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     }
   }
 
+  Future<void> _onAuthLinkedInSignedIn(
+    AuthLinkedInSignedIn event,
+    Emitter<AuthState> emit,
+  ) async {
+    if (event.accesToken == null || event.email == null) {
+      emit(
+        state.copyWith(
+          authStatus: AuthStatus.failure,
+          failure: const Failure(
+            message: 'Failed to sign in',
+          ),
+        ),
+      );
+      return;
+    }
+
+    emit(
+      state.copyWith(
+        authStatus: AuthStatus.loading,
+      ),
+    );
+
+    final res = await _authUseCase.signInWithLinkedIn(
+      signInWithLinkedInReq: LinkedinSignInReq(
+        accessToken: event.accesToken!,
+        email: event.email!,
+      ),
+    );
+
+    await res.fold(
+      (failure) {
+        emit(
+          state.copyWith(
+            authStatus: AuthStatus.failure,
+            failure: failure,
+          ),
+        );
+      },
+      (authRes) async {
+        if (authRes == null) {
+          emit(
+            state.copyWith(
+              authStatus: AuthStatus.failure,
+              failure: const Failure(
+                message: 'Failed to sign in',
+              ),
+            ),
+          );
+          return;
+        }
+
+        final userCed =
+            await _firebaseAuth.signInWithCustomToken(authRes.token);
+
+        final idToken = await userCed.user?.getIdToken();
+        AppLogger.info('Firebase id token $idToken');
+        if (idToken != null) {
+          await SharedPrefs.setToken(token: idToken);
+        }
+
+        AppUser? checkUser;
+
+        final dbUser = await _authUseCase.getUser(
+          userId: userCed.user?.uid ?? '',
+        );
+
+        await dbUser.fold(
+          (failure) {
+            emit(
+              state.copyWith(
+                authStatus: AuthStatus.failure,
+                failure: failure,
+              ),
+            );
+          },
+          (dbUser) async {
+            checkUser = dbUser;
+            if (dbUser != null) {
+              await SharedPrefs.setAppUser(
+                appUser: dbUser,
+              );
+              emit(
+                state.copyWith(
+                  user: dbUser,
+                  authStatus: AuthStatus.signedIn,
+                ),
+              );
+              return;
+            }
+          },
+        );
+        if (checkUser == null) {
+          final userRes = await _authUseCase.createUser(
+            email: event.email!,
+            firstName: event.firstName ?? '',
+            lastName: event.lastName ?? '',
+            mobile: '',
+            imageUrl: event.imageUrl ?? '',
+            signUpMethod: 2,
+          );
+
+          await userRes.fold(
+            (failure) {
+              emit(
+                state.copyWith(
+                  authStatus: AuthStatus.failure,
+                  failure: failure,
+                ),
+              );
+            },
+            (user) async {
+              if (user == null) {
+                emit(
+                  state.copyWith(
+                    authStatus: AuthStatus.failure,
+                    failure: const Failure(
+                      message: 'Failed to sign in',
+                    ),
+                  ),
+                );
+                return;
+              }
+              await SharedPrefs.setAppUser(
+                appUser: user,
+              );
+              emit(
+                state.copyWith(
+                  user: user,
+                  authStatus: AuthStatus.signedIn,
+                ),
+              );
+            },
+          );
+        }
+      },
+    );
+  }
+
   Future<void> _onAuthUserRequested(
     AuthUserRequested event,
     Emitter<AuthState> emit,
@@ -685,6 +825,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   ) async {
     await _googleSignIn.signOut();
     await _firebaseAuth.signOut();
+    await SignInWithLinkedIn.logout();
     await SharedPrefs.removeUser();
     emit(
       AuthState.initial(),
