@@ -55,12 +55,16 @@ class CustomTextField extends StatelessWidget {
             obscureText: obscureText,
             keyboardType: keyboardType,
             maxLines: maxLines,
+            minLines: 1,
             enabled: enabled,
             onChanged: onChanged,
             style: Theme.of(context).textTheme.bodyLarge,
             decoration: InputDecoration(
-              contentPadding:
-                  EdgeInsets.symmetric(vertical: 0.h, horizontal: 12.w),
+              contentPadding: EdgeInsets.symmetric(
+                vertical: 12.h,
+                horizontal: 12.w,
+              ),
+
               hintText: hintText,
               hintStyle: Theme.of(context).textTheme.bodyLarge?.copyWith(
                     color: LegalReferralColors.textgrey300,

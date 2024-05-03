@@ -1,6 +1,7 @@
 export 'bloc/auth_bloc.dart';
 export 'pages/contact_details_page.dart';
 export 'pages/edit_social_avatar.dart';
+export 'pages/linkedin_signin_page.dart';
 export 'pages/new_password_page.dart';
 export 'pages/onboarding_page.dart';
 export 'pages/reset_password_page.dart';

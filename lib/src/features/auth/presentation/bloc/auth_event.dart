@@ -63,6 +63,24 @@ class AuthSignedIn extends AuthEvent {
 
 class AuthGoogleSignedIn extends AuthEvent {}
 
+class AuthLinkedInSignedIn extends AuthEvent {
+  const AuthLinkedInSignedIn({
+    required this.email,
+    required this.firstName,
+    required this.lastName,
+    required this.imageUrl,
+    required this.accesToken,
+  });
+
+  final String? email;
+  final String? firstName;
+  final String? lastName;
+  final String? imageUrl;
+  final String? accesToken;
+}
+
+class AuthFacebookSignedIn extends AuthEvent {}
+
 class AuthUserCreated extends AuthEvent {
   const AuthUserCreated({
     required this.email,

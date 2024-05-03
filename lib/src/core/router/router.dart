@@ -58,6 +58,21 @@ class AppRouter {
           transitionsBuilder: (_, a, __, c) =>
               FadeTransition(opacity: a, child: c),
         ),
+        routes: [
+          GoRoute(
+            path: 'linkedin',
+            name: LinkedinSignInPage.name,
+            parentNavigatorKey: _rootNavigatorKey,
+            pageBuilder: (context, state) => CustomTransitionPage(
+              child: const LinkedinSignInPage(),
+              transitionDuration: const Duration(
+                milliseconds: _routeTransitionDuration,
+              ),
+              transitionsBuilder: (_, a, __, c) =>
+                  FadeTransition(opacity: a, child: c),
+            ),
+          ),
+        ],
       ),
       GoRoute(
         path: '/signup',

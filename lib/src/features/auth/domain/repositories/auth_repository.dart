@@ -29,6 +29,10 @@ abstract class AuthRepository {
     required String email,
   });
 
+  Future<Either<Failure, LinkedinSignInRes?>> signInWithLinkedIn({
+    required LinkedinSignInReq signInWithLinkedInReq,
+  });
+
   Future<Either<Failure, ResponseMsg?>> sendOTP({
     required SendOtpReq sendOtpReq,
   });

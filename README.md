@@ -18,3 +18,6 @@ keytool -genkey -v -keystore ~/legal-referral-dev.jks -keyalg RSA -keysize 2048 
 
 ## Build APK
     flutter build apk --release --no-tree-shake-icons
+
+## Web HTML Render
+    flutter run -d chrome --web-renderer html

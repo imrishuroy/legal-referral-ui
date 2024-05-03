@@ -48,4 +48,10 @@ class ImageStringConstants {
   static const String avatarPlaceholder =
       'assets/images/avatar_placeholder.png';
   static const String imagePlaceholder = 'assets/images/image_placeholder.jpg';
+
+  // social auth icons
+  static const String googleIcon = 'assets/icons/google.svg';
+  static const String appleIcon = 'assets/icons/apple.svg';
+  static const String facebookIcon = 'assets/icons/facebook.svg';
+  static const String linkedinIcon = 'assets/icons/linkedin.svg';
 }
