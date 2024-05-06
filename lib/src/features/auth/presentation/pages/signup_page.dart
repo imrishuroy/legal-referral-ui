@@ -78,7 +78,7 @@ class _SignUpPageState extends State<SignUpPage> {
                               height: 160.h,
                               width: 160.w,
                               child: SvgPicture.asset(
-                                ImageStringConstants.legalReferralLogo,
+                                IconStringConstants.legalReferralLogo,
                               ),
                             ),
                             Container(

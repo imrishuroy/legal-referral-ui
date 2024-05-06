@@ -35,7 +35,7 @@ class ConnectionTile extends StatelessWidget {
           ),
           CustomIconButton(
             icon: SvgPicture.asset(
-              ImageStringConstants.threeDots,
+              IconStringConstants.threeDots,
             ),
             onTap: () {
               CustomBottomSheet.show(
@@ -53,7 +53,7 @@ class ConnectionTile extends StatelessWidget {
                             color: LegalReferralColors.textGrey500,
                           ),
                       text: 'Message',
-                      icon: ImageStringConstants.message,
+                      icon: IconStringConstants.message,
                       onTap: () {},
                     ),
                     const Divider(),
@@ -62,7 +62,7 @@ class ConnectionTile extends StatelessWidget {
                             color: LegalReferralColors.textGrey500,
                           ),
                       text: 'Remote Connection',
-                      icon: ImageStringConstants.removeConnection,
+                      icon: IconStringConstants.removeConnection,
                       onTap: () {},
                     ),
                     const Divider(),

@@ -72,7 +72,7 @@ class _UploadLicensePageState extends State<UploadLicensePage> {
                                             height: 24.h,
                                             width: 24.w,
                                             child: SvgPicture.asset(
-                                              ImageStringConstants.uploadIcon,
+                                              IconStringConstants.uploadIcon,
                                             ),
                                           ),
                                           Text(
@@ -92,7 +92,7 @@ class _UploadLicensePageState extends State<UploadLicensePage> {
                                           height: 50.h,
                                           width: 50.w,
                                           child: SvgPicture.asset(
-                                            ImageStringConstants.file,
+                                            IconStringConstants.file,
                                           ),
                                         ),
                                       ),
@@ -133,7 +133,7 @@ class _UploadLicensePageState extends State<UploadLicensePage> {
                                       child: Row(
                                         children: [
                                           SvgPicture.asset(
-                                            ImageStringConstants.file,
+                                            IconStringConstants.file,
                                           ),
                                           SizedBox(
                                             width: 8.w,
@@ -160,7 +160,7 @@ class _UploadLicensePageState extends State<UploadLicensePage> {
                                                 });
                                               },
                                               icon: SvgPicture.asset(
-                                                ImageStringConstants.deleteIcon,
+                                                IconStringConstants.deleteIcon,
                                               ),
                                             ),
                                         ],

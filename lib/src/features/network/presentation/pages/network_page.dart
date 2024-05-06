@@ -44,7 +44,7 @@ class _NetworkPageState extends State<NetworkPage> {
                 width: 8.w,
               ),
               SvgPicture.asset(
-                ImageStringConstants.comment,
+                IconStringConstants.comment,
               ),
             ],
           ),

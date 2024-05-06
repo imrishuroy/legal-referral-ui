@@ -19,7 +19,7 @@ class SocialWidget extends StatelessWidget {
             SizedBox(
               height: 24.h,
               width: 24.w,
-              child: SvgPicture.asset(ImageStringConstants.facebook),
+              child: SvgPicture.asset(IconStringConstants.facebook),
             ),
             SizedBox(
               width: 8.w,

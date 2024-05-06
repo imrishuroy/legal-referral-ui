@@ -5,14 +5,14 @@ class LegalReferralColors {
 
   // Text colors
   static const Color textBlack = Color.fromRGBO(0, 0, 0, 1);
-  // static const Color textBlack = Color.fromRGBO(51, 51, 51, 1);
+
   static const Color textgrey300 = Color.fromRGBO(168, 164, 168, 1);
   static const Color textWhite450 = Color.fromRGBO(252, 252, 252, 1);
   static const Color textBlue100 = Color.fromRGBO(89, 158, 217, 1);
   static const Color textGrey400 = Color.fromRGBO(143, 139, 143, 1);
   static const Color textGrey500 = Color.fromRGBO(151, 152, 158, 1);
-  // static const Color textgrey = Color.fromRGBO(117, 114, 117, 1);
-  // static const Color textgrey = Color.fromRGBO(67, 119, 163, 1);
+  static const Color textRed235 = Color.fromRGBO(235, 72, 72, 1);
+
   static const Color textBlack400 = Color.fromRGBO(26, 26, 26, 1);
 
   // Background colors
@@ -26,6 +26,8 @@ class LegalReferralColors {
   static const Color containerBlue100 = Color.fromRGBO(89, 158, 217, 1);
   static const Color containerBlue50 = Color.fromRGBO(239, 247, 253, 1);
   static const Color containerWhite400 = Color.fromRGBO(238, 238, 238, 1);
+  static const Color containerBlue221 = Color.fromRGBO(221, 237, 248, 1);
+  static const Color containerRed255 = Color.fromRGBO(255, 214, 208, 1);
 
   // Button colors
   static const Color buttonPrimary = Color.fromRGBO(89, 158, 217, 1);

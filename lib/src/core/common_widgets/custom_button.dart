@@ -61,12 +61,14 @@ class CustomTextButton extends StatelessWidget {
     this.textColor,
     this.fontSize,
     this.fontWeight,
+    this.style
   });
   final String text;
   final VoidCallback onPressed;
   final double? fontSize;
   final FontWeight? fontWeight;
   final Color? textColor;
+  final TextStyle? style;
 
   @override
   Widget build(BuildContext context) {
@@ -77,7 +79,7 @@ class CustomTextButton extends StatelessWidget {
       onTap: onPressed,
       child: Text(
         text,
-        style: TextStyle(
+        style:style?? TextStyle(
           fontWeight: fontWeight,
           fontSize: fontSize,
           color: textColor,

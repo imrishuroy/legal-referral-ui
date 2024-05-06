@@ -119,7 +119,7 @@ class _ConnectionPageState extends State<ConnectionPage> {
                   width: 8.w,
                 ),
                 SvgPicture.asset(
-                  ImageStringConstants.filter,
+                  IconStringConstants.filter,
                 ),
               ],
             ),

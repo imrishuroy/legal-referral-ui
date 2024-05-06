@@ -9,7 +9,7 @@ List<NavItem> destinations = [
     route: HomePage.name,
     label: 'Home',
     icon: SvgPicture.asset(
-      ImageStringConstants.home,
+      IconStringConstants.home,
     ),
   ),
   // NavItem(
@@ -30,7 +30,7 @@ List<NavItem> destinations = [
     route: NetworkPage.name,
     label: 'Network',
     icon: SvgPicture.asset(
-      ImageStringConstants.network,
+      IconStringConstants.network,
     ),
   ),
   // NavItem(
