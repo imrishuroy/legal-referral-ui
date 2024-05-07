@@ -268,4 +268,13 @@ abstract class APIClient {
   Future<ResponseMsg?> cancelRecommendation(
     @Body() CancelRecommendationReq cancelRecommendationReq,
   );
+
+  // search
+  @GET('/search/users')
+  Future<List<AppUser?>> searchUsers(
+    @Query('query') String query,
+    @Query('filter') String filter,
+    @Query('limit') int limit,
+    @Query('offset') int offset,
+  );
 }

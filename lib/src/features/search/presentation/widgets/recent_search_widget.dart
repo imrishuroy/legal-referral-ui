@@ -1,135 +1,209 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:legal_referral_ui/src/core/common_widgets/custom_tile.dart';
 import 'package:legal_referral_ui/src/core/common_widgets/widgets.dart';
+import 'package:legal_referral_ui/src/core/config/config.dart';
 import 'package:legal_referral_ui/src/core/constants/constants.dart';
+import 'package:legal_referral_ui/src/features/search/domain/domain.dart';
+import 'package:legal_referral_ui/src/features/search/presentation/bloc/search_bloc.dart';
+import 'package:legal_referral_ui/src/features/search/presentation/presentation.dart';
 
-class RecentWidget extends StatelessWidget {
+const List<PopularSearch> _popularSearches = [
+  PopularSearch(query: 'Finance Attorney', count: 100, location: 'Texas'),
+  PopularSearch(query: 'Real Estate Attorney', count: 80, location: 'Arizona'),
+  PopularSearch(query: 'Corporate Attorney', count: 60, location: 'Texas'),
+];
+
+class RecentWidget extends StatefulWidget {
   const RecentWidget({
+    required this.searchBloc,
     super.key,
   });
 
+  final SearchBloc searchBloc;
+
+  @override
+  State<RecentWidget> createState() => _RecentWidgetState();
+}
+
+class _RecentWidgetState extends State<RecentWidget> {
+  @override
+  void initState() {
+    widget.searchBloc.add(SearchHistoryFetched());
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: LegalReferralColors.containerWhite500,
-      padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            children: [
-              Text(
-                'Recent',
-                style: Theme.of(context)
-                    .textTheme
-                    .headlineSmall
-                    ?.copyWith(color: LegalReferralColors.textGrey400),
-              ),
-              const Spacer(),
-              CustomTextButton(
-                textColor: LegalReferralColors.textGrey400,
-                fontSize: 14.h,
-                fontWeight: FontWeight.w400,
-                text: 'Clear',
-                onPressed: () {},
-              ),
-            ],
-          ),
-          SizedBox(
-            height: 12.h,
-          ),
-          Wrap(
-            spacing: 12.w,
-            children: [
-              for (var i = 0; i < 3; i++)
-                SizedBox(
-                  width: 60.w,
-                  child: VerticalTile(
-                    onPressed: () {},
-                    leading: Container(
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        border: Border.all(
-                          color: LegalReferralColors.borderGrey300,
-                          width: 1.w,
-                        ),
-                      ),
-                      child: CustomAvatar(
-                        imageUrl: null,
-                        radius: 28.r,
-                      ),
-                    ),
-                    trailing: Text(
-                      'Tim Yong Yusuf',
-                      textAlign: TextAlign.center,
-                      style: Theme.of(context).textTheme.bodyLarge,
-                    ),
-                  ),
-                ),
-            ],
-          ),
-          SizedBox(height: 26.h),
-          for (var i = 0; i < 3; i++)
-            Column(
+    return BlocBuilder<SearchBloc, SearchState>(
+      bloc: widget.searchBloc,
+      builder: (context, state) {
+        return Container(
+          color: LegalReferralColors.containerWhite500,
+          padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                HorizontalIconButton(
-                  height: 20.h,
-                  width: 20.h,
-                  text: 'Michael',
-                  icon: ImageStringConstants.historyIcon,
-                  onTap: () {},
-                  style: Theme.of(context).textTheme.bodyLarge,
-                ),
-                const Divider(
-                  height: 12,
-                  color: Color.fromRGBO(0, 0, 0, 0.1),
-                ),
-              ],
-            ),
-          SizedBox(height: 24.h),
-          Text(
-            'Popular search',
-            style: Theme.of(context)
-                .textTheme
-                .headlineSmall
-                ?.copyWith(color: LegalReferralColors.textGrey400),
-          ),
-          SizedBox(height: 22.h),
-          for (var i = 0; i < 3; i++)
-            Column(
-              children: [
-                HorizontalTile(
-                  onPressed: () {},
-                  leading: SvgPicture.asset(ImageStringConstants.historyIcon),
-                  spacing: 8.h,
-                  trailing: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                if (state.searchUsersHistories.isNotEmpty)
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        'Finance Attorney',
+                        'Recent',
+                        style: Theme.of(context)
+                            .textTheme
+                            .headlineSmall
+                            ?.copyWith(color: LegalReferralColors.textGrey400),
+                      ),
+                      CustomTextButton(
+                        textColor: LegalReferralColors.textGrey400,
+                        fontSize: 14.h,
+                        fontWeight: FontWeight.w400,
+                        text: 'Clear',
+                        onPressed: () async =>
+                            SharedPrefs.clearUserSearchHistoty(),
+                      ),
+                    ],
+                  ),
+                if (state.searchUsersHistories.isNotEmpty)
+                  SizedBox(
+                    height: 12.h,
+                  ),
+                if (state.searchUsersHistories.isNotEmpty)
+                  SizedBox(
+                    height: 88.h,
+                    child: ListView.builder(
+                      itemCount: state.searchUsersHistories.length,
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      scrollDirection: Axis.horizontal,
+                      itemBuilder: (context, index) {
+                        final user = state.searchUsersHistories[index];
+                        return SizedBox(
+                          width: 60.w,
+                          child: VerticalTile(
+                            onPressed: () {},
+                            leading: Container(
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                border: Border.all(
+                                  color: LegalReferralColors.borderGrey300,
+                                  width: 1.w,
+                                ),
+                              ),
+                              child: CustomAvatar(
+                                imageUrl: user?.avatarUrl,
+                                radius: 28.r,
+                              ),
+                            ),
+                            trailing: Column(
+                              children: [
+                                Text(
+                                  user?.firstName ?? '',
+                                  textAlign: TextAlign.center,
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodyLarge
+                                      ?.copyWith(
+                                        height: 1.2,
+                                      ),
+                                ),
+                                Text(
+                                  user?.lastName ?? '',
+                                  textAlign: TextAlign.center,
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodyLarge
+                                      ?.copyWith(
+                                        height: 0.8,
+                                      ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                if (state.searchUsersHistories.isNotEmpty)
+                  SizedBox(
+                    height: 26.h,
+                  ),
+                ListView.separated(
+                  itemCount: state.searchQueryHistories.length,
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemBuilder: (context, index) {
+                    final query = state.searchQueryHistories[index];
+                    return ListTile(
+                      title: Text(
+                        query,
                         style: Theme.of(context).textTheme.bodyLarge,
                       ),
-                      Text(
-                        'Texas',
+                      leading: SvgPicture.asset(
+                        ImageStringConstants.historyIcon,
+                      ),
+                      dense: true,
+                      contentPadding: EdgeInsets.zero,
+                      visualDensity: const VisualDensity(vertical: -4),
+                    );
+                  },
+                  separatorBuilder: (context, index) {
+                    return const Divider(
+                      color: LegalReferralColors.borderGrey300,
+                    );
+                  },
+                ),
+                if (state.searchQueryHistories.isNotEmpty)
+                  SizedBox(height: 24.h),
+                Text(
+                  'Popular search',
+                  style: Theme.of(context)
+                      .textTheme
+                      .headlineSmall
+                      ?.copyWith(color: LegalReferralColors.textGrey400),
+                ),
+                SizedBox(height: 22.h),
+                ListView.separated(
+                  itemCount: _popularSearches.length,
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemBuilder: (context, index) {
+                    final search = _popularSearches[index];
+                    return ListTile(
+                      title: Text(
+                        search.query,
+                        style: Theme.of(context).textTheme.bodyLarge,
+                      ),
+                      subtitle: Text(
+                        search.location,
                         style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                               color: LegalReferralColors.textGrey400,
                             ),
                       ),
-                    ],
-                  ),
-                ),
-                const Divider(
-                  height: 10,
-                  color: Color.fromRGBO(0, 0, 0, 0.1),
+                      leading: SvgPicture.asset(
+                        ImageStringConstants.historyIcon,
+                      ),
+                      dense: true,
+                      contentPadding: EdgeInsets.zero,
+                      visualDensity: const VisualDensity(vertical: -4),
+                    );
+                  },
+                  separatorBuilder: (context, index) {
+                    return const Divider(
+                      color: LegalReferralColors.borderGrey300,
+                    );
+                  },
                 ),
               ],
             ),
-          // const Text("Today's news and views"),
-        ],
-      ),
+          ),
+        );
+      },
     );
   }
 }

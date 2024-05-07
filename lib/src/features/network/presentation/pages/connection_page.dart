@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:legal_referral_ui/src/core/common_widgets/widgets.dart';
 import 'package:legal_referral_ui/src/core/config/config.dart';
 import 'package:legal_referral_ui/src/core/constants/constants.dart';
@@ -115,8 +116,13 @@ class _ConnectionPageState extends State<ConnectionPage> {
                 SizedBox(
                   width: 8.w,
                 ),
-                SvgPicture.asset(
-                  ImageStringConstants.filter,
+                GestureDetector(
+                  onTap: () => context.pushNamed(
+                    ConnectionFilterPage.name,
+                  ),
+                  child: SvgPicture.asset(
+                    ImageStringConstants.filter,
+                  ),
                 ),
               ],
             ),

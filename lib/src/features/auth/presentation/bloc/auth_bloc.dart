@@ -167,8 +167,20 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         return;
       }
 
+      if (user.email == null) {
+        emit(
+          state.copyWith(
+            authStatus: AuthStatus.failure,
+            failure: const Failure(
+              message: 'Failed to sign up',
+            ),
+          ),
+        );
+        return;
+      }
+
       final userCred = await _firebaseAuth.createUserWithEmailAndPassword(
-        email: user.email,
+        email: user.email!,
         password: event.password,
       );
 
@@ -179,17 +191,22 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         await SharedPrefs.setToken(token: idToken);
       }
 
-      // final imageUrl = await ImageUtil.uploadFile(
-      //   file: event.userImageFile,
-      //   filename: '${firebaseUser?.uid}',
-      //   container: 'user_images',
-      //   fileType: 'jpg',
-      // );
+      if (user.email == null) {
+        emit(
+          state.copyWith(
+            authStatus: AuthStatus.failure,
+            failure: const Failure(
+              message: 'Failed to sign up',
+            ),
+          ),
+        );
+        return;
+      }
 
       final userRes = await _authUseCase.createUser(
-        email: user.email,
-        firstName: user.firstName,
-        lastName: user.lastName,
+        email: user.email!,
+        firstName: user.firstName ?? '',
+        lastName: user.lastName ?? '',
         mobile: user.mobile,
         signUpMethod: 0,
         userImage: File(event.userImageFile.path),

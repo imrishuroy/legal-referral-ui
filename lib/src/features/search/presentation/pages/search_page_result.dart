@@ -6,6 +6,7 @@ import 'package:legal_referral_ui/src/features/search/presentation/widgets/shimm
 
 class SearchPageResult extends StatefulWidget {
   const SearchPageResult({super.key});
+  static const String name = 'SearchPageResult';
 
   @override
   State<SearchPageResult> createState() => _SearchPageResultState();

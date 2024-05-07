@@ -6,7 +6,7 @@ import 'package:legal_referral_ui/src/features/home_page.dart';
 import 'package:legal_referral_ui/src/features/network/presentation/pages/network_page.dart';
 import 'package:legal_referral_ui/src/features/network/presentation/presentation.dart';
 import 'package:legal_referral_ui/src/features/profile/presentation/presentation.dart';
-import 'package:legal_referral_ui/src/features/search/presentation/pages/search_page_result.dart';
+import 'package:legal_referral_ui/src/features/search/presentation/presentation.dart';
 import 'package:legal_referral_ui/src/features/wizard/presentation/presentation.dart';
 
 final _rootNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'parent');
@@ -25,7 +25,7 @@ class AppRouter {
         name: SplashPage.name,
         parentNavigatorKey: _rootNavigatorKey,
         pageBuilder: (context, state) => CustomTransitionPage(
-          child: const SearchPageResult(),
+          child: const SplashPage(),
           transitionDuration: const Duration(
             seconds: _routeAnimationDuration,
           ),
@@ -200,6 +200,21 @@ class AppRouter {
               transitionsBuilder: (_, a, __, c) =>
                   FadeTransition(opacity: a, child: c),
             ),
+            routes: [
+              GoRoute(
+                path: 'connection-filter',
+                name: ConnectionFilterPage.name,
+                parentNavigatorKey: _rootNavigatorKey,
+                pageBuilder: (context, state) => CustomTransitionPage(
+                  child: const ConnectionFilterPage(),
+                  transitionDuration: const Duration(
+                    milliseconds: _routeTransitionDuration,
+                  ),
+                  transitionsBuilder: (_, a, __, c) =>
+                      FadeTransition(opacity: a, child: c),
+                ),
+              ),
+            ],
           ),
           GoRoute(
             path: 'recommendation',
@@ -368,6 +383,19 @@ class AppRouter {
           child: ListEducationPage(
             profileBloc: state.extra as ProfileBloc,
           ),
+          transitionDuration: const Duration(
+            milliseconds: _routeTransitionDuration,
+          ),
+          transitionsBuilder: (_, a, __, c) =>
+              FadeTransition(opacity: a, child: c),
+        ),
+      ),
+      GoRoute(
+        path: '/search',
+        name: SearchPage.name,
+        parentNavigatorKey: _rootNavigatorKey,
+        pageBuilder: (context, state) => CustomTransitionPage(
+          child: const SearchPage(),
           transitionDuration: const Duration(
             milliseconds: _routeTransitionDuration,
           ),
