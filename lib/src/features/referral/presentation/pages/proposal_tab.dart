@@ -30,6 +30,8 @@ class ProposalTab extends StatelessWidget {
           attorneyType: 'Divorce attorney',
           action: 'Start Project',
           profileImage: null,
+          caseDescription: lorem50,
+          startDate: '12 Mar, 2024',
         ),
         SizedBox(
           height: 24.h,
@@ -54,6 +56,8 @@ class ProposalTab extends StatelessWidget {
               practiceArea: 'Akron, OH',
               date: '24 Feb 2024',
               profileImage: null,
+              startDate: '20/02/2024',
+              caseDescription: lorem50,
             ),
             Divider(
               height: 1,
@@ -91,3 +95,18 @@ class ProposalTab extends StatelessWidget {
     );
   }
 }
+
+const String lorem50 = 'Lorem ipsum dolor sit amet,'
+    ' consectetur adipiscing elit. Fusce sit'
+    ' amet ultrices nisi. Nullam ultricies enim '
+    'consequat nunc ac tortor consectetur, vitae suscipit ex '
+    'Integer ut ex nec dolor ullamcorper pharetra. Sed vel purus '
+    ' auctor dictum. Nulla facilisi. Aliquam vitae purus nec sapien'
+    ' faucibus cursus vel ut ex. Nullam malesuada fringilla lacinia. '
+    'Maecenas et libero metus. Sed volutpat libero eget vehicula'
+    ' commodo. Vivamus accumsan ipsum vel nisi commodo, nec cursus'
+    ' ligula malesuada. Vivamus dictum placerat diam, vel dapibus'
+    ' nisi pharetra nec. Morbi condimentum pharetra nisi vel'
+    ' facilisis. Sed tincidunt eros ut libero fermentum, quis '
+    'fringilla libero dapibus. Phasellus bibendum viverra '
+    'libero. Sed elementum purus nec efficitur ullamcorper.';

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:legal_referral_ui/src/features/referral/presentation/pages/proposal_tab.dart';
+import 'package:legal_referral_ui/src/features/referral/presentation/pages/referral_detail.dart';
 import 'package:legal_referral_ui/src/features/referral/presentation/widgets/active_projects.dart';
 import 'package:legal_referral_ui/src/features/referral/presentation/widgets/case_details.dart';
 
@@ -31,6 +33,8 @@ class MyReferralTab extends StatelessWidget {
           caseStatus: 'Completed',
           action: 'Acknowledge',
           profileImage: null,
+          caseDescription: '',
+          startDate: null,
         ),
         SizedBox(
           height: 24.h,
@@ -46,15 +50,32 @@ class MyReferralTab extends StatelessWidget {
         ),
 //!   later this will be wrapped in Listview
 //!   ek cheej aur add krna hai
-        const Column(
+        Column(
           children: [
-            CaseDetails(
-              caseName: 'Akron, Ohio car accident',
-              practiceArea: 'Akron, OH',
-              attorneyType: 'Divorse Attorney',
-              date: '24 Feb 2024',
+            InkWell(
+              onTap: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => const ReferralDetails(
+                      caseName: 'Akron, Ohio car accident',
+                      caseDescription: lorem50,
+                      practiceArea: 'Akron, OH',
+                      attorneyType: 'Divorse Attorney',
+                      date: '20/02/2023',
+                    ),
+                  ),
+                );
+              },
+              child: const CaseDetails(
+               
+                caseName: 'Akron, Ohio car accident',
+                practiceArea: 'Akron, OH',
+                attorneyType: 'Divorse Attorney',
+                date: '24 Feb 2024',
+                proposals: 4,
+              ),
             ),
-            Divider(
+            const Divider(
               height: 1,
             ),
           ],

@@ -28,6 +28,7 @@ class LegalReferralColors {
   static const Color containerWhite400 = Color.fromRGBO(238, 238, 238, 1);
   static const Color containerBlue221 = Color.fromRGBO(221, 237, 248, 1);
   static const Color containerRed255 = Color.fromRGBO(255, 214, 208, 1);
+  static const Color containerGreen95 = Color.fromRGBO(95, 191, 93, 1);
 
   // Button colors
   static const Color buttonPrimary = Color.fromRGBO(89, 158, 217, 1);

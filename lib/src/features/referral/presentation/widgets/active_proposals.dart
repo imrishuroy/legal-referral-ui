@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:legal_referral_ui/src/core/constants/constants.dart';
 import 'package:legal_referral_ui/src/features/referral/presentation/widgets/attorney_details.dart';
 import 'package:legal_referral_ui/src/features/referral/presentation/widgets/case_details.dart';
+import 'package:legal_referral_ui/src/features/referral/presentation/pages/proposal_detail.dart';
 
 class ActiveproposalCard extends StatelessWidget {
   final String? attorneyName;
@@ -13,6 +14,9 @@ class ActiveproposalCard extends StatelessWidget {
 
   final String? profileImage;
   final String? date;
+    final String? startDate;
+  final String? caseDescription;
+
   const ActiveproposalCard({
     required this.attorneyName,
     required this.attorneyType,
@@ -20,6 +24,8 @@ class ActiveproposalCard extends StatelessWidget {
     required this.practiceArea,
     required this.profileImage,
     required this.date,
+        required this.startDate,
+    required this.caseDescription,
     super.key,
   });
 
@@ -28,32 +34,52 @@ class ActiveproposalCard extends StatelessWidget {
     return ColoredBox(
       
       color: LegalReferralColors.backgroundWhite255,
-      child: Column(
-        children: [
-          SizedBox(
-            height: 12.h,
-          ),
-          Padding(
-            padding:  EdgeInsets.symmetric(horizontal: 16.w),
-            child: AttorneyDetails(
-              attorneyName: attorneyName,
-              attorneyType: attorneyType,
-              profileImage: profileImage,
-              style: null,
-              radius: null,
+      child: InkWell(
+        onTap: () {
+           Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) => ProposalDetails(
+                caseName: caseName,
+                startDate: startDate,
+                caseDescription: caseDescription,
+                attorneyName: attorneyName,
+                attorneyType: attorneyType,
+                profileImage: profileImage,
+                style: null,
+                radius: null,
+                practiceArea: practiceArea,
+                date: date,
+              ),
             ),
-          ),
-          SizedBox(
-            height: 8.h,
-          ),
-          CaseDetails(
-            caseName: caseName,
-            practiceArea: practiceArea,
-            attorneyType: attorneyType,
-            date: date,
-          ),
-         
-        ],
+          );
+        },
+        child: Column(
+          children: [
+            SizedBox(
+              height: 12.h,
+            ),
+            Padding(
+              padding:  EdgeInsets.symmetric(horizontal: 16.w),
+              child: AttorneyDetails(
+                attorneyName: attorneyName,
+                attorneyType: attorneyType,
+                profileImage: profileImage,
+                style: null,
+                radius: null,
+              ),
+            ),
+            SizedBox(
+              height: 8.h,
+            ),
+            CaseDetails(
+              caseName: caseName,
+              practiceArea: practiceArea,
+              attorneyType: attorneyType,
+              date: date,
+            ),
+           
+          ],
+        ),
       ),
     );
   }

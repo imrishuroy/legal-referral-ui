@@ -10,17 +10,22 @@ class CaseDetails extends StatelessWidget {
     required this.practiceArea,
     required this.attorneyType,
     required this.date,
+    this.proposals,
     super.key,
+    this.padding,
   });
   final String? caseName;
   final String? practiceArea;
   final String? attorneyType;
+  final int? proposals;
   final String? date;
+  final EdgeInsetsGeometry? padding;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 16.w),
+      padding:
+          (padding != null) ? padding : EdgeInsets.symmetric(horizontal: 16.w),
       color: LegalReferralColors.backgroundWhite255,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -28,17 +33,23 @@ class CaseDetails extends StatelessWidget {
           SizedBox(
             height: 12.h,
           ),
-          Text(
-            caseName ?? '',
-            style: Theme.of(context).textTheme.headlineSmall,
-          ),
-          // Text(
-          //   '4 Proposals',
-          //   style: Theme.of(context)
-          //       .textTheme
-          //       .bodyMedium
-          //       ?.copyWith(color: LegalReferralColors.textGrey500),
-          // ),
+          if (caseName == null)
+            const SizedBox.shrink()
+          else
+            Text(
+              caseName ?? '',
+              style: Theme.of(context).textTheme.headlineSmall,
+            ),
+          if (proposals != null)
+            Text(
+              '$proposals Proposals',
+              style: Theme.of(context)
+                  .textTheme
+                  .bodyMedium
+                  ?.copyWith(color: LegalReferralColors.textGrey500),
+            )
+          else
+            const SizedBox.shrink(),
           SizedBox(
             height: 8.h,
           ),
@@ -65,7 +76,6 @@ class CaseDetails extends StatelessWidget {
           SizedBox(
             height: 12.h,
           ),
-         
         ],
       ),
     );

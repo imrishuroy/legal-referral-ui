@@ -5,6 +5,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:legal_referral_ui/src/core/common_widgets/widgets.dart';
 import 'package:legal_referral_ui/src/core/constants/constants.dart';
 import 'package:legal_referral_ui/src/features/referral/presentation/widgets/attorney_details.dart';
+import 'package:legal_referral_ui/src/features/referral/presentation/pages/project_details.dart';
 
 class ActiveProjectCard extends StatelessWidget {
   final String? caseName;
@@ -13,6 +14,8 @@ class ActiveProjectCard extends StatelessWidget {
   final String? caseStatus;
   final String? action;
   final String? profileImage;
+  final String? caseDescription;
+  final String? startDate;
   const ActiveProjectCard({
     required this.caseName,
     required this.attorneyType,
@@ -21,6 +24,8 @@ class ActiveProjectCard extends StatelessWidget {
     required this.action,
     required this.profileImage,
     super.key,
+   required this.caseDescription,
+   required this.startDate,
   });
 
   @override
@@ -119,7 +124,20 @@ class ActiveProjectCard extends StatelessWidget {
                                 ?.copyWith(
                                   color: LegalReferralColors.textBlue100,
                                 ),
-                            onPressed: () {},
+                            onPressed: () {
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (context) => ProjectDetails(
+                                    caseName: caseName,
+                                    startDate: startDate,
+                                    caseDescription: caseDescription,
+                                    attorneyName: attorneyName,
+                                    attorneyType: '$attorneyType • 1st',
+                                    profileImage: profileImage,
+                                  ),
+                                ),
+                              );
+                            },
                           ),
                         ),
                       ),
