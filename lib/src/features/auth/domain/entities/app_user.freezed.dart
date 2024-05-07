@@ -20,36 +20,38 @@ AppUser _$AppUserFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$AppUser {
-  String get email => throw _privateConstructorUsedError;
+  String? get email => throw _privateConstructorUsedError;
   @JsonKey(name: 'first_name')
-  String get firstName => throw _privateConstructorUsedError;
+  String? get firstName => throw _privateConstructorUsedError;
   @JsonKey(name: 'last_name')
-  String get lastName => throw _privateConstructorUsedError;
+  String? get lastName => throw _privateConstructorUsedError;
   @JsonKey(name: 'about', includeIfNull: false)
   String? get about => throw _privateConstructorUsedError;
-  @JsonKey(name: 'signup_method')
-  int get signupMethod => throw _privateConstructorUsedError;
-  @JsonKey(name: 'email_verified')
-  bool get emailVerified => throw _privateConstructorUsedError;
-  @JsonKey(name: 'mobile_verified')
-  bool get mobileVerified => throw _privateConstructorUsedError;
-  @JsonKey(name: 'wizard_step')
-  int get wizardStep => throw _privateConstructorUsedError;
-  @JsonKey(name: 'wizard_completed')
-  bool get wizardCompleted => throw _privateConstructorUsedError;
+  @JsonKey(name: 'signup_method', includeIfNull: false)
+  int? get signupMethod => throw _privateConstructorUsedError;
+  @JsonKey(name: 'email_verified', includeIfNull: false)
+  bool? get emailVerified => throw _privateConstructorUsedError;
+  @JsonKey(name: 'mobile_verified', includeIfNull: false)
+  bool? get mobileVerified => throw _privateConstructorUsedError;
+  @JsonKey(name: 'wizard_step', includeIfNull: false)
+  int? get wizardStep => throw _privateConstructorUsedError;
+  @JsonKey(name: 'wizard_completed', includeIfNull: false)
+  bool? get wizardCompleted => throw _privateConstructorUsedError;
   @DateTimeConverter()
   @JsonKey(name: 'join_date', includeToJson: false)
   DateTime? get joinDate => throw _privateConstructorUsedError;
   String? get mobile => throw _privateConstructorUsedError;
   String? get address => throw _privateConstructorUsedError;
   @JsonKey(name: 'avatar_url', includeIfNull: false)
-  String? get imageUrl => throw _privateConstructorUsedError;
+  String? get avatarUrl => throw _privateConstructorUsedError;
   @JsonKey(name: 'banner_url', includeIfNull: false)
   String? get bannerUrl => throw _privateConstructorUsedError;
   @JsonKey(name: 'user_id', includeToJson: false)
   String? get userId => throw _privateConstructorUsedError;
   @JsonKey(name: 'practice_area', includeIfNull: false)
   String? get practiceArea => throw _privateConstructorUsedError;
+  @JsonKey(name: 'practice_location', includeIfNull: false)
+  String? get practiceLocation => throw _privateConstructorUsedError;
   @JsonKey(name: 'case_resolution_rate', includeIfNull: false)
   int? get caseResolutionRate => throw _privateConstructorUsedError;
   @JsonKey(name: 'average_billing_per_client', includeIfNull: false)
@@ -57,7 +59,7 @@ mixin _$AppUser {
   @JsonKey(name: 'experience', includeIfNull: false)
   String? get experience => throw _privateConstructorUsedError;
   @JsonKey(name: 'open_to_referral', includeIfNull: false)
-  bool get openToReferral => throw _privateConstructorUsedError;
+  bool? get openToReferral => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -70,32 +72,37 @@ abstract class $AppUserCopyWith<$Res> {
       _$AppUserCopyWithImpl<$Res, AppUser>;
   @useResult
   $Res call(
-      {String email,
-      @JsonKey(name: 'first_name') String firstName,
-      @JsonKey(name: 'last_name') String lastName,
+      {String? email,
+      @JsonKey(name: 'first_name') String? firstName,
+      @JsonKey(name: 'last_name') String? lastName,
       @JsonKey(name: 'about', includeIfNull: false) String? about,
-      @JsonKey(name: 'signup_method') int signupMethod,
-      @JsonKey(name: 'email_verified') bool emailVerified,
-      @JsonKey(name: 'mobile_verified') bool mobileVerified,
-      @JsonKey(name: 'wizard_step') int wizardStep,
-      @JsonKey(name: 'wizard_completed') bool wizardCompleted,
+      @JsonKey(name: 'signup_method', includeIfNull: false) int? signupMethod,
+      @JsonKey(name: 'email_verified', includeIfNull: false)
+      bool? emailVerified,
+      @JsonKey(name: 'mobile_verified', includeIfNull: false)
+      bool? mobileVerified,
+      @JsonKey(name: 'wizard_step', includeIfNull: false) int? wizardStep,
+      @JsonKey(name: 'wizard_completed', includeIfNull: false)
+      bool? wizardCompleted,
       @DateTimeConverter()
       @JsonKey(name: 'join_date', includeToJson: false)
       DateTime? joinDate,
       String? mobile,
       String? address,
-      @JsonKey(name: 'avatar_url', includeIfNull: false) String? imageUrl,
+      @JsonKey(name: 'avatar_url', includeIfNull: false) String? avatarUrl,
       @JsonKey(name: 'banner_url', includeIfNull: false) String? bannerUrl,
       @JsonKey(name: 'user_id', includeToJson: false) String? userId,
       @JsonKey(name: 'practice_area', includeIfNull: false)
       String? practiceArea,
+      @JsonKey(name: 'practice_location', includeIfNull: false)
+      String? practiceLocation,
       @JsonKey(name: 'case_resolution_rate', includeIfNull: false)
       int? caseResolutionRate,
       @JsonKey(name: 'average_billing_per_client', includeIfNull: false)
       int? averageBillingPerClient,
       @JsonKey(name: 'experience', includeIfNull: false) String? experience,
       @JsonKey(name: 'open_to_referral', includeIfNull: false)
-      bool openToReferral});
+      bool? openToReferral});
 }
 
 /// @nodoc
@@ -111,64 +118,65 @@ class _$AppUserCopyWithImpl<$Res, $Val extends AppUser>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? email = null,
-    Object? firstName = null,
-    Object? lastName = null,
+    Object? email = freezed,
+    Object? firstName = freezed,
+    Object? lastName = freezed,
     Object? about = freezed,
-    Object? signupMethod = null,
-    Object? emailVerified = null,
-    Object? mobileVerified = null,
-    Object? wizardStep = null,
-    Object? wizardCompleted = null,
+    Object? signupMethod = freezed,
+    Object? emailVerified = freezed,
+    Object? mobileVerified = freezed,
+    Object? wizardStep = freezed,
+    Object? wizardCompleted = freezed,
     Object? joinDate = freezed,
     Object? mobile = freezed,
     Object? address = freezed,
-    Object? imageUrl = freezed,
+    Object? avatarUrl = freezed,
     Object? bannerUrl = freezed,
     Object? userId = freezed,
     Object? practiceArea = freezed,
+    Object? practiceLocation = freezed,
     Object? caseResolutionRate = freezed,
     Object? averageBillingPerClient = freezed,
     Object? experience = freezed,
-    Object? openToReferral = null,
+    Object? openToReferral = freezed,
   }) {
     return _then(_value.copyWith(
-      email: null == email
+      email: freezed == email
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
-              as String,
-      firstName: null == firstName
+              as String?,
+      firstName: freezed == firstName
           ? _value.firstName
           : firstName // ignore: cast_nullable_to_non_nullable
-              as String,
-      lastName: null == lastName
+              as String?,
+      lastName: freezed == lastName
           ? _value.lastName
           : lastName // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       about: freezed == about
           ? _value.about
           : about // ignore: cast_nullable_to_non_nullable
               as String?,
-      signupMethod: null == signupMethod
+      signupMethod: freezed == signupMethod
           ? _value.signupMethod
           : signupMethod // ignore: cast_nullable_to_non_nullable
-              as int,
-      emailVerified: null == emailVerified
+              as int?,
+      emailVerified: freezed == emailVerified
           ? _value.emailVerified
           : emailVerified // ignore: cast_nullable_to_non_nullable
-              as bool,
-      mobileVerified: null == mobileVerified
+              as bool?,
+      mobileVerified: freezed == mobileVerified
           ? _value.mobileVerified
           : mobileVerified // ignore: cast_nullable_to_non_nullable
-              as bool,
-      wizardStep: null == wizardStep
+              as bool?,
+      wizardStep: freezed == wizardStep
           ? _value.wizardStep
           : wizardStep // ignore: cast_nullable_to_non_nullable
-              as int,
-      wizardCompleted: null == wizardCompleted
+              as int?,
+      wizardCompleted: freezed == wizardCompleted
           ? _value.wizardCompleted
           : wizardCompleted // ignore: cast_nullable_to_non_nullable
-              as bool,
+              as bool?,
       joinDate: freezed == joinDate
           ? _value.joinDate
           : joinDate // ignore: cast_nullable_to_non_nullable
@@ -181,9 +189,9 @@ class _$AppUserCopyWithImpl<$Res, $Val extends AppUser>
           ? _value.address
           : address // ignore: cast_nullable_to_non_nullable
               as String?,
-      imageUrl: freezed == imageUrl
-          ? _value.imageUrl
-          : imageUrl // ignore: cast_nullable_to_non_nullable
+      avatarUrl: freezed == avatarUrl
+          ? _value.avatarUrl
+          : avatarUrl // ignore: cast_nullable_to_non_nullable
               as String?,
       bannerUrl: freezed == bannerUrl
           ? _value.bannerUrl
@@ -197,6 +205,10 @@ class _$AppUserCopyWithImpl<$Res, $Val extends AppUser>
           ? _value.practiceArea
           : practiceArea // ignore: cast_nullable_to_non_nullable
               as String?,
+      practiceLocation: freezed == practiceLocation
+          ? _value.practiceLocation
+          : practiceLocation // ignore: cast_nullable_to_non_nullable
+              as String?,
       caseResolutionRate: freezed == caseResolutionRate
           ? _value.caseResolutionRate
           : caseResolutionRate // ignore: cast_nullable_to_non_nullable
@@ -209,10 +221,10 @@ class _$AppUserCopyWithImpl<$Res, $Val extends AppUser>
           ? _value.experience
           : experience // ignore: cast_nullable_to_non_nullable
               as String?,
-      openToReferral: null == openToReferral
+      openToReferral: freezed == openToReferral
           ? _value.openToReferral
           : openToReferral // ignore: cast_nullable_to_non_nullable
-              as bool,
+              as bool?,
     ) as $Val);
   }
 }
@@ -225,32 +237,37 @@ abstract class _$$AppUserImplCopyWith<$Res> implements $AppUserCopyWith<$Res> {
   @override
   @useResult
   $Res call(
-      {String email,
-      @JsonKey(name: 'first_name') String firstName,
-      @JsonKey(name: 'last_name') String lastName,
+      {String? email,
+      @JsonKey(name: 'first_name') String? firstName,
+      @JsonKey(name: 'last_name') String? lastName,
       @JsonKey(name: 'about', includeIfNull: false) String? about,
-      @JsonKey(name: 'signup_method') int signupMethod,
-      @JsonKey(name: 'email_verified') bool emailVerified,
-      @JsonKey(name: 'mobile_verified') bool mobileVerified,
-      @JsonKey(name: 'wizard_step') int wizardStep,
-      @JsonKey(name: 'wizard_completed') bool wizardCompleted,
+      @JsonKey(name: 'signup_method', includeIfNull: false) int? signupMethod,
+      @JsonKey(name: 'email_verified', includeIfNull: false)
+      bool? emailVerified,
+      @JsonKey(name: 'mobile_verified', includeIfNull: false)
+      bool? mobileVerified,
+      @JsonKey(name: 'wizard_step', includeIfNull: false) int? wizardStep,
+      @JsonKey(name: 'wizard_completed', includeIfNull: false)
+      bool? wizardCompleted,
       @DateTimeConverter()
       @JsonKey(name: 'join_date', includeToJson: false)
       DateTime? joinDate,
       String? mobile,
       String? address,
-      @JsonKey(name: 'avatar_url', includeIfNull: false) String? imageUrl,
+      @JsonKey(name: 'avatar_url', includeIfNull: false) String? avatarUrl,
       @JsonKey(name: 'banner_url', includeIfNull: false) String? bannerUrl,
       @JsonKey(name: 'user_id', includeToJson: false) String? userId,
       @JsonKey(name: 'practice_area', includeIfNull: false)
       String? practiceArea,
+      @JsonKey(name: 'practice_location', includeIfNull: false)
+      String? practiceLocation,
       @JsonKey(name: 'case_resolution_rate', includeIfNull: false)
       int? caseResolutionRate,
       @JsonKey(name: 'average_billing_per_client', includeIfNull: false)
       int? averageBillingPerClient,
       @JsonKey(name: 'experience', includeIfNull: false) String? experience,
       @JsonKey(name: 'open_to_referral', includeIfNull: false)
-      bool openToReferral});
+      bool? openToReferral});
 }
 
 /// @nodoc
@@ -264,64 +281,65 @@ class __$$AppUserImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? email = null,
-    Object? firstName = null,
-    Object? lastName = null,
+    Object? email = freezed,
+    Object? firstName = freezed,
+    Object? lastName = freezed,
     Object? about = freezed,
-    Object? signupMethod = null,
-    Object? emailVerified = null,
-    Object? mobileVerified = null,
-    Object? wizardStep = null,
-    Object? wizardCompleted = null,
+    Object? signupMethod = freezed,
+    Object? emailVerified = freezed,
+    Object? mobileVerified = freezed,
+    Object? wizardStep = freezed,
+    Object? wizardCompleted = freezed,
     Object? joinDate = freezed,
     Object? mobile = freezed,
     Object? address = freezed,
-    Object? imageUrl = freezed,
+    Object? avatarUrl = freezed,
     Object? bannerUrl = freezed,
     Object? userId = freezed,
     Object? practiceArea = freezed,
+    Object? practiceLocation = freezed,
     Object? caseResolutionRate = freezed,
     Object? averageBillingPerClient = freezed,
     Object? experience = freezed,
-    Object? openToReferral = null,
+    Object? openToReferral = freezed,
   }) {
     return _then(_$AppUserImpl(
-      email: null == email
+      email: freezed == email
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
-              as String,
-      firstName: null == firstName
+              as String?,
+      firstName: freezed == firstName
           ? _value.firstName
           : firstName // ignore: cast_nullable_to_non_nullable
-              as String,
-      lastName: null == lastName
+              as String?,
+      lastName: freezed == lastName
           ? _value.lastName
           : lastName // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       about: freezed == about
           ? _value.about
           : about // ignore: cast_nullable_to_non_nullable
               as String?,
-      signupMethod: null == signupMethod
+      signupMethod: freezed == signupMethod
           ? _value.signupMethod
           : signupMethod // ignore: cast_nullable_to_non_nullable
-              as int,
-      emailVerified: null == emailVerified
+              as int?,
+      emailVerified: freezed == emailVerified
           ? _value.emailVerified
           : emailVerified // ignore: cast_nullable_to_non_nullable
-              as bool,
-      mobileVerified: null == mobileVerified
+              as bool?,
+      mobileVerified: freezed == mobileVerified
           ? _value.mobileVerified
           : mobileVerified // ignore: cast_nullable_to_non_nullable
-              as bool,
-      wizardStep: null == wizardStep
+              as bool?,
+      wizardStep: freezed == wizardStep
           ? _value.wizardStep
           : wizardStep // ignore: cast_nullable_to_non_nullable
-              as int,
-      wizardCompleted: null == wizardCompleted
+              as int?,
+      wizardCompleted: freezed == wizardCompleted
           ? _value.wizardCompleted
           : wizardCompleted // ignore: cast_nullable_to_non_nullable
-              as bool,
+              as bool?,
       joinDate: freezed == joinDate
           ? _value.joinDate
           : joinDate // ignore: cast_nullable_to_non_nullable
@@ -334,9 +352,9 @@ class __$$AppUserImplCopyWithImpl<$Res>
           ? _value.address
           : address // ignore: cast_nullable_to_non_nullable
               as String?,
-      imageUrl: freezed == imageUrl
-          ? _value.imageUrl
-          : imageUrl // ignore: cast_nullable_to_non_nullable
+      avatarUrl: freezed == avatarUrl
+          ? _value.avatarUrl
+          : avatarUrl // ignore: cast_nullable_to_non_nullable
               as String?,
       bannerUrl: freezed == bannerUrl
           ? _value.bannerUrl
@@ -350,6 +368,10 @@ class __$$AppUserImplCopyWithImpl<$Res>
           ? _value.practiceArea
           : practiceArea // ignore: cast_nullable_to_non_nullable
               as String?,
+      practiceLocation: freezed == practiceLocation
+          ? _value.practiceLocation
+          : practiceLocation // ignore: cast_nullable_to_non_nullable
+              as String?,
       caseResolutionRate: freezed == caseResolutionRate
           ? _value.caseResolutionRate
           : caseResolutionRate // ignore: cast_nullable_to_non_nullable
@@ -362,10 +384,10 @@ class __$$AppUserImplCopyWithImpl<$Res>
           ? _value.experience
           : experience // ignore: cast_nullable_to_non_nullable
               as String?,
-      openToReferral: null == openToReferral
+      openToReferral: freezed == openToReferral
           ? _value.openToReferral
           : openToReferral // ignore: cast_nullable_to_non_nullable
-              as bool,
+              as bool?,
     ));
   }
 }
@@ -378,20 +400,26 @@ class _$AppUserImpl implements _AppUser {
       @JsonKey(name: 'first_name') required this.firstName,
       @JsonKey(name: 'last_name') required this.lastName,
       @JsonKey(name: 'about', includeIfNull: false) this.about,
-      @JsonKey(name: 'signup_method') this.signupMethod = 0,
-      @JsonKey(name: 'email_verified') this.emailVerified = false,
-      @JsonKey(name: 'mobile_verified') this.mobileVerified = false,
-      @JsonKey(name: 'wizard_step') this.wizardStep = 0,
-      @JsonKey(name: 'wizard_completed') this.wizardCompleted = false,
+      @JsonKey(name: 'signup_method', includeIfNull: false)
+      this.signupMethod = 0,
+      @JsonKey(name: 'email_verified', includeIfNull: false)
+      this.emailVerified = false,
+      @JsonKey(name: 'mobile_verified', includeIfNull: false)
+      this.mobileVerified = false,
+      @JsonKey(name: 'wizard_step', includeIfNull: false) this.wizardStep = 0,
+      @JsonKey(name: 'wizard_completed', includeIfNull: false)
+      this.wizardCompleted = false,
       @DateTimeConverter()
       @JsonKey(name: 'join_date', includeToJson: false)
       this.joinDate,
       this.mobile,
       this.address,
-      @JsonKey(name: 'avatar_url', includeIfNull: false) this.imageUrl,
+      @JsonKey(name: 'avatar_url', includeIfNull: false) this.avatarUrl,
       @JsonKey(name: 'banner_url', includeIfNull: false) this.bannerUrl,
       @JsonKey(name: 'user_id', includeToJson: false) this.userId,
       @JsonKey(name: 'practice_area', includeIfNull: false) this.practiceArea,
+      @JsonKey(name: 'practice_location', includeIfNull: false)
+      this.practiceLocation,
       @JsonKey(name: 'case_resolution_rate', includeIfNull: false)
       this.caseResolutionRate,
       @JsonKey(name: 'average_billing_per_client', includeIfNull: false)
@@ -404,31 +432,31 @@ class _$AppUserImpl implements _AppUser {
       _$$AppUserImplFromJson(json);
 
   @override
-  final String email;
+  final String? email;
   @override
   @JsonKey(name: 'first_name')
-  final String firstName;
+  final String? firstName;
   @override
   @JsonKey(name: 'last_name')
-  final String lastName;
+  final String? lastName;
   @override
   @JsonKey(name: 'about', includeIfNull: false)
   final String? about;
   @override
-  @JsonKey(name: 'signup_method')
-  final int signupMethod;
+  @JsonKey(name: 'signup_method', includeIfNull: false)
+  final int? signupMethod;
   @override
-  @JsonKey(name: 'email_verified')
-  final bool emailVerified;
+  @JsonKey(name: 'email_verified', includeIfNull: false)
+  final bool? emailVerified;
   @override
-  @JsonKey(name: 'mobile_verified')
-  final bool mobileVerified;
+  @JsonKey(name: 'mobile_verified', includeIfNull: false)
+  final bool? mobileVerified;
   @override
-  @JsonKey(name: 'wizard_step')
-  final int wizardStep;
+  @JsonKey(name: 'wizard_step', includeIfNull: false)
+  final int? wizardStep;
   @override
-  @JsonKey(name: 'wizard_completed')
-  final bool wizardCompleted;
+  @JsonKey(name: 'wizard_completed', includeIfNull: false)
+  final bool? wizardCompleted;
   @override
   @DateTimeConverter()
   @JsonKey(name: 'join_date', includeToJson: false)
@@ -439,7 +467,7 @@ class _$AppUserImpl implements _AppUser {
   final String? address;
   @override
   @JsonKey(name: 'avatar_url', includeIfNull: false)
-  final String? imageUrl;
+  final String? avatarUrl;
   @override
   @JsonKey(name: 'banner_url', includeIfNull: false)
   final String? bannerUrl;
@@ -449,6 +477,9 @@ class _$AppUserImpl implements _AppUser {
   @override
   @JsonKey(name: 'practice_area', includeIfNull: false)
   final String? practiceArea;
+  @override
+  @JsonKey(name: 'practice_location', includeIfNull: false)
+  final String? practiceLocation;
   @override
   @JsonKey(name: 'case_resolution_rate', includeIfNull: false)
   final int? caseResolutionRate;
@@ -460,11 +491,11 @@ class _$AppUserImpl implements _AppUser {
   final String? experience;
   @override
   @JsonKey(name: 'open_to_referral', includeIfNull: false)
-  final bool openToReferral;
+  final bool? openToReferral;
 
   @override
   String toString() {
-    return 'AppUser(email: $email, firstName: $firstName, lastName: $lastName, about: $about, signupMethod: $signupMethod, emailVerified: $emailVerified, mobileVerified: $mobileVerified, wizardStep: $wizardStep, wizardCompleted: $wizardCompleted, joinDate: $joinDate, mobile: $mobile, address: $address, imageUrl: $imageUrl, bannerUrl: $bannerUrl, userId: $userId, practiceArea: $practiceArea, caseResolutionRate: $caseResolutionRate, averageBillingPerClient: $averageBillingPerClient, experience: $experience, openToReferral: $openToReferral)';
+    return 'AppUser(email: $email, firstName: $firstName, lastName: $lastName, about: $about, signupMethod: $signupMethod, emailVerified: $emailVerified, mobileVerified: $mobileVerified, wizardStep: $wizardStep, wizardCompleted: $wizardCompleted, joinDate: $joinDate, mobile: $mobile, address: $address, avatarUrl: $avatarUrl, bannerUrl: $bannerUrl, userId: $userId, practiceArea: $practiceArea, practiceLocation: $practiceLocation, caseResolutionRate: $caseResolutionRate, averageBillingPerClient: $averageBillingPerClient, experience: $experience, openToReferral: $openToReferral)';
   }
 
   @override
@@ -492,13 +523,15 @@ class _$AppUserImpl implements _AppUser {
                 other.joinDate == joinDate) &&
             (identical(other.mobile, mobile) || other.mobile == mobile) &&
             (identical(other.address, address) || other.address == address) &&
-            (identical(other.imageUrl, imageUrl) ||
-                other.imageUrl == imageUrl) &&
+            (identical(other.avatarUrl, avatarUrl) ||
+                other.avatarUrl == avatarUrl) &&
             (identical(other.bannerUrl, bannerUrl) ||
                 other.bannerUrl == bannerUrl) &&
             (identical(other.userId, userId) || other.userId == userId) &&
             (identical(other.practiceArea, practiceArea) ||
                 other.practiceArea == practiceArea) &&
+            (identical(other.practiceLocation, practiceLocation) ||
+                other.practiceLocation == practiceLocation) &&
             (identical(other.caseResolutionRate, caseResolutionRate) ||
                 other.caseResolutionRate == caseResolutionRate) &&
             (identical(
@@ -526,10 +559,11 @@ class _$AppUserImpl implements _AppUser {
         joinDate,
         mobile,
         address,
-        imageUrl,
+        avatarUrl,
         bannerUrl,
         userId,
         practiceArea,
+        practiceLocation,
         caseResolutionRate,
         averageBillingPerClient,
         experience,
@@ -552,26 +586,33 @@ class _$AppUserImpl implements _AppUser {
 
 abstract class _AppUser implements AppUser {
   const factory _AppUser(
-      {required final String email,
-      @JsonKey(name: 'first_name') required final String firstName,
-      @JsonKey(name: 'last_name') required final String lastName,
+      {required final String? email,
+      @JsonKey(name: 'first_name') required final String? firstName,
+      @JsonKey(name: 'last_name') required final String? lastName,
       @JsonKey(name: 'about', includeIfNull: false) final String? about,
-      @JsonKey(name: 'signup_method') final int signupMethod,
-      @JsonKey(name: 'email_verified') final bool emailVerified,
-      @JsonKey(name: 'mobile_verified') final bool mobileVerified,
-      @JsonKey(name: 'wizard_step') final int wizardStep,
-      @JsonKey(name: 'wizard_completed') final bool wizardCompleted,
+      @JsonKey(name: 'signup_method', includeIfNull: false)
+      final int? signupMethod,
+      @JsonKey(name: 'email_verified', includeIfNull: false)
+      final bool? emailVerified,
+      @JsonKey(name: 'mobile_verified', includeIfNull: false)
+      final bool? mobileVerified,
+      @JsonKey(name: 'wizard_step', includeIfNull: false) final int? wizardStep,
+      @JsonKey(name: 'wizard_completed', includeIfNull: false)
+      final bool? wizardCompleted,
       @DateTimeConverter()
       @JsonKey(name: 'join_date', includeToJson: false)
       final DateTime? joinDate,
       final String? mobile,
       final String? address,
-      @JsonKey(name: 'avatar_url', includeIfNull: false) final String? imageUrl,
+      @JsonKey(name: 'avatar_url', includeIfNull: false)
+      final String? avatarUrl,
       @JsonKey(name: 'banner_url', includeIfNull: false)
       final String? bannerUrl,
       @JsonKey(name: 'user_id', includeToJson: false) final String? userId,
       @JsonKey(name: 'practice_area', includeIfNull: false)
       final String? practiceArea,
+      @JsonKey(name: 'practice_location', includeIfNull: false)
+      final String? practiceLocation,
       @JsonKey(name: 'case_resolution_rate', includeIfNull: false)
       final int? caseResolutionRate,
       @JsonKey(name: 'average_billing_per_client', includeIfNull: false)
@@ -579,36 +620,36 @@ abstract class _AppUser implements AppUser {
       @JsonKey(name: 'experience', includeIfNull: false)
       final String? experience,
       @JsonKey(name: 'open_to_referral', includeIfNull: false)
-      final bool openToReferral}) = _$AppUserImpl;
+      final bool? openToReferral}) = _$AppUserImpl;
 
   factory _AppUser.fromJson(Map<String, dynamic> json) = _$AppUserImpl.fromJson;
 
   @override
-  String get email;
+  String? get email;
   @override
   @JsonKey(name: 'first_name')
-  String get firstName;
+  String? get firstName;
   @override
   @JsonKey(name: 'last_name')
-  String get lastName;
+  String? get lastName;
   @override
   @JsonKey(name: 'about', includeIfNull: false)
   String? get about;
   @override
-  @JsonKey(name: 'signup_method')
-  int get signupMethod;
+  @JsonKey(name: 'signup_method', includeIfNull: false)
+  int? get signupMethod;
   @override
-  @JsonKey(name: 'email_verified')
-  bool get emailVerified;
+  @JsonKey(name: 'email_verified', includeIfNull: false)
+  bool? get emailVerified;
   @override
-  @JsonKey(name: 'mobile_verified')
-  bool get mobileVerified;
+  @JsonKey(name: 'mobile_verified', includeIfNull: false)
+  bool? get mobileVerified;
   @override
-  @JsonKey(name: 'wizard_step')
-  int get wizardStep;
+  @JsonKey(name: 'wizard_step', includeIfNull: false)
+  int? get wizardStep;
   @override
-  @JsonKey(name: 'wizard_completed')
-  bool get wizardCompleted;
+  @JsonKey(name: 'wizard_completed', includeIfNull: false)
+  bool? get wizardCompleted;
   @override
   @DateTimeConverter()
   @JsonKey(name: 'join_date', includeToJson: false)
@@ -619,7 +660,7 @@ abstract class _AppUser implements AppUser {
   String? get address;
   @override
   @JsonKey(name: 'avatar_url', includeIfNull: false)
-  String? get imageUrl;
+  String? get avatarUrl;
   @override
   @JsonKey(name: 'banner_url', includeIfNull: false)
   String? get bannerUrl;
@@ -629,6 +670,9 @@ abstract class _AppUser implements AppUser {
   @override
   @JsonKey(name: 'practice_area', includeIfNull: false)
   String? get practiceArea;
+  @override
+  @JsonKey(name: 'practice_location', includeIfNull: false)
+  String? get practiceLocation;
   @override
   @JsonKey(name: 'case_resolution_rate', includeIfNull: false)
   int? get caseResolutionRate;
@@ -640,7 +684,7 @@ abstract class _AppUser implements AppUser {
   String? get experience;
   @override
   @JsonKey(name: 'open_to_referral', includeIfNull: false)
-  bool get openToReferral;
+  bool? get openToReferral;
   @override
   @JsonKey(ignore: true)
   _$$AppUserImplCopyWith<_$AppUserImpl> get copyWith =>

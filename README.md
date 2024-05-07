@@ -21,3 +21,6 @@ keytool -genkey -v -keystore ~/legal-referral-dev.jks -keyalg RSA -keysize 2048 
 
 ## Web HTML Render
     flutter run -d chrome --web-renderer html
+
+## Build Runner Clean
+flutter packages pub run build_runner clean

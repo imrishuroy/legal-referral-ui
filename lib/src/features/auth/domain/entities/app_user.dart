@@ -7,24 +7,36 @@ part 'app_user.g.dart';
 @freezed
 class AppUser with _$AppUser {
   const factory AppUser({
-    required String email,
-    @JsonKey(name: 'first_name') required String firstName,
-    @JsonKey(name: 'last_name') required String lastName,
+    required String? email,
+    @JsonKey(name: 'first_name') required String? firstName,
+    @JsonKey(name: 'last_name') required String? lastName,
     @JsonKey(name: 'about', includeIfNull: false) String? about,
-    @JsonKey(name: 'signup_method') @Default(0) int signupMethod,
-    @JsonKey(name: 'email_verified') @Default(false) bool emailVerified,
-    @JsonKey(name: 'mobile_verified') @Default(false) bool mobileVerified,
-    @JsonKey(name: 'wizard_step') @Default(0) int wizardStep,
-    @JsonKey(name: 'wizard_completed') @Default(false) bool wizardCompleted,
+    @JsonKey(name: 'signup_method', includeIfNull: false)
+    @Default(0)
+    int? signupMethod,
+    @JsonKey(name: 'email_verified', includeIfNull: false)
+    @Default(false)
+    bool? emailVerified,
+    @JsonKey(name: 'mobile_verified', includeIfNull: false)
+    @Default(false)
+    bool? mobileVerified,
+    @JsonKey(name: 'wizard_step', includeIfNull: false)
+    @Default(0)
+    int? wizardStep,
+    @JsonKey(name: 'wizard_completed', includeIfNull: false)
+    @Default(false)
+    bool? wizardCompleted,
     @DateTimeConverter()
     @JsonKey(name: 'join_date', includeToJson: false)
     DateTime? joinDate,
     String? mobile,
     String? address,
-    @JsonKey(name: 'avatar_url', includeIfNull: false) String? imageUrl,
+    @JsonKey(name: 'avatar_url', includeIfNull: false) String? avatarUrl,
     @JsonKey(name: 'banner_url', includeIfNull: false) String? bannerUrl,
     @JsonKey(name: 'user_id', includeToJson: false) String? userId,
     @JsonKey(name: 'practice_area', includeIfNull: false) String? practiceArea,
+    @JsonKey(name: 'practice_location', includeIfNull: false)
+    String? practiceLocation,
     @JsonKey(name: 'case_resolution_rate', includeIfNull: false)
     int? caseResolutionRate,
     @JsonKey(name: 'average_billing_per_client', includeIfNull: false)
@@ -35,7 +47,7 @@ class AppUser with _$AppUser {
       includeIfNull: false,
     )
     @Default(false)
-    bool openToReferral,
+    bool? openToReferral,
   }) = _AppUser;
 
   factory AppUser.fromJson(Map<String, dynamic> json) =>
