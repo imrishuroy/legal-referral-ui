@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:legal_referral_ui/src/features/referral/presentation/widgets/accept_project_message.dart';
 import 'package:legal_referral_ui/src/features/referral/presentation/widgets/active_projects.dart';
 import 'package:legal_referral_ui/src/features/referral/presentation/widgets/active_proposals_card.dart';
 import 'package:legal_referral_ui/src/features/referral/presentation/widgets/case_details.dart';
@@ -14,7 +15,7 @@ class ProposalTab extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           ///    Active Projects
-
+          const AcceptProjectDialog(),
           SizedBox(
             height: 16.h,
           ),

@@ -12,7 +12,7 @@ class CustomTabView extends StatefulWidget {
   final List<Widget> tabViews;
 
   @override
- State <CustomTabView> createState() => _CustomTabViewState();
+  State<CustomTabView> createState() => _CustomTabViewState();
 }
 
 class _CustomTabViewState extends State<CustomTabView>
@@ -37,7 +37,7 @@ class _CustomTabViewState extends State<CustomTabView>
       length: 2,
       child: Scaffold(
         appBar: AppBar(
-           backgroundColor: LegalReferralColors.primaryBackground,
+          backgroundColor: LegalReferralColors.primaryBackground,
           bottom: PreferredSize(
             preferredSize: const Size.fromHeight(10),
             child: Container(
@@ -50,7 +50,7 @@ class _CustomTabViewState extends State<CustomTabView>
                 ),
               ),
               child: TabBar(
-                  dividerColor: Colors.transparent,
+                dividerColor: Colors.transparent,
                 padding: EdgeInsets.symmetric(vertical: 5.h, horizontal: 5.h),
                 indicatorSize: TabBarIndicatorSize.tab,
                 controller: _tabController,
