@@ -6,18 +6,18 @@ import 'package:legal_referral_ui/src/core/constants/colors.dart';
 import 'package:legal_referral_ui/src/features/referral/presentation/widgets/attorney_details.dart';
 import 'package:legal_referral_ui/src/features/referral/presentation/widgets/case_details.dart';
 
-class ProposalDetails extends StatelessWidget {
-  const ProposalDetails({
+class ProposalDetailsPage extends StatelessWidget {
+  const ProposalDetailsPage({
     required this.caseName,
     required this.startDate,
     required this.caseDescription,
     required this.attorneyName,
     required this.attorneyType,
     required this.profileImage,
-    required this.style,
-    required this.radius,
     required this.practiceArea,
     required this.date,
+    this.style,
+    this.radius,
     super.key,
   });
   final String? caseName;
@@ -35,11 +35,14 @@ class ProposalDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
     return Scaffold(
       appBar: AppBar(
+        elevation: 4.h,
+        shadowColor: Colors.grey[100],
         title: Text(
           caseName ?? '',
-          style: Theme.of(context).textTheme.headlineLarge,
+          style: textTheme.headlineLarge,
         ),
       ),
       body: SingleChildScrollView(
@@ -65,8 +68,6 @@ class ProposalDetails extends StatelessWidget {
                           attorneyName: attorneyName,
                           attorneyType: '$attorneyType • 1st',
                           profileImage: profileImage,
-                          style: null,
-                          radius: null,
                         ),
                       ),
                       Expanded(
@@ -91,22 +92,15 @@ class ProposalDetails extends StatelessWidget {
                     practiceArea: practiceArea,
                     date: date,
                   ),
-                  SizedBox(
-                    height: 12.h,
-                  ),
                   const Divider(
                     height: 1,
                   ),
                   SizedBox(
                     height: 12.h,
                   ),
-                  Wrap(
-                    children: [
-                      Text(
-                        caseDescription ?? '',
-                        style: Theme.of(context).textTheme.bodyLarge,
-                      ),
-                    ],
+                  Text(
+                    caseDescription ?? '',
+                    style: textTheme.bodyLarge,
                   ),
                   SizedBox(
                     height: 12.h,
@@ -129,7 +123,7 @@ class ProposalDetails extends StatelessWidget {
                     children: [
                       Text(
                         'My Proposal',
-                        style: Theme.of(context).textTheme.headlineSmall,
+                        style: textTheme.headlineSmall,
                       ),
                       const Spacer(),
                       CustomTextButton(
@@ -149,7 +143,7 @@ class ProposalDetails extends StatelessWidget {
                     'lawyer with 12 years of experience and '
                     r'I can do this job for $1500. Let’s discuss.'
                     ' You may reach me on +1 876 888 2222. Best.',
-                    style: Theme.of(context).textTheme.bodyLarge,
+                    style: textTheme.bodyLarge,
                   ),
                 ],
               ),

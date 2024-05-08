@@ -1,13 +1,23 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:legal_referral_ui/src/core/common_widgets/widgets.dart';
 import 'package:legal_referral_ui/src/core/constants/constants.dart';
+import 'package:legal_referral_ui/src/features/referral/presentation/pages/project_details_page.dart';
 import 'package:legal_referral_ui/src/features/referral/presentation/widgets/attorney_details.dart';
-import 'package:legal_referral_ui/src/features/referral/presentation/pages/project_details.dart';
 
 class ActiveProjectCard extends StatelessWidget {
+  const ActiveProjectCard({
+    required this.caseName,
+    required this.attorneyType,
+    required this.attorneyName,
+    required this.caseStatus,
+    required this.action,
+    required this.profileImage,
+    required this.caseDescription,
+    required this.startDate,
+    super.key,
+  });
   final String? caseName;
   final String? attorneyType;
   final String? attorneyName;
@@ -16,23 +26,13 @@ class ActiveProjectCard extends StatelessWidget {
   final String? profileImage;
   final String? caseDescription;
   final String? startDate;
-  const ActiveProjectCard({
-    required this.caseName,
-    required this.attorneyType,
-    required this.attorneyName,
-    required this.caseStatus,
-    required this.action,
-    required this.profileImage,
-    super.key,
-   required this.caseDescription,
-   required this.startDate,
-  });
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       height: 128.h,
       child: Card(
+        margin: EdgeInsets.symmetric(horizontal: 12.w),
         child: Row(
           children: [
             Container(
@@ -103,7 +103,6 @@ class ActiveProjectCard extends StatelessWidget {
                         attorneyName: attorneyName,
                         attorneyType: attorneyType,
                         profileImage: profileImage,
-                        style: null,
                         radius: 15,
                       ),
                       SizedBox(

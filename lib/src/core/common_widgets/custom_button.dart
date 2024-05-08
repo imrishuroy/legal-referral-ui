@@ -61,7 +61,7 @@ class CustomTextButton extends StatelessWidget {
     this.textColor,
     this.fontSize,
     this.fontWeight,
-    this.style
+    this.style,
   });
   final String text;
   final VoidCallback onPressed;
@@ -79,11 +79,12 @@ class CustomTextButton extends StatelessWidget {
       onTap: onPressed,
       child: Text(
         text,
-        style:style?? TextStyle(
-          fontWeight: fontWeight,
-          fontSize: fontSize,
-          color: textColor,
-        ),
+        style: style ??
+            TextStyle(
+              fontWeight: fontWeight,
+              fontSize: fontSize,
+              color: textColor,
+            ),
       ),
     );
   }

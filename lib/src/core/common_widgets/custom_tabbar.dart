@@ -1,30 +1,34 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:legal_referral_ui/src/core/constants/constants.dart';
-import 'package:legal_referral_ui/src/features/referral/presentation/pages/my_referral_tab.dart';
-import 'package:legal_referral_ui/src/features/referral/presentation/pages/proposal_tab.dart';
+import 'package:legal_referral_ui/src/core/constants/colors.dart';
 
-class ReferralPage extends StatefulWidget {
-  const ReferralPage({super.key});
+class CustomTabView extends StatefulWidget {
+  const CustomTabView({
+    required this.tabNames,
+    required this.tabViews,
+    super.key,
+  });
+  final List<String> tabNames;
+  final List<Widget> tabViews;
 
   @override
-  State<ReferralPage> createState() => _ReferralPageState();
+ State <CustomTabView> createState() => _CustomTabViewState();
 }
 
-class _ReferralPageState extends State<ReferralPage>
+class _CustomTabViewState extends State<CustomTabView>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
 
   @override
   void initState() {
-    _tabController = TabController(length: 2, vsync: this);
     super.initState();
+    _tabController = TabController(length: 2, vsync: this);
   }
 
   @override
   void dispose() {
-    super.dispose();
     _tabController.dispose();
+    super.dispose();
   }
 
   @override
@@ -33,7 +37,7 @@ class _ReferralPageState extends State<ReferralPage>
       length: 2,
       child: Scaffold(
         appBar: AppBar(
-          backgroundColor: LegalReferralColors.primaryBackground,
+           backgroundColor: LegalReferralColors.primaryBackground,
           bottom: PreferredSize(
             preferredSize: const Size.fromHeight(10),
             child: Container(
@@ -46,7 +50,7 @@ class _ReferralPageState extends State<ReferralPage>
                 ),
               ),
               child: TabBar(
-                dividerColor: Colors.transparent,
+                  dividerColor: Colors.transparent,
                 padding: EdgeInsets.symmetric(vertical: 5.h, horizontal: 5.h),
                 indicatorSize: TabBarIndicatorSize.tab,
                 controller: _tabController,
@@ -60,32 +64,14 @@ class _ReferralPageState extends State<ReferralPage>
                   ),
                   color: LegalReferralColors.containerWhite500,
                 ),
-                tabs: const [
-                  Tab(
-                    text: 'Proposals',
-                  ),
-                  Tab(
-                    text: 'My Referrals',
-                  ),
-                ],
+                tabs: widget.tabNames.map((name) => Tab(text: name)).toList(),
               ),
             ),
           ),
         ),
-        body: Column(
-          children: [
-            /// TabBar
-            Expanded(
-              child: TabBarView(
-                controller: _tabController,
-                children: const [
-                  /// Active Projects
-                  ProposalTab(),
-                  MyReferralTab(),
-                ],
-              ),
-            ),
-          ],
+        body: TabBarView(
+          controller: _tabController,
+          children: widget.tabViews,
         ),
       ),
     );

@@ -64,13 +64,9 @@ class ProjectDetails extends StatelessWidget {
                 SizedBox(
                   height: 12.h,
                 ),
-                Wrap(
-                  children: [
-                    Text(
-                      caseDescription ?? '',
-                      style: Theme.of(context).textTheme.bodyLarge,
-                    ),
-                  ],
+                Text(
+                  caseDescription ?? '',
+                  style: Theme.of(context).textTheme.bodyLarge,
                 ),
                 SizedBox(
                   height: 12.h,
@@ -87,8 +83,8 @@ class ProjectDetails extends StatelessWidget {
                     Expanded(
                       flex: 2,
                       child: AttorneyDetails(
-                        style: null,
-                        radius: null,
+                       
+                        
                         attorneyName: attorneyName,
                         attorneyType: attorneyType,
                         profileImage: null,

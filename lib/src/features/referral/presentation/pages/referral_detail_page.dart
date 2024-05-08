@@ -5,16 +5,15 @@ import 'package:legal_referral_ui/src/core/constants/colors.dart';
 import 'package:legal_referral_ui/src/features/referral/presentation/widgets/active_referral_card.dart';
 import 'package:legal_referral_ui/src/features/referral/presentation/widgets/case_details.dart';
 
-class ReferralDetails extends StatelessWidget {
+class ReferralDetailPage extends StatelessWidget {
   final String? caseName;
-  // final String? caseDetails;
+
   final String? caseDescription;
   final String? practiceArea;
   final String? attorneyType;
   final String? date;
-  const ReferralDetails({
+  const ReferralDetailPage({
     required this.caseName,
-    // required this.caseDetails,
     required this.caseDescription,
     required this.practiceArea,
     required this.attorneyType,
@@ -24,21 +23,26 @@ class ReferralDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
     return Scaffold(
-      
       appBar: AppBar(
         elevation: 4.h,
         shadowColor: Colors.grey[100],
-        title: Text(caseName ?? '', style: Theme.of(context).textTheme.headlineLarge,),
+        title: Text(
+          caseName ?? '',
+          style: textTheme.headlineLarge,
+        ),
       ),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(height:8.h ,),
+            SizedBox(
+              height: 8.h,
+            ),
             Container(
               color: LegalReferralColors.backgroundWhite255,
-              padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
+              padding: EdgeInsets.symmetric(horizontal: 16.w),
               child: Column(
                 children: [
                   CaseDetails(
@@ -51,27 +55,43 @@ class ReferralDetails extends StatelessWidget {
                   const Divider(
                     height: 1,
                   ),
-                    SizedBox(height:12.h ,),
+                  SizedBox(
+                    height: 12.h,
+                  ),
                   Text(
                     caseDescription ?? '',
-                    style: Theme.of(context).textTheme.bodyLarge,
+                    style: textTheme.bodyLarge,
+                  ),
+                  SizedBox(
+                    height: 12.h,
                   ),
                 ],
               ),
             ),
-              SizedBox(height:24.h ,),
+            SizedBox(
+              height: 24.h,
+            ),
             Text(
               'Active Referrals',
-              style: Theme.of(context).textTheme.headlineMedium,
+              style: textTheme.headlineMedium,
             ),
-              SizedBox(height:12.h ,),
-       
-            ActiveReferral(
-              attorneyName: 'Divorce Attorney',
-              attorneyType: attorneyType,
-              profileImage: null,
-              style: null,
-              radius: 28.r,
+            SizedBox(
+              height: 12.h,
+            ),
+     
+            ListView.separated(
+              shrinkWrap: true,
+              itemCount: 2,
+              physics: const NeverScrollableScrollPhysics(),
+              itemBuilder: (context, index) => ActiveReferral(
+                attorneyName: 'Divorce Attorney',
+                attorneyType: '$attorneyType • 1st',
+                profileImage: null,
+                radius: 28.r,
+              ),
+               separatorBuilder: (context, index) => SizedBox(
+              height: 8.h,
+            ),
             ),
           ],
         ),

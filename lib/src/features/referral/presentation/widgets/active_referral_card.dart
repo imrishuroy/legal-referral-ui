@@ -17,8 +17,8 @@ class ActiveReferral extends StatelessWidget {
     required this.attorneyName,
     required this.attorneyType,
     required this.profileImage,
-    required this.style,
-    required this.radius,
+   this.style,
+  this.radius,
     super.key,
   });
 

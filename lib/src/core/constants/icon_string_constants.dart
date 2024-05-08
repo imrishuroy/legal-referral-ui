@@ -39,6 +39,7 @@ class IconStringConstants {
   static const String bag = 'assets/icons/bag.svg';
   static const String calender = 'assets/icons/calender.svg';
   static const String location = 'assets/icons/location.svg';
+  static const String alert = 'assets/icons/alert.svg';
 
   // -- Brand Icons
 
