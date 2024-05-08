@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:legal_referral_ui/src/core/common_widgets/widgets.dart';
 import 'package:legal_referral_ui/src/core/config/config.dart';
 import 'package:legal_referral_ui/src/core/constants/constants.dart';
+import 'package:legal_referral_ui/src/features/chat/presentation/pages/chat_page.dart';
 import 'package:legal_referral_ui/src/features/network/presentation/presentation.dart';
 
 class NetworkPage extends StatefulWidget {
@@ -43,9 +43,17 @@ class _NetworkPageState extends State<NetworkPage> {
               SizedBox(
                 width: 8.w,
               ),
-              SvgPicture.asset(
-                ImageStringConstants.comment,
+              SvgButton(
+                imagePath: ImageStringConstants.comment,
+                onPressed: () => context.pushNamed(
+                  ChatPage.name,
+                ),
+                height: 24.h,
+                width: 24.w,
               ),
+              // SvgPicture.asset(
+              //   ImageStringConstants.comment,
+              // ),
             ],
           ),
         ),
