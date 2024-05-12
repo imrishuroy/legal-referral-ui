@@ -72,7 +72,6 @@ class _ChatMessagesPageState extends State<ChatMessagesPage> {
             ' ${widget.chatRoom.user2LastName}'),
         backgroundColor: Colors.white,
         surfaceTintColor: Colors.white,
-        elevation: 4,
       ),
       body: BlocConsumer<ChatBloc, ChatState>(
         bloc: _chatBloc,
