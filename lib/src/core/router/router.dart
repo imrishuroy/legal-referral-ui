@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:legal_referral_ui/src/core/common_widgets/widgets.dart';
 import 'package:legal_referral_ui/src/features/auth/presentation/presentation.dart';
-import 'package:legal_referral_ui/src/features/chat/presentation/pages/chat_page.dart';
+import 'package:legal_referral_ui/src/features/chat/domain/domain.dart';
+import 'package:legal_referral_ui/src/features/chat/presentation/presentation.dart';
 import 'package:legal_referral_ui/src/features/home_page.dart';
 import 'package:legal_referral_ui/src/features/network/presentation/pages/network_page.dart';
 import 'package:legal_referral_ui/src/features/network/presentation/presentation.dart';
 import 'package:legal_referral_ui/src/features/profile/presentation/presentation.dart';
+import 'package:legal_referral_ui/src/features/search/presentation/presentation.dart';
 import 'package:legal_referral_ui/src/features/wizard/presentation/presentation.dart';
 
 final _rootNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'parent');
@@ -200,6 +202,21 @@ class AppRouter {
               transitionsBuilder: (_, a, __, c) =>
                   FadeTransition(opacity: a, child: c),
             ),
+            routes: [
+              GoRoute(
+                path: 'connection-filter',
+                name: ConnectionFilterPage.name,
+                parentNavigatorKey: _rootNavigatorKey,
+                pageBuilder: (context, state) => CustomTransitionPage(
+                  child: const ConnectionFilterPage(),
+                  transitionDuration: const Duration(
+                    milliseconds: _routeTransitionDuration,
+                  ),
+                  transitionsBuilder: (_, a, __, c) =>
+                      FadeTransition(opacity: a, child: c),
+                ),
+              ),
+            ],
           ),
           GoRoute(
             path: 'recommendation',
@@ -226,6 +243,51 @@ class AppRouter {
               transitionsBuilder: (_, a, __, c) =>
                   FadeTransition(opacity: a, child: c),
             ),
+          ),
+          GoRoute(
+            path: 'chat-rooms',
+            name: ChatRoomsPage.name,
+            parentNavigatorKey: _rootNavigatorKey,
+            pageBuilder: (context, state) => CustomTransitionPage(
+              child: const ChatRoomsPage(),
+              transitionDuration: const Duration(
+                milliseconds: _routeTransitionDuration,
+              ),
+              transitionsBuilder: (_, a, __, c) =>
+                  FadeTransition(opacity: a, child: c),
+            ),
+            routes: [
+              GoRoute(
+                path: 'chat-messages',
+                name: ChatMessagesPage.name,
+                parentNavigatorKey: _rootNavigatorKey,
+                pageBuilder: (context, state) => CustomTransitionPage(
+                  child: ChatMessagesPage(
+                    chatRoom: state.extra as ChatRoom,
+                  ),
+                  transitionDuration: const Duration(
+                    milliseconds: _routeTransitionDuration,
+                  ),
+                  transitionsBuilder: (_, a, __, c) =>
+                      FadeTransition(opacity: a, child: c),
+                ),
+              ),
+              GoRoute(
+                path: 'user-connections',
+                name: UserConnectionsPage.name,
+                parentNavigatorKey: _rootNavigatorKey,
+                pageBuilder: (context, state) => CustomTransitionPage(
+                  child: UserConnectionsPage(
+                    chatBloc: state.extra as ChatBloc,
+                  ),
+                  transitionDuration: const Duration(
+                    milliseconds: _routeTransitionDuration,
+                  ),
+                  transitionsBuilder: (_, a, __, c) =>
+                      FadeTransition(opacity: a, child: c),
+                ),
+              ),
+            ],
           ),
         ],
       ),
@@ -376,11 +438,11 @@ class AppRouter {
         ),
       ),
       GoRoute(
-        path: '/chat',
-        name: ChatPage.name,
+        path: '/search',
+        name: SearchPage.name,
         parentNavigatorKey: _rootNavigatorKey,
         pageBuilder: (context, state) => CustomTransitionPage(
-          child: const ChatPage(),
+          child: const SearchPage(),
           transitionDuration: const Duration(
             milliseconds: _routeTransitionDuration,
           ),

@@ -226,7 +226,7 @@ class ActivitySection extends StatelessWidget {
                 ),
                 Row(
                   children: [
-                    HorizontalIconButon(
+                    HorizontalIconButton(
                       text: 'Like •4',
                       style: Theme.of(context).textTheme.titleSmall,
                       height: 16.h,
@@ -237,7 +237,7 @@ class ActivitySection extends StatelessWidget {
                     SizedBox(
                       width: 16.w,
                     ),
-                    HorizontalIconButon(
+                    HorizontalIconButton(
                       text: 'Reply',
                       style: Theme.of(context).textTheme.titleSmall,
                       height: 16.h,

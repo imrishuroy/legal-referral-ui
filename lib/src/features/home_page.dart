@@ -31,7 +31,7 @@ class _HomePageState extends State<HomePage> {
             onTap: () => context.pushNamed(ProfilePage.name),
             child: CircleAvatar(
               backgroundImage: NetworkImage(
-                _authBloc.state.user?.imageUrl ?? '',
+                _authBloc.state.user?.avatarUrl ?? '',
               ),
             ),
           ),
