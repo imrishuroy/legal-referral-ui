@@ -82,7 +82,7 @@ class _ChatRoomsPageState extends State<ChatRoomsPage> {
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      subtitle: Text(chatRoom?.lastMessage ?? 'last message'),
+                      subtitle: Text(chatRoom?.lastMessage ?? ''),
                       leading: CustomAvatar(
                         imageUrl: chatRoom?.user2AvatarUrl,
                         radius: 24,
@@ -91,6 +91,11 @@ class _ChatRoomsPageState extends State<ChatRoomsPage> {
                       onTap: () => context.pushNamed(
                         ChatMessagesPage.name,
                         extra: chatRoom,
+                      ),
+                      trailing: Text(
+                        chatRoom?.lastMessageAt != null
+                            ? DateTimeUtil.timeAgo(chatRoom!.lastMessageAt)
+                            : '',
                       ),
                     );
                   },

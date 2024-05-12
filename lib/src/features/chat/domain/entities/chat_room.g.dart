@@ -16,7 +16,7 @@ _$ChatRoomImpl _$$ChatRoomImplFromJson(Map<String, dynamic> json) =>
       user2AvatarUrl: json['user2_avatar_url'] as String?,
       lastMessage: json['last_message'] as String?,
       lastMessageAt: _$JsonConverterFromJson<String, DateTime>(
-          json['last_message_at'], const DateTimeJsonConverter().fromJson),
+          json['last_message_sent_at'], const DateTimeJsonConverter().fromJson),
       unreadMessages: (json['unread_messages'] as num?)?.toInt() ?? 0,
     );
 

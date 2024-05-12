@@ -31,7 +31,7 @@ class ChatRoom with _$ChatRoom {
     )
     String? lastMessage,
     @JsonKey(
-      name: 'last_message_at',
+      name: 'last_message_sent_at',
       includeToJson: false,
     )
     @DateTimeJsonConverter()

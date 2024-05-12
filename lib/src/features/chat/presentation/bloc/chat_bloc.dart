@@ -149,6 +149,7 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
         return emit(
           state.copyWith(
             hasReachedMax: true,
+            status: ChatStatus.success,
           ),
         );
       }

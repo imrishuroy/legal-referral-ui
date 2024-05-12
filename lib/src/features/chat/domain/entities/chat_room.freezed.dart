@@ -34,7 +34,7 @@ mixin _$ChatRoom {
   String? get user2AvatarUrl => throw _privateConstructorUsedError;
   @JsonKey(name: 'last_message', includeToJson: false)
   String? get lastMessage => throw _privateConstructorUsedError;
-  @JsonKey(name: 'last_message_at', includeToJson: false)
+  @JsonKey(name: 'last_message_sent_at', includeToJson: false)
   @DateTimeJsonConverter()
   DateTime? get lastMessageAt => throw _privateConstructorUsedError;
   @JsonKey(name: 'unread_messages', defaultValue: 0, includeToJson: false)
@@ -62,7 +62,7 @@ abstract class $ChatRoomCopyWith<$Res> {
       @JsonKey(name: 'user2_avatar_url', includeToJson: false)
       String? user2AvatarUrl,
       @JsonKey(name: 'last_message', includeToJson: false) String? lastMessage,
-      @JsonKey(name: 'last_message_at', includeToJson: false)
+      @JsonKey(name: 'last_message_sent_at', includeToJson: false)
       @DateTimeJsonConverter()
       DateTime? lastMessageAt,
       @JsonKey(name: 'unread_messages', defaultValue: 0, includeToJson: false)
@@ -152,7 +152,7 @@ abstract class _$$ChatRoomImplCopyWith<$Res>
       @JsonKey(name: 'user2_avatar_url', includeToJson: false)
       String? user2AvatarUrl,
       @JsonKey(name: 'last_message', includeToJson: false) String? lastMessage,
-      @JsonKey(name: 'last_message_at', includeToJson: false)
+      @JsonKey(name: 'last_message_sent_at', includeToJson: false)
       @DateTimeJsonConverter()
       DateTime? lastMessageAt,
       @JsonKey(name: 'unread_messages', defaultValue: 0, includeToJson: false)
@@ -235,7 +235,7 @@ class _$ChatRoomImpl implements _ChatRoom {
       @JsonKey(name: 'user2_avatar_url', includeToJson: false)
       this.user2AvatarUrl,
       @JsonKey(name: 'last_message', includeToJson: false) this.lastMessage,
-      @JsonKey(name: 'last_message_at', includeToJson: false)
+      @JsonKey(name: 'last_message_sent_at', includeToJson: false)
       @DateTimeJsonConverter()
       this.lastMessageAt,
       @JsonKey(name: 'unread_messages', defaultValue: 0, includeToJson: false)
@@ -266,7 +266,7 @@ class _$ChatRoomImpl implements _ChatRoom {
   @JsonKey(name: 'last_message', includeToJson: false)
   final String? lastMessage;
   @override
-  @JsonKey(name: 'last_message_at', includeToJson: false)
+  @JsonKey(name: 'last_message_sent_at', includeToJson: false)
   @DateTimeJsonConverter()
   final DateTime? lastMessageAt;
   @override
@@ -341,7 +341,7 @@ abstract class _ChatRoom implements ChatRoom {
       final String? user2AvatarUrl,
       @JsonKey(name: 'last_message', includeToJson: false)
       final String? lastMessage,
-      @JsonKey(name: 'last_message_at', includeToJson: false)
+      @JsonKey(name: 'last_message_sent_at', includeToJson: false)
       @DateTimeJsonConverter()
       final DateTime? lastMessageAt,
       @JsonKey(name: 'unread_messages', defaultValue: 0, includeToJson: false)
@@ -372,7 +372,7 @@ abstract class _ChatRoom implements ChatRoom {
   @JsonKey(name: 'last_message', includeToJson: false)
   String? get lastMessage;
   @override
-  @JsonKey(name: 'last_message_at', includeToJson: false)
+  @JsonKey(name: 'last_message_sent_at', includeToJson: false)
   @DateTimeJsonConverter()
   DateTime? get lastMessageAt;
   @override
