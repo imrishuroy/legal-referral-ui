@@ -70,6 +70,7 @@ class _SignInPageState extends State<SignInPage> {
                         padding: EdgeInsets.symmetric(horizontal: 16.w),
                         child: Column(
                           children: [
+                            SizedBox(height: 48.h),
                             SizedBox(
                               height: 160.h,
                               width: 160.w,

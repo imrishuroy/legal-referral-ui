@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:legal_referral_ui/src/core/common_widgets/widgets.dart';
 import 'package:legal_referral_ui/src/core/config/config.dart';
@@ -85,7 +86,7 @@ class _ChatRoomsPageState extends State<ChatRoomsPage> {
                       subtitle: Text(chatRoom?.lastMessage ?? ''),
                       leading: CustomAvatar(
                         imageUrl: chatRoom?.user2AvatarUrl,
-                        radius: 24,
+                        radius: 24.r,
                       ),
                       splashColor: Colors.transparent,
                       onTap: () => context.pushNamed(

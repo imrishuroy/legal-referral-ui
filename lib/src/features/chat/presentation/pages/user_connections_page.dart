@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:legal_referral_ui/src/core/common_widgets/widgets.dart';
 import 'package:legal_referral_ui/src/core/config/config.dart';
@@ -83,7 +84,7 @@ class _UserConnectionsPageState extends State<UserConnectionsPage> {
                       subtitle: Text(connection?.about ?? 'N/A'),
                       leading: CustomAvatar(
                         imageUrl: connection?.avatarUrl,
-                        radius: 24,
+                        radius: 24.r,
                       ),
                       onTap: () {
                         final userId = _authBloc.state.user?.userId;

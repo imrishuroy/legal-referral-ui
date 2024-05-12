@@ -15,7 +15,7 @@ final _rootNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'parent');
 const _scaffoldKey = ValueKey('_scaffoldKey');
 
 const _routeAnimationDuration = 1;
-const _routeTransitionDuration = 500;
+const _routeTransitionDuration = 200;
 
 class AppRouter {
   GoRouter router = GoRouter(

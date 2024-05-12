@@ -70,6 +70,9 @@ class _ChatMessagesPageState extends State<ChatMessagesPage> {
       appBar: AppBar(
         title: Text('${widget.chatRoom.user2FirstName}'
             ' ${widget.chatRoom.user2LastName}'),
+        backgroundColor: Colors.white,
+        surfaceTintColor: Colors.white,
+        elevation: 4,
       ),
       body: BlocConsumer<ChatBloc, ChatState>(
         bloc: _chatBloc,
@@ -115,8 +118,8 @@ class _ChatMessagesPageState extends State<ChatMessagesPage> {
               ),
             ),
             customBottomWidget: SizedBox(
-              height: kToolbarHeight +
-                  18.h +
+              height: kBottomNavigationBarHeight +
+                  26.h +
                   (state.parentMessage != null
                       ? (state.parentMessage!.message.length > 8 ? 44.h : 24.h)
                       : 0),
@@ -130,17 +133,17 @@ class _ChatMessagesPageState extends State<ChatMessagesPage> {
                   children: [
                     if (state.parentMessage != null)
                       Padding(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 6,
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 6.w,
                         ),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
                               'Repling to: ${state.parentMessage?.message}',
-                              style: const TextStyle(
+                              style: TextStyle(
                                 color: Colors.black,
-                                fontSize: 14,
+                                fontSize: 14.sp,
                                 fontWeight: FontWeight.w600,
                               ),
                               maxLines: 2,
@@ -169,8 +172,8 @@ class _ChatMessagesPageState extends State<ChatMessagesPage> {
                               Colors.blue,
                               BlendMode.srcIn,
                             ),
-                            height: 24,
-                            width: 24,
+                            height: 24.h,
+                            width: 24.w,
                           ),
                           onPressed: () {
                             _chatBloc.add(
@@ -226,8 +229,8 @@ class _ChatMessagesPageState extends State<ChatMessagesPage> {
         : null;
 
     return Padding(
-      padding: const EdgeInsets.symmetric(
-        horizontal: 8,
+      padding: EdgeInsets.symmetric(
+        horizontal: 8.w,
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -236,29 +239,29 @@ class _ChatMessagesPageState extends State<ChatMessagesPage> {
           if (repliedMessage != null)
             Text(
               'Replied to: ${repliedMessage.text}',
-              style: const TextStyle(
+              style: TextStyle(
                 color: Colors.black,
-                fontSize: 14,
+                fontSize: 14.sp,
                 fontWeight: FontWeight.w600,
               ),
             ),
           Padding(
-            padding: const EdgeInsets.symmetric(
-              vertical: 4,
+            padding: EdgeInsets.symmetric(
+              vertical: 4.h,
             ),
             child: Text(
               p0.text,
               style: TextStyle(
                 color: Colors.grey.shade700,
-                fontSize: 16,
+                fontSize: 16.sp,
                 fontWeight: FontWeight.w500,
               ),
             ),
           ),
           const Divider(),
           Padding(
-            padding: const EdgeInsets.symmetric(
-              vertical: 4,
+            padding: EdgeInsets.symmetric(
+              vertical: 4.h,
             ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -293,15 +296,15 @@ class _ChatMessagesPageState extends State<ChatMessagesPage> {
 
                           _replyToMessage(parentMessage: parentMessage);
                         },
-                        height: 16.8,
-                        width: 16.8,
+                        height: 16.8.h,
+                        width: 16.8.w,
                       ),
-                      const SizedBox(width: 4),
+                      SizedBox(width: 4.w),
                       Text(
                         'Reply',
                         style: TextStyle(
                           color: Colors.grey.shade700,
-                          fontSize: 14,
+                          fontSize: 14.sp,
                         ),
                       ),
                     ],
@@ -315,7 +318,7 @@ class _ChatMessagesPageState extends State<ChatMessagesPage> {
                   ),
                   style: TextStyle(
                     color: Colors.grey.shade700,
-                    fontSize: 14,
+                    fontSize: 14.sp,
                   ),
                 ),
               ],

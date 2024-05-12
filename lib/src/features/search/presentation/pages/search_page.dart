@@ -50,7 +50,7 @@ class _SearchPageState extends State<SearchPage> {
           }
           return null;
         },
-        appBarHeight: 106.h,
+        appBarHeight: kToolbarHeight + 64.h,
         bottom: BlocBuilder<SearchBloc, SearchState>(
           bloc: _searchBloc,
           builder: (context, state) {

@@ -13,7 +13,7 @@ class LegalReferralTheme {
     ),
     textTheme: LegalReferralTextTheme.lightTextTheme,
     switchTheme: LegalReferralSwitchTheme.lightSwitchTheme,
-    //scaffoldBackgroundColor: LegalReferralColors.primaryBackground,
+    scaffoldBackgroundColor: LegalReferralColors.primaryBackground,
     appBarTheme: LegalReferralAppBarTheme.lightAppBarTheme,
     checkboxTheme: CheckboxThemeData(
       checkColor: MaterialStateProperty.all(Colors.black),
