@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:legal_referral_ui/src/core/common_widgets/widgets.dart';
 import 'package:legal_referral_ui/src/core/config/config.dart';
 import 'package:legal_referral_ui/src/core/constants/constants.dart';
+import 'package:legal_referral_ui/src/features/chat/presentation/pages/chat_rooms_page.dart';
 import 'package:legal_referral_ui/src/features/network/presentation/presentation.dart';
 import 'package:legal_referral_ui/src/features/search/presentation/presentation.dart';
 
@@ -46,8 +46,11 @@ class _NetworkPageState extends State<NetworkPage> {
             SizedBox(
               width: 8.w,
             ),
-            SvgPicture.asset(
-              ImageStringConstants.comment,
+            SvgButton(
+              onPressed: () => context.pushNamed(ChatRoomsPage.name),
+              imagePath: ImageStringConstants.comment,
+              width: 24.w,
+              height: 24.h,
             ),
           ],
         ),

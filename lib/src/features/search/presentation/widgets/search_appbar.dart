@@ -57,7 +57,7 @@ class _SearchAppBarState extends State<SearchAppBar> {
                   SizedBox(width: 12.w),
                   Expanded(
                     child: SizedBox(
-                      height: 40.h,
+                      height: 50.h,
                       child: CustomTextField(
                         controller: widget.searchController,
                         hintText: 'Search',

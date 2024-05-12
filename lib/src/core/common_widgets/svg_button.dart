@@ -7,6 +7,7 @@ class SvgButton extends StatelessWidget {
     required this.onPressed,
     this.height = 40.0,
     this.width = 40.0,
+    this.color,
     super.key,
   });
 
@@ -14,6 +15,7 @@ class SvgButton extends StatelessWidget {
   final VoidCallback onPressed;
   final double height;
   final double width;
+  final Color? color;
 
   @override
   Widget build(BuildContext context) {
@@ -21,6 +23,8 @@ class SvgButton extends StatelessWidget {
       onTap: onPressed,
       child: SvgPicture.asset(
         imagePath,
+        colorFilter:
+            color != null ? ColorFilter.mode(color!, BlendMode.srcIn) : null,
         height: height,
         width: width,
       ),
