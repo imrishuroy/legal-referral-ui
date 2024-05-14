@@ -42,6 +42,8 @@ class CustomAutoComplete extends StatelessWidget {
                 VoidCallback onFieldSubmitted,
               ) {
                 return TextFormField(
+                   cursorColor: LegalReferralColors.borderBlue300,
+                   
                   controller: controller,
                   focusNode: focusNode,
                   validator: validator,
@@ -50,10 +52,14 @@ class CustomAutoComplete extends StatelessWidget {
                     textEditingController.text = value;
                   },
                   decoration: InputDecoration(
+                    contentPadding: EdgeInsets.symmetric(
+                      vertical: 12.h,
+                      horizontal: 12.w,
+                    ),
                     hintText: hintText,
-                    hintStyle: const TextStyle(
+                    hintStyle: TextStyle(
                       fontWeight: FontWeight.w400,
-                      fontSize: 14,
+                      fontSize: 14.h,
                       color: LegalReferralColors.textgrey300,
                     ),
                     enabledBorder: OutlineInputBorder(

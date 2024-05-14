@@ -10,6 +10,7 @@ class CustomBottomSheet {
     bool? isDismissible,
   }) {
     return showModalBottomSheet(
+      useSafeArea: true,
       constraints: BoxConstraints(
         maxWidth: MediaQuery.of(context).size.width - 32.w,
       ),

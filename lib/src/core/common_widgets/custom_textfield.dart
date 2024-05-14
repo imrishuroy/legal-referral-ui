@@ -17,6 +17,7 @@ class CustomTextField extends StatelessWidget {
     this.fillColor,
     this.validator,
     this.maxLines = 1,
+    this.minLines = 1,
     this.enabled = true,
     this.showLabel = true,
   });
@@ -32,6 +33,7 @@ class CustomTextField extends StatelessWidget {
   final String? Function(String?)? onChanged;
   final String? Function(String?)? validator;
   final int maxLines;
+  final int? minLines;
   final bool enabled;
   final bool showLabel;
 
@@ -55,7 +57,7 @@ class CustomTextField extends StatelessWidget {
             obscureText: obscureText,
             keyboardType: keyboardType,
             maxLines: maxLines,
-            minLines: 1,
+            minLines: minLines,
             enabled: enabled,
             onChanged: onChanged,
             style: Theme.of(context).textTheme.bodyLarge,
