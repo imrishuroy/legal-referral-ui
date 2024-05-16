@@ -27,6 +27,8 @@ class CustomOutlinedButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       highlightColor: Colors.transparent,
+      splashColor: Colors.transparent,
+      hoverColor: Colors.transparent,
       borderRadius: BorderRadius.circular(4.r),
       onTap: onPressed,
       child: Container(
@@ -94,35 +96,51 @@ class CustomElevatedButton extends StatelessWidget {
   const CustomElevatedButton({
     required this.text,
     this.onTap,
+    this.height,
+    this.width,
+    this.child,
+    this.borderRadius,
     super.key,
   });
   final VoidCallback? onTap;
-
+  final double? width;
+  final double? height;
+  final double? borderRadius;
   final String text;
+  final Widget? child;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        height: 57.h,
-        width: double.infinity,
+        height: height ?? 57.h,
+        width: width ?? double.infinity,
         decoration: BoxDecoration(
           color: onTap != null
               ? LegalReferralColors.containerBlue100
               : LegalReferralColors.textGrey400,
-          borderRadius: BorderRadius.circular(4.r),
+          borderRadius: BorderRadius.circular(borderRadius ?? 4.r),
         ),
         child: Center(
-          child: Text(
-            text,
-            style: TextStyle(
-              color: onTap != null
-                  ? LegalReferralColors.textWhite450
-                  : Colors.grey.shade300,
-              fontWeight: FontWeight.w600,
-              fontSize: 16.h,
-            ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                text,
+                style: TextStyle(
+                  color: onTap != null
+                      ? LegalReferralColors.textWhite450
+                      : Colors.grey.shade300,
+                  fontWeight: FontWeight.w600,
+                  fontSize: 16.h,
+                ),
+              ),
+              if (child != null) ...[
+                SizedBox(width: 4.w),
+                child!,
+              ],
+            ],
           ),
         ),
       ),
@@ -149,8 +167,8 @@ class CustomIconButton extends StatelessWidget {
   }
 }
 
-class HorizontalIconButon extends StatelessWidget {
-  const HorizontalIconButon({
+class HorizontalIconButton extends StatelessWidget {
+  const HorizontalIconButton({
     required this.text,
     required this.icon,
     required this.onTap,

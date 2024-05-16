@@ -3,6 +3,7 @@ import 'package:legal_referral_ui/src/core/config/nav_items.dart';
 import 'package:legal_referral_ui/src/core/constants/constants.dart';
 import 'package:legal_referral_ui/src/features/home_page.dart';
 import 'package:legal_referral_ui/src/features/network/presentation/pages/network_page.dart';
+import 'package:legal_referral_ui/src/features/referral/presentation/presentation.dart';
 
 List<NavItem> destinations = [
   NavItem(
@@ -12,20 +13,13 @@ List<NavItem> destinations = [
       IconStringConstants.home,
     ),
   ),
-  // NavItem(
-  //   route: ReferralPage.name,
-  //   label: 'Referrals',
-  //   icon: SvgPicture.asset(
-  //     ImageStringConstants.referral,
-  //   ),
-  // ),
-  // NavItem(
-  //   route: 'PostPage.name',
-  //   label: 'Post',
-  //   icon: SvgPicture.asset(
-  //     ImageStringConstants.addIcon,
-  //   ),
-  // ),
+  NavItem(
+    route: ReferralPage.name,
+    label: 'Referrals',
+    icon: SvgPicture.asset(
+      IconStringConstants.referral,
+    ),
+  ),
   NavItem(
     route: NetworkPage.name,
     label: 'Network',
@@ -33,11 +27,4 @@ List<NavItem> destinations = [
       IconStringConstants.network,
     ),
   ),
-  // NavItem(
-  //   route: 'DiscussPage.name',
-  //   label: 'Discuss',
-  //   icon: SvgPicture.asset(
-  //     ImageStringConstants.discuss,
-  //   ),
-  // ),
 ];

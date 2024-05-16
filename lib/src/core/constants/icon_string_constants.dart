@@ -40,6 +40,10 @@ class IconStringConstants {
   static const String calender = 'assets/icons/calender.svg';
   static const String location = 'assets/icons/location.svg';
   static const String alert = 'assets/icons/alert.svg';
+  static const String historyIcon = 'assets/icons/history.svg';
+  static const String backArrow = 'assets/icons/back_arrow.svg';
+  static const String reply2 = 'assets/icons/reply2.svg';
+  static const String send = 'assets/icons/send.svg';
 
   // -- Brand Icons
 

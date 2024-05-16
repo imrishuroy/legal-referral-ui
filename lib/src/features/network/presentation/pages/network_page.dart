@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:legal_referral_ui/src/core/common_widgets/widgets.dart';
 import 'package:legal_referral_ui/src/core/config/config.dart';
 import 'package:legal_referral_ui/src/core/constants/constants.dart';
+import 'package:legal_referral_ui/src/features/chat/presentation/pages/chat_rooms_page.dart';
 import 'package:legal_referral_ui/src/features/network/presentation/presentation.dart';
+import 'package:legal_referral_ui/src/features/search/presentation/presentation.dart';
 
 class NetworkPage extends StatefulWidget {
   const NetworkPage({super.key});
@@ -24,30 +25,34 @@ class _NetworkPageState extends State<NetworkPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 16.w),
-          child: Row(
-            children: [
-              Expanded(
-                child: SizedBox(
-                  child: CustomTextField(
-                    controller: _searchController,
-                    hintText: 'search',
-                    labelText: '',
-                    showLabel: false,
-                    borderColor: LegalReferralColors.borderGrey199,
-                    fillColor: LegalReferralColors.containerWhite400,
-                  ),
+        title: Row(
+          children: [
+            Expanded(
+              child: GestureDetector(
+                onTap: () => context.pushNamed(
+                  SearchPage.name,
+                ),
+                child: CustomTextField(
+                  controller: _searchController,
+                  hintText: 'search',
+                  labelText: '',
+                  showLabel: false,
+                  borderColor: LegalReferralColors.borderGrey199,
+                  fillColor: LegalReferralColors.containerWhite400,
+                  enabled: false,
                 ),
               ),
-              SizedBox(
-                width: 8.w,
-              ),
-              SvgPicture.asset(
-                IconStringConstants.comment,
-              ),
-            ],
-          ),
+            ),
+            SizedBox(
+              width: 8.w,
+            ),
+            SvgButton(
+              onPressed: () => context.pushNamed(ChatRoomsPage.name),
+              imagePath: IconStringConstants.comment,
+              width: 24.w,
+              height: 24.h,
+            ),
+          ],
         ),
       ),
       body: SingleChildScrollView(

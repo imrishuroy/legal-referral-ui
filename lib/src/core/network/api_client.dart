@@ -4,10 +4,12 @@ import 'package:dio/dio.dart';
 import 'package:legal_referral_ui/src/core/config/config.dart';
 import 'package:legal_referral_ui/src/features/auth/data/data.dart';
 import 'package:legal_referral_ui/src/features/auth/domain/domain.dart';
+import 'package:legal_referral_ui/src/features/chat/domain/domain.dart';
 import 'package:legal_referral_ui/src/features/network/data/data.dart';
 import 'package:legal_referral_ui/src/features/network/domain/domain.dart';
 import 'package:legal_referral_ui/src/features/profile/data/data.dart';
 import 'package:legal_referral_ui/src/features/profile/domain/domain.dart';
+import 'package:legal_referral_ui/src/features/referral/data/data.dart';
 import 'package:legal_referral_ui/src/features/wizard/data/data.dart';
 import 'package:legal_referral_ui/src/features/wizard/domain/domain.dart';
 import 'package:retrofit/retrofit.dart';
@@ -267,5 +269,38 @@ abstract class APIClient {
   @POST('/recommendations/cancel')
   Future<ResponseMsg?> cancelRecommendation(
     @Body() CancelRecommendationReq cancelRecommendationReq,
+  );
+
+  // search
+  @GET('/search/users')
+  Future<List<AppUser?>> searchUsers(
+    @Query('query') String query,
+    @Query('filter') String filter,
+    @Query('limit') int limit,
+    @Query('offset') int offset,
+  );
+
+  // chat
+  @GET('/chat/{room_id}/messages')
+  Future<List<ChatMessage>> fetchMessages(
+    @Path('room_id') String roomId,
+    @Query('limit') int limit,
+    @Query('offset') int offset,
+  );
+
+  @POST('/chat/rooms')
+  Future<ChatRoom> createChatRoom(
+    @Body() ChatRoom chatRoom,
+  );
+
+  @GET('/chat/users/{userId}/rooms')
+  Future<List<ChatRoom>> fetchChatRooms(
+    @Path('userId') String userId,
+  );
+
+  // referral
+  @POST('/referral')
+  Future<String?> addReferral(
+    @Body() AddReferralReq referral,
   );
 }

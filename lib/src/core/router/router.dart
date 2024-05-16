@@ -2,18 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:legal_referral_ui/src/core/common_widgets/widgets.dart';
 import 'package:legal_referral_ui/src/features/auth/presentation/presentation.dart';
+import 'package:legal_referral_ui/src/features/chat/domain/domain.dart';
+import 'package:legal_referral_ui/src/features/chat/presentation/presentation.dart';
 import 'package:legal_referral_ui/src/features/home_page.dart';
 import 'package:legal_referral_ui/src/features/network/presentation/pages/network_page.dart';
 import 'package:legal_referral_ui/src/features/network/presentation/presentation.dart';
 import 'package:legal_referral_ui/src/features/profile/presentation/presentation.dart';
-import 'package:legal_referral_ui/src/features/referral/presentation/widgets/tab_bar.dart';
+import 'package:legal_referral_ui/src/features/referral/presentation/presentation.dart';
+import 'package:legal_referral_ui/src/features/search/presentation/presentation.dart';
 import 'package:legal_referral_ui/src/features/wizard/presentation/presentation.dart';
 
 final _rootNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'parent');
 const _scaffoldKey = ValueKey('_scaffoldKey');
 
 const _routeAnimationDuration = 1;
-const _routeTransitionDuration = 500;
+const _routeTransitionDuration = 200;
 
 class AppRouter {
   GoRouter router = GoRouter(
@@ -25,7 +28,9 @@ class AppRouter {
         name: SplashPage.name,
         parentNavigatorKey: _rootNavigatorKey,
         pageBuilder: (context, state) => CustomTransitionPage(
-          child: const ReferralTabBar(),
+          // child: const ReferralTabBar(),
+
+          child: const SplashPage(),
           transitionDuration: const Duration(
             seconds: _routeAnimationDuration,
           ),
@@ -157,7 +162,6 @@ class AppRouter {
       GoRoute(
         path: '/home',
         name: HomePage.name,
-        // parentNavigatorKey: _rootNavigatorKey,
         pageBuilder: (context, state) => CustomTransitionPage(
           key: state.pageKey,
           child: const RootLayout(
@@ -178,7 +182,7 @@ class AppRouter {
         pageBuilder: (context, state) => CustomTransitionPage(
           child: const RootLayout(
             key: _scaffoldKey,
-            currentIndex: 1,
+            currentIndex: 2,
             child: NetworkPage(),
           ),
           transitionDuration: const Duration(
@@ -200,6 +204,21 @@ class AppRouter {
               transitionsBuilder: (_, a, __, c) =>
                   FadeTransition(opacity: a, child: c),
             ),
+            routes: [
+              GoRoute(
+                path: 'connection-filter',
+                name: ConnectionFilterPage.name,
+                parentNavigatorKey: _rootNavigatorKey,
+                pageBuilder: (context, state) => CustomTransitionPage(
+                  child: const ConnectionFilterPage(),
+                  transitionDuration: const Duration(
+                    milliseconds: _routeTransitionDuration,
+                  ),
+                  transitionsBuilder: (_, a, __, c) =>
+                      FadeTransition(opacity: a, child: c),
+                ),
+              ),
+            ],
           ),
           GoRoute(
             path: 'recommendation',
@@ -226,6 +245,51 @@ class AppRouter {
               transitionsBuilder: (_, a, __, c) =>
                   FadeTransition(opacity: a, child: c),
             ),
+          ),
+          GoRoute(
+            path: 'chat-rooms',
+            name: ChatRoomsPage.name,
+            parentNavigatorKey: _rootNavigatorKey,
+            pageBuilder: (context, state) => CustomTransitionPage(
+              child: const ChatRoomsPage(),
+              transitionDuration: const Duration(
+                milliseconds: _routeTransitionDuration,
+              ),
+              transitionsBuilder: (_, a, __, c) =>
+                  FadeTransition(opacity: a, child: c),
+            ),
+            routes: [
+              GoRoute(
+                path: 'chat-messages',
+                name: ChatMessagesPage.name,
+                parentNavigatorKey: _rootNavigatorKey,
+                pageBuilder: (context, state) => CustomTransitionPage(
+                  child: ChatMessagesPage(
+                    chatRoom: state.extra as ChatRoom,
+                  ),
+                  transitionDuration: const Duration(
+                    milliseconds: _routeTransitionDuration,
+                  ),
+                  transitionsBuilder: (_, a, __, c) =>
+                      FadeTransition(opacity: a, child: c),
+                ),
+              ),
+              GoRoute(
+                path: 'user-connections',
+                name: UserConnectionsPage.name,
+                parentNavigatorKey: _rootNavigatorKey,
+                pageBuilder: (context, state) => CustomTransitionPage(
+                  child: UserConnectionsPage(
+                    chatBloc: state.extra as ChatBloc,
+                  ),
+                  transitionDuration: const Duration(
+                    milliseconds: _routeTransitionDuration,
+                  ),
+                  transitionsBuilder: (_, a, __, c) =>
+                      FadeTransition(opacity: a, child: c),
+                ),
+              ),
+            ],
           ),
         ],
       ),
@@ -376,6 +440,19 @@ class AppRouter {
         ),
       ),
       GoRoute(
+        path: '/search',
+        name: SearchPage.name,
+        parentNavigatorKey: _rootNavigatorKey,
+        pageBuilder: (context, state) => CustomTransitionPage(
+          child: const SearchPage(),
+          transitionDuration: const Duration(
+            milliseconds: _routeTransitionDuration,
+          ),
+          transitionsBuilder: (_, a, __, c) =>
+              FadeTransition(opacity: a, child: c),
+        ),
+      ),
+      GoRoute(
         path: '/camera',
         name: CameraPage.name,
         parentNavigatorKey: _rootNavigatorKey,
@@ -383,6 +460,36 @@ class AppRouter {
           child: CameraPage(
             args: state.extra as CameraPageArgs,
           ),
+          transitionDuration: const Duration(
+            milliseconds: _routeTransitionDuration,
+          ),
+          transitionsBuilder: (_, a, __, c) =>
+              FadeTransition(opacity: a, child: c),
+        ),
+      ),
+      // referral
+      GoRoute(
+        path: '/referral',
+        name: ReferralPage.name,
+        parentNavigatorKey: _rootNavigatorKey,
+        pageBuilder: (context, state) => CustomTransitionPage(
+          child: const RootLayout(
+            currentIndex: 1,
+            child: ReferralPage(),
+          ),
+          transitionDuration: const Duration(
+            milliseconds: _routeTransitionDuration,
+          ),
+          transitionsBuilder: (_, a, __, c) =>
+              FadeTransition(opacity: a, child: c),
+        ),
+      ),
+      GoRoute(
+        path: '/add-referral',
+        name: AddReferralPage.name,
+        parentNavigatorKey: _rootNavigatorKey,
+        pageBuilder: (context, state) => CustomTransitionPage(
+          child: const AddReferralPage(),
           transitionDuration: const Duration(
             milliseconds: _routeTransitionDuration,
           ),

@@ -95,19 +95,19 @@ class ImageUtil {
     final croppedFile = await ImageCropper().cropImage(
       sourcePath: filePath,
       cropStyle: cropStyle,
-      androidUiSettings: AndroidUiSettings(
-        toolbarTitle: 'Crop Image',
-        toolbarColor: Colors.grey.shade800,
-        toolbarWidgetColor: Colors.white,
-        initAspectRatio: CropAspectRatioPreset.original,
-        lockAspectRatio: false,
-      ),
-      iosUiSettings: const IOSUiSettings(
-        title: 'Crop Image',
-      ),
+      // androidUiSettings: AndroidUiSettings(
+      //   toolbarTitle: 'Crop Image',
+      //   toolbarColor: Colors.grey.shade800,
+      //   toolbarWidgetColor: Colors.white,
+      //   initAspectRatio: CropAspectRatioPreset.original,
+      //   lockAspectRatio: false,
+      // ),
+      // iosUiSettings: const IOSUiSettings(
+      //   title: 'Crop Image',
+      // ),
       compressQuality: 70,
     );
-    return croppedFile;
+    return File(croppedFile?.path ?? filePath);
   }
 
   static Future<String?> uploadFile({

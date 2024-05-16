@@ -20,7 +20,7 @@ class RootLayout extends StatelessWidget {
     void onSelected(int index) {
       final destination = destinations[index];
 
-      context.goNamed(destination.route);
+      context.pushNamed(destination.route);
     }
 
     return LayoutBuilder(

@@ -11,7 +11,6 @@ class ActiveproposalCard extends StatelessWidget {
   final String? attorneyType;
   final String? caseName;
   final String? practiceArea;
-
   final String? profileImage;
   final String? date;
   final String? startDate;

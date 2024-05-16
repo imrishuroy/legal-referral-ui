@@ -66,7 +66,10 @@ class ActiveProjectCard extends StatelessWidget {
                         children: [
                           SvgPicture.asset(
                             IconStringConstants.star,
-                            color: LegalReferralColors.textRed235,
+                            colorFilter: const ColorFilter.mode(
+                              LegalReferralColors.textRed235,
+                              BlendMode.srcIn,
+                            ),
                             height: 9.h,
                             width: 9.h,
                           ),

@@ -20,7 +20,7 @@ class ConnectionTile extends StatelessWidget {
         horizontal: 8.w,
       ),
       leading: CustomAvatar(
-        radius: 25.r,
+        radius: 22,
         imageUrl: connection?.avatarUrl,
       ),
       title: Row(
@@ -48,7 +48,7 @@ class ConnectionTile extends StatelessWidget {
                     SizedBox(
                       height: 20.h,
                     ),
-                    HorizontalIconButon(
+                    HorizontalIconButton(
                       style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                             color: LegalReferralColors.textGrey500,
                           ),
@@ -57,7 +57,7 @@ class ConnectionTile extends StatelessWidget {
                       onTap: () {},
                     ),
                     const Divider(),
-                    HorizontalIconButon(
+                    HorizontalIconButton(
                       style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                             color: LegalReferralColors.textGrey500,
                           ),
