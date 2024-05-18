@@ -1,6 +1,6 @@
 part of 'referral_bloc.dart';
 
-enum ReferralStatus { initial, loading, success, failure }
+enum ReferralStatus { initial, loading, success, failure, referralAdded }
 
 class ReferralState extends Equatable {
   const ReferralState({
@@ -8,6 +8,10 @@ class ReferralState extends Equatable {
     this.referrals = const [],
     this.connections = const [],
     this.selectedConnections = const [],
+    this.referredUsers = const [],
+    this.proposals = const [],
+    this.proposalReq,
+    this.isProposalEditing = false,
     this.failure,
   });
 
@@ -20,6 +24,10 @@ class ReferralState extends Equatable {
   final List<Referral?> referrals;
   final List<Connection?> connections;
   final List<Connection?> selectedConnections;
+  final List<AppUser?> referredUsers;
+  final List<Proposal?> proposals;
+  final ProposalReq? proposalReq;
+  final bool isProposalEditing;
   final ReferralStatus status;
   final Failure? failure;
 
@@ -27,6 +35,10 @@ class ReferralState extends Equatable {
     List<Referral?>? referrals,
     List<Connection?>? connections,
     List<Connection?>? selectedConnections,
+    List<AppUser?>? referredUsers,
+    List<Proposal?>? proposals,
+    ProposalReq? proposalReq,
+    bool? isProposalEditing,
     ReferralStatus? status,
     Failure? failure,
   }) {
@@ -34,6 +46,10 @@ class ReferralState extends Equatable {
       referrals: referrals ?? this.referrals,
       connections: connections ?? this.connections,
       selectedConnections: selectedConnections ?? this.selectedConnections,
+      referredUsers: referredUsers ?? this.referredUsers,
+      proposals: proposals ?? this.proposals,
+      proposalReq: proposalReq ?? this.proposalReq,
+      isProposalEditing: isProposalEditing ?? this.isProposalEditing,
       status: status ?? this.status,
       failure: failure ?? this.failure,
     );
@@ -44,6 +60,10 @@ class ReferralState extends Equatable {
         referrals,
         connections,
         selectedConnections,
+        referredUsers,
+        proposals,
+        proposalReq,
+        isProposalEditing,
         status,
         failure,
       ];

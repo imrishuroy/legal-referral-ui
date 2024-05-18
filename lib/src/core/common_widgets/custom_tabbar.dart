@@ -37,6 +37,7 @@ class _CustomTabViewState extends State<CustomTabView>
       length: 2,
       child: Scaffold(
         appBar: AppBar(
+          automaticallyImplyLeading: false,
           backgroundColor: LegalReferralColors.primaryBackground,
           bottom: PreferredSize(
             preferredSize: const Size.fromHeight(10),

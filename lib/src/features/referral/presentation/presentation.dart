@@ -1,4 +1,11 @@
 export 'bloc/referral_bloc.dart';
 export 'pages/add_referral_page.dart';
+export 'pages/proposal_detail_page.dart';
+export 'pages/referral_detail_page.dart';
 export 'pages/referral_page.dart';
+export 'widgets/active_proposals.dart';
+export 'widgets/active_proposals_card.dart';
+export 'widgets/active_referrals.dart';
+export 'widgets/completed_proposals.dart';
 export 'widgets/referral_connection_dialog.dart';
+export 'widgets/shimmers/shimmers.dart';

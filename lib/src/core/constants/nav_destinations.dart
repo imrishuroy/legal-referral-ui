@@ -40,7 +40,7 @@ List<NavItem> destinations = [
     route: DiscussPage.name,
     label: 'Discuss',
     icon: SvgPicture.asset(
-      IconStringConstants.network,
+      IconStringConstants.discuss,
     ),
   ),
 ];

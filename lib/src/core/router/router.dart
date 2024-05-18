@@ -10,6 +10,7 @@ import 'package:legal_referral_ui/src/features/network/presentation/pages/networ
 import 'package:legal_referral_ui/src/features/network/presentation/presentation.dart';
 import 'package:legal_referral_ui/src/features/post/presentation/presentation.dart';
 import 'package:legal_referral_ui/src/features/profile/presentation/presentation.dart';
+import 'package:legal_referral_ui/src/features/referral/domain/domain.dart';
 import 'package:legal_referral_ui/src/features/referral/presentation/presentation.dart';
 import 'package:legal_referral_ui/src/features/search/presentation/presentation.dart';
 import 'package:legal_referral_ui/src/features/wizard/presentation/presentation.dart';
@@ -483,6 +484,38 @@ class AppRouter {
           transitionsBuilder: (_, a, __, c) =>
               FadeTransition(opacity: a, child: c),
         ),
+        routes: [
+          GoRoute(
+            path: 'referral-detail',
+            name: ReferralDetailPage.name,
+            parentNavigatorKey: _rootNavigatorKey,
+            pageBuilder: (context, state) => CustomTransitionPage(
+              child: ReferralDetailPage(
+                referral: state.extra as Referral?,
+              ),
+              transitionDuration: const Duration(
+                milliseconds: _routeTransitionDuration,
+              ),
+              transitionsBuilder: (_, a, __, c) =>
+                  FadeTransition(opacity: a, child: c),
+            ),
+          ),
+          GoRoute(
+            path: 'proposal-details',
+            name: ProposalDetailsPage.name,
+            parentNavigatorKey: _rootNavigatorKey,
+            pageBuilder: (context, state) => CustomTransitionPage(
+              child: ProposalDetailsPage(
+                proposal: state.extra as Proposal?,
+              ),
+              transitionDuration: const Duration(
+                milliseconds: _routeTransitionDuration,
+              ),
+              transitionsBuilder: (_, a, __, c) =>
+                  FadeTransition(opacity: a, child: c),
+            ),
+          ),
+        ],
       ),
       GoRoute(
         path: '/add-referral',

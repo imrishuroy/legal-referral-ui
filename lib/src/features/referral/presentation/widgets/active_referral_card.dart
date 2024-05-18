@@ -17,8 +17,8 @@ class ActiveReferral extends StatelessWidget {
     required this.attorneyName,
     required this.attorneyType,
     required this.profileImage,
-   this.style,
-  this.radius,
+    this.style,
+    this.radius,
     super.key,
   });
 
@@ -26,7 +26,7 @@ class ActiveReferral extends StatelessWidget {
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
     return Container(
-      padding: EdgeInsets.symmetric(horizontal:16.w,vertical: 16.h),
+      padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
       color: LegalReferralColors.containerWhite500,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -38,7 +38,9 @@ class ActiveReferral extends StatelessWidget {
             style: style,
             radius: radius,
           ),
-          SizedBox(height: 8.h,),
+          SizedBox(
+            height: 8.h,
+          ),
           Row(
             children: [
               SvgPicture.asset(IconStringConstants.favIcon),
@@ -49,7 +51,9 @@ class ActiveReferral extends StatelessWidget {
               ),
             ],
           ),
-          SizedBox(height: 8.h,),
+          SizedBox(
+            height: 8.h,
+          ),
           RichText(
             text: TextSpan(
               text: 'Price: ',
@@ -63,13 +67,15 @@ class ActiveReferral extends StatelessWidget {
               ],
             ),
           ),
-          SizedBox(height: 16.h,),
+          SizedBox(
+            height: 16.h,
+          ),
           Row(
             children: [
               Expanded(
                 child: CustomOutlinedButton(
                   width: 96.w,
-                  height: 36.h,
+                  height: 58.h,
                   textColor: LegalReferralColors.textBlue100,
                   borderColor: LegalReferralColors.borderBlue300,
                   onPressed: () {},
@@ -82,7 +88,7 @@ class ActiveReferral extends StatelessWidget {
               Expanded(
                 child: CustomOutlinedButton(
                   width: 96.w,
-                  height: 36.h,
+                  height: 58.h,
                   textColor: LegalReferralColors.textBlue100,
                   borderColor: LegalReferralColors.borderBlue300,
                   onPressed: () {},

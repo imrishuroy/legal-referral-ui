@@ -10,6 +10,7 @@ import 'package:legal_referral_ui/src/features/network/domain/domain.dart';
 import 'package:legal_referral_ui/src/features/profile/data/data.dart';
 import 'package:legal_referral_ui/src/features/profile/domain/domain.dart';
 import 'package:legal_referral_ui/src/features/referral/data/data.dart';
+import 'package:legal_referral_ui/src/features/referral/domain/domain.dart';
 import 'package:legal_referral_ui/src/features/wizard/data/data.dart';
 import 'package:legal_referral_ui/src/features/wizard/domain/domain.dart';
 import 'package:retrofit/retrofit.dart';
@@ -302,5 +303,36 @@ abstract class APIClient {
   @POST('/referral')
   Future<String?> addReferral(
     @Body() AddReferralReq referral,
+  );
+
+  @GET('/referrals/{userId}')
+  Future<List<Referral?>> fetchReferrals(
+    @Path('userId') String userId,
+  );
+
+  @GET('/referrals/users/{referralId}')
+  Future<List<AppUser?>> fetchReferredUsers(
+    @Path('referralId') int referralId,
+  );
+
+  @GET('/users/{userId}/proposals')
+  Future<List<Proposal?>> fetchProposals(
+    @Path('userId') String userId,
+  );
+
+  @GET('/proposals/{referralId}')
+  Future<ProposalReq?> fetchProposalByReferralId(
+    @Path('referralId') int referralId,
+  );
+
+  @POST('/proposals')
+  Future<ProposalReq?> createProposal(
+    @Body() ProposalReq proposalReq,
+  );
+
+  @PUT('/proposals/{proposalId}')
+  Future<ProposalReq?> updateProposal(
+    @Path('proposalId') int proposalId,
+    @Body() ProposalReq proposalReq,
   );
 }

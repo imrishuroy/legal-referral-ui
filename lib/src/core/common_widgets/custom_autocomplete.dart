@@ -131,6 +131,9 @@ class CustomAutoComplete extends StatelessWidget {
                             onTap: () {
                               onSelected(options.elementAt(index));
                             },
+                            contentPadding: EdgeInsets.symmetric(
+                              horizontal: 16.w,
+                            ),
                           );
                         },
                       ),

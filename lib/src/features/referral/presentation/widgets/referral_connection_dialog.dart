@@ -49,7 +49,18 @@ class _ReferralConnectionsDialoagState
     return BlocConsumer<ReferralBloc, ReferralState>(
       bloc: _refferralBloc,
       listener: (context, state) {
-        if (state.status == ReferralStatus.failure) {
+        if (state.status == ReferralStatus.referralAdded) {
+          ToastUtil.showToast(
+            context,
+            title: 'Success',
+            description: 'Referral posted successfully',
+            type: ToastificationType.success,
+          );
+          context.pop();
+          context.pushReplacementNamed(
+            ReferralPage.name,
+          );
+        } else if (state.status == ReferralStatus.failure) {
           ToastUtil.showToast(
             context,
             title: 'Error',
@@ -180,7 +191,7 @@ class _ReferralConnectionsDialoagState
                   );
 
                   _refferralBloc.add(
-                    ReferralCreated(
+                    ReferralAdded(
                       referral: referral,
                     ),
                   );
