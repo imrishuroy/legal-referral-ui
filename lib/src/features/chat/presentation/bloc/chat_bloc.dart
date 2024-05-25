@@ -345,8 +345,11 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
   }
 
   String createRoomID(String userID1, String userID2) {
-    // Concatenate the user IDs
-    final concatenated = userID1 + userID2;
+    // Sort the user IDs lexicographically
+    final sortedUserIDs = [userID1, userID2]..sort();
+
+    // Concatenate the sorted user IDs
+    final concatenated = sortedUserIDs[0] + sortedUserIDs[1];
 
     // Hash the concatenated string using SHA-1
     final List<int> bytes = utf8.encode(concatenated);
