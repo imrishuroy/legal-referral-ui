@@ -4,6 +4,16 @@ import 'package:legal_referral_ui/src/core/config/config.dart';
 part 'proposal.freezed.dart';
 part 'proposal.g.dart';
 
+enum ProposalStatus {
+  active,
+  awarded,
+  accepted,
+  started,
+  completed,
+  rejected,
+  cancelled
+}
+
 @freezed
 class Proposal with _$Proposal {
   const factory Proposal({
@@ -34,6 +44,9 @@ class Proposal with _$Proposal {
     )
     @DateTimeJsonConverter()
     required DateTime? updatedAt,
+    @JsonKey(name: 'status', includeToJson: false)
+    @Default(ProposalStatus.active)
+    ProposalStatus status,
   }) = _Proposal;
 
   factory Proposal.fromJson(Map<String, dynamic> json) =>

@@ -28,6 +28,8 @@ mixin _$ProposalReq {
   String? get proposal => throw _privateConstructorUsedError;
   @JsonKey(name: 'proposal_id', includeIfNull: false)
   int? get proposalId => throw _privateConstructorUsedError;
+  @JsonKey(name: 'status', includeToJson: false)
+  ProposalStatus? get status => throw _privateConstructorUsedError;
   @JsonKey(name: 'created_at', includeToJson: false)
   @DateTimeJsonConverter()
   DateTime? get createdAt => throw _privateConstructorUsedError;
@@ -53,6 +55,7 @@ abstract class $ProposalReqCopyWith<$Res> {
       String? title,
       String? proposal,
       @JsonKey(name: 'proposal_id', includeIfNull: false) int? proposalId,
+      @JsonKey(name: 'status', includeToJson: false) ProposalStatus? status,
       @JsonKey(name: 'created_at', includeToJson: false)
       @DateTimeJsonConverter()
       DateTime? createdAt,
@@ -79,6 +82,7 @@ class _$ProposalReqCopyWithImpl<$Res, $Val extends ProposalReq>
     Object? title = freezed,
     Object? proposal = freezed,
     Object? proposalId = freezed,
+    Object? status = freezed,
     Object? createdAt = freezed,
     Object? updatedAt = freezed,
   }) {
@@ -103,6 +107,10 @@ class _$ProposalReqCopyWithImpl<$Res, $Val extends ProposalReq>
           ? _value.proposalId
           : proposalId // ignore: cast_nullable_to_non_nullable
               as int?,
+      status: freezed == status
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as ProposalStatus?,
       createdAt: freezed == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -129,6 +137,7 @@ abstract class _$$ProposalReqImplCopyWith<$Res>
       String? title,
       String? proposal,
       @JsonKey(name: 'proposal_id', includeIfNull: false) int? proposalId,
+      @JsonKey(name: 'status', includeToJson: false) ProposalStatus? status,
       @JsonKey(name: 'created_at', includeToJson: false)
       @DateTimeJsonConverter()
       DateTime? createdAt,
@@ -153,6 +162,7 @@ class __$$ProposalReqImplCopyWithImpl<$Res>
     Object? title = freezed,
     Object? proposal = freezed,
     Object? proposalId = freezed,
+    Object? status = freezed,
     Object? createdAt = freezed,
     Object? updatedAt = freezed,
   }) {
@@ -177,6 +187,10 @@ class __$$ProposalReqImplCopyWithImpl<$Res>
           ? _value.proposalId
           : proposalId // ignore: cast_nullable_to_non_nullable
               as int?,
+      status: freezed == status
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as ProposalStatus?,
       createdAt: freezed == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -198,6 +212,8 @@ class _$ProposalReqImpl implements _ProposalReq {
       required this.title,
       required this.proposal,
       @JsonKey(name: 'proposal_id', includeIfNull: false) this.proposalId,
+      @JsonKey(name: 'status', includeToJson: false)
+      this.status = ProposalStatus.active,
       @JsonKey(name: 'created_at', includeToJson: false)
       @DateTimeJsonConverter()
       this.createdAt,
@@ -222,6 +238,9 @@ class _$ProposalReqImpl implements _ProposalReq {
   @JsonKey(name: 'proposal_id', includeIfNull: false)
   final int? proposalId;
   @override
+  @JsonKey(name: 'status', includeToJson: false)
+  final ProposalStatus? status;
+  @override
   @JsonKey(name: 'created_at', includeToJson: false)
   @DateTimeJsonConverter()
   final DateTime? createdAt;
@@ -232,7 +251,7 @@ class _$ProposalReqImpl implements _ProposalReq {
 
   @override
   String toString() {
-    return 'ProposalReq(referralId: $referralId, userId: $userId, title: $title, proposal: $proposal, proposalId: $proposalId, createdAt: $createdAt, updatedAt: $updatedAt)';
+    return 'ProposalReq(referralId: $referralId, userId: $userId, title: $title, proposal: $proposal, proposalId: $proposalId, status: $status, createdAt: $createdAt, updatedAt: $updatedAt)';
   }
 
   @override
@@ -248,6 +267,7 @@ class _$ProposalReqImpl implements _ProposalReq {
                 other.proposal == proposal) &&
             (identical(other.proposalId, proposalId) ||
                 other.proposalId == proposalId) &&
+            (identical(other.status, status) || other.status == status) &&
             (identical(other.createdAt, createdAt) ||
                 other.createdAt == createdAt) &&
             (identical(other.updatedAt, updatedAt) ||
@@ -257,7 +277,7 @@ class _$ProposalReqImpl implements _ProposalReq {
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(runtimeType, referralId, userId, title,
-      proposal, proposalId, createdAt, updatedAt);
+      proposal, proposalId, status, createdAt, updatedAt);
 
   @JsonKey(ignore: true)
   @override
@@ -280,6 +300,8 @@ abstract class _ProposalReq implements ProposalReq {
       required final String? title,
       required final String? proposal,
       @JsonKey(name: 'proposal_id', includeIfNull: false) final int? proposalId,
+      @JsonKey(name: 'status', includeToJson: false)
+      final ProposalStatus? status,
       @JsonKey(name: 'created_at', includeToJson: false)
       @DateTimeJsonConverter()
       final DateTime? createdAt,
@@ -303,6 +325,9 @@ abstract class _ProposalReq implements ProposalReq {
   @override
   @JsonKey(name: 'proposal_id', includeIfNull: false)
   int? get proposalId;
+  @override
+  @JsonKey(name: 'status', includeToJson: false)
+  ProposalStatus? get status;
   @override
   @JsonKey(name: 'created_at', includeToJson: false)
   @DateTimeJsonConverter()

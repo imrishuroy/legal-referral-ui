@@ -1,5 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:legal_referral_ui/src/core/config/config.dart';
+import 'package:legal_referral_ui/src/features/referral/domain/domain.dart';
 
 part 'proposal_req.freezed.dart';
 part 'proposal_req.g.dart';
@@ -16,6 +17,12 @@ class ProposalReq with _$ProposalReq {
       includeIfNull: false,
     )
     int? proposalId,
+    @JsonKey(
+      name: 'status',
+      includeToJson: false,
+    )
+    @Default(ProposalStatus.active)
+    ProposalStatus? status,
     @JsonKey(
       name: 'created_at',
       includeToJson: false,

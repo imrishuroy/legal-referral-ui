@@ -1,18 +1,32 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:legal_referral_ui/src/core/common_widgets/custom_button.dart';
 import 'package:legal_referral_ui/src/core/common_widgets/widgets.dart';
 import 'package:legal_referral_ui/src/core/constants/colors.dart';
+import 'package:legal_referral_ui/src/features/referral/domain/domain.dart';
 
-class AcceptProjectDialog extends StatelessWidget {
-  const AcceptProjectDialog({super.key});
+class AwardedProjectCard extends StatelessWidget {
+  const AwardedProjectCard({
+    required this.project,
+    required this.onAccept,
+    required this.onReject,
+    super.key,
+  });
+
+  final Project? project;
+  final VoidCallback onAccept;
+  final VoidCallback onReject;
 
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
+    final name = '${project?.user?.firstName ?? ''} '
+        '${project?.user?.lastName ?? ''}';
     return Container(
       margin: EdgeInsets.only(top: 8.h),
-      padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
+      padding: EdgeInsets.symmetric(
+        horizontal: 16.w,
+        vertical: 8.h,
+      ),
       color: LegalReferralColors.containerGreen95,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -26,18 +40,20 @@ class AcceptProjectDialog extends StatelessWidget {
             height: 8.h,
           ),
           Text(
-            'Barry E.Janay has awarded you the referral: '
-            '\nAkron, Divorce Lawyer Wanted',
-            style: textTheme.bodyLarge
-                ?.copyWith(color: LegalReferralColors.textWhite255),
+            '$name has awarded you the referral: '
+            '\n${project?.title ?? ''}',
+            style: textTheme.bodyLarge?.copyWith(
+              color: LegalReferralColors.textWhite255,
+            ),
           ),
           SizedBox(
             height: 8.h,
           ),
           Text(
             'Please Accept to get started.',
-            style: textTheme.bodyLarge
-                ?.copyWith(color: LegalReferralColors.textWhite255),
+            style: textTheme.bodyLarge?.copyWith(
+              color: LegalReferralColors.textWhite255,
+            ),
           ),
           SizedBox(
             height: 8.h,
@@ -46,7 +62,7 @@ class AcceptProjectDialog extends StatelessWidget {
             width: double.maxFinite,
             height: 57.h,
             child: ElevatedButton(
-              onPressed: () {},
+              onPressed: onAccept,
               style: ButtonStyle(
                 backgroundColor: MaterialStateProperty.all(
                   LegalReferralColors.backgroundWhite255,
@@ -73,10 +89,11 @@ class AcceptProjectDialog extends StatelessWidget {
           ),
           Align(
             child: CustomTextButton(
-              style: textTheme.labelMedium
-                  ?.copyWith(color: LegalReferralColors.textWhite255),
+              style: textTheme.labelMedium?.copyWith(
+                color: LegalReferralColors.textWhite255,
+              ),
               text: 'I do not want to Accept',
-              onPressed: () {},
+              onPressed: onReject,
             ),
           ),
         ],

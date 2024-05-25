@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:legal_referral_ui/src/core/common_widgets/widgets.dart';
 import 'package:legal_referral_ui/src/core/config/config.dart';
 import 'package:legal_referral_ui/src/core/constants/colors.dart';
 import 'package:legal_referral_ui/src/features/referral/domain/domain.dart';
 import 'package:legal_referral_ui/src/features/referral/presentation/presentation.dart';
-import 'package:legal_referral_ui/src/features/referral/presentation/widgets/active_referral_card.dart';
-import 'package:legal_referral_ui/src/features/referral/presentation/widgets/referral_card.dart';
 
 class ReferralDetailPage extends StatelessWidget {
   const ReferralDetailPage({
@@ -53,7 +52,9 @@ class ReferralDetailPage extends StatelessWidget {
                     padding: EdgeInsets.symmetric(horizontal: 12.w),
                     child: Text(
                       referral?.caseDescription ?? '',
-                      style: textTheme.bodyLarge,
+                      style: textTheme.bodyLarge?.copyWith(
+                        color: Colors.black,
+                      ),
                     ),
                   ),
                   SizedBox(
@@ -67,7 +68,7 @@ class ReferralDetailPage extends StatelessWidget {
             ),
             if (referral?.referralId != null)
               _ActiveReferredUsers(
-                referralId: referral!.referralId!,
+                referral: referral,
               ),
           ],
         ),
@@ -78,10 +79,10 @@ class ReferralDetailPage extends StatelessWidget {
 
 class _ActiveReferredUsers extends StatefulWidget {
   const _ActiveReferredUsers({
-    required this.referralId,
+    required this.referral,
   });
 
-  final int referralId;
+  final Referral? referral;
 
   @override
   State<_ActiveReferredUsers> createState() => _ActiveReferredUsersState();
@@ -92,7 +93,13 @@ class _ActiveReferredUsersState extends State<_ActiveReferredUsers> {
 
   @override
   void initState() {
-    _referrerBloc.add(ReferredUsersFetched(referralId: widget.referralId));
+    final referralId = widget.referral?.referralId;
+    if (referralId != null) {
+      _referrerBloc.add(
+        ReferredUsersFetched(referralId: referralId),
+      );
+    }
+
     super.initState();
   }
 
@@ -137,12 +144,21 @@ class _ActiveReferredUsersState extends State<_ActiveReferredUsers> {
                 physics: const NeverScrollableScrollPhysics(),
                 itemBuilder: (context, index) {
                   final referredUser = state.referredUsers[index];
-                  return ActiveReferral(
-                    attorneyName: '${referredUser?.firstName ?? ''} '
-                        '${referredUser?.lastName ?? ''}',
-                    attorneyType: referredUser?.practiceArea ?? '',
-                    profileImage: referredUser?.avatarUrl,
-                    radius: 28.r,
+                  return GestureDetector(
+                    onTap: () => context.pushNamed(
+                      ReferralProposalPage.name,
+                      extra: ReferralProposalPageArgs(
+                        referredUser: referredUser,
+                        referral: widget.referral,
+                      ),
+                    ),
+                    child: ActiveReferral(
+                      attorneyName: '${referredUser?.firstName ?? ''} '
+                          '${referredUser?.lastName ?? ''}',
+                      attorneyType: referredUser?.practiceArea ?? '',
+                      profileImage: referredUser?.avatarUrl,
+                      radius: 28.r,
+                    ),
                   );
                 },
                 separatorBuilder: (context, index) => SizedBox(

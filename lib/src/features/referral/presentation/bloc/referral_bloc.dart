@@ -1,5 +1,4 @@
 import 'package:equatable/equatable.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:legal_referral_ui/src/core/config/config.dart';
@@ -30,6 +29,19 @@ class ReferralBloc extends Bloc<ReferralEvent, ReferralState> {
     on<ProposalEditToggled>(_onProposalEditToggled);
     on<ProposalSent>(_onProposalSent);
     on<ProposalUpdated>(_onProposalUpdated);
+    on<ProjectAwarded>(_onProjectAwarded);
+    on<ActiveProjectsFetched>(_onActiveProjectsFetched);
+    on<AwardedProjectsFetched>(_onAwardedProjectsFetched);
+    on<ProjectAccepted>(_onProjectAccepted);
+    on<ProjectStarted>(_onProjectStarted);
+    on<ProjectCompletionInitiated>(_onProjectCompletionInitiated);
+    on<ProjectCompletionInitiationCancelled>(
+      _onProjectCompletionInitiationCancelled,
+    );
+    on<ProjectCompleted>(_onProjectCompleted);
+    on<ProjectRejected>(_onProjectRejected);
+    on<ProjectReviewed>(_onProjectReviewed);
+    on<CompletedProjectsFetched>(_onCompletedProjectsFetched);
   }
 
   final ReferralUseCases _referralUseCases;
@@ -217,6 +229,7 @@ class ReferralBloc extends Bloc<ReferralEvent, ReferralState> {
     emit(state.copyWith(status: ReferralStatus.loading));
 
     final res = await _referralUseCases.fetchProposalByReferralId(
+      userId: event.userId,
       referralId: event.referralId,
     );
 
@@ -272,7 +285,6 @@ class ReferralBloc extends Bloc<ReferralEvent, ReferralState> {
         );
       },
       (proposal) {
-        debugPrint('Proposal sent ----: $proposal');
         emit(
           state.copyWith(
             proposalReq: proposal,
@@ -309,6 +321,393 @@ class ReferralBloc extends Bloc<ReferralEvent, ReferralState> {
           state.copyWith(
             proposalReq: proposal,
             isProposalEditing: false,
+            status: ReferralStatus.success,
+          ),
+        );
+      },
+    );
+  }
+
+  Future<void> _onProjectAwarded(
+    ProjectAwarded event,
+    Emitter<ReferralState> emit,
+  ) async {
+    emit(state.copyWith(status: ReferralStatus.loading));
+
+    final res = await _referralUseCases.awardProject(
+      awardProjectReq: event.awardProjectReq,
+    );
+
+    res.fold(
+      (failure) {
+        emit(
+          state.copyWith(
+            status: ReferralStatus.failure,
+            failure: failure,
+          ),
+        );
+      },
+      (project) {
+        final referralId = event.awardProjectReq.referralId;
+        final updatedReferrals = state.referrals
+            .where((referral) => referral?.referralId != referralId)
+            .toList();
+
+        emit(
+          state.copyWith(
+            referrals: updatedReferrals,
+            status: ReferralStatus.awardProject,
+          ),
+        );
+      },
+    );
+  }
+
+  Future<void> _onActiveProjectsFetched(
+    ActiveProjectsFetched event,
+    Emitter<ReferralState> emit,
+  ) async {
+    emit(state.copyWith(status: ReferralStatus.loading));
+
+    final res = await _referralUseCases.fetchActiveProjects(
+      userId: event.userId,
+      role: event.role,
+    );
+
+    res.fold(
+      (failure) {
+        emit(
+          state.copyWith(
+            status: ReferralStatus.failure,
+            failure: failure,
+          ),
+        );
+      },
+      (projects) {
+        emit(
+          state.copyWith(
+            activeProjects: projects,
+            status: ReferralStatus.success,
+          ),
+        );
+      },
+    );
+  }
+
+  Future<void> _onAwardedProjectsFetched(
+    AwardedProjectsFetched event,
+    Emitter<ReferralState> emit,
+  ) async {
+    emit(state.copyWith(status: ReferralStatus.loading));
+
+    final res = await _referralUseCases.fetchAwardedProjects(
+      userId: event.userId,
+    );
+
+    res.fold(
+      (failure) {
+        emit(
+          state.copyWith(
+            status: ReferralStatus.failure,
+            failure: failure,
+          ),
+        );
+      },
+      (projects) {
+        emit(
+          state.copyWith(
+            awardedProjects: projects,
+            status: ReferralStatus.success,
+          ),
+        );
+      },
+    );
+  }
+
+  Future<void> _onProjectAccepted(
+    ProjectAccepted event,
+    Emitter<ReferralState> emit,
+  ) async {
+    emit(state.copyWith(status: ReferralStatus.loading));
+
+    final res = await _referralUseCases.acceptProject(
+      projectId: event.projectId,
+    );
+
+    res.fold(
+      (failure) {
+        emit(
+          state.copyWith(
+            status: ReferralStatus.failure,
+            failure: failure,
+          ),
+        );
+      },
+      (project) {
+        final updatedProjects = state.awardedProjects
+            .where((project) => project?.projectId != event.projectId)
+            .toList();
+
+        emit(
+          state.copyWith(
+            awardedProjects: updatedProjects,
+            activeProjects: [
+              ...state.activeProjects,
+              project,
+            ],
+            status: ReferralStatus.success,
+          ),
+        );
+      },
+    );
+  }
+
+  Future<void> _onProjectStarted(
+    ProjectStarted event,
+    Emitter<ReferralState> emit,
+  ) async {
+    emit(state.copyWith(status: ReferralStatus.loading));
+
+    final res = await _referralUseCases.startProject(
+      projectId: event.projectId,
+    );
+
+    res.fold(
+      (failure) {
+        emit(
+          state.copyWith(
+            status: ReferralStatus.failure,
+            failure: failure,
+          ),
+        );
+      },
+      (project) {
+        // update the referredActiveProjects list, update the project status
+        final updatedProjects = state.activeProjects
+            .map(
+              (p) => p?.projectId == event.projectId
+                  ? p?.copyWith(status: ProjectStatus.started)
+                  : p,
+            )
+            .toList();
+
+        emit(
+          state.copyWith(
+            activeProjects: updatedProjects,
+            status: ReferralStatus.success,
+          ),
+        );
+      },
+    );
+  }
+
+  Future<void> _onProjectCompletionInitiationCancelled(
+    ProjectCompletionInitiationCancelled event,
+    Emitter<ReferralState> emit,
+  ) async {
+    emit(state.copyWith(status: ReferralStatus.loading));
+
+    final res = await _referralUseCases.cancelInitiateCompleteProject(
+      projectId: event.projectId,
+    );
+
+    res.fold(
+      (failure) {
+        emit(
+          state.copyWith(
+            status: ReferralStatus.failure,
+            failure: failure,
+          ),
+        );
+      },
+      (project) {
+        final updatedProjects = state.activeProjects
+            .map(
+              (p) => p?.projectId == event.projectId
+                  ? p?.copyWith(status: ProjectStatus.completeInitiated)
+                  : p,
+            )
+            .toList();
+
+        emit(
+          state.copyWith(
+            activeProjects: updatedProjects,
+            status: ReferralStatus.initial,
+          ),
+        );
+      },
+    );
+  }
+
+  Future<void> _onProjectCompleted(
+    ProjectCompleted event,
+    Emitter<ReferralState> emit,
+  ) async {
+    emit(state.copyWith(status: ReferralStatus.loading));
+
+    final res = await _referralUseCases.completeProject(
+      projectId: event.projectId,
+    );
+
+    res.fold(
+      (failure) {
+        emit(
+          state.copyWith(
+            status: ReferralStatus.failure,
+            failure: failure,
+          ),
+        );
+      },
+      (project) {
+        final updatedProjects = state.activeProjects
+            .map(
+              (p) => p?.projectId == event.projectId
+                  ? p?.copyWith(status: ProjectStatus.completed)
+                  : p,
+            )
+            .toList();
+
+        emit(
+          state.copyWith(
+            activeProjects: updatedProjects,
+            status: ReferralStatus.success,
+          ),
+        );
+      },
+    );
+  }
+
+  Future<void> _onProjectRejected(
+    ProjectRejected event,
+    Emitter<ReferralState> emit,
+  ) async {
+    emit(state.copyWith(status: ReferralStatus.loading));
+
+    final res = await _referralUseCases.rejectProject(
+      projectId: event.projectId,
+    );
+
+    res.fold(
+      (failure) {
+        emit(
+          state.copyWith(
+            status: ReferralStatus.failure,
+            failure: failure,
+          ),
+        );
+      },
+      (project) {
+        final updatedProjects = state.awardedProjects
+            .where((project) => project?.projectId != event.projectId)
+            .toList();
+
+        emit(
+          state.copyWith(
+            awardedProjects: updatedProjects,
+            activeProjects: [
+              ...state.activeProjects,
+              project,
+            ],
+            status: ReferralStatus.success,
+          ),
+        );
+      },
+    );
+  }
+
+  Future<void> _onProjectReviewed(
+    ProjectReviewed event,
+    Emitter<ReferralState> emit,
+  ) async {
+    emit(state.copyWith(status: ReferralStatus.loading));
+
+    final res = await _referralUseCases.addProjectReview(
+      projectReview: event.projectReview,
+    );
+
+    res.fold(
+      (failure) {
+        emit(
+          state.copyWith(
+            status: ReferralStatus.failure,
+            failure: failure,
+          ),
+        );
+      },
+      (review) {
+        emit(
+          state.copyWith(
+            status: ReferralStatus.success,
+          ),
+        );
+      },
+    );
+  }
+
+  Future<void> _onProjectCompletionInitiated(
+    ProjectCompletionInitiated event,
+    Emitter<ReferralState> emit,
+  ) async {
+    emit(state.copyWith(status: ReferralStatus.loading));
+
+    final res = await _referralUseCases.initiateCompleteProject(
+      projectId: event.projectId,
+    );
+
+    res.fold(
+      (failure) {
+        emit(
+          state.copyWith(
+            status: ReferralStatus.failure,
+            failure: failure,
+          ),
+        );
+      },
+      (project) {
+        final updatedProjects = state.activeProjects
+            .map(
+              (p) => p?.projectId == event.projectId
+                  ? p?.copyWith(
+                      status: ProjectStatus.completeInitiated,
+                    )
+                  : p,
+            )
+            .toList();
+
+        emit(
+          state.copyWith(
+            activeProjects: updatedProjects,
+            status: ReferralStatus.success,
+          ),
+        );
+      },
+    );
+  }
+
+  Future<void> _onCompletedProjectsFetched(
+    CompletedProjectsFetched event,
+    Emitter<ReferralState> emit,
+  ) async {
+    emit(state.copyWith(status: ReferralStatus.loading));
+
+    final res = await _referralUseCases.fetchCompletedProjects(
+      userId: event.userId,
+      role: event.role,
+    );
+
+    res.fold(
+      (failure) {
+        emit(
+          state.copyWith(
+            status: ReferralStatus.failure,
+            failure: failure,
+          ),
+        );
+      },
+      (projects) {
+        emit(
+          state.copyWith(
+            completedProjects: projects,
             status: ReferralStatus.success,
           ),
         );

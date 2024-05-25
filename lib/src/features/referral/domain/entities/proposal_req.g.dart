@@ -13,6 +13,8 @@ _$ProposalReqImpl _$$ProposalReqImplFromJson(Map<String, dynamic> json) =>
       title: json['title'] as String?,
       proposal: json['proposal'] as String?,
       proposalId: (json['proposal_id'] as num?)?.toInt(),
+      status: $enumDecodeNullable(_$ProposalStatusEnumMap, json['status']) ??
+          ProposalStatus.active,
       createdAt: _$JsonConverterFromJson<String, DateTime>(
           json['created_at'], const DateTimeJsonConverter().fromJson),
       updatedAt: _$JsonConverterFromJson<String, DateTime>(
@@ -36,6 +38,16 @@ Map<String, dynamic> _$$ProposalReqImplToJson(_$ProposalReqImpl instance) {
   writeNotNull('proposal_id', instance.proposalId);
   return val;
 }
+
+const _$ProposalStatusEnumMap = {
+  ProposalStatus.active: 'active',
+  ProposalStatus.awarded: 'awarded',
+  ProposalStatus.accepted: 'accepted',
+  ProposalStatus.started: 'started',
+  ProposalStatus.completed: 'completed',
+  ProposalStatus.rejected: 'rejected',
+  ProposalStatus.cancelled: 'cancelled',
+};
 
 Value? _$JsonConverterFromJson<Json, Value>(
   Object? json,

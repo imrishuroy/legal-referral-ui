@@ -47,6 +47,8 @@ mixin _$Proposal {
   @JsonKey(name: 'updated_at', includeToJson: false)
   @DateTimeJsonConverter()
   DateTime? get updatedAt => throw _privateConstructorUsedError;
+  @JsonKey(name: 'status', includeToJson: false)
+  ProposalStatus get status => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -78,7 +80,8 @@ abstract class $ProposalCopyWith<$Res> {
       DateTime? createdAt,
       @JsonKey(name: 'updated_at', includeToJson: false)
       @DateTimeJsonConverter()
-      DateTime? updatedAt});
+      DateTime? updatedAt,
+      @JsonKey(name: 'status', includeToJson: false) ProposalStatus status});
 }
 
 /// @nodoc
@@ -107,6 +110,7 @@ class _$ProposalCopyWithImpl<$Res, $Val extends Proposal>
     Object? caseDescription = freezed,
     Object? createdAt = freezed,
     Object? updatedAt = freezed,
+    Object? status = null,
   }) {
     return _then(_value.copyWith(
       referrerUserId: freezed == referrerUserId
@@ -161,6 +165,10 @@ class _$ProposalCopyWithImpl<$Res, $Val extends Proposal>
           ? _value.updatedAt
           : updatedAt // ignore: cast_nullable_to_non_nullable
               as DateTime?,
+      status: null == status
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as ProposalStatus,
     ) as $Val);
   }
 }
@@ -192,7 +200,8 @@ abstract class _$$ProposalImplCopyWith<$Res>
       DateTime? createdAt,
       @JsonKey(name: 'updated_at', includeToJson: false)
       @DateTimeJsonConverter()
-      DateTime? updatedAt});
+      DateTime? updatedAt,
+      @JsonKey(name: 'status', includeToJson: false) ProposalStatus status});
 }
 
 /// @nodoc
@@ -219,6 +228,7 @@ class __$$ProposalImplCopyWithImpl<$Res>
     Object? caseDescription = freezed,
     Object? createdAt = freezed,
     Object? updatedAt = freezed,
+    Object? status = null,
   }) {
     return _then(_$ProposalImpl(
       referrerUserId: freezed == referrerUserId
@@ -273,6 +283,10 @@ class __$$ProposalImplCopyWithImpl<$Res>
           ? _value.updatedAt
           : updatedAt // ignore: cast_nullable_to_non_nullable
               as DateTime?,
+      status: null == status
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as ProposalStatus,
     ));
   }
 }
@@ -301,7 +315,9 @@ class _$ProposalImpl implements _Proposal {
       required this.createdAt,
       @JsonKey(name: 'updated_at', includeToJson: false)
       @DateTimeJsonConverter()
-      required this.updatedAt});
+      required this.updatedAt,
+      @JsonKey(name: 'status', includeToJson: false)
+      this.status = ProposalStatus.active});
 
   factory _$ProposalImpl.fromJson(Map<String, dynamic> json) =>
       _$$ProposalImplFromJson(json);
@@ -346,10 +362,13 @@ class _$ProposalImpl implements _Proposal {
   @JsonKey(name: 'updated_at', includeToJson: false)
   @DateTimeJsonConverter()
   final DateTime? updatedAt;
+  @override
+  @JsonKey(name: 'status', includeToJson: false)
+  final ProposalStatus status;
 
   @override
   String toString() {
-    return 'Proposal(referrerUserId: $referrerUserId, referrerFirstName: $referrerFirstName, referrerLastName: $referrerLastName, referrerPracticeArea: $referrerPracticeArea, referrerPracticeLocation: $referrerPracticeLocation, referrerAvatarUrl: $referrerAvatarUrl, referralId: $referralId, title: $title, preferredPracticeArea: $preferredPracticeArea, preferredPracticeLocation: $preferredPracticeLocation, caseDescription: $caseDescription, createdAt: $createdAt, updatedAt: $updatedAt)';
+    return 'Proposal(referrerUserId: $referrerUserId, referrerFirstName: $referrerFirstName, referrerLastName: $referrerLastName, referrerPracticeArea: $referrerPracticeArea, referrerPracticeLocation: $referrerPracticeLocation, referrerAvatarUrl: $referrerAvatarUrl, referralId: $referralId, title: $title, preferredPracticeArea: $preferredPracticeArea, preferredPracticeLocation: $preferredPracticeLocation, caseDescription: $caseDescription, createdAt: $createdAt, updatedAt: $updatedAt, status: $status)';
   }
 
   @override
@@ -383,7 +402,8 @@ class _$ProposalImpl implements _Proposal {
             (identical(other.createdAt, createdAt) ||
                 other.createdAt == createdAt) &&
             (identical(other.updatedAt, updatedAt) ||
-                other.updatedAt == updatedAt));
+                other.updatedAt == updatedAt) &&
+            (identical(other.status, status) || other.status == status));
   }
 
   @JsonKey(ignore: true)
@@ -402,7 +422,8 @@ class _$ProposalImpl implements _Proposal {
       preferredPracticeLocation,
       caseDescription,
       createdAt,
-      updatedAt);
+      updatedAt,
+      status);
 
   @JsonKey(ignore: true)
   @override
@@ -443,7 +464,9 @@ abstract class _Proposal implements Proposal {
       required final DateTime? createdAt,
       @JsonKey(name: 'updated_at', includeToJson: false)
       @DateTimeJsonConverter()
-      required final DateTime? updatedAt}) = _$ProposalImpl;
+      required final DateTime? updatedAt,
+      @JsonKey(name: 'status', includeToJson: false)
+      final ProposalStatus status}) = _$ProposalImpl;
 
   factory _Proposal.fromJson(Map<String, dynamic> json) =
       _$ProposalImpl.fromJson;
@@ -488,6 +511,9 @@ abstract class _Proposal implements Proposal {
   @JsonKey(name: 'updated_at', includeToJson: false)
   @DateTimeJsonConverter()
   DateTime? get updatedAt;
+  @override
+  @JsonKey(name: 'status', includeToJson: false)
+  ProposalStatus get status;
   @override
   @JsonKey(ignore: true)
   _$$ProposalImplCopyWith<_$ProposalImpl> get copyWith =>

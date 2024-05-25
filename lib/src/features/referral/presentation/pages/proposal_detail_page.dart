@@ -8,7 +8,6 @@ import 'package:legal_referral_ui/src/core/utils/utils.dart';
 import 'package:legal_referral_ui/src/features/auth/presentation/presentation.dart';
 import 'package:legal_referral_ui/src/features/referral/domain/domain.dart';
 import 'package:legal_referral_ui/src/features/referral/presentation/presentation.dart';
-import 'package:legal_referral_ui/src/features/referral/presentation/widgets/attorney_details.dart';
 import 'package:toastification/toastification.dart';
 
 class ProposalDetailsPage extends StatefulWidget {
@@ -36,7 +35,10 @@ class _ProposalDetailsPageState extends State<ProposalDetailsPage> {
     final referralId = widget.proposal?.referralId;
     if (userId != null && referralId != null) {
       _referralBloc.add(
-        ProposalFetched(referralId: referralId),
+        ProposalFetched(
+          userId: userId,
+          referralId: referralId,
+        ),
       );
     }
 

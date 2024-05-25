@@ -1,4 +1,3 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -8,11 +7,6 @@ import 'package:legal_referral_ui/src/core/constants/icon_string_constants.dart'
 import 'package:legal_referral_ui/src/features/referral/presentation/widgets/attorney_details.dart';
 
 class ActiveReferral extends StatelessWidget {
-  final String? attorneyName;
-  final String? attorneyType;
-  final String? profileImage;
-  final TextStyle? style;
-  final double? radius;
   const ActiveReferral({
     required this.attorneyName,
     required this.attorneyType,
@@ -21,6 +15,11 @@ class ActiveReferral extends StatelessWidget {
     this.radius,
     super.key,
   });
+  final String? attorneyName;
+  final String? attorneyType;
+  final String? profileImage;
+  final TextStyle? style;
+  final double? radius;
 
   @override
   Widget build(BuildContext context) {
@@ -75,7 +74,7 @@ class ActiveReferral extends StatelessWidget {
               Expanded(
                 child: CustomOutlinedButton(
                   width: 96.w,
-                  height: 58.h,
+                  height: 48.h,
                   textColor: LegalReferralColors.textBlue100,
                   borderColor: LegalReferralColors.borderBlue300,
                   onPressed: () {},
@@ -88,7 +87,7 @@ class ActiveReferral extends StatelessWidget {
               Expanded(
                 child: CustomOutlinedButton(
                   width: 96.w,
-                  height: 58.h,
+                  height: 48.h,
                   textColor: LegalReferralColors.textBlue100,
                   borderColor: LegalReferralColors.borderBlue300,
                   onPressed: () {},

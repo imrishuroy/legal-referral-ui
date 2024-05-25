@@ -46,9 +46,11 @@ class ReferralUseCases {
   }
 
   Future<Either<Failure, ProposalReq?>> fetchProposalByReferralId({
+    required String userId,
     required int referralId,
   }) async {
     return _referralRepository.fetchProposalByReferralId(
+      userId: userId,
       referralId: referralId,
     );
   }
@@ -68,6 +70,98 @@ class ReferralUseCases {
     return _referralRepository.updateProposal(
       proposalId: proposalId,
       proposalReq: proposalReq,
+    );
+  }
+
+  Future<Either<Failure, Project?>> awardProject({
+    required AwardProjectReq awardProjectReq,
+  }) async {
+    return _referralRepository.awardProject(
+      awardProjectReq: awardProjectReq,
+    );
+  }
+
+  Future<Either<Failure, List<Project?>>> fetchActiveProjects({
+    required String userId,
+    required String role,
+  }) async {
+    return _referralRepository.fetchActiveProjects(
+      userId: userId,
+      role: role,
+    );
+  }
+
+  Future<Either<Failure, List<Project?>>> fetchAwardedProjects({
+    required String userId,
+  }) async {
+    return _referralRepository.fetchAwardedProjects(
+      userId: userId,
+    );
+  }
+
+  Future<Either<Failure, Project?>> acceptProject({
+    required int projectId,
+  }) async {
+    return _referralRepository.acceptProject(
+      projectId: projectId,
+    );
+  }
+
+  Future<Either<Failure, Project?>> startProject({
+    required int projectId,
+  }) async {
+    return _referralRepository.startProject(
+      projectId: projectId,
+    );
+  }
+
+  Future<Either<Failure, Project?>> completeProject({
+    required int projectId,
+  }) async {
+    return _referralRepository.completeProject(
+      projectId: projectId,
+    );
+  }
+
+  Future<Either<Failure, Project?>> rejectProject({
+    required int projectId,
+  }) async {
+    return _referralRepository.rejectProject(
+      projectId: projectId,
+    );
+  }
+
+  Future<Either<Failure, ProjectReview?>> addProjectReview({
+    required ProjectReview projectReview,
+  }) async {
+    return _referralRepository.addProjectReview(
+      projectReview: projectReview,
+    );
+  }
+
+  Future<Either<Failure, Project?>> initiateCompleteProject({
+    required int projectId,
+  }) async {
+    return _referralRepository.initiateCompleteProject(
+      projectId: projectId,
+    );
+  }
+
+  Future<Either<Failure, Project?>> cancelInitiateCompleteProject({
+    required int projectId,
+  }) async {
+    return _referralRepository.cancelInitiateCompleteProject(
+      projectId: projectId,
+    );
+  }
+
+  Future<Either<Failure, List<Project?>>> fetchCompletedProjects({
+    required String userId,
+    required String role,
+  }) async {
+    return _referralRepository.fetchCompletedProjects(
+      userId: userId,
+      role: role,
     );
   }
 }

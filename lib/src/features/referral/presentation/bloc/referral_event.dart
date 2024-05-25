@@ -64,12 +64,16 @@ class ProposalsFetched extends ReferralEvent {
 }
 
 class ProposalFetched extends ReferralEvent {
-  const ProposalFetched({required this.referralId});
+  const ProposalFetched({
+    required this.userId,
+    required this.referralId,
+  });
 
+  final String userId;
   final int referralId;
 
   @override
-  List<Object> get props => [referralId];
+  List<Object> get props => [userId, referralId];
 }
 
 class ProposalEditToggled extends ReferralEvent {}
@@ -92,3 +96,119 @@ class ProposalUpdated extends ReferralEvent {
   @override
   List<Object> get props => [proposalId, proposalReq];
 }
+
+class ProjectAwarded extends ReferralEvent {
+  const ProjectAwarded({required this.awardProjectReq});
+
+  final AwardProjectReq awardProjectReq;
+
+  @override
+  List<Object> get props => [awardProjectReq];
+}
+
+class ActiveProjectsFetched extends ReferralEvent {
+  const ActiveProjectsFetched({
+    required this.userId,
+    required this.role,
+  });
+
+  final String userId;
+  final String role;
+
+  @override
+  List<Object> get props => [userId, role];
+}
+
+class AwardedProjectsFetched extends ReferralEvent {
+  const AwardedProjectsFetched({required this.userId});
+
+  final String userId;
+
+  @override
+  List<Object> get props => [userId];
+}
+
+class ProjectAccepted extends ReferralEvent {
+  const ProjectAccepted({required this.projectId});
+
+  final int projectId;
+
+  @override
+  List<Object> get props => [projectId];
+}
+
+class ProjectStarted extends ReferralEvent {
+  const ProjectStarted({required this.projectId});
+
+  final int projectId;
+
+  @override
+  List<Object> get props => [projectId];
+}
+
+class ProjectCompleted extends ReferralEvent {
+  const ProjectCompleted({required this.projectId});
+
+  final int projectId;
+
+  @override
+  List<Object> get props => [projectId];
+}
+
+class ProjectRejected extends ReferralEvent {
+  const ProjectRejected({required this.projectId});
+
+  final int projectId;
+
+  @override
+  List<Object> get props => [projectId];
+}
+
+class ProjectReviewed extends ReferralEvent {
+  const ProjectReviewed({required this.projectReview});
+
+  final ProjectReview projectReview;
+
+  @override
+  List<Object> get props => [projectReview];
+}
+
+class ProjectCompletionInitiated extends ReferralEvent {
+  const ProjectCompletionInitiated({required this.projectId});
+
+  final int projectId;
+
+  @override
+  List<Object> get props => [projectId];
+}
+
+class ProjectCompletionInitiationCancelled extends ReferralEvent {
+  const ProjectCompletionInitiationCancelled({required this.projectId});
+
+  final int projectId;
+
+  @override
+  List<Object> get props => [projectId];
+}
+
+class CompletedProjectsFetched extends ReferralEvent {
+  const CompletedProjectsFetched({
+    required this.role,
+    required this.userId,
+  });
+
+  final String role;
+  final String userId;
+
+  @override
+  List<Object> get props => [role, userId];
+}
+
+// class ReferredCompletedProjectsFetched extends ReferralEvent {
+//   const ReferredCompletedProjectsFetched({required this.userId});
+
+//   final String userId;
+
+//   @override
+//   List<Object> get props => [userId];
+// }

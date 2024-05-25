@@ -117,10 +117,12 @@ class ReferralRepositoryImpl extends ReferralRepository {
 
   @override
   Future<Either<Failure, ProposalReq?>> fetchProposalByReferralId({
+    required String userId,
     required int referralId,
   }) async {
     try {
       final res = await _referralDataSource.fetchProposalByReferralId(
+        userId: userId,
         referralId: referralId,
       );
       return Right(res);
@@ -144,6 +146,230 @@ class ReferralRepositoryImpl extends ReferralRepository {
       final res = await _referralDataSource.updateProposal(
         proposalId: proposalId,
         proposalReq: proposalReq,
+      );
+      return Right(res);
+    } on DioException catch (error) {
+      final dioError = DioExceptions.fromDioError(error);
+      return Left(
+        Failure(
+          statusCode: dioError.statusCode,
+          message: dioError.message,
+        ),
+      );
+    }
+  }
+
+  @override
+  Future<Either<Failure, Project?>> awardProject({
+    required AwardProjectReq awardProjectReq,
+  }) async {
+    try {
+      final res = await _referralDataSource.awardProject(
+        awardProjectReq: awardProjectReq,
+      );
+      return Right(res);
+    } on DioException catch (error) {
+      final dioError = DioExceptions.fromDioError(error);
+      return Left(
+        Failure(
+          statusCode: dioError.statusCode,
+          message: dioError.message,
+        ),
+      );
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<Project?>>> fetchActiveProjects({
+    required String userId,
+    required String role,
+  }) async {
+    try {
+      final res = await _referralDataSource.fetchActiveProjects(
+        userId: userId,
+        role: role,
+      );
+      return Right(res);
+    } on DioException catch (error) {
+      final dioError = DioExceptions.fromDioError(error);
+      return Left(
+        Failure(
+          statusCode: dioError.statusCode,
+          message: dioError.message,
+        ),
+      );
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<Project?>>> fetchAwardedProjects({
+    required String userId,
+  }) async {
+    try {
+      final res = await _referralDataSource.fetchAwardedProjects(
+        userId: userId,
+      );
+      return Right(res);
+    } on DioException catch (error) {
+      final dioError = DioExceptions.fromDioError(error);
+      return Left(
+        Failure(
+          statusCode: dioError.statusCode,
+          message: dioError.message,
+        ),
+      );
+    }
+  }
+
+  @override
+  Future<Either<Failure, Project?>> acceptProject({
+    required int projectId,
+  }) async {
+    try {
+      final res = await _referralDataSource.acceptProject(
+        projectId: projectId,
+      );
+      return Right(res);
+    } on DioException catch (error) {
+      final dioError = DioExceptions.fromDioError(error);
+      return Left(
+        Failure(
+          statusCode: dioError.statusCode,
+          message: dioError.message,
+        ),
+      );
+    }
+  }
+
+  @override
+  Future<Either<Failure, Project?>> startProject({
+    required int projectId,
+  }) async {
+    try {
+      final res = await _referralDataSource.startProject(
+        projectId: projectId,
+      );
+      return Right(res);
+    } on DioException catch (error) {
+      final dioError = DioExceptions.fromDioError(error);
+      return Left(
+        Failure(
+          statusCode: dioError.statusCode,
+          message: dioError.message,
+        ),
+      );
+    }
+  }
+
+  @override
+  Future<Either<Failure, Project?>> completeProject({
+    required int projectId,
+  }) async {
+    try {
+      final res = await _referralDataSource.completeProject(
+        projectId: projectId,
+      );
+      return Right(res);
+    } on DioException catch (error) {
+      final dioError = DioExceptions.fromDioError(error);
+      return Left(
+        Failure(
+          statusCode: dioError.statusCode,
+          message: dioError.message,
+        ),
+      );
+    }
+  }
+
+  @override
+  Future<Either<Failure, Project?>> rejectProject({
+    required int projectId,
+  }) async {
+    try {
+      final res = await _referralDataSource.rejectProject(
+        projectId: projectId,
+      );
+      return Right(res);
+    } on DioException catch (error) {
+      final dioError = DioExceptions.fromDioError(error);
+      return Left(
+        Failure(
+          statusCode: dioError.statusCode,
+          message: dioError.message,
+        ),
+      );
+    }
+  }
+
+  @override
+  Future<Either<Failure, ProjectReview?>> addProjectReview({
+    required ProjectReview projectReview,
+  }) async {
+    try {
+      final res = await _referralDataSource.addProjectReview(
+        projectReview: projectReview,
+      );
+      return Right(res);
+    } on DioException catch (error) {
+      final dioError = DioExceptions.fromDioError(error);
+      return Left(
+        Failure(
+          statusCode: dioError.statusCode,
+          message: dioError.message,
+        ),
+      );
+    }
+  }
+
+  @override
+  Future<Either<Failure, Project?>> initiateCompleteProject({
+    required int projectId,
+  }) async {
+    try {
+      final res = await _referralDataSource.initiateCompleteProject(
+        projectId: projectId,
+      );
+      return Right(res);
+    } on DioException catch (error) {
+      final dioError = DioExceptions.fromDioError(error);
+      return Left(
+        Failure(
+          statusCode: dioError.statusCode,
+          message: dioError.message,
+        ),
+      );
+    }
+  }
+
+  @override
+  Future<Either<Failure, Project?>> cancelInitiateCompleteProject({
+    required int projectId,
+  }) async {
+    try {
+      final res = await _referralDataSource.cancelInitiateCompleteProject(
+        projectId: projectId,
+      );
+      return Right(res);
+    } on DioException catch (error) {
+      final dioError = DioExceptions.fromDioError(error);
+      return Left(
+        Failure(
+          statusCode: dioError.statusCode,
+          message: dioError.message,
+        ),
+      );
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<Project?>>> fetchCompletedProjects({
+    required String userId,
+    required String role,
+  }) async {
+    try {
+      final res = await _referralDataSource.fetchCompletedProjects(
+        userId: userId,
+        role: role,
       );
       return Right(res);
     } on DioException catch (error) {

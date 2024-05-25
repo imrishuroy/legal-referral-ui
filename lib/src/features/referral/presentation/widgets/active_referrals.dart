@@ -5,8 +5,6 @@ import 'package:go_router/go_router.dart';
 import 'package:legal_referral_ui/src/core/config/config.dart';
 import 'package:legal_referral_ui/src/features/auth/presentation/presentation.dart';
 import 'package:legal_referral_ui/src/features/referral/presentation/presentation.dart';
-import 'package:legal_referral_ui/src/features/referral/presentation/widgets/referral_card.dart';
-import 'package:legal_referral_ui/src/features/referral/presentation/widgets/shimmers/active_referrals_shimmer.dart';
 
 class ActiveReferrals extends StatefulWidget {
   const ActiveReferrals({super.key});

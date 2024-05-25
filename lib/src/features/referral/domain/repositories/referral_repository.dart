@@ -22,6 +22,7 @@ abstract class ReferralRepository {
   });
 
   Future<Either<Failure, ProposalReq?>> fetchProposalByReferralId({
+    required String userId,
     required int referralId,
   });
 
@@ -32,5 +33,51 @@ abstract class ReferralRepository {
   Future<Either<Failure, ProposalReq?>> updateProposal({
     required int proposalId,
     required ProposalReq proposalReq,
+  });
+
+  Future<Either<Failure, Project?>> awardProject({
+    required AwardProjectReq awardProjectReq,
+  });
+
+  Future<Either<Failure, List<Project?>>> fetchActiveProjects({
+    required String userId,
+    required String role,
+  });
+
+  Future<Either<Failure, List<Project?>>> fetchAwardedProjects({
+    required String userId,
+  });
+
+  Future<Either<Failure, Project?>> acceptProject({
+    required int projectId,
+  });
+
+  Future<Either<Failure, Project?>> startProject({
+    required int projectId,
+  });
+
+  Future<Either<Failure, Project?>> completeProject({
+    required int projectId,
+  });
+
+  Future<Either<Failure, Project?>> rejectProject({
+    required int projectId,
+  });
+
+  Future<Either<Failure, ProjectReview?>> addProjectReview({
+    required ProjectReview projectReview,
+  });
+
+  Future<Either<Failure, Project?>> initiateCompleteProject({
+    required int projectId,
+  });
+
+  Future<Either<Failure, Project?>> cancelInitiateCompleteProject({
+    required int projectId,
+  });
+
+  Future<Either<Failure, List<Project?>>> fetchCompletedProjects({
+    required String userId,
+    required String role,
   });
 }

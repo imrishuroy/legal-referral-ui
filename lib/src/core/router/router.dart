@@ -486,6 +486,54 @@ class AppRouter {
         ),
         routes: [
           GoRoute(
+            path: 'project-details',
+            name: ProjectDetailsPage.name,
+            parentNavigatorKey: _rootNavigatorKey,
+            pageBuilder: (context, state) => CustomTransitionPage(
+              child: ProjectDetailsPage(
+                //  project: state.extra as Project,
+                args: state.extra as ProjectDetailsPageArgs,
+              ),
+              transitionDuration: const Duration(
+                milliseconds: _routeTransitionDuration,
+              ),
+              transitionsBuilder: (_, a, __, c) =>
+                  FadeTransition(opacity: a, child: c),
+            ),
+            routes: [
+              GoRoute(
+                path: 'project-review',
+                name: ProjectReviewPage.name,
+                parentNavigatorKey: _rootNavigatorKey,
+                pageBuilder: (context, state) => CustomTransitionPage(
+                  child: ProjectReviewPage(
+                    project: state.extra as Project,
+                  ),
+                  transitionDuration: const Duration(
+                    milliseconds: _routeTransitionDuration,
+                  ),
+                  transitionsBuilder: (_, a, __, c) =>
+                      FadeTransition(opacity: a, child: c),
+                ),
+              ),
+            ],
+          ),
+          GoRoute(
+            path: 'completed-project-details',
+            name: CompletedProjectDetailsPage.name,
+            parentNavigatorKey: _rootNavigatorKey,
+            pageBuilder: (context, state) => CustomTransitionPage(
+              child: CompletedProjectDetailsPage(
+                project: state.extra as Project,
+              ),
+              transitionDuration: const Duration(
+                milliseconds: _routeTransitionDuration,
+              ),
+              transitionsBuilder: (_, a, __, c) =>
+                  FadeTransition(opacity: a, child: c),
+            ),
+          ),
+          GoRoute(
             path: 'referral-detail',
             name: ReferralDetailPage.name,
             parentNavigatorKey: _rootNavigatorKey,
@@ -499,6 +547,23 @@ class AppRouter {
               transitionsBuilder: (_, a, __, c) =>
                   FadeTransition(opacity: a, child: c),
             ),
+            routes: [
+              GoRoute(
+                path: 'referral-proposal',
+                name: ReferralProposalPage.name,
+                parentNavigatorKey: _rootNavigatorKey,
+                pageBuilder: (context, state) => CustomTransitionPage(
+                  child: ReferralProposalPage(
+                    args: state.extra as ReferralProposalPageArgs,
+                  ),
+                  transitionDuration: const Duration(
+                    milliseconds: _routeTransitionDuration,
+                  ),
+                  transitionsBuilder: (_, a, __, c) =>
+                      FadeTransition(opacity: a, child: c),
+                ),
+              ),
+            ],
           ),
           GoRoute(
             path: 'proposal-details',

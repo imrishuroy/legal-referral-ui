@@ -1,6 +1,14 @@
 part of 'referral_bloc.dart';
 
-enum ReferralStatus { initial, loading, success, failure, referralAdded }
+enum ReferralStatus {
+  initial,
+  loading,
+  success,
+  failure,
+  referralAdded,
+
+  awardProject,
+}
 
 class ReferralState extends Equatable {
   const ReferralState({
@@ -11,7 +19,10 @@ class ReferralState extends Equatable {
     this.referredUsers = const [],
     this.proposals = const [],
     this.proposalReq,
+    this.activeProjects = const [],
+    this.awardedProjects = const [],
     this.isProposalEditing = false,
+    this.completedProjects = const [],
     this.failure,
   });
 
@@ -28,6 +39,9 @@ class ReferralState extends Equatable {
   final List<Proposal?> proposals;
   final ProposalReq? proposalReq;
   final bool isProposalEditing;
+  final List<Project?> activeProjects;
+  final List<Project?> awardedProjects;
+  final List<Project?> completedProjects;
   final ReferralStatus status;
   final Failure? failure;
 
@@ -39,6 +53,9 @@ class ReferralState extends Equatable {
     List<Proposal?>? proposals,
     ProposalReq? proposalReq,
     bool? isProposalEditing,
+    List<Project?>? activeProjects,
+    List<Project?>? awardedProjects,
+    List<Project?>? completedProjects,
     ReferralStatus? status,
     Failure? failure,
   }) {
@@ -50,6 +67,9 @@ class ReferralState extends Equatable {
       proposals: proposals ?? this.proposals,
       proposalReq: proposalReq ?? this.proposalReq,
       isProposalEditing: isProposalEditing ?? this.isProposalEditing,
+      activeProjects: activeProjects ?? this.activeProjects,
+      awardedProjects: awardedProjects ?? this.awardedProjects,
+      completedProjects: completedProjects ?? this.completedProjects,
       status: status ?? this.status,
       failure: failure ?? this.failure,
     );
@@ -64,6 +84,9 @@ class ReferralState extends Equatable {
         proposals,
         proposalReq,
         isProposalEditing,
+        activeProjects,
+        awardedProjects,
+        completedProjects,
         status,
         failure,
       ];

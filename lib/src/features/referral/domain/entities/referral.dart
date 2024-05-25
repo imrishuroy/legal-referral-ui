@@ -4,6 +4,16 @@ import 'package:legal_referral_ui/src/core/config/datetime_json_converter.dart';
 part 'referral.freezed.dart';
 part 'referral.g.dart';
 
+enum ReferralProjectStatus {
+  active,
+  awarded,
+  accepted,
+  started,
+  completed,
+  rejected,
+  cancelled
+}
+
 @freezed
 class Referral with _$Referral {
   const factory Referral({
@@ -15,6 +25,12 @@ class Referral with _$Referral {
     @JsonKey(name: 'referred_user_id') required String? referredUserId,
     @JsonKey(name: 'referrer_user_id') required String? referrerUserId,
     @JsonKey(name: 'referral_id', includeToJson: false) int? referralId,
+    @JsonKey(
+      name: 'status',
+      includeToJson: false,
+    )
+    @Default(ReferralProjectStatus.active)
+    ReferralProjectStatus status,
     @DateTimeJsonConverter()
     @JsonKey(name: 'created_at', includeToJson: false)
     DateTime? createdAt,

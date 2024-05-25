@@ -15,6 +15,9 @@ _$ReferralImpl _$$ReferralImplFromJson(Map<String, dynamic> json) =>
       referredUserId: json['referred_user_id'] as String?,
       referrerUserId: json['referrer_user_id'] as String?,
       referralId: (json['referral_id'] as num?)?.toInt(),
+      status:
+          $enumDecodeNullable(_$ReferralProjectStatusEnumMap, json['status']) ??
+              ReferralProjectStatus.active,
       createdAt: _$JsonConverterFromJson<String, DateTime>(
           json['created_at'], const DateTimeJsonConverter().fromJson),
       updatedAt: _$JsonConverterFromJson<String, DateTime>(
@@ -30,6 +33,16 @@ Map<String, dynamic> _$$ReferralImplToJson(_$ReferralImpl instance) =>
       'referred_user_id': instance.referredUserId,
       'referrer_user_id': instance.referrerUserId,
     };
+
+const _$ReferralProjectStatusEnumMap = {
+  ReferralProjectStatus.active: 'active',
+  ReferralProjectStatus.awarded: 'awarded',
+  ReferralProjectStatus.accepted: 'accepted',
+  ReferralProjectStatus.started: 'started',
+  ReferralProjectStatus.completed: 'completed',
+  ReferralProjectStatus.rejected: 'rejected',
+  ReferralProjectStatus.cancelled: 'cancelled',
+};
 
 Value? _$JsonConverterFromJson<Json, Value>(
   Object? json,

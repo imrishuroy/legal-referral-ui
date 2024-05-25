@@ -1,3 +1,5 @@
+export 'entities/project.dart';
+export 'entities/project_review.dart';
 export 'entities/proposal.dart';
 export 'entities/proposal_req.dart';
 export 'entities/referral.dart';

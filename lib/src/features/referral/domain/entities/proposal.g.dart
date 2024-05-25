@@ -23,6 +23,8 @@ _$ProposalImpl _$$ProposalImplFromJson(Map<String, dynamic> json) =>
           json['created_at'], const DateTimeJsonConverter().fromJson),
       updatedAt: _$JsonConverterFromJson<String, DateTime>(
           json['updated_at'], const DateTimeJsonConverter().fromJson),
+      status: $enumDecodeNullable(_$ProposalStatusEnumMap, json['status']) ??
+          ProposalStatus.active,
     );
 
 Map<String, dynamic> _$$ProposalImplToJson(_$ProposalImpl instance) =>
@@ -45,3 +47,13 @@ Value? _$JsonConverterFromJson<Json, Value>(
   Value? Function(Json json) fromJson,
 ) =>
     json == null ? null : fromJson(json as Json);
+
+const _$ProposalStatusEnumMap = {
+  ProposalStatus.active: 'active',
+  ProposalStatus.awarded: 'awarded',
+  ProposalStatus.accepted: 'accepted',
+  ProposalStatus.started: 'started',
+  ProposalStatus.completed: 'completed',
+  ProposalStatus.rejected: 'rejected',
+  ProposalStatus.cancelled: 'cancelled',
+};

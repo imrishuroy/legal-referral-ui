@@ -33,6 +33,8 @@ mixin _$Referral {
   String? get referrerUserId => throw _privateConstructorUsedError;
   @JsonKey(name: 'referral_id', includeToJson: false)
   int? get referralId => throw _privateConstructorUsedError;
+  @JsonKey(name: 'status', includeToJson: false)
+  ReferralProjectStatus get status => throw _privateConstructorUsedError;
   @DateTimeJsonConverter()
   @JsonKey(name: 'created_at', includeToJson: false)
   DateTime? get createdAt => throw _privateConstructorUsedError;
@@ -59,6 +61,8 @@ abstract class $ReferralCopyWith<$Res> {
       @JsonKey(name: 'referred_user_id') String? referredUserId,
       @JsonKey(name: 'referrer_user_id') String? referrerUserId,
       @JsonKey(name: 'referral_id', includeToJson: false) int? referralId,
+      @JsonKey(name: 'status', includeToJson: false)
+      ReferralProjectStatus status,
       @DateTimeJsonConverter()
       @JsonKey(name: 'created_at', includeToJson: false)
       DateTime? createdAt,
@@ -87,6 +91,7 @@ class _$ReferralCopyWithImpl<$Res, $Val extends Referral>
     Object? referredUserId = freezed,
     Object? referrerUserId = freezed,
     Object? referralId = freezed,
+    Object? status = null,
     Object? createdAt = freezed,
     Object? updatedAt = freezed,
   }) {
@@ -119,6 +124,10 @@ class _$ReferralCopyWithImpl<$Res, $Val extends Referral>
           ? _value.referralId
           : referralId // ignore: cast_nullable_to_non_nullable
               as int?,
+      status: null == status
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as ReferralProjectStatus,
       createdAt: freezed == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -147,6 +156,8 @@ abstract class _$$ReferralImplCopyWith<$Res>
       @JsonKey(name: 'referred_user_id') String? referredUserId,
       @JsonKey(name: 'referrer_user_id') String? referrerUserId,
       @JsonKey(name: 'referral_id', includeToJson: false) int? referralId,
+      @JsonKey(name: 'status', includeToJson: false)
+      ReferralProjectStatus status,
       @DateTimeJsonConverter()
       @JsonKey(name: 'created_at', includeToJson: false)
       DateTime? createdAt,
@@ -173,6 +184,7 @@ class __$$ReferralImplCopyWithImpl<$Res>
     Object? referredUserId = freezed,
     Object? referrerUserId = freezed,
     Object? referralId = freezed,
+    Object? status = null,
     Object? createdAt = freezed,
     Object? updatedAt = freezed,
   }) {
@@ -205,6 +217,10 @@ class __$$ReferralImplCopyWithImpl<$Res>
           ? _value.referralId
           : referralId // ignore: cast_nullable_to_non_nullable
               as int?,
+      status: null == status
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as ReferralProjectStatus,
       createdAt: freezed == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -229,6 +245,8 @@ class _$ReferralImpl implements _Referral {
       @JsonKey(name: 'referred_user_id') required this.referredUserId,
       @JsonKey(name: 'referrer_user_id') required this.referrerUserId,
       @JsonKey(name: 'referral_id', includeToJson: false) this.referralId,
+      @JsonKey(name: 'status', includeToJson: false)
+      this.status = ReferralProjectStatus.active,
       @DateTimeJsonConverter()
       @JsonKey(name: 'created_at', includeToJson: false)
       this.createdAt,
@@ -260,6 +278,9 @@ class _$ReferralImpl implements _Referral {
   @JsonKey(name: 'referral_id', includeToJson: false)
   final int? referralId;
   @override
+  @JsonKey(name: 'status', includeToJson: false)
+  final ReferralProjectStatus status;
+  @override
   @DateTimeJsonConverter()
   @JsonKey(name: 'created_at', includeToJson: false)
   final DateTime? createdAt;
@@ -270,7 +291,7 @@ class _$ReferralImpl implements _Referral {
 
   @override
   String toString() {
-    return 'Referral(title: $title, caseDescription: $caseDescription, practiceArea: $practiceArea, practiceLocation: $practiceLocation, referredUserId: $referredUserId, referrerUserId: $referrerUserId, referralId: $referralId, createdAt: $createdAt, updatedAt: $updatedAt)';
+    return 'Referral(title: $title, caseDescription: $caseDescription, practiceArea: $practiceArea, practiceLocation: $practiceLocation, referredUserId: $referredUserId, referrerUserId: $referrerUserId, referralId: $referralId, status: $status, createdAt: $createdAt, updatedAt: $updatedAt)';
   }
 
   @override
@@ -291,6 +312,7 @@ class _$ReferralImpl implements _Referral {
                 other.referrerUserId == referrerUserId) &&
             (identical(other.referralId, referralId) ||
                 other.referralId == referralId) &&
+            (identical(other.status, status) || other.status == status) &&
             (identical(other.createdAt, createdAt) ||
                 other.createdAt == createdAt) &&
             (identical(other.updatedAt, updatedAt) ||
@@ -308,6 +330,7 @@ class _$ReferralImpl implements _Referral {
       referredUserId,
       referrerUserId,
       referralId,
+      status,
       createdAt,
       updatedAt);
 
@@ -336,6 +359,8 @@ abstract class _Referral implements Referral {
       @JsonKey(name: 'referred_user_id') required final String? referredUserId,
       @JsonKey(name: 'referrer_user_id') required final String? referrerUserId,
       @JsonKey(name: 'referral_id', includeToJson: false) final int? referralId,
+      @JsonKey(name: 'status', includeToJson: false)
+      final ReferralProjectStatus status,
       @DateTimeJsonConverter()
       @JsonKey(name: 'created_at', includeToJson: false)
       final DateTime? createdAt,
@@ -366,6 +391,9 @@ abstract class _Referral implements Referral {
   @override
   @JsonKey(name: 'referral_id', includeToJson: false)
   int? get referralId;
+  @override
+  @JsonKey(name: 'status', includeToJson: false)
+  ReferralProjectStatus get status;
   @override
   @DateTimeJsonConverter()
   @JsonKey(name: 'created_at', includeToJson: false)

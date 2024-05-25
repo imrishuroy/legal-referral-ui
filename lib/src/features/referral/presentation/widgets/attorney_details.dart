@@ -40,9 +40,14 @@ class AttorneyDetails extends StatelessWidget {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              attorneyName ?? '',
-              style: style ?? Theme.of(context).textTheme.labelMedium,
+            SizedBox(
+              width: 150.w,
+              child: Text(
+                attorneyName ?? '',
+                style: style ?? Theme.of(context).textTheme.labelMedium,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+              ),
             ),
             SizedBox(
               height: 2.h,

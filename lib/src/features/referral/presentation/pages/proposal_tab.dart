@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:legal_referral_ui/src/features/referral/presentation/presentation.dart';
-import 'package:legal_referral_ui/src/features/referral/presentation/widgets/accept_project_message.dart';
 
 class ProposalTab extends StatefulWidget {
   const ProposalTab({super.key});
@@ -17,7 +16,13 @@ class _ProposalTabState extends State<ProposalTab> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const AcceptProjectDialog(),
+          const AwardedProjects(),
+          SizedBox(
+            height: 16.h,
+          ),
+          const ActiveProjects(
+            isReferrer: false,
+          ),
           SizedBox(
             height: 16.h,
           ),
@@ -25,7 +30,12 @@ class _ProposalTabState extends State<ProposalTab> {
           SizedBox(
             height: 16.h,
           ),
-          const CompletedProposals(),
+          const CompletedProjects(
+            isReferrer: false,
+          ),
+          SizedBox(
+            height: 24.h,
+          ),
         ],
       ),
     );

@@ -305,8 +305,8 @@ abstract class APIClient {
     @Body() AddReferralReq referral,
   );
 
-  @GET('/referrals/{userId}')
-  Future<List<Referral?>> fetchReferrals(
+  @GET('/referrals/{userId}/active')
+  Future<List<Referral?>> fetchActiveReferrals(
     @Path('userId') String userId,
   );
 
@@ -320,8 +320,9 @@ abstract class APIClient {
     @Path('userId') String userId,
   );
 
-  @GET('/proposals/{referralId}')
+  @GET('/users/{userId}/proposals/{referralId}')
   Future<ProposalReq?> fetchProposalByReferralId(
+    @Path('userId') String userId,
     @Path('referralId') int referralId,
   );
 
@@ -334,5 +335,63 @@ abstract class APIClient {
   Future<ProposalReq?> updateProposal(
     @Path('proposalId') int proposalId,
     @Body() ProposalReq proposalReq,
+  );
+
+  // project
+  @POST('/projects/award')
+  Future<Project?> awardProject(
+    @Body() AwardProjectReq awardProject,
+  );
+
+  @GET('/projects/active/{userId}')
+  Future<List<Project?>> fetchActiveProjects(
+    @Path('userId') String userId,
+    @Query('role') String role,
+  );
+
+  @GET('/projects/awarded/{userId}')
+  Future<List<Project?>> fetchAwardedProjects(
+    @Path('userId') String userId,
+  );
+
+  @PUT('/projects/{projectId}/accept')
+  Future<Project?> acceptProject(
+    @Path('projectId') int projectId,
+  );
+
+  @PUT('/projects/{projectId}/start')
+  Future<Project?> startProject(
+    @Path('projectId') int projectId,
+  );
+
+  @PUT('/projects/{projectId}/initiate-complete')
+  Future<Project?> initiateCompleteProject(
+    @Path('projectId') int projectId,
+  );
+
+  @PUT('/projects/{projectId}/cancel/initiate-complete')
+  Future<Project?> cancelInitiateCompleteProject(
+    @Path('projectId') int projectId,
+  );
+
+  @PUT('/projects/{projectId}/complete')
+  Future<Project?> completeProject(
+    @Path('projectId') int projectId,
+  );
+
+  @PUT('/projects/{projectId}/reject')
+  Future<Project?> rejectProject(
+    @Path('projectId') int projectId,
+  );
+
+  @POST('/projects/review')
+  Future<ProjectReview?> addProjectReview(
+    @Body() ProjectReview projectReview,
+  );
+
+  @GET('/projects/completed/{userId}')
+  Future<List<Project?>> fetchCompletedProjects(
+    @Path('userId') String userId,
+    @Query('role') String role,
   );
 }
