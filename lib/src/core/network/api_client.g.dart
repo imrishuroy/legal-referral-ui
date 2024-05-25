@@ -1424,12 +1424,12 @@ class _APIClient implements APIClient {
   }
 
   @override
-  Future<ChatRoom> createChatRoom(ChatRoom chatRoom) async {
+  Future<ChatRoom> createChatRoom(CreateChatRoomReq createChatRoomReq) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    _data.addAll(chatRoom.toJson());
+    _data.addAll(createChatRoomReq.toJson());
     final _result =
         await _dio.fetch<Map<String, dynamic>>(_setStreamType<ChatRoom>(Options(
       method: 'POST',

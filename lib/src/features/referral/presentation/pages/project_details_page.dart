@@ -7,6 +7,7 @@ import 'package:legal_referral_ui/src/core/config/config.dart';
 import 'package:legal_referral_ui/src/core/constants/constants.dart';
 import 'package:legal_referral_ui/src/core/utils/utils.dart';
 import 'package:legal_referral_ui/src/features/auth/presentation/presentation.dart';
+import 'package:legal_referral_ui/src/features/chat/presentation/presentation.dart';
 import 'package:legal_referral_ui/src/features/referral/domain/domain.dart';
 import 'package:legal_referral_ui/src/features/referral/presentation/presentation.dart';
 import 'package:toastification/toastification.dart';
@@ -130,7 +131,7 @@ class _ProjectDetailsPageState extends State<ProjectDetailsPage> {
                                 height: 36.h,
                                 textColor: LegalReferralColors.textBlue100,
                                 borderColor: LegalReferralColors.borderBlue300,
-                                onPressed: () {},
+                                onPressed: _onTapMessage,
                                 text: 'Message',
                               ),
                             ),
@@ -180,6 +181,15 @@ class _ProjectDetailsPageState extends State<ProjectDetailsPage> {
         },
       ),
     );
+  }
+
+  void _onTapMessage() {
+    final currentUserId = _authBloc.state.user?.userId;
+    final otherUserId = widget.args.project?.user?.userId;
+    if (currentUserId == null || otherUserId == null) {
+      return;
+    }
+    context.pushNamed(ChatMessagesPage.name, extra: otherUserId);
   }
 
   void _completedAndReview({

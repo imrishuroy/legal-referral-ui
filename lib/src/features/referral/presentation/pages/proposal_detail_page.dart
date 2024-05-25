@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:legal_referral_ui/src/core/common_widgets/widgets.dart';
 import 'package:legal_referral_ui/src/core/config/config.dart';
 import 'package:legal_referral_ui/src/core/constants/constants.dart';
 import 'package:legal_referral_ui/src/core/utils/utils.dart';
 import 'package:legal_referral_ui/src/features/auth/presentation/presentation.dart';
+import 'package:legal_referral_ui/src/features/chat/presentation/presentation.dart';
 import 'package:legal_referral_ui/src/features/referral/domain/domain.dart';
 import 'package:legal_referral_ui/src/features/referral/presentation/presentation.dart';
 import 'package:toastification/toastification.dart';
@@ -113,7 +115,7 @@ class _ProposalDetailsPageState extends State<ProposalDetailsPage> {
                                 height: 36.h,
                                 textColor: LegalReferralColors.textBlue100,
                                 borderColor: LegalReferralColors.borderBlue300,
-                                onPressed: () {},
+                                onPressed: _onTapMessage,
                                 text: 'Message',
                               ),
                             ),
@@ -213,16 +215,20 @@ class _ProposalDetailsPageState extends State<ProposalDetailsPage> {
                             state.proposalReq?.proposal ?? '',
                             style: textTheme.bodyLarge,
                           ),
-                        SizedBox(
-                          height: 20.h,
-                        ),
-                        CustomElevatedButton(
-                          onTap: () => _sendProposal(
-                            isUpdate: state.proposalReq != null,
-                            proposalId: state.proposalReq?.proposalId,
+                        if (state.proposalReq == null ||
+                            state.isProposalEditing)
+                          SizedBox(
+                            height: 20.h,
                           ),
-                          text: 'Send Proposal',
-                        ),
+                        if (state.proposalReq == null ||
+                            state.isProposalEditing)
+                          CustomElevatedButton(
+                            onTap: () => _sendProposal(
+                              isUpdate: state.proposalReq != null,
+                              proposalId: state.proposalReq?.proposalId,
+                            ),
+                            text: 'Send Proposal',
+                          ),
                       ],
                     ),
                   ),
@@ -264,5 +270,15 @@ class _ProposalDetailsPageState extends State<ProposalDetailsPage> {
         }
       }
     }
+  }
+
+  void _onTapMessage() {
+    final authBloc = getIt<AuthBloc>();
+    final currentUserId = authBloc.state.user?.userId;
+    final referrerUserId = widget.proposal?.referrerUserId;
+    if (currentUserId == null || referrerUserId == null) {
+      return;
+    }
+    context.pushNamed(ChatMessagesPage.name, extra: referrerUserId);
   }
 }

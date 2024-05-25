@@ -102,11 +102,14 @@ class _ReferralConnectionsDialoagState
               checkColor: LegalReferralColors.textBlack,
               fillColor: MaterialStateProperty.all(Colors.transparent),
               onChanged: (value) {
-                if (value == true) {
-                  _refferralBloc.add(
-                    AllConnectionsSelected(),
-                  );
-                }
+                _refferralBloc.add(
+                  AllConnectionsSelected(),
+                );
+                // if (value == true) {
+                //   _refferralBloc.add(
+                //     AllConnectionsSelected(),
+                //   );
+                // }
               },
               title: Text(
                 'Select all',

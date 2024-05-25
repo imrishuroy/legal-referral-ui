@@ -6,11 +6,13 @@ import 'package:legal_referral_ui/src/core/constants/colors.dart';
 import 'package:legal_referral_ui/src/core/constants/icon_string_constants.dart';
 import 'package:legal_referral_ui/src/features/referral/presentation/widgets/attorney_details.dart';
 
-class ActiveReferral extends StatelessWidget {
-  const ActiveReferral({
+class ActiveReferralCard extends StatelessWidget {
+  const ActiveReferralCard({
     required this.attorneyName,
     required this.attorneyType,
     required this.profileImage,
+    required this.onAward,
+    required this.onMessage,
     this.style,
     this.radius,
     super.key,
@@ -20,6 +22,8 @@ class ActiveReferral extends StatelessWidget {
   final String? profileImage;
   final TextStyle? style;
   final double? radius;
+  final VoidCallback onAward;
+  final VoidCallback onMessage;
 
   @override
   Widget build(BuildContext context) {
@@ -77,7 +81,7 @@ class ActiveReferral extends StatelessWidget {
                   height: 48.h,
                   textColor: LegalReferralColors.textBlue100,
                   borderColor: LegalReferralColors.borderBlue300,
-                  onPressed: () {},
+                  onPressed: onAward,
                   text: 'Award',
                 ),
               ),
@@ -90,7 +94,7 @@ class ActiveReferral extends StatelessWidget {
                   height: 48.h,
                   textColor: LegalReferralColors.textBlue100,
                   borderColor: LegalReferralColors.borderBlue300,
-                  onPressed: () {},
+                  onPressed: onMessage,
                   text: 'Message',
                 ),
               ),

@@ -1,5 +1,6 @@
 import 'package:injectable/injectable.dart';
 import 'package:legal_referral_ui/src/core/network/network.dart';
+import 'package:legal_referral_ui/src/features/chat/data/models/create_chat_room_req.dart';
 import 'package:legal_referral_ui/src/features/chat/domain/domain.dart';
 
 @singleton
@@ -28,11 +29,11 @@ class ChatDataSource {
   }
 
   Future<ChatRoom?> createChatRoom({
-    required ChatRoom chatRoom,
+    required CreateChatRoomReq createChatRoomReq,
   }) async {
     try {
       final res = await _apiClient.createChatRoom(
-        chatRoom,
+        createChatRoomReq,
       );
       return res;
     } catch (error) {

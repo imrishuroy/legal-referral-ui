@@ -30,13 +30,13 @@ class ReferralCard extends StatelessWidget {
               referral?.title ?? '',
               style: Theme.of(context).textTheme.headlineSmall,
             ),
-            Text(
-              '4 Proposals',
-              style: Theme.of(context)
-                  .textTheme
-                  .bodyMedium
-                  ?.copyWith(color: LegalReferralColors.textGrey500),
-            ),
+            // Text(
+            //   '4 Proposals',
+            //   style: Theme.of(context)
+            //       .textTheme
+            //       .bodyMedium
+            //       ?.copyWith(color: LegalReferralColors.textGrey500),
+            // ),
             SizedBox(height: 8.h),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,

@@ -5,8 +5,13 @@ import 'package:go_router/go_router.dart';
 import 'package:legal_referral_ui/src/core/common_widgets/widgets.dart';
 import 'package:legal_referral_ui/src/core/config/config.dart';
 import 'package:legal_referral_ui/src/core/constants/colors.dart';
+import 'package:legal_referral_ui/src/core/utils/utils.dart';
+import 'package:legal_referral_ui/src/features/auth/presentation/presentation.dart';
+import 'package:legal_referral_ui/src/features/chat/presentation/presentation.dart';
+import 'package:legal_referral_ui/src/features/referral/data/data.dart';
 import 'package:legal_referral_ui/src/features/referral/domain/domain.dart';
 import 'package:legal_referral_ui/src/features/referral/presentation/presentation.dart';
+import 'package:toastification/toastification.dart';
 
 class ReferralDetailPage extends StatelessWidget {
   const ReferralDetailPage({
@@ -89,13 +94,13 @@ class _ActiveReferredUsers extends StatefulWidget {
 }
 
 class _ActiveReferredUsersState extends State<_ActiveReferredUsers> {
-  final _referrerBloc = getIt<ReferralBloc>();
+  final _referralBloc = getIt<ReferralBloc>();
 
   @override
   void initState() {
     final referralId = widget.referral?.referralId;
     if (referralId != null) {
-      _referrerBloc.add(
+      _referralBloc.add(
         ReferredUsersFetched(referralId: referralId),
       );
     }
@@ -105,8 +110,20 @@ class _ActiveReferredUsersState extends State<_ActiveReferredUsers> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ReferralBloc, ReferralState>(
-      bloc: _referrerBloc,
+    return BlocConsumer<ReferralBloc, ReferralState>(
+      bloc: _referralBloc,
+      listener: (context, state) {
+        if (state.status == ReferralStatus.failure) {
+          ToastUtil.showToast(
+            context,
+            title: 'Error',
+            description: state.failure?.message ?? 'something went wrong',
+            type: ToastificationType.error,
+          );
+        } else if (state.status == ReferralStatus.awardProject) {
+          context.goNamed(ReferralPage.name);
+        }
+      },
       builder: (context, state) {
         return Column(
           children: [
@@ -152,12 +169,14 @@ class _ActiveReferredUsersState extends State<_ActiveReferredUsers> {
                         referral: widget.referral,
                       ),
                     ),
-                    child: ActiveReferral(
+                    child: ActiveReferralCard(
                       attorneyName: '${referredUser?.firstName ?? ''} '
                           '${referredUser?.lastName ?? ''}',
                       attorneyType: referredUser?.practiceArea ?? '',
                       profileImage: referredUser?.avatarUrl,
                       radius: 28.r,
+                      onAward: _projectAwarded,
+                      onMessage: () => _onTapMessage(referredUser?.userId),
                     ),
                   );
                 },
@@ -169,5 +188,38 @@ class _ActiveReferredUsersState extends State<_ActiveReferredUsers> {
         );
       },
     );
+  }
+
+  void _projectAwarded() {
+    final referralId = widget.referral?.referralId;
+    final referredUserId = widget.referral?.referredUserId;
+    final referrerUserId = widget.referral?.referrerUserId;
+
+    if (referralId == null ||
+        referredUserId == null ||
+        referrerUserId == null) {
+      return;
+    }
+
+    final req = AwardProjectReq(
+      referralId: referralId,
+      referredUserId: referredUserId,
+      referrerUserId: referrerUserId,
+    );
+
+    _referralBloc.add(
+      ProjectAwarded(
+        awardProjectReq: req,
+      ),
+    );
+  }
+
+  void _onTapMessage(String? otherUserId) {
+    final authBloc = getIt<AuthBloc>();
+    final currentUserId = authBloc.state.user?.userId;
+    if (currentUserId == null || otherUserId == null) {
+      return;
+    }
+    context.pushNamed(ChatMessagesPage.name, extra: otherUserId);
   }
 }

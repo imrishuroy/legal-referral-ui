@@ -7,6 +7,8 @@ import 'package:legal_referral_ui/src/core/config/config.dart';
 import 'package:legal_referral_ui/src/core/constants/constants.dart';
 import 'package:legal_referral_ui/src/core/utils/utils.dart';
 import 'package:legal_referral_ui/src/features/auth/domain/domain.dart';
+import 'package:legal_referral_ui/src/features/auth/presentation/presentation.dart';
+import 'package:legal_referral_ui/src/features/chat/presentation/presentation.dart';
 import 'package:legal_referral_ui/src/features/referral/data/data.dart';
 import 'package:legal_referral_ui/src/features/referral/domain/domain.dart';
 import 'package:legal_referral_ui/src/features/referral/presentation/presentation.dart';
@@ -90,7 +92,6 @@ class _ReferralProposalPageState extends State<ReferralProposalPage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisSize: MainAxisSize.min,
               children: [
-                // if (referral?.status == ReferralProjectStatus.rejected)
                 if (proposal?.status == ProposalStatus.rejected)
                   _DeclinedOfferNotification(name: name),
                 SingleChildScrollView(
@@ -163,7 +164,7 @@ class _ReferralProposalPageState extends State<ReferralProposalPage> {
                                 height: 48.h,
                                 textColor: LegalReferralColors.textBlue100,
                                 borderColor: LegalReferralColors.borderBlue300,
-                                onPressed: () {},
+                                onPressed: _onTapMessage,
                                 text: 'Message',
                               ),
                             ),
@@ -203,6 +204,19 @@ class _ReferralProposalPageState extends State<ReferralProposalPage> {
         awardProjectReq: req,
       ),
     );
+  }
+
+  void _onTapMessage() {
+    final authBloc = getIt<AuthBloc>();
+    final currentUserId = authBloc.state.user?.userId;
+    final referrerUserId = widget.args.referral?.referrerUserId;
+    final referredUserId = widget.args.referredUser?.userId;
+    final otherUserId =
+        currentUserId == referrerUserId ? referredUserId : referrerUserId;
+    if (currentUserId == null || referrerUserId == null) {
+      return;
+    }
+    context.pushNamed(ChatMessagesPage.name, extra: otherUserId);
   }
 }
 

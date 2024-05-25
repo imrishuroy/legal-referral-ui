@@ -203,12 +203,3 @@ class CompletedProjectsFetched extends ReferralEvent {
   @override
   List<Object> get props => [role, userId];
 }
-
-// class ReferredCompletedProjectsFetched extends ReferralEvent {
-//   const ReferredCompletedProjectsFetched({required this.userId});
-
-//   final String userId;
-
-//   @override
-//   List<Object> get props => [userId];
-// }

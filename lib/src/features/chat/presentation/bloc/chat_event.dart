@@ -8,12 +8,7 @@ abstract class ChatEvent extends Equatable {
 }
 
 class ChatInitialized extends ChatEvent {
-  const ChatInitialized({required this.chatRoom});
-
-  final ChatRoom chatRoom;
-
-  @override
-  List<Object> get props => [chatRoom];
+  const ChatInitialized();
 }
 
 class ConnectionFetched extends ChatEvent {
@@ -41,16 +36,7 @@ class ChatUpdated extends ChatEvent {
   final ChatMessage? message;
 }
 
-class MessagesFetched extends ChatEvent {
-  const MessagesFetched({
-    required this.chatRoom,
-  });
-
-  final ChatRoom chatRoom;
-
-  @override
-  List<Object> get props => [chatRoom];
-}
+class MessagesFetched extends ChatEvent {}
 
 class ChatRoomCreated extends ChatEvent {
   const ChatRoomCreated({

@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:legal_referral_ui/src/core/common_widgets/widgets.dart';
+import 'package:legal_referral_ui/src/core/config/config.dart';
 import 'package:legal_referral_ui/src/core/constants/constants.dart';
+import 'package:legal_referral_ui/src/features/auth/presentation/presentation.dart';
+import 'package:legal_referral_ui/src/features/chat/presentation/presentation.dart';
 import 'package:legal_referral_ui/src/features/referral/domain/domain.dart';
 import 'package:legal_referral_ui/src/features/referral/presentation/widgets/attorney_details.dart';
 
@@ -64,7 +68,7 @@ class CompletedProjectDetailsPage extends StatelessWidget {
                       height: 36.h,
                       textColor: LegalReferralColors.textBlue100,
                       borderColor: LegalReferralColors.borderBlue300,
-                      onPressed: () {},
+                      onPressed: () => _onTapMessage(context),
                       text: 'Message',
                     ),
                   ),
@@ -78,5 +82,15 @@ class CompletedProjectDetailsPage extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  void _onTapMessage(BuildContext context) {
+    final authBloc = getIt<AuthBloc>();
+    final currentUserId = authBloc.state.user?.userId;
+    final otherUserId = project?.user?.userId;
+    if (currentUserId == null || otherUserId == null) {
+      return;
+    }
+    context.pushNamed(ChatMessagesPage.name, extra: otherUserId);
   }
 }

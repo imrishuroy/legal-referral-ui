@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:legal_referral_ui/src/core/config/config.dart';
 import 'package:legal_referral_ui/src/features/auth/domain/domain.dart';
+import 'package:legal_referral_ui/src/features/chat/domain/domain.dart';
 import 'package:legal_referral_ui/src/features/network/domain/domain.dart';
 import 'package:legal_referral_ui/src/features/referral/data/data.dart';
 import 'package:legal_referral_ui/src/features/referral/domain/domain.dart';
@@ -129,6 +130,12 @@ class ReferralBloc extends Bloc<ReferralEvent, ReferralState> {
     Emitter<ReferralState> emit,
   ) {
     final connections = state.connections;
+    // if all connections are selected, deselect all
+    if (state.selectedConnections.length == connections.length) {
+      emit(state.copyWith(selectedConnections: []));
+      return;
+    }
+
     emit(state.copyWith(selectedConnections: connections));
   }
 

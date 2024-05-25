@@ -25,11 +25,7 @@ class CustomOutlinedButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      highlightColor: Colors.transparent,
-      splashColor: Colors.transparent,
-      hoverColor: Colors.transparent,
-      borderRadius: BorderRadius.circular(4.r),
+    return GestureDetector(
       onTap: onPressed,
       child: Container(
         height: height ?? 57.h,

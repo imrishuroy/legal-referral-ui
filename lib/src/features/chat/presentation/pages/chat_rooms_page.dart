@@ -38,7 +38,7 @@ class _ChatRoomsPageState extends State<ChatRoomsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Chat Rooms'),
+        title: const Text('Inbox'),
       ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: LegalReferralColors.buttonPrimary,
@@ -81,21 +81,21 @@ class _ChatRoomsPageState extends State<ChatRoomsPage> {
                       final chatRoom = state.chatRooms[index];
                       return ListTile(
                         title: Text(
-                          '${chatRoom?.user2FirstName ?? 'N/A'}'
-                          ' ${chatRoom?.user2LastName ?? 'N/A'}',
+                          '${chatRoom?.firstName ?? 'N/A'}'
+                          ' ${chatRoom?.lastName ?? 'N/A'}',
                           style: const TextStyle(
                             fontWeight: FontWeight.bold,
                           ),
                         ),
                         subtitle: Text(chatRoom?.lastMessage ?? ''),
                         leading: CustomAvatar(
-                          imageUrl: chatRoom?.user2AvatarUrl,
+                          imageUrl: chatRoom?.avatarUrl,
                           radius: 22,
                         ),
                         splashColor: Colors.transparent,
                         onTap: () => context.pushNamed(
                           ChatMessagesPage.name,
-                          extra: chatRoom,
+                          extra: chatRoom?.userId,
                         ),
                         trailing: Text(
                           chatRoom?.lastMessageAt != null

@@ -5,11 +5,11 @@ enum ChatStatus { initial, loading, success, failure, chatRoomCreated }
 class ChatState extends Equatable {
   const ChatState({
     required this.status,
+    required this.currentChatRoom,
     this.connections = const <Connection>[],
     this.chatRooms = const <ChatRoom>[],
     this.chatMessages = const <ChatMessage>[],
     this.messages = const <types.Message>[],
-    this.currentChatRoom,
     this.parentMessage,
     this.offset = 1,
     this.hasReachedMax = false,
@@ -19,6 +19,10 @@ class ChatState extends Equatable {
   factory ChatState.initial() {
     return const ChatState(
       status: ChatStatus.initial,
+      currentChatRoom: ChatRoom(
+        roomId: '',
+        userId: '',
+      ),
     );
   }
 
@@ -27,7 +31,7 @@ class ChatState extends Equatable {
   final List<ChatRoom?> chatRooms;
   final List<ChatMessage?> chatMessages;
   final List<types.Message> messages;
-  final ChatRoom? currentChatRoom;
+  final ChatRoom currentChatRoom;
   final ChatMessage? parentMessage;
   final bool hasReachedMax;
   final int offset;

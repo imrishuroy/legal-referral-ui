@@ -15,13 +15,25 @@ import 'package:legal_referral_ui/src/features/chat/domain/domain.dart';
 import 'package:legal_referral_ui/src/features/chat/presentation/bloc/chat_bloc.dart';
 import 'package:toastification/toastification.dart';
 
+class ChatMessageArgs {
+  ChatMessageArgs({
+    required this.currentUserId,
+    required this.recipientId,
+  });
+
+  final String currentUserId;
+  final String recipientId;
+}
+
 class ChatMessagesPage extends StatefulWidget {
   const ChatMessagesPage({
-    required this.chatRoom,
+    // required this.chatRoom,
+    required this.recipientId,
     super.key,
   });
 
-  final ChatRoom chatRoom;
+  // final ChatRoom chatRoom;
+  final String recipientId;
 
   static const String name = 'ChatMessagesPage';
 
@@ -36,16 +48,18 @@ class _ChatMessagesPageState extends State<ChatMessagesPage> {
 
   @override
   void initState() {
+    final currentUserId = _authBloc.state.user?.userId;
+    if (currentUserId == null) {
+      return;
+    }
+
     _chatBloc.add(
-      ChatInitialized(
-        chatRoom: widget.chatRoom,
+      ChatRoomCreated(
+        senderId: _authBloc.state.user?.userId ?? '',
+        recipientId: widget.recipientId,
       ),
     );
-    _chatBloc.add(
-      MessagesFetched(
-        chatRoom: widget.chatRoom,
-      ),
-    );
+
     super.initState();
   }
 
@@ -66,148 +80,151 @@ class _ChatMessagesPageState extends State<ChatMessagesPage> {
       createdAt: currentUser.joinDate?.millisecondsSinceEpoch,
     );
 
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('${widget.chatRoom.user2FirstName}'
-            ' ${widget.chatRoom.user2LastName}'),
-        backgroundColor: Colors.white,
-        surfaceTintColor: Colors.white,
-      ),
-      body: BlocConsumer<ChatBloc, ChatState>(
-        bloc: _chatBloc,
-        listener: (context, state) {
-          if (state.status == ChatStatus.failure) {
-            ToastUtil.showToast(
-              context,
-              title: 'Error',
-              description: state.failure?.message ?? 'something went wrong',
-              type: ToastificationType.error,
-            );
-          }
-        },
-        builder: (context, state) {
-          if (state.status == ChatStatus.loading) {
-            return const CustomLoadingIndicator();
-          }
-          return chat_ui.Chat(
-            messages: state.messages,
-            bubbleBuilder: _bubbleBuilder,
-            onAttachmentPressed: () {},
-            onMessageTap: (context, message) {},
-            onPreviewDataFetched: (_, __) {},
-            onSendPressed: (_) {},
-            showUserAvatars: true,
-            showUserNames: true,
-            timeFormat: DateFormat('HH:mm'),
-            dateFormat: DateFormat('yyyy-MM-dd'),
-            user: user,
-            textMessageBuilder: _textMessageBuilder,
-            theme: chat_ui.DefaultChatTheme(
-              sentMessageBodyTextStyle: TextStyle(
-                color: Colors.grey.shade700,
-                fontSize: 16,
-                fontWeight: FontWeight.w500,
-              ),
-              seenIcon: Text(
-                'read',
-                style: TextStyle(
-                  fontSize: 10,
-                  color: Colors.grey.shade500,
-                ),
-              ),
-            ),
-            customBottomWidget: SizedBox(
-              height: kBottomNavigationBarHeight +
-                  26.h +
-                  (state.parentMessage != null
-                      ? (state.parentMessage!.message.length > 8 ? 44.h : 24.h)
-                      : 0),
-              child: BottomAppBar(
-                color: Colors.white,
-                surfaceTintColor: Colors.white,
-                shadowColor: Colors.grey,
-                elevation: 4,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    if (state.parentMessage != null)
-                      Padding(
-                        padding: EdgeInsets.symmetric(
-                          horizontal: 6.w,
-                        ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Repling to: ${state.parentMessage?.message}',
-                              style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 14.sp,
-                                fontWeight: FontWeight.w600,
-                              ),
-                              maxLines: 2,
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                            SizedBox(height: 2.h),
-                          ],
-                        ),
+    return BlocConsumer<ChatBloc, ChatState>(
+      bloc: _chatBloc,
+      listener: (context, state) {
+        if (state.status == ChatStatus.failure) {
+          ToastUtil.showToast(
+            context,
+            title: 'Error',
+            description: state.failure?.message ?? 'something went wrong',
+            type: ToastificationType.error,
+          );
+        }
+      },
+      builder: (context, state) {
+        final name = '${state.currentChatRoom.firstName ?? ''}'
+            ' ${state.currentChatRoom.lastName ?? ''}';
+
+        return Scaffold(
+          appBar: AppBar(
+            title: Text(name),
+            backgroundColor: Colors.white,
+            surfaceTintColor: Colors.white,
+          ),
+          body: state.status == ChatStatus.success
+              ? chat_ui.Chat(
+                  messages: state.messages,
+                  bubbleBuilder: _bubbleBuilder,
+                  onAttachmentPressed: () {},
+                  onMessageTap: (context, message) {},
+                  onPreviewDataFetched: (_, __) {},
+                  onSendPressed: (_) {},
+                  showUserAvatars: true,
+                  showUserNames: true,
+                  timeFormat: DateFormat('HH:mm'),
+                  dateFormat: DateFormat('yyyy-MM-dd'),
+                  user: user,
+                  textMessageBuilder: _textMessageBuilder,
+                  theme: chat_ui.DefaultChatTheme(
+                    sentMessageBodyTextStyle: TextStyle(
+                      color: Colors.grey.shade700,
+                      fontSize: 16,
+                      fontWeight: FontWeight.w500,
+                    ),
+                    seenIcon: Text(
+                      'read',
+                      style: TextStyle(
+                        fontSize: 10,
+                        color: Colors.grey.shade500,
                       ),
-                    Row(
-                      children: [
-                        Expanded(
-                          child: CustomTextField(
-                            focusNode: _focusNode,
-                            hintText: 'Your message here',
-                            controller: _textEditingController,
-                            onChanged: (value) {
-                              return null;
-                            },
-                          ),
-                        ),
-                        IconButton(
-                          icon: SvgPicture.asset(
-                            IconStringConstants.send,
-                            colorFilter: const ColorFilter.mode(
-                              Colors.blue,
-                              BlendMode.srcIn,
+                    ),
+                  ),
+                  customBottomWidget: SizedBox(
+                    height: kBottomNavigationBarHeight +
+                        26.h +
+                        (state.parentMessage != null
+                            ? (state.parentMessage!.message.length > 8
+                                ? 44.h
+                                : 24.h)
+                            : 0),
+                    child: BottomAppBar(
+                      color: Colors.white,
+                      surfaceTintColor: Colors.white,
+                      shadowColor: Colors.grey,
+                      elevation: 4,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          if (state.parentMessage != null)
+                            Padding(
+                              padding: EdgeInsets.symmetric(
+                                horizontal: 6.w,
+                              ),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    'Repling to: '
+                                    '${state.parentMessage?.message}',
+                                    style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 14.sp,
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                    maxLines: 2,
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                  SizedBox(height: 2.h),
+                                ],
+                              ),
                             ),
-                            height: 24.h,
-                            width: 24.w,
-                          ),
-                          onPressed: () {
-                            _chatBloc.add(
-                              ChatMessageSent(
-                                chatRoom: widget.chatRoom,
-                                message: ChatMessage(
-                                  senderId: currentUser.userId ?? '',
-                                  recipientId: widget.chatRoom.user2Id,
-                                  parentMessageId:
-                                      state.parentMessage?.messageId ?? 0,
-                                  message: _textEditingController.text,
-                                  roomId: widget.chatRoom.roomId,
-                                  repliedMessage: state.parentMessage,
+                          Row(
+                            children: [
+                              Expanded(
+                                child: CustomTextField(
+                                  focusNode: _focusNode,
+                                  hintText: 'Your message here',
+                                  controller: _textEditingController,
+                                  onChanged: (value) {
+                                    return null;
+                                  },
                                 ),
                               ),
-                            );
-                            _textEditingController.clear();
-                          },
-                        ),
-                      ],
+                              IconButton(
+                                icon: SvgPicture.asset(
+                                  IconStringConstants.send,
+                                  colorFilter: const ColorFilter.mode(
+                                    Colors.blue,
+                                    BlendMode.srcIn,
+                                  ),
+                                  height: 24.h,
+                                  width: 24.w,
+                                ),
+                                onPressed: () {
+                                  _chatBloc.add(
+                                    ChatMessageSent(
+                                      chatRoom: state.currentChatRoom,
+                                      message: ChatMessage(
+                                        senderId: currentUser.userId ?? '',
+                                        recipientId:
+                                            state.currentChatRoom.userId,
+                                        parentMessageId:
+                                            state.parentMessage?.messageId ?? 0,
+                                        message: _textEditingController.text,
+                                        roomId: state.currentChatRoom.roomId,
+                                        repliedMessage: state.parentMessage,
+                                      ),
+                                    ),
+                                  );
+                                  _textEditingController.clear();
+                                },
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
                     ),
-                  ],
-                ),
-              ),
-            ),
-            onEndReached: () async {
-              _chatBloc.add(
-                MessagesFetched(
-                  chatRoom: widget.chatRoom,
-                ),
-              );
-            },
-          );
-        },
-      ),
+                  ),
+                  onEndReached: () async {
+                    _chatBloc.add(
+                      MessagesFetched(),
+                    );
+                  },
+                )
+              : const CustomLoadingIndicator(),
+        );
+      },
     );
   }
 
@@ -273,7 +290,7 @@ class _ChatMessagesPageState extends State<ChatMessagesPage> {
                       recipientId: p0.author.id,
                       parentMessageId: 0,
                       message: p0.text,
-                      roomId: widget.chatRoom.roomId,
+                      roomId: _chatBloc.state.currentChatRoom.roomId,
                     );
 
                     _replyToMessage(parentMessage: parentMessage);
@@ -290,7 +307,7 @@ class _ChatMessagesPageState extends State<ChatMessagesPage> {
                             recipientId: p0.author.id,
                             parentMessageId: 0,
                             message: p0.text,
-                            roomId: widget.chatRoom.roomId,
+                            roomId: _chatBloc.state.currentChatRoom.roomId,
                           );
 
                           _replyToMessage(parentMessage: parentMessage);

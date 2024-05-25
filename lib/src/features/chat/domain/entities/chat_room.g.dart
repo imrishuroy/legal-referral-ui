@@ -9,11 +9,10 @@ part of 'chat_room.dart';
 _$ChatRoomImpl _$$ChatRoomImplFromJson(Map<String, dynamic> json) =>
     _$ChatRoomImpl(
       roomId: json['room_id'] as String,
-      user1Id: json['user1_id'] as String,
-      user2Id: json['user2_id'] as String,
-      user2FirstName: json['user2_first_name'] as String?,
-      user2LastName: json['user2_last_name'] as String?,
-      user2AvatarUrl: json['user2_avatar_url'] as String?,
+      userId: json['user_id'] as String,
+      firstName: json['first_name'] as String?,
+      lastName: json['last_name'] as String?,
+      avatarUrl: json['avatar_url'] as String?,
       lastMessage: json['last_message'] as String?,
       lastMessageAt: _$JsonConverterFromJson<String, DateTime>(
           json['last_message_sent_at'], const DateTimeJsonConverter().fromJson),
@@ -23,8 +22,7 @@ _$ChatRoomImpl _$$ChatRoomImplFromJson(Map<String, dynamic> json) =>
 Map<String, dynamic> _$$ChatRoomImplToJson(_$ChatRoomImpl instance) =>
     <String, dynamic>{
       'room_id': instance.roomId,
-      'user1_id': instance.user1Id,
-      'user2_id': instance.user2Id,
+      'user_id': instance.userId,
     };
 
 Value? _$JsonConverterFromJson<Json, Value>(

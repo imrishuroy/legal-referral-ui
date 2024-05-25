@@ -6,8 +6,8 @@ enum ReferralStatus {
   success,
   failure,
   referralAdded,
-
   awardProject,
+  chatRoomCreated,
 }
 
 class ReferralState extends Equatable {
@@ -23,6 +23,7 @@ class ReferralState extends Equatable {
     this.awardedProjects = const [],
     this.isProposalEditing = false,
     this.completedProjects = const [],
+    this.chatRoom,
     this.failure,
   });
 
@@ -42,6 +43,7 @@ class ReferralState extends Equatable {
   final List<Project?> activeProjects;
   final List<Project?> awardedProjects;
   final List<Project?> completedProjects;
+  final ChatRoom? chatRoom;
   final ReferralStatus status;
   final Failure? failure;
 
@@ -56,6 +58,7 @@ class ReferralState extends Equatable {
     List<Project?>? activeProjects,
     List<Project?>? awardedProjects,
     List<Project?>? completedProjects,
+    ChatRoom? chatRoom,
     ReferralStatus? status,
     Failure? failure,
   }) {
@@ -70,6 +73,7 @@ class ReferralState extends Equatable {
       activeProjects: activeProjects ?? this.activeProjects,
       awardedProjects: awardedProjects ?? this.awardedProjects,
       completedProjects: completedProjects ?? this.completedProjects,
+      chatRoom: chatRoom ?? this.chatRoom,
       status: status ?? this.status,
       failure: failure ?? this.failure,
     );
@@ -87,6 +91,7 @@ class ReferralState extends Equatable {
         activeProjects,
         awardedProjects,
         completedProjects,
+        chatRoom,
         status,
         failure,
       ];
