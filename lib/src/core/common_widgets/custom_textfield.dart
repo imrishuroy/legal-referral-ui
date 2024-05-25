@@ -16,6 +16,7 @@ class CustomTextField extends StatelessWidget {
     this.borderColor,
     this.fillColor,
     this.validator,
+    this.minLines = 1,
     this.maxLines = 1,
     this.enabled = true,
     this.showLabel = true,
@@ -32,6 +33,7 @@ class CustomTextField extends StatelessWidget {
   final String? Function(String?)? onChanged;
   final String? Function(String?)? onSubmitted;
   final String? Function(String?)? validator;
+  final int minLines;
   final int maxLines;
   final bool enabled;
   final bool showLabel;
@@ -56,7 +58,7 @@ class CustomTextField extends StatelessWidget {
             obscureText: obscureText,
             keyboardType: keyboardType,
             maxLines: maxLines,
-            minLines: 1,
+            minLines: minLines,
             enabled: enabled,
             onChanged: onChanged,
             onFieldSubmitted: onSubmitted,
@@ -101,7 +103,6 @@ class CustomTextField extends StatelessWidget {
                 borderRadius: BorderRadius.circular(4.r),
               ),
               filled: true,
-              // fillColor: LegalReferralColors.containerWhite500,
               fillColor: fillColor ?? Colors.white,
             ),
             validator: validator,

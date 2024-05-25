@@ -75,7 +75,7 @@ class _SignInPageState extends State<SignInPage> {
                               height: 160.h,
                               width: 160.w,
                               child: SvgPicture.asset(
-                                ImageStringConstants.legalReferralLogo,
+                                IconStringConstants.legalReferralLogo,
                               ),
                             ),
                             Container(
@@ -147,25 +147,25 @@ class _SignInPageState extends State<SignInPage> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 SvgButton(
-                                  imagePath: ImageStringConstants.googleIcon,
+                                  imagePath: IconStringConstants.googleIcon,
                                   onPressed: () =>
                                       _authBloc.add(AuthGoogleSignedIn()),
                                 ),
                                 SizedBox(width: 12.w),
                                 SvgButton(
-                                  imagePath: ImageStringConstants.facebookIcon,
+                                  imagePath: IconStringConstants.facebookIcon,
                                   onPressed: () => _authBloc.add(
                                     AuthFacebookSignedIn(),
                                   ),
                                 ),
                                 SizedBox(width: 12.w),
                                 SvgButton(
-                                  imagePath: ImageStringConstants.appleIcon,
+                                  imagePath: IconStringConstants.appleIcon,
                                   onPressed: () {},
                                 ),
                                 SizedBox(width: 12.w),
                                 SvgButton(
-                                  imagePath: ImageStringConstants.linkedinIcon,
+                                  imagePath: IconStringConstants.linkedinIcon,
                                   onPressed: () async {
                                     await _linkedinLogin();
                                     // final data = await context

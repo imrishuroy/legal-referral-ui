@@ -3,7 +3,7 @@ import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 import 'package:legal_referral_ui/src/core/config/failure.dart';
 import 'package:legal_referral_ui/src/core/network/network.dart';
-import 'package:legal_referral_ui/src/features/chat/data/datasources/chat_datasource.dart';
+import 'package:legal_referral_ui/src/features/chat/data/data.dart';
 import 'package:legal_referral_ui/src/features/chat/domain/domain.dart';
 
 @LazySingleton(as: ChatRepository)
@@ -39,11 +39,11 @@ class ChatRepositoryImpl extends ChatRepository {
 
   @override
   Future<Either<Failure, ChatRoom?>> createChatRoom({
-    required ChatRoom chatRoom,
+    required CreateChatRoomReq createChatRoomReq,
   }) async {
     try {
       final res = await _chatDataSource.createChatRoom(
-        chatRoom: chatRoom,
+        createChatRoomReq: createChatRoomReq,
       );
       return Right(res);
     } on DioException catch (error) {

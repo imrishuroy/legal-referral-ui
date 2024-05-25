@@ -1,6 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
 import 'package:legal_referral_ui/src/core/config/config.dart';
+import 'package:legal_referral_ui/src/features/chat/data/data.dart';
 import 'package:legal_referral_ui/src/features/chat/domain/domain.dart';
 
 @lazySingleton
@@ -24,10 +25,10 @@ class ChatUseCase {
   }
 
   Future<Either<Failure, ChatRoom?>> createChatRoom({
-    required ChatRoom chatRoom,
+    required CreateChatRoomReq createChatRoomReq,
   }) async {
     return _chatRepository.createChatRoom(
-      chatRoom: chatRoom,
+      createChatRoomReq: createChatRoomReq,
     );
   }
 

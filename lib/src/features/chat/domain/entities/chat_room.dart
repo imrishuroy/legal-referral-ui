@@ -8,23 +8,22 @@ part 'chat_room.g.dart';
 class ChatRoom with _$ChatRoom {
   const factory ChatRoom({
     @JsonKey(name: 'room_id') required String roomId,
-    @JsonKey(name: 'user1_id') required String user1Id,
-    @JsonKey(name: 'user2_id') required String user2Id,
+    @JsonKey(name: 'user_id') required String userId,
     @JsonKey(
-      name: 'user2_first_name',
+      name: 'first_name',
       includeToJson: false,
     )
-    String? user2FirstName,
+    String? firstName,
     @JsonKey(
-      name: 'user2_last_name',
+      name: 'last_name',
       includeToJson: false,
     )
-    String? user2LastName,
+    String? lastName,
     @JsonKey(
-      name: 'user2_avatar_url',
+      name: 'avatar_url',
       includeToJson: false,
     )
-    String? user2AvatarUrl,
+    String? avatarUrl,
     @JsonKey(
       name: 'last_message',
       includeToJson: false,

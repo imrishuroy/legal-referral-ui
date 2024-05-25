@@ -11,6 +11,21 @@ class LegalReferralTheme {
     chipTheme: const ChipThemeData(
       backgroundColor: LegalReferralColors.containerWhite500,
     ),
+    listTileTheme: const ListTileThemeData(
+      horizontalTitleGap: 8,
+      contentPadding: EdgeInsets.zero,
+      minVerticalPadding: 0,
+      minLeadingWidth: 0,
+      visualDensity: VisualDensity(vertical: -3),
+    ),
+    cardTheme: CardTheme(
+      elevation: 4,
+      color: LegalReferralColors.white,
+      surfaceTintColor: LegalReferralColors.white,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(4),
+      ),
+    ),
     textTheme: LegalReferralTextTheme.lightTextTheme,
     switchTheme: LegalReferralSwitchTheme.lightSwitchTheme,
     scaffoldBackgroundColor: LegalReferralColors.primaryBackground,

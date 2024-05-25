@@ -48,7 +48,7 @@ class _NetworkPageState extends State<NetworkPage> {
             ),
             SvgButton(
               onPressed: () => context.pushNamed(ChatRoomsPage.name),
-              imagePath: ImageStringConstants.comment,
+              imagePath: IconStringConstants.comment,
               width: 24.w,
               height: 24.h,
             ),

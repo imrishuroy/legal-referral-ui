@@ -179,4 +179,32 @@ class Validator {
     }
     return null;
   }
+
+  static String? validateReferralTitle(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Please enter the title for referral';
+    }
+    return null;
+  }
+
+  static String? validateReferralDescription(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Please enter the description for referral';
+    }
+    return null;
+  }
+
+  static String? validateReferralPracticeArea(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Please enter the practice area for referral';
+    }
+    return null;
+  }
+
+  static String? validateReferralLocation(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Please enter the location for referral';
+    }
+    return null;
+  }
 }

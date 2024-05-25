@@ -25,11 +25,7 @@ class CustomOutlinedButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      highlightColor: Colors.transparent,
-      splashColor: Colors.transparent,
-      hoverColor: Colors.transparent,
-      borderRadius: BorderRadius.circular(4.r),
+    return GestureDetector(
       onTap: onPressed,
       child: Container(
         height: height ?? 57.h,
@@ -63,27 +59,27 @@ class CustomTextButton extends StatelessWidget {
     this.textColor,
     this.fontSize,
     this.fontWeight,
+    this.style,
   });
   final String text;
   final VoidCallback onPressed;
   final double? fontSize;
   final FontWeight? fontWeight;
   final Color? textColor;
+  final TextStyle? style;
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      splashColor: Colors.transparent,
-      highlightColor: Colors.transparent,
-      hoverColor: Colors.transparent,
+    return GestureDetector(
       onTap: onPressed,
       child: Text(
         text,
-        style: TextStyle(
-          fontWeight: fontWeight,
-          fontSize: fontSize,
-          color: textColor,
-        ),
+        style: style ??
+            TextStyle(
+              fontWeight: fontWeight,
+              fontSize: fontSize,
+              color: textColor,
+            ),
       ),
     );
   }

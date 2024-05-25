@@ -4,11 +4,14 @@ import 'package:dio/dio.dart';
 import 'package:legal_referral_ui/src/core/config/config.dart';
 import 'package:legal_referral_ui/src/features/auth/data/data.dart';
 import 'package:legal_referral_ui/src/features/auth/domain/domain.dart';
+import 'package:legal_referral_ui/src/features/chat/data/models/create_chat_room_req.dart';
 import 'package:legal_referral_ui/src/features/chat/domain/domain.dart';
 import 'package:legal_referral_ui/src/features/network/data/data.dart';
 import 'package:legal_referral_ui/src/features/network/domain/domain.dart';
 import 'package:legal_referral_ui/src/features/profile/data/data.dart';
 import 'package:legal_referral_ui/src/features/profile/domain/domain.dart';
+import 'package:legal_referral_ui/src/features/referral/data/data.dart';
+import 'package:legal_referral_ui/src/features/referral/domain/domain.dart';
 import 'package:legal_referral_ui/src/features/wizard/data/data.dart';
 import 'package:legal_referral_ui/src/features/wizard/domain/domain.dart';
 import 'package:retrofit/retrofit.dart';
@@ -289,11 +292,107 @@ abstract class APIClient {
 
   @POST('/chat/rooms')
   Future<ChatRoom> createChatRoom(
-    @Body() ChatRoom chatRoom,
+    @Body() CreateChatRoomReq createChatRoomReq,
   );
 
   @GET('/chat/users/{userId}/rooms')
   Future<List<ChatRoom>> fetchChatRooms(
     @Path('userId') String userId,
+  );
+
+  // referral
+  @POST('/referral')
+  Future<String?> addReferral(
+    @Body() AddReferralReq referral,
+  );
+
+  @GET('/referrals/{userId}/active')
+  Future<List<Referral?>> fetchActiveReferrals(
+    @Path('userId') String userId,
+  );
+
+  @GET('/referrals/users/{referralId}')
+  Future<List<AppUser?>> fetchReferredUsers(
+    @Path('referralId') int referralId,
+  );
+
+  @GET('/users/{userId}/proposals')
+  Future<List<Proposal?>> fetchProposals(
+    @Path('userId') String userId,
+  );
+
+  @GET('/users/{userId}/proposals/{referralId}')
+  Future<ProposalReq?> fetchProposalByReferralId(
+    @Path('userId') String userId,
+    @Path('referralId') int referralId,
+  );
+
+  @POST('/proposals')
+  Future<ProposalReq?> createProposal(
+    @Body() ProposalReq proposalReq,
+  );
+
+  @PUT('/proposals/{proposalId}')
+  Future<ProposalReq?> updateProposal(
+    @Path('proposalId') int proposalId,
+    @Body() ProposalReq proposalReq,
+  );
+
+  // project
+  @POST('/projects/award')
+  Future<Project?> awardProject(
+    @Body() AwardProjectReq awardProject,
+  );
+
+  @GET('/projects/active/{userId}')
+  Future<List<Project?>> fetchActiveProjects(
+    @Path('userId') String userId,
+    @Query('role') String role,
+  );
+
+  @GET('/projects/awarded/{userId}')
+  Future<List<Project?>> fetchAwardedProjects(
+    @Path('userId') String userId,
+  );
+
+  @PUT('/projects/{projectId}/accept')
+  Future<Project?> acceptProject(
+    @Path('projectId') int projectId,
+  );
+
+  @PUT('/projects/{projectId}/start')
+  Future<Project?> startProject(
+    @Path('projectId') int projectId,
+  );
+
+  @PUT('/projects/{projectId}/initiate-complete')
+  Future<Project?> initiateCompleteProject(
+    @Path('projectId') int projectId,
+  );
+
+  @PUT('/projects/{projectId}/cancel/initiate-complete')
+  Future<Project?> cancelInitiateCompleteProject(
+    @Path('projectId') int projectId,
+  );
+
+  @PUT('/projects/{projectId}/complete')
+  Future<Project?> completeProject(
+    @Path('projectId') int projectId,
+  );
+
+  @PUT('/projects/{projectId}/reject')
+  Future<Project?> rejectProject(
+    @Path('projectId') int projectId,
+  );
+
+  @POST('/projects/review')
+  Future<ProjectReview?> addProjectReview(
+    @Body() ProjectReview projectReview,
+  );
+
+  @GET('/projects/completed/{userId}')
+  Future<List<Project?>> fetchCompletedProjects(
+    @Path('userId') String userId,
+    @Query('role') String role,
   );
 }

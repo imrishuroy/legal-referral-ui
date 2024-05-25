@@ -1,5 +1,5 @@
-/// [ImageStringConstants] class contains all the App Images in String formats.
-class ImageStringConstants {
+/// [IconStringConstants] class contains all the App Images in String formats.
+class IconStringConstants {
   // -- App Logos
   static const String legalReferralLogo = 'assets/logos/LegalReferral.svg';
   static const String successLogo = 'assets/logos/success.svg';
@@ -35,6 +35,11 @@ class ImageStringConstants {
   static const String removeConnection = 'assets/icons/removeConnection.svg';
   static const String camera = 'assets/icons/camera.svg';
   static const String file = 'assets/icons/file.svg';
+  static const String star = 'assets/icons/star.svg';
+  static const String bag = 'assets/icons/bag.svg';
+  static const String calender = 'assets/icons/calender.svg';
+  static const String location = 'assets/icons/location.svg';
+  static const String alert = 'assets/icons/alert.svg';
   static const String historyIcon = 'assets/icons/history.svg';
   static const String backArrow = 'assets/icons/back_arrow.svg';
   static const String reply2 = 'assets/icons/reply2.svg';

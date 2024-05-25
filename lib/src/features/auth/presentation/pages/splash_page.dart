@@ -5,22 +5,11 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:legal_referral_ui/src/core/config/config.dart';
 import 'package:legal_referral_ui/src/core/constants/colors.dart';
-import 'package:legal_referral_ui/src/core/constants/image_string_constants.dart';
+import 'package:legal_referral_ui/src/core/constants/icon_string_constants.dart';
 import 'package:legal_referral_ui/src/features/auth/domain/domain.dart';
 import 'package:legal_referral_ui/src/features/auth/presentation/presentation.dart';
-import 'package:legal_referral_ui/src/features/chat/domain/domain.dart';
 import 'package:legal_referral_ui/src/features/home_page.dart';
 import 'package:legal_referral_ui/src/features/wizard/presentation/presentation.dart';
-
-const chatRoom = ChatRoom(
-  roomId: '96b6cffdc5a4599184d1bd9f8b05baab07cd4253',
-  user1Id: 'U0IOaCtQLWgzzHrFglBMhwIGl312',
-  user2Id: 'babfbd48-3432-4d6b-ba2f-aa7f2e1c36d3',
-  user2AvatarUrl:
-      'https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-  user2FirstName: 'John',
-  user2LastName: 'Doe',
-);
 
 class SplashPage extends StatefulWidget {
   const SplashPage({super.key});
@@ -75,7 +64,6 @@ class _SplashPageState extends State<SplashPage> {
               context.goNamed(ContactDetailsPage.name);
             } else if (state.user?.wizardCompleted == true) {
               context.goNamed(HomePage.name);
-              //context.goNamed(ChatMessagesPage.name, extra: chatRoom);
             } else {
               context.goNamed(WizardInspectionPage.name);
             }
@@ -93,7 +81,7 @@ class _SplashPageState extends State<SplashPage> {
                   height: 239.h,
                   width: 239.w,
                   child: SvgPicture.asset(
-                    ImageStringConstants.legalReferralLogo,
+                    IconStringConstants.legalReferralLogo,
                   ),
                 ),
               ),

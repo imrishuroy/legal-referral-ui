@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:legal_referral_ui/src/core/common_widgets/widgets.dart';
 import 'package:legal_referral_ui/src/core/config/config.dart';
@@ -39,7 +38,7 @@ class _ChatRoomsPageState extends State<ChatRoomsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Chat Rooms'),
+        title: const Text('Inbox'),
       ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: LegalReferralColors.buttonPrimary,
@@ -68,41 +67,47 @@ class _ChatRoomsPageState extends State<ChatRoomsPage> {
           if (state.status == ChatStatus.loading) {
             return const CustomLoadingIndicator();
           }
-          return Column(
-            children: [
-              Expanded(
-                child: ListView.builder(
-                  itemCount: state.chatRooms.length,
-                  itemBuilder: (context, index) {
-                    final chatRoom = state.chatRooms[index];
-                    return ListTile(
-                      title: Text(
-                        '${chatRoom?.user2FirstName ?? 'N/A'}'
-                        ' ${chatRoom?.user2LastName ?? 'N/A'}',
-                        style: const TextStyle(
-                          fontWeight: FontWeight.bold,
+          return Padding(
+            padding: const EdgeInsets.symmetric(
+              horizontal: 16,
+              vertical: 8,
+            ),
+            child: Column(
+              children: [
+                Expanded(
+                  child: ListView.builder(
+                    itemCount: state.chatRooms.length,
+                    itemBuilder: (context, index) {
+                      final chatRoom = state.chatRooms[index];
+                      return ListTile(
+                        title: Text(
+                          '${chatRoom?.firstName ?? 'N/A'}'
+                          ' ${chatRoom?.lastName ?? 'N/A'}',
+                          style: const TextStyle(
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
-                      ),
-                      subtitle: Text(chatRoom?.lastMessage ?? ''),
-                      leading: CustomAvatar(
-                        imageUrl: chatRoom?.user2AvatarUrl,
-                        radius: 24.r,
-                      ),
-                      splashColor: Colors.transparent,
-                      onTap: () => context.pushNamed(
-                        ChatMessagesPage.name,
-                        extra: chatRoom,
-                      ),
-                      trailing: Text(
-                        chatRoom?.lastMessageAt != null
-                            ? DateTimeUtil.timeAgo(chatRoom!.lastMessageAt)
-                            : '',
-                      ),
-                    );
-                  },
+                        subtitle: Text(chatRoom?.lastMessage ?? ''),
+                        leading: CustomAvatar(
+                          imageUrl: chatRoom?.avatarUrl,
+                          radius: 22,
+                        ),
+                        splashColor: Colors.transparent,
+                        onTap: () => context.pushNamed(
+                          ChatMessagesPage.name,
+                          extra: chatRoom?.userId,
+                        ),
+                        trailing: Text(
+                          chatRoom?.lastMessageAt != null
+                              ? DateTimeUtil.timeAgo(chatRoom!.lastMessageAt)
+                              : '',
+                        ),
+                      );
+                    },
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           );
         },
       ),

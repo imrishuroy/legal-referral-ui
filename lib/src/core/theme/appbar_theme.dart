@@ -6,5 +6,6 @@ class LegalReferralAppBarTheme {
     centerTitle: false,
     color: Colors.white,
     shadowColor: Colors.white,
+    elevation: 0,
   );
 }

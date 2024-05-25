@@ -38,7 +38,7 @@ class ImageUtil {
               children: <Widget>[
                 ListTile(
                   leading: SvgPicture.asset(
-                    ImageStringConstants.file,
+                    IconStringConstants.file,
                     width: 24.w,
                     height: 24.h,
                   ),
@@ -47,7 +47,7 @@ class ImageUtil {
                 ),
                 ListTile(
                   leading: SvgPicture.asset(
-                    ImageStringConstants.camera,
+                    IconStringConstants.camera,
                     width: 24.w,
                     height: 24.h,
                   ),

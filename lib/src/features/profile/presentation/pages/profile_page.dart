@@ -104,7 +104,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                     Row(
                                       children: [
                                         SvgPicture.asset(
-                                          ImageStringConstants.favIcon,
+                                          IconStringConstants.favIcon,
                                         ),
                                         Text(
                                           '4.3 by 433 attorneys',

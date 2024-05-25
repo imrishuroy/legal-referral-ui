@@ -76,7 +76,7 @@ class ActivitySection extends StatelessWidget {
               ],
             ),
             const Spacer(),
-            SvgPicture.asset(ImageStringConstants.threeDots),
+            SvgPicture.asset(IconStringConstants.threeDots),
           ],
         ),
         SizedBox(
@@ -106,7 +106,7 @@ class ActivitySection extends StatelessWidget {
             Row(
               children: [
                 SvgPicture.asset(
-                  ImageStringConstants.thumbUp,
+                  IconStringConstants.thumbUp,
                   height: 12.h,
                   width: 12.w,
                 ),
@@ -123,7 +123,7 @@ class ActivitySection extends StatelessWidget {
             Row(
               children: [
                 SvgPicture.asset(
-                  ImageStringConstants.comment,
+                  IconStringConstants.comment,
                   height: 12.h,
                   width: 12.w,
                 ),
@@ -148,25 +148,25 @@ class ActivitySection extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             VerticalIconButton(
-              icon: ImageStringConstants.thumbUp,
+              icon: IconStringConstants.thumbUp,
               text: 'Like',
               textColor: LegalReferralColors.textGrey500,
               onTap: () {},
             ),
             VerticalIconButton(
-              icon: ImageStringConstants.comment,
+              icon: IconStringConstants.comment,
               text: 'Comment',
               textColor: LegalReferralColors.textGrey500,
               onTap: () {},
             ),
             VerticalIconButton(
-              icon: ImageStringConstants.discuss,
+              icon: IconStringConstants.discuss,
               text: 'Discuss',
               textColor: LegalReferralColors.textGrey500,
               onTap: () {},
             ),
             VerticalIconButton(
-              icon: ImageStringConstants.share,
+              icon: IconStringConstants.share,
               text: 'Share',
               textColor: LegalReferralColors.textGrey500,
               onTap: () {},
@@ -231,7 +231,7 @@ class ActivitySection extends StatelessWidget {
                       style: Theme.of(context).textTheme.titleSmall,
                       height: 16.h,
                       width: 16.w,
-                      icon: ImageStringConstants.thumbUp,
+                      icon: IconStringConstants.thumbUp,
                       onTap: () {},
                     ),
                     SizedBox(
@@ -242,7 +242,7 @@ class ActivitySection extends StatelessWidget {
                       style: Theme.of(context).textTheme.titleSmall,
                       height: 16.h,
                       width: 16.w,
-                      icon: ImageStringConstants.reply,
+                      icon: IconStringConstants.reply,
                       onTap: () {},
                     ),
                   ],

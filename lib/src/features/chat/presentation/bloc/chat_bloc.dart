@@ -9,6 +9,7 @@ import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
 import 'package:injectable/injectable.dart';
 import 'package:legal_referral_ui/src/core/config/config.dart';
 import 'package:legal_referral_ui/src/features/auth/presentation/presentation.dart';
+import 'package:legal_referral_ui/src/features/chat/data/data.dart';
 import 'package:legal_referral_ui/src/features/chat/domain/domain.dart';
 import 'package:legal_referral_ui/src/features/network/domain/domain.dart';
 import 'package:stream_transform/stream_transform.dart';
@@ -44,17 +45,16 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
           .map((event) => ChatMessage.fromJson(jsonDecode(event)))
           .listen(
         (event) {
-          if (state.currentChatRoom == null) return;
-
           add(
             ChatUpdated(
               message: event,
-              chatRoom: state.currentChatRoom!,
+              chatRoom: state.currentChatRoom,
             ),
           );
         },
       );
     }
+    on<ChatRoomCreated>(_onChatRoomCreated);
     on<ConnectionFetched>(_onConnectionFetched);
     on<ChatInitialized>(_onChatInitialized);
     on<ChatUpdated>(_onChatUpdated);
@@ -62,7 +62,7 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
       _onMessagesFetched,
       transformer: throttleDroppable(throttleDuration),
     );
-    on<ChatRoomCreated>(_onChatRoomCreated);
+
     on<ChatRoomFetched>(_onChatRoomFetched);
     on<ChatMessageSent>(_onChatMessageSent);
     on<ParentMesssgeUpdated>(_onParentMessageUpdated);
@@ -106,14 +106,15 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
     emit(
       state.copyWith(
         status: ChatStatus.loading,
-        currentChatRoom: event.chatRoom,
         chatMessages: [],
         messages: [],
       ),
     );
 
     _channel = IOWebSocketChannel.connect(
-      Uri.parse('ws://192.168.29.66:8080/api/chat/${event.chatRoom.roomId}'),
+      Uri.parse(
+        'ws://192.168.29.66:8080/api/chat/${state.currentChatRoom.roomId}',
+      ),
       headers: {
         'Authorization': 'Bearer ${SharedPrefs.getToken()}',
       },
@@ -122,7 +123,7 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
     _chatSubscription = _channel?.stream
         .map((e) => ChatMessage.fromJson(jsonDecode(e)))
         .listen((e) {
-      add(ChatUpdated(chatRoom: event.chatRoom, message: e));
+      add(ChatUpdated(chatRoom: state.currentChatRoom, message: e));
     });
   }
 
@@ -132,7 +133,7 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
   ) async {
     if (state.hasReachedMax) return;
     final chatMessages = await _chatUseCase.fetchMessages(
-      roomId: event.chatRoom.roomId,
+      roomId: state.currentChatRoom.roomId,
       limit: limit,
       offset: state.offset,
     );
@@ -164,7 +165,7 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
                 final currentUserId = _authBloc.state.user?.userId;
                 final currentUserAvatarUrl = _authBloc.state.user?.avatarUrl;
                 final senderId = e.senderId;
-                final otherUserAatarUrl = event.chatRoom.user2AvatarUrl;
+                final otherUserAatarUrl = state.currentChatRoom.avatarUrl;
 
                 final recepientAvatarUrl = currentUserId == senderId
                     ? currentUserAvatarUrl
@@ -209,7 +210,7 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
     final currentUserId = _authBloc.state.user?.userId;
     final currentUserAvatarUrl = _authBloc.state.user?.avatarUrl;
     final senderId = event.message?.senderId ?? '';
-    final otherUserAatarUrl = event.chatRoom.user2AvatarUrl;
+    final otherUserAatarUrl = event.chatRoom.avatarUrl;
 
     final recepientAvatarUrl =
         currentUserId == senderId ? currentUserAvatarUrl : otherUserAatarUrl;
@@ -260,14 +261,14 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
 
     AppLogger.info('Room ID: $roomID');
 
-    final chatRoom = ChatRoom(
+    final createChatRoomReq = CreateChatRoomReq(
       roomId: roomID,
       user1Id: event.senderId,
       user2Id: event.recipientId,
     );
 
     final res = await _chatUseCase.createChatRoom(
-      chatRoom: chatRoom,
+      createChatRoomReq: createChatRoomReq,
     );
 
     res.fold(
@@ -280,16 +281,19 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
       (chatRoom) => emit(
         state.copyWith(
           status: ChatStatus.chatRoomCreated,
-          chatRooms: state.chatRooms.contains(chatRoom)
-              ? state.chatRooms
-              : [
-                  chatRoom,
-                  ...state.chatRooms,
-                ],
+          // chatRooms: state.chatRooms.contains(chatRoom)
+          //     ? state.chatRooms
+          //     : [
+          //         chatRoom,
+          //         ...state.chatRooms,
+          //       ],
           currentChatRoom: chatRoom,
         ),
       ),
     );
+
+    add(const ChatInitialized());
+    add(MessagesFetched());
   }
 
   Future<void> _onChatRoomFetched(
@@ -341,8 +345,11 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
   }
 
   String createRoomID(String userID1, String userID2) {
-    // Concatenate the user IDs
-    final concatenated = userID1 + userID2;
+    // Sort the user IDs lexicographically
+    final sortedUserIDs = [userID1, userID2]..sort();
+
+    // Concatenate the sorted user IDs
+    final concatenated = sortedUserIDs[0] + sortedUserIDs[1];
 
     // Hash the concatenated string using SHA-1
     final List<int> bytes = utf8.encode(concatenated);

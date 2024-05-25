@@ -22,16 +22,14 @@ ChatRoom _$ChatRoomFromJson(Map<String, dynamic> json) {
 mixin _$ChatRoom {
   @JsonKey(name: 'room_id')
   String get roomId => throw _privateConstructorUsedError;
-  @JsonKey(name: 'user1_id')
-  String get user1Id => throw _privateConstructorUsedError;
-  @JsonKey(name: 'user2_id')
-  String get user2Id => throw _privateConstructorUsedError;
-  @JsonKey(name: 'user2_first_name', includeToJson: false)
-  String? get user2FirstName => throw _privateConstructorUsedError;
-  @JsonKey(name: 'user2_last_name', includeToJson: false)
-  String? get user2LastName => throw _privateConstructorUsedError;
-  @JsonKey(name: 'user2_avatar_url', includeToJson: false)
-  String? get user2AvatarUrl => throw _privateConstructorUsedError;
+  @JsonKey(name: 'user_id')
+  String get userId => throw _privateConstructorUsedError;
+  @JsonKey(name: 'first_name', includeToJson: false)
+  String? get firstName => throw _privateConstructorUsedError;
+  @JsonKey(name: 'last_name', includeToJson: false)
+  String? get lastName => throw _privateConstructorUsedError;
+  @JsonKey(name: 'avatar_url', includeToJson: false)
+  String? get avatarUrl => throw _privateConstructorUsedError;
   @JsonKey(name: 'last_message', includeToJson: false)
   String? get lastMessage => throw _privateConstructorUsedError;
   @JsonKey(name: 'last_message_sent_at', includeToJson: false)
@@ -53,14 +51,10 @@ abstract class $ChatRoomCopyWith<$Res> {
   @useResult
   $Res call(
       {@JsonKey(name: 'room_id') String roomId,
-      @JsonKey(name: 'user1_id') String user1Id,
-      @JsonKey(name: 'user2_id') String user2Id,
-      @JsonKey(name: 'user2_first_name', includeToJson: false)
-      String? user2FirstName,
-      @JsonKey(name: 'user2_last_name', includeToJson: false)
-      String? user2LastName,
-      @JsonKey(name: 'user2_avatar_url', includeToJson: false)
-      String? user2AvatarUrl,
+      @JsonKey(name: 'user_id') String userId,
+      @JsonKey(name: 'first_name', includeToJson: false) String? firstName,
+      @JsonKey(name: 'last_name', includeToJson: false) String? lastName,
+      @JsonKey(name: 'avatar_url', includeToJson: false) String? avatarUrl,
       @JsonKey(name: 'last_message', includeToJson: false) String? lastMessage,
       @JsonKey(name: 'last_message_sent_at', includeToJson: false)
       @DateTimeJsonConverter()
@@ -83,11 +77,10 @@ class _$ChatRoomCopyWithImpl<$Res, $Val extends ChatRoom>
   @override
   $Res call({
     Object? roomId = null,
-    Object? user1Id = null,
-    Object? user2Id = null,
-    Object? user2FirstName = freezed,
-    Object? user2LastName = freezed,
-    Object? user2AvatarUrl = freezed,
+    Object? userId = null,
+    Object? firstName = freezed,
+    Object? lastName = freezed,
+    Object? avatarUrl = freezed,
     Object? lastMessage = freezed,
     Object? lastMessageAt = freezed,
     Object? unreadMessages = freezed,
@@ -97,25 +90,21 @@ class _$ChatRoomCopyWithImpl<$Res, $Val extends ChatRoom>
           ? _value.roomId
           : roomId // ignore: cast_nullable_to_non_nullable
               as String,
-      user1Id: null == user1Id
-          ? _value.user1Id
-          : user1Id // ignore: cast_nullable_to_non_nullable
+      userId: null == userId
+          ? _value.userId
+          : userId // ignore: cast_nullable_to_non_nullable
               as String,
-      user2Id: null == user2Id
-          ? _value.user2Id
-          : user2Id // ignore: cast_nullable_to_non_nullable
-              as String,
-      user2FirstName: freezed == user2FirstName
-          ? _value.user2FirstName
-          : user2FirstName // ignore: cast_nullable_to_non_nullable
+      firstName: freezed == firstName
+          ? _value.firstName
+          : firstName // ignore: cast_nullable_to_non_nullable
               as String?,
-      user2LastName: freezed == user2LastName
-          ? _value.user2LastName
-          : user2LastName // ignore: cast_nullable_to_non_nullable
+      lastName: freezed == lastName
+          ? _value.lastName
+          : lastName // ignore: cast_nullable_to_non_nullable
               as String?,
-      user2AvatarUrl: freezed == user2AvatarUrl
-          ? _value.user2AvatarUrl
-          : user2AvatarUrl // ignore: cast_nullable_to_non_nullable
+      avatarUrl: freezed == avatarUrl
+          ? _value.avatarUrl
+          : avatarUrl // ignore: cast_nullable_to_non_nullable
               as String?,
       lastMessage: freezed == lastMessage
           ? _value.lastMessage
@@ -143,14 +132,10 @@ abstract class _$$ChatRoomImplCopyWith<$Res>
   @useResult
   $Res call(
       {@JsonKey(name: 'room_id') String roomId,
-      @JsonKey(name: 'user1_id') String user1Id,
-      @JsonKey(name: 'user2_id') String user2Id,
-      @JsonKey(name: 'user2_first_name', includeToJson: false)
-      String? user2FirstName,
-      @JsonKey(name: 'user2_last_name', includeToJson: false)
-      String? user2LastName,
-      @JsonKey(name: 'user2_avatar_url', includeToJson: false)
-      String? user2AvatarUrl,
+      @JsonKey(name: 'user_id') String userId,
+      @JsonKey(name: 'first_name', includeToJson: false) String? firstName,
+      @JsonKey(name: 'last_name', includeToJson: false) String? lastName,
+      @JsonKey(name: 'avatar_url', includeToJson: false) String? avatarUrl,
       @JsonKey(name: 'last_message', includeToJson: false) String? lastMessage,
       @JsonKey(name: 'last_message_sent_at', includeToJson: false)
       @DateTimeJsonConverter()
@@ -171,11 +156,10 @@ class __$$ChatRoomImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? roomId = null,
-    Object? user1Id = null,
-    Object? user2Id = null,
-    Object? user2FirstName = freezed,
-    Object? user2LastName = freezed,
-    Object? user2AvatarUrl = freezed,
+    Object? userId = null,
+    Object? firstName = freezed,
+    Object? lastName = freezed,
+    Object? avatarUrl = freezed,
     Object? lastMessage = freezed,
     Object? lastMessageAt = freezed,
     Object? unreadMessages = freezed,
@@ -185,25 +169,21 @@ class __$$ChatRoomImplCopyWithImpl<$Res>
           ? _value.roomId
           : roomId // ignore: cast_nullable_to_non_nullable
               as String,
-      user1Id: null == user1Id
-          ? _value.user1Id
-          : user1Id // ignore: cast_nullable_to_non_nullable
+      userId: null == userId
+          ? _value.userId
+          : userId // ignore: cast_nullable_to_non_nullable
               as String,
-      user2Id: null == user2Id
-          ? _value.user2Id
-          : user2Id // ignore: cast_nullable_to_non_nullable
-              as String,
-      user2FirstName: freezed == user2FirstName
-          ? _value.user2FirstName
-          : user2FirstName // ignore: cast_nullable_to_non_nullable
+      firstName: freezed == firstName
+          ? _value.firstName
+          : firstName // ignore: cast_nullable_to_non_nullable
               as String?,
-      user2LastName: freezed == user2LastName
-          ? _value.user2LastName
-          : user2LastName // ignore: cast_nullable_to_non_nullable
+      lastName: freezed == lastName
+          ? _value.lastName
+          : lastName // ignore: cast_nullable_to_non_nullable
               as String?,
-      user2AvatarUrl: freezed == user2AvatarUrl
-          ? _value.user2AvatarUrl
-          : user2AvatarUrl // ignore: cast_nullable_to_non_nullable
+      avatarUrl: freezed == avatarUrl
+          ? _value.avatarUrl
+          : avatarUrl // ignore: cast_nullable_to_non_nullable
               as String?,
       lastMessage: freezed == lastMessage
           ? _value.lastMessage
@@ -226,14 +206,10 @@ class __$$ChatRoomImplCopyWithImpl<$Res>
 class _$ChatRoomImpl implements _ChatRoom {
   const _$ChatRoomImpl(
       {@JsonKey(name: 'room_id') required this.roomId,
-      @JsonKey(name: 'user1_id') required this.user1Id,
-      @JsonKey(name: 'user2_id') required this.user2Id,
-      @JsonKey(name: 'user2_first_name', includeToJson: false)
-      this.user2FirstName,
-      @JsonKey(name: 'user2_last_name', includeToJson: false)
-      this.user2LastName,
-      @JsonKey(name: 'user2_avatar_url', includeToJson: false)
-      this.user2AvatarUrl,
+      @JsonKey(name: 'user_id') required this.userId,
+      @JsonKey(name: 'first_name', includeToJson: false) this.firstName,
+      @JsonKey(name: 'last_name', includeToJson: false) this.lastName,
+      @JsonKey(name: 'avatar_url', includeToJson: false) this.avatarUrl,
       @JsonKey(name: 'last_message', includeToJson: false) this.lastMessage,
       @JsonKey(name: 'last_message_sent_at', includeToJson: false)
       @DateTimeJsonConverter()
@@ -248,20 +224,17 @@ class _$ChatRoomImpl implements _ChatRoom {
   @JsonKey(name: 'room_id')
   final String roomId;
   @override
-  @JsonKey(name: 'user1_id')
-  final String user1Id;
+  @JsonKey(name: 'user_id')
+  final String userId;
   @override
-  @JsonKey(name: 'user2_id')
-  final String user2Id;
+  @JsonKey(name: 'first_name', includeToJson: false)
+  final String? firstName;
   @override
-  @JsonKey(name: 'user2_first_name', includeToJson: false)
-  final String? user2FirstName;
+  @JsonKey(name: 'last_name', includeToJson: false)
+  final String? lastName;
   @override
-  @JsonKey(name: 'user2_last_name', includeToJson: false)
-  final String? user2LastName;
-  @override
-  @JsonKey(name: 'user2_avatar_url', includeToJson: false)
-  final String? user2AvatarUrl;
+  @JsonKey(name: 'avatar_url', includeToJson: false)
+  final String? avatarUrl;
   @override
   @JsonKey(name: 'last_message', includeToJson: false)
   final String? lastMessage;
@@ -275,7 +248,7 @@ class _$ChatRoomImpl implements _ChatRoom {
 
   @override
   String toString() {
-    return 'ChatRoom(roomId: $roomId, user1Id: $user1Id, user2Id: $user2Id, user2FirstName: $user2FirstName, user2LastName: $user2LastName, user2AvatarUrl: $user2AvatarUrl, lastMessage: $lastMessage, lastMessageAt: $lastMessageAt, unreadMessages: $unreadMessages)';
+    return 'ChatRoom(roomId: $roomId, userId: $userId, firstName: $firstName, lastName: $lastName, avatarUrl: $avatarUrl, lastMessage: $lastMessage, lastMessageAt: $lastMessageAt, unreadMessages: $unreadMessages)';
   }
 
   @override
@@ -284,14 +257,13 @@ class _$ChatRoomImpl implements _ChatRoom {
         (other.runtimeType == runtimeType &&
             other is _$ChatRoomImpl &&
             (identical(other.roomId, roomId) || other.roomId == roomId) &&
-            (identical(other.user1Id, user1Id) || other.user1Id == user1Id) &&
-            (identical(other.user2Id, user2Id) || other.user2Id == user2Id) &&
-            (identical(other.user2FirstName, user2FirstName) ||
-                other.user2FirstName == user2FirstName) &&
-            (identical(other.user2LastName, user2LastName) ||
-                other.user2LastName == user2LastName) &&
-            (identical(other.user2AvatarUrl, user2AvatarUrl) ||
-                other.user2AvatarUrl == user2AvatarUrl) &&
+            (identical(other.userId, userId) || other.userId == userId) &&
+            (identical(other.firstName, firstName) ||
+                other.firstName == firstName) &&
+            (identical(other.lastName, lastName) ||
+                other.lastName == lastName) &&
+            (identical(other.avatarUrl, avatarUrl) ||
+                other.avatarUrl == avatarUrl) &&
             (identical(other.lastMessage, lastMessage) ||
                 other.lastMessage == lastMessage) &&
             (identical(other.lastMessageAt, lastMessageAt) ||
@@ -302,17 +274,8 @@ class _$ChatRoomImpl implements _ChatRoom {
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      roomId,
-      user1Id,
-      user2Id,
-      user2FirstName,
-      user2LastName,
-      user2AvatarUrl,
-      lastMessage,
-      lastMessageAt,
-      unreadMessages);
+  int get hashCode => Object.hash(runtimeType, roomId, userId, firstName,
+      lastName, avatarUrl, lastMessage, lastMessageAt, unreadMessages);
 
   @JsonKey(ignore: true)
   @override
@@ -331,14 +294,12 @@ class _$ChatRoomImpl implements _ChatRoom {
 abstract class _ChatRoom implements ChatRoom {
   const factory _ChatRoom(
       {@JsonKey(name: 'room_id') required final String roomId,
-      @JsonKey(name: 'user1_id') required final String user1Id,
-      @JsonKey(name: 'user2_id') required final String user2Id,
-      @JsonKey(name: 'user2_first_name', includeToJson: false)
-      final String? user2FirstName,
-      @JsonKey(name: 'user2_last_name', includeToJson: false)
-      final String? user2LastName,
-      @JsonKey(name: 'user2_avatar_url', includeToJson: false)
-      final String? user2AvatarUrl,
+      @JsonKey(name: 'user_id') required final String userId,
+      @JsonKey(name: 'first_name', includeToJson: false)
+      final String? firstName,
+      @JsonKey(name: 'last_name', includeToJson: false) final String? lastName,
+      @JsonKey(name: 'avatar_url', includeToJson: false)
+      final String? avatarUrl,
       @JsonKey(name: 'last_message', includeToJson: false)
       final String? lastMessage,
       @JsonKey(name: 'last_message_sent_at', includeToJson: false)
@@ -354,20 +315,17 @@ abstract class _ChatRoom implements ChatRoom {
   @JsonKey(name: 'room_id')
   String get roomId;
   @override
-  @JsonKey(name: 'user1_id')
-  String get user1Id;
+  @JsonKey(name: 'user_id')
+  String get userId;
   @override
-  @JsonKey(name: 'user2_id')
-  String get user2Id;
+  @JsonKey(name: 'first_name', includeToJson: false)
+  String? get firstName;
   @override
-  @JsonKey(name: 'user2_first_name', includeToJson: false)
-  String? get user2FirstName;
+  @JsonKey(name: 'last_name', includeToJson: false)
+  String? get lastName;
   @override
-  @JsonKey(name: 'user2_last_name', includeToJson: false)
-  String? get user2LastName;
-  @override
-  @JsonKey(name: 'user2_avatar_url', includeToJson: false)
-  String? get user2AvatarUrl;
+  @JsonKey(name: 'avatar_url', includeToJson: false)
+  String? get avatarUrl;
   @override
   @JsonKey(name: 'last_message', includeToJson: false)
   String? get lastMessage;

@@ -27,7 +27,7 @@ class CustomNetworkImage extends StatelessWidget {
       child: FadeInImage(
         placeholder: placeholder ??
             const AssetImage(
-              ImageStringConstants.imagePlaceholder,
+              IconStringConstants.imagePlaceholder,
             ),
         image: CachedNetworkImageProvider(
           imageUrl ?? '',
@@ -42,7 +42,7 @@ class CustomNetworkImage extends StatelessWidget {
           milliseconds: 100,
         ),
         imageErrorBuilder: (context, url, error) => Image.asset(
-          ImageStringConstants.imagePlaceholder,
+          IconStringConstants.imagePlaceholder,
           fit: fit,
           height: height ?? 140.h,
           width: width ?? double.infinity,

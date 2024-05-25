@@ -15,7 +15,7 @@ class CustomAvatar extends StatelessWidget {
     final image = imageUrl != null
         ? NetworkImage(imageUrl!)
         : const AssetImage(
-            ImageStringConstants.avatarPlaceholder,
+            IconStringConstants.avatarPlaceholder,
           );
     return CircleAvatar(
       radius: radius,
@@ -23,7 +23,7 @@ class CustomAvatar extends StatelessWidget {
       child: ClipOval(
         child: FadeInImage(
           placeholder: const AssetImage(
-            ImageStringConstants.avatarPlaceholder,
+            IconStringConstants.avatarPlaceholder,
           ),
           image: image as ImageProvider,
           fit: BoxFit.cover,

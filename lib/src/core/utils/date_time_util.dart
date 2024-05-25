@@ -57,4 +57,22 @@ class DateTimeUtil {
     }
     return timeago.format(dateTime, locale: '');
   }
+
+  static String formatReferralDate(DateTime? dateTime) {
+    if (dateTime == null) {
+      return '';
+    }
+    final date = convertUtcToLocal(dateTime);
+    final outputDateFormat = DateFormat('d MMM y');
+    return outputDateFormat.format(date);
+  }
+
+  static String formatProjectTime(DateTime? dateTime) {
+    if (dateTime == null) {
+      return '';
+    }
+    final date = convertUtcToLocal(dateTime);
+    final outputDateFormat = DateFormat('dd MMM yyyy');
+    return outputDateFormat.format(date);
+  }
 }

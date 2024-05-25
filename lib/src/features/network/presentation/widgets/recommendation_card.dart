@@ -31,7 +31,7 @@ class RecommendationCard extends StatelessWidget {
             width: double.infinity,
             height: 226.h,
             placeholder: const AssetImage(
-              ImageStringConstants.avatarPlaceholder,
+              IconStringConstants.avatarPlaceholder,
             ),
           ),
         ),
@@ -51,7 +51,7 @@ class RecommendationCard extends StatelessWidget {
                 child: GestureDetector(
                   onTap: onCancel,
                   child: SvgPicture.asset(
-                    ImageStringConstants.cross,
+                    IconStringConstants.cross,
                     height: 24.h,
                     width: 24.w,
                   ),

@@ -121,7 +121,7 @@ class _ConnectionPageState extends State<ConnectionPage> {
                     ConnectionFilterPage.name,
                   ),
                   child: SvgPicture.asset(
-                    ImageStringConstants.filter,
+                    IconStringConstants.filter,
                   ),
                 ),
               ],

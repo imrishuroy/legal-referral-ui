@@ -26,7 +26,7 @@ class EducationTile extends StatelessWidget {
           child: SizedBox(
             height: 24.h,
             width: 24.w,
-            child: SvgPicture.asset(ImageStringConstants.school),
+            child: SvgPicture.asset(IconStringConstants.school),
           ),
         ),
         SizedBox(
@@ -85,7 +85,7 @@ class EducationTile extends StatelessWidget {
             icon: SizedBox(
               height: 24.h,
               width: 24.w,
-              child: SvgPicture.asset(ImageStringConstants.editIcon),
+              child: SvgPicture.asset(IconStringConstants.editIcon),
             ),
           ),
       ],

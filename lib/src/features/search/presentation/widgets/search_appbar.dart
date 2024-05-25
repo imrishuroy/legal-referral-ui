@@ -46,7 +46,7 @@ class _SearchAppBarState extends State<SearchAppBar> {
                   CustomIconButton(
                     onTap: () => context.pop(),
                     icon: SvgPicture.asset(
-                      ImageStringConstants.backArrow,
+                      IconStringConstants.backArrow,
                       fit: BoxFit.scaleDown,
                       colorFilter: const ColorFilter.mode(
                         Colors.black,

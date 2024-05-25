@@ -145,7 +145,7 @@ class _RecentWidgetState extends State<RecentWidget> {
                         style: Theme.of(context).textTheme.bodyLarge,
                       ),
                       leading: SvgPicture.asset(
-                        ImageStringConstants.historyIcon,
+                        IconStringConstants.historyIcon,
                       ),
                       dense: true,
                       contentPadding: EdgeInsets.zero,
@@ -186,7 +186,7 @@ class _RecentWidgetState extends State<RecentWidget> {
                             ),
                       ),
                       leading: SvgPicture.asset(
-                        ImageStringConstants.historyIcon,
+                        IconStringConstants.historyIcon,
                       ),
                       dense: true,
                       contentPadding: EdgeInsets.zero,
