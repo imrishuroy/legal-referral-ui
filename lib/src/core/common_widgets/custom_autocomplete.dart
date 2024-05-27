@@ -27,11 +27,7 @@ class CustomAutoComplete extends StatelessWidget {
           children: [
             Text(
               labelText,
-              style: TextStyle(
-                fontWeight: FontWeight.w400,
-                fontSize: 14.h,
-                color: LegalReferralColors.textBlack,
-              ),
+              style: Theme.of(context).textTheme.bodyLarge,
             ),
             SizedBox(height: 8.h),
             Autocomplete<String>(
@@ -42,6 +38,7 @@ class CustomAutoComplete extends StatelessWidget {
                 VoidCallback onFieldSubmitted,
               ) {
                 return TextFormField(
+                  cursorColor: LegalReferralColors.borderBlue300,
                   controller: controller,
                   focusNode: focusNode,
                   validator: validator,
@@ -50,10 +47,14 @@ class CustomAutoComplete extends StatelessWidget {
                     textEditingController.text = value;
                   },
                   decoration: InputDecoration(
+                    contentPadding: EdgeInsets.symmetric(
+                      vertical: 12.h,
+                      horizontal: 12.w,
+                    ),
                     hintText: hintText,
-                    hintStyle: const TextStyle(
+                    hintStyle: TextStyle(
                       fontWeight: FontWeight.w400,
-                      fontSize: 14,
+                      fontSize: 14.h,
                       color: LegalReferralColors.textgrey300,
                     ),
                     enabledBorder: OutlineInputBorder(
@@ -122,8 +123,10 @@ class CustomAutoComplete extends StatelessWidget {
                   child: Material(
                     elevation: 4,
                     child: SizedBox(
+                      height: 250,
                       width: constraints.maxWidth,
                       child: ListView.builder(
+                        padding: EdgeInsets.zero,
                         itemCount: options.length,
                         itemBuilder: (BuildContext context, int index) {
                           return ListTile(

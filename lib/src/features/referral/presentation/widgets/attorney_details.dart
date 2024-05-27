@@ -37,29 +37,31 @@ class AttorneyDetails extends StatelessWidget {
         SizedBox(
           width: 8.w,
         ),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            SizedBox(
-              width: 150.w,
-              child: Text(
-                attorneyName ?? '',
-                style: style ?? Theme.of(context).textTheme.labelMedium,
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(
+                width: 150.w,
+                child: Text(
+                  attorneyName ?? '',
+                  style: style ?? Theme.of(context).textTheme.labelMedium,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                ),
               ),
-            ),
-            SizedBox(
-              height: 2.h,
-            ),
-            Text(
-              attorneyType ?? '',
-              style: Theme.of(context)
-                  .textTheme
-                  .bodyLarge
-                  ?.copyWith(color: LegalReferralColors.textGrey500),
-            ),
-          ],
+              SizedBox(
+                height: 2.h,
+              ),
+              Text(
+                attorneyType ?? '',
+                style: Theme.of(context)
+                    .textTheme
+                    .bodyLarge
+                    ?.copyWith(color: LegalReferralColors.textGrey500),
+              ),
+            ],
+          ),
         ),
       ],
     );
