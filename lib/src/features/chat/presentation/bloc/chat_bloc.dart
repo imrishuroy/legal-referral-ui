@@ -8,6 +8,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
 import 'package:injectable/injectable.dart';
 import 'package:legal_referral_ui/src/core/config/config.dart';
+import 'package:legal_referral_ui/src/core/constants/constants.dart';
 import 'package:legal_referral_ui/src/features/auth/presentation/presentation.dart';
 import 'package:legal_referral_ui/src/features/chat/data/data.dart';
 import 'package:legal_referral_ui/src/features/chat/domain/domain.dart';
@@ -113,7 +114,7 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
 
     _channel = IOWebSocketChannel.connect(
       Uri.parse(
-        'ws://192.168.29.66:8080/api/chat/${state.currentChatRoom.roomId}',
+        'wss://${APIConstants.host}/api/chat/${state.currentChatRoom.roomId}',
       ),
       headers: {
         'Authorization': 'Bearer ${SharedPrefs.getToken()}',
