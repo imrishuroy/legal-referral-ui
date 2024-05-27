@@ -56,16 +56,15 @@ class _SearchAppBarState extends State<SearchAppBar> {
                   ),
                   SizedBox(width: 12.w),
                   Expanded(
-                    child: SizedBox(
-                      height: 50.h,
-                      child: CustomTextField(
-                        controller: widget.searchController,
-                        hintText: 'Search',
-                        onChanged: widget.onChanged,
-                        onSubmitted: widget.onSubmitted,
-                        labelText: '',
-                        showLabel: false,
-                      ),
+                    child: CustomTextField(
+                      borderColor: LegalReferralColors.borderGrey199,
+                      fillColor: LegalReferralColors.containerWhite400,
+                      controller: widget.searchController,
+                      hintText: 'Search',
+                      onChanged: widget.onChanged,
+                      onSubmitted: widget.onSubmitted,
+                      labelText: '',
+                      showLabel: false,
                     ),
                   ),
                 ],

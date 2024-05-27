@@ -42,7 +42,8 @@ class _RecentWidgetState extends State<RecentWidget> {
       builder: (context, state) {
         return Container(
           color: LegalReferralColors.containerWhite500,
-          padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
+          padding: EdgeInsets.symmetric(horizontal: 16.w,vertical: 8.h),
+          margin: EdgeInsets.symmetric(vertical: 8.h),
           child: SingleChildScrollView(
             child: Column(
               mainAxisSize: MainAxisSize.min,
@@ -75,7 +76,7 @@ class _RecentWidgetState extends State<RecentWidget> {
                   ),
                 if (state.searchUsersHistories.isNotEmpty)
                   SizedBox(
-                    height: 88.h,
+                    height: 110.h,
                     child: ListView.builder(
                       itemCount: state.searchUsersHistories.length,
                       shrinkWrap: true,
