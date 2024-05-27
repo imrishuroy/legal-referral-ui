@@ -15,6 +15,7 @@ class ConnectionTile extends StatelessWidget {
   final Connection? connection;
   @override
   Widget build(BuildContext context) {
+  
     return ListTile(
       contentPadding: EdgeInsets.symmetric(
         horizontal: 8.w,
