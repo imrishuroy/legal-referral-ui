@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -7,45 +9,38 @@ part 'internet_check_state.dart';
 
 class InternetCheckBloc extends Bloc<InternetCheckEvent, InternetCheckState> {
   InternetCheckBloc() : super(InternetCheckState.initial()) {
-    final connectivity = Connectivity();
-    on<CheckConnectivity>(
-      (event, emit) async {
-        final connectivityResult = await connectivity.checkConnectivity();
+    on<InternetCheckStream>(
+      (event, emit)  {
+        _streamSubscription = Connectivity().onConnectivityChanged.listen(
+          (List<ConnectivityResult> result) {
+            final hasInternet = result.first != ConnectivityResult.none;
 
-        _mapConnectivityResultToState(
-          connectivityResult,
-          emit,
-        );
-        connectivity.onConnectivityChanged.listen(
-          (result) {
-            _mapConnectivityResultToState(
-              result,
-              emit,
-            );
+            if (result.isEmpty || !hasInternet) {
+          
+              emit(
+                state.copyWith(
+                  internetStatus: InternetCheck.disconnected,
+                  hasInternet: hasInternet,
+                ),
+              );
+            } else {
+              
+              emit(
+                state.copyWith(
+                  internetStatus: InternetCheck.connected,
+                  hasInternet: hasInternet,
+                ),
+              );
+            }
           },
         );
       },
     );
   }
-
-  void _mapConnectivityResultToState(
-    List<ConnectivityResult> result,
-    Emitter<InternetCheckState> emit,
-  ) {
-    for (final connectivityresult in result) {
-      if (connectivityresult == ConnectivityResult.none) {
-        emit(
-          state.copyWith(
-            internetStatus: InternetCheck.disconnected,
-          ),
-        );
-      } else {
-        emit(
-          state.copyWith(
-            internetStatus: InternetCheck.connected,
-          ),
-        );
-      }
-    }
+  late StreamSubscription<List<ConnectivityResult>> _streamSubscription;
+  @override
+  Future<void> close() {
+    _streamSubscription.cancel();
+    return super.close();
   }
 }

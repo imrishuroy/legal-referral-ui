@@ -7,4 +7,4 @@ abstract class InternetCheckEvent extends Equatable {
   List<Object?> get props => [];
 }
 
-class CheckConnectivity extends InternetCheckEvent {}
+class InternetCheckStream extends InternetCheckEvent {}

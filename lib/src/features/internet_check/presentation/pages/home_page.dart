@@ -12,30 +12,36 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   @override
-  void initState() {
-    BlocProvider.of<InternetCheckBloc>(context).add(CheckConnectivity());
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: BlocConsumer<InternetCheckBloc, InternetCheckState>(
+      body: BlocListener<InternetCheckBloc, InternetCheckState>(
+        bloc: BlocProvider.of<InternetCheckBloc>(context),
         listener: (context, state) {
           if (state.internetStatus == InternetCheck.connected) {
+            if (Navigator.canPop(context)) {
+              Navigator.of(context).pop();
+            }
             ScaffoldMessenger.of(context).showSnackBar(
               const SnackBar(
-                content: Text('Connected...'),
+                backgroundColor: Colors.green,
+                content: Text('You are connected to the network'),
+              ),
+            );
+          } else if (state.internetStatus == InternetCheck.disconnected) {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => const ConnectionLostPage(),
+              ),
+            );
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(
+                backgroundColor: Colors.red,
+                content: Text('Check your internet connection'),
               ),
             );
           }
         },
-        builder: (context, state) {
-          if (state.internetStatus == InternetCheck.disconnected) {
-            return const ConnectionLostPage();
-          }
-          return const Center(child: Text('home'));
-        },
+        child: const SizedBox.shrink(),
       ),
     );
   }

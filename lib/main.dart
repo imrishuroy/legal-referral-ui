@@ -42,7 +42,7 @@ class MyApp extends StatelessWidget {
       splitScreenMode: true,
       builder: (context, child) {
         return BlocProvider<InternetCheckBloc>(
-          create: (context) => InternetCheckBloc()..add(CheckConnectivity()),
+          create: (context) => InternetCheckBloc()..add(InternetCheckStream()),
           child: MaterialApp.router(
             debugShowCheckedModeBanner: false,
             title: 'Legal Referral',
