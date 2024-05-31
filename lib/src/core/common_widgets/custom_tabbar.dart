@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:legal_referral_ui/src/core/config/config.dart';
 import 'package:legal_referral_ui/src/core/constants/colors.dart';
 
 class CustomTabView extends StatefulWidget {
@@ -34,7 +33,6 @@ class _CustomTabViewState extends State<CustomTabView>
 
   @override
   Widget build(BuildContext context) {
-    AppLogger.info('initialIndex ------: ${widget.initialIndex}');
     return DefaultTabController(
       length: 2,
       child: Scaffold(
