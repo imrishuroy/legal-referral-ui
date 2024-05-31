@@ -13,15 +13,15 @@ class ReferralUseCases {
 
   final ReferralRepository _referralRepository;
 
-  Future<Either<Failure, String?>> addReferral({
-    required AddReferralReq referral,
+  Future<Either<Failure, String?>> createReferral({
+    required CreateReferral referral,
   }) async {
-    return _referralRepository.addReferral(
+    return _referralRepository.createReferral(
       referral: referral,
     );
   }
 
-  Future<Either<Failure, List<Referral?>>> fetchReferrals({
+  Future<Either<Failure, List<Project?>>> fetchReferrals({
     required String userId,
   }) async {
     return _referralRepository.fetchReferrals(
@@ -30,14 +30,14 @@ class ReferralUseCases {
   }
 
   Future<Either<Failure, List<AppUser?>>> fetchReferredUsers({
-    required int referralId,
+    required int projectId,
   }) async {
     return _referralRepository.fetchReferredUsers(
-      referralId: referralId,
+      projectId: projectId,
     );
   }
 
-  Future<Either<Failure, List<Proposal?>>> fetchProposals({
+  Future<Either<Failure, List<Project?>>> fetchProposals({
     required String userId,
   }) async {
     return _referralRepository.fetchProposals(
@@ -45,31 +45,31 @@ class ReferralUseCases {
     );
   }
 
-  Future<Either<Failure, ProposalReq?>> fetchProposalByReferralId({
+  Future<Either<Failure, Proposal?>> fetchProposalByReferralId({
     required String userId,
-    required int referralId,
+    required int projectId,
   }) async {
     return _referralRepository.fetchProposalByReferralId(
       userId: userId,
-      referralId: referralId,
+      projectId: projectId,
     );
   }
 
-  Future<Either<Failure, ProposalReq?>> createProposal({
-    required ProposalReq proposalReq,
+  Future<Either<Failure, Proposal?>> createProposal({
+    required Proposal proposal,
   }) async {
     return _referralRepository.createProposal(
-      proposalReq: proposalReq,
+      proposal: proposal,
     );
   }
 
-  Future<Either<Failure, ProposalReq?>> updateProposal({
+  Future<Either<Failure, Proposal?>> updateProposal({
     required int proposalId,
-    required ProposalReq proposalReq,
+    required Proposal proposal,
   }) async {
     return _referralRepository.updateProposal(
       proposalId: proposalId,
-      proposalReq: proposalReq,
+      proposal: proposal,
     );
   }
 
@@ -162,6 +162,28 @@ class ReferralUseCases {
     return _referralRepository.fetchCompletedProjects(
       userId: userId,
       role: role,
+    );
+  }
+
+  Future<Either<Failure, List<AppUser?>>> fetchConnectedUsers({
+    required String userId,
+    required int limit,
+    required int offset,
+  }) async {
+    return _referralRepository.fetchConnectedUsers(
+      userId: userId,
+      limit: limit,
+      offset: offset,
+    );
+  }
+
+  Future<Either<Failure, List<AppUser?>>> fetchUsers({
+    required int limit,
+    required int offset,
+  }) async {
+    return _referralRepository.fetchUsers(
+      limit: limit,
+      offset: offset,
     );
   }
 }

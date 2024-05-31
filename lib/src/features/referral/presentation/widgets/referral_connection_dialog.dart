@@ -14,10 +14,12 @@ import 'package:toastification/toastification.dart';
 class ReferralConnectionsDialoag extends StatefulWidget {
   const ReferralConnectionsDialoag({
     required this.addReferralReq,
+    required this.referConnection,
     super.key,
   });
 
-  final AddReferralReq addReferralReq;
+  final CreateReferral addReferralReq;
+  final bool referConnection;
 
   @override
   State<ReferralConnectionsDialoag> createState() =>
@@ -34,12 +36,25 @@ class _ReferralConnectionsDialoagState
     final userId = _authBloc.state.user?.userId;
 
     if (userId != null) {
-      _refferralBloc.add(
-        ConnectionsFetched(
-          userId: userId,
-        ),
-      );
+      if (widget.referConnection) {
+        _refferralBloc.add(
+          UserConnectionsFetched(
+            userId: userId,
+            limit: 20,
+            offset: 1,
+          ),
+        );
+      } else {
+        _refferralBloc.add(
+          UsersFetched(
+            userId: userId,
+            limit: 20,
+            offset: 1,
+          ),
+        );
+      }
     }
+
     super.initState();
   }
 
@@ -59,6 +74,7 @@ class _ReferralConnectionsDialoagState
           context.pop();
           context.pushReplacementNamed(
             ReferralPage.name,
+            extra: 1,
           );
         } else if (state.status == ReferralStatus.failure) {
           ToastUtil.showToast(
@@ -74,7 +90,7 @@ class _ReferralConnectionsDialoagState
           return const CustomLoadingIndicator();
         }
 
-        final connections = state.connections;
+        final users = state.users;
 
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -98,18 +114,13 @@ class _ReferralConnectionsDialoagState
             ),
             SizedBox(height: 4.h),
             CheckboxListTile(
-              value: state.selectedConnections.length == connections.length,
+              value: state.selectedUsers.length == users.length,
               checkColor: LegalReferralColors.textBlack,
               fillColor: MaterialStateProperty.all(Colors.transparent),
               onChanged: (value) {
                 _refferralBloc.add(
-                  AllConnectionsSelected(),
+                  AllUsersSelected(),
                 );
-                // if (value == true) {
-                //   _refferralBloc.add(
-                //     AllConnectionsSelected(),
-                //   );
-                // }
               },
               title: Text(
                 'Select all',
@@ -121,17 +132,16 @@ class _ReferralConnectionsDialoagState
             SizedBox(height: 4.h),
             Expanded(
               child: ListView.separated(
-                itemCount: connections.length,
+                itemCount: users.length,
                 itemBuilder: (context, index) {
-                  final connection = connections[index];
-                  final isSelected =
-                      state.selectedConnections.contains(connection);
+                  final user = users[index];
+                  final isSelected = state.selectedUsers.contains(user);
                   return GestureDetector(
                     onTap: () {
-                      if (connection != null) {
+                      if (user != null) {
                         _refferralBloc.add(
-                          ConnectionSelected(
-                            connection: connection,
+                          UserSelected(
+                            user: user,
                           ),
                         );
                       }
@@ -147,7 +157,7 @@ class _ReferralConnectionsDialoagState
                             child: isSelected
                                 ? const CircularCheckBox()
                                 : CustomAvatar(
-                                    imageUrl: connection?.avatarUrl,
+                                    imageUrl: user?.avatarUrl,
                                     radius: 24.r,
                                   ),
                           ),
@@ -155,7 +165,7 @@ class _ReferralConnectionsDialoagState
                             width: 8.w,
                           ),
                           Text(
-                            '${connection?.firstName} ${connection?.lastName}',
+                            '${user?.firstName} ${user?.lastName}',
                             style: textTheme.titleMedium,
                           ),
                         ],
@@ -172,29 +182,21 @@ class _ReferralConnectionsDialoagState
             CustomElevatedButton(
               text: 'Post referral',
               onTap: () {
-                final selectedConnections = state.selectedConnections;
-                if (selectedConnections.isNotEmpty) {
-                  final currentUserId = _authBloc.state.user?.userId;
-
-                  final connectionUserIds =
-                      selectedConnections.map((connection) {
-                    // Check if senderId is equal to currentUserId
-
-                    if (connection?.senderId == currentUserId) {
-                      // If so, use recipientId
-                      return connection?.recipientId ?? '';
-                    } else {
-                      // Otherwise, use senderId
-                      return connection?.senderId ?? '';
+                final selectedUsers = state.selectedUsers;
+                if (selectedUsers.isNotEmpty) {
+                  final selectedUsersIds = <String>[];
+                  for (final user in selectedUsers) {
+                    if (user?.userId != null) {
+                      selectedUsersIds.add(user!.userId!);
                     }
-                  }).toList();
+                  }
 
                   final referral = widget.addReferralReq.copyWith(
-                    referredUserIds: connectionUserIds,
+                    referredUserIds: selectedUsersIds,
                   );
 
                   _refferralBloc.add(
-                    ReferralAdded(
+                    ReferralCreated(
                       referral: referral,
                     ),
                   );

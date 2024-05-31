@@ -9,6 +9,7 @@ export 'custom_loading_indicator.dart';
 export 'custom_network_image.dart';
 export 'custom_shimmer.dart';
 export 'custom_switch.dart';
+export 'custom_tabbar.dart';
 export 'custom_textfield.dart';
 export 'horizontal_icon_text.dart';
 export 'root_layout.dart';

@@ -11,15 +11,14 @@ class EmptyItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Padding(
-        padding: EdgeInsets.symmetric(
-          vertical: 20.h,
-        ),
-        child: Text(
-          message,
-          style: Theme.of(context).textTheme.labelMedium,
-        ),
+    return Padding(
+      padding: EdgeInsets.symmetric(
+        vertical: 20.h,
+        horizontal: 16.w,
+      ),
+      child: Text(
+        message,
+        style: Theme.of(context).textTheme.bodyLarge,
       ),
     );
   }

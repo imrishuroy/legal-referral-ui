@@ -59,6 +59,8 @@ class DioExceptions implements Exception {
         return 'Forbidden';
       case 404:
         return error['message'];
+      case 409:
+        return error['message'];
       case 500:
         return error['message'];
       case 502:

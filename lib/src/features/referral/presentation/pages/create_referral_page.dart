@@ -13,15 +13,15 @@ import 'package:legal_referral_ui/src/features/referral/data/data.dart';
 import 'package:legal_referral_ui/src/features/referral/presentation/presentation.dart';
 import 'package:toastification/toastification.dart';
 
-class AddReferralPage extends StatefulWidget {
-  const AddReferralPage({super.key});
-  static const String name = 'AddReferralPage';
+class CreateReferralPage extends StatefulWidget {
+  const CreateReferralPage({super.key});
+  static const String name = 'CreateReferralPage';
 
   @override
-  State<AddReferralPage> createState() => _AddReferralPageState();
+  State<CreateReferralPage> createState() => _CreateReferralPageState();
 }
 
-class _AddReferralPageState extends State<AddReferralPage> {
+class _CreateReferralPageState extends State<CreateReferralPage> {
   final _authBloc = getIt<AuthBloc>();
   final _referralBloc = getIt<ReferralBloc>();
   final _formKey = GlobalKey<FormState>();
@@ -109,11 +109,13 @@ class _AddReferralPageState extends State<AddReferralPage> {
                           validator: Validator.validateReferralDescription,
                         ),
                         CheckboxListTile(
-                          value: true,
+                          value: state.referConnection,
                           checkColor: LegalReferralColors.textBlack,
                           fillColor:
                               MaterialStateProperty.all(Colors.transparent),
-                          onChanged: (value) {},
+                          onChanged: (value) => _referralBloc.add(
+                            const ReferConnectionToggled(),
+                          ),
                           title: Text(
                             'Refer connections only',
                             style: textTheme.bodyLarge,
@@ -123,7 +125,10 @@ class _AddReferralPageState extends State<AddReferralPage> {
                         ),
                         CustomOutlinedButton(
                           text: 'Select Connection',
-                          onPressed: () => _showReferralSheet(context),
+                          onPressed: () => _showReferralSheet(
+                            context: context,
+                            referConnection: state.referConnection,
+                          ),
                           textColor: LegalReferralColors.textBlue100,
                           borderColor: LegalReferralColors.borderBlue100,
                         ),
@@ -139,14 +144,17 @@ class _AddReferralPageState extends State<AddReferralPage> {
     );
   }
 
-  void _showReferralSheet(context) {
+  void _showReferralSheet({
+    required BuildContext context,
+    required bool referConnection,
+  }) {
     if (_formKey.currentState!.validate()) {
       CustomBottomSheet.show(
         context: context,
         child: SizedBox(
           height: 624.h,
           child: ReferralConnectionsDialoag(
-            addReferralReq: AddReferralReq(
+            addReferralReq: CreateReferral(
               title: _titleController.text,
               caseDescription: _caseDescriptionController.text,
               practiceArea: _practiceAreaController.text,
@@ -154,6 +162,7 @@ class _AddReferralPageState extends State<AddReferralPage> {
               referrerUserId: '${_authBloc.state.user?.userId}',
               referredUserIds: [],
             ),
+            referConnection: referConnection,
           ),
         ),
       );

@@ -15,10 +15,10 @@ import 'package:toastification/toastification.dart';
 class ProposalDetailsPage extends StatefulWidget {
   const ProposalDetailsPage({
     super.key,
-    this.proposal,
+    this.project,
   });
 
-  final Proposal? proposal;
+  final Project? project;
   static const String name = 'ProposalDetailsPage';
 
   @override
@@ -34,12 +34,12 @@ class _ProposalDetailsPageState extends State<ProposalDetailsPage> {
   @override
   void initState() {
     final userId = _authBloc.state.user?.userId;
-    final referralId = widget.proposal?.referralId;
-    if (userId != null && referralId != null) {
+    final projectId = widget.project?.projectId;
+    if (userId != null && projectId != null) {
       _referralBloc.add(
         ProposalFetched(
           userId: userId,
-          referralId: referralId,
+          projectId: projectId,
         ),
       );
     }
@@ -55,7 +55,7 @@ class _ProposalDetailsPageState extends State<ProposalDetailsPage> {
         elevation: 4.h,
         shadowColor: Colors.grey[100],
         title: Text(
-          widget.proposal?.title ?? '',
+          widget.project?.title ?? '',
           style: textTheme.headlineLarge,
         ),
       ),
@@ -75,9 +75,9 @@ class _ProposalDetailsPageState extends State<ProposalDetailsPage> {
           if (state.status == ReferralStatus.loading) {
             return const CustomLoadingIndicator();
           }
-          _proposalController.text = state.proposalReq?.proposal ?? '';
-          final name = '${widget.proposal?.referrerFirstName ?? ''} '
-              '${widget.proposal?.referrerLastName ?? ''}';
+          _proposalController.text = state.proposal?.proposal ?? '';
+          final name = '${widget.project?.user?.firstName ?? ''} '
+              '${widget.project?.user?.lastName ?? ''}';
           return SingleChildScrollView(
             child: Form(
               key: _formKey,
@@ -103,10 +103,9 @@ class _ProposalDetailsPageState extends State<ProposalDetailsPage> {
                               child: AttorneyDetails(
                                 attorneyName: name,
                                 attorneyType:
-                                    '${widget.proposal?.referrerPracticeArea} '
+                                    '${widget.project?.user?.practiceArea} '
                                     '• 1st',
-                                profileImage:
-                                    widget.proposal?.referrerAvatarUrl,
+                                profileImage: widget.project?.user?.avatarUrl,
                               ),
                             ),
                             Expanded(
@@ -130,12 +129,12 @@ class _ProposalDetailsPageState extends State<ProposalDetailsPage> {
                           children: [
                             HorizontalIconText(
                               icon: IconStringConstants.location,
-                              title: widget.proposal?.preferredPracticeLocation,
+                              title: widget.project?.practiceLocation,
                             ),
                             HorizontalIconText(
                               icon: IconStringConstants.calender,
                               title: DateTimeUtil.formatReferralDate(
-                                widget.proposal?.createdAt,
+                                widget.project?.createdAt,
                               ),
                             ),
                           ],
@@ -143,7 +142,7 @@ class _ProposalDetailsPageState extends State<ProposalDetailsPage> {
                         SizedBox(height: 2.h),
                         HorizontalIconText(
                           icon: IconStringConstants.bag,
-                          title: widget.proposal?.preferredPracticeArea,
+                          title: widget.project?.practiceArea,
                         ),
                         SizedBox(
                           height: 10.h,
@@ -155,7 +154,7 @@ class _ProposalDetailsPageState extends State<ProposalDetailsPage> {
                           height: 12.h,
                         ),
                         Text(
-                          widget.proposal?.caseDescription ?? '',
+                          widget.project?.description ?? '',
                           style: textTheme.bodyLarge,
                         ),
                         SizedBox(
@@ -212,20 +211,18 @@ class _ProposalDetailsPageState extends State<ProposalDetailsPage> {
                           ),
                         if (!state.isProposalEditing)
                           Text(
-                            state.proposalReq?.proposal ?? '',
+                            state.proposal?.proposal ?? '',
                             style: textTheme.bodyLarge,
                           ),
-                        if (state.proposalReq == null ||
-                            state.isProposalEditing)
+                        if (state.proposal == null || state.isProposalEditing)
                           SizedBox(
                             height: 20.h,
                           ),
-                        if (state.proposalReq == null ||
-                            state.isProposalEditing)
+                        if (state.proposal == null || state.isProposalEditing)
                           CustomElevatedButton(
                             onTap: () => _sendProposal(
-                              isUpdate: state.proposalReq != null,
-                              proposalId: state.proposalReq?.proposalId,
+                              isUpdate: state.proposal != null,
+                              proposalId: state.proposal?.proposalId,
                             ),
                             text: 'Send Proposal',
                           ),
@@ -247,25 +244,25 @@ class _ProposalDetailsPageState extends State<ProposalDetailsPage> {
   }) {
     if (_formKey.currentState!.validate()) {
       final userId = _authBloc.state.user?.userId;
-      final referralId = widget.proposal?.referralId;
-      if (userId != null && referralId != null) {
-        final proposalReq = ProposalReq(
+      final projectId = widget.project?.projectId;
+      if (userId != null && projectId != null) {
+        final proposalReq = Proposal(
           proposalId: proposalId,
           userId: userId,
-          referralId: referralId,
+          referralId: projectId,
           proposal: _proposalController.text,
-          title: widget.proposal?.title,
+          title: widget.project?.title,
         );
         if (isUpdate && proposalId != null) {
           _referralBloc.add(
             ProposalUpdated(
               proposalId: proposalId,
-              proposalReq: proposalReq,
+              proposal: proposalReq,
             ),
           );
         } else {
           _referralBloc.add(
-            ProposalSent(proposalReq: proposalReq),
+            ProposalSent(proposal: proposalReq),
           );
         }
       }
@@ -275,7 +272,7 @@ class _ProposalDetailsPageState extends State<ProposalDetailsPage> {
   void _onTapMessage() {
     final authBloc = getIt<AuthBloc>();
     final currentUserId = authBloc.state.user?.userId;
-    final referrerUserId = widget.proposal?.referrerUserId;
+    final referrerUserId = widget.project?.user?.userId;
     if (currentUserId == null || referrerUserId == null) {
       return;
     }

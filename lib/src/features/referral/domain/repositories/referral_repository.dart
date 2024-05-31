@@ -5,34 +5,34 @@ import 'package:legal_referral_ui/src/features/referral/data/data.dart';
 import 'package:legal_referral_ui/src/features/referral/domain/domain.dart';
 
 abstract class ReferralRepository {
-  Future<Either<Failure, String?>> addReferral({
-    required AddReferralReq referral,
+  Future<Either<Failure, String?>> createReferral({
+    required CreateReferral referral,
   });
 
-  Future<Either<Failure, List<Referral?>>> fetchReferrals({
+  Future<Either<Failure, List<Project?>>> fetchReferrals({
     required String userId,
   });
 
   Future<Either<Failure, List<AppUser?>>> fetchReferredUsers({
-    required int referralId,
+    required int projectId,
   });
 
-  Future<Either<Failure, List<Proposal?>>> fetchProposals({
+  Future<Either<Failure, List<Project?>>> fetchProposals({
     required String userId,
   });
 
-  Future<Either<Failure, ProposalReq?>> fetchProposalByReferralId({
+  Future<Either<Failure, Proposal?>> fetchProposalByReferralId({
     required String userId,
-    required int referralId,
+    required int projectId,
   });
 
-  Future<Either<Failure, ProposalReq?>> createProposal({
-    required ProposalReq proposalReq,
+  Future<Either<Failure, Proposal?>> createProposal({
+    required Proposal proposal,
   });
 
-  Future<Either<Failure, ProposalReq?>> updateProposal({
+  Future<Either<Failure, Proposal?>> updateProposal({
     required int proposalId,
-    required ProposalReq proposalReq,
+    required Proposal proposal,
   });
 
   Future<Either<Failure, Project?>> awardProject({
@@ -79,5 +79,16 @@ abstract class ReferralRepository {
   Future<Either<Failure, List<Project?>>> fetchCompletedProjects({
     required String userId,
     required String role,
+  });
+
+  Future<Either<Failure, List<AppUser?>>> fetchConnectedUsers({
+    required String userId,
+    required int limit,
+    required int offset,
+  });
+
+  Future<Either<Failure, List<AppUser?>>> fetchUsers({
+    required int limit,
+    required int offset,
   });
 }

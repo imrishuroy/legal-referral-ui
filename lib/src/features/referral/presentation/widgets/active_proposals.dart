@@ -45,34 +45,35 @@ class _ActiveProposalsState extends State<ActiveProposals> {
         }
       },
       builder: (context, state) {
-        final proposals = state.proposals;
+        final proposalsProjects = state.proposalsProjects;
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             ReferralSectionTitle(
               title: 'Active Proposals',
-              count: state.proposals.length,
+              count: state.proposalsProjects.length,
             ),
             SizedBox(
               height: 12.h,
             ),
             if (state.status == ReferralStatus.loading) const ProposalShimmer(),
-            if (state.status == ReferralStatus.success && proposals.isEmpty)
+            if (state.status == ReferralStatus.success &&
+                proposalsProjects.isEmpty)
               const EmptyItem(message: 'No active proposals'),
             if (state.status == ReferralStatus.success)
               ListView.separated(
                 shrinkWrap: true,
-                itemCount: proposals.length,
+                itemCount: proposalsProjects.length,
                 physics: const NeverScrollableScrollPhysics(),
                 itemBuilder: (context, index) {
-                  final proposal = proposals[index];
+                  final project = proposalsProjects[index];
                   return GestureDetector(
                     onTap: () => context.pushNamed(
                       ProposalDetailsPage.name,
-                      extra: proposal,
+                      extra: project,
                     ),
                     child: ActiveProposalCard(
-                      proposal: proposal,
+                      proposal: project,
                     ),
                   );
                 },

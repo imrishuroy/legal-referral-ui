@@ -16,9 +16,10 @@ import 'package:toastification/toastification.dart';
 class ReferralDetailPage extends StatelessWidget {
   const ReferralDetailPage({
     super.key,
-    this.referral,
+    this.project,
   });
-  final Referral? referral;
+  final Project? project;
+
   static const String name = 'ReferralDetailPage';
 
   @override
@@ -27,7 +28,7 @@ class ReferralDetailPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          referral?.title ?? '',
+          project?.title ?? '',
           style: textTheme.headlineLarge,
         ),
       ),
@@ -45,7 +46,7 @@ class ReferralDetailPage extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   ReferralCard(
-                    referral: referral,
+                    referral: project,
                   ),
                   const Divider(
                     height: 1,
@@ -56,7 +57,7 @@ class ReferralDetailPage extends StatelessWidget {
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 12.w),
                     child: Text(
-                      referral?.caseDescription ?? '',
+                      project?.description ?? '',
                       style: textTheme.bodyLarge?.copyWith(
                         color: Colors.black,
                       ),
@@ -71,9 +72,9 @@ class ReferralDetailPage extends StatelessWidget {
             SizedBox(
               height: 24.h,
             ),
-            if (referral?.referralId != null)
+            if (project?.projectId != null)
               _ActiveReferredUsers(
-                referral: referral,
+                project: project,
               ),
           ],
         ),
@@ -84,10 +85,10 @@ class ReferralDetailPage extends StatelessWidget {
 
 class _ActiveReferredUsers extends StatefulWidget {
   const _ActiveReferredUsers({
-    required this.referral,
+    required this.project,
   });
 
-  final Referral? referral;
+  final Project? project;
 
   @override
   State<_ActiveReferredUsers> createState() => _ActiveReferredUsersState();
@@ -98,10 +99,10 @@ class _ActiveReferredUsersState extends State<_ActiveReferredUsers> {
 
   @override
   void initState() {
-    final referralId = widget.referral?.referralId;
-    if (referralId != null) {
+    final projectId = widget.project?.projectId;
+    if (projectId != null) {
       _referralBloc.add(
-        ReferredUsersFetched(referralId: referralId),
+        ReferredUsersFetched(projectId: projectId),
       );
     }
 
@@ -121,7 +122,7 @@ class _ActiveReferredUsersState extends State<_ActiveReferredUsers> {
             type: ToastificationType.error,
           );
         } else if (state.status == ReferralStatus.awardProject) {
-          context.goNamed(ReferralPage.name);
+          context.pushReplacementNamed(ReferralPage.name, extra: 1);
         }
       },
       builder: (context, state) {
@@ -161,12 +162,13 @@ class _ActiveReferredUsersState extends State<_ActiveReferredUsers> {
                 physics: const NeverScrollableScrollPhysics(),
                 itemBuilder: (context, index) {
                   final referredUser = state.referredUsers[index];
+                  AppLogger.info('Referred User: $referredUser');
                   return GestureDetector(
                     onTap: () => context.pushNamed(
                       ReferralProposalPage.name,
                       extra: ReferralProposalPageArgs(
                         referredUser: referredUser,
-                        referral: widget.referral,
+                        project: widget.project,
                       ),
                     ),
                     child: ActiveReferralCard(
@@ -175,8 +177,11 @@ class _ActiveReferredUsersState extends State<_ActiveReferredUsers> {
                       attorneyType: referredUser?.practiceArea ?? '',
                       profileImage: referredUser?.avatarUrl,
                       radius: 28.r,
-                      onAward: _projectAwarded,
-                      onMessage: () => _onTapMessage(referredUser?.userId),
+                      onAward: () =>
+                          _projectAwarded(referredUserId: referredUser?.userId),
+                      onMessage: () => _onTapMessage(
+                        referredUser?.userId,
+                      ),
                     ),
                   );
                 },
@@ -190,21 +195,16 @@ class _ActiveReferredUsersState extends State<_ActiveReferredUsers> {
     );
   }
 
-  void _projectAwarded() {
-    final referralId = widget.referral?.referralId;
-    final referredUserId = widget.referral?.referredUserId;
-    final referrerUserId = widget.referral?.referrerUserId;
+  void _projectAwarded({required String? referredUserId}) {
+    final projectId = widget.project?.projectId;
 
-    if (referralId == null ||
-        referredUserId == null ||
-        referrerUserId == null) {
+    if (projectId == null || referredUserId == null) {
       return;
     }
 
     final req = AwardProjectReq(
-      referralId: referralId,
+      projectId: projectId,
       referredUserId: referredUserId,
-      referrerUserId: referrerUserId,
     );
 
     _referralBloc.add(
