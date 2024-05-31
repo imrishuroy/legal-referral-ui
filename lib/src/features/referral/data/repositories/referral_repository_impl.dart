@@ -16,8 +16,8 @@ class ReferralRepositoryImpl extends ReferralRepository {
   final ReferralDataSource _referralDataSource;
 
   @override
-  Future<Either<Failure, String?>> addReferral({
-    required AddReferralReq referral,
+  Future<Either<Failure, String?>> createReferral({
+    required CreateReferral referral,
   }) async {
     try {
       final res = await _referralDataSource.addReferral(
@@ -36,7 +36,7 @@ class ReferralRepositoryImpl extends ReferralRepository {
   }
 
   @override
-  Future<Either<Failure, List<Referral?>>> fetchReferrals({
+  Future<Either<Failure, List<Project?>>> fetchReferrals({
     required String userId,
   }) async {
     try {
@@ -57,11 +57,11 @@ class ReferralRepositoryImpl extends ReferralRepository {
 
   @override
   Future<Either<Failure, List<AppUser?>>> fetchReferredUsers({
-    required int referralId,
+    required int projectId,
   }) async {
     try {
       final res = await _referralDataSource.fetchReferredUsers(
-        referralId: referralId,
+        projectId: projectId,
       );
       return Right(res);
     } on DioException catch (error) {
@@ -76,7 +76,7 @@ class ReferralRepositoryImpl extends ReferralRepository {
   }
 
   @override
-  Future<Either<Failure, List<Proposal?>>> fetchProposals({
+  Future<Either<Failure, List<Project?>>> fetchProposals({
     required String userId,
   }) async {
     try {
@@ -96,12 +96,12 @@ class ReferralRepositoryImpl extends ReferralRepository {
   }
 
   @override
-  Future<Either<Failure, ProposalReq?>> createProposal({
-    required ProposalReq proposalReq,
+  Future<Either<Failure, Proposal?>> createProposal({
+    required Proposal proposal,
   }) async {
     try {
       final res = await _referralDataSource.createProposal(
-        proposalReq: proposalReq,
+        proposal: proposal,
       );
       return Right(res);
     } on DioException catch (error) {
@@ -116,14 +116,14 @@ class ReferralRepositoryImpl extends ReferralRepository {
   }
 
   @override
-  Future<Either<Failure, ProposalReq?>> fetchProposalByReferralId({
+  Future<Either<Failure, Proposal?>> fetchProposalByReferralId({
     required String userId,
-    required int referralId,
+    required int projectId,
   }) async {
     try {
       final res = await _referralDataSource.fetchProposalByReferralId(
         userId: userId,
-        referralId: referralId,
+        projectId: projectId,
       );
       return Right(res);
     } on DioException catch (error) {
@@ -138,14 +138,14 @@ class ReferralRepositoryImpl extends ReferralRepository {
   }
 
   @override
-  Future<Either<Failure, ProposalReq?>> updateProposal({
+  Future<Either<Failure, Proposal?>> updateProposal({
     required int proposalId,
-    required ProposalReq proposalReq,
+    required Proposal proposal,
   }) async {
     try {
       final res = await _referralDataSource.updateProposal(
         proposalId: proposalId,
-        proposalReq: proposalReq,
+        project: proposal,
       );
       return Right(res);
     } on DioException catch (error) {
@@ -370,6 +370,52 @@ class ReferralRepositoryImpl extends ReferralRepository {
       final res = await _referralDataSource.fetchCompletedProjects(
         userId: userId,
         role: role,
+      );
+      return Right(res);
+    } on DioException catch (error) {
+      final dioError = DioExceptions.fromDioError(error);
+      return Left(
+        Failure(
+          statusCode: dioError.statusCode,
+          message: dioError.message,
+        ),
+      );
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<AppUser?>>> fetchConnectedUsers({
+    required String userId,
+    required int limit,
+    required int offset,
+  }) async {
+    try {
+      final res = await _referralDataSource.fetchConnectedUsers(
+        userId: userId,
+        limit: limit,
+        offset: offset,
+      );
+      return Right(res);
+    } on DioException catch (error) {
+      final dioError = DioExceptions.fromDioError(error);
+      return Left(
+        Failure(
+          statusCode: dioError.statusCode,
+          message: dioError.message,
+        ),
+      );
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<AppUser?>>> fetchUsers({
+    required int limit,
+    required int offset,
+  }) async {
+    try {
+      final res = await _referralDataSource.fetchUsers(
+        limit: limit,
+        offset: offset,
       );
       return Right(res);
     } on DioException catch (error) {

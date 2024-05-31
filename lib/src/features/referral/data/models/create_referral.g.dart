@@ -1,13 +1,13 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'add_referral_req.dart';
+part of 'create_referral.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$AddReferralReqImpl _$$AddReferralReqImplFromJson(Map<String, dynamic> json) =>
-    _$AddReferralReqImpl(
+_$CreateReferralImpl _$$CreateReferralImplFromJson(Map<String, dynamic> json) =>
+    _$CreateReferralImpl(
       title: json['title'] as String,
       caseDescription: json['case_description'] as String,
       practiceArea: json['preferred_practice_area'] as String,
@@ -18,8 +18,8 @@ _$AddReferralReqImpl _$$AddReferralReqImplFromJson(Map<String, dynamic> json) =>
           .toList(),
     );
 
-Map<String, dynamic> _$$AddReferralReqImplToJson(
-        _$AddReferralReqImpl instance) =>
+Map<String, dynamic> _$$CreateReferralImplToJson(
+        _$CreateReferralImpl instance) =>
     <String, dynamic>{
       'title': instance.title,
       'case_description': instance.caseDescription,

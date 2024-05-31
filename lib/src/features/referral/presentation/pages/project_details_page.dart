@@ -140,8 +140,11 @@ class _ProjectDetailsPageState extends State<ProjectDetailsPage> {
                         SizedBox(
                           height: 16.h,
                         ),
-                        if (widget.args.isReferrer &&
-                            project?.status == ProjectStatus.completeInitiated)
+                        if (widget.args.project?.status ==
+                                ProjectStatus.started ||
+                            (widget.args.isReferrer &&
+                                widget.args.project?.status ==
+                                    ProjectStatus.completeInitiated))
                           Column(
                             children: [
                               CustomElevatedButton(

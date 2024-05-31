@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
 import 'package:legal_referral_ui/src/core/config/config.dart';
 import 'package:legal_referral_ui/src/core/utils/utils.dart';
 import 'package:legal_referral_ui/src/features/auth/presentation/presentation.dart';
@@ -8,7 +7,12 @@ import 'package:legal_referral_ui/src/features/referral/presentation/presentatio
 import 'package:toastification/toastification.dart';
 
 class AwardedProjects extends StatefulWidget {
-  const AwardedProjects({super.key});
+  const AwardedProjects({
+    required this.onRefresh,
+    super.key,
+  });
+
+  final VoidCallback onRefresh;
 
   @override
   State<AwardedProjects> createState() => _AwardedProjectsState();
@@ -43,9 +47,8 @@ class _AwardedProjectsState extends State<AwardedProjects> {
             description: state.failure?.message ?? 'something went wrong',
             type: ToastificationType.error,
           );
-        } else if (state.status == ReferralStatus.success) {
-          // to refresh the page
-          context.pushReplacementNamed(ReferralPage.name);
+        } else if (state.status == ReferralStatus.success && state.isReset) {
+          widget.onRefresh();
         }
       },
       builder: (context, state) {

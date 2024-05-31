@@ -34,7 +34,7 @@ class _NetworkPageState extends State<NetworkPage> {
                 ),
                 child: CustomTextField(
                   controller: _searchController,
-                  hintText: 'search',
+                  hintText: 'Search',
                   labelText: '',
                   showLabel: false,
                   borderColor: LegalReferralColors.borderGrey199,

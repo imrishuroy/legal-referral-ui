@@ -473,9 +473,11 @@ class AppRouter {
         name: ReferralPage.name,
         parentNavigatorKey: _rootNavigatorKey,
         pageBuilder: (context, state) => CustomTransitionPage(
-          child: const RootLayout(
+          child: RootLayout(
             currentIndex: 1,
-            child: ReferralPage(),
+            child: ReferralPage(
+              tabIndex: state.extra as int?,
+            ),
           ),
           transitionDuration: const Duration(
             milliseconds: _routeTransitionDuration,
@@ -538,7 +540,7 @@ class AppRouter {
             parentNavigatorKey: _rootNavigatorKey,
             pageBuilder: (context, state) => CustomTransitionPage(
               child: ReferralDetailPage(
-                referral: state.extra as Referral?,
+                project: state.extra as Project?,
               ),
               transitionDuration: const Duration(
                 milliseconds: _routeTransitionDuration,
@@ -570,7 +572,7 @@ class AppRouter {
             parentNavigatorKey: _rootNavigatorKey,
             pageBuilder: (context, state) => CustomTransitionPage(
               child: ProposalDetailsPage(
-                proposal: state.extra as Proposal?,
+                project: state.extra as Project?,
               ),
               transitionDuration: const Duration(
                 milliseconds: _routeTransitionDuration,
@@ -583,10 +585,10 @@ class AppRouter {
       ),
       GoRoute(
         path: '/add-referral',
-        name: AddReferralPage.name,
+        name: CreateReferralPage.name,
         parentNavigatorKey: _rootNavigatorKey,
         pageBuilder: (context, state) => CustomTransitionPage(
-          child: const AddReferralPage(),
+          child: const CreateReferralPage(),
           transitionDuration: const Duration(
             milliseconds: _routeTransitionDuration,
           ),
@@ -604,7 +606,7 @@ class AppRouter {
         pageBuilder: (context, state) => CustomTransitionPage(
           child: const RootLayout(
             currentIndex: 2,
-            child: AddReferralPage(),
+            child: CreateReferralPage(),
           ),
           transitionDuration: const Duration(
             milliseconds: _routeTransitionDuration,

@@ -12,10 +12,12 @@ import 'package:toastification/toastification.dart';
 class ActiveProjects extends StatefulWidget {
   const ActiveProjects({
     required this.isReferrer,
+    required this.onRefresh,
     super.key,
   });
 
   final bool isReferrer;
+  final VoidCallback onRefresh;
 
   @override
   State<ActiveProjects> createState() => _ActiveProjectsState();

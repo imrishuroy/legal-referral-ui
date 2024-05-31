@@ -1,9 +1,11 @@
 export 'bloc/referral_bloc.dart';
-export 'pages/add_referral_page.dart';
 export 'pages/completed_project_details.dart';
+export 'pages/create_referral_page.dart';
+export 'pages/my_referrals_tab.dart';
 export 'pages/project_details_page.dart';
 export 'pages/project_review_page.dart';
 export 'pages/proposal_detail_page.dart';
+export 'pages/proposal_tab.dart';
 export 'pages/referral_detail_page.dart';
 export 'pages/referral_page.dart';
 export 'pages/referral_proposal_page.dart';

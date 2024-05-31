@@ -9,7 +9,7 @@ import 'package:legal_referral_ui/src/features/referral/domain/domain.dart';
 class ReferralCard extends StatelessWidget {
   const ReferralCard({super.key, this.referral});
 
-  final Referral? referral;
+  final Project? referral;
 
   @override
   Widget build(BuildContext context) {
