@@ -38,7 +38,7 @@ class ReferralDataSource {
     }
   }
 
-  Future<List<AppUser?>> fetchReferredUsers({
+  Future<List<ReferedUser?>> fetchReferredUsers({
     required int projectId,
   }) async {
     try {

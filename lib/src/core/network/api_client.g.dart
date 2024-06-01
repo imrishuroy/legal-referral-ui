@@ -1538,13 +1538,13 @@ class _APIClient implements APIClient {
   }
 
   @override
-  Future<List<AppUser?>> fetchReferredUsers(int projectId) async {
+  Future<List<ReferedUser?>> fetchReferredUsers(int projectId) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _result =
-        await _dio.fetch<List<dynamic>>(_setStreamType<List<AppUser>>(Options(
+    final _result = await _dio
+        .fetch<List<dynamic>>(_setStreamType<List<ReferedUser>>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
@@ -1562,7 +1562,7 @@ class _APIClient implements APIClient {
             ))));
     var value = _result.data!
         .map((dynamic i) =>
-            i == null ? null : AppUser.fromJson(i as Map<String, dynamic>))
+            i == null ? null : ReferedUser.fromJson(i as Map<String, dynamic>))
         .toList();
     return value;
   }
