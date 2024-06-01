@@ -7,10 +7,12 @@ import 'package:legal_referral_ui/src/features/profile/presentation/presentation
 class ExperienceSection extends StatefulWidget {
   const ExperienceSection({
     required this.profileBloc,
+    required this.isCurrentUser,
     super.key,
   });
 
   final ProfileBloc profileBloc;
+  final bool isCurrentUser;
 
   @override
   State<ExperienceSection> createState() => _ExperienceSectionState();
@@ -27,6 +29,7 @@ class _ExperienceSectionState extends State<ExperienceSection> {
   Widget build(BuildContext context) {
     return ProfileSection(
       title: 'Experience',
+      isCurrentUser: widget.isCurrentUser,
       onTapAdd: () => context.pushNamed(
         AddUpdateExperiencePage.name,
         extra: AddUpdateExperiencePageArgs(

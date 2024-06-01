@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:legal_referral_ui/src/core/config/config.dart';
+import 'package:legal_referral_ui/src/core/utils/utils.dart';
 import 'package:legal_referral_ui/src/features/auth/presentation/presentation.dart';
+import 'package:legal_referral_ui/src/features/network/data/data.dart';
 import 'package:legal_referral_ui/src/features/network/presentation/presentation.dart';
+import 'package:legal_referral_ui/src/features/profile/presentation/presentation.dart';
+import 'package:toastification/toastification.dart';
 
 class RecommendationPage extends StatefulWidget {
   const RecommendationPage({super.key});
@@ -45,7 +50,16 @@ class _RecommendationPageState extends State<RecommendationPage> {
       ),
       body: BlocConsumer<NetworkBloc, NetworkState>(
         bloc: _networkBloc,
-        listener: (context, state) {},
+        listener: (context, state) {
+          if (state.status == NetworkStatus.failure) {
+            ToastUtil.showToast(
+              context,
+              title: 'Error',
+              description: state.failure?.message ?? 'something went wrong',
+              type: ToastificationType.error,
+            );
+          }
+        },
         builder: (context, state) {
           if (state.status == NetworkStatus.loading) {
             return const RecommendationsShimmer(
@@ -54,6 +68,14 @@ class _RecommendationPageState extends State<RecommendationPage> {
           }
 
           final recommendations = state.recommendations;
+          if (recommendations.isEmpty) {
+            return Center(
+              child: Text(
+                'No recommendations found',
+                style: Theme.of(context).textTheme.titleLarge,
+              ),
+            );
+          }
           return Padding(
             padding: const EdgeInsets.all(16),
             child: GridView.builder(
@@ -66,10 +88,43 @@ class _RecommendationPageState extends State<RecommendationPage> {
               ),
               itemBuilder: (BuildContext context, int index) {
                 final recommendation = recommendations[index];
-                return RecommendationCard(
-                  recommendation: recommendation,
-                  onConnect: () {},
-                  onCancel: () {},
+                return GestureDetector(
+                  onTap: () {
+                    final userId = recommendation?.userId;
+                    if (userId != null) {
+                      context.pushNamed(
+                        ProfilePage.name,
+                        pathParameters: {
+                          'userId': userId,
+                        },
+                      );
+                    }
+                  },
+                  child: RecommendationCard(
+                    recommendation: recommendation,
+                    onConnect: () {
+                      final userId = _authBloc.state.user?.userId;
+                      if (userId != null && recommendation?.userId != null) {
+                        _networkBloc.add(
+                          ConnectionSent(
+                            sendConnectionReq: SendConnectionReq(
+                              senderId: userId,
+                              recipientId: recommendation!.userId!,
+                            ),
+                          ),
+                        );
+                      }
+                    },
+                    onCancel: () {
+                      if (recommendation?.userId != null) {
+                        _networkBloc.add(
+                          RecommendationCancelled(
+                            recommendedUserId: recommendation!.userId!,
+                          ),
+                        );
+                      }
+                    },
+                  ),
                 );
               },
             ),

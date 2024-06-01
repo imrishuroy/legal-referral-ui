@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:legal_referral_ui/src/core/common_widgets/widgets.dart';
 import 'package:legal_referral_ui/src/core/config/config.dart';
 import 'package:legal_referral_ui/src/core/constants/constants.dart';
 import 'package:legal_referral_ui/src/core/utils/utils.dart';
+import 'package:legal_referral_ui/src/features/profile/presentation/presentation.dart';
 import 'package:legal_referral_ui/src/features/search/presentation/presentation.dart';
 import 'package:toastification/toastification.dart';
 
@@ -102,9 +104,9 @@ class _SearchPageState extends State<SearchPage> {
           }
         },
         builder: (context, state) {
-          // if (state.status == SearchStatus.loading) {
-          //   return const SearchResultShimmer();
-          // }
+          if (state.status == SearchStatus.loading) {
+            return const SearchResultShimmer();
+          }
 
           if (!state.isSearching) {
             return RecentWidget(
@@ -112,10 +114,10 @@ class _SearchPageState extends State<SearchPage> {
             );
           }
 
-          // final searchUsers = state.searchUsers;
-          // if (state.isSearching && searchUsers.isEmpty) {
-          //   return const SearchEmptyWidget();
-          // }
+          final searchUsers = state.searchUsers;
+          if (state.isSearching && searchUsers.isEmpty) {
+            return const SearchEmptyWidget();
+          }
           return ColoredBox(
             color: Colors.white,
             child: Column(
@@ -187,25 +189,36 @@ class _SearchPageState extends State<SearchPage> {
                       itemCount: state.searchUsers.length,
                       itemBuilder: (context, index) {
                         final user = state.searchUsers[index];
-                        return ListTile(
-                          onTap: () async {
-                            if (user != null) {
-                              await SharedPrefs.addUserSearchHistory(
-                                appUser: user,
-                              );
-                            }
-                          },
-                          title: Text('${user?.firstName} ${user?.lastName}'),
-                          subtitle: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(user?.practiceArea ?? ''),
-                              Text(user?.practiceLocation ?? ''),
-                            ],
+                        return Padding(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 16,
                           ),
-                          leading: CustomAvatar(
-                            imageUrl: user?.avatarUrl,
-                            radius: 24.r,
+                          child: ListTile(
+                            onTap: () async {
+                              if (user != null && user.userId != null) {
+                                await SharedPrefs.addUserSearchHistory(
+                                  appUser: user,
+                                );
+                                if (context.mounted) {
+                                  await context.pushNamed(
+                                    ProfilePage.name,
+                                    pathParameters: {'userId': user.userId!},
+                                  );
+                                }
+                              }
+                            },
+                            title: Text('${user?.firstName} ${user?.lastName}'),
+                            subtitle: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(user?.practiceArea ?? ''),
+                                Text(user?.practiceLocation ?? ''),
+                              ],
+                            ),
+                            leading: CustomAvatar(
+                              imageUrl: user?.avatarUrl,
+                              radius: 22,
+                            ),
                           ),
                         );
                       },

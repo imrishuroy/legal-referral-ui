@@ -18,6 +18,7 @@ class NetworkBloc extends Bloc<NetworkEvent, NetworkState> {
     on<RecommendationsFetched>(_onRecommendationsFetched);
     on<ConnectionsFetched>(_onConnectionsFetched);
     on<ConnectionAccepted>(_onConnectionAccepted);
+    on<ConnectionRejected>(_onConnectionRejected);
     on<ConnectionSent>(_onConnectionSent);
     on<RecommendationCancelled>(_onRecommendationCancelled);
   }
@@ -144,6 +145,31 @@ class NetworkBloc extends Bloc<NetworkEvent, NetworkState> {
         userId: event.userId,
         offset: 1,
         limit: 6,
+      ),
+    );
+  }
+
+  Future<void> _onConnectionRejected(
+    ConnectionRejected event,
+    Emitter<NetworkState> emit,
+  ) async {
+    final result = await _networkUseCase.rejectConnection(
+      id: event.connectionId,
+    );
+    result.fold(
+      (failure) => emit(
+        state.copyWith(
+          status: NetworkStatus.failure,
+          failure: failure,
+        ),
+      ),
+      (connection) => emit(
+        state.copyWith(
+          status: NetworkStatus.success,
+          connectionInvitations: state.connectionInvitations
+              .where((invitation) => invitation?.id != event.connectionId)
+              .toList(),
+        ),
       ),
     );
   }

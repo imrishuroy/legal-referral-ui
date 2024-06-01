@@ -294,11 +294,13 @@ class AppRouter {
         ],
       ),
       GoRoute(
-        path: '/profile',
+        path: '/profile/:userId',
         name: ProfilePage.name,
         parentNavigatorKey: _rootNavigatorKey,
         pageBuilder: (context, state) => CustomTransitionPage(
-          child: const ProfilePage(),
+          child: ProfilePage(
+            userId: state.pathParameters['userId']!,
+          ),
           transitionDuration: const Duration(
             milliseconds: _routeTransitionDuration,
           ),

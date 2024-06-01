@@ -10,10 +10,12 @@ import 'package:legal_referral_ui/src/features/profile/presentation/presentation
 class ProfileSocialSection extends StatefulWidget {
   const ProfileSocialSection({
     required this.profileBloc,
+    required this.isCurrentUser,
     super.key,
   });
 
   final ProfileBloc profileBloc;
+  final bool isCurrentUser;
 
   @override
   State<ProfileSocialSection> createState() => _ProfileSocialSectionState();
@@ -41,6 +43,7 @@ class _ProfileSocialSectionState extends State<ProfileSocialSection> {
   Widget build(BuildContext context) {
     return ProfileSection(
       title: 'Social',
+      isCurrentUser: widget.isCurrentUser,
       showAddButton: true,
       showEditButton: true,
       onTapAdd: () => context.pushNamed(
