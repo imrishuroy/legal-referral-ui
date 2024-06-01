@@ -29,7 +29,7 @@ class ReferralUseCases {
     );
   }
 
-  Future<Either<Failure, List<AppUser?>>> fetchReferredUsers({
+  Future<Either<Failure, List<ReferedUser?>>> fetchReferredUsers({
     required int projectId,
   }) async {
     return _referralRepository.fetchReferredUsers(

@@ -40,7 +40,7 @@ class ReferralState extends Equatable {
   final bool referConnection;
   final List<AppUser?> users;
   final List<AppUser?> selectedUsers;
-  final List<AppUser?> referredUsers;
+  final List<ReferedUser?> referredUsers;
   final List<Project?> proposalsProjects;
   final Proposal? proposal;
   final bool isProposalEditing;
@@ -61,7 +61,7 @@ class ReferralState extends Equatable {
     List<AppUser?>? selectedUsers,
     List<Connection?>? connections,
     List<Connection?>? selectedConnections,
-    List<AppUser?>? referredUsers,
+    List<ReferedUser?>? referredUsers,
     List<Project?>? proposalsProjects,
     Proposal? proposal,
     bool? isProposalEditing,

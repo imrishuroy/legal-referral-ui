@@ -312,7 +312,7 @@ abstract class APIClient {
   );
 
   @GET('/referrals/users/{projectId}')
-  Future<List<AppUser?>> fetchReferredUsers(
+  Future<List<ReferedUser?>> fetchReferredUsers(
     @Path('projectId') int projectId,
   );
 

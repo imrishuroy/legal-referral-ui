@@ -7,9 +7,14 @@ import 'package:legal_referral_ui/src/core/utils/utils.dart';
 import 'package:legal_referral_ui/src/features/referral/domain/domain.dart';
 
 class ReferralCard extends StatelessWidget {
-  const ReferralCard({super.key, this.referral});
+  const ReferralCard({
+    super.key,
+    this.referral,
+    this.showTitle = true,
+  });
 
   final Project? referral;
+  final bool showTitle;
 
   @override
   Widget build(BuildContext context) {
@@ -23,13 +28,15 @@ class ReferralCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(
-              height: 12.h,
-            ),
-            Text(
-              referral?.title ?? '',
-              style: Theme.of(context).textTheme.headlineSmall,
-            ),
+            if (showTitle)
+              SizedBox(
+                height: 12.h,
+              ),
+            if (showTitle)
+              Text(
+                referral?.title ?? '',
+                style: Theme.of(context).textTheme.headlineSmall,
+              ),
             // Text(
             //   '4 Proposals',
             //   style: Theme.of(context)

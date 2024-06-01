@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
-import 'package:legal_referral_ui/src/core/common_widgets/widgets.dart';
 import 'package:legal_referral_ui/src/core/config/config.dart';
 import 'package:legal_referral_ui/src/core/constants/colors.dart';
 import 'package:legal_referral_ui/src/core/utils/utils.dart';
@@ -47,6 +46,7 @@ class ReferralDetailPage extends StatelessWidget {
                 children: [
                   ReferralCard(
                     referral: project,
+                    showTitle: false,
                   ),
                   const Divider(
                     height: 1,
@@ -154,7 +154,7 @@ class _ActiveReferredUsersState extends State<_ActiveReferredUsers> {
             ),
             SizedBox(height: 12.h),
             if (state.status == ReferralStatus.loading)
-              const CustomLoadingIndicator()
+              const ReferredUsersShimmer()
             else
               ListView.separated(
                 shrinkWrap: true,
@@ -162,7 +162,7 @@ class _ActiveReferredUsersState extends State<_ActiveReferredUsers> {
                 physics: const NeverScrollableScrollPhysics(),
                 itemBuilder: (context, index) {
                   final referredUser = state.referredUsers[index];
-                  AppLogger.info('Referred User: $referredUser');
+
                   return GestureDetector(
                     onTap: () => context.pushNamed(
                       ReferralProposalPage.name,
@@ -171,11 +171,8 @@ class _ActiveReferredUsersState extends State<_ActiveReferredUsers> {
                         project: widget.project,
                       ),
                     ),
-                    child: ActiveReferralCard(
-                      attorneyName: '${referredUser?.firstName ?? ''} '
-                          '${referredUser?.lastName ?? ''}',
-                      attorneyType: referredUser?.practiceArea ?? '',
-                      profileImage: referredUser?.avatarUrl,
+                    child: ReferredUserCard(
+                      user: referredUser,
                       radius: 28.r,
                       onAward: () =>
                           _projectAwarded(referredUserId: referredUser?.userId),

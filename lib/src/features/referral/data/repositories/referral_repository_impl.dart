@@ -56,7 +56,7 @@ class ReferralRepositoryImpl extends ReferralRepository {
   }
 
   @override
-  Future<Either<Failure, List<AppUser?>>> fetchReferredUsers({
+  Future<Either<Failure, List<ReferedUser?>>> fetchReferredUsers({
     required int projectId,
   }) async {
     try {

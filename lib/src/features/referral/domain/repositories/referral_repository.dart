@@ -13,7 +13,7 @@ abstract class ReferralRepository {
     required String userId,
   });
 
-  Future<Either<Failure, List<AppUser?>>> fetchReferredUsers({
+  Future<Either<Failure, List<ReferedUser?>>> fetchReferredUsers({
     required int projectId,
   });
 
