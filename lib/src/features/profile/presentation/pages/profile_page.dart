@@ -11,9 +11,13 @@ import 'package:legal_referral_ui/src/features/profile/presentation/presentation
 import 'package:toastification/toastification.dart';
 
 class ProfilePage extends StatefulWidget {
-  const ProfilePage({super.key});
+  const ProfilePage({
+    required this.userId,
+    super.key,
+  });
 
   static const String name = 'ProfilePage';
+  final String userId;
 
   @override
   State<ProfilePage> createState() => _ProfilePageState();
@@ -28,7 +32,7 @@ class _ProfilePageState extends State<ProfilePage> {
     final userId = _authBloc.state.user?.userId;
     if (userId != null) {
       AppLogger.info('Fetching profile for user: $userId');
-      _profileBloc.add(ProfileFetched(userId: userId));
+      _profileBloc.add(ProfileFetched(userId: widget.userId));
     }
 
     super.initState();
@@ -36,6 +40,7 @@ class _ProfilePageState extends State<ProfilePage> {
 
   @override
   Widget build(BuildContext context) {
+    final isCurrentUser = _authBloc.state.user?.userId == widget.userId;
     return Scaffold(
       backgroundColor: LegalReferralColors.primaryBackground,
       appBar: AppBar(
@@ -72,6 +77,7 @@ class _ProfilePageState extends State<ProfilePage> {
                               HeaderSection(
                                 user: user,
                                 profileBloc: _profileBloc,
+                                isCurrentUser: isCurrentUser,
                               ),
                               SizedBox(
                                 height: 8.h,
@@ -143,6 +149,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         PricingSection(
                           user: user,
                           profileBloc: _profileBloc,
+                          isCurrentUser: isCurrentUser,
                         ),
                         CustomCard(
                           onTap: () {
@@ -195,6 +202,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         ),
                         ProfileSocialSection(
                           profileBloc: _profileBloc,
+                          isCurrentUser: isCurrentUser,
                         ),
                         const FeaturedSection(),
                         CustomCard(
@@ -205,9 +213,11 @@ class _ProfilePageState extends State<ProfilePage> {
                         ),
                         ExperienceSection(
                           profileBloc: _profileBloc,
+                          isCurrentUser: isCurrentUser,
                         ),
                         EducationSection(
                           profileBloc: _profileBloc,
+                          isCurrentUser: isCurrentUser,
                         ),
                         const ReviewsSection(),
                       ],

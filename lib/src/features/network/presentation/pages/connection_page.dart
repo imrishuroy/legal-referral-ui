@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:legal_referral_ui/src/core/common_widgets/widgets.dart';
 import 'package:legal_referral_ui/src/core/config/config.dart';
 import 'package:legal_referral_ui/src/core/constants/constants.dart';
+import 'package:legal_referral_ui/src/core/utils/utils.dart';
 import 'package:legal_referral_ui/src/features/auth/presentation/presentation.dart';
 import 'package:legal_referral_ui/src/features/network/presentation/presentation.dart';
+import 'package:legal_referral_ui/src/features/profile/presentation/presentation.dart';
+import 'package:toastification/toastification.dart';
 
 class ConnectionPage extends StatefulWidget {
   const ConnectionPage({super.key});
@@ -116,14 +118,14 @@ class _ConnectionPageState extends State<ConnectionPage> {
                 SizedBox(
                   width: 8.w,
                 ),
-                GestureDetector(
-                  onTap: () => context.pushNamed(
-                    ConnectionFilterPage.name,
-                  ),
-                  child: SvgPicture.asset(
-                    IconStringConstants.filter,
-                  ),
-                ),
+                // GestureDetector(
+                //   onTap: () => context.pushNamed(
+                //     ConnectionFilterPage.name,
+                //   ),
+                //   child: SvgPicture.asset(
+                //     IconStringConstants.filter,
+                //   ),
+                // ),
               ],
             ),
             SizedBox(
@@ -132,10 +134,28 @@ class _ConnectionPageState extends State<ConnectionPage> {
             Expanded(
               child: BlocConsumer<NetworkBloc, NetworkState>(
                 bloc: _networkBloc,
-                listener: (context, state) {},
+                listener: (context, state) {
+                  if (state.status == NetworkStatus.failure) {
+                    ToastUtil.showToast(
+                      context,
+                      title: 'Error',
+                      description:
+                          state.failure?.message ?? 'something went wrong',
+                      type: ToastificationType.error,
+                    );
+                  }
+                },
                 builder: (context, state) {
                   if (state.status == NetworkStatus.loading) {
                     return const InviteShimmer(itemCount: 10);
+                  }
+                  if (state.connections.isEmpty) {
+                    return Center(
+                      child: Text(
+                        'No Connections',
+                        style: Theme.of(context).textTheme.titleLarge,
+                      ),
+                    );
                   }
                   return Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -158,8 +178,29 @@ class _ConnectionPageState extends State<ConnectionPage> {
                           child: ListView.separated(
                             itemCount: state.connections.length,
                             itemBuilder: (context, index) {
-                              return ConnectionTile(
-                                connection: state.connections[index],
+                              return GestureDetector(
+                                onTap: () {
+                                  final currentUserId =
+                                      _authBloc.state.user?.userId;
+                                  final senderId =
+                                      state.connections[index]?.senderId;
+                                  final receiverId =
+                                      state.connections[index]?.recipientId;
+
+                                  final userId = currentUserId == senderId
+                                      ? receiverId
+                                      : senderId;
+
+                                  if (userId != null) {
+                                    context.pushNamed(
+                                      ProfilePage.name,
+                                      pathParameters: {'userId': userId},
+                                    );
+                                  }
+                                },
+                                child: ConnectionTile(
+                                  connection: state.connections[index],
+                                ),
                               );
                             },
                             separatorBuilder: (context, index) => Divider(

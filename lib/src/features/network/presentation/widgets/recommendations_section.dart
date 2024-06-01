@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:legal_referral_ui/src/core/config/config.dart';
 import 'package:legal_referral_ui/src/features/auth/presentation/presentation.dart';
 import 'package:legal_referral_ui/src/features/network/data/data.dart';
 import 'package:legal_referral_ui/src/features/network/presentation/presentation.dart';
+import 'package:legal_referral_ui/src/features/profile/presentation/presentation.dart';
 
 class RecommendationsSection extends StatefulWidget {
   const RecommendationsSection({
@@ -59,30 +61,43 @@ class _RecommendationsSectionState extends State<RecommendationsSection> {
           ),
           itemBuilder: (BuildContext context, int index) {
             final recommendation = state.recommendations[index];
-            return RecommendationCard(
-              recommendation: recommendation,
-              onConnect: () {
-                final userId = _authBloc.state.user?.userId;
-                if (userId != null && recommendation?.userId != null) {
-                  widget.networkBloc.add(
-                    ConnectionSent(
-                      sendConnectionReq: SendConnectionReq(
-                        senderId: userId,
-                        recipientId: recommendation!.userId!,
+            return GestureDetector(
+              onTap: () {
+                final userId = recommendation?.userId;
+                if (userId != null) {
+                  context.pushNamed(
+                    ProfilePage.name,
+                    pathParameters: {
+                      'userId': userId,
+                    },
+                  );
+                }
+              },
+              child: RecommendationCard(
+                recommendation: recommendation,
+                onConnect: () {
+                  final userId = _authBloc.state.user?.userId;
+                  if (userId != null && recommendation?.userId != null) {
+                    widget.networkBloc.add(
+                      ConnectionSent(
+                        sendConnectionReq: SendConnectionReq(
+                          senderId: userId,
+                          recipientId: recommendation!.userId!,
+                        ),
                       ),
-                    ),
-                  );
-                }
-              },
-              onCancel: () {
-                if (recommendation?.userId != null) {
-                  widget.networkBloc.add(
-                    RecommendationCancelled(
-                      recommendedUserId: recommendation!.userId!,
-                    ),
-                  );
-                }
-              },
+                    );
+                  }
+                },
+                onCancel: () {
+                  if (recommendation?.userId != null) {
+                    widget.networkBloc.add(
+                      RecommendationCancelled(
+                        recommendedUserId: recommendation!.userId!,
+                      ),
+                    );
+                  }
+                },
+              ),
             );
           },
         );
