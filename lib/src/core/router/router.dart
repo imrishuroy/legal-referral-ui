@@ -602,7 +602,7 @@ class AppRouter {
       // post
 
       GoRoute(
-        path: '/post',
+        path: '/addReferral',
         name: PostPage.name,
         parentNavigatorKey: _rootNavigatorKey,
         pageBuilder: (context, state) => CustomTransitionPage(

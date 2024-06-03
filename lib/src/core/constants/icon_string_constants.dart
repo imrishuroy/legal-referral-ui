@@ -44,6 +44,8 @@ class IconStringConstants {
   static const String backArrow = 'assets/icons/back_arrow.svg';
   static const String reply2 = 'assets/icons/reply2.svg';
   static const String send = 'assets/icons/send.svg';
+  static const String feed = 'assets/icons/feed.svg';
+  static const String poll = 'assets/icons/poll.svg';
 
   // -- Brand Icons
 
