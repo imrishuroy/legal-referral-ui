@@ -14,16 +14,19 @@ class ReferralState extends Equatable {
   const ReferralState({
     required this.status,
     this.referrals = const [],
-    this.connections = const [],
-    this.selectedConnections = const [],
+    this.referConnection = true,
+    this.users = const [],
+    this.selectedUsers = const [],
     this.referredUsers = const [],
-    this.proposals = const [],
-    this.proposalReq,
+    this.proposalsProjects = const [],
+    this.proposal,
     this.activeProjects = const [],
     this.awardedProjects = const [],
     this.isProposalEditing = false,
     this.completedProjects = const [],
     this.chatRoom,
+    this.tabIndex = 0,
+    this.isReset = false,
     this.failure,
   });
 
@@ -33,47 +36,59 @@ class ReferralState extends Equatable {
     );
   }
 
-  final List<Referral?> referrals;
-  final List<Connection?> connections;
-  final List<Connection?> selectedConnections;
-  final List<AppUser?> referredUsers;
-  final List<Proposal?> proposals;
-  final ProposalReq? proposalReq;
+  final List<Project?> referrals;
+  final bool referConnection;
+  final List<AppUser?> users;
+  final List<AppUser?> selectedUsers;
+  final List<ReferedUser?> referredUsers;
+  final List<Project?> proposalsProjects;
+  final Proposal? proposal;
   final bool isProposalEditing;
   final List<Project?> activeProjects;
   final List<Project?> awardedProjects;
   final List<Project?> completedProjects;
   final ChatRoom? chatRoom;
+  final int tabIndex;
+  final bool isReset;
+
   final ReferralStatus status;
   final Failure? failure;
 
   ReferralState copyWith({
-    List<Referral?>? referrals,
+    List<Project?>? referrals,
+    bool? referConnection,
+    List<AppUser?>? users,
+    List<AppUser?>? selectedUsers,
     List<Connection?>? connections,
     List<Connection?>? selectedConnections,
-    List<AppUser?>? referredUsers,
-    List<Proposal?>? proposals,
-    ProposalReq? proposalReq,
+    List<ReferedUser?>? referredUsers,
+    List<Project?>? proposalsProjects,
+    Proposal? proposal,
     bool? isProposalEditing,
     List<Project?>? activeProjects,
     List<Project?>? awardedProjects,
     List<Project?>? completedProjects,
     ChatRoom? chatRoom,
+    int? tabIndex,
+    bool? isReset,
     ReferralStatus? status,
     Failure? failure,
   }) {
     return ReferralState(
       referrals: referrals ?? this.referrals,
-      connections: connections ?? this.connections,
-      selectedConnections: selectedConnections ?? this.selectedConnections,
+      referConnection: referConnection ?? this.referConnection,
+      users: users ?? this.users,
+      selectedUsers: selectedUsers ?? this.selectedUsers,
       referredUsers: referredUsers ?? this.referredUsers,
-      proposals: proposals ?? this.proposals,
-      proposalReq: proposalReq ?? this.proposalReq,
+      proposalsProjects: proposalsProjects ?? this.proposalsProjects,
+      proposal: proposal ?? this.proposal,
       isProposalEditing: isProposalEditing ?? this.isProposalEditing,
       activeProjects: activeProjects ?? this.activeProjects,
       awardedProjects: awardedProjects ?? this.awardedProjects,
       completedProjects: completedProjects ?? this.completedProjects,
       chatRoom: chatRoom ?? this.chatRoom,
+      tabIndex: tabIndex ?? this.tabIndex,
+      isReset: isReset ?? this.isReset,
       status: status ?? this.status,
       failure: failure ?? this.failure,
     );
@@ -82,16 +97,19 @@ class ReferralState extends Equatable {
   @override
   List<Object?> get props => [
         referrals,
-        connections,
-        selectedConnections,
+        referConnection,
+        users,
+        selectedUsers,
         referredUsers,
-        proposals,
-        proposalReq,
+        proposalsProjects,
+        proposal,
         isProposalEditing,
         activeProjects,
         awardedProjects,
         completedProjects,
         chatRoom,
+        tabIndex,
+        isReset,
         status,
         failure,
       ];

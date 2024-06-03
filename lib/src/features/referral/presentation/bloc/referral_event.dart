@@ -7,10 +7,62 @@ abstract class ReferralEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class ReferralAdded extends ReferralEvent {
-  const ReferralAdded({required this.referral});
+class ReferConnectionToggled extends ReferralEvent {
+  const ReferConnectionToggled();
+}
 
-  final AddReferralReq referral;
+class UserConnectionsFetched extends ReferralEvent {
+  const UserConnectionsFetched({
+    required this.userId,
+    required this.limit,
+    required this.offset,
+  });
+
+  final String userId;
+  final int limit;
+  final int offset;
+
+  @override
+  List<Object> get props => [userId, limit, offset];
+}
+
+class UsersFetched extends ReferralEvent {
+  const UsersFetched({
+    required this.userId,
+    required this.limit,
+    required this.offset,
+  });
+
+  final String userId;
+  final int limit;
+  final int offset;
+
+  @override
+  List<Object> get props => [userId, limit, offset];
+}
+
+class ReferralInitialized extends ReferralEvent {
+  const ReferralInitialized({required this.tabIndex});
+
+  final int tabIndex;
+
+  @override
+  List<Object> get props => [tabIndex];
+}
+
+class TabIndexChanged extends ReferralEvent {
+  const TabIndexChanged({required this.index});
+
+  final int index;
+
+  @override
+  List<Object> get props => [index];
+}
+
+class ReferralCreated extends ReferralEvent {
+  const ReferralCreated({required this.referral});
+
+  final CreateReferral referral;
 
   @override
   List<Object> get props => [referral];
@@ -25,16 +77,16 @@ class ConnectionsFetched extends ReferralEvent {
   List<Object> get props => [userId];
 }
 
-class ConnectionSelected extends ReferralEvent {
-  const ConnectionSelected({required this.connection});
+class UserSelected extends ReferralEvent {
+  const UserSelected({required this.user});
 
-  final Connection connection;
+  final AppUser user;
 
   @override
-  List<Object> get props => [connection];
+  List<Object> get props => [user];
 }
 
-class AllConnectionsSelected extends ReferralEvent {}
+class AllUsersSelected extends ReferralEvent {}
 
 class ReferralFetched extends ReferralEvent {
   const ReferralFetched({required this.userId});
@@ -46,12 +98,12 @@ class ReferralFetched extends ReferralEvent {
 }
 
 class ReferredUsersFetched extends ReferralEvent {
-  const ReferredUsersFetched({required this.referralId});
+  const ReferredUsersFetched({required this.projectId});
 
-  final int referralId;
+  final int projectId;
 
   @override
-  List<Object> get props => [referralId];
+  List<Object> get props => [projectId];
 }
 
 class ProposalsFetched extends ReferralEvent {
@@ -66,35 +118,35 @@ class ProposalsFetched extends ReferralEvent {
 class ProposalFetched extends ReferralEvent {
   const ProposalFetched({
     required this.userId,
-    required this.referralId,
+    required this.projectId,
   });
 
   final String userId;
-  final int referralId;
+  final int projectId;
 
   @override
-  List<Object> get props => [userId, referralId];
+  List<Object> get props => [userId, projectId];
 }
 
 class ProposalEditToggled extends ReferralEvent {}
 
 class ProposalSent extends ReferralEvent {
-  const ProposalSent({required this.proposalReq});
+  const ProposalSent({required this.proposal});
 
-  final ProposalReq proposalReq;
+  final Proposal proposal;
 
   @override
-  List<Object> get props => [proposalReq];
+  List<Object> get props => [proposal];
 }
 
 class ProposalUpdated extends ReferralEvent {
-  const ProposalUpdated({required this.proposalId, required this.proposalReq});
+  const ProposalUpdated({required this.proposalId, required this.proposal});
 
   final int proposalId;
-  final ProposalReq proposalReq;
+  final Proposal proposal;
 
   @override
-  List<Object> get props => [proposalId, proposalReq];
+  List<Object> get props => [proposalId, proposal];
 }
 
 class ProjectAwarded extends ReferralEvent {
@@ -203,3 +255,5 @@ class CompletedProjectsFetched extends ReferralEvent {
   @override
   List<Object> get props => [role, userId];
 }
+
+class ReferralStateReset extends ReferralEvent {}

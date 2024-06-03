@@ -6,10 +6,12 @@ class CustomTabView extends StatefulWidget {
   const CustomTabView({
     required this.tabNames,
     required this.tabViews,
+    required this.initialIndex,
     super.key,
   });
   final List<String> tabNames;
   final List<Widget> tabViews;
+  final int initialIndex;
 
   @override
   State<CustomTabView> createState() => _CustomTabViewState();
@@ -22,13 +24,11 @@ class _CustomTabViewState extends State<CustomTabView>
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: 2, vsync: this);
-  }
-
-  @override
-  void dispose() {
-    _tabController.dispose();
-    super.dispose();
+    _tabController = TabController(
+      initialIndex: widget.initialIndex,
+      length: 2,
+      vsync: this,
+    );
   }
 
   @override
@@ -76,5 +76,11 @@ class _CustomTabViewState extends State<CustomTabView>
         ),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    _tabController.dispose();
+    super.dispose();
   }
 }

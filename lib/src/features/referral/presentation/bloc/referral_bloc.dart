@@ -15,14 +15,16 @@ part 'referral_state.dart';
 class ReferralBloc extends Bloc<ReferralEvent, ReferralState> {
   ReferralBloc({
     required ReferralUseCases referralUseCases,
-    required NetworkUseCase networkUseCase,
   })  : _referralUseCases = referralUseCases,
-        _networkUseCase = networkUseCase,
         super(ReferralState.initial()) {
-    on<ReferralAdded>(_onReferralAdded);
-    on<ConnectionsFetched>(_onConnectionFetched);
-    on<ConnectionSelected>(_onConnectionSelected);
-    on<AllConnectionsSelected>(_onAllConnectionsSelected);
+    on<ReferConnectionToggled>(_onReferConnectionToggled);
+    on<UserConnectionsFetched>(_onUserConnectionsFetched);
+    on<UsersFetched>(_onUsersFetched);
+    on<UserSelected>(_onUserSelected);
+    on<AllUsersSelected>(_onAllUsersSelected);
+    on<ReferralInitialized>(_onReferralInitialized);
+    on<TabIndexChanged>(_onTabIndexChanged);
+    on<ReferralCreated>(_onReferralCreated);
     on<ReferralFetched>(_onReferralFetched);
     on<ReferredUsersFetched>(_onReferredUsersFetched);
     on<ProposalsFetched>(_onProposalsFetched);
@@ -43,17 +45,149 @@ class ReferralBloc extends Bloc<ReferralEvent, ReferralState> {
     on<ProjectRejected>(_onProjectRejected);
     on<ProjectReviewed>(_onProjectReviewed);
     on<CompletedProjectsFetched>(_onCompletedProjectsFetched);
+    on<ReferralStateReset>(_onReferralStateReset);
   }
 
   final ReferralUseCases _referralUseCases;
-  final NetworkUseCase _networkUseCase;
 
-  Future<void> _onReferralAdded(
-    ReferralAdded event,
+  Future<void> _onReferConnectionToggled(
+    ReferConnectionToggled event,
+    Emitter<ReferralState> emit,
+  ) async {
+    emit(
+      state.copyWith(
+        referConnection: !state.referConnection,
+      ),
+    );
+  }
+
+  Future<void> _onUserConnectionsFetched(
+    UserConnectionsFetched event,
     Emitter<ReferralState> emit,
   ) async {
     emit(state.copyWith(status: ReferralStatus.loading));
-    final res = await _referralUseCases.addReferral(
+
+    final res = await _referralUseCases.fetchConnectedUsers(
+      userId: event.userId,
+      limit: event.limit,
+      offset: event.offset,
+    );
+
+    res.fold(
+      (failure) {
+        emit(
+          state.copyWith(
+            status: ReferralStatus.failure,
+            failure: failure,
+          ),
+        );
+      },
+      (users) {
+        emit(
+          state.copyWith(
+            users: users,
+            status: ReferralStatus.success,
+          ),
+        );
+      },
+    );
+  }
+
+  Future<void> _onUsersFetched(
+    UsersFetched event,
+    Emitter<ReferralState> emit,
+  ) async {
+    emit(state.copyWith(status: ReferralStatus.loading));
+
+    final res = await _referralUseCases.fetchUsers(
+      limit: event.limit,
+      offset: event.offset,
+    );
+
+    res.fold(
+      (failure) {
+        emit(
+          state.copyWith(
+            status: ReferralStatus.failure,
+            failure: failure,
+          ),
+        );
+      },
+      (users) {
+        emit(
+          state.copyWith(
+            users: users,
+            status: ReferralStatus.success,
+          ),
+        );
+      },
+    );
+  }
+
+  void _onUserSelected(
+    UserSelected event,
+    Emitter<ReferralState> emit,
+  ) {
+    final selectedUsers = state.selectedUsers;
+    final user = event.user;
+    if (selectedUsers.contains(user)) {
+      final updatedUsers = selectedUsers.where((u) => u != user).toList();
+      emit(state.copyWith(selectedUsers: updatedUsers));
+    } else {
+      final updatedUsers = [...selectedUsers, user];
+      emit(state.copyWith(selectedUsers: updatedUsers));
+    }
+  }
+
+  void _onAllUsersSelected(
+    AllUsersSelected event,
+    Emitter<ReferralState> emit,
+  ) {
+    final users = state.users;
+    // if all users are selected, deselect all
+    if (state.selectedUsers.length == users.length) {
+      emit(state.copyWith(selectedUsers: []));
+      return;
+    }
+
+    emit(state.copyWith(selectedUsers: users));
+  }
+
+  Future<void> _onReferralInitialized(
+    ReferralInitialized event,
+    Emitter<ReferralState> emit,
+  ) async {
+    emit(
+      state.copyWith(
+        tabIndex: event.tabIndex,
+        status: ReferralStatus.success,
+      ),
+    );
+  }
+
+  Future<void> _onReferralStateReset(
+    ReferralStateReset event,
+    Emitter<ReferralState> emit,
+  ) async {
+    AppLogger.info('Referral state reset');
+    emit(state.copyWith(status: ReferralStatus.loading));
+    await Future.delayed(const Duration(milliseconds: 500));
+    emit(state.copyWith(status: ReferralStatus.success));
+  }
+
+  Future<void> _onTabIndexChanged(
+    TabIndexChanged event,
+    Emitter<ReferralState> emit,
+  ) async {
+    emit(state.copyWith(tabIndex: event.index));
+  }
+
+  Future<void> _onReferralCreated(
+    ReferralCreated event,
+    Emitter<ReferralState> emit,
+  ) async {
+    emit(state.copyWith(status: ReferralStatus.loading));
+    final res = await _referralUseCases.createReferral(
       referral: event.referral,
     );
 
@@ -74,69 +208,6 @@ class ReferralBloc extends Bloc<ReferralEvent, ReferralState> {
         );
       },
     );
-  }
-
-  Future<void> _onConnectionFetched(
-    ConnectionsFetched event,
-    Emitter<ReferralState> emit,
-  ) async {
-    emit(state.copyWith(status: ReferralStatus.loading));
-
-    final res = await _networkUseCase.fetchConnections(
-      userId: event.userId,
-      offset: 1,
-      limit: 10,
-    );
-
-    res.fold(
-      (failure) {
-        emit(
-          state.copyWith(
-            status: ReferralStatus.failure,
-            failure: failure,
-          ),
-        );
-      },
-      (connections) {
-        emit(
-          state.copyWith(
-            connections: connections,
-            status: ReferralStatus.success,
-          ),
-        );
-      },
-    );
-  }
-
-  void _onConnectionSelected(
-    ConnectionSelected event,
-    Emitter<ReferralState> emit,
-  ) {
-    final selectedConnections = state.selectedConnections;
-    final connection = event.connection;
-
-    if (selectedConnections.contains(connection)) {
-      final updatedConnections =
-          selectedConnections.where((c) => c != connection).toList();
-      emit(state.copyWith(selectedConnections: updatedConnections));
-    } else {
-      final updatedConnections = [...selectedConnections, connection];
-      emit(state.copyWith(selectedConnections: updatedConnections));
-    }
-  }
-
-  void _onAllConnectionsSelected(
-    AllConnectionsSelected event,
-    Emitter<ReferralState> emit,
-  ) {
-    final connections = state.connections;
-    // if all connections are selected, deselect all
-    if (state.selectedConnections.length == connections.length) {
-      emit(state.copyWith(selectedConnections: []));
-      return;
-    }
-
-    emit(state.copyWith(selectedConnections: connections));
   }
 
   Future<void> _onReferralFetched(
@@ -176,7 +247,7 @@ class ReferralBloc extends Bloc<ReferralEvent, ReferralState> {
     emit(state.copyWith(status: ReferralStatus.loading));
 
     final res = await _referralUseCases.fetchReferredUsers(
-      referralId: event.referralId,
+      projectId: event.projectId,
     );
 
     res.fold(
@@ -218,10 +289,10 @@ class ReferralBloc extends Bloc<ReferralEvent, ReferralState> {
           ),
         );
       },
-      (proposals) {
+      (proposalsProjects) {
         emit(
           state.copyWith(
-            proposals: proposals,
+            proposalsProjects: proposalsProjects,
             status: ReferralStatus.success,
           ),
         );
@@ -237,7 +308,7 @@ class ReferralBloc extends Bloc<ReferralEvent, ReferralState> {
 
     final res = await _referralUseCases.fetchProposalByReferralId(
       userId: event.userId,
-      referralId: event.referralId,
+      projectId: event.projectId,
     );
 
     res.fold(
@@ -252,7 +323,7 @@ class ReferralBloc extends Bloc<ReferralEvent, ReferralState> {
       (proposal) {
         emit(
           state.copyWith(
-            proposalReq: proposal,
+            proposal: proposal,
             isProposalEditing: proposal == null,
             status: ReferralStatus.success,
           ),
@@ -279,7 +350,7 @@ class ReferralBloc extends Bloc<ReferralEvent, ReferralState> {
     emit(state.copyWith(status: ReferralStatus.loading));
 
     final res = await _referralUseCases.createProposal(
-      proposalReq: event.proposalReq,
+      proposal: event.proposal,
     );
 
     res.fold(
@@ -294,7 +365,7 @@ class ReferralBloc extends Bloc<ReferralEvent, ReferralState> {
       (proposal) {
         emit(
           state.copyWith(
-            proposalReq: proposal,
+            proposal: proposal,
             isProposalEditing: false,
             status: ReferralStatus.success,
           ),
@@ -311,7 +382,7 @@ class ReferralBloc extends Bloc<ReferralEvent, ReferralState> {
 
     final res = await _referralUseCases.updateProposal(
       proposalId: event.proposalId,
-      proposalReq: event.proposalReq,
+      proposal: event.proposal,
     );
 
     res.fold(
@@ -326,7 +397,7 @@ class ReferralBloc extends Bloc<ReferralEvent, ReferralState> {
       (proposal) {
         emit(
           state.copyWith(
-            proposalReq: proposal,
+            proposal: proposal,
             isProposalEditing: false,
             status: ReferralStatus.success,
           ),
@@ -355,14 +426,8 @@ class ReferralBloc extends Bloc<ReferralEvent, ReferralState> {
         );
       },
       (project) {
-        final referralId = event.awardProjectReq.referralId;
-        final updatedReferrals = state.referrals
-            .where((referral) => referral?.referralId != referralId)
-            .toList();
-
         emit(
           state.copyWith(
-            referrals: updatedReferrals,
             status: ReferralStatus.awardProject,
           ),
         );
@@ -451,17 +516,9 @@ class ReferralBloc extends Bloc<ReferralEvent, ReferralState> {
         );
       },
       (project) {
-        final updatedProjects = state.awardedProjects
-            .where((project) => project?.projectId != event.projectId)
-            .toList();
-
         emit(
           state.copyWith(
-            awardedProjects: updatedProjects,
-            activeProjects: [
-              ...state.activeProjects,
-              project,
-            ],
+            isReset: true,
             status: ReferralStatus.success,
           ),
         );

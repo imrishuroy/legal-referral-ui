@@ -8,11 +8,13 @@ class PricingSection extends StatefulWidget {
   const PricingSection({
     required this.user,
     required this.profileBloc,
+    required this.isCurrentUser,
     super.key,
   });
 
   final UserProfile? user;
   final ProfileBloc profileBloc;
+  final bool isCurrentUser;
 
   @override
   State<PricingSection> createState() => _PricingSectionState();
@@ -31,6 +33,7 @@ class _PricingSectionState extends State<PricingSection> {
     );
     return ProfileSection(
       title: 'Pricing',
+      isCurrentUser: widget.isCurrentUser,
       onTapAdd: () => context.pushNamed(
         AddUpdatePricePage.name,
         extra: AddUpdatePricePageArgs(
@@ -55,7 +58,7 @@ class _PricingSectionState extends State<PricingSection> {
               text: _priceLabel(
                 price,
               ),
-              style: Theme.of(context).textTheme.displaySmall,
+              style: Theme.of(context).textTheme.headlineMedium,
               children: <TextSpan>[
                 TextSpan(
                   text: _priceTrailing(widget.user?.serviceType),
@@ -64,23 +67,25 @@ class _PricingSectionState extends State<PricingSection> {
               ],
             ),
           ),
-          Row(
-            children: [
-              Text(
-                'Open to refer',
-                style: Theme.of(context).textTheme.bodyLarge,
-              ),
-              const Spacer(),
-              CustomSwitch(
-                value: widget.user?.openToReferral ?? false,
-                onChanged: (bool? value) {
-                  widget.profileBloc.add(
-                    ReferralToggled(),
-                  );
-                },
-              ),
-            ],
-          ),
+          if (!widget.isCurrentUser) const SizedBox(height: 8),
+          if (widget.isCurrentUser)
+            Row(
+              children: [
+                Text(
+                  'Open to refer',
+                  style: Theme.of(context).textTheme.bodyLarge,
+                ),
+                const Spacer(),
+                CustomSwitch(
+                  value: widget.user?.openToReferral ?? false,
+                  onChanged: (bool? value) {
+                    widget.profileBloc.add(
+                      ReferralToggled(),
+                    );
+                  },
+                ),
+              ],
+            ),
         ],
       ),
     );

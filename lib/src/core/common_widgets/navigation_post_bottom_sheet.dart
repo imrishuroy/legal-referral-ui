@@ -19,12 +19,15 @@ class PostNavigationModelBottomSheet extends StatelessWidget {
           ListTile(
             leading: SvgPicture.asset(
               IconStringConstants.addIcon,
-              color: LegalReferralColors.buttonPrimary,
+              colorFilter: const ColorFilter.mode(
+                LegalReferralColors.buttonPrimary,
+                BlendMode.srcIn,
+              ),
             ),
             title: const Text('Referral'),
             onTap: () => Navigator.of(context).pushReplacement(
               MaterialPageRoute(
-                builder: (context) => const AddReferralPage(),
+                builder: (context) => const CreateReferralPage(),
               ),
             ),
           ),
@@ -35,7 +38,10 @@ class PostNavigationModelBottomSheet extends StatelessWidget {
           ListTile(
             leading: SvgPicture.asset(
               IconStringConstants.feed,
-              color: LegalReferralColors.buttonPrimary,
+              colorFilter: const ColorFilter.mode(
+                LegalReferralColors.buttonPrimary,
+                BlendMode.srcIn,
+              ),
             ),
             title: const Text('Feed'),
             onTap: () {},
@@ -47,7 +53,10 @@ class PostNavigationModelBottomSheet extends StatelessWidget {
           ListTile(
             leading: SvgPicture.asset(
               IconStringConstants.discuss,
-              color: LegalReferralColors.buttonPrimary,
+              colorFilter: const ColorFilter.mode(
+                LegalReferralColors.buttonPrimary,
+                BlendMode.srcIn,
+              ),
             ),
             title: const Text('Discussion'),
             onTap: () {},
@@ -59,7 +68,10 @@ class PostNavigationModelBottomSheet extends StatelessWidget {
           ListTile(
             leading: SvgPicture.asset(
               IconStringConstants.poll,
-              color: LegalReferralColors.buttonPrimary,
+              colorFilter: const ColorFilter.mode(
+                LegalReferralColors.buttonPrimary,
+                BlendMode.srcIn,
+              ),
             ),
             title: const Text('Poll'),
             onTap: () {},

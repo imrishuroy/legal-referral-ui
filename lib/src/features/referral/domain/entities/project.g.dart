@@ -8,15 +8,11 @@ part of 'project.dart';
 
 _$ProjectImpl _$$ProjectImplFromJson(Map<String, dynamic> json) =>
     _$ProjectImpl(
-      referralId: (json['referral_id'] as num).toInt(),
-      updatedAt: json['updatedAt'] == null
-          ? null
-          : DateTime.parse(json['updatedAt'] as String),
-      userId: json['user_id'] as String?,
+      referrerUserId: json['referrer_user_id'] as String?,
       description: json['case_description'] as String?,
       title: json['title'] as String?,
-      practiceArea: json['practice_area'] as String?,
-      practiceLocation: json['practice_location'] as String?,
+      practiceArea: json['preferred_practice_area'] as String?,
+      practiceLocation: json['preferred_practice_location'] as String?,
       status: $enumDecodeNullable(_$ProjectStatusEnumMap, json['status']) ??
           ProjectStatus.active,
       user: json['user'] == null
@@ -33,9 +29,7 @@ _$ProjectImpl _$$ProjectImplFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$$ProjectImplToJson(_$ProjectImpl instance) =>
     <String, dynamic>{
-      'referral_id': instance.referralId,
-      'updatedAt': instance.updatedAt?.toIso8601String(),
-      'user_id': instance.userId,
+      'referrer_user_id': instance.referrerUserId,
       'title': instance.title,
       'project_id': instance.projectId,
     };

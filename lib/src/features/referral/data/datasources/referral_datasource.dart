@@ -13,10 +13,10 @@ class ReferralDataSource {
   final APIClient _apiClient;
 
   Future<String?> addReferral({
-    required AddReferralReq referral,
+    required CreateReferral referral,
   }) async {
     try {
-      final res = await _apiClient.addReferral(
+      final res = await _apiClient.createReferral(
         referral,
       );
       return res;
@@ -25,7 +25,7 @@ class ReferralDataSource {
     }
   }
 
-  Future<List<Referral?>> fetchReferrals({
+  Future<List<Project?>> fetchReferrals({
     required String userId,
   }) async {
     try {
@@ -38,12 +38,12 @@ class ReferralDataSource {
     }
   }
 
-  Future<List<AppUser?>> fetchReferredUsers({
-    required int referralId,
+  Future<List<ReferedUser?>> fetchReferredUsers({
+    required int projectId,
   }) async {
     try {
       final res = await _apiClient.fetchReferredUsers(
-        referralId,
+        projectId,
       );
       return res;
     } catch (_) {
@@ -51,7 +51,7 @@ class ReferralDataSource {
     }
   }
 
-  Future<List<Proposal?>> fetchProposals({
+  Future<List<Project?>> fetchProposals({
     required String userId,
   }) async {
     try {
@@ -64,14 +64,14 @@ class ReferralDataSource {
     }
   }
 
-  Future<ProposalReq?> fetchProposalByReferralId({
+  Future<Proposal?> fetchProposalByReferralId({
     required String userId,
-    required int referralId,
+    required int projectId,
   }) async {
     try {
       final res = await _apiClient.fetchProposalByReferralId(
         userId,
-        referralId,
+        projectId,
       );
       return res;
     } catch (_) {
@@ -79,12 +79,12 @@ class ReferralDataSource {
     }
   }
 
-  Future<ProposalReq?> createProposal({
-    required ProposalReq proposalReq,
+  Future<Proposal?> createProposal({
+    required Proposal proposal,
   }) async {
     try {
       final res = await _apiClient.createProposal(
-        proposalReq,
+        proposal,
       );
       return res;
     } catch (_) {
@@ -92,14 +92,14 @@ class ReferralDataSource {
     }
   }
 
-  Future<ProposalReq?> updateProposal({
+  Future<Proposal?> updateProposal({
     required int proposalId,
-    required ProposalReq proposalReq,
+    required Proposal project,
   }) async {
     try {
       final res = await _apiClient.updateProposal(
         proposalId,
-        proposalReq,
+        project,
       );
       return res;
     } catch (_) {
@@ -247,6 +247,38 @@ class ReferralDataSource {
       final res = await _apiClient.fetchCompletedProjects(
         userId,
         role,
+      );
+      return res;
+    } catch (_) {
+      rethrow;
+    }
+  }
+
+  Future<List<AppUser?>> fetchConnectedUsers({
+    required String userId,
+    required int limit,
+    required int offset,
+  }) async {
+    try {
+      final res = await _apiClient.fetchConnectedUsers(
+        userId,
+        limit,
+        offset,
+      );
+      return res;
+    } catch (_) {
+      rethrow;
+    }
+  }
+
+  Future<List<AppUser?>> fetchUsers({
+    required int limit,
+    required int offset,
+  }) async {
+    try {
+      final res = await _apiClient.fetchUsers(
+        limit,
+        offset,
       );
       return res;
     } catch (_) {

@@ -11,7 +11,7 @@ class ActiveProposalCard extends StatelessWidget {
     this.proposal,
   });
 
-  final Proposal? proposal;
+  final Project? proposal;
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +35,7 @@ class ActiveProposalCard extends StatelessWidget {
                     ),
                   ),
                   child: CustomAvatar(
-                    imageUrl: proposal?.referrerAvatarUrl,
+                    imageUrl: proposal?.user?.avatarUrl,
                     radius: 22.r,
                   ),
                 ),
@@ -46,15 +46,15 @@ class ActiveProposalCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      '${proposal?.referrerFirstName ?? ''} '
-                      '${proposal?.referrerLastName ?? ''}',
+                      '${proposal?.user?.firstName ?? ''} '
+                      '${proposal?.user?.lastName ?? ''}',
                       style: Theme.of(context).textTheme.labelMedium,
                     ),
                     SizedBox(
                       height: 2.h,
                     ),
                     Text(
-                      proposal?.referrerPracticeArea ?? '',
+                      proposal?.user?.practiceArea ?? '',
                       style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                             color: LegalReferralColors.textGrey500,
                           ),
@@ -69,7 +69,7 @@ class ActiveProposalCard extends StatelessWidget {
               children: [
                 HorizontalIconText(
                   icon: IconStringConstants.location,
-                  title: proposal?.preferredPracticeLocation,
+                  title: proposal?.practiceLocation,
                 ),
                 HorizontalIconText(
                   icon: IconStringConstants.calender,
@@ -82,7 +82,7 @@ class ActiveProposalCard extends StatelessWidget {
             SizedBox(height: 2.h),
             HorizontalIconText(
               icon: IconStringConstants.bag,
-              title: proposal?.preferredPracticeArea ?? '',
+              title: proposal?.practiceArea ?? '',
             ),
             SizedBox(
               height: 10.h,

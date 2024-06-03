@@ -73,6 +73,17 @@ class ConnectionAccepted extends NetworkEvent {
   List<Object> get props => [connectionId, userId];
 }
 
+class ConnectionRejected extends NetworkEvent {
+  const ConnectionRejected({
+    required this.connectionId,
+  });
+
+  final int connectionId;
+
+  @override
+  List<Object> get props => [connectionId];
+}
+
 class RecommendationCancelled extends NetworkEvent {
   const RecommendationCancelled({
     required this.recommendedUserId,

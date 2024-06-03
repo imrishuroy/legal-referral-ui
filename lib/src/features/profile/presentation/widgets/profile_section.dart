@@ -12,6 +12,7 @@ class ProfileSection extends StatelessWidget {
     required this.showAddButton,
     required this.showEditButton,
     required this.child,
+    required this.isCurrentUser,
     super.key,
   });
 
@@ -21,6 +22,7 @@ class ProfileSection extends StatelessWidget {
   final bool showAddButton;
   final bool showEditButton;
   final Widget child;
+  final bool isCurrentUser;
 
   @override
   Widget build(BuildContext context) {
@@ -45,32 +47,33 @@ class ProfileSection extends StatelessWidget {
                 style: Theme.of(context).textTheme.headlineSmall,
               ),
               const Spacer(),
-              Row(
-                children: [
-                  if (showAddButton)
-                    CustomIconButton(
-                      onTap: onTapAdd,
-                      icon: SizedBox(
-                        height: 24.h,
-                        width: 24.w,
-                        child: SvgPicture.asset(IconStringConstants.addIcon),
+              if (isCurrentUser)
+                Row(
+                  children: [
+                    if (showAddButton)
+                      CustomIconButton(
+                        onTap: onTapAdd,
+                        icon: SizedBox(
+                          height: 24.h,
+                          width: 24.w,
+                          child: SvgPicture.asset(IconStringConstants.addIcon),
+                        ),
                       ),
-                    ),
-                  if (showEditButton)
-                    SizedBox(
-                      width: 12.w,
-                    ),
-                  if (showEditButton)
-                    CustomIconButton(
-                      onTap: onTapEdit,
-                      icon: SizedBox(
-                        height: 24.h,
-                        width: 24.w,
-                        child: SvgPicture.asset(IconStringConstants.editIcon),
+                    if (showEditButton)
+                      SizedBox(
+                        width: 12.w,
                       ),
-                    ),
-                ],
-              ),
+                    if (showEditButton)
+                      CustomIconButton(
+                        onTap: onTapEdit,
+                        icon: SizedBox(
+                          height: 24.h,
+                          width: 24.w,
+                          child: SvgPicture.asset(IconStringConstants.editIcon),
+                        ),
+                      ),
+                  ],
+                ),
             ],
           ),
           SizedBox(

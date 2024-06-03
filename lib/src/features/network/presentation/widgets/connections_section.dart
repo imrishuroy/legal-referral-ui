@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:legal_referral_ui/src/core/config/config.dart';
 import 'package:legal_referral_ui/src/core/constants/constants.dart';
 import 'package:legal_referral_ui/src/features/auth/presentation/presentation.dart';
 import 'package:legal_referral_ui/src/features/network/presentation/presentation.dart';
+import 'package:legal_referral_ui/src/features/profile/presentation/presentation.dart';
 
 class ConnectionsSection extends StatefulWidget {
   const ConnectionsSection({required this.networkBloc, super.key});
@@ -55,8 +57,25 @@ class _ConnectionsSectionState extends State<ConnectionsSection> {
               physics: const NeverScrollableScrollPhysics(),
               shrinkWrap: true,
               itemCount: state.connections.length,
-              itemBuilder: (context, index) => ConnectionTile(
-                connection: state.connections[index],
+              itemBuilder: (context, index) => GestureDetector(
+                onTap: () {
+                  final currentUserId = _authBloc.state.user?.userId;
+                  final senderId = state.connections[index]?.senderId;
+                  final receiverId = state.connections[index]?.recipientId;
+
+                  final userId =
+                      currentUserId == senderId ? receiverId : senderId;
+
+                  if (userId != null) {
+                    context.pushNamed(
+                      ProfilePage.name,
+                      pathParameters: {'userId': userId},
+                    );
+                  }
+                },
+                child: ConnectionTile(
+                  connection: state.connections[index],
+                ),
               ),
               separatorBuilder: (context, index) => Divider(
                 height: 2.h,

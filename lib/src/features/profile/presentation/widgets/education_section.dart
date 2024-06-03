@@ -7,10 +7,12 @@ import 'package:legal_referral_ui/src/features/profile/presentation/presentation
 class EducationSection extends StatefulWidget {
   const EducationSection({
     required this.profileBloc,
+    required this.isCurrentUser,
     super.key,
   });
 
   final ProfileBloc profileBloc;
+  final bool isCurrentUser;
 
   @override
   State<EducationSection> createState() => _EducationSectionState();
@@ -28,6 +30,7 @@ class _EducationSectionState extends State<EducationSection> {
     final profileBloc = widget.profileBloc;
     return ProfileSection(
       title: 'Education',
+      isCurrentUser: widget.isCurrentUser,
       onTapAdd: () => context.pushNamed(
         AddUpdateEducationPage.name,
         extra: AddUpdateEducationPageArgs(

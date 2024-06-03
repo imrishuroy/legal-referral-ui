@@ -28,7 +28,12 @@ class _HomePageState extends State<HomePage> {
             horizontal: 8,
           ),
           child: GestureDetector(
-            onTap: () => context.pushNamed(ProfilePage.name),
+            onTap: () => context.pushNamed(
+              ProfilePage.name,
+              pathParameters: {
+                'userId': _authBloc.state.user?.userId ?? '',
+              },
+            ),
             child: CircleAvatar(
               backgroundImage: NetworkImage(
                 _authBloc.state.user?.avatarUrl ?? '',

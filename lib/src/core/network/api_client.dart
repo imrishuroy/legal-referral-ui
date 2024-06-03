@@ -4,7 +4,7 @@ import 'package:dio/dio.dart';
 import 'package:legal_referral_ui/src/core/config/config.dart';
 import 'package:legal_referral_ui/src/features/auth/data/data.dart';
 import 'package:legal_referral_ui/src/features/auth/domain/domain.dart';
-import 'package:legal_referral_ui/src/features/chat/data/models/create_chat_room_req.dart';
+import 'package:legal_referral_ui/src/features/chat/data/data.dart';
 import 'package:legal_referral_ui/src/features/chat/domain/domain.dart';
 import 'package:legal_referral_ui/src/features/network/data/data.dart';
 import 'package:legal_referral_ui/src/features/network/domain/domain.dart';
@@ -302,46 +302,54 @@ abstract class APIClient {
 
   // referral
   @POST('/referral')
-  Future<String?> addReferral(
-    @Body() AddReferralReq referral,
+  Future<String?> createReferral(
+    @Body() CreateReferral referral,
   );
 
   @GET('/referrals/{userId}/active')
-  Future<List<Referral?>> fetchActiveReferrals(
+  Future<List<Project?>> fetchActiveReferrals(
     @Path('userId') String userId,
   );
 
-  @GET('/referrals/users/{referralId}')
-  Future<List<AppUser?>> fetchReferredUsers(
-    @Path('referralId') int referralId,
+  @GET('/referrals/users/{projectId}')
+  Future<List<ReferedUser?>> fetchReferredUsers(
+    @Path('projectId') int projectId,
   );
 
   @GET('/users/{userId}/proposals')
-  Future<List<Proposal?>> fetchProposals(
+  Future<List<Project?>> fetchProposals(
     @Path('userId') String userId,
-  );
-
-  @GET('/users/{userId}/proposals/{referralId}')
-  Future<ProposalReq?> fetchProposalByReferralId(
-    @Path('userId') String userId,
-    @Path('referralId') int referralId,
   );
 
   @POST('/proposals')
-  Future<ProposalReq?> createProposal(
-    @Body() ProposalReq proposalReq,
+  Future<Proposal?> createProposal(
+    @Body() Proposal proposalReq,
   );
 
   @PUT('/proposals/{proposalId}')
-  Future<ProposalReq?> updateProposal(
+  Future<Proposal> updateProposal(
     @Path('proposalId') int proposalId,
-    @Body() ProposalReq proposalReq,
+    @Body() Proposal proposal,
   );
 
-  // project
+  @GET('/users/{userId}/proposals/{projectId}')
+  Future<Proposal?> fetchProposalByReferralId(
+    @Path('userId') String userId,
+    @Path('projectId') int projectId,
+  );
+
   @POST('/projects/award')
   Future<Project?> awardProject(
     @Body() AwardProjectReq awardProject,
+  );
+
+  @GET('/projects/awarded/{userId}')
+  Future<List<Project?>> fetchAwardedProjects(
+    @Path('userId') String userId,
+  );
+  @PUT('/projects/{projectId}/accept')
+  Future<Project?> acceptProject(
+    @Path('projectId') int projectId,
   );
 
   @GET('/projects/active/{userId}')
@@ -350,13 +358,8 @@ abstract class APIClient {
     @Query('role') String role,
   );
 
-  @GET('/projects/awarded/{userId}')
-  Future<List<Project?>> fetchAwardedProjects(
-    @Path('userId') String userId,
-  );
-
-  @PUT('/projects/{projectId}/accept')
-  Future<Project?> acceptProject(
+  @PUT('/projects/{projectId}/reject')
+  Future<Project?> rejectProject(
     @Path('projectId') int projectId,
   );
 
@@ -380,11 +383,6 @@ abstract class APIClient {
     @Path('projectId') int projectId,
   );
 
-  @PUT('/projects/{projectId}/reject')
-  Future<Project?> rejectProject(
-    @Path('projectId') int projectId,
-  );
-
   @POST('/projects/review')
   Future<ProjectReview?> addProjectReview(
     @Body() ProjectReview projectReview,
@@ -394,5 +392,18 @@ abstract class APIClient {
   Future<List<Project?>> fetchCompletedProjects(
     @Path('userId') String userId,
     @Query('role') String role,
+  );
+
+  @GET('/users/{userId}/connected')
+  Future<List<AppUser?>> fetchConnectedUsers(
+    @Path('userId') String userId,
+    @Query('limit') int limit,
+    @Query('offset') int offset,
+  );
+
+  @GET('/users')
+  Future<List<AppUser?>> fetchUsers(
+    @Query('limit') int limit,
+    @Query('offset') int offset,
   );
 }

@@ -8,45 +8,36 @@ part of 'proposal.dart';
 
 _$ProposalImpl _$$ProposalImplFromJson(Map<String, dynamic> json) =>
     _$ProposalImpl(
-      referrerUserId: json['referrer_user_id'] as String?,
-      referrerFirstName: json['referrer_first_name'] as String?,
-      referrerLastName: json['referrer_last_name'] as String?,
-      referrerPracticeArea: json['referrer_practice_area'] as String?,
-      referrerPracticeLocation: json['referrer_practice_location'] as String?,
-      referrerAvatarUrl: json['referrer_avatar_url'] as String?,
-      referralId: (json['referral_id'] as num?)?.toInt(),
+      referralId: (json['project_id'] as num?)?.toInt(),
+      userId: json['user_id'] as String?,
       title: json['title'] as String?,
-      preferredPracticeArea: json['preferred_practice_area'] as String?,
-      preferredPracticeLocation: json['preferred_practice_location'] as String?,
-      caseDescription: json['case_description'] as String?,
+      proposal: json['proposal'] as String?,
+      proposalId: (json['proposal_id'] as num?)?.toInt(),
+      status: $enumDecodeNullable(_$ProposalStatusEnumMap, json['status']) ??
+          ProposalStatus.active,
       createdAt: _$JsonConverterFromJson<String, DateTime>(
           json['created_at'], const DateTimeJsonConverter().fromJson),
       updatedAt: _$JsonConverterFromJson<String, DateTime>(
           json['updated_at'], const DateTimeJsonConverter().fromJson),
-      status: $enumDecodeNullable(_$ProposalStatusEnumMap, json['status']) ??
-          ProposalStatus.active,
     );
 
-Map<String, dynamic> _$$ProposalImplToJson(_$ProposalImpl instance) =>
-    <String, dynamic>{
-      'referrer_user_id': instance.referrerUserId,
-      'referrer_first_name': instance.referrerFirstName,
-      'referrer_last_name': instance.referrerLastName,
-      'referrer_practice_area': instance.referrerPracticeArea,
-      'referrer_practice_location': instance.referrerPracticeLocation,
-      'referrer_avatar_url': instance.referrerAvatarUrl,
-      'referral_id': instance.referralId,
-      'title': instance.title,
-      'preferred_practice_area': instance.preferredPracticeArea,
-      'preferred_practice_location': instance.preferredPracticeLocation,
-      'case_description': instance.caseDescription,
-    };
+Map<String, dynamic> _$$ProposalImplToJson(_$ProposalImpl instance) {
+  final val = <String, dynamic>{
+    'project_id': instance.referralId,
+    'user_id': instance.userId,
+    'title': instance.title,
+    'proposal': instance.proposal,
+  };
 
-Value? _$JsonConverterFromJson<Json, Value>(
-  Object? json,
-  Value? Function(Json json) fromJson,
-) =>
-    json == null ? null : fromJson(json as Json);
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('proposal_id', instance.proposalId);
+  return val;
+}
 
 const _$ProposalStatusEnumMap = {
   ProposalStatus.active: 'active',
@@ -57,3 +48,9 @@ const _$ProposalStatusEnumMap = {
   ProposalStatus.rejected: 'rejected',
   ProposalStatus.cancelled: 'cancelled',
 };
+
+Value? _$JsonConverterFromJson<Json, Value>(
+  Object? json,
+  Value? Function(Json json) fromJson,
+) =>
+    json == null ? null : fromJson(json as Json);

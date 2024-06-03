@@ -6,7 +6,6 @@ import 'package:legal_referral_ui/src/core/common_widgets/widgets.dart';
 import 'package:legal_referral_ui/src/core/config/config.dart';
 import 'package:legal_referral_ui/src/core/constants/constants.dart';
 import 'package:legal_referral_ui/src/core/utils/utils.dart';
-import 'package:legal_referral_ui/src/features/auth/domain/domain.dart';
 import 'package:legal_referral_ui/src/features/auth/presentation/presentation.dart';
 import 'package:legal_referral_ui/src/features/chat/presentation/presentation.dart';
 import 'package:legal_referral_ui/src/features/referral/data/data.dart';
@@ -16,11 +15,11 @@ import 'package:toastification/toastification.dart';
 
 class ReferralProposalPageArgs {
   ReferralProposalPageArgs({
-    this.referral,
+    this.project,
     this.referredUser,
   });
-  final Referral? referral;
-  final AppUser? referredUser;
+  final Project? project;
+  final ReferedUser? referredUser;
 }
 
 class ReferralProposalPage extends StatefulWidget {
@@ -41,12 +40,12 @@ class _ReferralProposalPageState extends State<ReferralProposalPage> {
 
   @override
   void initState() {
-    final referralId = widget.args.referral?.referralId;
-    if (referralId != null) {
+    final projectId = widget.args.project?.projectId;
+    if (projectId != null) {
       _referralBloc.add(
         ProposalFetched(
-          userId: widget.args.referral?.referredUserId ?? '',
-          referralId: referralId,
+          userId: widget.args.referredUser?.userId ?? '',
+          projectId: projectId,
         ),
       );
     }
@@ -59,7 +58,7 @@ class _ReferralProposalPageState extends State<ReferralProposalPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          widget.args.referral?.title ?? '',
+          widget.args.project?.title ?? '',
         ),
       ),
       body: BlocConsumer<ReferralBloc, ReferralState>(
@@ -73,7 +72,7 @@ class _ReferralProposalPageState extends State<ReferralProposalPage> {
               type: ToastificationType.error,
             );
           } else if (state.status == ReferralStatus.awardProject) {
-            context.goNamed(ReferralPage.name);
+            context.goNamed(ReferralPage.name, extra: 1);
           }
         },
         builder: (context, state) {
@@ -84,7 +83,7 @@ class _ReferralProposalPageState extends State<ReferralProposalPage> {
           final name = '${widget.args.referredUser?.firstName ?? ''} '
               '${widget.args.referredUser?.lastName ?? ''}';
 
-          final proposal = state.proposalReq;
+          final proposal = state.proposal;
 
           return ColoredBox(
             color: Colors.white,
@@ -102,14 +101,13 @@ class _ReferralProposalPageState extends State<ReferralProposalPage> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        if (state.proposalReq?.proposal != null)
+                        if (state.proposal?.proposal != null)
                           Text(
-                            state.proposalReq?.proposal ?? '',
+                            state.proposal?.proposal ?? '',
                             style: Theme.of(context).textTheme.bodyLarge,
                           ),
-                        if (state.proposalReq?.proposal != null)
-                          const Divider(),
-                        if (state.proposalReq?.proposal != null)
+                        if (state.proposal?.proposal != null) const Divider(),
+                        if (state.proposal?.proposal != null)
                           const SizedBox(height: 12),
                         Row(
                           children: [
@@ -184,20 +182,16 @@ class _ReferralProposalPageState extends State<ReferralProposalPage> {
   }
 
   void _projectAwarded() {
-    final referralId = widget.args.referral?.referralId;
-    final referredUserId = widget.args.referral?.referredUserId;
-    final referrerUserId = widget.args.referral?.referrerUserId;
+    final projectId = widget.args.project?.projectId;
+    final referredUserId = widget.args.referredUser?.userId;
 
-    if (referralId == null ||
-        referredUserId == null ||
-        referrerUserId == null) {
+    if (projectId == null || referredUserId == null) {
       return;
     }
 
     final req = AwardProjectReq(
-      referralId: referralId,
+      projectId: projectId,
       referredUserId: referredUserId,
-      referrerUserId: referrerUserId,
     );
     _referralBloc.add(
       ProjectAwarded(
@@ -209,14 +203,12 @@ class _ReferralProposalPageState extends State<ReferralProposalPage> {
   void _onTapMessage() {
     final authBloc = getIt<AuthBloc>();
     final currentUserId = authBloc.state.user?.userId;
-    final referrerUserId = widget.args.referral?.referrerUserId;
     final referredUserId = widget.args.referredUser?.userId;
-    final otherUserId =
-        currentUserId == referrerUserId ? referredUserId : referrerUserId;
-    if (currentUserId == null || referrerUserId == null) {
+
+    if (currentUserId == null || referredUserId == null) {
       return;
     }
-    context.pushNamed(ChatMessagesPage.name, extra: otherUserId);
+    context.pushNamed(ChatMessagesPage.name, extra: referredUserId);
   }
 }
 

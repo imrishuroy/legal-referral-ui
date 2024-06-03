@@ -1481,7 +1481,7 @@ class _APIClient implements APIClient {
   }
 
   @override
-  Future<String?> addReferral(AddReferralReq referral) async {
+  Future<String?> createReferral(CreateReferral referral) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
@@ -1508,13 +1508,13 @@ class _APIClient implements APIClient {
   }
 
   @override
-  Future<List<Referral?>> fetchActiveReferrals(String userId) async {
+  Future<List<Project?>> fetchActiveReferrals(String userId) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
     final _result =
-        await _dio.fetch<List<dynamic>>(_setStreamType<List<Referral>>(Options(
+        await _dio.fetch<List<dynamic>>(_setStreamType<List<Project>>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
@@ -1532,26 +1532,26 @@ class _APIClient implements APIClient {
             ))));
     var value = _result.data!
         .map((dynamic i) =>
-            i == null ? null : Referral.fromJson(i as Map<String, dynamic>))
+            i == null ? null : Project.fromJson(i as Map<String, dynamic>))
         .toList();
     return value;
   }
 
   @override
-  Future<List<AppUser?>> fetchReferredUsers(int referralId) async {
+  Future<List<ReferedUser?>> fetchReferredUsers(int projectId) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _result =
-        await _dio.fetch<List<dynamic>>(_setStreamType<List<AppUser>>(Options(
+    final _result = await _dio
+        .fetch<List<dynamic>>(_setStreamType<List<ReferedUser>>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
     )
             .compose(
               _dio.options,
-              '/referrals/users/${referralId}',
+              '/referrals/users/${projectId}',
               queryParameters: queryParameters,
               data: _data,
             )
@@ -1562,19 +1562,19 @@ class _APIClient implements APIClient {
             ))));
     var value = _result.data!
         .map((dynamic i) =>
-            i == null ? null : AppUser.fromJson(i as Map<String, dynamic>))
+            i == null ? null : ReferedUser.fromJson(i as Map<String, dynamic>))
         .toList();
     return value;
   }
 
   @override
-  Future<List<Proposal?>> fetchProposals(String userId) async {
+  Future<List<Project?>> fetchProposals(String userId) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
     final _result =
-        await _dio.fetch<List<dynamic>>(_setStreamType<List<Proposal>>(Options(
+        await _dio.fetch<List<dynamic>>(_setStreamType<List<Project>>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
@@ -1592,51 +1592,20 @@ class _APIClient implements APIClient {
             ))));
     var value = _result.data!
         .map((dynamic i) =>
-            i == null ? null : Proposal.fromJson(i as Map<String, dynamic>))
+            i == null ? null : Project.fromJson(i as Map<String, dynamic>))
         .toList();
     return value;
   }
 
   @override
-  Future<ProposalReq?> fetchProposalByReferralId(
-    String userId,
-    int referralId,
-  ) async {
-    final _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
-    final _headers = <String, dynamic>{};
-    const Map<String, dynamic>? _data = null;
-    final _result = await _dio
-        .fetch<Map<String, dynamic>?>(_setStreamType<ProposalReq>(Options(
-      method: 'GET',
-      headers: _headers,
-      extra: _extra,
-    )
-            .compose(
-              _dio.options,
-              '/users/${userId}/proposals/${referralId}',
-              queryParameters: queryParameters,
-              data: _data,
-            )
-            .copyWith(
-                baseUrl: _combineBaseUrls(
-              _dio.options.baseUrl,
-              baseUrl,
-            ))));
-    final value =
-        _result.data == null ? null : ProposalReq.fromJson(_result.data!);
-    return value;
-  }
-
-  @override
-  Future<ProposalReq?> createProposal(ProposalReq proposalReq) async {
+  Future<Proposal?> createProposal(Proposal proposalReq) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     _data.addAll(proposalReq.toJson());
     final _result = await _dio
-        .fetch<Map<String, dynamic>?>(_setStreamType<ProposalReq>(Options(
+        .fetch<Map<String, dynamic>?>(_setStreamType<Proposal>(Options(
       method: 'POST',
       headers: _headers,
       extra: _extra,
@@ -1653,22 +1622,22 @@ class _APIClient implements APIClient {
               baseUrl,
             ))));
     final value =
-        _result.data == null ? null : ProposalReq.fromJson(_result.data!);
+        _result.data == null ? null : Proposal.fromJson(_result.data!);
     return value;
   }
 
   @override
-  Future<ProposalReq?> updateProposal(
+  Future<Proposal> updateProposal(
     int proposalId,
-    ProposalReq proposalReq,
+    Proposal proposal,
   ) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    _data.addAll(proposalReq.toJson());
-    final _result = await _dio
-        .fetch<Map<String, dynamic>?>(_setStreamType<ProposalReq>(Options(
+    _data.addAll(proposal.toJson());
+    final _result =
+        await _dio.fetch<Map<String, dynamic>>(_setStreamType<Proposal>(Options(
       method: 'PUT',
       headers: _headers,
       extra: _extra,
@@ -1684,8 +1653,38 @@ class _APIClient implements APIClient {
               _dio.options.baseUrl,
               baseUrl,
             ))));
+    final value = Proposal.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<Proposal?> fetchProposalByReferralId(
+    String userId,
+    int projectId,
+  ) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    const Map<String, dynamic>? _data = null;
+    final _result = await _dio
+        .fetch<Map<String, dynamic>?>(_setStreamType<Proposal>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              '/users/${userId}/proposals/${projectId}',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
     final value =
-        _result.data == null ? null : ProposalReq.fromJson(_result.data!);
+        _result.data == null ? null : Proposal.fromJson(_result.data!);
     return value;
   }
 
@@ -1714,39 +1713,6 @@ class _APIClient implements APIClient {
               baseUrl,
             ))));
     final value = _result.data == null ? null : Project.fromJson(_result.data!);
-    return value;
-  }
-
-  @override
-  Future<List<Project?>> fetchActiveProjects(
-    String userId,
-    String role,
-  ) async {
-    final _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{r'role': role};
-    final _headers = <String, dynamic>{};
-    const Map<String, dynamic>? _data = null;
-    final _result =
-        await _dio.fetch<List<dynamic>>(_setStreamType<List<Project>>(Options(
-      method: 'GET',
-      headers: _headers,
-      extra: _extra,
-    )
-            .compose(
-              _dio.options,
-              '/projects/active/${userId}',
-              queryParameters: queryParameters,
-              data: _data,
-            )
-            .copyWith(
-                baseUrl: _combineBaseUrls(
-              _dio.options.baseUrl,
-              baseUrl,
-            ))));
-    var value = _result.data!
-        .map((dynamic i) =>
-            i == null ? null : Project.fromJson(i as Map<String, dynamic>))
-        .toList();
     return value;
   }
 
@@ -1795,6 +1761,66 @@ class _APIClient implements APIClient {
             .compose(
               _dio.options,
               '/projects/${projectId}/accept',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
+    final value = _result.data == null ? null : Project.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<List<Project?>> fetchActiveProjects(
+    String userId,
+    String role,
+  ) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{r'role': role};
+    final _headers = <String, dynamic>{};
+    const Map<String, dynamic>? _data = null;
+    final _result =
+        await _dio.fetch<List<dynamic>>(_setStreamType<List<Project>>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              '/projects/active/${userId}',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
+    var value = _result.data!
+        .map((dynamic i) =>
+            i == null ? null : Project.fromJson(i as Map<String, dynamic>))
+        .toList();
+    return value;
+  }
+
+  @override
+  Future<Project?> rejectProject(int projectId) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    const Map<String, dynamic>? _data = null;
+    final _result =
+        await _dio.fetch<Map<String, dynamic>?>(_setStreamType<Project>(Options(
+      method: 'PUT',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              '/projects/${projectId}/reject',
               queryParameters: queryParameters,
               data: _data,
             )
@@ -1916,33 +1942,6 @@ class _APIClient implements APIClient {
   }
 
   @override
-  Future<Project?> rejectProject(int projectId) async {
-    final _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
-    final _headers = <String, dynamic>{};
-    const Map<String, dynamic>? _data = null;
-    final _result =
-        await _dio.fetch<Map<String, dynamic>?>(_setStreamType<Project>(Options(
-      method: 'PUT',
-      headers: _headers,
-      extra: _extra,
-    )
-            .compose(
-              _dio.options,
-              '/projects/${projectId}/reject',
-              queryParameters: queryParameters,
-              data: _data,
-            )
-            .copyWith(
-                baseUrl: _combineBaseUrls(
-              _dio.options.baseUrl,
-              baseUrl,
-            ))));
-    final value = _result.data == null ? null : Project.fromJson(_result.data!);
-    return value;
-  }
-
-  @override
   Future<ProjectReview?> addProjectReview(ProjectReview projectReview) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
@@ -2000,6 +1999,79 @@ class _APIClient implements APIClient {
     var value = _result.data!
         .map((dynamic i) =>
             i == null ? null : Project.fromJson(i as Map<String, dynamic>))
+        .toList();
+    return value;
+  }
+
+  @override
+  Future<List<AppUser?>> fetchConnectedUsers(
+    String userId,
+    int limit,
+    int offset,
+  ) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{
+      r'limit': limit,
+      r'offset': offset,
+    };
+    final _headers = <String, dynamic>{};
+    const Map<String, dynamic>? _data = null;
+    final _result =
+        await _dio.fetch<List<dynamic>>(_setStreamType<List<AppUser>>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              '/users/${userId}/connected',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
+    var value = _result.data!
+        .map((dynamic i) =>
+            i == null ? null : AppUser.fromJson(i as Map<String, dynamic>))
+        .toList();
+    return value;
+  }
+
+  @override
+  Future<List<AppUser?>> fetchUsers(
+    int limit,
+    int offset,
+  ) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{
+      r'limit': limit,
+      r'offset': offset,
+    };
+    final _headers = <String, dynamic>{};
+    const Map<String, dynamic>? _data = null;
+    final _result =
+        await _dio.fetch<List<dynamic>>(_setStreamType<List<AppUser>>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              '/users',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
+    var value = _result.data!
+        .map((dynamic i) =>
+            i == null ? null : AppUser.fromJson(i as Map<String, dynamic>))
         .toList();
     return value;
   }

@@ -21,9 +21,7 @@ enum ProjectStatus {
 @freezed
 class Project with _$Project {
   const factory Project({
-    @JsonKey(name: 'referral_id') required int referralId,
-    required DateTime? updatedAt,
-    @JsonKey(name: 'user_id') required String? userId,
+    @JsonKey(name: 'referrer_user_id') required String? referrerUserId,
     @JsonKey(
       name: 'case_description',
       includeToJson: false,
@@ -31,12 +29,12 @@ class Project with _$Project {
     String? description,
     String? title,
     @JsonKey(
-      name: 'practice_area',
+      name: 'preferred_practice_area',
       includeToJson: false,
     )
     String? practiceArea,
     @JsonKey(
-      name: 'practice_location',
+      name: 'preferred_practice_location',
       includeToJson: false,
     )
     String? practiceLocation,

@@ -31,7 +31,7 @@ import '../../features/network/data/repositories/network_repository_impl.dart'
     as _i15;
 import '../../features/network/domain/domain.dart' as _i14;
 import '../../features/network/domain/usecases/network_usecase.dart' as _i35;
-import '../../features/network/presentation/bloc/network_bloc.dart' as _i45;
+import '../../features/network/presentation/bloc/network_bloc.dart' as _i44;
 import '../../features/profile/data/data.dart' as _i25;
 import '../../features/profile/data/datasources/profile_datasource.dart'
     as _i10;
@@ -47,7 +47,7 @@ import '../../features/referral/data/repositories/referral_repository_impl.dart'
     as _i18;
 import '../../features/referral/domain/domain.dart' as _i17;
 import '../../features/referral/domain/usecases/referral_usecases.dart' as _i39;
-import '../../features/referral/presentation/bloc/referral_bloc.dart' as _i44;
+import '../../features/referral/presentation/bloc/referral_bloc.dart' as _i46;
 import '../../features/search/data/data.dart' as _i28;
 import '../../features/search/data/datasources/search_datasource.dart' as _i11;
 import '../../features/search/data/repositories/search_repository_impl.dart'
@@ -56,7 +56,7 @@ import '../../features/search/domain/domain.dart' as _i38;
 import '../../features/search/domain/repositories/search_repository.dart'
     as _i26;
 import '../../features/search/domain/usecases/search_usecase.dart' as _i37;
-import '../../features/search/presentation/bloc/search_bloc.dart' as _i46;
+import '../../features/search/presentation/bloc/search_bloc.dart' as _i45;
 import '../../features/wizard/data/data.dart' as _i5;
 import '../../features/wizard/data/repositories/wizard_repository_impl.dart'
     as _i13;
@@ -138,14 +138,12 @@ extension GetItInjectableX on _i1.GetIt {
           authBloc: gh<_i41.AuthBloc>(),
           profileUseCase: gh<_i33.ProfileUseCase>(),
         ));
-    gh.factory<_i44.ReferralBloc>(() => _i44.ReferralBloc(
-          referralUseCases: gh<_i17.ReferralUseCases>(),
-          networkUseCase: gh<_i14.NetworkUseCase>(),
-        ));
-    gh.factory<_i45.NetworkBloc>(
-        () => _i45.NetworkBloc(networkUseCase: gh<_i14.NetworkUseCase>()));
-    gh.factory<_i46.SearchBloc>(
-        () => _i46.SearchBloc(searchUseCase: gh<_i38.SearchUseCase>()));
+    gh.factory<_i44.NetworkBloc>(
+        () => _i44.NetworkBloc(networkUseCase: gh<_i14.NetworkUseCase>()));
+    gh.factory<_i45.SearchBloc>(
+        () => _i45.SearchBloc(searchUseCase: gh<_i38.SearchUseCase>()));
+    gh.factory<_i46.ReferralBloc>(
+        () => _i46.ReferralBloc(referralUseCases: gh<_i17.ReferralUseCases>()));
     return this;
   }
 }

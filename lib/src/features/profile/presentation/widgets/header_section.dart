@@ -15,11 +15,13 @@ class HeaderSection extends StatefulWidget {
   const HeaderSection({
     required this.profileBloc,
     required this.user,
+    required this.isCurrentUser,
     super.key,
   });
 
   final UserProfile? user;
   final ProfileBloc profileBloc;
+  final bool isCurrentUser;
 
   @override
   State<HeaderSection> createState() => _HeaderSectionState();
@@ -35,26 +37,29 @@ class _HeaderSectionState extends State<HeaderSection> {
           _UserBannerWidget(
             bannerUrl: widget.user?.bannerUrl,
             onTapEdit: () => _updateBannerImage(context),
+            isCurrentUser: widget.isCurrentUser,
           ),
-          Positioned(
-            right: 16.w,
-            top: 148.h,
-            child: CustomIconButton(
-              onTap: () => context.pushNamed(
-                UpdateUserInfoPage.name,
-                extra: widget.profileBloc,
-              ),
-              icon: SvgPicture.asset(
-                IconStringConstants.editIcon,
+          if (widget.isCurrentUser)
+            Positioned(
+              right: 16.w,
+              top: 148.h,
+              child: CustomIconButton(
+                onTap: () => context.pushNamed(
+                  UpdateUserInfoPage.name,
+                  extra: widget.profileBloc,
+                ),
+                icon: SvgPicture.asset(
+                  IconStringConstants.editIcon,
+                ),
               ),
             ),
-          ),
           Positioned(
             top: 61.h,
             left: 16.w,
             child: _UserAvatarWidget(
               avatarUrl: widget.user?.avatarUrl,
               onTapEdit: () => _updateAvatarImage(context),
+              isCurrentUser: widget.isCurrentUser,
             ),
           ),
         ],
@@ -135,10 +140,12 @@ class _UserBannerWidget extends StatelessWidget {
   const _UserBannerWidget({
     required this.bannerUrl,
     required this.onTapEdit,
+    required this.isCurrentUser,
   });
 
   final String? bannerUrl;
   final VoidCallback onTapEdit;
+  final bool isCurrentUser;
 
   @override
   Widget build(BuildContext context) {
@@ -149,25 +156,26 @@ class _UserBannerWidget extends StatelessWidget {
           height: 140.h,
           width: double.infinity,
         ),
-        Positioned(
-          right: 16.w,
-          top: 16.h,
-          child: Container(
-            decoration: const BoxDecoration(
-              shape: BoxShape.circle,
-              color: LegalReferralColors.containerWhite500,
-            ),
-            padding: const EdgeInsets.all(8),
-            child: CustomIconButton(
-              onTap: onTapEdit,
-              icon: SvgPicture.asset(
-                IconStringConstants.editIcon,
-                height: 20.h,
-                width: 20.w,
+        if (isCurrentUser)
+          Positioned(
+            right: 16.w,
+            top: 16.h,
+            child: Container(
+              decoration: const BoxDecoration(
+                shape: BoxShape.circle,
+                color: LegalReferralColors.containerWhite500,
+              ),
+              padding: const EdgeInsets.all(8),
+              child: CustomIconButton(
+                onTap: onTapEdit,
+                icon: SvgPicture.asset(
+                  IconStringConstants.editIcon,
+                  height: 20.h,
+                  width: 20.w,
+                ),
               ),
             ),
           ),
-        ),
       ],
     );
   }
@@ -177,10 +185,12 @@ class _UserAvatarWidget extends StatelessWidget {
   const _UserAvatarWidget({
     required this.avatarUrl,
     required this.onTapEdit,
+    required this.isCurrentUser,
   });
 
   final String? avatarUrl;
   final VoidCallback onTapEdit;
+  final bool isCurrentUser;
 
   @override
   Widget build(BuildContext context) {
@@ -199,25 +209,26 @@ class _UserAvatarWidget extends StatelessWidget {
             radius: 78.r,
           ),
         ),
-        Positioned(
-          right: 8.w,
-          bottom: 2.h,
-          child: Container(
-            decoration: const BoxDecoration(
-              shape: BoxShape.circle,
-              color: LegalReferralColors.containerWhite500,
-            ),
-            padding: const EdgeInsets.all(8),
-            child: CustomIconButton(
-              onTap: onTapEdit,
-              icon: SvgPicture.asset(
-                IconStringConstants.editIcon,
-                height: 20.h,
-                width: 20.w,
+        if (isCurrentUser)
+          Positioned(
+            right: 8.w,
+            bottom: 2.h,
+            child: Container(
+              decoration: const BoxDecoration(
+                shape: BoxShape.circle,
+                color: LegalReferralColors.containerWhite500,
+              ),
+              padding: const EdgeInsets.all(8),
+              child: CustomIconButton(
+                onTap: onTapEdit,
+                icon: SvgPicture.asset(
+                  IconStringConstants.editIcon,
+                  height: 20.h,
+                  width: 20.w,
+                ),
               ),
             ),
           ),
-        ),
       ],
     );
   }

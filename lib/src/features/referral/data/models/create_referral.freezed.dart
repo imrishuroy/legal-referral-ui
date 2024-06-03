@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'add_referral_req.dart';
+part of 'create_referral.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -14,12 +14,12 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
-AddReferralReq _$AddReferralReqFromJson(Map<String, dynamic> json) {
-  return _AddReferralReq.fromJson(json);
+CreateReferral _$CreateReferralFromJson(Map<String, dynamic> json) {
+  return _CreateReferral.fromJson(json);
 }
 
 /// @nodoc
-mixin _$AddReferralReq {
+mixin _$CreateReferral {
   String get title => throw _privateConstructorUsedError;
   @JsonKey(name: 'case_description')
   String get caseDescription => throw _privateConstructorUsedError;
@@ -34,15 +34,15 @@ mixin _$AddReferralReq {
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $AddReferralReqCopyWith<AddReferralReq> get copyWith =>
+  $CreateReferralCopyWith<CreateReferral> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $AddReferralReqCopyWith<$Res> {
-  factory $AddReferralReqCopyWith(
-          AddReferralReq value, $Res Function(AddReferralReq) then) =
-      _$AddReferralReqCopyWithImpl<$Res, AddReferralReq>;
+abstract class $CreateReferralCopyWith<$Res> {
+  factory $CreateReferralCopyWith(
+          CreateReferral value, $Res Function(CreateReferral) then) =
+      _$CreateReferralCopyWithImpl<$Res, CreateReferral>;
   @useResult
   $Res call(
       {String title,
@@ -54,9 +54,9 @@ abstract class $AddReferralReqCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$AddReferralReqCopyWithImpl<$Res, $Val extends AddReferralReq>
-    implements $AddReferralReqCopyWith<$Res> {
-  _$AddReferralReqCopyWithImpl(this._value, this._then);
+class _$CreateReferralCopyWithImpl<$Res, $Val extends CreateReferral>
+    implements $CreateReferralCopyWith<$Res> {
+  _$CreateReferralCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -103,11 +103,11 @@ class _$AddReferralReqCopyWithImpl<$Res, $Val extends AddReferralReq>
 }
 
 /// @nodoc
-abstract class _$$AddReferralReqImplCopyWith<$Res>
-    implements $AddReferralReqCopyWith<$Res> {
-  factory _$$AddReferralReqImplCopyWith(_$AddReferralReqImpl value,
-          $Res Function(_$AddReferralReqImpl) then) =
-      __$$AddReferralReqImplCopyWithImpl<$Res>;
+abstract class _$$CreateReferralImplCopyWith<$Res>
+    implements $CreateReferralCopyWith<$Res> {
+  factory _$$CreateReferralImplCopyWith(_$CreateReferralImpl value,
+          $Res Function(_$CreateReferralImpl) then) =
+      __$$CreateReferralImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -120,11 +120,11 @@ abstract class _$$AddReferralReqImplCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$AddReferralReqImplCopyWithImpl<$Res>
-    extends _$AddReferralReqCopyWithImpl<$Res, _$AddReferralReqImpl>
-    implements _$$AddReferralReqImplCopyWith<$Res> {
-  __$$AddReferralReqImplCopyWithImpl(
-      _$AddReferralReqImpl _value, $Res Function(_$AddReferralReqImpl) _then)
+class __$$CreateReferralImplCopyWithImpl<$Res>
+    extends _$CreateReferralCopyWithImpl<$Res, _$CreateReferralImpl>
+    implements _$$CreateReferralImplCopyWith<$Res> {
+  __$$CreateReferralImplCopyWithImpl(
+      _$CreateReferralImpl _value, $Res Function(_$CreateReferralImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -137,7 +137,7 @@ class __$$AddReferralReqImplCopyWithImpl<$Res>
     Object? referrerUserId = null,
     Object? referredUserIds = null,
   }) {
-    return _then(_$AddReferralReqImpl(
+    return _then(_$CreateReferralImpl(
       title: null == title
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
@@ -168,8 +168,8 @@ class __$$AddReferralReqImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$AddReferralReqImpl implements _AddReferralReq {
-  const _$AddReferralReqImpl(
+class _$CreateReferralImpl implements _CreateReferral {
+  const _$CreateReferralImpl(
       {required this.title,
       @JsonKey(name: 'case_description') required this.caseDescription,
       @JsonKey(name: 'preferred_practice_area') required this.practiceArea,
@@ -180,8 +180,8 @@ class _$AddReferralReqImpl implements _AddReferralReq {
       required final List<String> referredUserIds})
       : _referredUserIds = referredUserIds;
 
-  factory _$AddReferralReqImpl.fromJson(Map<String, dynamic> json) =>
-      _$$AddReferralReqImplFromJson(json);
+  factory _$CreateReferralImpl.fromJson(Map<String, dynamic> json) =>
+      _$$CreateReferralImplFromJson(json);
 
   @override
   final String title;
@@ -208,14 +208,14 @@ class _$AddReferralReqImpl implements _AddReferralReq {
 
   @override
   String toString() {
-    return 'AddReferralReq(title: $title, caseDescription: $caseDescription, practiceArea: $practiceArea, practiceLocation: $practiceLocation, referrerUserId: $referrerUserId, referredUserIds: $referredUserIds)';
+    return 'CreateReferral(title: $title, caseDescription: $caseDescription, practiceArea: $practiceArea, practiceLocation: $practiceLocation, referrerUserId: $referrerUserId, referredUserIds: $referredUserIds)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$AddReferralReqImpl &&
+            other is _$CreateReferralImpl &&
             (identical(other.title, title) || other.title == title) &&
             (identical(other.caseDescription, caseDescription) ||
                 other.caseDescription == caseDescription) &&
@@ -243,20 +243,20 @@ class _$AddReferralReqImpl implements _AddReferralReq {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$AddReferralReqImplCopyWith<_$AddReferralReqImpl> get copyWith =>
-      __$$AddReferralReqImplCopyWithImpl<_$AddReferralReqImpl>(
+  _$$CreateReferralImplCopyWith<_$CreateReferralImpl> get copyWith =>
+      __$$CreateReferralImplCopyWithImpl<_$CreateReferralImpl>(
           this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$AddReferralReqImplToJson(
+    return _$$CreateReferralImplToJson(
       this,
     );
   }
 }
 
-abstract class _AddReferralReq implements AddReferralReq {
-  const factory _AddReferralReq(
+abstract class _CreateReferral implements CreateReferral {
+  const factory _CreateReferral(
       {required final String title,
       @JsonKey(name: 'case_description') required final String caseDescription,
       @JsonKey(name: 'preferred_practice_area')
@@ -265,10 +265,10 @@ abstract class _AddReferralReq implements AddReferralReq {
       required final String practiceLocation,
       @JsonKey(name: 'referrer_user_id') required final String referrerUserId,
       @JsonKey(name: 'referred_user_ids')
-      required final List<String> referredUserIds}) = _$AddReferralReqImpl;
+      required final List<String> referredUserIds}) = _$CreateReferralImpl;
 
-  factory _AddReferralReq.fromJson(Map<String, dynamic> json) =
-      _$AddReferralReqImpl.fromJson;
+  factory _CreateReferral.fromJson(Map<String, dynamic> json) =
+      _$CreateReferralImpl.fromJson;
 
   @override
   String get title;
@@ -289,6 +289,6 @@ abstract class _AddReferralReq implements AddReferralReq {
   List<String> get referredUserIds;
   @override
   @JsonKey(ignore: true)
-  _$$AddReferralReqImplCopyWith<_$AddReferralReqImpl> get copyWith =>
+  _$$CreateReferralImplCopyWith<_$CreateReferralImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

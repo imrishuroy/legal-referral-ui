@@ -20,17 +20,14 @@ Project _$ProjectFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Project {
-  @JsonKey(name: 'referral_id')
-  int get referralId => throw _privateConstructorUsedError;
-  DateTime? get updatedAt => throw _privateConstructorUsedError;
-  @JsonKey(name: 'user_id')
-  String? get userId => throw _privateConstructorUsedError;
+  @JsonKey(name: 'referrer_user_id')
+  String? get referrerUserId => throw _privateConstructorUsedError;
   @JsonKey(name: 'case_description', includeToJson: false)
   String? get description => throw _privateConstructorUsedError;
   String? get title => throw _privateConstructorUsedError;
-  @JsonKey(name: 'practice_area', includeToJson: false)
+  @JsonKey(name: 'preferred_practice_area', includeToJson: false)
   String? get practiceArea => throw _privateConstructorUsedError;
-  @JsonKey(name: 'practice_location', includeToJson: false)
+  @JsonKey(name: 'preferred_practice_location', includeToJson: false)
   String? get practiceLocation => throw _privateConstructorUsedError;
   @JsonKey(name: 'status', includeToJson: false)
   ProjectStatus get status => throw _privateConstructorUsedError;
@@ -59,15 +56,13 @@ abstract class $ProjectCopyWith<$Res> {
       _$ProjectCopyWithImpl<$Res, Project>;
   @useResult
   $Res call(
-      {@JsonKey(name: 'referral_id') int referralId,
-      DateTime? updatedAt,
-      @JsonKey(name: 'user_id') String? userId,
+      {@JsonKey(name: 'referrer_user_id') String? referrerUserId,
       @JsonKey(name: 'case_description', includeToJson: false)
       String? description,
       String? title,
-      @JsonKey(name: 'practice_area', includeToJson: false)
+      @JsonKey(name: 'preferred_practice_area', includeToJson: false)
       String? practiceArea,
-      @JsonKey(name: 'practice_location', includeToJson: false)
+      @JsonKey(name: 'preferred_practice_location', includeToJson: false)
       String? practiceLocation,
       @JsonKey(name: 'status', includeToJson: false) ProjectStatus status,
       @JsonKey(name: 'user', includeToJson: false) AppUser? user,
@@ -98,9 +93,7 @@ class _$ProjectCopyWithImpl<$Res, $Val extends Project>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? referralId = null,
-    Object? updatedAt = freezed,
-    Object? userId = freezed,
+    Object? referrerUserId = freezed,
     Object? description = freezed,
     Object? title = freezed,
     Object? practiceArea = freezed,
@@ -113,17 +106,9 @@ class _$ProjectCopyWithImpl<$Res, $Val extends Project>
     Object? projectId = freezed,
   }) {
     return _then(_value.copyWith(
-      referralId: null == referralId
-          ? _value.referralId
-          : referralId // ignore: cast_nullable_to_non_nullable
-              as int,
-      updatedAt: freezed == updatedAt
-          ? _value.updatedAt
-          : updatedAt // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
-      userId: freezed == userId
-          ? _value.userId
-          : userId // ignore: cast_nullable_to_non_nullable
+      referrerUserId: freezed == referrerUserId
+          ? _value.referrerUserId
+          : referrerUserId // ignore: cast_nullable_to_non_nullable
               as String?,
       description: freezed == description
           ? _value.description
@@ -189,15 +174,13 @@ abstract class _$$ProjectImplCopyWith<$Res> implements $ProjectCopyWith<$Res> {
   @override
   @useResult
   $Res call(
-      {@JsonKey(name: 'referral_id') int referralId,
-      DateTime? updatedAt,
-      @JsonKey(name: 'user_id') String? userId,
+      {@JsonKey(name: 'referrer_user_id') String? referrerUserId,
       @JsonKey(name: 'case_description', includeToJson: false)
       String? description,
       String? title,
-      @JsonKey(name: 'practice_area', includeToJson: false)
+      @JsonKey(name: 'preferred_practice_area', includeToJson: false)
       String? practiceArea,
-      @JsonKey(name: 'practice_location', includeToJson: false)
+      @JsonKey(name: 'preferred_practice_location', includeToJson: false)
       String? practiceLocation,
       @JsonKey(name: 'status', includeToJson: false) ProjectStatus status,
       @JsonKey(name: 'user', includeToJson: false) AppUser? user,
@@ -227,9 +210,7 @@ class __$$ProjectImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? referralId = null,
-    Object? updatedAt = freezed,
-    Object? userId = freezed,
+    Object? referrerUserId = freezed,
     Object? description = freezed,
     Object? title = freezed,
     Object? practiceArea = freezed,
@@ -242,17 +223,9 @@ class __$$ProjectImplCopyWithImpl<$Res>
     Object? projectId = freezed,
   }) {
     return _then(_$ProjectImpl(
-      referralId: null == referralId
-          ? _value.referralId
-          : referralId // ignore: cast_nullable_to_non_nullable
-              as int,
-      updatedAt: freezed == updatedAt
-          ? _value.updatedAt
-          : updatedAt // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
-      userId: freezed == userId
-          ? _value.userId
-          : userId // ignore: cast_nullable_to_non_nullable
+      referrerUserId: freezed == referrerUserId
+          ? _value.referrerUserId
+          : referrerUserId // ignore: cast_nullable_to_non_nullable
               as String?,
       description: freezed == description
           ? _value.description
@@ -302,13 +275,12 @@ class __$$ProjectImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$ProjectImpl implements _Project {
   const _$ProjectImpl(
-      {@JsonKey(name: 'referral_id') required this.referralId,
-      required this.updatedAt,
-      @JsonKey(name: 'user_id') required this.userId,
+      {@JsonKey(name: 'referrer_user_id') required this.referrerUserId,
       @JsonKey(name: 'case_description', includeToJson: false) this.description,
       this.title,
-      @JsonKey(name: 'practice_area', includeToJson: false) this.practiceArea,
-      @JsonKey(name: 'practice_location', includeToJson: false)
+      @JsonKey(name: 'preferred_practice_area', includeToJson: false)
+      this.practiceArea,
+      @JsonKey(name: 'preferred_practice_location', includeToJson: false)
       this.practiceLocation,
       @JsonKey(name: 'status', includeToJson: false)
       this.status = ProjectStatus.active,
@@ -328,23 +300,18 @@ class _$ProjectImpl implements _Project {
       _$$ProjectImplFromJson(json);
 
   @override
-  @JsonKey(name: 'referral_id')
-  final int referralId;
-  @override
-  final DateTime? updatedAt;
-  @override
-  @JsonKey(name: 'user_id')
-  final String? userId;
+  @JsonKey(name: 'referrer_user_id')
+  final String? referrerUserId;
   @override
   @JsonKey(name: 'case_description', includeToJson: false)
   final String? description;
   @override
   final String? title;
   @override
-  @JsonKey(name: 'practice_area', includeToJson: false)
+  @JsonKey(name: 'preferred_practice_area', includeToJson: false)
   final String? practiceArea;
   @override
-  @JsonKey(name: 'practice_location', includeToJson: false)
+  @JsonKey(name: 'preferred_practice_location', includeToJson: false)
   final String? practiceLocation;
   @override
   @JsonKey(name: 'status', includeToJson: false)
@@ -370,7 +337,7 @@ class _$ProjectImpl implements _Project {
 
   @override
   String toString() {
-    return 'Project(referralId: $referralId, updatedAt: $updatedAt, userId: $userId, description: $description, title: $title, practiceArea: $practiceArea, practiceLocation: $practiceLocation, status: $status, user: $user, createdAt: $createdAt, startedAt: $startedAt, completedAt: $completedAt, projectId: $projectId)';
+    return 'Project(referrerUserId: $referrerUserId, description: $description, title: $title, practiceArea: $practiceArea, practiceLocation: $practiceLocation, status: $status, user: $user, createdAt: $createdAt, startedAt: $startedAt, completedAt: $completedAt, projectId: $projectId)';
   }
 
   @override
@@ -378,11 +345,8 @@ class _$ProjectImpl implements _Project {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$ProjectImpl &&
-            (identical(other.referralId, referralId) ||
-                other.referralId == referralId) &&
-            (identical(other.updatedAt, updatedAt) ||
-                other.updatedAt == updatedAt) &&
-            (identical(other.userId, userId) || other.userId == userId) &&
+            (identical(other.referrerUserId, referrerUserId) ||
+                other.referrerUserId == referrerUserId) &&
             (identical(other.description, description) ||
                 other.description == description) &&
             (identical(other.title, title) || other.title == title) &&
@@ -406,9 +370,7 @@ class _$ProjectImpl implements _Project {
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      referralId,
-      updatedAt,
-      userId,
+      referrerUserId,
       description,
       title,
       practiceArea,
@@ -436,15 +398,13 @@ class _$ProjectImpl implements _Project {
 
 abstract class _Project implements Project {
   const factory _Project(
-      {@JsonKey(name: 'referral_id') required final int referralId,
-      required final DateTime? updatedAt,
-      @JsonKey(name: 'user_id') required final String? userId,
+      {@JsonKey(name: 'referrer_user_id') required final String? referrerUserId,
       @JsonKey(name: 'case_description', includeToJson: false)
       final String? description,
       final String? title,
-      @JsonKey(name: 'practice_area', includeToJson: false)
+      @JsonKey(name: 'preferred_practice_area', includeToJson: false)
       final String? practiceArea,
-      @JsonKey(name: 'practice_location', includeToJson: false)
+      @JsonKey(name: 'preferred_practice_location', includeToJson: false)
       final String? practiceLocation,
       @JsonKey(name: 'status', includeToJson: false) final ProjectStatus status,
       @JsonKey(name: 'user', includeToJson: false) final AppUser? user,
@@ -462,23 +422,18 @@ abstract class _Project implements Project {
   factory _Project.fromJson(Map<String, dynamic> json) = _$ProjectImpl.fromJson;
 
   @override
-  @JsonKey(name: 'referral_id')
-  int get referralId;
-  @override
-  DateTime? get updatedAt;
-  @override
-  @JsonKey(name: 'user_id')
-  String? get userId;
+  @JsonKey(name: 'referrer_user_id')
+  String? get referrerUserId;
   @override
   @JsonKey(name: 'case_description', includeToJson: false)
   String? get description;
   @override
   String? get title;
   @override
-  @JsonKey(name: 'practice_area', includeToJson: false)
+  @JsonKey(name: 'preferred_practice_area', includeToJson: false)
   String? get practiceArea;
   @override
-  @JsonKey(name: 'practice_location', includeToJson: false)
+  @JsonKey(name: 'preferred_practice_location', includeToJson: false)
   String? get practiceLocation;
   @override
   @JsonKey(name: 'status', includeToJson: false)
