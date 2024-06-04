@@ -8,7 +8,7 @@ import 'package:legal_referral_ui/src/core/constants/colors.dart';
 import 'package:legal_referral_ui/src/core/constants/icon_string_constants.dart';
 import 'package:legal_referral_ui/src/features/auth/domain/domain.dart';
 import 'package:legal_referral_ui/src/features/auth/presentation/presentation.dart';
-import 'package:legal_referral_ui/src/features/home_page.dart';
+import 'package:legal_referral_ui/src/features/home/presentation/pages/home_page.dart';
 import 'package:legal_referral_ui/src/features/wizard/presentation/presentation.dart';
 
 class SplashPage extends StatefulWidget {

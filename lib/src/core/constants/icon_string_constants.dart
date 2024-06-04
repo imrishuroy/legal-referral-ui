@@ -46,6 +46,7 @@ class IconStringConstants {
   static const String send = 'assets/icons/send.svg';
   static const String feed = 'assets/icons/feed.svg';
   static const String poll = 'assets/icons/poll.svg';
+  static const String bell = 'assets/icons/bell.svg';
 
   // -- Brand Icons
 

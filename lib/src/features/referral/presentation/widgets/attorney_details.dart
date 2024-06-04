@@ -60,6 +60,7 @@ class AttorneyDetails extends StatelessWidget {
                     .bodyLarge
                     ?.copyWith(color: LegalReferralColors.textGrey500),
               ),
+              
             ],
           ),
         ),

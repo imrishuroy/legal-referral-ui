@@ -4,7 +4,7 @@ import 'package:legal_referral_ui/src/core/common_widgets/widgets.dart';
 import 'package:legal_referral_ui/src/features/auth/presentation/presentation.dart';
 import 'package:legal_referral_ui/src/features/chat/presentation/presentation.dart';
 import 'package:legal_referral_ui/src/features/discuss/presentation/presentation.dart';
-import 'package:legal_referral_ui/src/features/home_page.dart';
+import 'package:legal_referral_ui/src/features/home/presentation/pages/home_page.dart';
 import 'package:legal_referral_ui/src/features/network/presentation/pages/network_page.dart';
 import 'package:legal_referral_ui/src/features/network/presentation/presentation.dart';
 import 'package:legal_referral_ui/src/features/post/presentation/presentation.dart';
@@ -30,7 +30,7 @@ class AppRouter {
         name: SplashPage.name,
         parentNavigatorKey: _rootNavigatorKey,
         pageBuilder: (context, state) => CustomTransitionPage(
-          child: const SplashPage(),
+          child: const HomePage(),
           transitionDuration: const Duration(
             seconds: _routeAnimationDuration,
           ),

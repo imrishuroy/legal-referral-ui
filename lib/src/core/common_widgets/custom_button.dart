@@ -235,6 +235,7 @@ class VerticalIconButton extends StatelessWidget {
             height: height ?? 20.h,
             width: width ?? 20.w,
             icon,
+            
           ),
           Text(
             text,

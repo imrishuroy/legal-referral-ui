@@ -2,7 +2,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:legal_referral_ui/src/core/config/nav_items.dart';
 import 'package:legal_referral_ui/src/core/constants/constants.dart';
 import 'package:legal_referral_ui/src/features/discuss/presentation/pages/discuss_page.dart';
-import 'package:legal_referral_ui/src/features/home_page.dart';
+import 'package:legal_referral_ui/src/features/home/presentation/pages/home_page.dart';
 import 'package:legal_referral_ui/src/features/network/presentation/pages/network_page.dart';
 import 'package:legal_referral_ui/src/features/referral/presentation/presentation.dart';
 

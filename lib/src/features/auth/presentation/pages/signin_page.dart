@@ -10,7 +10,7 @@ import 'package:legal_referral_ui/src/core/constants/constants.dart';
 import 'package:legal_referral_ui/src/core/utils/utils.dart';
 import 'package:legal_referral_ui/src/core/validators/validators.dart';
 import 'package:legal_referral_ui/src/features/auth/presentation/presentation.dart';
-import 'package:legal_referral_ui/src/features/home_page.dart';
+import 'package:legal_referral_ui/src/features/home/presentation/pages/home_page.dart';
 import 'package:legal_referral_ui/src/features/wizard/presentation/presentation.dart';
 import 'package:signin_with_linkedin/signin_with_linkedin.dart';
 import 'package:toastification/toastification.dart';
