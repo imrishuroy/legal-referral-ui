@@ -1,12 +1,14 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
-import 'package:flutter_pdfview/flutter_pdfview.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:legal_referral_ui/src/core/common_widgets/widgets.dart';
+import 'package:legal_referral_ui/src/core/config/config.dart';
+import 'package:legal_referral_ui/src/core/config/file_size_calulate.dart';
 import 'package:legal_referral_ui/src/core/constants/colors.dart';
 import 'package:legal_referral_ui/src/core/constants/icon_string_constants.dart';
-import 'package:legal_referral_ui/src/core/utils/utils.dart';
+import 'package:legal_referral_ui/src/features/post/presentation/bloc/post_bloc.dart';
+import 'package:path/path.dart' as path;
 
 class CreatePostPage extends StatefulWidget {
   const CreatePostPage({super.key});
@@ -18,23 +20,9 @@ class CreatePostPage extends StatefulWidget {
 class _CreatePostPageState extends State<CreatePostPage> {
   final TextEditingController _thoughtsController = TextEditingController();
   PostCondition? _post = PostCondition.anyone;
-  late List<File?> imageFiles = [];
-  bool pdfReady = false;
-  // late PDFViewController _pdfViewController;
-  // int _totalPages = 0;
-  // final int _currentPage = 0;
 
-  // void _nextPage() {
-  //   if (_currentPage < _totalPages - 1) {
-  //     _pdfViewController.setPage(_currentPage + 1);
-  //   }
-  // }
-
-  // void _prevPage() {
-  //   if (_currentPage > 0) {
-  //     _pdfViewController.setPage(_currentPage - 1);
-  //   }
-  // }
+  final _postBloc = getIt<PostBloc>();
+  late bool containsPdf = false;
 
   @override
   Widget build(BuildContext context) {
@@ -127,17 +115,8 @@ class _CreatePostPageState extends State<CreatePostPage> {
                   const Spacer(),
                   SvgButton(
                     imagePath: IconStringConstants.picture,
-                    onPressed: () async {
-                      final result = await FilePickerUtil.pickFile(
-                        allowedExtensions: [
-                          FileExtension.pdf,
-                          FileExtension.jpg,
-                          FileExtension.jpeg,
-                          FileExtension.png,
-                        ],
-                      );
-                      imageFiles = result;
-                      print('resultoffile $result');
+                    onPressed: () {
+                      _postBloc.add(AddedFile());
                     },
                     height: 24.h,
                     width: 24.w,
@@ -159,81 +138,79 @@ class _CreatePostPageState extends State<CreatePostPage> {
                 controller: _thoughtsController,
                 hintText: 'Share your thoughts',
               ),
-              if (imageFiles.isNotEmpty)
-                Expanded(
-                  child: imageFiles.first!.path.endsWith('.pdf')
-                      ? Expanded(
-                          child: GestureDetector(
-                            onLongPress: () {
-                              //add for removal of element
-                              if (imageFiles.isNotEmpty) {
-                                imageFiles = [];
-                              } 
-
-                            },
-                            child: PDFView(
-                              filePath: imageFiles.first!.path,
-                              // swipeHorizontal: true,
-                              // onRender: (pages) {
-                              //   setState(() {
-                              //     _totalPages = pages!;
-                              //     pdfReady = true;
-                              //   });
-                              // },
-                              // onViewCreated: (PDFViewController vc) {
-                              //   setState(() {
-                              //     _pdfViewController = vc;
-                              //   });
-                              // },
-                              // onPageChanged: (page, total) {
-                              //   setState(() {
-                              //     _currentPage = page!;
-                              //   });
-                              // },
-                              // onError: (e) {
-                              //   // Show some error message or UI
-                              // },
-                              // onPageError: (page, e) {
-                              //   // Show some error message or UI
-                              // },
-                            ),
+              BlocBuilder<PostBloc, PostState>(
+                bloc: _postBloc,
+                builder: (context, state) {
+                  if (state.documentType == DocumentType.document) {
+                    final fileName = path.basename(state.filePath!.path);
+                    final fileSize =
+                        formatBytes(state.filePath!.lengthSync(), 2);
+                    return Card(
+                      elevation: 2,
+                      child: ListTile(
+                        horizontalTitleGap: 10,
+                        contentPadding:
+                            const EdgeInsets.symmetric(horizontal: 16),
+                        minVerticalPadding: 4,
+                        minLeadingWidth: 10,
+                        visualDensity: VisualDensity.standard,
+                        title: Text(
+                          fileName,
+                          style: Theme.of(context).textTheme.titleSmall,
+                        ),
+                        subtitle: Text(
+                          fileSize,
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyMedium
+                              ?.copyWith(color: Colors.grey),
+                        ),
+                        leading: SvgPicture.asset(IconStringConstants.pdfIcon),
+                        trailing: SvgButton(
+                          width: 20,
+                          height: 20,
+                          imagePath: IconStringConstants.cross2,
+                          onPressed: () {
+                            
+                            _postBloc.add(RemovedFile());
+                          },
+                        ),
+                      ),
+                    );
+                  } else if (state.documentType == DocumentType.image) {
+                    return Expanded(
+                      child: Image.file(
+                        state.filePath!,
+                        fit: BoxFit.fitWidth,
+                        width: double.infinity,
+                      ),
+                    );
+                  } else if (state.documentType == DocumentType.multiImage) {
+                    return GridView.builder(
+                      shrinkWrap: true,
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        crossAxisSpacing: 4,
+                        mainAxisSpacing: 4,
+                      ),
+                      itemCount: state.documentFile.length,
+                      itemBuilder: (context, index) {
+                        final imageFile = state.documentFile;
+                        return ClipRRect(
+                          borderRadius: BorderRadius.circular(4.r),
+                          child: Image.file(
+                            imageFile[index]!,
+                            fit: BoxFit.fitHeight,
                           ),
-                        )
-                      : imageFiles.length == 1
-                          ? Column(
-                              children: [
-                                Image.file(
-                                  imageFiles.first!,
-                                  fit: BoxFit.fitWidth,
-                                  width: double.infinity,
-                                ),
-                                const Spacer(),
-                              ],
-                            )
-                          : GridView.builder(
-                              shrinkWrap: true,
-                              gridDelegate:
-                                  const SliverGridDelegateWithFixedCrossAxisCount(
-                                crossAxisCount: 2,
-                                crossAxisSpacing: 4,
-                                mainAxisSpacing: 4,
-                              ),
-                              itemCount: imageFiles.length,
-                              itemBuilder: (context, index) {
-                                return Image.file(
-                                  imageFiles[index]!,
-                                  fit: BoxFit.cover,
-                                );
-                              },
-                            ),
-                ),
-
-             
-
-              SizedBox(
-                height: 8.h,
+                        );
+                      },
+                    );
+                  }
+                  return const SizedBox.shrink();
+                },
               ),
-
+              const Spacer(),
               CustomElevatedButton(
                 text: 'Post',
                 onTap: () {},
