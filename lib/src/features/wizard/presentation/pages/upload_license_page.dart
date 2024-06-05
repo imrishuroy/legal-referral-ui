@@ -209,7 +209,7 @@ class _UploadLicensePageState extends State<UploadLicensePage> {
       );
 
       setState(() {
-        _file = pickedFile;
+        _file = pickedFile.first;
       });
     } else if (mediaLocation == MediaLocation.camera) {
       if (context.mounted) {

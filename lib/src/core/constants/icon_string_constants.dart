@@ -47,6 +47,8 @@ class IconStringConstants {
   static const String feed = 'assets/icons/feed.svg';
   static const String poll = 'assets/icons/poll.svg';
   static const String bell = 'assets/icons/bell.svg';
+  static const String picture = 'assets/icons/picture.svg';
+  static const String cross2 = 'assets/icons/cross2.svg';
 
   // -- Brand Icons
 
