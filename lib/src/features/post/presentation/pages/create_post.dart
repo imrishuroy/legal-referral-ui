@@ -40,6 +40,7 @@ class _CreatePostPageState extends State<CreatePostPage> {
                   ),
                   CustomTextButton(
                     text: 'Anyone',
+                    style: Theme.of(context).textTheme.titleMedium,
                     onPressed: () {
                       CustomBottomSheet.show(
                         borderRadius: true,
@@ -133,82 +134,131 @@ class _CreatePostPageState extends State<CreatePostPage> {
                 ],
               ),
               CustomTextField(
+                maxLines: null,
+                keyboardType: TextInputType.multiline,
                 fillColor: Colors.transparent,
                 borderColor: Colors.transparent,
                 controller: _thoughtsController,
                 hintText: 'Share your thoughts',
               ),
-              BlocBuilder<PostBloc, PostState>(
-                bloc: _postBloc,
-                builder: (context, state) {
-                  if (state.documentType == DocumentType.document) {
-                    final fileName = path.basename(state.filePath!.path);
-                    final fileSize =
-                        formatBytes(state.filePath!.lengthSync(), 2);
-                    return Card(
-                      elevation: 2,
-                      child: ListTile(
-                        horizontalTitleGap: 10,
-                        contentPadding:
-                            const EdgeInsets.symmetric(horizontal: 16),
-                        minVerticalPadding: 4,
-                        minLeadingWidth: 10,
-                        visualDensity: VisualDensity.standard,
-                        title: Text(
-                          fileName,
-                          style: Theme.of(context).textTheme.titleSmall,
+              SingleChildScrollView(
+                child: BlocBuilder<PostBloc, PostState>(
+                  bloc: _postBloc,
+                  builder: (context, state) {
+                    if (state.documentType == DocumentType.document &&
+                        state.filePath != null) {
+                      final fileName = path.basename(state.filePath!.path);
+                      final fileSize =
+                          formatBytes(state.filePath!.lengthSync(), 2);
+                      return state.filePath == null
+                          ? const SizedBox.shrink()
+                          : Card(
+                              elevation: 2,
+                              child: ListTile(
+                                horizontalTitleGap: 10,
+                                contentPadding:
+                                    const EdgeInsets.symmetric(horizontal: 16),
+                                minVerticalPadding: 4,
+                                minLeadingWidth: 10,
+                                visualDensity: VisualDensity.standard,
+                                title: Text(
+                                  fileName,
+                                  style: Theme.of(context).textTheme.titleSmall,
+                                ),
+                                subtitle: Text(
+                                  fileSize,
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodyMedium
+                                      ?.copyWith(color: Colors.grey),
+                                ),
+                                leading: SvgPicture.asset(
+                                  IconStringConstants.pdfIcon,
+                                ),
+                                trailing: SvgButton(
+                                  width: 20,
+                                  height: 20,
+                                  imagePath: IconStringConstants.cross2,
+                                  onPressed: () {
+                                    _postBloc.add(const RemovedFile());
+                                  },
+                                ),
+                              ),
+                            );
+                    } else if (state.documentType == DocumentType.image) {
+                      return Expanded(
+                        child: state.filePath == null
+                            ? const SizedBox.shrink()
+                            : Stack(
+                                children: [
+                                  Image.file(
+                                    state.filePath!,
+                                    fit: BoxFit.fitWidth,
+                                    width: double.infinity,
+                                  ),
+                                  Positioned(
+                                    top: 10,
+                                    right: 10,
+                                    child: SvgButton(
+                                      height: 20.h,
+                                      width: 20.w,
+                                      imagePath: IconStringConstants.cross,
+                                      onPressed: () {
+                                        if (state.filePath != null) {
+                                          _postBloc.add(const RemovedFile());
+                                        }
+                                      },
+                                    ),
+                                  ),
+                                ],
+                              ),
+                      );
+                    } else if (state.documentType == DocumentType.multiImage) {
+                      return GridView.builder(
+                        physics: const NeverScrollableScrollPhysics(),
+                        shrinkWrap: true,
+                        gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2,
+                          crossAxisSpacing: 8,
+                          mainAxisSpacing: 8,
                         ),
-                        subtitle: Text(
-                          fileSize,
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodyMedium
-                              ?.copyWith(color: Colors.grey),
-                        ),
-                        leading: SvgPicture.asset(IconStringConstants.pdfIcon),
-                        trailing: SvgButton(
-                          width: 20,
-                          height: 20,
-                          imagePath: IconStringConstants.cross2,
-                          onPressed: () {
-                            
-                            _postBloc.add(RemovedFile());
-                          },
-                        ),
-                      ),
-                    );
-                  } else if (state.documentType == DocumentType.image) {
-                    return Expanded(
-                      child: Image.file(
-                        state.filePath!,
-                        fit: BoxFit.fitWidth,
-                        width: double.infinity,
-                      ),
-                    );
-                  } else if (state.documentType == DocumentType.multiImage) {
-                    return GridView.builder(
-                      shrinkWrap: true,
-                      gridDelegate:
-                          const SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2,
-                        crossAxisSpacing: 4,
-                        mainAxisSpacing: 4,
-                      ),
-                      itemCount: state.documentFile.length,
-                      itemBuilder: (context, index) {
-                        final imageFile = state.documentFile;
-                        return ClipRRect(
-                          borderRadius: BorderRadius.circular(4.r),
-                          child: Image.file(
-                            imageFile[index]!,
-                            fit: BoxFit.fitHeight,
-                          ),
-                        );
-                      },
-                    );
-                  }
-                  return const SizedBox.shrink();
-                },
+                        itemCount: state.documentFile.length,
+                        itemBuilder: (context, index) {
+                          final imageFile = state.documentFile;
+                          return Stack(
+                            children: [
+                              ClipRRect(
+                                borderRadius: BorderRadius.circular(8.r),
+                                child: AspectRatio(
+                                  aspectRatio: 1,
+                                  child: Image.file(
+                                    imageFile[index]!,
+                                    fit: BoxFit.cover,
+                                    width: double.infinity,
+                                  ),
+                                ),
+                              ),
+                              Positioned(
+                                top: 10,
+                                right: 10,
+                                child: SvgButton(
+                                  height: 20.h,
+                                  width: 20.w,
+                                  imagePath: IconStringConstants.cross,
+                                  onPressed: () {
+                                    _postBloc.add(RemovedFile(index: index));
+                                  },
+                                ),
+                              ),
+                            ],
+                          );
+                        },
+                      );
+                    }
+                    return const SizedBox.shrink();
+                  },
+                ),
               ),
               const Spacer(),
               CustomElevatedButton(

@@ -1,6 +1,12 @@
 part of 'post_bloc.dart';
 
-enum DocumentType { initial, image, multiImage, video, document, loading }
+enum DocumentType {
+  initial,
+  image,
+  multiImage,
+  video,
+  document,
+}
 
 class PostState extends Equatable {
   const PostState({
@@ -22,7 +28,7 @@ class PostState extends Equatable {
     return PostState(
       documentType: documentType ?? this.documentType,
       documentFile: documentFile ?? this.documentFile,
-      filePath: filePath ?? this.filePath,
+      filePath: filePath,
     );
   }
 }

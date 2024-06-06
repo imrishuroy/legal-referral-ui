@@ -11,23 +11,31 @@ part 'post_state.dart';
 
 @injectable
 class PostBloc extends Bloc<PostEvent, PostState> {
-  PostBloc()
-      : super(
-          const PostState(),
-        ) {
-    on<AddedFile>(
-      _addPostFile,
-    );
-    on<RemovedFile>(
-      (event, emit) {
-        if (state.filePath != null) {
-        
-        }
-      },
-    );
+  PostBloc() : super(const PostState()) {
+    on<AddedFile>(_onAddPostFile);
+    on<RemovedFile>(_onRemovePostFile);
   }
 
-  FutureOr<void> _addPostFile(event, emit) async {
+  FutureOr<void> _onRemovePostFile(event, emit) async {
+    if (state.filePath != null) {
+      emit(
+        state.copyWith(
+          documentType: DocumentType.image,
+        ),
+      );
+    } else {
+      final updatedDocumentFiles = List<File?>.from(state.documentFile);
+      updatedDocumentFiles.removeAt(event.index!);
+      emit(
+        state.copyWith(
+          documentType: DocumentType.multiImage,
+          documentFile: updatedDocumentFiles,
+        ),
+      );
+    }
+  }
+
+  FutureOr<void> _onAddPostFile(event, emit) async {
     final result = await FilePickerUtil.pickFile(
       allowedExtensions: [
         FileExtension.pdf,
@@ -55,7 +63,7 @@ class PostBloc extends Bloc<PostEvent, PostState> {
         emit(
           state.copyWith(
             documentType: DocumentType.multiImage,
-            documentFile: result,
+            documentFile: [...state.documentFile,...result],
           ),
         );
       }
