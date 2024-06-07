@@ -4,12 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_pdfview/flutter_pdfview.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:legal_referral_ui/src/core/common_widgets/widgets.dart';
+import 'package:legal_referral_ui/src/core/config/config.dart';
 import 'package:legal_referral_ui/src/core/constants/colors.dart';
 import 'package:legal_referral_ui/src/core/constants/icon_string_constants.dart';
 import 'package:legal_referral_ui/src/core/utils/utils.dart';
 
 class CreatePostPage extends StatefulWidget {
   const CreatePostPage({super.key});
+  static const name = 'CreatePostPage';
 
   @override
   State<CreatePostPage> createState() => _CreatePostPageState();
@@ -38,7 +40,18 @@ class _CreatePostPageState extends State<CreatePostPage> {
 
   @override
   Widget build(BuildContext context) {
+    AppLogger.info('imageFiles ------ $imageFiles');
     return Scaffold(
+      bottomNavigationBar: Padding(
+        padding: const EdgeInsets.symmetric(
+          horizontal: 16,
+          vertical: 16,
+        ),
+        child: CustomElevatedButton(
+          text: 'Post',
+          onTap: () {},
+        ),
+      ),
       body: SafeArea(
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
@@ -128,16 +141,21 @@ class _CreatePostPageState extends State<CreatePostPage> {
                   SvgButton(
                     imagePath: IconStringConstants.picture,
                     onPressed: () async {
-                      final result = await FilePickerUtil.pickFile(
-                        allowedExtensions: [
-                          FileExtension.pdf,
-                          FileExtension.jpg,
-                          FileExtension.jpeg,
-                          FileExtension.png,
-                        ],
-                      );
-                      imageFiles = result;
-                      print('resultoffile $result');
+                      final images = await FilePickerUtil.pickMultipleFiles();
+                      setState(() {
+                        imageFiles = images;
+                      });
+
+                      // final result = await FilePickerUtil.pickFile(
+                      //   allowedExtensions: [
+                      //     FileExtension.pdf,
+                      //     FileExtension.jpg,
+                      //     FileExtension.jpeg,
+                      //     FileExtension.png,
+                      //   ],
+                      // );
+                      // imageFiles = result;
+                      // print('resultoffile $result');
                     },
                     height: 24.h,
                     width: 24.w,
@@ -168,8 +186,7 @@ class _CreatePostPageState extends State<CreatePostPage> {
                               //add for removal of element
                               if (imageFiles.isNotEmpty) {
                                 imageFiles = [];
-                              } 
-
+                              }
                             },
                             child: PDFView(
                               filePath: imageFiles.first!.path,
@@ -227,17 +244,13 @@ class _CreatePostPageState extends State<CreatePostPage> {
                               },
                             ),
                 ),
-
-             
-
               SizedBox(
                 height: 8.h,
               ),
-
-              CustomElevatedButton(
-                text: 'Post',
-                onTap: () {},
-              ),
+              // CustomElevatedButton(
+              //   text: 'Post',
+              //   onTap: () {},
+              // ),
             ],
           ),
         ),

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:legal_referral_ui/src/core/constants/constants.dart';
+import 'package:legal_referral_ui/src/features/post/presentation/presentation.dart';
 import 'package:legal_referral_ui/src/features/referral/presentation/presentation.dart';
 
 class PostNavigationModelBottomSheet extends StatelessWidget {
@@ -44,7 +46,9 @@ class PostNavigationModelBottomSheet extends StatelessWidget {
               ),
             ),
             title: const Text('Feed'),
-            onTap: () {},
+            onTap: () => context.pushNamed(
+              CreatePostPage.name,
+            ),
           ),
           Divider(
             height: 1,
