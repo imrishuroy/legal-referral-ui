@@ -6,9 +6,11 @@ class CustomAvatar extends StatelessWidget {
     required this.imageUrl,
     super.key,
     this.radius = 20.0,
+    this.backgroundColor,
   });
   final String? imageUrl;
   final double radius;
+  final Color? backgroundColor;
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +21,7 @@ class CustomAvatar extends StatelessWidget {
           );
     return CircleAvatar(
       radius: radius,
-      backgroundColor: Colors.grey,
+      backgroundColor: backgroundColor ?? Colors.grey,
       child: ClipOval(
         child: FadeInImage(
           placeholder: const AssetImage(

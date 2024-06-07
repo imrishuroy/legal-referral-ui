@@ -7,6 +7,11 @@ import 'package:legal_referral_ui/src/core/theme/text_theme.dart';
 class LegalReferralTheme {
   LegalReferralTheme._();
   static ThemeData lightTheme = ThemeData(
+    textSelectionTheme: TextSelectionThemeData(
+      selectionColor: LegalReferralColors.borderBlue300.withOpacity(.5),
+      cursorColor: LegalReferralColors.borderBlue300,
+      selectionHandleColor: LegalReferralColors.borderBlue300.withOpacity(1),
+    ),
     brightness: Brightness.light,
     chipTheme: const ChipThemeData(
       backgroundColor: LegalReferralColors.containerWhite500,

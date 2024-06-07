@@ -4,6 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:legal_referral_ui/src/core/common_widgets/widgets.dart';
 import 'package:legal_referral_ui/src/core/constants/colors.dart';
 import 'package:legal_referral_ui/src/core/constants/icon_string_constants.dart';
+import 'package:legal_referral_ui/src/features/home/presentation/pages/post_comment_page.dart';
 
 class PostStructure extends StatelessWidget {
   const PostStructure({
@@ -146,7 +147,34 @@ class PostStructure extends StatelessWidget {
                 icon: IconStringConstants.comment,
                 text: 'Comment',
                 textColor: LegalReferralColors.textGrey117,
-                onTap: () {},
+                onTap: () {
+                  // implement a callback for comments
+                  if (ModalRoute.of(context)?.settings.name !=
+                      PostCommentPage.routeName) {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => PostCommentPage(
+                          attorneyName: attorneyName,
+                          attorneyType: attorneyType,
+                          postedTime: postedTime,
+                          child: child,
+                        ),
+                        settings: const RouteSettings(
+                            name: PostCommentPage.routeName,),
+                      ),
+                    );
+                  }
+                  // Navigator.of(context).push(
+                  //   MaterialPageRoute(
+                  //     builder: (context) => PostCommentPage(
+                  //       attorneyName: attorneyName,
+                  //       attorneyType: attorneyType,
+                  //       postedTime: postedTime,
+                  //       child: child,
+                  //     ),
+                  //   ),
+                  // );
+                },
               ),
               VerticalIconButton(
                 icon: IconStringConstants.discuss,

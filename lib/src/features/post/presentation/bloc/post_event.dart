@@ -11,7 +11,7 @@ class AddedFile extends PostEvent {}
 
 class RemovedFile extends PostEvent {
   const RemovedFile({
-     this.index,
+    this.index,
   });
   final int? index;
 }
