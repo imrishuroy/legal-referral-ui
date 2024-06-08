@@ -1,6 +1,6 @@
 import 'package:injectable/injectable.dart';
 import 'package:legal_referral_ui/src/core/network/api_client.dart';
-import 'package:legal_referral_ui/src/features/post/domain/domain.dart';
+import 'package:legal_referral_ui/src/features/post/data/data.dart';
 
 @singleton
 class PostDatasource {
@@ -10,13 +10,13 @@ class PostDatasource {
 
   final APIClient _apiClient;
 
-  Future<String?> createPost({required Post post}) async {
+  Future<String?> createPost({required CreatePostReq post}) async {
     try {
       final response = await _apiClient.createPost(
         post.ownerId,
         post.title,
         post.content,
-        post.type,
+        post.type.name,
         post.files,
       );
       return response;

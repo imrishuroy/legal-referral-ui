@@ -22,6 +22,17 @@ class ImageUtil {
     return _instance;
   }
 
+  static Future<List<File>> pickMultipleImages() async {
+    try {
+      final picker = ImagePicker();
+      final images = await picker.pickMultiImage();
+      return images.map((image) => File(image.path)).toList();
+    } catch (error) {
+      AppLogger.info('Error: $error');
+      return [];
+    }
+  }
+
   static Future<MediaLocation?> showMediaOptionSheet(
     BuildContext context,
   ) async {

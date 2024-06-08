@@ -9,7 +9,7 @@ import 'package:legal_referral_ui/src/core/common_widgets/custom_textfield.dart'
 import 'package:legal_referral_ui/src/core/config/config.dart';
 import 'package:legal_referral_ui/src/core/constants/constants.dart';
 import 'package:legal_referral_ui/src/core/validators/validators.dart';
-import 'package:legal_referral_ui/src/features/home/presentation/pages/home_page.dart';
+import 'package:legal_referral_ui/src/features/feed/presentation/pages/feeds_page.dart';
 import 'package:legal_referral_ui/src/features/wizard/data/data.dart';
 import 'package:legal_referral_ui/src/features/wizard/presentation/presentation.dart';
 
@@ -52,7 +52,7 @@ class _ShareAboutYouPageState extends State<ShareAboutYouPage> {
         listener: (context, state) {
           if (state.wizardStatus == WizardStatus.success &&
               state.wizardStep == WizardStep.aboutYou) {
-            context.goNamed(HomePage.name);
+            context.goNamed(FeedsPage.name);
           }
         },
         builder: (context, state) {

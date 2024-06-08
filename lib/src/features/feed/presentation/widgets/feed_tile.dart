@@ -4,28 +4,36 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:legal_referral_ui/src/core/common_widgets/widgets.dart';
 import 'package:legal_referral_ui/src/core/constants/colors.dart';
 import 'package:legal_referral_ui/src/core/constants/icon_string_constants.dart';
+import 'package:legal_referral_ui/src/core/utils/utils.dart';
+import 'package:legal_referral_ui/src/features/feed/domain/domain.dart';
+import 'package:legal_referral_ui/src/features/feed/presentation/presentation.dart';
 
-class PostStructure extends StatelessWidget {
-  const PostStructure({
-    required this.child,
+class FeedTile extends StatelessWidget {
+  const FeedTile({
+    required this.feed,
     super.key,
-    this.profileImage,
-    this.attorneyName,
-    this.attorneyType,
-    this.postedTime,
+    this.onLikePressed,
+    this.onCommentPressed,
+    this.onDiscussPressed,
+    this.onSharePressed,
   });
-  final Widget child;
-  final String? profileImage;
-  final String? attorneyName;
-  final String? attorneyType;
-  final String? postedTime;
+
+  final Feed? feed;
+  final VoidCallback? onLikePressed;
+  final VoidCallback? onCommentPressed;
+  final VoidCallback? onDiscussPressed;
+  final VoidCallback? onSharePressed;
 
   @override
   Widget build(BuildContext context) {
+    final user = feed?.user;
+    final post = feed?.post;
+    final name = '${user?.firstName} ${user?.lastName}';
     final theme = Theme.of(context).textTheme;
     return ColoredBox(
       color: LegalReferralColors.containerWhite500,
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           SizedBox(
             height: 16.h,
@@ -42,7 +50,7 @@ class PostStructure extends StatelessWidget {
                     ),
                   ),
                   child: CustomAvatar(
-                    imageUrl: profileImage,
+                    imageUrl: user?.avatarUrl,
                     radius: 28.r,
                   ),
                 ),
@@ -56,8 +64,8 @@ class PostStructure extends StatelessWidget {
                       SizedBox(
                         width: 150.w,
                         child: Text(
-                          attorneyName ?? '',
-                          style: theme.labelMedium,
+                          name,
+                          style: theme.titleLarge?.copyWith(),
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                         ),
@@ -65,25 +73,48 @@ class PostStructure extends StatelessWidget {
                       SizedBox(
                         height: 2.h,
                       ),
-                      Text(
-                        attorneyType ?? '',
-                        style: theme.bodyLarge
-                            ?.copyWith(color: LegalReferralColors.textGrey117),
+                      Row(
+                        children: [
+                          RichText(
+                            text: TextSpan(
+                              style: theme.bodyLarge?.copyWith(
+                                color: LegalReferralColors.textGrey117,
+                              ),
+                              children: [
+                                TextSpan(text: '${user?.practiceArea ?? ''} '),
+                                const TextSpan(text: ' • 1st'),
+                              ],
+                            ),
+                            overflow: TextOverflow.visible,
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 2.8.h,
                       ),
                       Text(
-                        postedTime ?? '',
-                        style: theme.bodyLarge
-                            ?.copyWith(color: LegalReferralColors.textGrey117),
+                        DateTimeUtil.timeAgo(feed?.createdAt),
+                        style: theme.bodyMedium?.copyWith(
+                          color: LegalReferralColors.textGrey117,
+                          fontSize: 12.sp,
+                        ),
                       ),
                     ],
                   ),
                 ),
-                const Spacer(),
                 SvgPicture.asset(IconStringConstants.threeDots),
               ],
             ),
           ),
-          child,
+          const SizedBox(height: 10),
+          ExpandableText(
+            padding: EdgeInsets.symmetric(horizontal: 16.w),
+            text: post?.title ?? '',
+          ),
+          ImagePost(
+            postContent: post?.title ?? '',
+            imageUrls: post?.filesUrls ?? [],
+          ),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 16.w),
             child: Row(

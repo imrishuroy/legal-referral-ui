@@ -1,8 +1,6 @@
 import 'dart:io';
 
 import 'package:file_picker/file_picker.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:legal_referral_ui/src/core/config/config.dart';
 
 enum FileExtension { pdf, jpg, jpeg, png }
 
@@ -13,20 +11,6 @@ class FilePickerUtil {
 
   static FilePickerUtil get instance {
     return _instance;
-  }
-
-  static Future<List<File>> pickMultipleFiles() async {
-    try {
-      final picker = ImagePicker();
-      // Pick multiple images and videos.
-      // final medias = await picker.pickMultipleMedia();
-      final images = await picker.pickMultiImage();
-
-      return images.map((image) => File(image.path)).toList();
-    } catch (error) {
-      AppLogger.info('Error: $error');
-      return [];
-    }
   }
 
   static Future<List<File?>> pickFile({

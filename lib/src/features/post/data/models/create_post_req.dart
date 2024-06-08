@@ -9,8 +9,8 @@ class CreatePostReq {
     required this.content,
     required this.type,
     required this.files,
-    required this.pollTitle,
-    required this.pollOptions,
+    this.pollTitle,
+    this.pollOptions,
   });
 
   final String ownerId;

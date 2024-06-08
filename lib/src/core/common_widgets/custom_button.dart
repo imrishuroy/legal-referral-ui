@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:legal_referral_ui/src/core/common_widgets/widgets.dart';
 import 'package:legal_referral_ui/src/core/constants/constants.dart';
 
 class CustomOutlinedButton extends StatelessWidget {
@@ -94,6 +95,7 @@ class CustomElevatedButton extends StatelessWidget {
     this.child,
     this.borderRadius,
     super.key,
+    this.isLoading = false,
   });
   final VoidCallback? onTap;
   final double? width;
@@ -101,6 +103,7 @@ class CustomElevatedButton extends StatelessWidget {
   final double? borderRadius;
   final String text;
   final Widget? child;
+  final bool isLoading;
 
   @override
   Widget build(BuildContext context) {
@@ -116,25 +119,31 @@ class CustomElevatedButton extends StatelessWidget {
           borderRadius: BorderRadius.circular(borderRadius ?? 4.r),
         ),
         child: Center(
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                text,
-                style: TextStyle(
-                  color: onTap != null
-                      ? LegalReferralColors.textWhite450
-                      : Colors.grey.shade300,
-                  fontWeight: FontWeight.w600,
-                  fontSize: 16.h,
+          child: isLoading
+              ? const CustomLoadingIndicator(
+                  color: Colors.white,
+                  lineWidth: 2,
+                  size: 24,
+                )
+              : Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      text,
+                      style: TextStyle(
+                        color: onTap != null
+                            ? LegalReferralColors.textWhite450
+                            : Colors.grey.shade300,
+                        fontWeight: FontWeight.w600,
+                        fontSize: 16.h,
+                      ),
+                    ),
+                    if (child != null) ...[
+                      SizedBox(width: 4.w),
+                      child!,
+                    ],
+                  ],
                 ),
-              ),
-              if (child != null) ...[
-                SizedBox(width: 4.w),
-                child!,
-              ],
-            ],
-          ),
         ),
       ),
     );
@@ -235,7 +244,6 @@ class VerticalIconButton extends StatelessWidget {
             height: height ?? 20.h,
             width: width ?? 20.w,
             icon,
-            
           ),
           Text(
             text,

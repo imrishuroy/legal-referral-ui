@@ -7,26 +7,39 @@ part of 'post.dart';
 // **************************************************************************
 
 _$PostImpl _$$PostImplFromJson(Map<String, dynamic> json) => _$PostImpl(
-      postId: json['post_id'] as String,
       ownerId: json['owner_id'] as String,
       title: json['title'] as String,
       content: json['content'] as String,
-      type: $enumDecode(_$PostTypeEnumMap, json['type']),
+      type: $enumDecode(_$PostTypeEnumMap, json['post_type']),
       createdAt:
-          const DateTimeJsonConverter().fromJson(json['poll_id'] as String),
-      pollId: json['pollId'] as String?,
+          const DateTimeJsonConverter().fromJson(json['created_at'] as String),
+      postId: (json['post_id'] as num).toInt(),
+      filesUrls: (json['media'] as List<dynamic>?)
+              ?.map((e) => e as String?)
+              .toList() ??
+          const [],
+      pollId: (json['poll_id'] as num?)?.toInt(),
     );
 
-Map<String, dynamic> _$$PostImplToJson(_$PostImpl instance) =>
-    <String, dynamic>{
-      'post_id': instance.postId,
-      'owner_id': instance.ownerId,
-      'title': instance.title,
-      'content': instance.content,
-      'type': _$PostTypeEnumMap[instance.type]!,
-      'poll_id': const DateTimeJsonConverter().toJson(instance.createdAt),
-      'pollId': instance.pollId,
-    };
+Map<String, dynamic> _$$PostImplToJson(_$PostImpl instance) {
+  final val = <String, dynamic>{
+    'owner_id': instance.ownerId,
+    'title': instance.title,
+    'content': instance.content,
+    'post_type': _$PostTypeEnumMap[instance.type]!,
+    'post_id': instance.postId,
+    'media': instance.filesUrls,
+  };
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('poll_id', instance.pollId);
+  return val;
+}
 
 const _$PostTypeEnumMap = {
   PostType.text: 'text',

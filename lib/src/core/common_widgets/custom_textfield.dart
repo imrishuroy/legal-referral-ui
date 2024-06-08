@@ -34,7 +34,7 @@ class CustomTextField extends StatelessWidget {
   final String? Function(String?)? onSubmitted;
   final String? Function(String?)? validator;
   final int minLines;
-  final int maxLines;
+  final int? maxLines;
   final bool enabled;
   final bool showLabel;
 

@@ -18,7 +18,27 @@ class ExpandableText extends StatefulWidget {
 
 class _ExpandableTextState extends State<ExpandableText> {
   bool _expanded = false;
+  bool _isOverflowing = false;
 
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) => _checkOverflow());
+  }
+
+  void _checkOverflow() {
+    final textPainter = TextPainter(
+      text: TextSpan(text: widget.text, style: widget.style),
+      maxLines: 2,
+      textDirection: TextDirection.ltr,
+    )..layout(maxWidth: context.size!.width);
+
+    if (textPainter.didExceedMaxLines) {
+      setState(() {
+        _isOverflowing = true;
+      });
+    }
+  }
 
   void _toggleExpanded() {
     setState(() {
@@ -40,19 +60,20 @@ class _ExpandableTextState extends State<ExpandableText> {
             child: Text(
               widget.text,
               style: widget.style ?? theme.bodyLarge,
-              // maxLines: _expanded?null:maxLines,
+              maxLines: _expanded ? null : 2,
               overflow:
                   _expanded ? TextOverflow.visible : TextOverflow.ellipsis,
             ),
           ),
-          GestureDetector(
-            onTap: _toggleExpanded,
-            child: Text(
-              _expanded ? 'See less' : 'Read more...',
-              style: theme.bodyLarge
-                  ?.copyWith(color: LegalReferralColors.textBlue100),
+          if (_isOverflowing)
+            GestureDetector(
+              onTap: _toggleExpanded,
+              child: Text(
+                _expanded ? 'See less' : 'Read more...',
+                style: theme.bodyLarge
+                    ?.copyWith(color: LegalReferralColors.textBlue100),
+              ),
             ),
-          ),
         ],
       ),
     );

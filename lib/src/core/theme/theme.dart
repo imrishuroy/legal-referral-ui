@@ -31,9 +31,9 @@ class LegalReferralTheme {
     scaffoldBackgroundColor: LegalReferralColors.primaryBackground,
     appBarTheme: LegalReferralAppBarTheme.lightAppBarTheme,
     checkboxTheme: CheckboxThemeData(
-      checkColor: MaterialStateProperty.all(Colors.black),
-      fillColor: MaterialStateProperty.all(Colors.transparent),
-      side: MaterialStateBorderSide.resolveWith(
+      checkColor: WidgetStateProperty.all(Colors.black),
+      fillColor: WidgetStateProperty.all(Colors.transparent),
+      side: WidgetStateBorderSide.resolveWith(
         (states) => const BorderSide(color: LegalReferralColors.borderBlue300),
       ),
       shape: RoundedRectangleBorder(

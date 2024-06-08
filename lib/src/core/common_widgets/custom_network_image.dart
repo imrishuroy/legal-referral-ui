@@ -6,8 +6,8 @@ import 'package:legal_referral_ui/src/core/constants/constants.dart';
 class CustomNetworkImage extends StatelessWidget {
   const CustomNetworkImage({
     required this.imageUrl,
-    required this.height,
-    required this.width,
+    this.height,
+    this.width,
     this.fit = BoxFit.cover,
     this.placeholder,
     super.key,

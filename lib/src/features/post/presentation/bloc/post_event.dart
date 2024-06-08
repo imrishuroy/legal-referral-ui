@@ -6,6 +6,25 @@ abstract class PostEvent extends Equatable {
   @override
   List<Object> get props => [];
 }
-class AddedFile extends PostEvent{}
-class RemovedFile extends PostEvent{}
-class Post extends PostEvent{}
+
+class FileAdded extends PostEvent {}
+
+class FileRemoved extends PostEvent {
+  const FileRemoved({
+    this.index,
+  });
+  final int? index;
+}
+
+class PostCreated extends PostEvent {
+  const PostCreated({
+    required this.ownerId,
+    required this.title,
+  });
+
+  final String ownerId;
+  final String title;
+
+  @override
+  List<Object> get props => [ownerId, title];
+}

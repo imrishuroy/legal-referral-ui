@@ -112,7 +112,7 @@ class _CreateReferralPageState extends State<CreateReferralPage> {
                           value: state.referConnection,
                           checkColor: LegalReferralColors.textBlack,
                           fillColor:
-                              MaterialStateProperty.all(Colors.transparent),
+                              WidgetStateProperty.all(Colors.transparent),
                           onChanged: (value) => _referralBloc.add(
                             const ReferConnectionToggled(),
                           ),

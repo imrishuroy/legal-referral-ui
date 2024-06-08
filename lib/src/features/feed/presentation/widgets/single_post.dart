@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:legal_referral_ui/src/features/home/presentation/widgets/widgets.dart';
+import 'package:legal_referral_ui/src/core/common_widgets/widgets.dart';
 
-class NormalPost extends StatelessWidget {
-  const NormalPost({super.key});
+class SinglePost extends StatelessWidget {
+  const SinglePost({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +13,12 @@ class NormalPost extends StatelessWidget {
         const SizedBox(height: 10),
         ExpandableText(
           padding: EdgeInsets.symmetric(horizontal: 16.w),
-          text: lorem50,
+          text: '',
+        ),
+        const SizedBox(height: 10),
+        Container(
+          height: 375,
+          color: Colors.grey.shade400,
         ),
         const SizedBox(height: 10),
       ],

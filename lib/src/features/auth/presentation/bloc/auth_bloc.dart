@@ -812,7 +812,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         ),
       );
     } catch (_) {
-      AppLogger.error('Error asdd: $_');
       emit(
         state.copyWith(
           authStatus: AuthStatus.failure,

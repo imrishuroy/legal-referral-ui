@@ -1,29 +1,58 @@
 part of 'post_bloc.dart';
 
-enum DocumentType {initial, image, video, document }
+enum PostStatus { initial, loading, success, failure }
+
+enum DocumentType {
+  initial,
+  image,
+  multiImage,
+  video,
+  document,
+}
 
 class PostState extends Equatable {
   const PostState({
-     this.documentType=DocumentType.initial,
-     this.documentFile=const [],
-     this.filePath,
+    required this.status,
+    this.pickedFile,
+    this.postType = PostType.text,
+    this.files = const [],
+    this.failure,
   });
-  final DocumentType documentType;
-  final List<File>? documentFile;
-  final String? filePath;
 
-  @override
-  List<Object?> get props => [documentType, documentFile, filePath];
-
-  PostState copyWith({
-    DocumentType? documentType,
-    List<File>? documentFile,
-    String? filePath,
-  }) {
-    return PostState(
-      documentType: documentType ?? this.documentType,
-      documentFile: documentFile ?? this.documentFile,
-      filePath: filePath ?? this.filePath,
+  factory PostState.initial() {
+    return const PostState(
+      status: PostStatus.initial,
     );
   }
+
+  final PostType postType;
+  final List<File> files;
+  final File? pickedFile;
+  final PostStatus status;
+  final Failure? failure;
+
+  PostState copyWith({
+    PostStatus? status,
+    PostType? postType,
+    List<File>? files,
+    File? filePath,
+    Failure? failure,
+  }) {
+    return PostState(
+      status: status ?? this.status,
+      postType: postType ?? this.postType,
+      files: files ?? this.files,
+      pickedFile: filePath ?? pickedFile,
+      failure: failure ?? this.failure,
+    );
+  }
+
+  @override
+  List<Object?> get props => [
+        status,
+        postType,
+        files,
+        pickedFile,
+        failure,
+      ];
 }

@@ -15,7 +15,9 @@ class PostRepositoryImpl extends PostRepository {
   final PostDatasource _postDatasource;
 
   @override
-  Future<Either<Failure, String?>> createPost({required Post post}) async {
+  Future<Either<Failure, String?>> createPost({
+    required CreatePostReq post,
+  }) async {
     try {
       final response = await _postDatasource.createPost(
         post: post,

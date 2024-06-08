@@ -8,7 +8,7 @@ import 'package:legal_referral_ui/src/core/constants/constants.dart';
 import 'package:legal_referral_ui/src/core/utils/utils.dart';
 import 'package:legal_referral_ui/src/features/auth/presentation/presentation.dart';
 import 'package:legal_referral_ui/src/features/auth/presentation/widgets/otp_widget.dart';
-import 'package:legal_referral_ui/src/features/home/presentation/pages/home_page.dart';
+import 'package:legal_referral_ui/src/features/feed/presentation/presentation.dart';
 import 'package:legal_referral_ui/src/features/wizard/presentation/presentation.dart';
 
 class MobileVerificationModel extends StatefulWidget {
@@ -78,7 +78,7 @@ class _MobileVerificationModelState extends State<MobileVerificationModel> {
                           onTap: () {
                             context.pop();
                             if (state.user?.wizardCompleted == true) {
-                              context.goNamed(HomePage.name);
+                              context.goNamed(FeedsPage.name);
                             } else if (state.user?.signupMethod == 1 ||
                                 state.user?.signupMethod == 2) {
                               // google, Linkedin, apple & facebook, signed up

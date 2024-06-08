@@ -116,7 +116,7 @@ class _ReferralConnectionsDialoagState
             CheckboxListTile(
               value: state.selectedUsers.length == users.length,
               checkColor: LegalReferralColors.textBlack,
-              fillColor: MaterialStateProperty.all(Colors.transparent),
+              fillColor: WidgetStateProperty.all(Colors.transparent),
               onChanged: (value) {
                 _refferralBloc.add(
                   AllUsersSelected(),

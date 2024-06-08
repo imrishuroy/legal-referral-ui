@@ -111,7 +111,7 @@ class _AddUpdatePricePageState extends State<AddUpdatePricePage> {
                               children: PriceServiceType.values.map((option) {
                                 return RadioListTile<PriceServiceType>(
                                   contentPadding: EdgeInsets.zero,
-                                  fillColor: MaterialStateProperty.all(
+                                  fillColor: WidgetStateProperty.all(
                                     LegalReferralColors.buttonPrimary,
                                   ),
                                   visualDensity: const VisualDensity(
