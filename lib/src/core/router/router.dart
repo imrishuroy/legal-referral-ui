@@ -4,8 +4,7 @@ import 'package:legal_referral_ui/src/core/common_widgets/widgets.dart';
 import 'package:legal_referral_ui/src/features/auth/presentation/presentation.dart';
 import 'package:legal_referral_ui/src/features/chat/presentation/presentation.dart';
 import 'package:legal_referral_ui/src/features/discuss/presentation/presentation.dart';
-import 'package:legal_referral_ui/src/features/home_page.dart';
-import 'package:legal_referral_ui/src/features/network/presentation/pages/network_page.dart';
+import 'package:legal_referral_ui/src/features/feed/presentation/presentation.dart';
 import 'package:legal_referral_ui/src/features/network/presentation/presentation.dart';
 import 'package:legal_referral_ui/src/features/post/presentation/presentation.dart';
 import 'package:legal_referral_ui/src/features/profile/presentation/presentation.dart';
@@ -161,13 +160,13 @@ class AppRouter {
       ),
       GoRoute(
         path: '/home',
-        name: HomePage.name,
+        name: FeedsPage.name,
         pageBuilder: (context, state) => CustomTransitionPage(
           key: state.pageKey,
           child: const RootLayout(
             key: _scaffoldKey,
             currentIndex: 0,
-            child: HomePage(),
+            child: FeedsPage(),
           ),
           transitionDuration: const Duration(
             milliseconds: 500,
@@ -628,6 +627,19 @@ class AppRouter {
             currentIndex: 4,
             child: DiscussPage(),
           ),
+          transitionDuration: const Duration(
+            milliseconds: _routeTransitionDuration,
+          ),
+          transitionsBuilder: (_, a, __, c) =>
+              FadeTransition(opacity: a, child: c),
+        ),
+      ),
+      GoRoute(
+        path: '/post',
+        name: CreatePostPage.name,
+        parentNavigatorKey: _rootNavigatorKey,
+        pageBuilder: (context, state) => CustomTransitionPage(
+          child: const CreatePostPage(),
           transitionDuration: const Duration(
             milliseconds: _routeTransitionDuration,
           ),

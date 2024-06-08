@@ -64,10 +64,10 @@ class AwardedProjectCard extends StatelessWidget {
             child: ElevatedButton(
               onPressed: onAccept,
               style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all(
+                backgroundColor: WidgetStateProperty.all(
                   LegalReferralColors.backgroundWhite255,
                 ),
-                shape: MaterialStateProperty.all(
+                shape: WidgetStateProperty.all(
                   RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(4),
                     side: const BorderSide(

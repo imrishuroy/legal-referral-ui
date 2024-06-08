@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:legal_referral_ui/src/core/common_widgets/navigation_post_bottom_sheet.dart';
+import 'package:legal_referral_ui/src/core/common_widgets/post_bottom_sheet.dart';
 import 'package:legal_referral_ui/src/core/common_widgets/widgets.dart';
 import 'package:legal_referral_ui/src/core/constants/constants.dart';
 
@@ -20,7 +20,7 @@ class RootLayout extends StatelessWidget {
   Widget build(BuildContext context) {
     void onSelected(int index) {
       final destination = destinations[index];
-      if (destination.route == PostNavigationModelBottomSheet.name) {
+      if (destination.route == PostModelBottomSheet.name) {
         showModalBottomSheet(
           shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.vertical(
@@ -29,7 +29,7 @@ class RootLayout extends StatelessWidget {
           ),
           backgroundColor: LegalReferralColors.backgroundWhite255,
           context: context,
-          builder: (context) => const PostNavigationModelBottomSheet(),
+          builder: (context) => const PostModelBottomSheet(),
         );
       } else {
         context.pushNamed(destination.route);

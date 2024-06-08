@@ -6,6 +6,7 @@ import 'package:legal_referral_ui/src/features/auth/data/data.dart';
 import 'package:legal_referral_ui/src/features/auth/domain/domain.dart';
 import 'package:legal_referral_ui/src/features/chat/data/data.dart';
 import 'package:legal_referral_ui/src/features/chat/domain/domain.dart';
+import 'package:legal_referral_ui/src/features/feed/domain/domain.dart';
 import 'package:legal_referral_ui/src/features/network/data/data.dart';
 import 'package:legal_referral_ui/src/features/network/domain/domain.dart';
 import 'package:legal_referral_ui/src/features/profile/data/data.dart';
@@ -405,5 +406,21 @@ abstract class APIClient {
   Future<List<AppUser?>> fetchUsers(
     @Query('limit') int limit,
     @Query('offset') int offset,
+  );
+
+  @POST('/posts')
+  @MultiPart()
+  Future<String?> createPost(
+    @Part(name: 'owner_id') String ownerId,
+    @Part(name: 'title') String title,
+    @Part(name: 'content') String content,
+    @Part(name: 'post_type') String type,
+    @Part(name: 'files') List<File> files,
+  );
+
+  // feed
+  @GET('/feeds/{userId}')
+  Future<List<Feed?>> fetchFeeds(
+    @Path('userId') String userId,
   );
 }

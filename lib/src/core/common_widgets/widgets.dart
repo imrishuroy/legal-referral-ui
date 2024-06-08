@@ -11,6 +11,8 @@ export 'custom_shimmer.dart';
 export 'custom_switch.dart';
 export 'custom_tabbar.dart';
 export 'custom_textfield.dart';
+export 'custom_tile.dart';
+export 'expandable_text.dart';
 export 'horizontal_icon_text.dart';
 export 'root_layout.dart';
 export 'svg_button.dart';

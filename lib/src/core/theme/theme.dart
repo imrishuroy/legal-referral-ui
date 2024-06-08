@@ -7,6 +7,11 @@ import 'package:legal_referral_ui/src/core/theme/text_theme.dart';
 class LegalReferralTheme {
   LegalReferralTheme._();
   static ThemeData lightTheme = ThemeData(
+    textSelectionTheme: TextSelectionThemeData(
+      selectionColor: LegalReferralColors.borderBlue300.withOpacity(.5),
+      cursorColor: LegalReferralColors.borderBlue300,
+      selectionHandleColor: LegalReferralColors.borderBlue300.withOpacity(1),
+    ),
     brightness: Brightness.light,
     chipTheme: const ChipThemeData(
       backgroundColor: LegalReferralColors.containerWhite500,
@@ -31,9 +36,9 @@ class LegalReferralTheme {
     scaffoldBackgroundColor: LegalReferralColors.primaryBackground,
     appBarTheme: LegalReferralAppBarTheme.lightAppBarTheme,
     checkboxTheme: CheckboxThemeData(
-      checkColor: MaterialStateProperty.all(Colors.black),
-      fillColor: MaterialStateProperty.all(Colors.transparent),
-      side: MaterialStateBorderSide.resolveWith(
+      checkColor: WidgetStateProperty.all(Colors.black),
+      fillColor: WidgetStateProperty.all(Colors.transparent),
+      side: WidgetStateBorderSide.resolveWith(
         (states) => const BorderSide(color: LegalReferralColors.borderBlue300),
       ),
       shape: RoundedRectangleBorder(

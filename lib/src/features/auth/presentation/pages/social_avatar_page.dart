@@ -184,7 +184,7 @@ class _SocialAvatarPageState extends State<SocialAvatarPage> {
       );
 
       setState(() {
-        _file = pickedFile;
+        _file = pickedFile.first;
       });
     } else if (mediaLocation == MediaLocation.camera) {
       if (context.mounted) {

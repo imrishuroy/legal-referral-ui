@@ -2076,6 +2076,91 @@ class _APIClient implements APIClient {
     return value;
   }
 
+  @override
+  Future<String?> createPost(
+    String ownerId,
+    String title,
+    String content,
+    String type,
+    List<File> files,
+  ) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = FormData();
+    _data.fields.add(MapEntry(
+      'owner_id',
+      ownerId,
+    ));
+    _data.fields.add(MapEntry(
+      'title',
+      title,
+    ));
+    _data.fields.add(MapEntry(
+      'content',
+      content,
+    ));
+    _data.fields.add(MapEntry(
+      'post_type',
+      type,
+    ));
+    _data.files.addAll(files.map((i) => MapEntry(
+        'files',
+        MultipartFile.fromFileSync(
+          i.path,
+          filename: i.path.split(Platform.pathSeparator).last,
+        ))));
+    final _result = await _dio.fetch<String>(_setStreamType<String>(Options(
+      method: 'POST',
+      headers: _headers,
+      extra: _extra,
+      contentType: 'multipart/form-data',
+    )
+        .compose(
+          _dio.options,
+          '/posts',
+          queryParameters: queryParameters,
+          data: _data,
+        )
+        .copyWith(
+            baseUrl: _combineBaseUrls(
+          _dio.options.baseUrl,
+          baseUrl,
+        ))));
+    final value = _result.data;
+    return value;
+  }
+
+  @override
+  Future<List<Feed?>> fetchFeeds(String userId) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    const Map<String, dynamic>? _data = null;
+    final _result =
+        await _dio.fetch<List<dynamic>>(_setStreamType<List<Feed>>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              '/feeds/${userId}',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
+    var value = _result.data!
+        .map((dynamic i) =>
+            i == null ? null : Feed.fromJson(i as Map<String, dynamic>))
+        .toList();
+    return value;
+  }
+
   RequestOptions _setStreamType<T>(RequestOptions requestOptions) {
     if (T != dynamic &&
         !(requestOptions.responseType == ResponseType.bytes ||

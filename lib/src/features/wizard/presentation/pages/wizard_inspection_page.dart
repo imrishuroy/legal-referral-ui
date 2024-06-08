@@ -6,7 +6,7 @@ import 'package:legal_referral_ui/src/core/config/config.dart';
 import 'package:legal_referral_ui/src/core/constants/constants.dart';
 import 'package:legal_referral_ui/src/core/utils/utils.dart';
 import 'package:legal_referral_ui/src/features/auth/presentation/presentation.dart';
-import 'package:legal_referral_ui/src/features/home_page.dart';
+import 'package:legal_referral_ui/src/features/feed/presentation/pages/feeds_page.dart';
 import 'package:legal_referral_ui/src/features/wizard/presentation/presentation.dart';
 import 'package:toastification/toastification.dart';
 
@@ -32,7 +32,7 @@ class _WizardInspectionPageState extends State<WizardInspectionPage> {
 
     if (user?.userId != null) {
       if (user?.wizardCompleted ?? false) {
-        context.goNamed(HomePage.name);
+        context.goNamed(FeedsPage.name);
       } else {
         _wizardBloc.add(
           WizardStepFetched(

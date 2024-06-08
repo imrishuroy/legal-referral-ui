@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:legal_referral_ui/src/core/common_widgets/custom_tile.dart';
 import 'package:legal_referral_ui/src/core/common_widgets/widgets.dart';
 import 'package:legal_referral_ui/src/core/config/config.dart';
 import 'package:legal_referral_ui/src/core/constants/constants.dart';
@@ -42,7 +41,7 @@ class _RecentWidgetState extends State<RecentWidget> {
       builder: (context, state) {
         return Container(
           color: LegalReferralColors.containerWhite500,
-          padding: EdgeInsets.symmetric(horizontal: 16.w,vertical: 8.h),
+          padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
           margin: EdgeInsets.symmetric(vertical: 8.h),
           child: SingleChildScrollView(
             child: Column(

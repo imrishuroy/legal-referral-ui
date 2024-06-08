@@ -8,10 +8,19 @@ class CustomBottomSheet {
     required Widget child,
     bool isScrollControlled = true,
     bool? isDismissible,
+    double? maxWidth,
+    bool? borderRadius,
   }) {
     return showModalBottomSheet(
+      shape: borderRadius == true
+          ? const RoundedRectangleBorder(
+              borderRadius: BorderRadius.vertical(top: Radius.circular(12)),
+            )
+          : null,
       constraints: BoxConstraints(
-        maxWidth: MediaQuery.of(context).size.width - 32.w,
+        maxWidth: (maxWidth == double.infinity)
+            ? double.infinity
+            : MediaQuery.of(context).size.width - 32.w,
       ),
       isDismissible: isDismissible ?? false,
       backgroundColor: LegalReferralColors.containerWhite500,
