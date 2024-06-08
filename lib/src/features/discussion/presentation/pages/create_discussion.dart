@@ -1,0 +1,270 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
+import 'package:legal_referral_ui/src/core/common_widgets/widgets.dart';
+import 'package:legal_referral_ui/src/core/config/config.dart';
+import 'package:legal_referral_ui/src/core/constants/constants.dart';
+import 'package:legal_referral_ui/src/core/utils/utils.dart';
+import 'package:legal_referral_ui/src/features/auth/presentation/presentation.dart';
+import 'package:legal_referral_ui/src/features/discussion/presentation/widgets/connections_dialog.dart';
+import 'package:legal_referral_ui/src/features/feed/presentation/pages/feeds_page.dart';
+import 'package:legal_referral_ui/src/features/post/presentation/bloc/post_bloc.dart';
+import 'package:legal_referral_ui/src/features/post/presentation/presentation.dart';
+import 'package:toastification/toastification.dart';
+
+enum PostCondition { anyone, connectionOnly }
+
+class CreateDiscussionPage extends StatefulWidget {
+  const CreateDiscussionPage({super.key});
+  static const name = 'CreateDiscussionPage';
+
+  @override
+  State<CreateDiscussionPage> createState() => _CreateDiscussionPageState();
+}
+
+class _CreateDiscussionPageState extends State<CreateDiscussionPage> {
+  final TextEditingController _postContentController = TextEditingController();
+  final TextEditingController _linkController = TextEditingController();
+  bool isLinkVisible = false;
+
+  final _postBloc = getIt<PostBloc>();
+  final _authBloc = getIt<AuthBloc>();
+  // late bool containsPdf = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocConsumer<PostBloc, PostState>(
+      bloc: _postBloc,
+      listener: (context, state) {
+        if (state.status == PostStatus.failure) {
+          ToastUtil.showToast(
+            context,
+            title: 'Error',
+            description: state.failure?.message ?? 'something went wrong',
+            type: ToastificationType.error,
+          );
+        } else if (state.status == PostStatus.success) {
+          ToastUtil.showToast(
+            context,
+            title: 'Success',
+            description: 'Post created successfully',
+            type: ToastificationType.success,
+          );
+          context.pushReplacementNamed(FeedsPage.name);
+        }
+      },
+      builder: (context, state) {
+        return Scaffold(
+          bottomNavigationBar: Padding(
+            padding: const EdgeInsets.symmetric(
+              horizontal: 16,
+              vertical: 16,
+            ),
+            child: CustomElevatedButton(
+              text: 'Start Discussion',
+              onTap: () {
+                // final userId = _authBloc.state.user?.userId;
+                // if (userId != null) {
+                //   _postBloc.add(
+                //     PostCreated(
+                //       ownerId: userId,
+                //       title: _postContentController.text,
+                //     ),
+                //   );
+                // }
+              },
+              isLoading: state.status == PostStatus.loading,
+            ),
+          ),
+          body: SafeArea(
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
+              child: Column(
+                children: [
+                  Row(
+                    children: [
+                      CustomAvatar(
+                        imageUrl: _authBloc.state.user?.avatarUrl,
+                      ),
+                      SizedBox(
+                        width: 8.h,
+                      ),
+                      TextButton.icon(
+                        onPressed: _chooseConnection,
+                        label: Text(
+                          'Anyone',
+                          style: Theme.of(context).textTheme.titleMedium,
+                        ),
+                        icon: Icon(
+                          Icons.keyboard_arrow_down,
+                          size: 24.sp,
+                        ),
+                        iconAlignment: IconAlignment.end,
+                      ),
+                      const Spacer(),
+                      SvgButton(
+                        imagePath: IconStringConstants.link,
+                        onPressed: () {
+                          setState(() {
+                            isLinkVisible = !isLinkVisible;
+                          });
+                          if (!isLinkVisible) {
+                            _linkController.clear();
+                          }
+                        },
+                        height: 24.h,
+                        width: 24.w,
+                      ),
+                      SizedBox(
+                        width: 16.w,
+                      ),
+                      SvgButton(
+                        imagePath: IconStringConstants.picture,
+                        onPressed: () {
+                          _postBloc.add(FileAdded());
+                        },
+                        height: 24.h,
+                        width: 24.w,
+                      ),
+                      SizedBox(
+                        width: 16.w,
+                      ),
+                      SvgButton(
+                        imagePath: IconStringConstants.cross2,
+                        onPressed: () => context.pop(),
+                        height: 24.h,
+                        width: 24.w,
+                      ),
+                    ],
+                  ),
+                  Expanded(
+                    child: SingleChildScrollView(
+                      child: Column(
+                        children: [
+                          CustomTextField(
+                            maxLines: null,
+                            keyboardType: TextInputType.multiline,
+                            fillColor: Colors.transparent,
+                            borderColor: Colors.transparent,
+                            controller: _postContentController,
+                            hintText: 'Discuss on...',
+                          ),
+                          if (isLinkVisible)
+                            CustomTextField(
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyLarge
+                                  ?.copyWith(
+                                    color: LegalReferralColors.textBlue100,
+                                  ),
+                              maxLines: 2,
+                              keyboardType: TextInputType.multiline,
+                              fillColor: Colors.transparent,
+                              borderColor: Colors.transparent,
+                              controller: _linkController,
+                              hintText: 'Attach Url',
+                            ),
+                          BlocBuilder<PostBloc, PostState>(
+                            bloc: _postBloc,
+                            builder: (context, state) {
+                              return ImagePost(
+                                files: state.files,
+                                onRemove: (index) => _postBloc.add(
+                                  FileRemoved(index: index),
+                                ),
+                              );
+                            },
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  void _chooseConnection() {
+    var post = PostCondition.anyone;
+    CustomBottomSheet.show(
+      borderRadius: true,
+      maxWidth: double.infinity,
+      isDismissible: true,
+      context: context,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          SizedBox(
+            height: 24.h,
+          ),
+          Text(
+            'Start your discussion with',
+            style: Theme.of(context).textTheme.titleMedium,
+          ),
+          SizedBox(
+            height: 8.h,
+          ),
+          RadioListTile<PostCondition>(
+            activeColor: LegalReferralColors.borderBlue100,
+            title: Text(
+              'Anyone',
+              style: Theme.of(context).textTheme.bodyLarge,
+            ),
+            value: PostCondition.anyone,
+            groupValue: post,
+            onChanged: (PostCondition? value) {
+              if (value != null) {
+                post = value;
+              }
+            },
+          ),
+          const Divider(
+            height: 1,
+          ),
+          RadioListTile<PostCondition>(
+            activeColor: LegalReferralColors.borderBlue100,
+            title: Text(
+              'Connection only',
+              style: Theme.of(context).textTheme.bodyLarge,
+            ),
+            value: PostCondition.connectionOnly,
+            groupValue: post,
+            onChanged: (PostCondition? value) {
+              if (value != null) {
+                post = value;
+                if (value == PostCondition.connectionOnly) {
+                  Navigator.pop(context);
+                  shareToConnections(context);
+                }
+              }
+            },
+          ),
+          const Divider(
+            height: 1,
+          ),
+          SizedBox(
+            height: 8.h,
+          ),
+          CustomOutlinedButton(
+            textColor: LegalReferralColors.borderBlue100,
+            borderColor: LegalReferralColors.borderBlue100,
+            height: 57,
+            text: 'Done',
+            onPressed: () {
+              context.pop();
+            },
+          ),
+          SizedBox(
+            height: 24.h,
+          ),
+        ],
+      ),
+    );
+  }
+}

@@ -10,6 +10,7 @@ class CustomBottomSheet {
     bool? isDismissible,
     double? maxWidth,
     bool? borderRadius,
+    bool enableDrag = false,
   }) {
     return showModalBottomSheet(
       shape: borderRadius == true
@@ -24,7 +25,7 @@ class CustomBottomSheet {
       ),
       isDismissible: isDismissible ?? false,
       backgroundColor: LegalReferralColors.containerWhite500,
-      enableDrag: false,
+      enableDrag: enableDrag,
       isScrollControlled: isScrollControlled,
       context: context,
       builder: (context) => Padding(
