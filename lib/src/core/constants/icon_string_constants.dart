@@ -49,6 +49,7 @@ class IconStringConstants {
   static const String bell = 'assets/icons/bell.svg';
   static const String picture = 'assets/icons/picture.svg';
   static const String cross2 = 'assets/icons/cross2.svg';
+  static const String link = 'assets/icons/link.svg';
 
   // -- Brand Icons
 

@@ -23,8 +23,9 @@ class CreatePostPage extends StatefulWidget {
 }
 
 class _CreatePostPageState extends State<CreatePostPage> {
-  final TextEditingController _thoughtsController = TextEditingController();
-  PostCondition? _post = PostCondition.anyone;
+  final TextEditingController _postContentController = TextEditingController();
+  final TextEditingController _linkController = TextEditingController();
+  bool isLinkVisible = false;
 
   final _postBloc = getIt<PostBloc>();
   final _authBloc = getIt<AuthBloc>();
@@ -67,7 +68,7 @@ class _CreatePostPageState extends State<CreatePostPage> {
                   _postBloc.add(
                     PostCreated(
                       ownerId: userId,
-                      title: _thoughtsController.text,
+                      title: _postContentController.text,
                     ),
                   );
                 }
@@ -102,6 +103,22 @@ class _CreatePostPageState extends State<CreatePostPage> {
                       ),
                       const Spacer(),
                       SvgButton(
+                        imagePath: IconStringConstants.link,
+                        onPressed: () {
+                          setState(() {
+                            isLinkVisible = !isLinkVisible;
+                          });
+                          if (!isLinkVisible) {
+                            _linkController.clear();
+                          }
+                        },
+                        height: 24.h,
+                        width: 24.w,
+                      ),
+                      SizedBox(
+                        width: 16.w,
+                      ),
+                      SvgButton(
                         imagePath: IconStringConstants.picture,
                         onPressed: () {
                           _postBloc.add(FileAdded());
@@ -114,7 +131,7 @@ class _CreatePostPageState extends State<CreatePostPage> {
                       ),
                       SvgButton(
                         imagePath: IconStringConstants.cross2,
-                        onPressed: () {},
+                        onPressed: () => context.pop(),
                         height: 24.h,
                         width: 24.w,
                       ),
@@ -129,9 +146,24 @@ class _CreatePostPageState extends State<CreatePostPage> {
                             keyboardType: TextInputType.multiline,
                             fillColor: Colors.transparent,
                             borderColor: Colors.transparent,
-                            controller: _thoughtsController,
+                            controller: _postContentController,
                             hintText: 'Share your thoughts',
                           ),
+                          if (isLinkVisible)
+                            CustomTextField(
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyLarge
+                                  ?.copyWith(
+                                    color: LegalReferralColors.textBlue100,
+                                  ),
+                              maxLines: 2,
+                              keyboardType: TextInputType.multiline,
+                              fillColor: Colors.transparent,
+                              borderColor: Colors.transparent,
+                              controller: _linkController,
+                              hintText: 'Attach Url',
+                            ),
                           BlocBuilder<PostBloc, PostState>(
                             bloc: _postBloc,
                             builder: (context, state) {
@@ -157,6 +189,7 @@ class _CreatePostPageState extends State<CreatePostPage> {
   }
 
   void _chooseConnection() {
+    var post = PostCondition.anyone;
     CustomBottomSheet.show(
       borderRadius: true,
       maxWidth: double.infinity,
@@ -183,11 +216,11 @@ class _CreatePostPageState extends State<CreatePostPage> {
               style: Theme.of(context).textTheme.bodyLarge,
             ),
             value: PostCondition.anyone,
-            groupValue: _post,
+            groupValue: post,
             onChanged: (PostCondition? value) {
-              setState(() {
-                _post = value;
-              });
+              if (value != null) {
+                post = value;
+              }
             },
           ),
           const Divider(
@@ -200,11 +233,11 @@ class _CreatePostPageState extends State<CreatePostPage> {
               style: Theme.of(context).textTheme.bodyLarge,
             ),
             value: PostCondition.connectionOnly,
-            groupValue: _post,
+            groupValue: post,
             onChanged: (PostCondition? value) {
-              setState(() {
-                _post = value;
-              });
+              if (value != null) {
+                post = value;
+              }
             },
           ),
           const Divider(

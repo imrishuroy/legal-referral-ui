@@ -177,7 +177,34 @@ class FeedTile extends StatelessWidget {
                 icon: IconStringConstants.comment,
                 text: 'Comment',
                 textColor: LegalReferralColors.textGrey117,
-                onTap: () {},
+                onTap: () {
+                  // // implement a callback for comments
+                  // if (ModalRoute.of(context)?.settings.name !=
+                  //     PostCommentPage.routeName) {
+                  //   Navigator.of(context).push(
+                  //     MaterialPageRoute(
+                  //       builder: (context) => PostCommentPage(
+                  //         attorneyName: attorneyName,
+                  //         attorneyType: attorneyType,
+                  //         postedTime: postedTime,
+                  //         child: child,
+                  //       ),
+                  //       settings: const RouteSettings(
+                  //           name: PostCommentPage.routeName,),
+                  //     ),
+                  //   );
+                  // }
+                  // Navigator.of(context).push(
+                  //   MaterialPageRoute(
+                  //     builder: (context) => PostCommentPage(
+                  //       attorneyName: attorneyName,
+                  //       attorneyType: attorneyType,
+                  //       postedTime: postedTime,
+                  //       child: child,
+                  //     ),
+                  //   ),
+                  // );
+                },
               ),
               VerticalIconButton(
                 icon: IconStringConstants.discuss,

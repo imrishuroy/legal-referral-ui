@@ -20,6 +20,7 @@ class CustomTextField extends StatelessWidget {
     this.maxLines = 1,
     this.enabled = true,
     this.showLabel = true,
+    this.style,
   });
 
   final FocusNode? focusNode;
@@ -37,7 +38,7 @@ class CustomTextField extends StatelessWidget {
   final int? maxLines;
   final bool enabled;
   final bool showLabel;
-
+  final TextStyle? style;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -52,7 +53,6 @@ class CustomTextField extends StatelessWidget {
             ),
           if (showLabel) SizedBox(height: 8.h),
           TextFormField(
-            cursorColor: LegalReferralColors.borderBlue300,
             focusNode: focusNode,
             controller: controller,
             obscureText: obscureText,
@@ -62,7 +62,7 @@ class CustomTextField extends StatelessWidget {
             enabled: enabled,
             onChanged: onChanged,
             onFieldSubmitted: onSubmitted,
-            style: Theme.of(context).textTheme.bodyLarge,
+            style: style ?? Theme.of(context).textTheme.bodyLarge,
             decoration: InputDecoration(
               contentPadding: EdgeInsets.symmetric(
                 vertical: 12.h,

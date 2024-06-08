@@ -6,8 +6,8 @@ import 'package:legal_referral_ui/src/core/constants/constants.dart';
 import 'package:legal_referral_ui/src/features/post/presentation/presentation.dart';
 import 'package:legal_referral_ui/src/features/referral/presentation/presentation.dart';
 
-class PostNavigationModelBottomSheet extends StatelessWidget {
-  const PostNavigationModelBottomSheet({super.key});
+class PostModelBottomSheet extends StatelessWidget {
+  const PostModelBottomSheet({super.key});
 
   static const String name = 'bottomSheet';
 
@@ -27,11 +27,12 @@ class PostNavigationModelBottomSheet extends StatelessWidget {
               ),
             ),
             title: const Text('Referral'),
-            onTap: () => Navigator.of(context).pushReplacement(
-              MaterialPageRoute(
-                builder: (context) => const CreateReferralPage(),
-              ),
-            ),
+            onTap: () {
+              context.pop();
+              context.pushNamed(
+                CreateReferralPage.name,
+              );
+            },
           ),
           Divider(
             height: 1,
@@ -46,9 +47,12 @@ class PostNavigationModelBottomSheet extends StatelessWidget {
               ),
             ),
             title: const Text('Feed'),
-            onTap: () => context.pushNamed(
-              CreatePostPage.name,
-            ),
+            onTap: () {
+              context.pop();
+              context.pushNamed(
+                CreatePostPage.name,
+              );
+            },
           ),
           Divider(
             height: 1,
@@ -63,7 +67,9 @@ class PostNavigationModelBottomSheet extends StatelessWidget {
               ),
             ),
             title: const Text('Discussion'),
-            onTap: () {},
+            onTap: () {
+              context.pop();
+            },
           ),
           Divider(
             height: 1,
@@ -78,7 +84,9 @@ class PostNavigationModelBottomSheet extends StatelessWidget {
               ),
             ),
             title: const Text('Poll'),
-            onTap: () {},
+            onTap: () {
+              context.pop();
+            },
           ),
         ],
       ),
