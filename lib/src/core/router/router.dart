@@ -3,8 +3,8 @@ import 'package:go_router/go_router.dart';
 import 'package:legal_referral_ui/src/core/common_widgets/widgets.dart';
 import 'package:legal_referral_ui/src/features/auth/presentation/presentation.dart';
 import 'package:legal_referral_ui/src/features/chat/presentation/presentation.dart';
-import 'package:legal_referral_ui/src/features/discuss/presentation/presentation.dart';
 import 'package:legal_referral_ui/src/features/discussion/presentation/pages/create_discussion.dart';
+import 'package:legal_referral_ui/src/features/discussion/presentation/pages/discuss_page.dart';
 import 'package:legal_referral_ui/src/features/feed/presentation/presentation.dart';
 import 'package:legal_referral_ui/src/features/network/presentation/presentation.dart';
 import 'package:legal_referral_ui/src/features/post/presentation/presentation.dart';
@@ -30,7 +30,7 @@ class AppRouter {
         name: SplashPage.name,
         parentNavigatorKey: _rootNavigatorKey,
         pageBuilder: (context, state) => CustomTransitionPage(
-          child: const CreateDiscussionPage(),
+          child: const DiscussPage(),
           transitionDuration: const Duration(
             seconds: _routeAnimationDuration,
           ),

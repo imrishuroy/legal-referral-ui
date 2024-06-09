@@ -149,7 +149,7 @@ void shareToConnections(BuildContext context) {
 }
 
 class _CircularCheckBox extends StatelessWidget {
-  const _CircularCheckBox({super.key});
+  const _CircularCheckBox();
 
   @override
   Widget build(BuildContext context) {
