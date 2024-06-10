@@ -24,12 +24,8 @@ class CreatePostPage extends StatefulWidget {
 
 class _CreatePostPageState extends State<CreatePostPage> {
   final TextEditingController _postContentController = TextEditingController();
-  final TextEditingController _linkController = TextEditingController();
-  bool isLinkVisible = false;
-
   final _postBloc = getIt<PostBloc>();
   final _authBloc = getIt<AuthBloc>();
-  late bool containsPdf = false;
 
   @override
   Widget build(BuildContext context) {
@@ -103,22 +99,6 @@ class _CreatePostPageState extends State<CreatePostPage> {
                       ),
                       const Spacer(),
                       SvgButton(
-                        imagePath: IconStringConstants.link,
-                        onPressed: () {
-                          setState(() {
-                            isLinkVisible = !isLinkVisible;
-                          });
-                          if (!isLinkVisible) {
-                            _linkController.clear();
-                          }
-                        },
-                        height: 24.h,
-                        width: 24.w,
-                      ),
-                      SizedBox(
-                        width: 16.w,
-                      ),
-                      SvgButton(
                         imagePath: IconStringConstants.picture,
                         onPressed: () {
                           _postBloc.add(FileAdded());
@@ -148,32 +128,27 @@ class _CreatePostPageState extends State<CreatePostPage> {
                             borderColor: Colors.transparent,
                             controller: _postContentController,
                             hintText: 'Share your thoughts',
-                          ),
-                          if (isLinkVisible)
-                            CustomTextField(
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodyLarge
-                                  ?.copyWith(
-                                    color: LegalReferralColors.textBlue100,
-                                  ),
-                              maxLines: 2,
-                              keyboardType: TextInputType.multiline,
-                              fillColor: Colors.transparent,
-                              borderColor: Colors.transparent,
-                              controller: _linkController,
-                              hintText: 'Attach Url',
-                            ),
-                          BlocBuilder<PostBloc, PostState>(
-                            bloc: _postBloc,
-                            builder: (context, state) {
-                              return ImagePost(
-                                files: state.files,
-                                onRemove: (index) => _postBloc.add(
-                                  FileRemoved(index: index),
-                                ),
-                              );
+                            onChanged: (value) {
+                              if (value != null && value.isNotEmpty) {
+                                _postBloc.add(
+                                  PostTextChanged(text: value),
+                                );
+                              }
+                              return null;
                             },
+                          ),
+                          SizedBox(
+                            height: 16.h,
+                          ),
+                          LinkPreviewWidget(
+                            text: state.text,
+                          ),
+                          SizedBox(height: 12.h),
+                          ImagePost(
+                            files: state.files,
+                            onRemove: (index) => _postBloc.add(
+                              FileRemoved(index: index),
+                            ),
                           ),
                         ],
                       ),
@@ -261,5 +236,11 @@ class _CreatePostPageState extends State<CreatePostPage> {
         ],
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    _postContentController.dispose();
+    super.dispose();
   }
 }

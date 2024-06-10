@@ -17,10 +17,14 @@ class FeedRepositoryImpl extends FeedRepository {
   @override
   Future<Either<Failure, List<Feed?>>> fetchFeeds({
     required String userId,
+    required int limit,
+    required int offset,
   }) async {
     try {
       final response = await _feedDatasource.fetchFeeds(
         userId: userId,
+        limit: limit,
+        offset: offset,
       );
       return Right(response);
     } on DioException catch (error) {

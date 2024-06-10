@@ -7,6 +7,17 @@ abstract class PostEvent extends Equatable {
   List<Object> get props => [];
 }
 
+class PostTextChanged extends PostEvent {
+  const PostTextChanged({
+    required this.text,
+  });
+
+  final String text;
+
+  @override
+  List<Object> get props => [text];
+}
+
 class FileAdded extends PostEvent {}
 
 class FileRemoved extends PostEvent {

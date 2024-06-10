@@ -227,6 +227,7 @@ class VerticalIconButton extends StatelessWidget {
     this.height,
     this.width,
     this.textColor,
+    this.iconColor,
   });
   final double? height;
   final double? width;
@@ -234,6 +235,7 @@ class VerticalIconButton extends StatelessWidget {
   final String text;
   final Color? textColor;
   final VoidCallback onTap;
+  final Color? iconColor;
   @override
   Widget build(BuildContext context) {
     return InkWell(
@@ -244,6 +246,9 @@ class VerticalIconButton extends StatelessWidget {
             height: height ?? 20.h,
             width: width ?? 20.w,
             icon,
+            colorFilter: iconColor != null
+                ? ColorFilter.mode(iconColor!, BlendMode.srcIn)
+                : null,
           ),
           Text(
             text,

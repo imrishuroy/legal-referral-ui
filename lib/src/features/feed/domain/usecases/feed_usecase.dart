@@ -13,7 +13,13 @@ class FeedUsecase {
 
   Future<Either<Failure, List<Feed?>>> fetchFeeds({
     required String userId,
+    required int limit,
+    required int offset,
   }) async {
-    return _feedRepository.fetchFeeds(userId: userId);
+    return _feedRepository.fetchFeeds(
+      userId: userId,
+      limit: limit,
+      offset: offset,
+    );
   }
 }

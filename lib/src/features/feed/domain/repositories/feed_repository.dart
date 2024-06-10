@@ -5,5 +5,7 @@ import 'package:legal_referral_ui/src/features/feed/domain/domain.dart';
 abstract class FeedRepository {
   Future<Either<Failure, List<Feed?>>> fetchFeeds({
     required String userId,
+    required int limit,
+    required int offset,
   });
 }

@@ -5,8 +5,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:legal_referral_ui/src/core/common_widgets/widgets.dart';
 import 'package:legal_referral_ui/src/core/constants/colors.dart';
 
-class ImagePost extends StatefulWidget {
-  const ImagePost({
+class ImagePostWidget extends StatefulWidget {
+  const ImagePostWidget({
     required this.postContent,
     required this.imageUrls,
     super.key,
@@ -16,10 +16,10 @@ class ImagePost extends StatefulWidget {
   final List<String?> imageUrls;
 
   @override
-  State<ImagePost> createState() => _ImagePostState();
+  State<ImagePostWidget> createState() => _ImagePostWidgetState();
 }
 
-class _ImagePostState extends State<ImagePost> {
+class _ImagePostWidgetState extends State<ImagePostWidget> {
   double _current = 0;
   final CarouselController _controller = CarouselController();
 

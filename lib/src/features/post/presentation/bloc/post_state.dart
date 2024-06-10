@@ -13,6 +13,7 @@ enum DocumentType {
 class PostState extends Equatable {
   const PostState({
     required this.status,
+    this.text = '',
     this.pickedFile,
     this.postType = PostType.text,
     this.files = const [],
@@ -26,6 +27,7 @@ class PostState extends Equatable {
   }
 
   final PostType postType;
+  final String text;
   final List<File> files;
   final File? pickedFile;
   final PostStatus status;
@@ -33,15 +35,17 @@ class PostState extends Equatable {
 
   PostState copyWith({
     PostStatus? status,
-    PostType? postType,
+    String? text,
     List<File>? files,
+    PostType? postType,
     File? filePath,
     Failure? failure,
   }) {
     return PostState(
       status: status ?? this.status,
-      postType: postType ?? this.postType,
+      text: text ?? this.text,
       files: files ?? this.files,
+      postType: postType ?? this.postType,
       pickedFile: filePath ?? pickedFile,
       failure: failure ?? this.failure,
     );
@@ -50,6 +54,7 @@ class PostState extends Equatable {
   @override
   List<Object?> get props => [
         status,
+        text,
         postType,
         files,
         pickedFile,

@@ -679,7 +679,7 @@ packages:
     source: hosted
     version: "3.2.2"
   flutter_linkify:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: flutter_linkify
       sha256: "74669e06a8f358fee4512b4320c0b80e51cffc496607931de68d28f099254073"

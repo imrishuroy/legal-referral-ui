@@ -31,7 +31,7 @@ import '../../features/feed/data/repositories/feed_repository_impl.dart'
     as _i20;
 import '../../features/feed/domain/domain.dart' as _i19;
 import '../../features/feed/domain/usecases/feed_usecase.dart' as _i38;
-import '../../features/feed/presentation/bloc/feed_bloc.dart' as _i43;
+import '../../features/feed/presentation/bloc/feed_bloc.dart' as _i44;
 import '../../features/network/data/data.dart' as _i18;
 import '../../features/network/data/datasource/network_datasource.dart' as _i10;
 import '../../features/network/data/repositories/network_repository_impl.dart'
@@ -52,7 +52,7 @@ import '../../features/profile/data/datasources/profile_datasource.dart'
 import '../../features/profile/data/repositories/profile_repository_impl.dart'
     as _i32;
 import '../../features/profile/domain/domain.dart' as _i31;
-import '../../features/profile/domain/usecases/profile_usecase.dart' as _i44;
+import '../../features/profile/domain/usecases/profile_usecase.dart' as _i43;
 import '../../features/profile/presentation/bloc/profile_bloc.dart' as _i55;
 import '../../features/referral/data/data.dart' as _i24;
 import '../../features/referral/data/datasources/referral_datasource.dart'
@@ -141,10 +141,12 @@ extension GetItInjectableX on _i1.GetIt {
         () => _i41.ChatUseCase(chatRepository: gh<_i28.ChatRepository>()));
     gh.lazySingleton<_i42.AuthUseCase>(
         () => _i42.AuthUseCase(authRepository: gh<_i39.AuthRepository>()));
-    gh.singleton<_i43.FeedBloc>(
-        () => _i43.FeedBloc(feedUsecase: gh<_i19.FeedUsecase>()));
-    gh.lazySingleton<_i44.ProfileUseCase>(() =>
-        _i44.ProfileUseCase(profileRepository: gh<_i31.ProfileRepository>()));
+    gh.lazySingleton<_i43.ProfileUseCase>(() =>
+        _i43.ProfileUseCase(profileRepository: gh<_i31.ProfileRepository>()));
+    gh.singleton<_i44.FeedBloc>(() => _i44.FeedBloc(
+          feedUsecase: gh<_i19.FeedUsecase>(),
+          postUsecase: gh<_i25.PostUsecase>(),
+        ));
     gh.lazySingleton<_i45.WizardUseCase>(() =>
         _i45.WizardUseCase(wizardRepository: gh<_i14.WizardRepository>()));
     gh.lazySingleton<_i46.NetworkUseCase>(() =>
@@ -161,12 +163,12 @@ extension GetItInjectableX on _i1.GetIt {
           chatUseCase: gh<_i28.ChatUseCase>(),
         ));
     gh.factory<_i53.PostBloc>(
-        () => _i53.PostBloc(postUsecase: gh<_i37.PostUsecase>()));
+        () => _i53.PostBloc(postUsecase: gh<_i25.PostUsecase>()));
     gh.factory<_i54.WizardBloc>(
         () => _i54.WizardBloc(wizardUseCase: gh<_i45.WizardUseCase>()));
     gh.factory<_i55.ProfileBloc>(() => _i55.ProfileBloc(
           authBloc: gh<_i52.AuthBloc>(),
-          profileUseCase: gh<_i44.ProfileUseCase>(),
+          profileUseCase: gh<_i43.ProfileUseCase>(),
         ));
     gh.factory<_i56.NetworkBloc>(
         () => _i56.NetworkBloc(networkUseCase: gh<_i16.NetworkUseCase>()));

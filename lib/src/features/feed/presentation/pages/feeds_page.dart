@@ -7,6 +7,7 @@ import 'package:legal_referral_ui/src/core/config/config.dart';
 import 'package:legal_referral_ui/src/core/constants/constants.dart';
 import 'package:legal_referral_ui/src/core/utils/utils.dart';
 import 'package:legal_referral_ui/src/features/auth/presentation/presentation.dart';
+import 'package:legal_referral_ui/src/features/feed/domain/entities/feed.dart';
 import 'package:legal_referral_ui/src/features/feed/presentation/presentation.dart';
 import 'package:legal_referral_ui/src/features/profile/presentation/presentation.dart';
 import 'package:toastification/toastification.dart';
@@ -24,8 +25,11 @@ class _FeedsPageState extends State<FeedsPage> {
   final _feedBloc = getIt<FeedBloc>();
   final TextEditingController _searchController = TextEditingController();
 
+  final _scrollController = ScrollController();
+
   @override
   void initState() {
+    _scrollController.addListener(_onScroll);
     _fetchFeeds();
     super.initState();
   }
@@ -34,6 +38,13 @@ class _FeedsPageState extends State<FeedsPage> {
     final userId = _authBloc.state.user?.userId;
     if (userId != null) {
       _feedBloc.add(FeedsFetched(userId: userId));
+    }
+  }
+
+  void _refreshFeed() {
+    final userId = _authBloc.state.user?.userId;
+    if (userId != null) {
+      _feedBloc.add(FeedRefreshed(userId: userId));
     }
   }
 
@@ -98,44 +109,92 @@ class _FeedsPageState extends State<FeedsPage> {
         },
         builder: (context, state) {
           if (state.status == FeedStatus.loading) {
-            return const Center(child: CustomLoadingIndicator());
+            return const FeedShimmer();
           } else if (state.status == FeedStatus.success &&
               state.feeds.isEmpty) {
             return const Center(child: Text('No feeds available'));
           } else if (state.status == FeedStatus.success) {
             return RefreshIndicator(
               onRefresh: () async {
-                _fetchFeeds();
+                _refreshFeed();
               },
               child: CustomScrollView(
+                controller: _scrollController,
                 slivers: [
                   SliverList(
                     delegate: SliverChildBuilderDelegate(
                       (context, index) {
+                        if (index >= state.feeds.length) {
+                          return const FeedShimmer();
+                        }
+
                         final feed = state.feeds[index];
                         return FeedTile(
                           feed: feed,
-                          onLikePressed: () {},
+                          onLikePressed: () => _onLikePressed(feed, index),
                           onCommentPressed: () {},
                           onSharePressed: () {},
+                          onDiscussPressed: () {},
                         );
                       },
-                      childCount: state.feeds.length,
+                      childCount: state.hasReachedMax
+                          ? state.feeds.length
+                          : state.feeds.length + 1,
                     ),
                   ),
                 ],
               ),
             );
           } else {
-            return const Center(child: Text('something went wrong'));
+            return const FeedShimmer();
           }
         },
       ),
     );
   }
 
+  void _onLikePressed(
+    Feed? feed,
+    int index,
+  ) {
+    final postId = feed?.post?.postId;
+    if (postId != null) {
+      if (feed?.isLiked == true) {
+        _feedBloc.add(
+          PostUnliked(
+            postId: postId,
+            index: index,
+          ),
+        );
+      } else {
+        _feedBloc.add(
+          PostLiked(
+            postId: postId,
+            index: index,
+          ),
+        );
+      }
+    }
+  }
+
+  void _onScroll() {
+    if (_isBottom) {
+      _fetchFeeds();
+    }
+  }
+
+  bool get _isBottom {
+    if (!_scrollController.hasClients) return false;
+    final maxScroll = _scrollController.position.maxScrollExtent;
+    final currentScroll = _scrollController.offset;
+    return currentScroll >= (maxScroll * 0.9);
+  }
+
   @override
   void dispose() {
+    _scrollController
+      ..removeListener(_onScroll)
+      ..dispose();
     _searchController.dispose();
     super.dispose();
   }

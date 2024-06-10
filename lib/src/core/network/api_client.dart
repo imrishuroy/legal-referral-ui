@@ -422,5 +422,17 @@ abstract class APIClient {
   @GET('/feeds/{userId}')
   Future<List<Feed?>> fetchFeeds(
     @Path('userId') String userId,
+    @Query('limit') int limit,
+    @Query('offset') int offset,
+  );
+
+  @POST('/posts/{postId}/like')
+  Future<void> likePost(
+    @Path('postId') int postId,
+  );
+
+  @DELETE('/posts/{postId}/like')
+  Future<void> unlikePost(
+    @Path('postId') int postId,
   );
 }

@@ -20,7 +20,23 @@ class PostDatasource {
         post.files,
       );
       return response;
-    } catch (e) {
+    } catch (_) {
+      rethrow;
+    }
+  }
+
+  Future<void> likePost({required int postId}) async {
+    try {
+      await _apiClient.likePost(postId);
+    } catch (_) {
+      rethrow;
+    }
+  }
+
+  Future<void> unlikePost({required int postId}) async {
+    try {
+      await _apiClient.unlikePost(postId);
+    } catch (_) {
       rethrow;
     }
   }

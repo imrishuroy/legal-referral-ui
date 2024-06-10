@@ -7,22 +7,24 @@ import 'package:legal_referral_ui/src/core/constants/icon_string_constants.dart'
 import 'package:legal_referral_ui/src/core/utils/utils.dart';
 import 'package:legal_referral_ui/src/features/feed/domain/domain.dart';
 import 'package:legal_referral_ui/src/features/feed/presentation/presentation.dart';
+import 'package:legal_referral_ui/src/features/post/domain/domain.dart';
+import 'package:legal_referral_ui/src/features/post/presentation/presentation.dart';
 
 class FeedTile extends StatelessWidget {
   const FeedTile({
     required this.feed,
+    required this.onLikePressed,
+    required this.onCommentPressed,
+    required this.onDiscussPressed,
+    required this.onSharePressed,
     super.key,
-    this.onLikePressed,
-    this.onCommentPressed,
-    this.onDiscussPressed,
-    this.onSharePressed,
   });
 
   final Feed? feed;
-  final VoidCallback? onLikePressed;
-  final VoidCallback? onCommentPressed;
-  final VoidCallback? onDiscussPressed;
-  final VoidCallback? onSharePressed;
+  final VoidCallback onLikePressed;
+  final VoidCallback onCommentPressed;
+  final VoidCallback onDiscussPressed;
+  final VoidCallback onSharePressed;
 
   @override
   Widget build(BuildContext context) {
@@ -30,6 +32,8 @@ class FeedTile extends StatelessWidget {
     final post = feed?.post;
     final name = '${user?.firstName} ${user?.lastName}';
     final theme = Theme.of(context).textTheme;
+    final likesCount = feed?.likesCount ?? 0;
+    final commentsCount = feed?.commentsCount ?? 0;
     return ColoredBox(
       color: LegalReferralColors.containerWhite500,
       child: Column(
@@ -111,10 +115,21 @@ class FeedTile extends StatelessWidget {
             padding: EdgeInsets.symmetric(horizontal: 16.w),
             text: post?.title ?? '',
           ),
-          ImagePost(
-            postContent: post?.title ?? '',
-            imageUrls: post?.filesUrls ?? [],
-          ),
+          if (post?.type == PostType.link && post?.title != null)
+            Padding(
+              padding: EdgeInsets.symmetric(
+                horizontal: 16.w,
+                vertical: 20.h,
+              ),
+              child: LinkPreviewWidget(
+                text: post!.title,
+              ),
+            )
+          else
+            ImagePostWidget(
+              postContent: post?.title ?? '',
+              imageUrls: post?.filesUrls ?? [],
+            ),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 16.w),
             child: Row(
@@ -130,7 +145,7 @@ class FeedTile extends StatelessWidget {
                       width: 4.w,
                     ),
                     Text(
-                      '21 Likes',
+                      '$likesCount ${likesCount == 1 ? 'Like' : 'Likes'}',
                       style: Theme.of(context).textTheme.bodyMedium,
                     ),
                   ],
@@ -147,7 +162,8 @@ class FeedTile extends StatelessWidget {
                       width: 4.w,
                     ),
                     Text(
-                      'Comments',
+                      '$commentsCount '
+                      '${commentsCount == 1 ? 'Comment' : 'Comments'}',
                       style: Theme.of(context).textTheme.bodyMedium,
                     ),
                   ],
@@ -171,7 +187,8 @@ class FeedTile extends StatelessWidget {
                 icon: IconStringConstants.thumbUp,
                 text: 'Like',
                 textColor: LegalReferralColors.textGrey117,
-                onTap: () {},
+                onTap: onLikePressed,
+                iconColor: feed?.isLiked ?? false ? Colors.blue : null,
               ),
               VerticalIconButton(
                 icon: IconStringConstants.comment,

@@ -12,9 +12,15 @@ class FeedDatasource {
 
   Future<List<Feed?>> fetchFeeds({
     required String userId,
+    required int limit,
+    required int offset,
   }) async {
     try {
-      final response = await _apiClient.fetchFeeds(userId);
+      final response = await _apiClient.fetchFeeds(
+        userId,
+        limit,
+        offset,
+      );
       return response;
     } catch (e) {
       rethrow;

@@ -10,6 +10,8 @@ enum PostType {
   text,
   @JsonValue('image')
   image,
+  @JsonValue('link')
+  link,
   @JsonValue('video')
   video,
   @JsonValue('poll')

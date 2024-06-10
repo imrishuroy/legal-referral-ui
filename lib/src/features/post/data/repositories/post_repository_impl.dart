@@ -33,4 +33,44 @@ class PostRepositoryImpl extends PostRepository {
       );
     }
   }
+
+  @override
+  Future<Either<Failure, void>> likePost({
+    required int postId,
+  }) async {
+    try {
+      await _postDatasource.likePost(
+        postId: postId,
+      );
+      return const Right(null);
+    } on DioException catch (error) {
+      final dioError = DioExceptions.fromDioError(error);
+      return Left(
+        Failure(
+          statusCode: dioError.statusCode,
+          message: dioError.message,
+        ),
+      );
+    }
+  }
+
+  @override
+  Future<Either<Failure, void>> unlikePost({
+    required int postId,
+  }) async {
+    try {
+      await _postDatasource.unlikePost(
+        postId: postId,
+      );
+      return const Right(null);
+    } on DioException catch (error) {
+      final dioError = DioExceptions.fromDioError(error);
+      return Left(
+        Failure(
+          statusCode: dioError.statusCode,
+          message: dioError.message,
+        ),
+      );
+    }
+  }
 }

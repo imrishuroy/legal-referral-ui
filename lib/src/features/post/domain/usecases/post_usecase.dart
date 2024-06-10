@@ -17,4 +17,16 @@ class PostUsecase {
   }) async {
     return _postRepository.createPost(post: post);
   }
+
+  Future<Either<Failure, void>> likePost({
+    required int postId,
+  }) async {
+    return _postRepository.likePost(postId: postId);
+  }
+
+  Future<Either<Failure, void>> unlikePost({
+    required int postId,
+  }) async {
+    return _postRepository.unlikePost(postId: postId);
+  }
 }

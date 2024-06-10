@@ -36,7 +36,7 @@ dependencies:
   flutter_dotenv: ^5.1.0
   flutter_facebook_auth: ^6.0.4
   flutter_layout_grid: ^2.0.6
- 
+  flutter_linkify: ^6.0.0
   flutter_polls: ^0.1.6
   flutter_rating_bar: ^4.0.1
   flutter_screenutil: ^5.9.0
