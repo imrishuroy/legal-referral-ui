@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:legal_referral_ui/src/core/common_widgets/widgets.dart';
+import 'package:legal_referral_ui/src/features/discussion/presentation/pages/dicussion_invite_page.dart';
+import 'package:legal_referral_ui/src/features/discussion/presentation/pages/trending_invite_page.dart';
 import 'package:legal_referral_ui/src/features/discussion/presentation/widgets/discussion_invites.dart';
 import 'package:legal_referral_ui/src/features/discussion/presentation/widgets/trending_invite.dart';
 
@@ -26,7 +28,13 @@ class InviteTab extends StatelessWidget {
                   style: textTheme.headlineLarge,
                 ),
                 CustomTextButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => const DiscussionInvitePage(),
+                      ),
+                    );
+                  },
                   text: 'View all',
                   style: textTheme.bodyLarge,
                 ),
@@ -62,7 +70,13 @@ class InviteTab extends StatelessWidget {
                   style: textTheme.headlineLarge,
                 ),
                 CustomTextButton(
-                  onPressed: () {},
+                  onPressed: () {
+                      Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => const TrendingInvitePage(),
+                      ),
+                    );
+                  },
                   text: 'View all',
                   style: textTheme.bodyLarge,
                 ),

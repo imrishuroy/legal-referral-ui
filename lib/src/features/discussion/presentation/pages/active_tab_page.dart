@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:legal_referral_ui/src/core/common_widgets/notification_label.dart';
 import 'package:legal_referral_ui/src/core/constants/colors.dart';
 import 'package:legal_referral_ui/src/features/discussion/presentation/pages/group_chat_page.dart';
 
@@ -26,7 +27,7 @@ class ActiveTab extends StatelessWidget {
                   EdgeInsets.symmetric(horizontal: 12.w, vertical: 12.h),
               onTap: () => Navigator.of(context).push(
                 MaterialPageRoute(
-                  builder: (context) =>  DiscussionChatScreen(
+                  builder: (context) => DiscussionChatScreen(
                     discussionTitle: lorem20,
                   ),
                 ),
@@ -43,26 +44,7 @@ class ActiveTab extends StatelessWidget {
                 style: textTheme.bodyLarge
                     ?.copyWith(color: LegalReferralColors.textGrey400),
               ),
-              trailing: Container(
-                padding: EdgeInsets.symmetric(
-                  horizontal: 6.w,
-                  vertical: 2.h,
-                ),
-                decoration: BoxDecoration(
-                  color: Colors.blue,
-                  borderRadius: BorderRadius.circular(
-                    12.r,
-                  ),
-                ),
-                child: const Text(
-                  '1',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 14,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-              ),
+              trailing: const NotificationLabel(notificationNum: '1',),
             ),
           );
         },
@@ -71,6 +53,8 @@ class ActiveTab extends StatelessWidget {
     );
   }
 }
+
+
 
 String lorem20 = 'Lorem ipsum dolor sit amet,'
     ' consectetur adipiscing elit.'
