@@ -8,6 +8,10 @@ class FeedState extends Equatable {
     required this.feeds,
     this.offset = 1,
     this.hasReachedMax = false,
+    this.postLikedUsers = const [],
+    this.comments = const [],
+    this.feed,
+    this.parentCommentId,
     this.failure,
   });
 
@@ -17,9 +21,14 @@ class FeedState extends Equatable {
       );
 
   final FeedStatus status;
+
   final int offset;
   final List<Feed?> feeds;
   final bool hasReachedMax;
+  final List<AppUser?> postLikedUsers;
+  final List<Comment?> comments;
+  final Feed? feed;
+  final int? parentCommentId;
   final Failure? failure;
 
   FeedState copyWith({
@@ -27,6 +36,10 @@ class FeedState extends Equatable {
     int? offset,
     List<Feed?>? feeds,
     bool? hasReachedMax,
+    List<AppUser?>? postLikedUsers,
+    List<Comment?>? comments,
+    Feed? feed,
+    int? parentCommentId,
     Failure? failure,
   }) {
     return FeedState(
@@ -34,6 +47,10 @@ class FeedState extends Equatable {
       offset: offset ?? this.offset,
       feeds: feeds ?? this.feeds,
       hasReachedMax: hasReachedMax ?? this.hasReachedMax,
+      postLikedUsers: postLikedUsers ?? this.postLikedUsers,
+      comments: comments ?? this.comments,
+      feed: feed ?? this.feed,
+      parentCommentId: parentCommentId,
       failure: failure ?? this.failure,
     );
   }
@@ -47,6 +64,10 @@ class FeedState extends Equatable {
         offset,
         feeds,
         hasReachedMax,
+        postLikedUsers,
+        comments,
+        feed,
+        parentCommentId,
         failure,
       ];
 }

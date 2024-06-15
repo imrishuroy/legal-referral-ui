@@ -129,12 +129,35 @@ class _FeedsPageState extends State<FeedsPage> {
                         }
 
                         final feed = state.feeds[index];
-                        return FeedTile(
-                          feed: feed,
-                          onLikePressed: () => _onLikePressed(feed, index),
-                          onCommentPressed: () {},
-                          onSharePressed: () {},
-                          onDiscussPressed: () {},
+                        return Padding(
+                          padding: EdgeInsets.symmetric(
+                            vertical: 4.h,
+                          ),
+                          child: FeedTile(
+                            feed: feed,
+                            isLiked: feed?.isLiked ?? false,
+                            likesCount: feed?.likesCount ?? 0,
+                            commentsCount: feed?.commentsCount ?? 0,
+                            onLikePressed: () => _onLikePressed(
+                              feed,
+                              feed?.isLiked ?? false,
+                              index,
+                            ),
+                            onCommentPressed: () {
+                              if (feed != null) {
+                                context.pushNamed(
+                                  FeedDetailsPage.name,
+                                  extra: FeedDetailsPageArgs(
+                                    feedBloc: _feedBloc,
+                                    feed: feed,
+                                    index: index,
+                                  ),
+                                );
+                              }
+                            },
+                            onSharePressed: () {},
+                            onDiscussPressed: () {},
+                          ),
                         );
                       },
                       childCount: state.hasReachedMax
@@ -155,11 +178,12 @@ class _FeedsPageState extends State<FeedsPage> {
 
   void _onLikePressed(
     Feed? feed,
+    bool isLiked,
     int index,
   ) {
     final postId = feed?.post?.postId;
     if (postId != null) {
-      if (feed?.isLiked == true) {
+      if (isLiked == true) {
         _feedBloc.add(
           PostUnliked(
             postId: postId,

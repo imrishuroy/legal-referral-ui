@@ -1,3 +1,4 @@
+export 'comment_tile.dart';
 export 'feed_tile.dart';
 export 'image_post_widget.dart';
 export 'link_post.dart';

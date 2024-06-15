@@ -17,6 +17,10 @@ class FeedTile extends StatelessWidget {
     required this.onCommentPressed,
     required this.onDiscussPressed,
     required this.onSharePressed,
+    required this.isLiked,
+    required this.likesCount,
+    required this.commentsCount,
+    this.imageHeight = 400,
     super.key,
   });
 
@@ -25,6 +29,10 @@ class FeedTile extends StatelessWidget {
   final VoidCallback onCommentPressed;
   final VoidCallback onDiscussPressed;
   final VoidCallback onSharePressed;
+  final double imageHeight;
+  final bool isLiked;
+  final int likesCount;
+  final int commentsCount;
 
   @override
   Widget build(BuildContext context) {
@@ -32,18 +40,16 @@ class FeedTile extends StatelessWidget {
     final post = feed?.post;
     final name = '${user?.firstName} ${user?.lastName}';
     final theme = Theme.of(context).textTheme;
-    final likesCount = feed?.likesCount ?? 0;
-    final commentsCount = feed?.commentsCount ?? 0;
     return ColoredBox(
       color: LegalReferralColors.containerWhite500,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          SizedBox(
-            height: 16.h,
-          ),
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16.w),
+            padding: EdgeInsets.symmetric(
+              horizontal: 16.w,
+              vertical: 12.h,
+            ),
             child: Row(
               children: [
                 Container(
@@ -129,6 +135,7 @@ class FeedTile extends StatelessWidget {
             ImagePostWidget(
               postContent: post?.title ?? '',
               imageUrls: post?.filesUrls ?? [],
+              height: imageHeight,
             ),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 16.w),
@@ -188,40 +195,13 @@ class FeedTile extends StatelessWidget {
                 text: 'Like',
                 textColor: LegalReferralColors.textGrey117,
                 onTap: onLikePressed,
-                iconColor: feed?.isLiked ?? false ? Colors.blue : null,
+                iconColor: isLiked ? Colors.blue : null,
               ),
               VerticalIconButton(
                 icon: IconStringConstants.comment,
                 text: 'Comment',
                 textColor: LegalReferralColors.textGrey117,
-                onTap: () {
-                  // // implement a callback for comments
-                  // if (ModalRoute.of(context)?.settings.name !=
-                  //     PostCommentPage.routeName) {
-                  //   Navigator.of(context).push(
-                  //     MaterialPageRoute(
-                  //       builder: (context) => PostCommentPage(
-                  //         attorneyName: attorneyName,
-                  //         attorneyType: attorneyType,
-                  //         postedTime: postedTime,
-                  //         child: child,
-                  //       ),
-                  //       settings: const RouteSettings(
-                  //           name: PostCommentPage.routeName,),
-                  //     ),
-                  //   );
-                  // }
-                  // Navigator.of(context).push(
-                  //   MaterialPageRoute(
-                  //     builder: (context) => PostCommentPage(
-                  //       attorneyName: attorneyName,
-                  //       attorneyType: attorneyType,
-                  //       postedTime: postedTime,
-                  //       child: child,
-                  //     ),
-                  //   ),
-                  // );
-                },
+                onTap: onCommentPressed,
               ),
               VerticalIconButton(
                 icon: IconStringConstants.discuss,

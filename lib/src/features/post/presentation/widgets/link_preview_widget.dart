@@ -1,6 +1,6 @@
 import 'package:any_link_preview/any_link_preview.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:legal_referral_ui/src/core/constants/colors.dart';
 import 'package:legal_referral_ui/src/core/utils/utils.dart';
 
 class LinkPreviewWidget extends StatelessWidget {
@@ -25,33 +25,22 @@ class LinkPreviewWidget extends StatelessWidget {
 
     return AnyLinkPreview(
       link: link,
-      displayDirection: UIDirection.uiDirectionHorizontal,
-      showMultimedia: false,
-      bodyMaxLines: 5,
-      titleStyle: const TextStyle(
-        color: Colors.black,
-        fontWeight: FontWeight.bold,
-        fontSize: 15,
-      ),
-      bodyStyle: const TextStyle(color: Colors.grey, fontSize: 12),
-      // errorBody: 'Show my custom error body',
-      // errorTitle: 'Show my custom error title',
-      // errorWidget: Container(
-      //   color: Colors.grey[300],
-      //   child: const Text('Oops!'),
-      // ),
-      // errorImage: 'https://google.com/',
+      previewHeight: 200,
+      titleStyle: Theme.of(context).textTheme.titleSmall,
+      bodyStyle: Theme.of(context).textTheme.bodyMedium,
+      bodyMaxLines: 2,
+      placeholderWidget: const SizedBox.shrink(),
+      errorBody: '',
+      errorTitle: '',
+      errorWidget: const SizedBox.shrink(),
+      errorImage: 'https://google.com/',
       cache: const Duration(days: 7),
-      backgroundColor: Colors.grey[300],
-      borderRadius: 12,
-      boxShadow: const [BoxShadow(blurRadius: 3, color: Colors.grey)],
-      // onTap: () {}, // This disables tap event
+      backgroundColor: LegalReferralColors.containerBlue219,
+      borderRadius: 0,
+      boxShadow: const [BoxShadow(color: Colors.transparent)],
+      onTap: () {
+        UrlUtil.launchURL(link);
+      },
     );
-  }
-
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties.add(StringProperty('text', text));
   }
 }

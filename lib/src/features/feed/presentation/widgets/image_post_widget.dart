@@ -9,11 +9,13 @@ class ImagePostWidget extends StatefulWidget {
   const ImagePostWidget({
     required this.postContent,
     required this.imageUrls,
+    this.height = 400,
     super.key,
   });
 
   final String postContent;
   final List<String?> imageUrls;
+  final double height;
 
   @override
   State<ImagePostWidget> createState() => _ImagePostWidgetState();
@@ -35,7 +37,7 @@ class _ImagePostWidgetState extends State<ImagePostWidget> {
           CarouselSlider(
             carouselController: _controller,
             options: CarouselOptions(
-              height: 400.h,
+              height: widget.height.h,
               enableInfiniteScroll: multipleImages,
               viewportFraction: 1,
               onPageChanged: (index, reason) {

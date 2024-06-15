@@ -159,7 +159,7 @@ class AppRouter {
         ),
       ),
       GoRoute(
-        path: '/home',
+        path: '/feed',
         name: FeedsPage.name,
         pageBuilder: (context, state) => CustomTransitionPage(
           key: state.pageKey,
@@ -174,6 +174,23 @@ class AppRouter {
           transitionsBuilder: (_, a, __, c) =>
               FadeTransition(opacity: a, child: c),
         ),
+        routes: [
+          GoRoute(
+            path: 'comments',
+            name: FeedDetailsPage.name,
+            parentNavigatorKey: _rootNavigatorKey,
+            pageBuilder: (context, state) => CustomTransitionPage(
+              child: FeedDetailsPage(
+                args: state.extra as FeedDetailsPageArgs,
+              ),
+              transitionDuration: const Duration(
+                milliseconds: _routeTransitionDuration,
+              ),
+              transitionsBuilder: (_, a, __, c) =>
+                  FadeTransition(opacity: a, child: c),
+            ),
+          ),
+        ],
       ),
       GoRoute(
         path: '/network',

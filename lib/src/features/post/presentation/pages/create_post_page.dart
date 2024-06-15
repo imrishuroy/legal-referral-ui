@@ -43,7 +43,7 @@ class _CreatePostPageState extends State<CreatePostPage> {
           ToastUtil.showToast(
             context,
             title: 'Success',
-            description: 'Post created successfully',
+            description: 'Post created! Pull to refresh your feed.',
             type: ToastificationType.success,
           );
           context.pushReplacementNamed(FeedsPage.name);

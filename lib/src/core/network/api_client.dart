@@ -6,6 +6,7 @@ import 'package:legal_referral_ui/src/features/auth/data/data.dart';
 import 'package:legal_referral_ui/src/features/auth/domain/domain.dart';
 import 'package:legal_referral_ui/src/features/chat/data/data.dart';
 import 'package:legal_referral_ui/src/features/chat/domain/domain.dart';
+import 'package:legal_referral_ui/src/features/feed/data/data.dart';
 import 'package:legal_referral_ui/src/features/feed/domain/domain.dart';
 import 'package:legal_referral_ui/src/features/network/data/data.dart';
 import 'package:legal_referral_ui/src/features/network/domain/domain.dart';
@@ -434,5 +435,31 @@ abstract class APIClient {
   @DELETE('/posts/{postId}/like')
   Future<void> unlikePost(
     @Path('postId') int postId,
+  );
+
+  @GET('/posts/{postId}/liked-users')
+  Future<List<AppUser?>> fetchPostLikedUsers(
+    @Path('postId') int postId,
+  );
+
+  @POST('/posts/{postId}/comments')
+  Future<Comment> commentPost(
+    @Path('postId') int postId,
+    @Body() CommentReq commentReq,
+  );
+
+  @GET('/posts/{postId}/comments')
+  Future<List<Comment?>> fetchPostComments(
+    @Path('postId') int postId,
+  );
+
+  @POST('/comments/{commentId}/like')
+  Future<void> likeComment(
+    @Path('commentId') int commentId,
+  );
+
+  @DELETE('/comments/{commentId}/like')
+  Future<void> unlikeComment(
+    @Path('commentId') int commentId,
   );
 }
