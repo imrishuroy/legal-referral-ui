@@ -190,6 +190,8 @@ class _FeedDetailsPageState extends State<FeedDetailsPage> {
           children: [
             Expanded(
               child: CustomTextField(
+                maxLines: 3,
+                keyboardType: TextInputType.multiline,
                 // autofocus: true,
                 focusNode: _focusNode,
                 hintText: 'Your comments here',

@@ -155,6 +155,8 @@ class _UpdateUserInfoPageState extends State<UpdateUserInfoPage> {
                             ),
                             SizedBox(height: 16.h),
                             CustomTextField(
+                              minLines:5 ,
+                              keyboardType: TextInputType.multiline,
                               controller: _aboutController,
                               hintText: 'About',
                               validator: (value) {
@@ -164,7 +166,7 @@ class _UpdateUserInfoPageState extends State<UpdateUserInfoPage> {
                                 return null;
                               },
                               labelText: 'About',
-                              maxLines: 2,
+                              maxLines:5 ,
                             ),
                             SizedBox(height: 24.h),
                             CustomElevatedButton(

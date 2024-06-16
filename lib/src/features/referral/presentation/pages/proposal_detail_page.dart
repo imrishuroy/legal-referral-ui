@@ -198,6 +198,7 @@ class _ProposalDetailsPageState extends State<ProposalDetailsPage> {
                         ),
                         if (state.isProposalEditing)
                           CustomTextField(
+                            keyboardType: TextInputType.multiline,
                             controller: _proposalController,
                             hintText: 'Write your proposal here',
                             minLines: 4,

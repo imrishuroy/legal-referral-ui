@@ -70,7 +70,7 @@ class _ImagePostWidgetState extends State<ImagePostWidget> {
               position: _current,
               dotsCount: widget.imageUrls.length,
               decorator: DotsDecorator(
-                activeSize: Size(22.w, 7.h),
+                activeSize: const Size(20, 7),
                 activeShape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(6.r),
                 ),
