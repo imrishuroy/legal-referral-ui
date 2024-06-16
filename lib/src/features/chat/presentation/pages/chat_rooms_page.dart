@@ -93,10 +93,17 @@ class _ChatRoomsPageState extends State<ChatRoomsPage> {
                           radius: 22,
                         ),
                         splashColor: Colors.transparent,
-                        onTap: () => context.pushNamed(
-                          ChatMessagesPage.name,
-                          extra: chatRoom?.userId,
-                        ),
+                        onTap: () {
+                          final userId = _authBloc.state.user?.userId;
+                          if (userId != null) {
+                            context.pushNamed(
+                              ChatMessagesPage.name,
+                              pathParameters: {
+                                'recipientId': chatRoom?.userId ?? '',
+                              },
+                            );
+                          }
+                        },
                         trailing: Text(
                           chatRoom?.lastMessageAt != null
                               ? DateTimeUtil.timeAgo(chatRoom!.lastMessageAt)

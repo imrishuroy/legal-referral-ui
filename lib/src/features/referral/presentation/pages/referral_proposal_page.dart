@@ -208,7 +208,12 @@ class _ReferralProposalPageState extends State<ReferralProposalPage> {
     if (currentUserId == null || referredUserId == null) {
       return;
     }
-    context.pushNamed(ChatMessagesPage.name, extra: referredUserId);
+    context.pushNamed(
+      ChatMessagesPage.name,
+      pathParameters: {
+        'recipientId': referredUserId,
+      },
+    );
   }
 }
 

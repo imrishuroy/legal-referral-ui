@@ -14,6 +14,7 @@ class CustomOutlinedButton extends StatelessWidget {
     this.textColor,
     this.height,
     this.width,
+    this.borderWidth = 1,
   });
 
   final String text;
@@ -23,6 +24,7 @@ class CustomOutlinedButton extends StatelessWidget {
   final double? height;
   final double? width;
   final Color? textColor;
+  final double borderWidth;
 
   @override
   Widget build(BuildContext context) {
@@ -34,6 +36,7 @@ class CustomOutlinedButton extends StatelessWidget {
         decoration: BoxDecoration(
           border: Border.all(
             color: borderColor ?? LegalReferralColors.textGrey400,
+            width: borderWidth,
           ),
           borderRadius: BorderRadius.circular(borderRadius ?? 4.r),
         ),

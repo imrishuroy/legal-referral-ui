@@ -276,12 +276,12 @@ class AppRouter {
             ),
             routes: [
               GoRoute(
-                path: 'chat-messages',
+                path: 'chat-messages/:recipientId',
                 name: ChatMessagesPage.name,
                 parentNavigatorKey: _rootNavigatorKey,
                 pageBuilder: (context, state) => CustomTransitionPage(
                   child: ChatMessagesPage(
-                    recipientId: state.extra as String,
+                    recipientId: state.pathParameters['recipientId']!,
                   ),
                   transitionDuration: const Duration(
                     milliseconds: _routeTransitionDuration,

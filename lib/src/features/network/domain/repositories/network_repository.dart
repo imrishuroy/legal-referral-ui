@@ -38,4 +38,9 @@ abstract class NetworkRepository {
   Future<Either<Failure, ResponseMsg?>> cancelRecommendation({
     required CancelRecommendationReq cancelRecommendationReq,
   });
+
+  Future<Either<Failure, UserConnectionStatus>> checkConnection({
+    required String userId,
+    required String otherUserId,
+  });
 }

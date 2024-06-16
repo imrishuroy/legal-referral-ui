@@ -1348,6 +1348,36 @@ class _APIClient implements APIClient {
   }
 
   @override
+  Future<UserConnectionStatus> checkConnection(
+    String userId,
+    String otherUserId,
+  ) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    const Map<String, dynamic>? _data = null;
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<UserConnectionStatus>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              '/connections/${userId}/${otherUserId}',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
+    final value = UserConnectionStatus.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
   Future<List<AppUser?>> searchUsers(
     String query,
     String filter,

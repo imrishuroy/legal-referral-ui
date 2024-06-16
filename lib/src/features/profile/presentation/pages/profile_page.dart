@@ -140,6 +140,12 @@ class _ProfilePageState extends State<ProfilePage> {
                               SizedBox(
                                 height: 8.h,
                               ),
+
+                              // connection buttons
+                              if (!isCurrentUser)
+                                ConnectionButtons(
+                                  userId: widget.userId,
+                                ),
                             ],
                           ),
                         ),

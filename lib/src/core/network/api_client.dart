@@ -275,6 +275,12 @@ abstract class APIClient {
     @Body() CancelRecommendationReq cancelRecommendationReq,
   );
 
+  @GET('/connections/{userId}/{otherUserId}')
+  Future<UserConnectionStatus> checkConnection(
+    @Path('userId') String userId,
+    @Path('otherUserId') String otherUserId,
+  );
+
   // search
   @GET('/search/users')
   Future<List<AppUser?>> searchUsers(

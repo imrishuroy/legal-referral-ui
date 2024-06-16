@@ -276,6 +276,11 @@ class _ProposalDetailsPageState extends State<ProposalDetailsPage> {
     if (currentUserId == null || referrerUserId == null) {
       return;
     }
-    context.pushNamed(ChatMessagesPage.name, extra: referrerUserId);
+    context.pushNamed(
+      ChatMessagesPage.name,
+      pathParameters: {
+        'recipientId': referrerUserId,
+      },
+    );
   }
 }

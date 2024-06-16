@@ -17,6 +17,9 @@ class NetworkState extends Equatable {
     this.connectionInvitations = const [],
     this.recommendations = const [],
     this.connections = const [],
+    this.userConnectionStatus = const UserConnectionStatus(
+      status: ConnectionInvitationStatus.none,
+    ),
     this.failure,
   });
 
@@ -31,6 +34,7 @@ class NetworkState extends Equatable {
   final List<ConnectionInvitation?> connectionInvitations;
   final List<Recommendation?> recommendations;
   final List<Connection?> connections;
+  final UserConnectionStatus userConnectionStatus;
   final Failure? failure;
 
   NetworkState copyWith({
@@ -41,6 +45,7 @@ class NetworkState extends Equatable {
     List<ConnectionInvitation?>? connectionInvitations,
     List<Recommendation?>? recommendations,
     List<Connection?>? connections,
+    UserConnectionStatus? userConnectionStatus,
     Failure? failure,
   }) {
     return NetworkState(
@@ -52,6 +57,7 @@ class NetworkState extends Equatable {
           connectionInvitations ?? this.connectionInvitations,
       recommendations: recommendations ?? this.recommendations,
       connections: connections ?? this.connections,
+      userConnectionStatus: userConnectionStatus ?? this.userConnectionStatus,
       failure: failure ?? this.failure,
     );
   }
@@ -65,6 +71,7 @@ class NetworkState extends Equatable {
         connectionInvitations,
         recommendations,
         connections,
+        userConnectionStatus,
         failure,
       ];
 }

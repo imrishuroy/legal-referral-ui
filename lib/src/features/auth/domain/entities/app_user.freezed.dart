@@ -46,7 +46,7 @@ mixin _$AppUser {
   String? get avatarUrl => throw _privateConstructorUsedError;
   @JsonKey(name: 'banner_url', includeIfNull: false)
   String? get bannerUrl => throw _privateConstructorUsedError;
-  @JsonKey(name: 'user_id', includeToJson: false)
+  @JsonKey(name: 'user_id', includeIfNull: false)
   String? get userId => throw _privateConstructorUsedError;
   @JsonKey(name: 'practice_area', includeIfNull: false)
   String? get practiceArea => throw _privateConstructorUsedError;
@@ -91,7 +91,7 @@ abstract class $AppUserCopyWith<$Res> {
       String? address,
       @JsonKey(name: 'avatar_url', includeIfNull: false) String? avatarUrl,
       @JsonKey(name: 'banner_url', includeIfNull: false) String? bannerUrl,
-      @JsonKey(name: 'user_id', includeToJson: false) String? userId,
+      @JsonKey(name: 'user_id', includeIfNull: false) String? userId,
       @JsonKey(name: 'practice_area', includeIfNull: false)
       String? practiceArea,
       @JsonKey(name: 'practice_location', includeIfNull: false)
@@ -256,7 +256,7 @@ abstract class _$$AppUserImplCopyWith<$Res> implements $AppUserCopyWith<$Res> {
       String? address,
       @JsonKey(name: 'avatar_url', includeIfNull: false) String? avatarUrl,
       @JsonKey(name: 'banner_url', includeIfNull: false) String? bannerUrl,
-      @JsonKey(name: 'user_id', includeToJson: false) String? userId,
+      @JsonKey(name: 'user_id', includeIfNull: false) String? userId,
       @JsonKey(name: 'practice_area', includeIfNull: false)
       String? practiceArea,
       @JsonKey(name: 'practice_location', includeIfNull: false)
@@ -416,7 +416,7 @@ class _$AppUserImpl implements _AppUser {
       this.address,
       @JsonKey(name: 'avatar_url', includeIfNull: false) this.avatarUrl,
       @JsonKey(name: 'banner_url', includeIfNull: false) this.bannerUrl,
-      @JsonKey(name: 'user_id', includeToJson: false) this.userId,
+      @JsonKey(name: 'user_id', includeIfNull: false) this.userId,
       @JsonKey(name: 'practice_area', includeIfNull: false) this.practiceArea,
       @JsonKey(name: 'practice_location', includeIfNull: false)
       this.practiceLocation,
@@ -472,7 +472,7 @@ class _$AppUserImpl implements _AppUser {
   @JsonKey(name: 'banner_url', includeIfNull: false)
   final String? bannerUrl;
   @override
-  @JsonKey(name: 'user_id', includeToJson: false)
+  @JsonKey(name: 'user_id', includeIfNull: false)
   final String? userId;
   @override
   @JsonKey(name: 'practice_area', includeIfNull: false)
@@ -608,7 +608,7 @@ abstract class _AppUser implements AppUser {
       final String? avatarUrl,
       @JsonKey(name: 'banner_url', includeIfNull: false)
       final String? bannerUrl,
-      @JsonKey(name: 'user_id', includeToJson: false) final String? userId,
+      @JsonKey(name: 'user_id', includeIfNull: false) final String? userId,
       @JsonKey(name: 'practice_area', includeIfNull: false)
       final String? practiceArea,
       @JsonKey(name: 'practice_location', includeIfNull: false)
@@ -665,7 +665,7 @@ abstract class _AppUser implements AppUser {
   @JsonKey(name: 'banner_url', includeIfNull: false)
   String? get bannerUrl;
   @override
-  @JsonKey(name: 'user_id', includeToJson: false)
+  @JsonKey(name: 'user_id', includeIfNull: false)
   String? get userId;
   @override
   @JsonKey(name: 'practice_area', includeIfNull: false)

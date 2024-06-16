@@ -4,16 +4,17 @@ import 'package:legal_referral_ui/src/core/config/config.dart';
 part 'connection_invitation.freezed.dart';
 part 'connection_invitation.g.dart';
 
+@JsonEnum(fieldRename: FieldRename.snake)
 enum ConnectionInvitationStatus {
-  @JsonValue(0)
+  @JsonValue('pending')
   pending,
-  @JsonValue(1)
+  @JsonValue('accepted')
   accepted,
-  @JsonValue(2)
+  @JsonValue('rejected')
   rejected,
-  @JsonValue(3)
+  @JsonValue('cancelled')
   cancelled,
-  @JsonValue(4)
+  @JsonValue('none')
   none,
 }
 

@@ -33,7 +33,7 @@ class AppUser with _$AppUser {
     String? address,
     @JsonKey(name: 'avatar_url', includeIfNull: false) String? avatarUrl,
     @JsonKey(name: 'banner_url', includeIfNull: false) String? bannerUrl,
-    @JsonKey(name: 'user_id', includeToJson: false) String? userId,
+    @JsonKey(name: 'user_id', includeIfNull: false) String? userId,
     @JsonKey(name: 'practice_area', includeIfNull: false) String? practiceArea,
     @JsonKey(name: 'practice_location', includeIfNull: false)
     String? practiceLocation,

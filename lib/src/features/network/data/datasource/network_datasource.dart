@@ -115,4 +115,20 @@ class NetworkDataSource {
       rethrow;
     }
   }
+
+  Future<UserConnectionStatus> checkConnection({
+    required String userId,
+    required String otherUserId,
+  }) async {
+    try {
+      final responseMsg = await _apiClient.checkConnection(
+        userId,
+        otherUserId,
+      );
+
+      return responseMsg;
+    } catch (_) {
+      rethrow;
+    }
+  }
 }

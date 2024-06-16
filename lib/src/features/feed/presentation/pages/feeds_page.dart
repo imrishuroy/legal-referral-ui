@@ -9,7 +9,7 @@ import 'package:legal_referral_ui/src/core/utils/utils.dart';
 import 'package:legal_referral_ui/src/features/auth/presentation/presentation.dart';
 import 'package:legal_referral_ui/src/features/feed/domain/entities/feed.dart';
 import 'package:legal_referral_ui/src/features/feed/presentation/presentation.dart';
-import 'package:legal_referral_ui/src/features/profile/presentation/presentation.dart';
+import 'package:legal_referral_ui/src/features/search/presentation/presentation.dart';
 import 'package:toastification/toastification.dart';
 
 class FeedsPage extends StatefulWidget {
@@ -56,15 +56,15 @@ class _FeedsPageState extends State<FeedsPage> {
           children: [
             Expanded(
               child: GestureDetector(
-                onTap: () {},
+                onTap: () => context.pushNamed(SearchPage.name),
                 child: CustomTextField(
                   controller: _searchController,
+                  enabled: false,
                   hintText: 'Search',
                   labelText: '',
                   showLabel: false,
                   borderColor: LegalReferralColors.borderGrey199,
                   fillColor: LegalReferralColors.containerWhite400,
-                  enabled: false,
                 ),
               ),
             ),
@@ -78,22 +78,7 @@ class _FeedsPageState extends State<FeedsPage> {
           ],
         ),
         elevation: 0,
-        leading: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 8),
-          child: GestureDetector(
-            onTap: () => context.pushNamed(
-              ProfilePage.name,
-              pathParameters: {
-                'userId': _authBloc.state.user?.userId ?? '',
-              },
-            ),
-            child: CircleAvatar(
-              backgroundImage: NetworkImage(
-                _authBloc.state.user?.avatarUrl ?? '',
-              ),
-            ),
-          ),
-        ),
+        leading: const FeedUserAvatar(),
       ),
       body: BlocConsumer<FeedBloc, FeedState>(
         bloc: _feedBloc,
@@ -112,9 +97,25 @@ class _FeedsPageState extends State<FeedsPage> {
             return const FeedShimmer();
           } else if (state.status == FeedStatus.success &&
               state.feeds.isEmpty) {
-            return const Center(child: Text('No feeds available'));
+            return RefreshIndicator(
+              color: LegalReferralColors.buttonPrimary,
+              onRefresh: () async {
+                _refreshFeed();
+              },
+              child: SingleChildScrollView(
+                child: Container(
+                  height: MediaQuery.of(context).size.height,
+                  alignment: Alignment.center,
+                  child: Text(
+                    'No feeds available',
+                    style: Theme.of(context).textTheme.titleMedium,
+                  ),
+                ),
+              ),
+            );
           } else if (state.status == FeedStatus.success) {
             return RefreshIndicator(
+              color: LegalReferralColors.buttonPrimary,
               onRefresh: () async {
                 _refreshFeed();
               },

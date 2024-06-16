@@ -119,21 +119,21 @@ class FeedTile extends StatelessWidget {
           const SizedBox(height: 10),
           ExpandableText(
             padding: EdgeInsets.symmetric(horizontal: 16.w),
-            text: post?.title ?? '',
+            text: post?.content ?? '',
           ),
-          if (post?.type == PostType.link && post?.title != null)
+          if (post?.type == PostType.link && post?.content != null)
             Padding(
               padding: EdgeInsets.symmetric(
                 horizontal: 16.w,
                 vertical: 20.h,
               ),
               child: LinkPreviewWidget(
-                text: post!.title,
+                text: post!.content!,
               ),
             )
           else
             ImagePostWidget(
-              postContent: post?.title ?? '',
+              postContent: post?.content ?? '',
               imageUrls: post?.filesUrls ?? [],
               height: imageHeight,
             ),
