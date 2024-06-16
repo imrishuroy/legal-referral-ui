@@ -9,7 +9,10 @@ class TrendingInvitePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title:  Text('Trendings',style: Theme.of(context).textTheme.headlineMedium,),
+        title: Text(
+          'Trendings',
+          style: Theme.of(context).textTheme.headlineMedium,
+        ),
       ),
       body: ListView.separated(
         padding: EdgeInsets.symmetric(vertical: 16.h),

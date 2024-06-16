@@ -13,7 +13,10 @@ class DiscussionRoomPage extends StatelessWidget {
     final textTheme = Theme.of(context).textTheme;
     return Scaffold(
       appBar: AppBar(
-        title:  Text('Details',style: Theme.of(context).textTheme.headlineMedium,),
+        title: Text(
+          'Details',
+          style: Theme.of(context).textTheme.headlineMedium,
+        ),
       ),
       body: Expanded(
         child: SingleChildScrollView(
