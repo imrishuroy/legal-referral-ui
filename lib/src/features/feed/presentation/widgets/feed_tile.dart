@@ -124,7 +124,6 @@ class FeedTile extends StatelessWidget {
           if (post?.type == PostType.link && post?.title != null)
             Padding(
               padding: EdgeInsets.symmetric(
-                horizontal: 16.w,
                 vertical: 20.h,
               ),
               child: LinkPreviewWidget(
@@ -195,7 +194,7 @@ class FeedTile extends StatelessWidget {
                 text: 'Like',
                 textColor: LegalReferralColors.textGrey117,
                 onTap: onLikePressed,
-                iconColor: isLiked ? Colors.blue : null,
+                iconColor: isLiked ? LegalReferralColors.textBlue100 : null,
               ),
               VerticalIconButton(
                 icon: IconStringConstants.comment,

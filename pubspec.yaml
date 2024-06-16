@@ -74,6 +74,7 @@ dependencies:
   url_launcher: ^6.2.2
   url_strategy: ^0.2.0
   uuid: ^4.3.3
+  video_player: ^2.8.7
   web_socket_channel: ^3.0.0
 
 dev_dependencies:

@@ -28,7 +28,7 @@ class _ExpandableTextState extends State<ExpandableText> {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (mounted) {
-        _checkOverflow();
+       _checkOverflow();
       }
     });
   }
@@ -69,6 +69,7 @@ class _ExpandableTextState extends State<ExpandableText> {
             duration: const Duration(milliseconds: 500),
             curve: Curves.ease,
             child: Linkify(
+              maxLines: _expanded ? null : 2,
               onOpen: (linkElement) async {
                 await UrlUtil.launchURL(linkElement.url);
               },
