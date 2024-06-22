@@ -34,7 +34,6 @@ class FilePickerUtil {
     final pickedFile = await filePicker.pickFiles(
       allowMultiple: true,
       type: FileType.image,
-      // type: FileType.image,
     );
     if (pickedFile != null && pickedFile.files.isNotEmpty) {
       return pickedFile.files
@@ -79,17 +78,13 @@ class FilePickerUtil {
   }) async {
     final filePicker = FilePicker.platform;
     final pickedFile = await filePicker.pickFiles(
-      // allowMultiple: true,
-      type: FileType.video,
-      // type: FileType.values[1],
-
-      // type: FileType.custom,
-      // allowedExtensions:
-      //  allowedExtensions.map((e) => e.toString().split('.').last).toList(),
+      allowMultiple: true,
+      type: FileType.custom,
+      allowedExtensions:
+          allowedExtensions.map((e) => e.toString().split('.').last).toList(),
     );
     if (pickedFile != null && pickedFile.files.isNotEmpty) {
       return pickedFile.files.map((file) => File(file.path!)).toList();
-      // return File(pickedFile.files.single.path!);
     }
     return [];
   }
