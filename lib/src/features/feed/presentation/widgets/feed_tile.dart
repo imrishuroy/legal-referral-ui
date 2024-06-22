@@ -1,3 +1,5 @@
+import 'package:appinio_social_share/appinio_social_share.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -112,7 +114,13 @@ class FeedTile extends StatelessWidget {
                     ],
                   ),
                 ),
-                SvgPicture.asset(IconStringConstants.threeDots),
+                // Post details options
+                SvgButton(
+                  height: 24.w,
+                  width: 24.h,
+                  imagePath: IconStringConstants.threeDots,
+                  onPressed: () => _showOptionSheet(context),
+                ),
               ],
             ),
           ),
@@ -227,4 +235,153 @@ class FeedTile extends StatelessWidget {
       ),
     );
   }
+}
+
+void _showOptionSheet(BuildContext context) {
+  CustomBottomSheet.show(
+    isDismissible: true,
+    borderRadius: true,
+    maxWidth: double.infinity,
+    context: context,
+    child: Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        ListTile(
+          onTap: () {},
+          leading: SvgPicture.asset(IconStringConstants.download),
+          title: Text(
+            'Save',
+            style: Theme.of(context)
+                .textTheme
+                .bodyLarge
+                ?.copyWith(color: LegalReferralColors.textGrey500),
+          ),
+        ),
+        const Divider(),
+        ListTile(
+          onTap: () {},
+          leading: SvgPicture.asset(IconStringConstants.message),
+          title: Text(
+            'Message',
+            style: Theme.of(context)
+                .textTheme
+                .bodyLarge
+                ?.copyWith(color: LegalReferralColors.textGrey500),
+          ),
+        ),
+        const Divider(),
+        ListTile(
+          onTap: () {},
+          leading: SvgPicture.asset(IconStringConstants.addFollow),
+          title: Text(
+            'Follow',
+            style: Theme.of(context)
+                .textTheme
+                .bodyLarge
+                ?.copyWith(color: LegalReferralColors.textGrey500),
+          ),
+        ),
+        const Divider(),
+        ListTile(
+          onTap: () async {
+            final appinioSocialShare = AppinioSocialShare();
+
+            final result = await FilePicker.platform.pickFiles();
+
+            if (result != null && result.paths.isNotEmpty) {
+              await appinioSocialShare.android
+                  .shareFilesToSMS(result.paths.nonNulls.toList());
+            }
+          },
+          leading: SvgPicture.asset(
+            IconStringConstants.share,
+            colorFilter: const ColorFilter.mode(
+              LegalReferralColors.borderBlue100,
+              BlendMode.srcIn,
+            ),
+          ),
+          title: Text(
+            'Share via',
+            style: Theme.of(context)
+                .textTheme
+                .bodyLarge
+                ?.copyWith(color: LegalReferralColors.textGrey500),
+          ),
+        ),
+        const Divider(),
+        ListTile(
+          onTap: () {},
+          leading: SvgPicture.asset(IconStringConstants.restrict),
+          title: Text(
+            '''I don't want to see this''',
+            style: Theme.of(context)
+                .textTheme
+                .bodyLarge
+                ?.copyWith(color: LegalReferralColors.textGrey500),
+          ),
+        ),
+        const Divider(),
+        ListTile(
+          onTap: () {},
+          leading: SvgPicture.asset(IconStringConstants.flag),
+          title: Text(
+            'Report post',
+            style: Theme.of(context)
+                .textTheme
+                .bodyLarge
+                ?.copyWith(color: LegalReferralColors.textGrey500),
+          ),
+        ),
+        const Divider(),
+        ListTile(
+          onTap: () {},
+          leading: SvgPicture.asset(
+            IconStringConstants.editIcon,
+            colorFilter: const ColorFilter.mode(
+              LegalReferralColors.borderBlue100,
+              BlendMode.srcIn,
+            ),
+          ),
+          title: Text(
+            'Edit',
+            style: Theme.of(context)
+                .textTheme
+                .bodyLarge
+                ?.copyWith(color: LegalReferralColors.textGrey500),
+          ),
+        ),
+        const Divider(),
+        ListTile(
+          onTap: () {},
+          leading: SvgPicture.asset(IconStringConstants.favorite),
+          title: Text(
+            'Make feature post',
+            style: Theme.of(context)
+                .textTheme
+                .bodyLarge
+                ?.copyWith(color: LegalReferralColors.textGrey500),
+          ),
+        ),
+        const Divider(),
+        ListTile(
+          onTap: () {},
+          leading: SvgPicture.asset(
+            IconStringConstants.deleteIcon,
+            colorFilter: const ColorFilter.mode(
+              LegalReferralColors.borderBlue100,
+              BlendMode.srcIn,
+            ),
+          ),
+          title: Text(
+            'Delete',
+            style: Theme.of(context)
+                .textTheme
+                .bodyLarge
+                ?.copyWith(color: LegalReferralColors.textGrey500),
+          ),
+        ),
+        const Divider(),
+      ],
+    ),
+  );
 }
