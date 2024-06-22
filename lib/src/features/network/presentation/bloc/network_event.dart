@@ -49,8 +49,8 @@ class ConnectionsFetched extends NetworkEvent {
   List<Object> get props => [userId, offset, limit];
 }
 
-class ConnectionSent extends NetworkEvent {
-  const ConnectionSent({
+class ConnectionReqSent extends NetworkEvent {
+  const ConnectionReqSent({
     required this.sendConnectionReq,
   });
 
@@ -93,4 +93,17 @@ class RecommendationCancelled extends NetworkEvent {
 
   @override
   List<Object> get props => [recommendedUserId];
+}
+
+class ConnectionChecked extends NetworkEvent {
+  const ConnectionChecked({
+    required this.userId,
+    required this.otherUserId,
+  });
+
+  final String userId;
+  final String otherUserId;
+
+  @override
+  List<Object> get props => [userId, otherUserId];
 }

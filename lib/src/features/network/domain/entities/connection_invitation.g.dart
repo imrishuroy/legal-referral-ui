@@ -42,9 +42,9 @@ Value? _$JsonConverterFromJson<Json, Value>(
     json == null ? null : fromJson(json as Json);
 
 const _$ConnectionInvitationStatusEnumMap = {
-  ConnectionInvitationStatus.pending: 0,
-  ConnectionInvitationStatus.accepted: 1,
-  ConnectionInvitationStatus.rejected: 2,
-  ConnectionInvitationStatus.cancelled: 3,
-  ConnectionInvitationStatus.none: 4,
+  ConnectionInvitationStatus.pending: 'pending',
+  ConnectionInvitationStatus.accepted: 'accepted',
+  ConnectionInvitationStatus.rejected: 'rejected',
+  ConnectionInvitationStatus.cancelled: 'cancelled',
+  ConnectionInvitationStatus.none: 'none',
 };

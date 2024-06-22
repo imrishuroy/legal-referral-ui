@@ -109,7 +109,7 @@ class _SearchPageState extends State<SearchPage> {
           }
 
           if (!state.isSearching) {
-            return RecentWidget(
+            return RecentSearchWidget(
               searchBloc: _searchBloc,
             );
           }

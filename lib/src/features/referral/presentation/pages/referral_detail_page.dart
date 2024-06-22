@@ -217,6 +217,11 @@ class _ActiveReferredUsersState extends State<_ActiveReferredUsers> {
     if (currentUserId == null || otherUserId == null) {
       return;
     }
-    context.pushNamed(ChatMessagesPage.name, extra: otherUserId);
+    context.pushNamed(
+      ChatMessagesPage.name,
+      pathParameters: {
+        'recipientId': otherUserId,
+      },
+    );
   }
 }

@@ -14,13 +14,28 @@ class PostDatasource {
     try {
       final response = await _apiClient.createPost(
         post.ownerId,
-        post.title,
         post.content,
         post.type.name,
         post.files,
       );
       return response;
-    } catch (e) {
+    } catch (_) {
+      rethrow;
+    }
+  }
+
+  Future<void> likePost({required int postId}) async {
+    try {
+      await _apiClient.likePost(postId);
+    } catch (_) {
+      rethrow;
+    }
+  }
+
+  Future<void> unlikePost({required int postId}) async {
+    try {
+      await _apiClient.unlikePost(postId);
+    } catch (_) {
       rethrow;
     }
   }

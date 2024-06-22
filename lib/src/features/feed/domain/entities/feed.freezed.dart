@@ -27,6 +27,12 @@ mixin _$Feed {
   @DateTimeJsonConverter()
   @JsonKey(name: 'created_at')
   DateTime get createdAt => throw _privateConstructorUsedError;
+  @JsonKey(name: 'is_liked')
+  bool get isLiked => throw _privateConstructorUsedError;
+  @JsonKey(name: 'likes_count')
+  int get likesCount => throw _privateConstructorUsedError;
+  @JsonKey(name: 'comments_count')
+  int get commentsCount => throw _privateConstructorUsedError;
   @JsonKey(name: 'post')
   Post? get post => throw _privateConstructorUsedError;
 
@@ -44,6 +50,9 @@ abstract class $FeedCopyWith<$Res> {
       {@JsonKey(name: 'feed_id') int feedId,
       @JsonKey(name: 'user') AppUser? user,
       @DateTimeJsonConverter() @JsonKey(name: 'created_at') DateTime createdAt,
+      @JsonKey(name: 'is_liked') bool isLiked,
+      @JsonKey(name: 'likes_count') int likesCount,
+      @JsonKey(name: 'comments_count') int commentsCount,
       @JsonKey(name: 'post') Post? post});
 
   $AppUserCopyWith<$Res>? get user;
@@ -66,6 +75,9 @@ class _$FeedCopyWithImpl<$Res, $Val extends Feed>
     Object? feedId = null,
     Object? user = freezed,
     Object? createdAt = null,
+    Object? isLiked = null,
+    Object? likesCount = null,
+    Object? commentsCount = null,
     Object? post = freezed,
   }) {
     return _then(_value.copyWith(
@@ -81,6 +93,18 @@ class _$FeedCopyWithImpl<$Res, $Val extends Feed>
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
               as DateTime,
+      isLiked: null == isLiked
+          ? _value.isLiked
+          : isLiked // ignore: cast_nullable_to_non_nullable
+              as bool,
+      likesCount: null == likesCount
+          ? _value.likesCount
+          : likesCount // ignore: cast_nullable_to_non_nullable
+              as int,
+      commentsCount: null == commentsCount
+          ? _value.commentsCount
+          : commentsCount // ignore: cast_nullable_to_non_nullable
+              as int,
       post: freezed == post
           ? _value.post
           : post // ignore: cast_nullable_to_non_nullable
@@ -124,6 +148,9 @@ abstract class _$$FeedImplCopyWith<$Res> implements $FeedCopyWith<$Res> {
       {@JsonKey(name: 'feed_id') int feedId,
       @JsonKey(name: 'user') AppUser? user,
       @DateTimeJsonConverter() @JsonKey(name: 'created_at') DateTime createdAt,
+      @JsonKey(name: 'is_liked') bool isLiked,
+      @JsonKey(name: 'likes_count') int likesCount,
+      @JsonKey(name: 'comments_count') int commentsCount,
       @JsonKey(name: 'post') Post? post});
 
   @override
@@ -145,6 +172,9 @@ class __$$FeedImplCopyWithImpl<$Res>
     Object? feedId = null,
     Object? user = freezed,
     Object? createdAt = null,
+    Object? isLiked = null,
+    Object? likesCount = null,
+    Object? commentsCount = null,
     Object? post = freezed,
   }) {
     return _then(_$FeedImpl(
@@ -160,6 +190,18 @@ class __$$FeedImplCopyWithImpl<$Res>
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
               as DateTime,
+      isLiked: null == isLiked
+          ? _value.isLiked
+          : isLiked // ignore: cast_nullable_to_non_nullable
+              as bool,
+      likesCount: null == likesCount
+          ? _value.likesCount
+          : likesCount // ignore: cast_nullable_to_non_nullable
+              as int,
+      commentsCount: null == commentsCount
+          ? _value.commentsCount
+          : commentsCount // ignore: cast_nullable_to_non_nullable
+              as int,
       post: freezed == post
           ? _value.post
           : post // ignore: cast_nullable_to_non_nullable
@@ -177,6 +219,9 @@ class _$FeedImpl implements _Feed {
       @DateTimeJsonConverter()
       @JsonKey(name: 'created_at')
       required this.createdAt,
+      @JsonKey(name: 'is_liked') this.isLiked = false,
+      @JsonKey(name: 'likes_count') this.likesCount = 0,
+      @JsonKey(name: 'comments_count') this.commentsCount = 0,
       @JsonKey(name: 'post') this.post});
 
   factory _$FeedImpl.fromJson(Map<String, dynamic> json) =>
@@ -193,12 +238,21 @@ class _$FeedImpl implements _Feed {
   @JsonKey(name: 'created_at')
   final DateTime createdAt;
   @override
+  @JsonKey(name: 'is_liked')
+  final bool isLiked;
+  @override
+  @JsonKey(name: 'likes_count')
+  final int likesCount;
+  @override
+  @JsonKey(name: 'comments_count')
+  final int commentsCount;
+  @override
   @JsonKey(name: 'post')
   final Post? post;
 
   @override
   String toString() {
-    return 'Feed(feedId: $feedId, user: $user, createdAt: $createdAt, post: $post)';
+    return 'Feed(feedId: $feedId, user: $user, createdAt: $createdAt, isLiked: $isLiked, likesCount: $likesCount, commentsCount: $commentsCount, post: $post)';
   }
 
   @override
@@ -210,12 +264,18 @@ class _$FeedImpl implements _Feed {
             (identical(other.user, user) || other.user == user) &&
             (identical(other.createdAt, createdAt) ||
                 other.createdAt == createdAt) &&
+            (identical(other.isLiked, isLiked) || other.isLiked == isLiked) &&
+            (identical(other.likesCount, likesCount) ||
+                other.likesCount == likesCount) &&
+            (identical(other.commentsCount, commentsCount) ||
+                other.commentsCount == commentsCount) &&
             (identical(other.post, post) || other.post == post));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, feedId, user, createdAt, post);
+  int get hashCode => Object.hash(runtimeType, feedId, user, createdAt, isLiked,
+      likesCount, commentsCount, post);
 
   @JsonKey(ignore: true)
   @override
@@ -238,6 +298,9 @@ abstract class _Feed implements Feed {
       @DateTimeJsonConverter()
       @JsonKey(name: 'created_at')
       required final DateTime createdAt,
+      @JsonKey(name: 'is_liked') final bool isLiked,
+      @JsonKey(name: 'likes_count') final int likesCount,
+      @JsonKey(name: 'comments_count') final int commentsCount,
       @JsonKey(name: 'post') final Post? post}) = _$FeedImpl;
 
   factory _Feed.fromJson(Map<String, dynamic> json) = _$FeedImpl.fromJson;
@@ -252,6 +315,15 @@ abstract class _Feed implements Feed {
   @DateTimeJsonConverter()
   @JsonKey(name: 'created_at')
   DateTime get createdAt;
+  @override
+  @JsonKey(name: 'is_liked')
+  bool get isLiked;
+  @override
+  @JsonKey(name: 'likes_count')
+  int get likesCount;
+  @override
+  @JsonKey(name: 'comments_count')
+  int get commentsCount;
   @override
   @JsonKey(name: 'post')
   Post? get post;

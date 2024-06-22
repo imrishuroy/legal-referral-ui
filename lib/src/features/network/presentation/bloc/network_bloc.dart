@@ -19,8 +19,9 @@ class NetworkBloc extends Bloc<NetworkEvent, NetworkState> {
     on<ConnectionsFetched>(_onConnectionsFetched);
     on<ConnectionAccepted>(_onConnectionAccepted);
     on<ConnectionRejected>(_onConnectionRejected);
-    on<ConnectionSent>(_onConnectionSent);
+    on<ConnectionReqSent>(_onConnectionReqSent);
     on<RecommendationCancelled>(_onRecommendationCancelled);
+    on<ConnectionChecked>(_onConnectionChecked);
   }
 
   Future<void> _onConnectionInvitationsFetched(
@@ -174,8 +175,8 @@ class NetworkBloc extends Bloc<NetworkEvent, NetworkState> {
     );
   }
 
-  Future<void> _onConnectionSent(
-    ConnectionSent event,
+  Future<void> _onConnectionReqSent(
+    ConnectionReqSent event,
     Emitter<NetworkState> emit,
   ) async {
     final result = await _networkUseCase.sendConnection(
@@ -201,6 +202,9 @@ class NetworkBloc extends Bloc<NetworkEvent, NetworkState> {
                     : recommendation,
               )
               .toList(),
+          userConnectionStatus: const UserConnectionStatus(
+            status: ConnectionInvitationStatus.pending,
+          ),
         ),
       ),
     );
@@ -234,6 +238,39 @@ class NetworkBloc extends Bloc<NetworkEvent, NetworkState> {
         ),
       );
     });
+  }
+
+  Future<void> _onConnectionChecked(
+    ConnectionChecked event,
+    Emitter<NetworkState> emit,
+  ) async {
+    emit(
+      state.copyWith(
+        status: NetworkStatus.loading,
+      ),
+    );
+
+    final result = await _networkUseCase.checkConnection(
+      userId: event.userId,
+      otherUserId: event.otherUserId,
+    );
+
+    result.fold(
+      (failure) => emit(
+        state.copyWith(
+          status: NetworkStatus.failure,
+          failure: failure,
+        ),
+      ),
+      (userConnectionStatus) {
+        emit(
+          state.copyWith(
+            status: NetworkStatus.success,
+            userConnectionStatus: userConnectionStatus,
+          ),
+        );
+      },
+    );
   }
 
   final NetworkUseCase _networkUseCase;

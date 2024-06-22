@@ -8,7 +8,6 @@ import 'package:legal_referral_ui/src/core/config/config.dart';
 import 'package:legal_referral_ui/src/core/utils/utils.dart';
 import 'package:legal_referral_ui/src/features/post/data/data.dart';
 import 'package:legal_referral_ui/src/features/post/domain/domain.dart';
-import 'package:legal_referral_ui/src/features/post/domain/usecases/post_usecase.dart';
 
 part 'post_event.dart';
 part 'post_state.dart';
@@ -18,24 +17,51 @@ class PostBloc extends Bloc<PostEvent, PostState> {
   PostBloc({required PostUsecase postUsecase})
       : _postUsecase = postUsecase,
         super(PostState.initial()) {
-    on<FileAdded>(_onFileAdded);
+    on<PostTextChanged>(_onPostTextChanged);
+    on<FilePicked>(_onFileAdded);
     on<FileRemoved>(_onFileRemoved);
     on<PostCreated>(_onPostCreated);
   }
 
   final PostUsecase _postUsecase;
 
-  FutureOr<void> _onFileAdded(event, emit) async {
-    final files = await ImageUtil.pickMultipleImages();
+  Future<void> _onPostTextChanged(event, emit) async {
+    emit(
+      state.copyWith(
+        text: event.text,
+      ),
+    );
+  }
 
-    if (files.isNotEmpty) {
-      emit(
-        state.copyWith(
-          files: files,
-          postType: PostType.image,
-        ),
-      );
+  Future<void> _onFileAdded(FilePicked event, emit) async {
+    var files = <File>[];
+    emit(
+      state.copyWith(
+        files: files,
+        postType: event.postType,
+      ),
+    );
+    if (event.postType == PostType.image) {
+      final pickedImages = await ImageUtil.pickMultipleImages();
+      files = pickedImages;
+    } else if (event.postType == PostType.video) {
+      final pickedVideo = await FilePickerUtil.pickVideo();
+      if (pickedVideo != null) {
+        files = [pickedVideo];
+      }
+    } else if (event.postType == PostType.document) {
+      final pickedDocument = await FilePickerUtil.pickDocument();
+      if (pickedDocument != null) {
+        files = [pickedDocument];
+      }
     }
+
+    emit(
+      state.copyWith(
+        files: files,
+        postType: event.postType,
+      ),
+    );
   }
 
   FutureOr<void> _onFileRemoved(event, emit) async {
@@ -61,9 +87,8 @@ class PostBloc extends Bloc<PostEvent, PostState> {
     final response = await _postUsecase.createPost(
       post: CreatePostReq(
         ownerId: event.ownerId,
-        title: event.title,
-        content: 'post content',
-        type: PostType.image,
+        content: event.content,
+        type: _getPostType(state),
         files: state.files,
       ),
     );
@@ -85,5 +110,20 @@ class PostBloc extends Bloc<PostEvent, PostState> {
         );
       },
     );
+  }
+
+  PostType _getPostType(PostState state) {
+    if (state.files.isNotEmpty) {
+      return state.postType;
+    }
+
+    final url = UrlUtil.extractLink(state.text);
+
+    final isUrlValid = UrlUtil.isValidUrl(url);
+
+    if (isUrlValid) {
+      return PostType.link;
+    }
+    return PostType.text;
   }
 }

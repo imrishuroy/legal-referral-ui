@@ -192,7 +192,13 @@ class _ProjectDetailsPageState extends State<ProjectDetailsPage> {
     if (currentUserId == null || otherUserId == null) {
       return;
     }
-    context.pushNamed(ChatMessagesPage.name, extra: otherUserId);
+    context.pushNamed(
+      ChatMessagesPage.name,
+      pathParameters: {
+        'recipientId':
+            currentUserId != otherUserId ? otherUserId : currentUserId,
+      },
+    );
   }
 
   void _completedAndReview({

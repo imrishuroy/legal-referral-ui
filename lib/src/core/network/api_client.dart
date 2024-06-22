@@ -6,6 +6,7 @@ import 'package:legal_referral_ui/src/features/auth/data/data.dart';
 import 'package:legal_referral_ui/src/features/auth/domain/domain.dart';
 import 'package:legal_referral_ui/src/features/chat/data/data.dart';
 import 'package:legal_referral_ui/src/features/chat/domain/domain.dart';
+import 'package:legal_referral_ui/src/features/feed/data/data.dart';
 import 'package:legal_referral_ui/src/features/feed/domain/domain.dart';
 import 'package:legal_referral_ui/src/features/network/data/data.dart';
 import 'package:legal_referral_ui/src/features/network/domain/domain.dart';
@@ -274,6 +275,12 @@ abstract class APIClient {
     @Body() CancelRecommendationReq cancelRecommendationReq,
   );
 
+  @GET('/connections/{userId}/{otherUserId}')
+  Future<UserConnectionStatus> checkConnection(
+    @Path('userId') String userId,
+    @Path('otherUserId') String otherUserId,
+  );
+
   // search
   @GET('/search/users')
   Future<List<AppUser?>> searchUsers(
@@ -412,7 +419,6 @@ abstract class APIClient {
   @MultiPart()
   Future<String?> createPost(
     @Part(name: 'owner_id') String ownerId,
-    @Part(name: 'title') String title,
     @Part(name: 'content') String content,
     @Part(name: 'post_type') String type,
     @Part(name: 'files') List<File> files,
@@ -422,5 +428,43 @@ abstract class APIClient {
   @GET('/feeds/{userId}')
   Future<List<Feed?>> fetchFeeds(
     @Path('userId') String userId,
+    @Query('limit') int limit,
+    @Query('offset') int offset,
+  );
+
+  @POST('/posts/{postId}/like')
+  Future<void> likePost(
+    @Path('postId') int postId,
+  );
+
+  @DELETE('/posts/{postId}/like')
+  Future<void> unlikePost(
+    @Path('postId') int postId,
+  );
+
+  @GET('/posts/{postId}/liked-users')
+  Future<List<AppUser?>> fetchPostLikedUsers(
+    @Path('postId') int postId,
+  );
+
+  @POST('/posts/{postId}/comments')
+  Future<Comment> commentPost(
+    @Path('postId') int postId,
+    @Body() CommentReq commentReq,
+  );
+
+  @GET('/posts/{postId}/comments')
+  Future<List<Comment?>> fetchPostComments(
+    @Path('postId') int postId,
+  );
+
+  @POST('/comments/{commentId}/like')
+  Future<void> likeComment(
+    @Path('commentId') int commentId,
+  );
+
+  @DELETE('/comments/{commentId}/like')
+  Future<void> unlikeComment(
+    @Path('commentId') int commentId,
   );
 }

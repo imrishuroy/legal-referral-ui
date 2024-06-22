@@ -6,4 +6,12 @@ abstract class PostRepository {
   Future<Either<Failure, String?>> createPost({
     required CreatePostReq post,
   });
+
+  Future<Either<Failure, void>> likePost({
+    required int postId,
+  });
+
+  Future<Either<Failure, void>> unlikePost({
+    required int postId,
+  });
 }

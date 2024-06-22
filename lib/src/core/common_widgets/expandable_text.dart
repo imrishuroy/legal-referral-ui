@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_linkify/flutter_linkify.dart';
 import 'package:legal_referral_ui/src/core/constants/colors.dart';
+import 'package:legal_referral_ui/src/core/utils/utils.dart';
 
 class ExpandableText extends StatefulWidget {
   const ExpandableText({
@@ -8,6 +10,7 @@ class ExpandableText extends StatefulWidget {
     this.style,
     this.padding,
   });
+
   final String text;
   final TextStyle? style;
   final EdgeInsetsGeometry? padding;
@@ -23,7 +26,11 @@ class _ExpandableTextState extends State<ExpandableText> {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) => _checkOverflow());
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (mounted) {
+       _checkOverflow();
+      }
+    });
   }
 
   void _checkOverflow() {
@@ -31,12 +38,16 @@ class _ExpandableTextState extends State<ExpandableText> {
       text: TextSpan(text: widget.text, style: widget.style),
       maxLines: 2,
       textDirection: TextDirection.ltr,
-    )..layout(maxWidth: context.size!.width);
+    );
 
-    if (textPainter.didExceedMaxLines) {
-      setState(() {
-        _isOverflowing = true;
-      });
+    if (context.size != null) {
+      textPainter.layout(maxWidth: context.size!.width);
+
+      if (textPainter.didExceedMaxLines) {
+        setState(() {
+          _isOverflowing = true;
+        });
+      }
     }
   }
 
@@ -57,10 +68,16 @@ class _ExpandableTextState extends State<ExpandableText> {
           AnimatedSize(
             duration: const Duration(milliseconds: 500),
             curve: Curves.ease,
-            child: Text(
-              widget.text,
-              style: widget.style ?? theme.bodyLarge,
+            child: Linkify(
               maxLines: _expanded ? null : 2,
+              onOpen: (linkElement) async {
+                await UrlUtil.launchURL(linkElement.url);
+              },
+              text: widget.text,
+              style: widget.style ?? theme.bodyLarge,
+              linkStyle: (widget.style ?? theme.bodyLarge)?.copyWith(
+                color: Colors.blue,
+              ),
               overflow:
                   _expanded ? TextOverflow.visible : TextOverflow.ellipsis,
             ),

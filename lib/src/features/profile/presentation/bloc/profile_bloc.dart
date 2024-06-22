@@ -122,6 +122,14 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
             ),
           ),
         );
+
+        _authBloc.add(
+          UserUpdated(
+            user: _authBloc.state.user?.copyWith(
+              avatarUrl: res,
+            ),
+          ),
+        );
       },
     );
   }

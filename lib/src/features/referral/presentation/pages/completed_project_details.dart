@@ -91,6 +91,11 @@ class CompletedProjectDetailsPage extends StatelessWidget {
     if (currentUserId == null || otherUserId == null) {
       return;
     }
-    context.pushNamed(ChatMessagesPage.name, extra: otherUserId);
+    context.pushNamed(
+      ChatMessagesPage.name,
+      pathParameters: {
+        'recipientId': otherUserId,
+      },
+    );
   }
 }

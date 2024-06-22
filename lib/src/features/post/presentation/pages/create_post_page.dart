@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -8,8 +10,10 @@ import 'package:legal_referral_ui/src/core/constants/constants.dart';
 import 'package:legal_referral_ui/src/core/utils/utils.dart';
 import 'package:legal_referral_ui/src/features/auth/presentation/presentation.dart';
 import 'package:legal_referral_ui/src/features/feed/presentation/pages/feeds_page.dart';
+import 'package:legal_referral_ui/src/features/post/domain/domain.dart';
 import 'package:legal_referral_ui/src/features/post/presentation/bloc/post_bloc.dart';
 import 'package:legal_referral_ui/src/features/post/presentation/presentation.dart';
+import 'package:legal_referral_ui/src/features/post/presentation/widgets/widgets.dart';
 import 'package:toastification/toastification.dart';
 
 enum PostCondition { anyone, connectionOnly }
@@ -24,12 +28,8 @@ class CreatePostPage extends StatefulWidget {
 
 class _CreatePostPageState extends State<CreatePostPage> {
   final TextEditingController _postContentController = TextEditingController();
-  final TextEditingController _linkController = TextEditingController();
-  bool isLinkVisible = false;
-
   final _postBloc = getIt<PostBloc>();
   final _authBloc = getIt<AuthBloc>();
-  late bool containsPdf = false;
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +47,7 @@ class _CreatePostPageState extends State<CreatePostPage> {
           ToastUtil.showToast(
             context,
             title: 'Success',
-            description: 'Post created successfully',
+            description: 'Post created! Pull to refresh your feed.',
             type: ToastificationType.success,
           );
           context.pushReplacementNamed(FeedsPage.name);
@@ -68,7 +68,7 @@ class _CreatePostPageState extends State<CreatePostPage> {
                   _postBloc.add(
                     PostCreated(
                       ownerId: userId,
-                      title: _postContentController.text,
+                      content: _postContentController.text,
                     ),
                   );
                 }
@@ -103,26 +103,40 @@ class _CreatePostPageState extends State<CreatePostPage> {
                       ),
                       const Spacer(),
                       SvgButton(
-                        imagePath: IconStringConstants.link,
-                        onPressed: () {
-                          setState(() {
-                            isLinkVisible = !isLinkVisible;
-                          });
-                          if (!isLinkVisible) {
-                            _linkController.clear();
-                          }
-                        },
-                        height: 24.h,
-                        width: 24.w,
+                        imagePath: IconStringConstants.document,
+                        onPressed: () => _postBloc.add(
+                          const FilePicked(
+                            postType: PostType.document,
+                          ),
+                        ),
+                        height: 22.h,
+                        width: 22.w,
+                        color: Colors.grey.shade600,
                       ),
-                      SizedBox(
-                        width: 16.w,
+                      const SizedBox(
+                        width: 20,
+                      ),
+                      SvgButton(
+                        imagePath: IconStringConstants.video,
+                        onPressed: () => _postBloc.add(
+                          const FilePicked(
+                            postType: PostType.video,
+                          ),
+                        ),
+                        color: Colors.grey.shade600,
+                        height: 26.h,
+                        width: 26.w,
+                      ),
+                      const SizedBox(
+                        width: 20,
                       ),
                       SvgButton(
                         imagePath: IconStringConstants.picture,
-                        onPressed: () {
-                          _postBloc.add(FileAdded());
-                        },
+                        onPressed: () => _postBloc.add(
+                          const FilePicked(
+                            postType: PostType.image,
+                          ),
+                        ),
                         height: 24.h,
                         width: 24.w,
                       ),
@@ -148,32 +162,28 @@ class _CreatePostPageState extends State<CreatePostPage> {
                             borderColor: Colors.transparent,
                             controller: _postContentController,
                             hintText: 'Share your thoughts',
-                          ),
-                          if (isLinkVisible)
-                            CustomTextField(
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodyLarge
-                                  ?.copyWith(
-                                    color: LegalReferralColors.textBlue100,
-                                  ),
-                              maxLines: 2,
-                              keyboardType: TextInputType.multiline,
-                              fillColor: Colors.transparent,
-                              borderColor: Colors.transparent,
-                              controller: _linkController,
-                              hintText: 'Attach Url',
-                            ),
-                          BlocBuilder<PostBloc, PostState>(
-                            bloc: _postBloc,
-                            builder: (context, state) {
-                              return ImagePost(
-                                files: state.files,
-                                onRemove: (index) => _postBloc.add(
-                                  FileRemoved(index: index),
-                                ),
-                              );
+                            onChanged: (value) {
+                              if (value != null && value.isNotEmpty) {
+                                _postBloc.add(
+                                  PostTextChanged(text: value),
+                                );
+                              }
+                              return null;
                             },
+                          ),
+                          SizedBox(
+                            height: 16.h,
+                          ),
+                          LinkPreviewWidget(
+                            text: state.text,
+                          ),
+                          SizedBox(height: 12.h),
+                          _PostFilePreview(
+                            files: state.files,
+                            onRemove: (index) => _postBloc.add(
+                              FileRemoved(index: index),
+                            ),
+                            postType: state.postType,
                           ),
                         ],
                       ),
@@ -261,5 +271,45 @@ class _CreatePostPageState extends State<CreatePostPage> {
         ],
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    _postContentController.dispose();
+    super.dispose();
+  }
+}
+
+class _PostFilePreview extends StatelessWidget {
+  const _PostFilePreview({
+    required this.files,
+    required this.onRemove,
+    required this.postType,
+  });
+
+  final List<File> files;
+  final Function(int) onRemove;
+  final PostType postType;
+
+  @override
+  Widget build(BuildContext context) {
+    if (postType == PostType.image) {
+      return ImagePost(
+        files: files,
+        onRemove: onRemove,
+      );
+    } else if (postType == PostType.video && files.isNotEmpty) {
+      return SizedBox(
+        height: 400.h,
+        child: VideoPost(
+          file: files.first,
+        ),
+      );
+    } else if (postType == PostType.document && files.isNotEmpty) {
+      return DocumentPreview(
+        docFile: files.first,
+      );
+    }
+    return const SizedBox();
   }
 }

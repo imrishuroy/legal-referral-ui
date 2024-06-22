@@ -152,3 +152,11 @@ class PasswordChanged extends AuthEvent {
   @override
   List<Object> get props => [email, password];
 }
+
+class UserUpdated extends AuthEvent {
+  const UserUpdated({
+    required this.user,
+  });
+
+  final AppUser? user;
+}

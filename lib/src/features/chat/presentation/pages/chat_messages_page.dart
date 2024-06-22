@@ -15,24 +15,12 @@ import 'package:legal_referral_ui/src/features/chat/domain/domain.dart';
 import 'package:legal_referral_ui/src/features/chat/presentation/bloc/chat_bloc.dart';
 import 'package:toastification/toastification.dart';
 
-class ChatMessageArgs {
-  ChatMessageArgs({
-    required this.currentUserId,
-    required this.recipientId,
-  });
-
-  final String currentUserId;
-  final String recipientId;
-}
-
 class ChatMessagesPage extends StatefulWidget {
   const ChatMessagesPage({
-    // required this.chatRoom,
     required this.recipientId,
     super.key,
   });
 
-  // final ChatRoom chatRoom;
   final String recipientId;
 
   static const String name = 'ChatMessagesPage';

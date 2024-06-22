@@ -79,4 +79,14 @@ class NetworkUseCase {
       cancelRecommendationReq: cancelRecommendationReq,
     );
   }
+
+  Future<Either<Failure, UserConnectionStatus>> checkConnection({
+    required String userId,
+    required String otherUserId,
+  }) async {
+    return _networkRepository.checkConnection(
+      userId: userId,
+      otherUserId: otherUserId,
+    );
+  }
 }

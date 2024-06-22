@@ -104,7 +104,7 @@ class SharedPrefs {
             _searchUsersHistories,
             searchUsersHistories,
           );
-        } else {}
+        }
       } else {
         await _sharedPrefs?.setStringList(
           _searchUsersHistories,
@@ -139,7 +139,7 @@ class SharedPrefs {
             _searchQueryHistories,
             searchQueryHistories,
           );
-        } else {}
+        }
       } else {
         await _sharedPrefs?.setStringList(
           _searchQueryHistories,
