@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -8,8 +10,10 @@ import 'package:legal_referral_ui/src/core/constants/constants.dart';
 import 'package:legal_referral_ui/src/core/utils/utils.dart';
 import 'package:legal_referral_ui/src/features/auth/presentation/presentation.dart';
 import 'package:legal_referral_ui/src/features/feed/presentation/pages/feeds_page.dart';
+import 'package:legal_referral_ui/src/features/post/domain/domain.dart';
 import 'package:legal_referral_ui/src/features/post/presentation/bloc/post_bloc.dart';
 import 'package:legal_referral_ui/src/features/post/presentation/presentation.dart';
+import 'package:legal_referral_ui/src/features/post/presentation/widgets/widgets.dart';
 import 'package:toastification/toastification.dart';
 
 enum PostCondition { anyone, connectionOnly }
@@ -64,7 +68,7 @@ class _CreatePostPageState extends State<CreatePostPage> {
                   _postBloc.add(
                     PostCreated(
                       ownerId: userId,
-                      title: _postContentController.text,
+                      content: _postContentController.text,
                     ),
                   );
                 }
@@ -99,10 +103,40 @@ class _CreatePostPageState extends State<CreatePostPage> {
                       ),
                       const Spacer(),
                       SvgButton(
+                        imagePath: IconStringConstants.document,
+                        onPressed: () => _postBloc.add(
+                          const FilePicked(
+                            postType: PostType.document,
+                          ),
+                        ),
+                        height: 22.h,
+                        width: 22.w,
+                        color: Colors.grey.shade600,
+                      ),
+                      const SizedBox(
+                        width: 20,
+                      ),
+                      SvgButton(
+                        imagePath: IconStringConstants.video,
+                        onPressed: () => _postBloc.add(
+                          const FilePicked(
+                            postType: PostType.video,
+                          ),
+                        ),
+                        color: Colors.grey.shade600,
+                        height: 26.h,
+                        width: 26.w,
+                      ),
+                      const SizedBox(
+                        width: 20,
+                      ),
+                      SvgButton(
                         imagePath: IconStringConstants.picture,
-                        onPressed: () {
-                          _postBloc.add(FileAdded());
-                        },
+                        onPressed: () => _postBloc.add(
+                          const FilePicked(
+                            postType: PostType.image,
+                          ),
+                        ),
                         height: 24.h,
                         width: 24.w,
                       ),
@@ -144,11 +178,12 @@ class _CreatePostPageState extends State<CreatePostPage> {
                             text: state.text,
                           ),
                           SizedBox(height: 12.h),
-                          ImagePost(
+                          _PostFilePreview(
                             files: state.files,
                             onRemove: (index) => _postBloc.add(
                               FileRemoved(index: index),
                             ),
+                            postType: state.postType,
                           ),
                         ],
                       ),
@@ -242,5 +277,39 @@ class _CreatePostPageState extends State<CreatePostPage> {
   void dispose() {
     _postContentController.dispose();
     super.dispose();
+  }
+}
+
+class _PostFilePreview extends StatelessWidget {
+  const _PostFilePreview({
+    required this.files,
+    required this.onRemove,
+    required this.postType,
+  });
+
+  final List<File> files;
+  final Function(int) onRemove;
+  final PostType postType;
+
+  @override
+  Widget build(BuildContext context) {
+    if (postType == PostType.image) {
+      return ImagePost(
+        files: files,
+        onRemove: onRemove,
+      );
+    } else if (postType == PostType.video && files.isNotEmpty) {
+      return SizedBox(
+        height: 400.h,
+        child: VideoPost(
+          file: files.first,
+        ),
+      );
+    } else if (postType == PostType.document && files.isNotEmpty) {
+      return DocumentPreview(
+        docFile: files.first,
+      );
+    }
+    return const SizedBox();
   }
 }

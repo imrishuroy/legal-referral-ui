@@ -7,13 +7,11 @@ import 'package:legal_referral_ui/src/core/constants/colors.dart';
 
 class ImagePostWidget extends StatefulWidget {
   const ImagePostWidget({
-    required this.postContent,
     required this.imageUrls,
     this.height = 400,
     super.key,
   });
 
-  final String postContent;
   final List<String?> imageUrls;
   final double height;
 

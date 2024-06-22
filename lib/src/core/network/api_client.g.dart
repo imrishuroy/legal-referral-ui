@@ -2109,7 +2109,6 @@ class _APIClient implements APIClient {
   @override
   Future<String?> createPost(
     String ownerId,
-    String title,
     String content,
     String type,
     List<File> files,
@@ -2121,10 +2120,6 @@ class _APIClient implements APIClient {
     _data.fields.add(MapEntry(
       'owner_id',
       ownerId,
-    ));
-    _data.fields.add(MapEntry(
-      'title',
-      title,
     ));
     _data.fields.add(MapEntry(
       'content',

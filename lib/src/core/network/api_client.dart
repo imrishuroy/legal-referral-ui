@@ -419,7 +419,6 @@ abstract class APIClient {
   @MultiPart()
   Future<String?> createPost(
     @Part(name: 'owner_id') String ownerId,
-    @Part(name: 'title') String title,
     @Part(name: 'content') String content,
     @Part(name: 'post_type') String type,
     @Part(name: 'files') List<File> files,

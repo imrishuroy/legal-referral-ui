@@ -2,14 +2,6 @@ part of 'post_bloc.dart';
 
 enum PostStatus { initial, loading, success, failure }
 
-enum DocumentType {
-  initial,
-  image,
-  multiImage,
-  video,
-  document,
-}
-
 class PostState extends Equatable {
   const PostState({
     required this.status,

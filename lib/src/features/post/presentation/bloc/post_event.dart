@@ -18,7 +18,14 @@ class PostTextChanged extends PostEvent {
   List<Object> get props => [text];
 }
 
-class FileAdded extends PostEvent {}
+class FilePicked extends PostEvent {
+  const FilePicked({required this.postType});
+
+  final PostType postType;
+
+  @override
+  List<Object> get props => [postType];
+}
 
 class FileRemoved extends PostEvent {
   const FileRemoved({
@@ -30,12 +37,12 @@ class FileRemoved extends PostEvent {
 class PostCreated extends PostEvent {
   const PostCreated({
     required this.ownerId,
-    required this.title,
+    required this.content,
   });
 
   final String ownerId;
-  final String title;
+  final String content;
 
   @override
-  List<Object> get props => [ownerId, title];
+  List<Object> get props => [ownerId, content];
 }

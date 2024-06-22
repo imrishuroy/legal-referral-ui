@@ -116,11 +116,14 @@ class FeedTile extends StatelessWidget {
               ],
             ),
           ),
-          const SizedBox(height: 10),
-          ExpandableText(
-            padding: EdgeInsets.symmetric(horizontal: 16.w),
-            text: post?.content ?? '',
-          ),
+          if (post?.content != null && post!.content!.isNotEmpty)
+            ExpandableText(
+              padding: EdgeInsets.symmetric(
+                horizontal: 16.w,
+                vertical: 8.h,
+              ),
+              text: post.content ?? '',
+            ),
           if (post?.type == PostType.link && post?.content != null)
             Padding(
               padding: EdgeInsets.symmetric(
@@ -131,10 +134,11 @@ class FeedTile extends StatelessWidget {
               ),
             )
           else
-            ImagePostWidget(
-              postContent: post?.content ?? '',
-              imageUrls: post?.filesUrls ?? [],
-              height: imageHeight,
+            MediaPost(
+              imageHeight: imageHeight,
+              postType: post?.type ?? PostType.image,
+              mediaUrls: post?.filesUrls ?? [],
+              fileName: post?.content,
             ),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 16.w),

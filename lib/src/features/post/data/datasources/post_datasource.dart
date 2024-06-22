@@ -14,7 +14,6 @@ class PostDatasource {
     try {
       final response = await _apiClient.createPost(
         post.ownerId,
-        post.title,
         post.content,
         post.type.name,
         post.files,

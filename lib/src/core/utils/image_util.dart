@@ -105,17 +105,20 @@ class ImageUtil {
   }) async {
     final croppedFile = await ImageCropper().cropImage(
       sourcePath: filePath,
-      cropStyle: cropStyle,
-      // androidUiSettings: AndroidUiSettings(
-      //   toolbarTitle: 'Crop Image',
-      //   toolbarColor: Colors.grey.shade800,
-      //   toolbarWidgetColor: Colors.white,
-      //   initAspectRatio: CropAspectRatioPreset.original,
-      //   lockAspectRatio: false,
-      // ),
-      // iosUiSettings: const IOSUiSettings(
-      //   title: 'Crop Image',
-      // ),
+      uiSettings: [
+        AndroidUiSettings(
+          cropStyle: cropStyle,
+          toolbarTitle: 'Crop Image',
+          toolbarColor: Colors.grey.shade800,
+          toolbarWidgetColor: Colors.white,
+          initAspectRatio: CropAspectRatioPreset.original,
+          lockAspectRatio: false,
+        ),
+        IOSUiSettings(
+          cropStyle: cropStyle,
+          title: 'Crop Image',
+        ),
+      ],
       compressQuality: 70,
     );
     return File(croppedFile?.path ?? filePath);
