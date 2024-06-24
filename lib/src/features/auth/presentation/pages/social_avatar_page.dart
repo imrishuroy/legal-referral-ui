@@ -20,8 +20,13 @@ import 'package:toastification/toastification.dart';
 class SocialAvatarPage extends StatefulWidget {
   const SocialAvatarPage({
     super.key,
+    this.title = 'Social Avatar',
+    this.labelText1 = 'Create Password',
+    this.profilePicture=true,
   });
-
+  final String? title;
+  final String? labelText1;
+  final bool? profilePicture;
   static const name = 'SocialAvatarPage';
 
   @override
@@ -43,7 +48,7 @@ class _SocialAvatarPageState extends State<SocialAvatarPage> {
         centerTitle: false,
         backgroundColor: LegalReferralColors.primaryBackground,
         title: Text(
-          'Social Avatar',
+          widget.title!,
           style: TextStyle(fontWeight: FontWeight.w600, fontSize: 20.h),
         ),
       ),
@@ -82,61 +87,64 @@ class _SocialAvatarPageState extends State<SocialAvatarPage> {
                         padding: const EdgeInsets.all(16),
                         child: Column(
                           children: [
+                            if (widget.profilePicture!)
                             SizedBox(
                               height: 8.w,
                             ),
-                            GestureDetector(
-                              onTap: () async {
-                                if (_file != null) {
-                                  await _showAvatarEditSheet();
-                                  return;
-                                }
-                                await _pickMedia(context);
-                              },
-                              child: _file == null
-                                  ? CircleAvatar(
-                                      radius: 86.r,
-                                      backgroundColor:
-                                          LegalReferralColors.containerWhite500,
-                                      child: Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          SizedBox(
-                                            height: 81.h,
-                                            width: 81.w,
-                                            child: SvgPicture.asset(
-                                              'assets/icons/avatar.svg',
+                            if (widget.profilePicture!)
+                              GestureDetector(
+                                onTap: () async {
+                                  if (_file != null) {
+                                    await _showAvatarEditSheet();
+                                    return;
+                                  }
+                                  await _pickMedia(context);
+                                },
+                                child: _file == null
+                                    ? CircleAvatar(
+                                        radius: 86.r,
+                                        backgroundColor: LegalReferralColors
+                                            .containerWhite500,
+                                        child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            SizedBox(
+                                              height: 81.h,
+                                              width: 81.w,
+                                              child: SvgPicture.asset(
+                                                'assets/icons/avatar.svg',
+                                              ),
                                             ),
-                                          ),
-                                          Text(
-                                            'ADD PROFILE\nPICTURE',
-                                            textAlign: TextAlign.center,
-                                            style: TextStyle(
-                                              fontSize: 12.h,
-                                              fontWeight: FontWeight.w500,
-                                              color: LegalReferralColors
-                                                  .textBlue100,
+                                            Text(
+                                              'ADD PROFILE\nPICTURE',
+                                              textAlign: TextAlign.center,
+                                              style: TextStyle(
+                                                fontSize: 12.h,
+                                                fontWeight: FontWeight.w500,
+                                                color: LegalReferralColors
+                                                    .textBlue100,
+                                              ),
                                             ),
-                                          ),
-                                        ],
+                                          ],
+                                        ),
+                                      )
+                                    : GestureDetector(
+                                        onTap: _showAvatarEditSheet,
+                                        child: CircleAvatar(
+                                          radius: 86,
+                                          backgroundImage: FileImage(_file!),
+                                        ),
                                       ),
-                                    )
-                                  : GestureDetector(
-                                      onTap: _showAvatarEditSheet,
-                                      child: CircleAvatar(
-                                        radius: 86,
-                                        backgroundImage: FileImage(_file!),
-                                      ),
-                                    ),
-                            ),
+                              ),
+                              if (widget.profilePicture!)
                             SizedBox(
                               height: 16.h,
                             ),
                             CustomTextField(
                               controller: _createPasswordController,
                               hintText: '*************',
-                              labelText: 'Create Password',
+                              labelText: widget.labelText1,
                               obscureText: true,
                               validator: (value) => Validator.validatePassword(
                                 value,

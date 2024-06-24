@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:legal_referral_ui/src/core/common_widgets/widgets.dart';
+import 'package:legal_referral_ui/src/features/account/presentation/pages/account_page.dart';
 import 'package:legal_referral_ui/src/features/auth/presentation/presentation.dart';
 import 'package:legal_referral_ui/src/features/chat/presentation/presentation.dart';
 import 'package:legal_referral_ui/src/features/discuss/presentation/presentation.dart';
@@ -29,7 +30,7 @@ class AppRouter {
         name: SplashPage.name,
         parentNavigatorKey: _rootNavigatorKey,
         pageBuilder: (context, state) => CustomTransitionPage(
-          child: const SplashPage
+          child:  AccountPage
           (),
           transitionDuration: const Duration(
             seconds: _routeAnimationDuration,
