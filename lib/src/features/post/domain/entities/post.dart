@@ -10,6 +10,10 @@ enum PostType {
   text,
   @JsonValue('image')
   image,
+  @JsonValue('document')
+  document,
+  @JsonValue('link')
+  link,
   @JsonValue('video')
   video,
   @JsonValue('poll')
@@ -20,13 +24,12 @@ enum PostType {
 class Post with _$Post {
   const factory Post({
     @JsonKey(name: 'owner_id') required String ownerId,
-    required String title,
-    required String content,
     @JsonKey(name: 'post_type') required PostType type,
     @JsonKey(name: 'created_at', includeToJson: false)
     @DateTimeJsonConverter()
     required DateTime createdAt,
     @JsonKey(name: 'post_id') required int postId,
+    String? content,
     @JsonKey(name: 'media') @Default([]) List<String?> filesUrls,
     @JsonKey(name: 'poll_id', includeIfNull: false) int? pollId,
   }) = _Post;

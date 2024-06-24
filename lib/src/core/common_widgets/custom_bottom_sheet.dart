@@ -23,6 +23,10 @@ class CustomBottomSheet {
             ? double.infinity
             : MediaQuery.of(context).size.width - 32.w,
       ),
+      sheetAnimationStyle: AnimationStyle(
+        curve: Curves.easeIn,
+        duration: const Duration(milliseconds: 600),
+      ),
       isDismissible: isDismissible ?? false,
       backgroundColor: LegalReferralColors.containerWhite500,
       enableDrag: enableDrag,

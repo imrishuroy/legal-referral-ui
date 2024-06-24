@@ -14,6 +14,7 @@ class CustomOutlinedButton extends StatelessWidget {
     this.textColor,
     this.height,
     this.width,
+    this.borderWidth = 1,
   });
 
   final String text;
@@ -23,6 +24,7 @@ class CustomOutlinedButton extends StatelessWidget {
   final double? height;
   final double? width;
   final Color? textColor;
+  final double borderWidth;
 
   @override
   Widget build(BuildContext context) {
@@ -34,6 +36,7 @@ class CustomOutlinedButton extends StatelessWidget {
         decoration: BoxDecoration(
           border: Border.all(
             color: borderColor ?? LegalReferralColors.textGrey400,
+            width: borderWidth,
           ),
           borderRadius: BorderRadius.circular(borderRadius ?? 4.r),
         ),
@@ -230,6 +233,7 @@ class VerticalIconButton extends StatelessWidget {
     this.height,
     this.width,
     this.textColor,
+    this.iconColor,
   });
   final double? height;
   final double? width;
@@ -237,6 +241,7 @@ class VerticalIconButton extends StatelessWidget {
   final String text;
   final Color? textColor;
   final VoidCallback onTap;
+  final Color? iconColor;
   @override
   Widget build(BuildContext context) {
     return InkWell(
@@ -247,6 +252,9 @@ class VerticalIconButton extends StatelessWidget {
             height: height ?? 20.h,
             width: width ?? 20.w,
             icon,
+            colorFilter: iconColor != null
+                ? ColorFilter.mode(iconColor!, BlendMode.srcIn)
+                : null,
           ),
           Text(
             text,

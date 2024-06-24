@@ -5,21 +5,21 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:legal_referral_ui/src/core/common_widgets/widgets.dart';
 import 'package:legal_referral_ui/src/core/constants/colors.dart';
 
-class ImagePost extends StatefulWidget {
-  const ImagePost({
-    required this.postContent,
+class ImagePostWidget extends StatefulWidget {
+  const ImagePostWidget({
     required this.imageUrls,
+    this.height = 400,
     super.key,
   });
 
-  final String postContent;
   final List<String?> imageUrls;
+  final double height;
 
   @override
-  State<ImagePost> createState() => _ImagePostState();
+  State<ImagePostWidget> createState() => _ImagePostWidgetState();
 }
 
-class _ImagePostState extends State<ImagePost> {
+class _ImagePostWidgetState extends State<ImagePostWidget> {
   double _current = 0;
   final CarouselController _controller = CarouselController();
 
@@ -35,7 +35,7 @@ class _ImagePostState extends State<ImagePost> {
           CarouselSlider(
             carouselController: _controller,
             options: CarouselOptions(
-              height: 400.h,
+              height: widget.height.h,
               enableInfiniteScroll: multipleImages,
               viewportFraction: 1,
               onPageChanged: (index, reason) {
@@ -68,7 +68,7 @@ class _ImagePostState extends State<ImagePost> {
               position: _current,
               dotsCount: widget.imageUrls.length,
               decorator: DotsDecorator(
-                activeSize: Size(22.w, 7.h),
+                activeSize: const Size(20, 7),
                 activeShape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(6.r),
                 ),

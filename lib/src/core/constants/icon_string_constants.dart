@@ -51,6 +51,13 @@ class IconStringConstants {
   static const String cross2 = 'assets/icons/cross2.svg';
   static const String link = 'assets/icons/link.svg';
   static const String subtract = 'assets/icons/subtract.svg';
+  static const String video = 'assets/icons/video.svg';
+  static const String document = 'assets/icons/document.svg';
+  static const String favorite = 'assets/icons/favorite.svg';
+  static const String download = 'assets/icons/download.svg';
+  static const String addFollow = 'assets/icons/add_follow.svg';
+  static const String flag = 'assets/icons/flag.svg';
+  static const String restrict = 'assets/icons/restrict.svg';
 
   // -- Brand Icons
 

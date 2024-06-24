@@ -22,8 +22,6 @@ Post _$PostFromJson(Map<String, dynamic> json) {
 mixin _$Post {
   @JsonKey(name: 'owner_id')
   String get ownerId => throw _privateConstructorUsedError;
-  String get title => throw _privateConstructorUsedError;
-  String get content => throw _privateConstructorUsedError;
   @JsonKey(name: 'post_type')
   PostType get type => throw _privateConstructorUsedError;
   @JsonKey(name: 'created_at', includeToJson: false)
@@ -31,6 +29,7 @@ mixin _$Post {
   DateTime get createdAt => throw _privateConstructorUsedError;
   @JsonKey(name: 'post_id')
   int get postId => throw _privateConstructorUsedError;
+  String? get content => throw _privateConstructorUsedError;
   @JsonKey(name: 'media')
   List<String?> get filesUrls => throw _privateConstructorUsedError;
   @JsonKey(name: 'poll_id', includeIfNull: false)
@@ -48,13 +47,12 @@ abstract class $PostCopyWith<$Res> {
   @useResult
   $Res call(
       {@JsonKey(name: 'owner_id') String ownerId,
-      String title,
-      String content,
       @JsonKey(name: 'post_type') PostType type,
       @JsonKey(name: 'created_at', includeToJson: false)
       @DateTimeJsonConverter()
       DateTime createdAt,
       @JsonKey(name: 'post_id') int postId,
+      String? content,
       @JsonKey(name: 'media') List<String?> filesUrls,
       @JsonKey(name: 'poll_id', includeIfNull: false) int? pollId});
 }
@@ -73,11 +71,10 @@ class _$PostCopyWithImpl<$Res, $Val extends Post>
   @override
   $Res call({
     Object? ownerId = null,
-    Object? title = null,
-    Object? content = null,
     Object? type = null,
     Object? createdAt = null,
     Object? postId = null,
+    Object? content = freezed,
     Object? filesUrls = null,
     Object? pollId = freezed,
   }) {
@@ -85,14 +82,6 @@ class _$PostCopyWithImpl<$Res, $Val extends Post>
       ownerId: null == ownerId
           ? _value.ownerId
           : ownerId // ignore: cast_nullable_to_non_nullable
-              as String,
-      title: null == title
-          ? _value.title
-          : title // ignore: cast_nullable_to_non_nullable
-              as String,
-      content: null == content
-          ? _value.content
-          : content // ignore: cast_nullable_to_non_nullable
               as String,
       type: null == type
           ? _value.type
@@ -106,6 +95,10 @@ class _$PostCopyWithImpl<$Res, $Val extends Post>
           ? _value.postId
           : postId // ignore: cast_nullable_to_non_nullable
               as int,
+      content: freezed == content
+          ? _value.content
+          : content // ignore: cast_nullable_to_non_nullable
+              as String?,
       filesUrls: null == filesUrls
           ? _value.filesUrls
           : filesUrls // ignore: cast_nullable_to_non_nullable
@@ -127,13 +120,12 @@ abstract class _$$PostImplCopyWith<$Res> implements $PostCopyWith<$Res> {
   @useResult
   $Res call(
       {@JsonKey(name: 'owner_id') String ownerId,
-      String title,
-      String content,
       @JsonKey(name: 'post_type') PostType type,
       @JsonKey(name: 'created_at', includeToJson: false)
       @DateTimeJsonConverter()
       DateTime createdAt,
       @JsonKey(name: 'post_id') int postId,
+      String? content,
       @JsonKey(name: 'media') List<String?> filesUrls,
       @JsonKey(name: 'poll_id', includeIfNull: false) int? pollId});
 }
@@ -149,11 +141,10 @@ class __$$PostImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? ownerId = null,
-    Object? title = null,
-    Object? content = null,
     Object? type = null,
     Object? createdAt = null,
     Object? postId = null,
+    Object? content = freezed,
     Object? filesUrls = null,
     Object? pollId = freezed,
   }) {
@@ -161,14 +152,6 @@ class __$$PostImplCopyWithImpl<$Res>
       ownerId: null == ownerId
           ? _value.ownerId
           : ownerId // ignore: cast_nullable_to_non_nullable
-              as String,
-      title: null == title
-          ? _value.title
-          : title // ignore: cast_nullable_to_non_nullable
-              as String,
-      content: null == content
-          ? _value.content
-          : content // ignore: cast_nullable_to_non_nullable
               as String,
       type: null == type
           ? _value.type
@@ -182,6 +165,10 @@ class __$$PostImplCopyWithImpl<$Res>
           ? _value.postId
           : postId // ignore: cast_nullable_to_non_nullable
               as int,
+      content: freezed == content
+          ? _value.content
+          : content // ignore: cast_nullable_to_non_nullable
+              as String?,
       filesUrls: null == filesUrls
           ? _value._filesUrls
           : filesUrls // ignore: cast_nullable_to_non_nullable
@@ -199,13 +186,12 @@ class __$$PostImplCopyWithImpl<$Res>
 class _$PostImpl implements _Post {
   const _$PostImpl(
       {@JsonKey(name: 'owner_id') required this.ownerId,
-      required this.title,
-      required this.content,
       @JsonKey(name: 'post_type') required this.type,
       @JsonKey(name: 'created_at', includeToJson: false)
       @DateTimeJsonConverter()
       required this.createdAt,
       @JsonKey(name: 'post_id') required this.postId,
+      this.content,
       @JsonKey(name: 'media') final List<String?> filesUrls = const [],
       @JsonKey(name: 'poll_id', includeIfNull: false) this.pollId})
       : _filesUrls = filesUrls;
@@ -217,10 +203,6 @@ class _$PostImpl implements _Post {
   @JsonKey(name: 'owner_id')
   final String ownerId;
   @override
-  final String title;
-  @override
-  final String content;
-  @override
   @JsonKey(name: 'post_type')
   final PostType type;
   @override
@@ -230,6 +212,8 @@ class _$PostImpl implements _Post {
   @override
   @JsonKey(name: 'post_id')
   final int postId;
+  @override
+  final String? content;
   final List<String?> _filesUrls;
   @override
   @JsonKey(name: 'media')
@@ -245,7 +229,7 @@ class _$PostImpl implements _Post {
 
   @override
   String toString() {
-    return 'Post(ownerId: $ownerId, title: $title, content: $content, type: $type, createdAt: $createdAt, postId: $postId, filesUrls: $filesUrls, pollId: $pollId)';
+    return 'Post(ownerId: $ownerId, type: $type, createdAt: $createdAt, postId: $postId, content: $content, filesUrls: $filesUrls, pollId: $pollId)';
   }
 
   @override
@@ -254,12 +238,11 @@ class _$PostImpl implements _Post {
         (other.runtimeType == runtimeType &&
             other is _$PostImpl &&
             (identical(other.ownerId, ownerId) || other.ownerId == ownerId) &&
-            (identical(other.title, title) || other.title == title) &&
-            (identical(other.content, content) || other.content == content) &&
             (identical(other.type, type) || other.type == type) &&
             (identical(other.createdAt, createdAt) ||
                 other.createdAt == createdAt) &&
             (identical(other.postId, postId) || other.postId == postId) &&
+            (identical(other.content, content) || other.content == content) &&
             const DeepCollectionEquality()
                 .equals(other._filesUrls, _filesUrls) &&
             (identical(other.pollId, pollId) || other.pollId == pollId));
@@ -267,16 +250,8 @@ class _$PostImpl implements _Post {
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      ownerId,
-      title,
-      content,
-      type,
-      createdAt,
-      postId,
-      const DeepCollectionEquality().hash(_filesUrls),
-      pollId);
+  int get hashCode => Object.hash(runtimeType, ownerId, type, createdAt, postId,
+      content, const DeepCollectionEquality().hash(_filesUrls), pollId);
 
   @JsonKey(ignore: true)
   @override
@@ -295,13 +270,12 @@ class _$PostImpl implements _Post {
 abstract class _Post implements Post {
   const factory _Post(
           {@JsonKey(name: 'owner_id') required final String ownerId,
-          required final String title,
-          required final String content,
           @JsonKey(name: 'post_type') required final PostType type,
           @JsonKey(name: 'created_at', includeToJson: false)
           @DateTimeJsonConverter()
           required final DateTime createdAt,
           @JsonKey(name: 'post_id') required final int postId,
+          final String? content,
           @JsonKey(name: 'media') final List<String?> filesUrls,
           @JsonKey(name: 'poll_id', includeIfNull: false) final int? pollId}) =
       _$PostImpl;
@@ -312,10 +286,6 @@ abstract class _Post implements Post {
   @JsonKey(name: 'owner_id')
   String get ownerId;
   @override
-  String get title;
-  @override
-  String get content;
-  @override
   @JsonKey(name: 'post_type')
   PostType get type;
   @override
@@ -325,6 +295,8 @@ abstract class _Post implements Post {
   @override
   @JsonKey(name: 'post_id')
   int get postId;
+  @override
+  String? get content;
   @override
   @JsonKey(name: 'media')
   List<String?> get filesUrls;

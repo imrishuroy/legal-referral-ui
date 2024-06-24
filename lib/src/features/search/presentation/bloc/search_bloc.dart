@@ -102,6 +102,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
   ) {
     final searchUsersHistories = SharedPrefs.getUserSearchHistories();
     final searchQueryHistories = SharedPrefs.getSearchQueryHistories();
+
     emit(
       state.copyWith(
         searchUsersHistories: searchUsersHistories,
@@ -110,10 +111,12 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
     );
   }
 
-  void _onSearchHistoryCleared(
+  Future<void> _onSearchHistoryCleared(
     SearchHistoryCleared event,
     Emitter<SearchState> emit,
-  ) {
+  ) async {
+    await SharedPrefs.clearUserSearchHistoty();
+
     emit(
       state.copyWith(
         searchUsersHistories: [],

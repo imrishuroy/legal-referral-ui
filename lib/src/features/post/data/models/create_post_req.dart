@@ -5,7 +5,6 @@ import 'package:legal_referral_ui/src/features/post/domain/domain.dart';
 class CreatePostReq {
   CreatePostReq({
     required this.ownerId,
-    required this.title,
     required this.content,
     required this.type,
     required this.files,
@@ -14,7 +13,6 @@ class CreatePostReq {
   });
 
   final String ownerId;
-  final String title;
   final String content;
   final PostType type;
   final List<File> files;

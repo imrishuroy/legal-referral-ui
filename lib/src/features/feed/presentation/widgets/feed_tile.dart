@@ -1,28 +1,42 @@
+import 'package:appinio_social_share/appinio_social_share.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:legal_referral_ui/src/core/common_widgets/widgets.dart';
 import 'package:legal_referral_ui/src/core/constants/colors.dart';
 import 'package:legal_referral_ui/src/core/constants/icon_string_constants.dart';
 import 'package:legal_referral_ui/src/core/utils/utils.dart';
 import 'package:legal_referral_ui/src/features/feed/domain/domain.dart';
 import 'package:legal_referral_ui/src/features/feed/presentation/presentation.dart';
+import 'package:legal_referral_ui/src/features/post/domain/domain.dart';
+import 'package:legal_referral_ui/src/features/post/presentation/presentation.dart';
+import 'package:legal_referral_ui/src/features/profile/presentation/presentation.dart';
 
 class FeedTile extends StatelessWidget {
   const FeedTile({
     required this.feed,
+    required this.onLikePressed,
+    required this.onCommentPressed,
+    required this.onDiscussPressed,
+    required this.onSharePressed,
+    required this.isLiked,
+    required this.likesCount,
+    required this.commentsCount,
+    this.imageHeight = 400,
     super.key,
-    this.onLikePressed,
-    this.onCommentPressed,
-    this.onDiscussPressed,
-    this.onSharePressed,
   });
 
   final Feed? feed;
-  final VoidCallback? onLikePressed;
-  final VoidCallback? onCommentPressed;
-  final VoidCallback? onDiscussPressed;
-  final VoidCallback? onSharePressed;
+  final VoidCallback onLikePressed;
+  final VoidCallback onCommentPressed;
+  final VoidCallback onDiscussPressed;
+  final VoidCallback onSharePressed;
+  final double imageHeight;
+  final bool isLiked;
+  final int likesCount;
+  final int commentsCount;
 
   @override
   Widget build(BuildContext context) {
@@ -35,20 +49,23 @@ class FeedTile extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          SizedBox(
-            height: 16.h,
-          ),
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16.w),
+            padding: EdgeInsets.symmetric(
+              horizontal: 16.w,
+              vertical: 12.h,
+            ),
             child: Row(
               children: [
-                Container(
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    border: Border.all(
-                      color: LegalReferralColors.borderGrey300,
-                    ),
-                  ),
+                GestureDetector(
+                  onTap: () {
+                    final userId = user?.userId;
+                    if (userId != null) {
+                      context.pushNamed(
+                        ProfilePage.name,
+                        pathParameters: {'userId': userId},
+                      );
+                    }
+                  },
                   child: CustomAvatar(
                     imageUrl: user?.avatarUrl,
                     radius: 28.r,
@@ -102,19 +119,40 @@ class FeedTile extends StatelessWidget {
                     ],
                   ),
                 ),
-                SvgPicture.asset(IconStringConstants.threeDots),
+                // Post details options
+                SvgButton(
+                  height: 24.w,
+                  width: 24.h,
+                  imagePath: IconStringConstants.threeDots,
+                  onPressed: () => _showOptionSheet(context),
+                ),
               ],
             ),
           ),
-          const SizedBox(height: 10),
-          ExpandableText(
-            padding: EdgeInsets.symmetric(horizontal: 16.w),
-            text: post?.title ?? '',
-          ),
-          ImagePost(
-            postContent: post?.title ?? '',
-            imageUrls: post?.filesUrls ?? [],
-          ),
+          if (post?.content != null && post!.content!.isNotEmpty)
+            ExpandableText(
+              padding: EdgeInsets.symmetric(
+                horizontal: 16.w,
+                vertical: 8.h,
+              ),
+              text: post.content ?? '',
+            ),
+          if (post?.type == PostType.link && post?.content != null)
+            Padding(
+              padding: EdgeInsets.symmetric(
+                vertical: 20.h,
+              ),
+              child: LinkPreviewWidget(
+                text: post!.content!,
+              ),
+            )
+          else
+            MediaPost(
+              imageHeight: imageHeight,
+              postType: post?.type ?? PostType.image,
+              mediaUrls: post?.filesUrls ?? [],
+              fileName: post?.content,
+            ),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 16.w),
             child: Row(
@@ -130,7 +168,7 @@ class FeedTile extends StatelessWidget {
                       width: 4.w,
                     ),
                     Text(
-                      '21 Likes',
+                      '$likesCount ${likesCount == 1 ? 'Like' : 'Likes'}',
                       style: Theme.of(context).textTheme.bodyMedium,
                     ),
                   ],
@@ -147,7 +185,8 @@ class FeedTile extends StatelessWidget {
                       width: 4.w,
                     ),
                     Text(
-                      'Comments',
+                      '$commentsCount '
+                      '${commentsCount == 1 ? 'Comment' : 'Comments'}',
                       style: Theme.of(context).textTheme.bodyMedium,
                     ),
                   ],
@@ -171,40 +210,14 @@ class FeedTile extends StatelessWidget {
                 icon: IconStringConstants.thumbUp,
                 text: 'Like',
                 textColor: LegalReferralColors.textGrey117,
-                onTap: () {},
+                onTap: onLikePressed,
+                iconColor: isLiked ? LegalReferralColors.textBlue100 : null,
               ),
               VerticalIconButton(
                 icon: IconStringConstants.comment,
                 text: 'Comment',
                 textColor: LegalReferralColors.textGrey117,
-                onTap: () {
-                  // // implement a callback for comments
-                  // if (ModalRoute.of(context)?.settings.name !=
-                  //     PostCommentPage.routeName) {
-                  //   Navigator.of(context).push(
-                  //     MaterialPageRoute(
-                  //       builder: (context) => PostCommentPage(
-                  //         attorneyName: attorneyName,
-                  //         attorneyType: attorneyType,
-                  //         postedTime: postedTime,
-                  //         child: child,
-                  //       ),
-                  //       settings: const RouteSettings(
-                  //           name: PostCommentPage.routeName,),
-                  //     ),
-                  //   );
-                  // }
-                  // Navigator.of(context).push(
-                  //   MaterialPageRoute(
-                  //     builder: (context) => PostCommentPage(
-                  //       attorneyName: attorneyName,
-                  //       attorneyType: attorneyType,
-                  //       postedTime: postedTime,
-                  //       child: child,
-                  //     ),
-                  //   ),
-                  // );
-                },
+                onTap: onCommentPressed,
               ),
               VerticalIconButton(
                 icon: IconStringConstants.discuss,
@@ -227,4 +240,153 @@ class FeedTile extends StatelessWidget {
       ),
     );
   }
+}
+
+void _showOptionSheet(BuildContext context) {
+  CustomBottomSheet.show(
+    isDismissible: true,
+    borderRadius: true,
+    maxWidth: double.infinity,
+    context: context,
+    child: Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        ListTile(
+          onTap: () {},
+          leading: SvgPicture.asset(IconStringConstants.download),
+          title: Text(
+            'Save',
+            style: Theme.of(context)
+                .textTheme
+                .bodyLarge
+                ?.copyWith(color: LegalReferralColors.textGrey500),
+          ),
+        ),
+        const Divider(),
+        ListTile(
+          onTap: () {},
+          leading: SvgPicture.asset(IconStringConstants.message),
+          title: Text(
+            'Message',
+            style: Theme.of(context)
+                .textTheme
+                .bodyLarge
+                ?.copyWith(color: LegalReferralColors.textGrey500),
+          ),
+        ),
+        const Divider(),
+        ListTile(
+          onTap: () {},
+          leading: SvgPicture.asset(IconStringConstants.addFollow),
+          title: Text(
+            'Follow',
+            style: Theme.of(context)
+                .textTheme
+                .bodyLarge
+                ?.copyWith(color: LegalReferralColors.textGrey500),
+          ),
+        ),
+        const Divider(),
+        ListTile(
+          onTap: () async {
+            final appinioSocialShare = AppinioSocialShare();
+
+            final result = await FilePicker.platform.pickFiles();
+
+            if (result != null && result.paths.isNotEmpty) {
+              await appinioSocialShare.android
+                  .shareFilesToSMS(result.paths.nonNulls.toList());
+            }
+          },
+          leading: SvgPicture.asset(
+            IconStringConstants.share,
+            colorFilter: const ColorFilter.mode(
+              LegalReferralColors.borderBlue100,
+              BlendMode.srcIn,
+            ),
+          ),
+          title: Text(
+            'Share via',
+            style: Theme.of(context)
+                .textTheme
+                .bodyLarge
+                ?.copyWith(color: LegalReferralColors.textGrey500),
+          ),
+        ),
+        const Divider(),
+        ListTile(
+          onTap: () {},
+          leading: SvgPicture.asset(IconStringConstants.restrict),
+          title: Text(
+            '''I don't want to see this''',
+            style: Theme.of(context)
+                .textTheme
+                .bodyLarge
+                ?.copyWith(color: LegalReferralColors.textGrey500),
+          ),
+        ),
+        const Divider(),
+        ListTile(
+          onTap: () {},
+          leading: SvgPicture.asset(IconStringConstants.flag),
+          title: Text(
+            'Report post',
+            style: Theme.of(context)
+                .textTheme
+                .bodyLarge
+                ?.copyWith(color: LegalReferralColors.textGrey500),
+          ),
+        ),
+        const Divider(),
+        ListTile(
+          onTap: () {},
+          leading: SvgPicture.asset(
+            IconStringConstants.editIcon,
+            colorFilter: const ColorFilter.mode(
+              LegalReferralColors.borderBlue100,
+              BlendMode.srcIn,
+            ),
+          ),
+          title: Text(
+            'Edit',
+            style: Theme.of(context)
+                .textTheme
+                .bodyLarge
+                ?.copyWith(color: LegalReferralColors.textGrey500),
+          ),
+        ),
+        const Divider(),
+        ListTile(
+          onTap: () {},
+          leading: SvgPicture.asset(IconStringConstants.favorite),
+          title: Text(
+            'Make feature post',
+            style: Theme.of(context)
+                .textTheme
+                .bodyLarge
+                ?.copyWith(color: LegalReferralColors.textGrey500),
+          ),
+        ),
+        const Divider(),
+        ListTile(
+          onTap: () {},
+          leading: SvgPicture.asset(
+            IconStringConstants.deleteIcon,
+            colorFilter: const ColorFilter.mode(
+              LegalReferralColors.borderBlue100,
+              BlendMode.srcIn,
+            ),
+          ),
+          title: Text(
+            'Delete',
+            style: Theme.of(context)
+                .textTheme
+                .bodyLarge
+                ?.copyWith(color: LegalReferralColors.textGrey500),
+          ),
+        ),
+        const Divider(),
+      ],
+    ),
+  );
 }

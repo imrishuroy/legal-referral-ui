@@ -122,7 +122,7 @@ class _CreateDiscussionPageState extends State<CreateDiscussionPage> {
                       SvgButton(
                         imagePath: IconStringConstants.picture,
                         onPressed: () {
-                          _postBloc.add(FileAdded());
+                          // _postBloc.add(FilePicked());
                         },
                         height: 24.h,
                         width: 24.w,

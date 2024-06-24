@@ -14,6 +14,9 @@ class Feed with _$Feed {
     @DateTimeJsonConverter()
     @JsonKey(name: 'created_at')
     required DateTime createdAt,
+    @JsonKey(name: 'is_liked') @Default(false) bool isLiked,
+    @Default(0) @JsonKey(name: 'likes_count') int likesCount,
+    @Default(0) @JsonKey(name: 'comments_count') int commentsCount,
     @JsonKey(name: 'post') Post? post,
   }) = _Feed;
 

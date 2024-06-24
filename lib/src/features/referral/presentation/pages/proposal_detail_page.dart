@@ -198,6 +198,7 @@ class _ProposalDetailsPageState extends State<ProposalDetailsPage> {
                         ),
                         if (state.isProposalEditing)
                           CustomTextField(
+                            keyboardType: TextInputType.multiline,
                             controller: _proposalController,
                             hintText: 'Write your proposal here',
                             minLines: 4,
@@ -276,6 +277,11 @@ class _ProposalDetailsPageState extends State<ProposalDetailsPage> {
     if (currentUserId == null || referrerUserId == null) {
       return;
     }
-    context.pushNamed(ChatMessagesPage.name, extra: referrerUserId);
+    context.pushNamed(
+      ChatMessagesPage.name,
+      pathParameters: {
+        'recipientId': referrerUserId,
+      },
+    );
   }
 }

@@ -167,4 +167,29 @@ class NetworkRepositoryImpl extends NetworkRepository {
       );
     }
   }
+
+  @override
+  Future<Either<Failure, UserConnectionStatus>> checkConnection({
+    required String userId,
+    required String otherUserId,
+  }) async {
+    try {
+      final responseMsg = await _networkDataSource.checkConnection(
+        userId: userId,
+        otherUserId: otherUserId,
+      );
+
+      return Right(
+        responseMsg,
+      );
+    } on DioException catch (error) {
+      final dioError = DioExceptions.fromDioError(error);
+      return Left(
+        Failure(
+          statusCode: dioError.statusCode,
+          message: dioError.message,
+        ),
+      );
+    }
+  }
 }

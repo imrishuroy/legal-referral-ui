@@ -101,6 +101,7 @@ class _CreateReferralPageState extends State<CreateReferralPage> {
                           height: 16.h,
                         ),
                         CustomTextField(
+                          keyboardType: TextInputType.multiline,
                           controller: _caseDescriptionController,
                           hintText: 'Case Description',
                           labelText: 'Enter case details',
@@ -150,6 +151,8 @@ class _CreateReferralPageState extends State<CreateReferralPage> {
   }) {
     if (_formKey.currentState!.validate()) {
       CustomBottomSheet.show(
+        borderRadius: true,
+        maxWidth: double.infinity,
         context: context,
         child: SizedBox(
           height: 624.h,

@@ -1,4 +1,5 @@
 export 'activity_section.dart';
+export 'connection_buttons.dart';
 export 'custom_card.dart';
 export 'education_section.dart';
 export 'education_tile.dart';

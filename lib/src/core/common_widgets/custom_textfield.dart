@@ -20,6 +20,7 @@ class CustomTextField extends StatelessWidget {
     this.maxLines = 1,
     this.enabled = true,
     this.showLabel = true,
+    this.autofocus = false,
     this.style,
   });
 
@@ -38,6 +39,7 @@ class CustomTextField extends StatelessWidget {
   final int? maxLines;
   final bool enabled;
   final bool showLabel;
+  final bool autofocus;
   final TextStyle? style;
   @override
   Widget build(BuildContext context) {
@@ -61,6 +63,7 @@ class CustomTextField extends StatelessWidget {
             minLines: minLines,
             enabled: enabled,
             onChanged: onChanged,
+            autofocus: autofocus,
             onFieldSubmitted: onSubmitted,
             style: style ?? Theme.of(context).textTheme.bodyLarge,
             decoration: InputDecoration(

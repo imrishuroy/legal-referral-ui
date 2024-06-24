@@ -56,6 +56,7 @@ Map<String, dynamic> _$$AppUserImplToJson(_$AppUserImpl instance) {
   val['address'] = instance.address;
   writeNotNull('avatar_url', instance.avatarUrl);
   writeNotNull('banner_url', instance.bannerUrl);
+  writeNotNull('user_id', instance.userId);
   writeNotNull('practice_area', instance.practiceArea);
   writeNotNull('practice_location', instance.practiceLocation);
   writeNotNull('case_resolution_rate', instance.caseResolutionRate);

@@ -99,7 +99,10 @@ class _UserConnectionsPageState extends State<UserConnectionsPage> {
 
                           context.pushNamed(
                             ChatMessagesPage.name,
-                            extra: userId != senderId ? senderId : recipientId,
+                            pathParameters: {
+                              'recipientId':
+                                  userId != senderId ? senderId : recipientId,
+                            },
                           );
                         },
                       );

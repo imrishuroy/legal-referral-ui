@@ -199,7 +199,7 @@ class _UploadLicensePageState extends State<UploadLicensePage> {
   Future _pickMedia(BuildContext context) async {
     final mediaLocation = await ImageUtil.showMediaOptionSheet(context);
     if (mediaLocation == MediaLocation.gallery) {
-      final pickedFile = await FilePickerUtil.pickFile(
+      final pickedFile = await FilePickerUtil.pickFiles(
         allowedExtensions: [
           FileExtension.pdf,
           FileExtension.jpg,

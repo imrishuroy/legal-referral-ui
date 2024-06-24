@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:legal_referral_ui/src/core/common_widgets/widgets.dart';
 import 'package:legal_referral_ui/src/core/config/config.dart';
 import 'package:legal_referral_ui/src/core/constants/constants.dart';
+import 'package:legal_referral_ui/src/features/profile/presentation/presentation.dart';
 import 'package:legal_referral_ui/src/features/search/domain/domain.dart';
 import 'package:legal_referral_ui/src/features/search/presentation/bloc/search_bloc.dart';
 import 'package:legal_referral_ui/src/features/search/presentation/presentation.dart';
@@ -15,8 +17,8 @@ const List<PopularSearch> _popularSearches = [
   PopularSearch(query: 'Corporate Attorney', count: 60, location: 'Texas'),
 ];
 
-class RecentWidget extends StatefulWidget {
-  const RecentWidget({
+class RecentSearchWidget extends StatefulWidget {
+  const RecentSearchWidget({
     required this.searchBloc,
     super.key,
   });
@@ -24,10 +26,10 @@ class RecentWidget extends StatefulWidget {
   final SearchBloc searchBloc;
 
   @override
-  State<RecentWidget> createState() => _RecentWidgetState();
+  State<RecentSearchWidget> createState() => _RecentSearchWidgetState();
 }
 
-class _RecentWidgetState extends State<RecentWidget> {
+class _RecentSearchWidgetState extends State<RecentSearchWidget> {
   @override
   void initState() {
     widget.searchBloc.add(SearchHistoryFetched());
@@ -86,19 +88,21 @@ class _RecentWidgetState extends State<RecentWidget> {
                         return SizedBox(
                           width: 60.w,
                           child: VerticalTile(
-                            onPressed: () {},
-                            leading: Container(
-                              decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                border: Border.all(
-                                  color: LegalReferralColors.borderGrey300,
-                                  width: 1.w,
-                                ),
-                              ),
-                              child: CustomAvatar(
-                                imageUrl: user?.avatarUrl,
-                                radius: 28.r,
-                              ),
+                            onPressed: () {
+                              final userId = user?.userId;
+                              debugPrint('userId: $userId');
+                              if (userId != null) {
+                                context.pushNamed(
+                                  ProfilePage.name,
+                                  pathParameters: {
+                                    'userId': userId,
+                                  },
+                                );
+                              }
+                            },
+                            leading: CustomAvatar(
+                              imageUrl: user?.avatarUrl,
+                              radius: 28.r,
                             ),
                             trailing: Column(
                               children: [

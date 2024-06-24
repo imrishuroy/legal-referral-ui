@@ -38,6 +38,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<AuthUserRequested>(_onAuthUserRequested);
     on<PasswordChanged>(_onPassworChanged);
     on<AuthSignOutRequested>(_onAuthSignOutRequested);
+    on<UserUpdated>(_onUserUpdated);
   }
 
   final FirebaseAuth _firebaseAuth;
@@ -1006,6 +1007,17 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           ),
         );
       },
+    );
+  }
+
+  Future<void> _onUserUpdated(
+    UserUpdated event,
+    Emitter<AuthState> emit,
+  ) async {
+    emit(
+      state.copyWith(
+        user: event.user,
+      ),
     );
   }
 
