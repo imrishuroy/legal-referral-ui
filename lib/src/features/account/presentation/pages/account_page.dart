@@ -8,10 +8,10 @@ import 'package:legal_referral_ui/src/core/config/config.dart';
 import 'package:legal_referral_ui/src/core/constants/constants.dart';
 import 'package:legal_referral_ui/src/features/account/presentation/pages/my_law_firm_page.dart';
 import 'package:legal_referral_ui/src/features/account/presentation/pages/notification_page.dart';
-import 'package:legal_referral_ui/src/features/account/presentation/pages/post_ad_page.dart';
 import 'package:legal_referral_ui/src/features/account/presentation/pages/saved_post_page.dart';
 import 'package:legal_referral_ui/src/features/account/presentation/pages/signin_security_page.dart';
 import 'package:legal_referral_ui/src/features/account/presentation/pages/support_help_page.dart';
+import 'package:legal_referral_ui/src/features/advertisement/presentation/pages/ad_status_page.dart';
 
 class AccountPage extends StatelessWidget {
   AccountPage({super.key});
@@ -129,7 +129,7 @@ class AccountPage extends StatelessWidget {
                           context,
                           MaterialPageRoute(
                             builder: (context) =>
-                                PostAdPage(title: title[index]),
+                                AdStatusPage(title: title[index]),
                           ),
                         );
                         break;
