@@ -9,12 +9,13 @@ class ExpandableText extends StatefulWidget {
     super.key,
     this.style,
     this.padding,
+    this.maxLines=2,
   });
 
   final String text;
   final TextStyle? style;
   final EdgeInsetsGeometry? padding;
-
+  final int maxLines;
   @override
   State<ExpandableText> createState() => _ExpandableTextState();
 }
@@ -28,7 +29,7 @@ class _ExpandableTextState extends State<ExpandableText> {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (mounted) {
-       _checkOverflow();
+        _checkOverflow();
       }
     });
   }
@@ -36,7 +37,7 @@ class _ExpandableTextState extends State<ExpandableText> {
   void _checkOverflow() {
     final textPainter = TextPainter(
       text: TextSpan(text: widget.text, style: widget.style),
-      maxLines: 2,
+      maxLines: widget.maxLines,
       textDirection: TextDirection.ltr,
     );
 
@@ -69,7 +70,7 @@ class _ExpandableTextState extends State<ExpandableText> {
             duration: const Duration(milliseconds: 500),
             curve: Curves.ease,
             child: Linkify(
-              maxLines: _expanded ? null : 2,
+              maxLines: _expanded ? null : widget.maxLines,
               onOpen: (linkElement) async {
                 await UrlUtil.launchURL(linkElement.url);
               },
