@@ -34,6 +34,7 @@ class CustomDropDown extends StatelessWidget {
         SizedBox(height: 8.h),
         DropdownButtonFormField2<String>(
           decoration: InputDecoration(
+            contentPadding: EdgeInsets.only(right: 4.w),
             filled: true,
             fillColor: LegalReferralColors.containerWhite500,
             errorStyle: const TextStyle(color: LegalReferralColors.error),
@@ -101,6 +102,7 @@ class CustomDropDown extends StatelessWidget {
           dropdownStyleData: DropdownStyleData(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(4.r),
+              color: LegalReferralColors.backgroundWhite255,
             ),
             maxHeight: 250,
             padding: EdgeInsets.symmetric(
@@ -108,8 +110,9 @@ class CustomDropDown extends StatelessWidget {
               vertical: 8.h,
             ),
           ),
-          menuItemStyleData: const MenuItemStyleData(
-            padding: EdgeInsets.zero,
+          menuItemStyleData: MenuItemStyleData(
+            // padding: EdgeInsets.zero,
+            padding: EdgeInsets.only(left:12.w),
           ),
         ),
       ],
