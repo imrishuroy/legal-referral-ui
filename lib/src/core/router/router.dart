@@ -11,6 +11,7 @@ import 'package:legal_referral_ui/src/features/profile/presentation/presentation
 import 'package:legal_referral_ui/src/features/referral/domain/domain.dart';
 import 'package:legal_referral_ui/src/features/referral/presentation/presentation.dart';
 import 'package:legal_referral_ui/src/features/search/presentation/presentation.dart';
+import 'package:legal_referral_ui/src/features/swipe_card/swipe_card.dart';
 import 'package:legal_referral_ui/src/features/wizard/presentation/presentation.dart';
 
 final _rootNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'parent');
@@ -29,7 +30,7 @@ class AppRouter {
         name: SplashPage.name,
         parentNavigatorKey: _rootNavigatorKey,
         pageBuilder: (context, state) => CustomTransitionPage(
-          child: const SplashPage
+          child:  SwipeCard
           (),
           transitionDuration: const Duration(
             seconds: _routeAnimationDuration,

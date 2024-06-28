@@ -51,6 +51,7 @@ ios/Runner/GoogleService-Info.plist
 lib/firebase_options.dart
 assets/legal-referral-debug.jks
 ios/firebase_app_id_file.json
-android/app/src/main/res/values/strings.xml
+
 pubspec.lock
 extras.txt
+android/app/src/main/res/values/string.xml
