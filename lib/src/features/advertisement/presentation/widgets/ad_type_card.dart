@@ -6,9 +6,14 @@ import 'package:legal_referral_ui/src/core/constants/colors.dart';
 
 class AdTypeCard extends StatelessWidget {
   const AdTypeCard({
+    required this.onPressed,
+    required this.adTitle,
+    required this.isSelected,
     super.key,
   });
-
+  final VoidCallback onPressed;
+  final String adTitle;
+  final bool isSelected;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -17,7 +22,10 @@ class AdTypeCard extends StatelessWidget {
       decoration: BoxDecoration(
         color: LegalReferralColors.containerWhite500,
         borderRadius: BorderRadius.circular(4.r),
-        border: Border.all(width: 2, color: Colors.blue),
+        border: Border.all(
+          width: 2,
+          color: isSelected ? Colors.blue : Colors.transparent,
+        ),
         boxShadow: const [
           BoxShadow(
             color: Colors.grey,
@@ -34,11 +42,11 @@ class AdTypeCard extends StatelessWidget {
             height: 177,
             width: 188,
             imagePath: 'assets/images/Frame.svg',
-            onPressed: () {},
+            onPressed: onPressed,
           ),
           const Gap(height: 8),
           Text(
-            'Advertise with image',
+            adTitle,
             style: Theme.of(context).textTheme.bodyLarge,
           ),
         ],
