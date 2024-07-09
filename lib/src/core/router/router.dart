@@ -3,7 +3,8 @@ import 'package:go_router/go_router.dart';
 import 'package:legal_referral_ui/src/core/common_widgets/widgets.dart';
 import 'package:legal_referral_ui/src/features/auth/presentation/presentation.dart';
 import 'package:legal_referral_ui/src/features/chat/presentation/presentation.dart';
-import 'package:legal_referral_ui/src/features/discuss/presentation/presentation.dart';
+import 'package:legal_referral_ui/src/features/discussion/domain/domain.dart';
+import 'package:legal_referral_ui/src/features/discussion/presentation/presentation.dart';
 import 'package:legal_referral_ui/src/features/feed/presentation/presentation.dart';
 import 'package:legal_referral_ui/src/features/network/presentation/presentation.dart';
 import 'package:legal_referral_ui/src/features/post/presentation/presentation.dart';
@@ -29,8 +30,7 @@ class AppRouter {
         name: SplashPage.name,
         parentNavigatorKey: _rootNavigatorKey,
         pageBuilder: (context, state) => CustomTransitionPage(
-          child: const SplashPage
-          (),
+          child: const SplashPage(),
           transitionDuration: const Duration(
             seconds: _routeAnimationDuration,
           ),
@@ -658,6 +658,50 @@ class AppRouter {
         parentNavigatorKey: _rootNavigatorKey,
         pageBuilder: (context, state) => CustomTransitionPage(
           child: const CreatePostPage(),
+          transitionDuration: const Duration(
+            milliseconds: _routeTransitionDuration,
+          ),
+          transitionsBuilder: (_, a, __, c) =>
+              FadeTransition(opacity: a, child: c),
+        ),
+      ),
+      GoRoute(
+        path: '/discussion',
+        name: CreateDiscussionPage.name,
+        parentNavigatorKey: _rootNavigatorKey,
+        pageBuilder: (context, state) => CustomTransitionPage(
+          child: const CreateDiscussionPage(),
+          transitionDuration: const Duration(
+            milliseconds: _routeTransitionDuration,
+          ),
+          transitionsBuilder: (_, a, __, c) =>
+              FadeTransition(opacity: a, child: c),
+        ),
+      ),
+      GoRoute(
+        path: '/discussion/:discussionId/messages',
+        name: DiscussionChatsPage.name,
+        parentNavigatorKey: _rootNavigatorKey,
+        pageBuilder: (context, state) => CustomTransitionPage(
+          child: DiscussionChatsPage(
+            discussion: state.extra as Discussion,
+          ),
+          transitionDuration: const Duration(
+            milliseconds: _routeTransitionDuration,
+          ),
+          transitionsBuilder: (_, a, __, c) =>
+              FadeTransition(opacity: a, child: c),
+        ),
+      ),
+
+      GoRoute(
+        path: '/discussion/details/:discussionId',
+        name: DiscussionDetailsPage.name,
+        parentNavigatorKey: _rootNavigatorKey,
+        pageBuilder: (context, state) => CustomTransitionPage(
+          child: DiscussionDetailsPage(
+            discussion: state.extra as Discussion,
+          ),
           transitionDuration: const Duration(
             milliseconds: _routeTransitionDuration,
           ),

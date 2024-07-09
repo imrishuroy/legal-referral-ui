@@ -6,6 +6,8 @@ import 'package:legal_referral_ui/src/features/auth/data/data.dart';
 import 'package:legal_referral_ui/src/features/auth/domain/domain.dart';
 import 'package:legal_referral_ui/src/features/chat/data/data.dart';
 import 'package:legal_referral_ui/src/features/chat/domain/domain.dart';
+import 'package:legal_referral_ui/src/features/discussion/data/data.dart';
+import 'package:legal_referral_ui/src/features/discussion/domain/domain.dart';
 import 'package:legal_referral_ui/src/features/feed/data/data.dart';
 import 'package:legal_referral_ui/src/features/feed/domain/domain.dart';
 import 'package:legal_referral_ui/src/features/network/data/data.dart';
@@ -466,5 +468,55 @@ abstract class APIClient {
   @DELETE('/comments/{commentId}/like')
   Future<void> unlikeComment(
     @Path('commentId') int commentId,
+  );
+
+  // discussion
+  @POST('/discussions')
+  Future<Discussion?> createDiscussion(
+    @Body() CreateDiscussionReq discussion,
+  );
+
+  @POST('/discussions/{discussionId}/invite')
+  Future<ResponseMsg?> inviteUserToDiscussion(
+    @Path('discussionId') String discussionId,
+    @Body() InviteUserToDiscussionReq inviteDiscussionReq,
+  );
+
+  @GET('/discussions/active/{userId}')
+  Future<List<Discussion?>> fetchActiveDiscussions(
+    @Path('userId') String userId,
+  );
+
+  @GET('/discussions/invites/{userId}')
+  Future<List<DiscussionInviteRes?>> fetchDiscussionInvites(
+    @Path('userId') String userId,
+  );
+
+  @POST('/discussions/{discussionId}/messages')
+  Future<DiscussionMessage?> sendMessageToDiscussion(
+    @Path('discussionId') int discussionId,
+    @Body() DiscussionMessage message,
+  );
+
+  @GET('/discussions/{discussionId}/messages')
+  Future<List<DiscussionMessage>> fetchDiscussionMessages(
+    @Path('discussionId') int discussionId,
+    @Query('limit') int limit,
+    @Query('offset') int offset,
+  );
+
+  @POST('/discussions/{discussionId}/join')
+  Future<ResponseMsg> joinDiscussion(
+    @Path('discussionId') int discussionId,
+  );
+
+  @POST('/discussions/{discussionId}/reject')
+  Future<ResponseMsg> rejectDiscussion(
+    @Path('discussionId') int discussionId,
+  );
+
+  @GET('/discussions/{discussionId}/participants')
+  Future<List<AppUser?>> fetchDiscussionParticipants(
+    @Path('discussionId') int discussionId,
   );
 }

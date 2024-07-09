@@ -50,6 +50,7 @@ class IconStringConstants {
   static const String picture = 'assets/icons/picture.svg';
   static const String cross2 = 'assets/icons/cross2.svg';
   static const String link = 'assets/icons/link.svg';
+  static const String subtract = 'assets/icons/subtract.svg';
   static const String video = 'assets/icons/video.svg';
   static const String document = 'assets/icons/document.svg';
   static const String favorite = 'assets/icons/favorite.svg';
