@@ -3,6 +3,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:legal_referral_ui/src/core/common_widgets/widgets.dart';
 import 'package:legal_referral_ui/src/core/constants/colors.dart';
 import 'package:legal_referral_ui/src/core/constants/icon_string_constants.dart';
@@ -11,6 +12,7 @@ import 'package:legal_referral_ui/src/features/feed/domain/domain.dart';
 import 'package:legal_referral_ui/src/features/feed/presentation/presentation.dart';
 import 'package:legal_referral_ui/src/features/post/domain/domain.dart';
 import 'package:legal_referral_ui/src/features/post/presentation/presentation.dart';
+import 'package:legal_referral_ui/src/features/profile/presentation/presentation.dart';
 
 class FeedTile extends StatelessWidget {
   const FeedTile({
@@ -54,13 +56,16 @@ class FeedTile extends StatelessWidget {
             ),
             child: Row(
               children: [
-                Container(
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    border: Border.all(
-                      color: LegalReferralColors.borderGrey300,
-                    ),
-                  ),
+                GestureDetector(
+                  onTap: () {
+                    final userId = user?.userId;
+                    if (userId != null) {
+                      context.pushNamed(
+                        ProfilePage.name,
+                        pathParameters: {'userId': userId},
+                      );
+                    }
+                  },
                   child: CustomAvatar(
                     imageUrl: user?.avatarUrl,
                     radius: 28.r,

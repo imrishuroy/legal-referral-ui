@@ -15,6 +15,15 @@ class DateTimeUtil {
     return outputDateFormat.format(date);
   }
 
+  static String getFormatTimeHHMM(DateTime? dateTime) {
+    if (dateTime == null) {
+      return '';
+    }
+    final date = convertUtcToLocal(dateTime);
+    final outputDateFormat = DateFormat('HH:mm');
+    return outputDateFormat.format(date);
+  }
+
   static DateTime getFormatedDateTime(String dateTimeString) {
     return DateTime.parse(dateTimeString);
   }
