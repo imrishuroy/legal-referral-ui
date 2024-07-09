@@ -2,13 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:legal_referral_ui/src/core/common_widgets/widgets.dart';
 import 'package:legal_referral_ui/src/core/constants/colors.dart';
+import 'package:legal_referral_ui/src/core/utils/utils.dart';
+import 'package:legal_referral_ui/src/features/discussion/domain/domain.dart';
 
-class DiscussionInvites extends StatelessWidget {
-  const DiscussionInvites({super.key});
+class DiscussionInviteTile extends StatelessWidget {
+  const DiscussionInviteTile({
+    required this.discussionInviteRes,
+    super.key,
+  });
+
+  final DiscussionInviteRes? discussionInviteRes;
 
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
+    final userName = '${discussionInviteRes?.user.firstName} '
+        '${discussionInviteRes?.user.lastName}';
     return Card(
       margin: EdgeInsets.symmetric(horizontal: 16.w),
       elevation: 2,
@@ -20,18 +29,16 @@ class DiscussionInvites extends StatelessWidget {
           children: [
             Row(
               children: [
-                CircleAvatar(
-                  radius: 12.r,
-                  backgroundImage: const NetworkImage(
-                    'https://via.placeholder.com/24',
-                  ),
+                CustomAvatar(
+                  imageUrl: discussionInviteRes?.user.avatarUrl,
+                  radius: 12,
                 ),
                 const SizedBox(width: 8),
                 RichText(
                   text: TextSpan(
                     children: [
                       TextSpan(
-                        text: 'David John ',
+                        text: userName,
                         style: textTheme.bodyLarge
                             ?.copyWith(fontWeight: FontWeight.w500),
                       ),
@@ -47,28 +54,33 @@ class DiscussionInvites extends StatelessWidget {
             ),
             SizedBox(height: 12.h),
             Text(
-              'Recent changes in legislation '
-              'or case law affecting your practise area.',
+              discussionInviteRes?.discussion.topic ?? '',
               style: textTheme.titleMedium,
             ),
             SizedBox(height: 8.h),
             Row(
               children: [
                 Text(
-                  '12/12/2013',
+                  discussionInviteRes?.discussionInvite.createdAt != null
+                      ? DateTimeUtil.getFormattedDate(
+                          discussionInviteRes!.discussionInvite.createdAt!,
+                        )
+                      : '',
                   style: textTheme.bodyLarge
                       ?.copyWith(color: LegalReferralColors.textGrey400),
                 ),
                 const SizedBox(width: 8),
                 Text(
-                  '• 16:24',
+                  '• ${DateTimeUtil.getFormatTimeHHMM(
+                    discussionInviteRes!.discussionInvite.createdAt,
+                  )}',
                   style: textTheme.bodyLarge
                       ?.copyWith(color: LegalReferralColors.textGrey400),
                 ),
               ],
             ),
             const Divider(
-              color: Color.fromRGBO(0, 0, 0, 0.1),
+              color: Color(0x17000000),
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.end,

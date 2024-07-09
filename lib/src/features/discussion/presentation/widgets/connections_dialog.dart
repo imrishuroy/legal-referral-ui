@@ -148,18 +148,18 @@ void shareToConnections(BuildContext context) {
   );
 }
 
-class _CircularCheckBox extends StatelessWidget {
-  const _CircularCheckBox();
+// class _CircularCheckBox extends StatelessWidget {
+//   const _CircularCheckBox();
 
-  @override
-  Widget build(BuildContext context) {
-    return CircleAvatar(
-      backgroundColor: LegalReferralColors.containerBlue79,
-      radius: 24.r,
-      child: const Icon(
-        Icons.done_rounded,
-        color: Colors.white,
-      ),
-    );
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     return CircleAvatar(
+//       backgroundColor: LegalReferralColors.containerBlue79,
+//       radius: 24.r,
+//       child: const Icon(
+//         Icons.done_rounded,
+//         color: Colors.white,
+//       ),
+//     );
+//   }
+// }

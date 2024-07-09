@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:legal_referral_ui/src/core/common_widgets/widgets.dart';
-import 'package:legal_referral_ui/src/features/discussion/presentation/pages/active_tab_page.dart';
-import 'package:legal_referral_ui/src/features/discussion/presentation/pages/invite_tab_page.dart';
+import 'package:legal_referral_ui/src/features/discussion/presentation/pages/active_discussions.dart';
+import 'package:legal_referral_ui/src/features/discussion/presentation/pages/discussions_invites.dart';
 
 class DiscussPage extends StatelessWidget {
   const DiscussPage({super.key});
@@ -14,8 +14,8 @@ class DiscussPage extends StatelessWidget {
         'Invites',
       ],
       tabViews: [
-        ActiveTab(),
-        InviteTab(),
+        ActiveDiscussions(),
+        DiscussionInvites(),
       ],
       initialIndex: 0,
     );
