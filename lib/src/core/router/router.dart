@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:legal_referral_ui/src/core/common_widgets/widgets.dart';
+import 'package:legal_referral_ui/src/features/account/presentation/pages/account_page.dart';
+import 'package:legal_referral_ui/src/features/advertisement/presentation/pages/payment_cycle_page.dart';
+import 'package:legal_referral_ui/src/features/advertisement/presentation/pages/preview_ad_page.dart';
+import 'package:legal_referral_ui/src/features/advertisement/presentation/presentation.dart';
 import 'package:legal_referral_ui/src/features/auth/presentation/presentation.dart';
 import 'package:legal_referral_ui/src/features/chat/presentation/presentation.dart';
 import 'package:legal_referral_ui/src/features/discussion/domain/domain.dart';
@@ -318,6 +322,19 @@ class AppRouter {
           child: ProfilePage(
             userId: state.pathParameters['userId']!,
           ),
+          transitionDuration: const Duration(
+            milliseconds: _routeTransitionDuration,
+          ),
+          transitionsBuilder: (_, a, __, c) =>
+              FadeTransition(opacity: a, child: c),
+        ),
+      ),
+      GoRoute(
+        path: '/account',
+        name: AccountPage.name,
+        parentNavigatorKey: _rootNavigatorKey,
+        pageBuilder: (context, state) => CustomTransitionPage(
+          child: const AccountPage(),
           transitionDuration: const Duration(
             milliseconds: _routeTransitionDuration,
           ),
@@ -678,6 +695,21 @@ class AppRouter {
               FadeTransition(opacity: a, child: c),
         ),
       ),
+
+      GoRoute(
+        path: '/discussion-invites',
+        name: DiscussionInvitesPage.name,
+        parentNavigatorKey: _rootNavigatorKey,
+        pageBuilder: (context, state) => CustomTransitionPage(
+          child: const DiscussionInvitesPage(),
+          transitionDuration: const Duration(
+            milliseconds: _routeTransitionDuration,
+          ),
+          transitionsBuilder: (_, a, __, c) =>
+              FadeTransition(opacity: a, child: c),
+        ),
+      ),
+
       GoRoute(
         path: '/discussion/:discussionId/messages',
         name: DiscussionChatsPage.name,
@@ -705,6 +737,47 @@ class AppRouter {
           transitionDuration: const Duration(
             milliseconds: _routeTransitionDuration,
           ),
+          transitionsBuilder: (_, a, __, c) =>
+              FadeTransition(opacity: a, child: c),
+        ),
+      ),
+
+      GoRoute(
+        path: '/create-ad',
+        name: CreateAdPage.name,
+        parentNavigatorKey: _rootNavigatorKey,
+        pageBuilder: (context, state) => CustomTransitionPage(
+          child: const CreateAdPage(),
+          transitionDuration:
+              const Duration(milliseconds: _routeTransitionDuration),
+          transitionsBuilder: (_, a, __, c) =>
+              FadeTransition(opacity: a, child: c),
+        ),
+      ),
+      GoRoute(
+        path: '/preview-ad',
+        name: PreviewAdPage.name,
+        parentNavigatorKey: _rootNavigatorKey,
+        pageBuilder: (context, state) => CustomTransitionPage(
+          child: const PreviewAdPage(
+            title: 'Preview',
+            description: 'This is ad preview',
+          ),
+          transitionDuration:
+              const Duration(milliseconds: _routeTransitionDuration),
+          transitionsBuilder: (_, a, __, c) =>
+              FadeTransition(opacity: a, child: c),
+        ),
+      ),
+
+      GoRoute(
+        path: '/payment-cycle',
+        name: PaymentCyclePage.name,
+        parentNavigatorKey: _rootNavigatorKey,
+        pageBuilder: (context, state) => CustomTransitionPage(
+          child: const PaymentCyclePage(),
+          transitionDuration:
+              const Duration(milliseconds: _routeTransitionDuration),
           transitionsBuilder: (_, a, __, c) =>
               FadeTransition(opacity: a, child: c),
         ),

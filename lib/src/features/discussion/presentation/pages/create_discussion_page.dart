@@ -231,6 +231,9 @@ class _CreateDiscussionPageState extends State<CreateDiscussionPage> {
                       child: DiscussionUserSelection(
                         audience: state.audience,
                         discussionBloc: _discussionBloc,
+                        onDone: () {
+                          context.pop();
+                        },
                       ),
                     ),
                   );

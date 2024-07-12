@@ -20,6 +20,11 @@ abstract class DiscussionRepository {
     required CreateDiscussionReq createDiscussionReq,
   });
 
+  Future<Either<Failure, ResponseMsg?>> updateDiscussionTopic({
+    required int discussionId,
+    required UpdateDiscussionTopicReq updateDiscussionTopicReq,
+  });
+
   Future<Either<Failure, List<DiscussionInviteRes?>>> fetchDiscussionInvites({
     required String userId,
   });
@@ -47,6 +52,10 @@ abstract class DiscussionRepository {
   });
 
   Future<Either<Failure, List<AppUser?>>> fetchDiscussionParticipants({
+    required int discussionId,
+  });
+
+  Future<Either<Failure, List<AppUser?>>> fetchDiscussionUninvitedUsers({
     required int discussionId,
   });
 }

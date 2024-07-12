@@ -471,9 +471,16 @@ abstract class APIClient {
   );
 
   // discussion
+
   @POST('/discussions')
   Future<Discussion?> createDiscussion(
     @Body() CreateDiscussionReq discussion,
+  );
+
+  @PUT('/discussions/{discussionId}/topic')
+  Future<ResponseMsg?> updateDiscussionTopic(
+    @Path('discussionId') int discussionId,
+    @Body() UpdateDiscussionTopicReq updateDiscussionTopicReq,
   );
 
   @POST('/discussions/{discussionId}/invite')
@@ -517,6 +524,11 @@ abstract class APIClient {
 
   @GET('/discussions/{discussionId}/participants')
   Future<List<AppUser?>> fetchDiscussionParticipants(
+    @Path('discussionId') int discussionId,
+  );
+
+  @GET('/discussions/{discussionId}/uninvited')
+  Future<List<AppUser?>> fetchDiscussionUninvitedUsers(
     @Path('discussionId') int discussionId,
   );
 }

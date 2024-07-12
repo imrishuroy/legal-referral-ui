@@ -16,6 +16,8 @@ import 'package:legal_referral_ui/src/features/advertisement/presentation/widget
 class CreateAdPage extends StatefulWidget {
   const CreateAdPage({super.key});
 
+  static const name = 'CreateAdPage';
+
   @override
   State<CreateAdPage> createState() => _CreateAdPageState();
 }

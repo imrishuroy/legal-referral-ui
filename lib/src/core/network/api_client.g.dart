@@ -2424,6 +2424,38 @@ class _APIClient implements APIClient {
   }
 
   @override
+  Future<ResponseMsg?> updateDiscussionTopic(
+    int discussionId,
+    UpdateDiscussionTopicReq updateDiscussionTopicReq,
+  ) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(updateDiscussionTopicReq.toJson());
+    final _result = await _dio
+        .fetch<Map<String, dynamic>?>(_setStreamType<ResponseMsg>(Options(
+      method: 'PUT',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              '/discussions/${discussionId}/topic',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
+    final _value =
+        _result.data == null ? null : ResponseMsg.fromJson(_result.data!);
+    return _value;
+  }
+
+  @override
   Future<ResponseMsg?> inviteUserToDiscussion(
     String discussionId,
     InviteUserToDiscussionReq inviteDiscussionReq,
@@ -2655,6 +2687,36 @@ class _APIClient implements APIClient {
             .compose(
               _dio.options,
               '/discussions/${discussionId}/participants',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
+    var _value = _result.data!
+        .map((dynamic i) =>
+            i == null ? null : AppUser.fromJson(i as Map<String, dynamic>))
+        .toList();
+    return _value;
+  }
+
+  @override
+  Future<List<AppUser?>> fetchDiscussionUninvitedUsers(int discussionId) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    const Map<String, dynamic>? _data = null;
+    final _result =
+        await _dio.fetch<List<dynamic>>(_setStreamType<List<AppUser>>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              '/discussions/${discussionId}/uninvited',
               queryParameters: queryParameters,
               data: _data,
             )

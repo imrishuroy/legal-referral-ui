@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:legal_referral_ui/src/core/constants/constants.dart';
+import 'package:legal_referral_ui/src/features/advertisement/presentation/pages/payment_cycle_page.dart';
 import 'package:legal_referral_ui/src/features/discussion/presentation/presentation.dart';
 import 'package:legal_referral_ui/src/features/post/presentation/presentation.dart';
 import 'package:legal_referral_ui/src/features/referral/presentation/presentation.dart';
@@ -90,6 +91,24 @@ class PostModelBottomSheet extends StatelessWidget {
             title: const Text('Poll'),
             onTap: () {
               context.pop();
+            },
+          ),
+          Divider(
+            height: 1,
+            color: Colors.grey.shade200,
+          ),
+          ListTile(
+            leading: SvgPicture.asset(
+              IconStringConstants.poll,
+              colorFilter: const ColorFilter.mode(
+                LegalReferralColors.buttonPrimary,
+                BlendMode.srcIn,
+              ),
+            ),
+            title: const Text('Payment Cycle'),
+            onTap: () {
+              // context.pop();
+              context.pushNamed(PaymentCyclePage.name);
             },
           ),
         ],

@@ -16,6 +16,9 @@ class PreviewAdPage extends StatelessWidget {
   });
   final String title;
   final String description;
+
+  static const String name = 'PreviewAdPage';
+
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
@@ -37,22 +40,31 @@ class PreviewAdPage extends StatelessWidget {
                   const Gap(height: 8),
                   Align(
                     alignment: Alignment.centerLeft,
-                    child: Text(
-                      title,
-                      style: textTheme.headlineSmall
-                          ?.copyWith(color: LegalReferralColors.textBlack300),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
+                      child: Text(
+                        title,
+                        style: textTheme.headlineSmall
+                            ?.copyWith(color: LegalReferralColors.textBlack300),
+                      ),
                     ),
                   ),
                   Align(
                     alignment: Alignment.centerLeft,
-                    child: Text(
-                      description,
-                      style: textTheme.bodyLarge
-                          ?.copyWith(color: LegalReferralColors.textBlack300),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
+                      child: Text(
+                        description,
+                        style: textTheme.bodyLarge
+                            ?.copyWith(color: LegalReferralColors.textBlack300),
+                      ),
                     ),
                   ),
                   MediaPost(
-                    mediaUrls: const ['mediaUrls', 'mediaUrls'],
+                    mediaUrls: const [
+                      'mediaUrls',
+                      'mediaUrls',
+                    ],
                     postType: PostType.image,
                     imageHeight: 400.h,
                   ),

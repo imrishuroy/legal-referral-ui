@@ -6,6 +6,7 @@ import 'package:legal_referral_ui/src/core/common_widgets/widgets.dart';
 import 'package:legal_referral_ui/src/core/config/config.dart';
 import 'package:legal_referral_ui/src/core/constants/constants.dart';
 import 'package:legal_referral_ui/src/core/utils/utils.dart';
+import 'package:legal_referral_ui/src/features/advertisement/presentation/pages/preview_ad_page.dart';
 import 'package:legal_referral_ui/src/features/auth/presentation/presentation.dart';
 import 'package:legal_referral_ui/src/features/feed/domain/entities/feed.dart';
 import 'package:legal_referral_ui/src/features/feed/presentation/presentation.dart';
@@ -23,7 +24,7 @@ class FeedsPage extends StatefulWidget {
 class _FeedsPageState extends State<FeedsPage> {
   final _authBloc = getIt<AuthBloc>();
   final _feedBloc = getIt<FeedBloc>();
-  final TextEditingController _searchController = TextEditingController();
+  final _searchController = TextEditingController();
 
   final _scrollController = ScrollController();
 
@@ -70,7 +71,7 @@ class _FeedsPageState extends State<FeedsPage> {
             ),
             SizedBox(width: 8.w),
             SvgButton(
-              onPressed: () {},
+              onPressed: () => context.pushNamed(PreviewAdPage.name),
               imagePath: IconStringConstants.bell,
               width: 24.w,
               height: 24.h,

@@ -8,6 +8,8 @@ import 'package:legal_referral_ui/src/features/advertisement/presentation/pages/
 class PaymentCyclePage extends StatelessWidget {
   const PaymentCyclePage({super.key});
 
+  static const String name = 'PaymentCyclePage';
+
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
