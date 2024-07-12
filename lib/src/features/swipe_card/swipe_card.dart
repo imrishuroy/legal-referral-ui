@@ -123,7 +123,6 @@ class _FollowersCard extends StatelessWidget {
     required this.name,
     required this.attorneyType,
     required this.location,
-    super.key,
   });
   final String name;
   final String attorneyType;

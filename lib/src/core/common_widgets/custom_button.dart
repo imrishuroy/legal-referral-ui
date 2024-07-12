@@ -64,10 +64,12 @@ class CustomTextButton extends StatelessWidget {
     this.fontSize,
     this.fontWeight,
     this.style,
+    this.maxline = 1,
   });
   final String text;
   final VoidCallback onPressed;
   final double? fontSize;
+  final int maxline;
   final FontWeight? fontWeight;
   final Color? textColor;
   final TextStyle? style;
@@ -78,6 +80,7 @@ class CustomTextButton extends StatelessWidget {
       onTap: onPressed,
       child: Text(
         text,
+        maxLines: maxline,
         style: style ??
             TextStyle(
               fontWeight: fontWeight,

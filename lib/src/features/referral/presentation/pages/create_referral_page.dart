@@ -180,19 +180,3 @@ class _CreateReferralPageState extends State<CreateReferralPage> {
     super.dispose();
   }
 }
-
-class CircularCheckBox extends StatelessWidget {
-  const CircularCheckBox({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return CircleAvatar(
-      backgroundColor: LegalReferralColors.containerBlue79,
-      radius: 24.r,
-      child: const Icon(
-        Icons.done_rounded,
-        color: Colors.white,
-      ),
-    );
-  }
-}

@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:legal_referral_ui/src/core/common_widgets/widgets.dart';
 import 'package:legal_referral_ui/src/core/config/config.dart';
 import 'package:legal_referral_ui/src/core/constants/colors.dart';
-import 'package:legal_referral_ui/src/core/constants/icon_string_constants.dart';
 import 'package:legal_referral_ui/src/core/utils/utils.dart';
 import 'package:legal_referral_ui/src/features/auth/presentation/presentation.dart';
 import 'package:legal_referral_ui/src/features/feed/data/data.dart';
@@ -145,7 +143,17 @@ class _FeedDetailsPageState extends State<FeedDetailsPage> {
                     ),
                   ),
                 ),
-                _searchBar(context, state.parentCommentId),
+                BottomTextField(
+                  focusNode: _focusNode,
+                  hintText: 'Your comments here',
+                  height: 88,
+                  commentsController: _commentsController,
+                  onSend: () => _commentOnPost(
+                    feedBloc: widget.args.feedBloc,
+                    post: widget.args.feed?.post,
+                    parentCommentId: state.parentCommentId,
+                  ),
+                ),
               ],
             );
           },
@@ -179,47 +187,6 @@ class _FeedDetailsPageState extends State<FeedDetailsPage> {
     }
   }
 
-  Widget _searchBar(BuildContext context, int? parentCommentId) {
-    return Material(
-      elevation: 8,
-      child: Container(
-        color: LegalReferralColors.containerWhite500,
-        height: 70,
-        padding: EdgeInsets.symmetric(horizontal: 16.w),
-        child: Row(
-          children: [
-            Expanded(
-              child: CustomTextField(
-                maxLines: 3,
-                keyboardType: TextInputType.multiline,
-                // autofocus: true,
-                focusNode: _focusNode,
-                hintText: 'Your comments here',
-                controller: _commentsController,
-              ),
-            ),
-            IconButton(
-              icon: SvgPicture.asset(
-                IconStringConstants.send,
-                colorFilter: const ColorFilter.mode(
-                  Colors.blue,
-                  BlendMode.srcIn,
-                ),
-                height: 24.h,
-                width: 24.w,
-              ),
-              onPressed: () => _commentOnPost(
-                feedBloc: widget.args.feedBloc,
-                post: widget.args.feed?.post,
-                parentCommentId: parentCommentId,
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
   void _commentOnPost({
     required FeedBloc feedBloc,
     required Post? post,
@@ -249,7 +216,6 @@ class _FeedDetailsPageState extends State<FeedDetailsPage> {
   @override
   void dispose() {
     _commentsController.dispose();
-
     super.dispose();
   }
 }

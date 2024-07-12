@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:legal_referral_ui/src/core/constants/constants.dart';
+import 'package:legal_referral_ui/src/features/discussion/presentation/presentation.dart';
 import 'package:legal_referral_ui/src/features/post/presentation/presentation.dart';
 import 'package:legal_referral_ui/src/features/referral/presentation/presentation.dart';
 
@@ -69,6 +70,9 @@ class PostModelBottomSheet extends StatelessWidget {
             title: const Text('Discussion'),
             onTap: () {
               context.pop();
+              context.pushNamed(
+                CreateDiscussionPage.name,
+              );
             },
           ),
           Divider(

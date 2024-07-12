@@ -6,7 +6,7 @@ part of 'api_client.dart';
 // RetrofitGenerator
 // **************************************************************************
 
-// ignore_for_file: unnecessary_brace_in_string_interps,no_leading_underscores_for_local_identifiers
+// ignore_for_file: unnecessary_brace_in_string_interps,no_leading_underscores_for_local_identifiers,unused_element
 
 class _APIClient implements APIClient {
   _APIClient(
@@ -40,8 +40,8 @@ class _APIClient implements APIClient {
           _dio.options.baseUrl,
           baseUrl,
         ))));
-    final value = _result.data!;
-    return value;
+    final _value = _result.data!;
+    return _value;
   }
 
   @override
@@ -67,8 +67,8 @@ class _APIClient implements APIClient {
           _dio.options.baseUrl,
           baseUrl,
         ))));
-    final value = _result.data;
-    return value;
+    final _value = _result.data;
+    return _value;
   }
 
   @override
@@ -141,8 +141,9 @@ class _APIClient implements APIClient {
               _dio.options.baseUrl,
               baseUrl,
             ))));
-    final value = _result.data == null ? null : AppUser.fromJson(_result.data!);
-    return value;
+    final _value =
+        _result.data == null ? null : AppUser.fromJson(_result.data!);
+    return _value;
   }
 
   @override
@@ -169,8 +170,9 @@ class _APIClient implements APIClient {
               _dio.options.baseUrl,
               baseUrl,
             ))));
-    final value = _result.data == null ? null : AppUser.fromJson(_result.data!);
-    return value;
+    final _value =
+        _result.data == null ? null : AppUser.fromJson(_result.data!);
+    return _value;
   }
 
   @override
@@ -197,8 +199,9 @@ class _APIClient implements APIClient {
               _dio.options.baseUrl,
               baseUrl,
             ))));
-    final value = _result.data == null ? null : AppUser.fromJson(_result.data!);
-    return value;
+    final _value =
+        _result.data == null ? null : AppUser.fromJson(_result.data!);
+    return _value;
   }
 
   @override
@@ -226,9 +229,9 @@ class _APIClient implements APIClient {
               _dio.options.baseUrl,
               baseUrl,
             ))));
-    final value =
+    final _value =
         _result.data == null ? null : LinkedinSignInRes.fromJson(_result.data!);
-    return value;
+    return _value;
   }
 
   @override
@@ -255,9 +258,9 @@ class _APIClient implements APIClient {
               _dio.options.baseUrl,
               baseUrl,
             ))));
-    final value =
+    final _value =
         _result.data == null ? null : ResponseMsg.fromJson(_result.data!);
-    return value;
+    return _value;
   }
 
   @override
@@ -283,8 +286,9 @@ class _APIClient implements APIClient {
               _dio.options.baseUrl,
               baseUrl,
             ))));
-    final value = _result.data == null ? null : AppUser.fromJson(_result.data!);
-    return value;
+    final _value =
+        _result.data == null ? null : AppUser.fromJson(_result.data!);
+    return _value;
   }
 
   @override
@@ -309,8 +313,8 @@ class _APIClient implements APIClient {
           _dio.options.baseUrl,
           baseUrl,
         ))));
-    final value = _result.data;
-    return value;
+    final _value = _result.data;
+    return _value;
   }
 
   @override
@@ -337,9 +341,9 @@ class _APIClient implements APIClient {
               _dio.options.baseUrl,
               baseUrl,
             ))));
-    final value =
+    final _value =
         _result.data == null ? null : ResponseMsg.fromJson(_result.data!);
-    return value;
+    return _value;
   }
 
   @override
@@ -366,9 +370,9 @@ class _APIClient implements APIClient {
               _dio.options.baseUrl,
               baseUrl,
             ))));
-    final value =
+    final _value =
         _result.data == null ? null : ResponseMsg.fromJson(_result.data!);
-    return value;
+    return _value;
   }
 
   @override
@@ -395,8 +399,9 @@ class _APIClient implements APIClient {
               _dio.options.baseUrl,
               baseUrl,
             ))));
-    final value = _result.data == null ? null : AppUser.fromJson(_result.data!);
-    return value;
+    final _value =
+        _result.data == null ? null : AppUser.fromJson(_result.data!);
+    return _value;
   }
 
   @override
@@ -423,8 +428,9 @@ class _APIClient implements APIClient {
               _dio.options.baseUrl,
               baseUrl,
             ))));
-    final value = _result.data == null ? null : License.fromJson(_result.data!);
-    return value;
+    final _value =
+        _result.data == null ? null : License.fromJson(_result.data!);
+    return _value;
   }
 
   @override
@@ -458,9 +464,9 @@ class _APIClient implements APIClient {
               _dio.options.baseUrl,
               baseUrl,
             ))));
-    final value =
+    final _value =
         _result.data == null ? null : ResponseMsg.fromJson(_result.data!);
-    return value;
+    return _value;
   }
 
   @override
@@ -487,9 +493,9 @@ class _APIClient implements APIClient {
               _dio.options.baseUrl,
               baseUrl,
             ))));
-    final value =
+    final _value =
         _result.data == null ? null : ResponseMsg.fromJson(_result.data!);
-    return value;
+    return _value;
   }
 
   @override
@@ -515,9 +521,9 @@ class _APIClient implements APIClient {
               _dio.options.baseUrl,
               baseUrl,
             ))));
-    final value =
+    final _value =
         _result.data == null ? null : UserProfile.fromJson(_result.data!);
-    return value;
+    return _value;
   }
 
   @override
@@ -551,11 +557,11 @@ class _APIClient implements APIClient {
               _dio.options.baseUrl,
               baseUrl,
             ))));
-    var value = _result.data!
+    var _value = _result.data!
         .map((dynamic i) =>
             i == null ? null : Firm.fromJson(i as Map<String, dynamic>))
         .toList();
-    return value;
+    return _value;
   }
 
   @override
@@ -582,8 +588,9 @@ class _APIClient implements APIClient {
               _dio.options.baseUrl,
               baseUrl,
             ))));
-    final value = _result.data == null ? null : AppUser.fromJson(_result.data!);
-    return value;
+    final _value =
+        _result.data == null ? null : AppUser.fromJson(_result.data!);
+    return _value;
   }
 
   @override
@@ -610,8 +617,8 @@ class _APIClient implements APIClient {
               _dio.options.baseUrl,
               baseUrl,
             ))));
-    final value = _result.data == null ? null : Price.fromJson(_result.data!);
-    return value;
+    final _value = _result.data == null ? null : Price.fromJson(_result.data!);
+    return _value;
   }
 
   @override
@@ -641,8 +648,8 @@ class _APIClient implements APIClient {
               _dio.options.baseUrl,
               baseUrl,
             ))));
-    final value = _result.data == null ? null : Price.fromJson(_result.data!);
-    return value;
+    final _value = _result.data == null ? null : Price.fromJson(_result.data!);
+    return _value;
   }
 
   @override
@@ -672,9 +679,9 @@ class _APIClient implements APIClient {
               _dio.options.baseUrl,
               baseUrl,
             ))));
-    final value =
+    final _value =
         _result.data == null ? null : ResponseMsg.fromJson(_result.data!);
-    return value;
+    return _value;
   }
 
   @override
@@ -710,8 +717,8 @@ class _APIClient implements APIClient {
           _dio.options.baseUrl,
           baseUrl,
         ))));
-    final value = _result.data;
-    return value;
+    final _value = _result.data;
+    return _value;
   }
 
   @override
@@ -738,8 +745,8 @@ class _APIClient implements APIClient {
               _dio.options.baseUrl,
               baseUrl,
             ))));
-    final value = _result.data == null ? null : Social.fromJson(_result.data!);
-    return value;
+    final _value = _result.data == null ? null : Social.fromJson(_result.data!);
+    return _value;
   }
 
   @override
@@ -768,11 +775,11 @@ class _APIClient implements APIClient {
               _dio.options.baseUrl,
               baseUrl,
             ))));
-    var value = _result.data!
+    var _value = _result.data!
         .map((dynamic i) =>
             i == null ? null : Social.fromJson(i as Map<String, dynamic>))
         .toList();
-    return value;
+    return _value;
   }
 
   @override
@@ -802,8 +809,8 @@ class _APIClient implements APIClient {
               _dio.options.baseUrl,
               baseUrl,
             ))));
-    final value = _result.data == null ? null : Social.fromJson(_result.data!);
-    return value;
+    final _value = _result.data == null ? null : Social.fromJson(_result.data!);
+    return _value;
   }
 
   @override
@@ -829,9 +836,9 @@ class _APIClient implements APIClient {
               _dio.options.baseUrl,
               baseUrl,
             ))));
-    final value =
+    final _value =
         _result.data == null ? null : ResponseMsg.fromJson(_result.data!);
-    return value;
+    return _value;
   }
 
   @override
@@ -861,9 +868,9 @@ class _APIClient implements APIClient {
               _dio.options.baseUrl,
               baseUrl,
             ))));
-    final value =
+    final _value =
         _result.data == null ? null : UserExperience.fromJson(_result.data!);
-    return value;
+    return _value;
   }
 
   @override
@@ -894,9 +901,9 @@ class _APIClient implements APIClient {
               _dio.options.baseUrl,
               baseUrl,
             ))));
-    final value =
+    final _value =
         _result.data == null ? null : UserExperience.fromJson(_result.data!);
-    return value;
+    return _value;
   }
 
   @override
@@ -922,10 +929,10 @@ class _APIClient implements APIClient {
               _dio.options.baseUrl,
               baseUrl,
             ))));
-    var value = _result.data!
+    var _value = _result.data!
         .map((dynamic i) => UserExperience.fromJson(i as Map<String, dynamic>))
         .toList();
-    return value;
+    return _value;
   }
 
   @override
@@ -954,9 +961,9 @@ class _APIClient implements APIClient {
               _dio.options.baseUrl,
               baseUrl,
             ))));
-    final value =
+    final _value =
         _result.data == null ? null : ResponseMsg.fromJson(_result.data!);
-    return value;
+    return _value;
   }
 
   @override
@@ -992,8 +999,8 @@ class _APIClient implements APIClient {
           _dio.options.baseUrl,
           baseUrl,
         ))));
-    final value = _result.data;
-    return value;
+    final _value = _result.data;
+    return _value;
   }
 
   @override
@@ -1020,9 +1027,9 @@ class _APIClient implements APIClient {
               _dio.options.baseUrl,
               baseUrl,
             ))));
-    final value =
+    final _value =
         _result.data == null ? null : Education.fromJson(_result.data!);
-    return value;
+    return _value;
   }
 
   @override
@@ -1053,9 +1060,9 @@ class _APIClient implements APIClient {
               _dio.options.baseUrl,
               baseUrl,
             ))));
-    final value =
+    final _value =
         _result.data == null ? null : Education.fromJson(_result.data!);
-    return value;
+    return _value;
   }
 
   @override
@@ -1081,10 +1088,10 @@ class _APIClient implements APIClient {
               _dio.options.baseUrl,
               baseUrl,
             ))));
-    var value = _result.data!
+    var _value = _result.data!
         .map((dynamic i) => Education.fromJson(i as Map<String, dynamic>))
         .toList();
-    return value;
+    return _value;
   }
 
   @override
@@ -1113,9 +1120,9 @@ class _APIClient implements APIClient {
               _dio.options.baseUrl,
               baseUrl,
             ))));
-    final value =
+    final _value =
         _result.data == null ? null : ResponseMsg.fromJson(_result.data!);
-    return value;
+    return _value;
   }
 
   @override
@@ -1143,9 +1150,9 @@ class _APIClient implements APIClient {
               _dio.options.baseUrl,
               baseUrl,
             ))));
-    final value =
+    final _value =
         _result.data == null ? null : ResponseMsg.fromJson(_result.data!);
-    return value;
+    return _value;
   }
 
   @override
@@ -1171,9 +1178,9 @@ class _APIClient implements APIClient {
               _dio.options.baseUrl,
               baseUrl,
             ))));
-    final value =
+    final _value =
         _result.data == null ? null : Connection.fromJson(_result.data!);
-    return value;
+    return _value;
   }
 
   @override
@@ -1199,9 +1206,9 @@ class _APIClient implements APIClient {
               _dio.options.baseUrl,
               baseUrl,
             ))));
-    final value =
+    final _value =
         _result.data == null ? null : ResponseMsg.fromJson(_result.data!);
-    return value;
+    return _value;
   }
 
   @override
@@ -1234,12 +1241,12 @@ class _APIClient implements APIClient {
               _dio.options.baseUrl,
               baseUrl,
             ))));
-    var value = _result.data!
+    var _value = _result.data!
         .map((dynamic i) => i == null
             ? null
             : ConnectionInvitation.fromJson(i as Map<String, dynamic>))
         .toList();
-    return value;
+    return _value;
   }
 
   @override
@@ -1272,11 +1279,11 @@ class _APIClient implements APIClient {
               _dio.options.baseUrl,
               baseUrl,
             ))));
-    var value = _result.data!
+    var _value = _result.data!
         .map((dynamic i) =>
             i == null ? null : Connection.fromJson(i as Map<String, dynamic>))
         .toList();
-    return value;
+    return _value;
   }
 
   @override
@@ -1309,12 +1316,12 @@ class _APIClient implements APIClient {
               _dio.options.baseUrl,
               baseUrl,
             ))));
-    var value = _result.data!
+    var _value = _result.data!
         .map((dynamic i) => i == null
             ? null
             : Recommendation.fromJson(i as Map<String, dynamic>))
         .toList();
-    return value;
+    return _value;
   }
 
   @override
@@ -1342,9 +1349,9 @@ class _APIClient implements APIClient {
               _dio.options.baseUrl,
               baseUrl,
             ))));
-    final value =
+    final _value =
         _result.data == null ? null : ResponseMsg.fromJson(_result.data!);
-    return value;
+    return _value;
   }
 
   @override
@@ -1373,8 +1380,8 @@ class _APIClient implements APIClient {
               _dio.options.baseUrl,
               baseUrl,
             ))));
-    final value = UserConnectionStatus.fromJson(_result.data!);
-    return value;
+    final _value = UserConnectionStatus.fromJson(_result.data!);
+    return _value;
   }
 
   @override
@@ -1410,11 +1417,11 @@ class _APIClient implements APIClient {
               _dio.options.baseUrl,
               baseUrl,
             ))));
-    var value = _result.data!
+    var _value = _result.data!
         .map((dynamic i) =>
             i == null ? null : AppUser.fromJson(i as Map<String, dynamic>))
         .toList();
-    return value;
+    return _value;
   }
 
   @override
@@ -1447,10 +1454,10 @@ class _APIClient implements APIClient {
               _dio.options.baseUrl,
               baseUrl,
             ))));
-    var value = _result.data!
+    var _value = _result.data!
         .map((dynamic i) => ChatMessage.fromJson(i as Map<String, dynamic>))
         .toList();
-    return value;
+    return _value;
   }
 
   @override
@@ -1477,8 +1484,8 @@ class _APIClient implements APIClient {
               _dio.options.baseUrl,
               baseUrl,
             ))));
-    final value = ChatRoom.fromJson(_result.data!);
-    return value;
+    final _value = ChatRoom.fromJson(_result.data!);
+    return _value;
   }
 
   @override
@@ -1504,10 +1511,10 @@ class _APIClient implements APIClient {
               _dio.options.baseUrl,
               baseUrl,
             ))));
-    var value = _result.data!
+    var _value = _result.data!
         .map((dynamic i) => ChatRoom.fromJson(i as Map<String, dynamic>))
         .toList();
-    return value;
+    return _value;
   }
 
   @override
@@ -1533,8 +1540,8 @@ class _APIClient implements APIClient {
           _dio.options.baseUrl,
           baseUrl,
         ))));
-    final value = _result.data;
-    return value;
+    final _value = _result.data;
+    return _value;
   }
 
   @override
@@ -1560,11 +1567,11 @@ class _APIClient implements APIClient {
               _dio.options.baseUrl,
               baseUrl,
             ))));
-    var value = _result.data!
+    var _value = _result.data!
         .map((dynamic i) =>
             i == null ? null : Project.fromJson(i as Map<String, dynamic>))
         .toList();
-    return value;
+    return _value;
   }
 
   @override
@@ -1590,11 +1597,11 @@ class _APIClient implements APIClient {
               _dio.options.baseUrl,
               baseUrl,
             ))));
-    var value = _result.data!
+    var _value = _result.data!
         .map((dynamic i) =>
             i == null ? null : ReferedUser.fromJson(i as Map<String, dynamic>))
         .toList();
-    return value;
+    return _value;
   }
 
   @override
@@ -1620,11 +1627,11 @@ class _APIClient implements APIClient {
               _dio.options.baseUrl,
               baseUrl,
             ))));
-    var value = _result.data!
+    var _value = _result.data!
         .map((dynamic i) =>
             i == null ? null : Project.fromJson(i as Map<String, dynamic>))
         .toList();
-    return value;
+    return _value;
   }
 
   @override
@@ -1651,9 +1658,9 @@ class _APIClient implements APIClient {
               _dio.options.baseUrl,
               baseUrl,
             ))));
-    final value =
+    final _value =
         _result.data == null ? null : Proposal.fromJson(_result.data!);
-    return value;
+    return _value;
   }
 
   @override
@@ -1683,8 +1690,8 @@ class _APIClient implements APIClient {
               _dio.options.baseUrl,
               baseUrl,
             ))));
-    final value = Proposal.fromJson(_result.data!);
-    return value;
+    final _value = Proposal.fromJson(_result.data!);
+    return _value;
   }
 
   @override
@@ -1713,9 +1720,9 @@ class _APIClient implements APIClient {
               _dio.options.baseUrl,
               baseUrl,
             ))));
-    final value =
+    final _value =
         _result.data == null ? null : Proposal.fromJson(_result.data!);
-    return value;
+    return _value;
   }
 
   @override
@@ -1742,8 +1749,9 @@ class _APIClient implements APIClient {
               _dio.options.baseUrl,
               baseUrl,
             ))));
-    final value = _result.data == null ? null : Project.fromJson(_result.data!);
-    return value;
+    final _value =
+        _result.data == null ? null : Project.fromJson(_result.data!);
+    return _value;
   }
 
   @override
@@ -1769,11 +1777,11 @@ class _APIClient implements APIClient {
               _dio.options.baseUrl,
               baseUrl,
             ))));
-    var value = _result.data!
+    var _value = _result.data!
         .map((dynamic i) =>
             i == null ? null : Project.fromJson(i as Map<String, dynamic>))
         .toList();
-    return value;
+    return _value;
   }
 
   @override
@@ -1799,8 +1807,9 @@ class _APIClient implements APIClient {
               _dio.options.baseUrl,
               baseUrl,
             ))));
-    final value = _result.data == null ? null : Project.fromJson(_result.data!);
-    return value;
+    final _value =
+        _result.data == null ? null : Project.fromJson(_result.data!);
+    return _value;
   }
 
   @override
@@ -1829,11 +1838,11 @@ class _APIClient implements APIClient {
               _dio.options.baseUrl,
               baseUrl,
             ))));
-    var value = _result.data!
+    var _value = _result.data!
         .map((dynamic i) =>
             i == null ? null : Project.fromJson(i as Map<String, dynamic>))
         .toList();
-    return value;
+    return _value;
   }
 
   @override
@@ -1859,8 +1868,9 @@ class _APIClient implements APIClient {
               _dio.options.baseUrl,
               baseUrl,
             ))));
-    final value = _result.data == null ? null : Project.fromJson(_result.data!);
-    return value;
+    final _value =
+        _result.data == null ? null : Project.fromJson(_result.data!);
+    return _value;
   }
 
   @override
@@ -1886,8 +1896,9 @@ class _APIClient implements APIClient {
               _dio.options.baseUrl,
               baseUrl,
             ))));
-    final value = _result.data == null ? null : Project.fromJson(_result.data!);
-    return value;
+    final _value =
+        _result.data == null ? null : Project.fromJson(_result.data!);
+    return _value;
   }
 
   @override
@@ -1913,8 +1924,9 @@ class _APIClient implements APIClient {
               _dio.options.baseUrl,
               baseUrl,
             ))));
-    final value = _result.data == null ? null : Project.fromJson(_result.data!);
-    return value;
+    final _value =
+        _result.data == null ? null : Project.fromJson(_result.data!);
+    return _value;
   }
 
   @override
@@ -1940,8 +1952,9 @@ class _APIClient implements APIClient {
               _dio.options.baseUrl,
               baseUrl,
             ))));
-    final value = _result.data == null ? null : Project.fromJson(_result.data!);
-    return value;
+    final _value =
+        _result.data == null ? null : Project.fromJson(_result.data!);
+    return _value;
   }
 
   @override
@@ -1967,8 +1980,9 @@ class _APIClient implements APIClient {
               _dio.options.baseUrl,
               baseUrl,
             ))));
-    final value = _result.data == null ? null : Project.fromJson(_result.data!);
-    return value;
+    final _value =
+        _result.data == null ? null : Project.fromJson(_result.data!);
+    return _value;
   }
 
   @override
@@ -1995,9 +2009,9 @@ class _APIClient implements APIClient {
               _dio.options.baseUrl,
               baseUrl,
             ))));
-    final value =
+    final _value =
         _result.data == null ? null : ProjectReview.fromJson(_result.data!);
-    return value;
+    return _value;
   }
 
   @override
@@ -2026,11 +2040,11 @@ class _APIClient implements APIClient {
               _dio.options.baseUrl,
               baseUrl,
             ))));
-    var value = _result.data!
+    var _value = _result.data!
         .map((dynamic i) =>
             i == null ? null : Project.fromJson(i as Map<String, dynamic>))
         .toList();
-    return value;
+    return _value;
   }
 
   @override
@@ -2063,11 +2077,11 @@ class _APIClient implements APIClient {
               _dio.options.baseUrl,
               baseUrl,
             ))));
-    var value = _result.data!
+    var _value = _result.data!
         .map((dynamic i) =>
             i == null ? null : AppUser.fromJson(i as Map<String, dynamic>))
         .toList();
-    return value;
+    return _value;
   }
 
   @override
@@ -2099,11 +2113,11 @@ class _APIClient implements APIClient {
               _dio.options.baseUrl,
               baseUrl,
             ))));
-    var value = _result.data!
+    var _value = _result.data!
         .map((dynamic i) =>
             i == null ? null : AppUser.fromJson(i as Map<String, dynamic>))
         .toList();
-    return value;
+    return _value;
   }
 
   @override
@@ -2152,8 +2166,8 @@ class _APIClient implements APIClient {
           _dio.options.baseUrl,
           baseUrl,
         ))));
-    final value = _result.data;
-    return value;
+    final _value = _result.data;
+    return _value;
   }
 
   @override
@@ -2186,11 +2200,11 @@ class _APIClient implements APIClient {
               _dio.options.baseUrl,
               baseUrl,
             ))));
-    var value = _result.data!
+    var _value = _result.data!
         .map((dynamic i) =>
             i == null ? null : Feed.fromJson(i as Map<String, dynamic>))
         .toList();
-    return value;
+    return _value;
   }
 
   @override
@@ -2264,11 +2278,11 @@ class _APIClient implements APIClient {
               _dio.options.baseUrl,
               baseUrl,
             ))));
-    var value = _result.data!
+    var _value = _result.data!
         .map((dynamic i) =>
             i == null ? null : AppUser.fromJson(i as Map<String, dynamic>))
         .toList();
-    return value;
+    return _value;
   }
 
   @override
@@ -2298,8 +2312,8 @@ class _APIClient implements APIClient {
               _dio.options.baseUrl,
               baseUrl,
             ))));
-    final value = Comment.fromJson(_result.data!);
-    return value;
+    final _value = Comment.fromJson(_result.data!);
+    return _value;
   }
 
   @override
@@ -2325,11 +2339,11 @@ class _APIClient implements APIClient {
               _dio.options.baseUrl,
               baseUrl,
             ))));
-    var value = _result.data!
+    var _value = _result.data!
         .map((dynamic i) =>
             i == null ? null : Comment.fromJson(i as Map<String, dynamic>))
         .toList();
-    return value;
+    return _value;
   }
 
   @override
@@ -2378,6 +2392,282 @@ class _APIClient implements APIClient {
           _dio.options.baseUrl,
           baseUrl,
         ))));
+  }
+
+  @override
+  Future<Discussion?> createDiscussion(CreateDiscussionReq discussion) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(discussion.toJson());
+    final _result = await _dio
+        .fetch<Map<String, dynamic>?>(_setStreamType<Discussion>(Options(
+      method: 'POST',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              '/discussions',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
+    final _value =
+        _result.data == null ? null : Discussion.fromJson(_result.data!);
+    return _value;
+  }
+
+  @override
+  Future<ResponseMsg?> inviteUserToDiscussion(
+    String discussionId,
+    InviteUserToDiscussionReq inviteDiscussionReq,
+  ) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(inviteDiscussionReq.toJson());
+    final _result = await _dio
+        .fetch<Map<String, dynamic>?>(_setStreamType<ResponseMsg>(Options(
+      method: 'POST',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              '/discussions/${discussionId}/invite',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
+    final _value =
+        _result.data == null ? null : ResponseMsg.fromJson(_result.data!);
+    return _value;
+  }
+
+  @override
+  Future<List<Discussion?>> fetchActiveDiscussions(String userId) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    const Map<String, dynamic>? _data = null;
+    final _result = await _dio
+        .fetch<List<dynamic>>(_setStreamType<List<Discussion>>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              '/discussions/active/${userId}',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
+    var _value = _result.data!
+        .map((dynamic i) =>
+            i == null ? null : Discussion.fromJson(i as Map<String, dynamic>))
+        .toList();
+    return _value;
+  }
+
+  @override
+  Future<List<DiscussionInviteRes?>> fetchDiscussionInvites(
+      String userId) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    const Map<String, dynamic>? _data = null;
+    final _result = await _dio
+        .fetch<List<dynamic>>(_setStreamType<List<DiscussionInviteRes>>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              '/discussions/invites/${userId}',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
+    var _value = _result.data!
+        .map((dynamic i) => i == null
+            ? null
+            : DiscussionInviteRes.fromJson(i as Map<String, dynamic>))
+        .toList();
+    return _value;
+  }
+
+  @override
+  Future<DiscussionMessage?> sendMessageToDiscussion(
+    int discussionId,
+    DiscussionMessage message,
+  ) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(message.toJson());
+    final _result = await _dio
+        .fetch<Map<String, dynamic>?>(_setStreamType<DiscussionMessage>(Options(
+      method: 'POST',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              '/discussions/${discussionId}/messages',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
+    final _value =
+        _result.data == null ? null : DiscussionMessage.fromJson(_result.data!);
+    return _value;
+  }
+
+  @override
+  Future<List<DiscussionMessage>> fetchDiscussionMessages(
+    int discussionId,
+    int limit,
+    int offset,
+  ) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{
+      r'limit': limit,
+      r'offset': offset,
+    };
+    final _headers = <String, dynamic>{};
+    const Map<String, dynamic>? _data = null;
+    final _result = await _dio
+        .fetch<List<dynamic>>(_setStreamType<List<DiscussionMessage>>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              '/discussions/${discussionId}/messages',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
+    var _value = _result.data!
+        .map((dynamic i) =>
+            DiscussionMessage.fromJson(i as Map<String, dynamic>))
+        .toList();
+    return _value;
+  }
+
+  @override
+  Future<ResponseMsg> joinDiscussion(int discussionId) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    const Map<String, dynamic>? _data = null;
+    final _result = await _dio
+        .fetch<Map<String, dynamic>>(_setStreamType<ResponseMsg>(Options(
+      method: 'POST',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              '/discussions/${discussionId}/join',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
+    final _value = ResponseMsg.fromJson(_result.data!);
+    return _value;
+  }
+
+  @override
+  Future<ResponseMsg> rejectDiscussion(int discussionId) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    const Map<String, dynamic>? _data = null;
+    final _result = await _dio
+        .fetch<Map<String, dynamic>>(_setStreamType<ResponseMsg>(Options(
+      method: 'POST',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              '/discussions/${discussionId}/reject',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
+    final _value = ResponseMsg.fromJson(_result.data!);
+    return _value;
+  }
+
+  @override
+  Future<List<AppUser?>> fetchDiscussionParticipants(int discussionId) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    const Map<String, dynamic>? _data = null;
+    final _result =
+        await _dio.fetch<List<dynamic>>(_setStreamType<List<AppUser>>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              '/discussions/${discussionId}/participants',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
+    var _value = _result.data!
+        .map((dynamic i) =>
+            i == null ? null : AppUser.fromJson(i as Map<String, dynamic>))
+        .toList();
+    return _value;
   }
 
   RequestOptions _setStreamType<T>(RequestOptions requestOptions) {
