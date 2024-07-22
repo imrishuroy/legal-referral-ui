@@ -22,6 +22,7 @@ class NetworkBloc extends Bloc<NetworkEvent, NetworkState> {
     on<ConnectionReqSent>(_onConnectionReqSent);
     on<RecommendationCancelled>(_onRecommendationCancelled);
     on<ConnectionChecked>(_onConnectionChecked);
+    on<RecommendationIndexUpdated>(_onRecommendationIndexUpdated);
   }
 
   Future<void> _onConnectionInvitationsFetched(
@@ -270,6 +271,17 @@ class NetworkBloc extends Bloc<NetworkEvent, NetworkState> {
           ),
         );
       },
+    );
+  }
+
+  Future<void> _onRecommendationIndexUpdated(
+    RecommendationIndexUpdated event,
+    Emitter<NetworkState> emit,
+  ) async {
+    emit(
+      state.copyWith(
+        recommendationCardIndex: event.index,
+      ),
     );
   }
 

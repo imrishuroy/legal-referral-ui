@@ -3,6 +3,7 @@ export 'pages/connection_filter_page.dart';
 export 'pages/connection_page.dart';
 export 'pages/invities_page.dart';
 export 'pages/network_page.dart';
+export 'pages/recommendation_swipe_cards.dart';
 export 'pages/recommendations_page.dart';
 export 'widgets/connection_tile.dart';
 export 'widgets/connections_section.dart';

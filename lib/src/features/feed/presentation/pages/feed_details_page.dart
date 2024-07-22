@@ -53,7 +53,7 @@ class _FeedDetailsPageState extends State<FeedDetailsPage> {
 
   @override
   Widget build(BuildContext context) {
-    final post = widget.args.feed?.post;
+    final post = widget.args.feed?.feedPost?.post;
 
     return Scaffold(
       appBar: AppBar(),
@@ -73,6 +73,7 @@ class _FeedDetailsPageState extends State<FeedDetailsPage> {
             }
           },
           builder: (context, state) {
+            final feedPost = widget.args.feed?.feedPost;
             return Column(
               children: [
                 Expanded(
@@ -82,12 +83,12 @@ class _FeedDetailsPageState extends State<FeedDetailsPage> {
                       children: [
                         FeedTile(
                           feed: widget.args.feed,
-                          isLiked: state.feed?.isLiked ?? false,
-                          likesCount: state.feed?.likesCount ?? 0,
-                          commentsCount: state.feed?.commentsCount ?? 0,
+                          isLiked: feedPost?.isLiked ?? false,
+                          likesCount: feedPost?.likesCount ?? 0,
+                          commentsCount: feedPost?.commentsCount ?? 0,
                           onLikePressed: () => _onLikePressed(
                             widget.args.feed,
-                            state.feed?.isLiked ?? false,
+                            feedPost?.isLiked ?? false,
                             widget.args.index,
                           ),
                           onCommentPressed: () {
@@ -150,7 +151,7 @@ class _FeedDetailsPageState extends State<FeedDetailsPage> {
                   commentsController: _commentsController,
                   onSend: () => _commentOnPost(
                     feedBloc: widget.args.feedBloc,
-                    post: widget.args.feed?.post,
+                    post: widget.args.feed?.feedPost?.post,
                     parentCommentId: state.parentCommentId,
                   ),
                 ),
@@ -167,7 +168,7 @@ class _FeedDetailsPageState extends State<FeedDetailsPage> {
     bool isLiked,
     int index,
   ) {
-    final postId = feed?.post?.postId;
+    final postId = feed?.feedPost?.post?.postId;
     if (postId != null) {
       if (isLiked == true) {
         widget.args.feedBloc.add(

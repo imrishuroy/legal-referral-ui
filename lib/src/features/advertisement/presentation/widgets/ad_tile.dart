@@ -4,14 +4,31 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:legal_referral_ui/src/core/common_widgets/gap.dart';
 import 'package:legal_referral_ui/src/core/common_widgets/widgets.dart';
 import 'package:legal_referral_ui/src/core/constants/constants.dart';
-import 'package:legal_referral_ui/src/features/advertisement/presentation/pages/payment_cycle_page.dart';
+import 'package:legal_referral_ui/src/core/utils/utils.dart';
+import 'package:legal_referral_ui/src/features/advertisement/domain/domain.dart';
 
-class RenewAdTile extends StatelessWidget {
-  const RenewAdTile({required this.buttonText, super.key});
+class AdTile extends StatelessWidget {
+  const AdTile({
+    required this.ad,
+    required this.buttonText,
+    required this.onTap,
+    required this.isPlaying,
+    super.key,
+  });
+
+  final Ad? ad;
   final String buttonText;
+  final VoidCallback onTap;
+  final bool isPlaying;
+
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
+
+    final adImage = ad?.mediaUrls.isNotEmpty ?? false
+        ? ad?.mediaUrls.first ?? IconStringConstants.imagePlaceholder
+        : IconStringConstants.imagePlaceholder;
+
     return Card(
       elevation: 0,
       child: Padding(
@@ -21,20 +38,26 @@ class RenewAdTile extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             ListTile(
-              leading: CachedNetworkImage(
-                fit: BoxFit.fill,
-                height: 60.h,
-                width: 60.w,
-                imageUrl:
-                    'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Placeholder_view_vector.svg/991px-Placeholder_view_vector.svg.png',
-              ),
+              leading: ad?.type == AdType.image
+                  ? CachedNetworkImage(
+                      fit: BoxFit.fill,
+                      height: 60.h,
+                      width: 60.w,
+                      imageUrl: adImage,
+                    )
+                  : PreviewVideo(
+                      videoUrl: ad?.mediaUrls.isNotEmpty ?? false
+                          ? ad?.mediaUrls.first
+                          : null,
+                      height: 60.h,
+                      width: 60.w,
+                    ),
               title: Text(
-                'Welcome to our new store',
+                ad?.title ?? '',
                 style: textTheme.headlineSmall,
               ),
               subtitle: Text(
-                'Nam pellentesque magna ac ex convallis yet ehe'
-                ' as ullamcorper. Mauris iaculis ullamcorper. Mauris iaculis',
+                ad?.description ?? '',
                 overflow: TextOverflow.ellipsis,
                 maxLines: 2,
                 style: textTheme.bodyLarge
@@ -54,7 +77,10 @@ class RenewAdTile extends StatelessWidget {
                           color: LegalReferralColors.textGrey500,
                         ),
                       ),
-                      TextSpan(text: '25 Jun 2024', style: textTheme.bodyLarge),
+                      TextSpan(
+                        text: DateTimeUtil.formatProjectTime(ad?.startDate),
+                        style: textTheme.bodyLarge,
+                      ),
                     ],
                   ),
                 ),
@@ -62,12 +88,15 @@ class RenewAdTile extends StatelessWidget {
                   text: TextSpan(
                     children: [
                       TextSpan(
-                        text: 'Started on: ',
+                        text: isPlaying ? 'Expires on: ' : 'Expired on: ',
                         style: textTheme.bodyLarge?.copyWith(
                           color: LegalReferralColors.textGrey500,
                         ),
                       ),
-                      TextSpan(text: '30 Jun 2024', style: textTheme.bodyLarge),
+                      TextSpan(
+                        text: DateTimeUtil.formatProjectTime(ad?.endDate),
+                        style: textTheme.bodyLarge,
+                      ),
                     ],
                   ),
                 ),
@@ -77,14 +106,7 @@ class RenewAdTile extends StatelessWidget {
             CustomElevatedButton(
               text: buttonText,
               height: 44.h,
-              onTap: () {
-                //renew payment
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => const PaymentCyclePage(),
-                  ),
-                );
-              },
+              onTap: onTap,
             ),
           ],
         ),

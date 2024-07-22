@@ -152,16 +152,9 @@ class _AccountPageState extends State<AccountPage> {
                               ),
                             );
                             break;
-                          // Post an Advertisement
+
                           case 3:
-                            context.pushNamed(CreateAdPage.name);
-                            // Navigator.push(
-                            //   context,
-                            //   MaterialPageRoute(
-                            //     builder: (context) =>
-                            //         AdStatusPage(title: title[index]),
-                            //   ),
-                            // );
+                            context.pushNamed(AdPage.name);
                             break;
                           // Notification
                           case 4:

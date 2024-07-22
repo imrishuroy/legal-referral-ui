@@ -10,6 +10,6 @@ class DateTimeJsonConverter implements JsonConverter<DateTime, String> {
 
   @override
   String toJson(DateTime object) {
-    return DateTimeUtil.getFormatDate(object);
+    return DateTimeUtil.getJsonFormattedDate(object);
   }
 }

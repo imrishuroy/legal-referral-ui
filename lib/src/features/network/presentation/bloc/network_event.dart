@@ -107,3 +107,14 @@ class ConnectionChecked extends NetworkEvent {
   @override
   List<Object> get props => [userId, otherUserId];
 }
+
+class RecommendationIndexUpdated extends NetworkEvent {
+  const RecommendationIndexUpdated({
+    required this.index,
+  });
+
+  final int index;
+
+  @override
+  List<Object> get props => [index];
+}

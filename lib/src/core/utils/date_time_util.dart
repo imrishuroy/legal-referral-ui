@@ -28,9 +28,15 @@ class DateTimeUtil {
     return DateTime.parse(dateTimeString);
   }
 
+  // static String getJsonFormattedDate(DateTime dateTime) {
+  //   final outputDateFormat = DateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
+  //   return outputDateFormat.format(dateTime);
+  // }
+
   static String getJsonFormattedDate(DateTime dateTime) {
+    final utcDateTime = dateTime.toUtc();
     final outputDateFormat = DateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
-    return outputDateFormat.format(dateTime);
+    return outputDateFormat.format(utcDateTime);
   }
 
   static String getFormattedDate(DateTime dateTime) {

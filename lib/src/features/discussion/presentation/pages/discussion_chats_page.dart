@@ -165,8 +165,7 @@ class _DiscussionChatsPageState extends State<DiscussionChatsPage> {
                                     )
                                   else
                                     CustomAvatar(
-                                      imageUrl:
-                                          discussionMessage?.senderAvatarImg,
+                                      imageUrl: _authBloc.state.user?.avatarUrl,
                                     ),
                                 ],
                               ),
@@ -261,11 +260,10 @@ class _DiscussionChatsPageState extends State<DiscussionChatsPage> {
                         ),
                       ),
                     );
-
-                    _messageController.clear();
-                    _focusNode.unfocus();
                   }
+
                   _messageController.clear();
+                  _focusNode.unfocus();
                 }
               },
             ),

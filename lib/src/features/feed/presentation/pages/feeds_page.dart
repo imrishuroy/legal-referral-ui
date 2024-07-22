@@ -131,36 +131,44 @@ class _FeedsPageState extends State<FeedsPage> {
                         }
 
                         final feed = state.feeds[index];
-                        return Padding(
-                          padding: EdgeInsets.symmetric(
-                            vertical: 4.h,
-                          ),
-                          child: FeedTile(
-                            feed: feed,
-                            isLiked: feed?.isLiked ?? false,
-                            likesCount: feed?.likesCount ?? 0,
-                            commentsCount: feed?.commentsCount ?? 0,
-                            onLikePressed: () => _onLikePressed(
-                              feed,
-                              feed?.isLiked ?? false,
-                              index,
+                        final feedType = feed?.type;
+                        if (feedType == FeedType.post) {
+                          final feedPost = feed?.feedPost;
+                          return Padding(
+                            padding: EdgeInsets.symmetric(
+                              vertical: 4.h,
                             ),
-                            onCommentPressed: () {
-                              if (feed != null) {
-                                context.pushNamed(
-                                  FeedDetailsPage.name,
-                                  extra: FeedDetailsPageArgs(
-                                    feedBloc: _feedBloc,
-                                    feed: feed,
-                                    index: index,
-                                  ),
-                                );
-                              }
-                            },
-                            onSharePressed: () {},
-                            onDiscussPressed: () {},
-                          ),
-                        );
+                            child: FeedTile(
+                              feed: feed,
+                              isLiked: feedPost?.isLiked ?? false,
+                              likesCount: feedPost?.likesCount ?? 0,
+                              commentsCount: feedPost?.commentsCount ?? 0,
+                              onLikePressed: () => _onLikePressed(
+                                feedPost,
+                                feedPost?.isLiked ?? false,
+                                index,
+                              ),
+                              onCommentPressed: () {
+                                if (feed != null) {
+                                  context.pushNamed(
+                                    FeedDetailsPage.name,
+                                    extra: FeedDetailsPageArgs(
+                                      feedBloc: _feedBloc,
+                                      feed: feed,
+                                      index: index,
+                                    ),
+                                  );
+                                }
+                              },
+                              onSharePressed: () {},
+                              onDiscussPressed: () {},
+                            ),
+                          );
+                        } else {
+                          return FeedAdTile(
+                            ad: feed?.ad,
+                          );
+                        }
                       },
                       childCount: state.hasReachedMax
                           ? state.feeds.length
@@ -179,11 +187,11 @@ class _FeedsPageState extends State<FeedsPage> {
   }
 
   void _onLikePressed(
-    Feed? feed,
+    FeedPost? feedPost,
     bool isLiked,
     int index,
   ) {
-    final postId = feed?.post?.postId;
+    final postId = feedPost?.post?.postId;
     if (postId != null) {
       if (isLiked == true) {
         _feedBloc.add(

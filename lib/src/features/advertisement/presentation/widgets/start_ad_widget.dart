@@ -3,8 +3,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:legal_referral_ui/src/core/common_widgets/gap.dart';
 import 'package:legal_referral_ui/src/core/common_widgets/widgets.dart';
 
-class AdPostInitial extends StatelessWidget {
-  const AdPostInitial({super.key});
+class StartAdWidget extends StatelessWidget {
+  const StartAdWidget({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -82,9 +82,10 @@ class _ActiveDiscussionsState extends State<ActiveDiscussions> {
                     style: textTheme.bodyLarge
                         ?.copyWith(color: LegalReferralColors.textGrey400),
                   ),
-                  trailing: const NotificationLabel(
-                    notificationNum: '1',
-                  ),
+                  // We will add this later
+                  // trailing: const NotificationLabel(
+                  //   notificationNum: '1',
+                  // ),
                 ),
               );
             },

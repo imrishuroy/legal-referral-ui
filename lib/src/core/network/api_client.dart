@@ -2,6 +2,8 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:legal_referral_ui/src/core/config/config.dart';
+import 'package:legal_referral_ui/src/features/advertisement/data/data.dart';
+import 'package:legal_referral_ui/src/features/advertisement/domain/domain.dart';
 import 'package:legal_referral_ui/src/features/auth/data/data.dart';
 import 'package:legal_referral_ui/src/features/auth/domain/domain.dart';
 import 'package:legal_referral_ui/src/features/chat/data/data.dart';
@@ -530,5 +532,31 @@ abstract class APIClient {
   @GET('/discussions/{discussionId}/uninvited')
   Future<List<AppUser?>> fetchDiscussionUninvitedUsers(
     @Path('discussionId') int discussionId,
+  );
+
+  @POST('/ads')
+  @MultiPart()
+  Future<ResponseMsg?> createAd(
+    @Part(name: 'ad_type') String adType,
+    @Part(name: 'title') String title,
+    @Part(name: 'description') String description,
+    @Part(name: 'link') String link,
+    @Part(name: 'payment_cycle') String paymentCycle,
+    @Part(name: 'author_id') String authorId,
+    @Part(name: 'start_date') String startDate,
+    @Part(name: 'end_date') String endDate,
+    @Part(name: 'files') List<File> media,
+  );
+
+  @GET('/ads/playing')
+  Future<List<Ad?>> fetchPlayingAds();
+
+  @GET('/ads/expired')
+  Future<List<Ad?>> fetchExpiredAds();
+
+  @PUT('/ads/{adId}/extend')
+  Future<Ad?> extendAdPeriod(
+    @Path('adId') int adId,
+    @Body() ExtendAdReq extendAdReq,
   );
 }

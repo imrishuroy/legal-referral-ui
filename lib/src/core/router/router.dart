@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:legal_referral_ui/src/core/common_widgets/widgets.dart';
 import 'package:legal_referral_ui/src/features/account/presentation/pages/account_page.dart';
-import 'package:legal_referral_ui/src/features/advertisement/presentation/pages/payment_cycle_page.dart';
-import 'package:legal_referral_ui/src/features/advertisement/presentation/pages/preview_ad_page.dart';
+import 'package:legal_referral_ui/src/features/advertisement/domain/domain.dart';
 import 'package:legal_referral_ui/src/features/advertisement/presentation/presentation.dart';
 import 'package:legal_referral_ui/src/features/auth/presentation/presentation.dart';
 import 'package:legal_referral_ui/src/features/chat/presentation/presentation.dart';
@@ -313,6 +312,19 @@ class AppRouter {
             ],
           ),
         ],
+      ),
+      GoRoute(
+        path: '/recommendation-swipe-cards',
+        name: RecommendationSwipeCards.name,
+        parentNavigatorKey: _rootNavigatorKey,
+        pageBuilder: (context, state) => CustomTransitionPage(
+          child: const RecommendationSwipeCards(),
+          transitionDuration: const Duration(
+            milliseconds: _routeTransitionDuration,
+          ),
+          transitionsBuilder: (_, a, __, c) =>
+              FadeTransition(opacity: a, child: c),
+        ),
       ),
       GoRoute(
         path: '/profile/:userId',
@@ -742,26 +754,42 @@ class AppRouter {
         ),
       ),
 
+      // ads
+
       GoRoute(
-        path: '/create-ad',
-        name: CreateAdPage.name,
+        path: '/ad-page',
+        name: AdPage.name,
         parentNavigatorKey: _rootNavigatorKey,
         pageBuilder: (context, state) => CustomTransitionPage(
-          child: const CreateAdPage(),
+          child: const AdPage(),
           transitionDuration:
               const Duration(milliseconds: _routeTransitionDuration),
           transitionsBuilder: (_, a, __, c) =>
               FadeTransition(opacity: a, child: c),
         ),
+        routes: [
+          GoRoute(
+            path: 'create-ad',
+            name: CreateAdPage.name,
+            parentNavigatorKey: _rootNavigatorKey,
+            pageBuilder: (context, state) => CustomTransitionPage(
+              child: const CreateAdPage(),
+              transitionDuration:
+                  const Duration(milliseconds: _routeTransitionDuration),
+              transitionsBuilder: (_, a, __, c) =>
+                  FadeTransition(opacity: a, child: c),
+            ),
+          ),
+        ],
       ),
+
       GoRoute(
         path: '/preview-ad',
         name: PreviewAdPage.name,
         parentNavigatorKey: _rootNavigatorKey,
         pageBuilder: (context, state) => CustomTransitionPage(
-          child: const PreviewAdPage(
-            title: 'Preview',
-            description: 'This is ad preview',
+          child: PreviewAdPage(
+            args: state.extra as PreviewAdPageArgs,
           ),
           transitionDuration:
               const Duration(milliseconds: _routeTransitionDuration),
@@ -775,7 +803,24 @@ class AppRouter {
         name: PaymentCyclePage.name,
         parentNavigatorKey: _rootNavigatorKey,
         pageBuilder: (context, state) => CustomTransitionPage(
-          child: const PaymentCyclePage(),
+          child: PaymentCyclePage(
+            adBloc: state.extra as AdBloc,
+          ),
+          transitionDuration:
+              const Duration(milliseconds: _routeTransitionDuration),
+          transitionsBuilder: (_, a, __, c) =>
+              FadeTransition(opacity: a, child: c),
+        ),
+      ),
+
+      GoRoute(
+        path: '/extend-ad',
+        name: ExtendAdPeriodPage.name,
+        parentNavigatorKey: _rootNavigatorKey,
+        pageBuilder: (context, state) => CustomTransitionPage(
+          child: ExtendAdPeriodPage(
+            ad: state.extra as Ad?,
+          ),
           transitionDuration:
               const Duration(milliseconds: _routeTransitionDuration),
           transitionsBuilder: (_, a, __, c) =>
