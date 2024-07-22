@@ -8,7 +8,7 @@ import 'package:legal_referral_ui/src/core/constants/colors.dart';
 import 'package:legal_referral_ui/src/core/constants/icon_string_constants.dart';
 import 'package:legal_referral_ui/src/features/auth/domain/domain.dart';
 import 'package:legal_referral_ui/src/features/auth/presentation/presentation.dart';
-import 'package:legal_referral_ui/src/features/feed/presentation/presentation.dart';
+import 'package:legal_referral_ui/src/features/network/presentation/presentation.dart';
 import 'package:legal_referral_ui/src/features/wizard/presentation/presentation.dart';
 
 class SplashPage extends StatefulWidget {
@@ -63,7 +63,8 @@ class _SplashPageState extends State<SplashPage> {
             if (state.user?.mobileVerified == false) {
               context.goNamed(ContactDetailsPage.name);
             } else if (state.user?.wizardCompleted == true) {
-              context.goNamed(FeedsPage.name);
+              // context.goNamed(FeedsPage.name);
+              context.goNamed(RecommendationSwipeCards.name);
             } else {
               context.goNamed(WizardInspectionPage.name);
             }

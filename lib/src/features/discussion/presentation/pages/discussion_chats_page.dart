@@ -89,41 +89,65 @@ class _DiscussionChatsPageState extends State<DiscussionChatsPage> {
               ),
             ),
             resizeToAvoidBottomInset: true,
-            body: Column(
-              children: [
-                Expanded(
-                  child: ListView.builder(
-                    padding: const EdgeInsets.all(16),
-                    itemCount: messages.length,
-                    itemBuilder: (context, index) {
-                      final discussionMessage = messages[index];
+            body: Padding(
+              padding: const EdgeInsets.only(bottom: 70),
+              child: Column(
+                children: [
+                  Expanded(
+                    child: ListView.builder(
+                      padding: const EdgeInsets.all(16),
+                      itemCount: messages.length,
+                      itemBuilder: (context, index) {
+                        final discussionMessage = messages[index];
 
-                      final isCurrentUser = discussionMessage?.senderId ==
-                          _authBloc.state.user?.userId;
-                      final senderName =
-                          '${discussionMessage?.senderFirstName} '
-                          '${discussionMessage?.senderLastName}';
-                      return Padding(
-                        padding: const EdgeInsets.only(bottom: 16),
-                        child: Column(
-                          children: [
-                            Row(
-                              mainAxisAlignment: isCurrentUser
-                                  ? MainAxisAlignment.end
-                                  : MainAxisAlignment.start,
-                              children: [
-                                if (!isCurrentUser)
-                                  CustomAvatar(
-                                    imageUrl:
-                                        discussionMessage?.senderAvatarImg,
-                                  )
-                                else
-                                  Align(
-                                    alignment: Alignment.centerRight,
-                                    child: Row(
+                        final isCurrentUser = discussionMessage?.senderId ==
+                            _authBloc.state.user?.userId;
+                        final senderName =
+                            '${discussionMessage?.senderFirstName} '
+                            '${discussionMessage?.senderLastName}';
+                        return Padding(
+                          padding: const EdgeInsets.only(bottom: 16),
+                          child: Column(
+                            children: [
+                              Row(
+                                mainAxisAlignment: isCurrentUser
+                                    ? MainAxisAlignment.end
+                                    : MainAxisAlignment.start,
+                                children: [
+                                  if (!isCurrentUser)
+                                    CustomAvatar(
+                                      imageUrl:
+                                          discussionMessage?.senderAvatarImg,
+                                    )
+                                  else
+                                    Align(
+                                      alignment: Alignment.centerRight,
+                                      child: Row(
+                                        children: [
+                                          Text(
+                                            currentUserName,
+                                            style: textTheme.titleLarge,
+                                          ),
+                                          const SizedBox(width: 8),
+                                          if (discussionMessage
+                                                  ?.parentMessageId !=
+                                              null)
+                                            Text(
+                                              'replied',
+                                              style: TextStyle(
+                                                color: Colors.grey.shade600,
+                                                fontStyle: FontStyle.italic,
+                                              ),
+                                            ),
+                                        ],
+                                      ),
+                                    ),
+                                  const SizedBox(width: 8),
+                                  if (!isCurrentUser)
+                                    Row(
                                       children: [
                                         Text(
-                                          currentUserName,
+                                          senderName,
                                           style: textTheme.titleLarge,
                                         ),
                                         const SizedBox(width: 8),
@@ -138,102 +162,81 @@ class _DiscussionChatsPageState extends State<DiscussionChatsPage> {
                                             ),
                                           ),
                                       ],
+                                    )
+                                  else
+                                    CustomAvatar(
+                                      imageUrl: _authBloc.state.user?.avatarUrl,
                                     ),
-                                  ),
-                                const SizedBox(width: 8),
-                                if (!isCurrentUser)
-                                  Row(
-                                    children: [
-                                      Text(
-                                        senderName,
-                                        style: textTheme.titleLarge,
-                                      ),
-                                      const SizedBox(width: 8),
-                                      if (discussionMessage?.parentMessageId !=
-                                          null)
-                                        Text(
-                                          'replied',
-                                          style: TextStyle(
-                                            color: Colors.grey.shade600,
-                                            fontStyle: FontStyle.italic,
-                                          ),
-                                        ),
-                                    ],
-                                  )
-                                else
-                                  CustomAvatar(
-                                    imageUrl:
-                                        discussionMessage?.senderAvatarImg,
-                                  ),
-                              ],
-                            ),
-                            SizedBox(
-                              height: 8.h,
-                            ),
-                            Container(
-                              padding: const EdgeInsets.all(12),
-                              decoration: BoxDecoration(
-                                color: isCurrentUser
-                                    ? const Color.fromRGBO(
-                                        249,
-                                        255,
-                                        231,
-                                        1,
-                                      )
-                                    : LegalReferralColors.containerWhite500,
-                                borderRadius: BorderRadius.circular(8),
-                              ),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    discussionMessage?.message ?? '',
-                                    style: textTheme.bodyLarge?.copyWith(
-                                      color: LegalReferralColors.textGrey117,
-                                    ),
-                                  ),
-                                  const SizedBox(height: 8),
-                                  Row(
-                                    mainAxisAlignment: isCurrentUser
-                                        ? MainAxisAlignment.end
-                                        : MainAxisAlignment.start,
-                                    children: [
-                                      HorizontalIconButton(
-                                        height: 16,
-                                        width: 16,
-                                        icon: IconStringConstants.reply2,
-                                        onTap: () => _replyToMessage(
-                                          parentMessage: discussionMessage!,
-                                        ),
-                                        text: 'Reply',
-                                        style: textTheme.titleSmall?.copyWith(
-                                          color:
-                                              LegalReferralColors.textGrey400,
-                                        ),
-                                      ),
-                                      const Spacer(),
-                                      Text(
-                                        DateTimeUtil.getFormatTimeHHMM(
-                                          discussionMessage?.sentAt,
-                                        ),
-                                        style: textTheme.bodySmall?.copyWith(
-                                          color:
-                                              LegalReferralColors.textGrey400,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  const SizedBox(height: 4),
                                 ],
                               ),
-                            ),
-                          ],
-                        ),
-                      );
-                    },
+                              SizedBox(
+                                height: 8.h,
+                              ),
+                              Container(
+                                padding: const EdgeInsets.all(12),
+                                decoration: BoxDecoration(
+                                  color: isCurrentUser
+                                      ? const Color.fromRGBO(
+                                          249,
+                                          255,
+                                          231,
+                                          1,
+                                        )
+                                      : LegalReferralColors.containerWhite500,
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      discussionMessage?.message ?? '',
+                                      style: textTheme.bodyLarge?.copyWith(
+                                        color: LegalReferralColors.textGrey117,
+                                      ),
+                                    ),
+                                    const SizedBox(height: 8),
+                                    Row(
+                                      mainAxisAlignment: isCurrentUser
+                                          ? MainAxisAlignment.end
+                                          : MainAxisAlignment.start,
+                                      children: [
+                                        HorizontalIconButton(
+                                          height: 16,
+                                          width: 16,
+                                          icon: IconStringConstants.reply2,
+                                          onTap: () => _replyToMessage(
+                                            parentMessage: discussionMessage!,
+                                          ),
+                                          text: 'Reply',
+                                          style: textTheme.titleSmall?.copyWith(
+                                            color:
+                                                LegalReferralColors.textGrey400,
+                                          ),
+                                        ),
+                                        const Spacer(),
+                                        Text(
+                                          DateTimeUtil.getFormatTimeHHMM(
+                                            discussionMessage?.sentAt,
+                                          ),
+                                          style: textTheme.bodySmall?.copyWith(
+                                            color:
+                                                LegalReferralColors.textGrey400,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    const SizedBox(height: 4),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        );
+                      },
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
             bottomSheet: BottomTextField(
               focusNode: _focusNode,
@@ -258,7 +261,9 @@ class _DiscussionChatsPageState extends State<DiscussionChatsPage> {
                       ),
                     );
                   }
+
                   _messageController.clear();
+                  _focusNode.unfocus();
                 }
               },
             ),

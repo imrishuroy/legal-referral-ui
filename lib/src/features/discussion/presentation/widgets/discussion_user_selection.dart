@@ -12,11 +12,17 @@ class DiscussionUserSelection extends StatefulWidget {
   const DiscussionUserSelection({
     required this.audience,
     required this.discussionBloc,
+    required this.onDone,
+    this.fetchUninvitedUsers = false,
+    this.discussionId,
     super.key,
   });
 
   final DiscussionAudience audience;
   final DiscussionBloc discussionBloc;
+  final VoidCallback onDone;
+  final bool fetchUninvitedUsers;
+  final int? discussionId;
 
   @override
   State<DiscussionUserSelection> createState() =>
@@ -31,6 +37,14 @@ class _DiscussionUserSelectionState extends State<DiscussionUserSelection> {
     final userId = _authBloc.state.user?.userId;
 
     if (userId != null) {
+      if (widget.fetchUninvitedUsers && widget.discussionId != null) {
+        widget.discussionBloc.add(
+          DiscussionUninvitedUsersFetched(
+            discussionId: widget.discussionId!,
+          ),
+        );
+      }
+
       if (widget.audience == DiscussionAudience.connected) {
         widget.discussionBloc.add(
           UserConnectionsFetched(
@@ -154,35 +168,7 @@ class _DiscussionUserSelectionState extends State<DiscussionUserSelection> {
             ),
             CustomElevatedButton(
               text: 'Done',
-              onTap: () {
-                context.pop();
-                // final selectedUsers = state.selectedUsers;
-                // if (selectedUsers.isNotEmpty) {
-                //   final selectedUsersIds = <String>[];
-                //   for (final user in selectedUsers) {
-                //     if (user?.userId != null) {
-                //       selectedUsersIds.add(user!.userId!);
-                //     }
-                //   }
-
-                //   final referral = widget.addReferralReq.copyWith(
-                //     referredUserIds: selectedUsersIds,
-                //   );
-
-                //   _refferralBloc.add(
-                //     ReferralCreated(
-                //       referral: referral,
-                //     ),
-                //   );
-                // } else {
-                //   ToastUtil.showToast(
-                //     context,
-                //     title: 'Error',
-                //     description: 'Please select at least one connection',
-                //     type: ToastificationType.error,
-                //   );
-                // }
-              },
+              onTap: widget.onDone,
             ),
             SizedBox(
               height: 16.h,

@@ -47,6 +47,18 @@ class DiscussionCreated extends DiscussionEvent {
   List<Object> get props => [createDiscussionReq];
 }
 
+class DiscussionTopicUpdated extends DiscussionEvent {
+  const DiscussionTopicUpdated({
+    required this.discussionId,
+    required this.updateDiscussionTopicReq,
+  });
+  final int discussionId;
+  final UpdateDiscussionTopicReq updateDiscussionTopicReq;
+
+  @override
+  List<Object> get props => [discussionId, updateDiscussionTopicReq];
+}
+
 class UserSelected extends DiscussionEvent {
   const UserSelected({
     required this.user,
@@ -152,6 +164,24 @@ class ParentMesssgeUpdated extends DiscussionEvent {
 
 class DiscussionParticipantsFetched extends DiscussionEvent {
   const DiscussionParticipantsFetched({
+    required this.discussionId,
+  });
+
+  final int discussionId;
+
+  @override
+  List<Object> get props => [discussionId];
+}
+
+class DiscussionUpdateToggled extends DiscussionEvent {
+  const DiscussionUpdateToggled();
+
+  @override
+  List<Object> get props => [];
+}
+
+class DiscussionUninvitedUsersFetched extends DiscussionEvent {
+  const DiscussionUninvitedUsersFetched({
     required this.discussionId,
   });
 

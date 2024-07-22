@@ -26,6 +26,21 @@ class DiscussionDatasource {
     }
   }
 
+  Future<ResponseMsg?> updateDiscussionTopic({
+    required int discussionId,
+    required UpdateDiscussionTopicReq updateDiscussionTopicReq,
+  }) async {
+    try {
+      final res = await _apiClient.updateDiscussionTopic(
+        discussionId,
+        updateDiscussionTopicReq,
+      );
+      return res;
+    } catch (_) {
+      rethrow;
+    }
+  }
+
   Future<List<AppUser?>> fetchConnectedUsers({
     required String userId,
     required int limit,
@@ -146,6 +161,19 @@ class DiscussionDatasource {
   }) async {
     try {
       final res = await _apiClient.fetchDiscussionParticipants(
+        discussionId,
+      );
+      return res;
+    } catch (_) {
+      rethrow;
+    }
+  }
+
+  Future<List<AppUser?>> fetchDiscussionUninvitedUsers({
+    required int discussionId,
+  }) async {
+    try {
+      final res = await _apiClient.fetchDiscussionUninvitedUsers(
         discussionId,
       );
       return res;

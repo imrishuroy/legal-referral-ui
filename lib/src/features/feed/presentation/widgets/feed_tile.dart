@@ -40,8 +40,8 @@ class FeedTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final user = feed?.user;
-    final post = feed?.post;
+    final user = feed?.feedPost?.user;
+    final post = feed?.feedPost?.post;
     final name = '${user?.firstName} ${user?.lastName}';
     final theme = Theme.of(context).textTheme;
     return ColoredBox(
@@ -110,7 +110,7 @@ class FeedTile extends StatelessWidget {
                         height: 2.8.h,
                       ),
                       Text(
-                        DateTimeUtil.timeAgo(feed?.createdAt),
+                        DateTimeUtil.timeAgo(feed?.feedPost?.createdAt),
                         style: theme.bodyMedium?.copyWith(
                           color: LegalReferralColors.textGrey117,
                           fontSize: 12.sp,

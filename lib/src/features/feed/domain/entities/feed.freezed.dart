@@ -20,21 +20,12 @@ Feed _$FeedFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Feed {
-  @JsonKey(name: 'feed_id')
-  int get feedId => throw _privateConstructorUsedError;
-  @JsonKey(name: 'user')
-  AppUser? get user => throw _privateConstructorUsedError;
-  @DateTimeJsonConverter()
-  @JsonKey(name: 'created_at')
-  DateTime get createdAt => throw _privateConstructorUsedError;
-  @JsonKey(name: 'is_liked')
-  bool get isLiked => throw _privateConstructorUsedError;
-  @JsonKey(name: 'likes_count')
-  int get likesCount => throw _privateConstructorUsedError;
-  @JsonKey(name: 'comments_count')
-  int get commentsCount => throw _privateConstructorUsedError;
-  @JsonKey(name: 'post')
-  Post? get post => throw _privateConstructorUsedError;
+  @JsonKey(name: 'feed_type')
+  FeedType get type => throw _privateConstructorUsedError;
+  @JsonKey(name: 'feed_post')
+  FeedPost? get feedPost => throw _privateConstructorUsedError;
+  @JsonKey(name: 'ad')
+  Ad? get ad => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -47,16 +38,12 @@ abstract class $FeedCopyWith<$Res> {
       _$FeedCopyWithImpl<$Res, Feed>;
   @useResult
   $Res call(
-      {@JsonKey(name: 'feed_id') int feedId,
-      @JsonKey(name: 'user') AppUser? user,
-      @DateTimeJsonConverter() @JsonKey(name: 'created_at') DateTime createdAt,
-      @JsonKey(name: 'is_liked') bool isLiked,
-      @JsonKey(name: 'likes_count') int likesCount,
-      @JsonKey(name: 'comments_count') int commentsCount,
-      @JsonKey(name: 'post') Post? post});
+      {@JsonKey(name: 'feed_type') FeedType type,
+      @JsonKey(name: 'feed_post') FeedPost? feedPost,
+      @JsonKey(name: 'ad') Ad? ad});
 
-  $AppUserCopyWith<$Res>? get user;
-  $PostCopyWith<$Res>? get post;
+  $FeedPostCopyWith<$Res>? get feedPost;
+  $AdCopyWith<$Res>? get ad;
 }
 
 /// @nodoc
@@ -72,19 +59,246 @@ class _$FeedCopyWithImpl<$Res, $Val extends Feed>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? feedId = null,
+    Object? type = null,
+    Object? feedPost = freezed,
+    Object? ad = freezed,
+  }) {
+    return _then(_value.copyWith(
+      type: null == type
+          ? _value.type
+          : type // ignore: cast_nullable_to_non_nullable
+              as FeedType,
+      feedPost: freezed == feedPost
+          ? _value.feedPost
+          : feedPost // ignore: cast_nullable_to_non_nullable
+              as FeedPost?,
+      ad: freezed == ad
+          ? _value.ad
+          : ad // ignore: cast_nullable_to_non_nullable
+              as Ad?,
+    ) as $Val);
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $FeedPostCopyWith<$Res>? get feedPost {
+    if (_value.feedPost == null) {
+      return null;
+    }
+
+    return $FeedPostCopyWith<$Res>(_value.feedPost!, (value) {
+      return _then(_value.copyWith(feedPost: value) as $Val);
+    });
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $AdCopyWith<$Res>? get ad {
+    if (_value.ad == null) {
+      return null;
+    }
+
+    return $AdCopyWith<$Res>(_value.ad!, (value) {
+      return _then(_value.copyWith(ad: value) as $Val);
+    });
+  }
+}
+
+/// @nodoc
+abstract class _$$FeedImplCopyWith<$Res> implements $FeedCopyWith<$Res> {
+  factory _$$FeedImplCopyWith(
+          _$FeedImpl value, $Res Function(_$FeedImpl) then) =
+      __$$FeedImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call(
+      {@JsonKey(name: 'feed_type') FeedType type,
+      @JsonKey(name: 'feed_post') FeedPost? feedPost,
+      @JsonKey(name: 'ad') Ad? ad});
+
+  @override
+  $FeedPostCopyWith<$Res>? get feedPost;
+  @override
+  $AdCopyWith<$Res>? get ad;
+}
+
+/// @nodoc
+class __$$FeedImplCopyWithImpl<$Res>
+    extends _$FeedCopyWithImpl<$Res, _$FeedImpl>
+    implements _$$FeedImplCopyWith<$Res> {
+  __$$FeedImplCopyWithImpl(_$FeedImpl _value, $Res Function(_$FeedImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? type = null,
+    Object? feedPost = freezed,
+    Object? ad = freezed,
+  }) {
+    return _then(_$FeedImpl(
+      type: null == type
+          ? _value.type
+          : type // ignore: cast_nullable_to_non_nullable
+              as FeedType,
+      feedPost: freezed == feedPost
+          ? _value.feedPost
+          : feedPost // ignore: cast_nullable_to_non_nullable
+              as FeedPost?,
+      ad: freezed == ad
+          ? _value.ad
+          : ad // ignore: cast_nullable_to_non_nullable
+              as Ad?,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$FeedImpl implements _Feed {
+  const _$FeedImpl(
+      {@JsonKey(name: 'feed_type') required this.type,
+      @JsonKey(name: 'feed_post') this.feedPost,
+      @JsonKey(name: 'ad') this.ad});
+
+  factory _$FeedImpl.fromJson(Map<String, dynamic> json) =>
+      _$$FeedImplFromJson(json);
+
+  @override
+  @JsonKey(name: 'feed_type')
+  final FeedType type;
+  @override
+  @JsonKey(name: 'feed_post')
+  final FeedPost? feedPost;
+  @override
+  @JsonKey(name: 'ad')
+  final Ad? ad;
+
+  @override
+  String toString() {
+    return 'Feed(type: $type, feedPost: $feedPost, ad: $ad)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$FeedImpl &&
+            (identical(other.type, type) || other.type == type) &&
+            (identical(other.feedPost, feedPost) ||
+                other.feedPost == feedPost) &&
+            (identical(other.ad, ad) || other.ad == ad));
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  int get hashCode => Object.hash(runtimeType, type, feedPost, ad);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$FeedImplCopyWith<_$FeedImpl> get copyWith =>
+      __$$FeedImplCopyWithImpl<_$FeedImpl>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$FeedImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class _Feed implements Feed {
+  const factory _Feed(
+      {@JsonKey(name: 'feed_type') required final FeedType type,
+      @JsonKey(name: 'feed_post') final FeedPost? feedPost,
+      @JsonKey(name: 'ad') final Ad? ad}) = _$FeedImpl;
+
+  factory _Feed.fromJson(Map<String, dynamic> json) = _$FeedImpl.fromJson;
+
+  @override
+  @JsonKey(name: 'feed_type')
+  FeedType get type;
+  @override
+  @JsonKey(name: 'feed_post')
+  FeedPost? get feedPost;
+  @override
+  @JsonKey(name: 'ad')
+  Ad? get ad;
+  @override
+  @JsonKey(ignore: true)
+  _$$FeedImplCopyWith<_$FeedImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+FeedPost _$FeedPostFromJson(Map<String, dynamic> json) {
+  return _FeedPost.fromJson(json);
+}
+
+/// @nodoc
+mixin _$FeedPost {
+  @JsonKey(name: 'user')
+  AppUser? get user => throw _privateConstructorUsedError;
+  @DateTimeJsonConverter()
+  @JsonKey(name: 'created_at')
+  DateTime get createdAt => throw _privateConstructorUsedError;
+  @JsonKey(name: 'feed_id')
+  int? get feedId => throw _privateConstructorUsedError;
+  @JsonKey(name: 'is_liked')
+  bool get isLiked => throw _privateConstructorUsedError;
+  @JsonKey(name: 'likes_count')
+  int get likesCount => throw _privateConstructorUsedError;
+  @JsonKey(name: 'comments_count')
+  int get commentsCount => throw _privateConstructorUsedError;
+  @JsonKey(name: 'post')
+  Post? get post => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $FeedPostCopyWith<FeedPost> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $FeedPostCopyWith<$Res> {
+  factory $FeedPostCopyWith(FeedPost value, $Res Function(FeedPost) then) =
+      _$FeedPostCopyWithImpl<$Res, FeedPost>;
+  @useResult
+  $Res call(
+      {@JsonKey(name: 'user') AppUser? user,
+      @DateTimeJsonConverter() @JsonKey(name: 'created_at') DateTime createdAt,
+      @JsonKey(name: 'feed_id') int? feedId,
+      @JsonKey(name: 'is_liked') bool isLiked,
+      @JsonKey(name: 'likes_count') int likesCount,
+      @JsonKey(name: 'comments_count') int commentsCount,
+      @JsonKey(name: 'post') Post? post});
+
+  $AppUserCopyWith<$Res>? get user;
+  $PostCopyWith<$Res>? get post;
+}
+
+/// @nodoc
+class _$FeedPostCopyWithImpl<$Res, $Val extends FeedPost>
+    implements $FeedPostCopyWith<$Res> {
+  _$FeedPostCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
     Object? user = freezed,
     Object? createdAt = null,
+    Object? feedId = freezed,
     Object? isLiked = null,
     Object? likesCount = null,
     Object? commentsCount = null,
     Object? post = freezed,
   }) {
     return _then(_value.copyWith(
-      feedId: null == feedId
-          ? _value.feedId
-          : feedId // ignore: cast_nullable_to_non_nullable
-              as int,
       user: freezed == user
           ? _value.user
           : user // ignore: cast_nullable_to_non_nullable
@@ -93,6 +307,10 @@ class _$FeedCopyWithImpl<$Res, $Val extends Feed>
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
               as DateTime,
+      feedId: freezed == feedId
+          ? _value.feedId
+          : feedId // ignore: cast_nullable_to_non_nullable
+              as int?,
       isLiked: null == isLiked
           ? _value.isLiked
           : isLiked // ignore: cast_nullable_to_non_nullable
@@ -138,16 +356,17 @@ class _$FeedCopyWithImpl<$Res, $Val extends Feed>
 }
 
 /// @nodoc
-abstract class _$$FeedImplCopyWith<$Res> implements $FeedCopyWith<$Res> {
-  factory _$$FeedImplCopyWith(
-          _$FeedImpl value, $Res Function(_$FeedImpl) then) =
-      __$$FeedImplCopyWithImpl<$Res>;
+abstract class _$$FeedPostImplCopyWith<$Res>
+    implements $FeedPostCopyWith<$Res> {
+  factory _$$FeedPostImplCopyWith(
+          _$FeedPostImpl value, $Res Function(_$FeedPostImpl) then) =
+      __$$FeedPostImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
-      {@JsonKey(name: 'feed_id') int feedId,
-      @JsonKey(name: 'user') AppUser? user,
+      {@JsonKey(name: 'user') AppUser? user,
       @DateTimeJsonConverter() @JsonKey(name: 'created_at') DateTime createdAt,
+      @JsonKey(name: 'feed_id') int? feedId,
       @JsonKey(name: 'is_liked') bool isLiked,
       @JsonKey(name: 'likes_count') int likesCount,
       @JsonKey(name: 'comments_count') int commentsCount,
@@ -160,28 +379,25 @@ abstract class _$$FeedImplCopyWith<$Res> implements $FeedCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$FeedImplCopyWithImpl<$Res>
-    extends _$FeedCopyWithImpl<$Res, _$FeedImpl>
-    implements _$$FeedImplCopyWith<$Res> {
-  __$$FeedImplCopyWithImpl(_$FeedImpl _value, $Res Function(_$FeedImpl) _then)
+class __$$FeedPostImplCopyWithImpl<$Res>
+    extends _$FeedPostCopyWithImpl<$Res, _$FeedPostImpl>
+    implements _$$FeedPostImplCopyWith<$Res> {
+  __$$FeedPostImplCopyWithImpl(
+      _$FeedPostImpl _value, $Res Function(_$FeedPostImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? feedId = null,
     Object? user = freezed,
     Object? createdAt = null,
+    Object? feedId = freezed,
     Object? isLiked = null,
     Object? likesCount = null,
     Object? commentsCount = null,
     Object? post = freezed,
   }) {
-    return _then(_$FeedImpl(
-      feedId: null == feedId
-          ? _value.feedId
-          : feedId // ignore: cast_nullable_to_non_nullable
-              as int,
+    return _then(_$FeedPostImpl(
       user: freezed == user
           ? _value.user
           : user // ignore: cast_nullable_to_non_nullable
@@ -190,6 +406,10 @@ class __$$FeedImplCopyWithImpl<$Res>
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
               as DateTime,
+      feedId: freezed == feedId
+          ? _value.feedId
+          : feedId // ignore: cast_nullable_to_non_nullable
+              as int?,
       isLiked: null == isLiked
           ? _value.isLiked
           : isLiked // ignore: cast_nullable_to_non_nullable
@@ -212,24 +432,21 @@ class __$$FeedImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$FeedImpl implements _Feed {
-  const _$FeedImpl(
-      {@JsonKey(name: 'feed_id') required this.feedId,
-      @JsonKey(name: 'user') required this.user,
+class _$FeedPostImpl implements _FeedPost {
+  const _$FeedPostImpl(
+      {@JsonKey(name: 'user') required this.user,
       @DateTimeJsonConverter()
       @JsonKey(name: 'created_at')
       required this.createdAt,
+      @JsonKey(name: 'feed_id') this.feedId,
       @JsonKey(name: 'is_liked') this.isLiked = false,
       @JsonKey(name: 'likes_count') this.likesCount = 0,
       @JsonKey(name: 'comments_count') this.commentsCount = 0,
       @JsonKey(name: 'post') this.post});
 
-  factory _$FeedImpl.fromJson(Map<String, dynamic> json) =>
-      _$$FeedImplFromJson(json);
+  factory _$FeedPostImpl.fromJson(Map<String, dynamic> json) =>
+      _$$FeedPostImplFromJson(json);
 
-  @override
-  @JsonKey(name: 'feed_id')
-  final int feedId;
   @override
   @JsonKey(name: 'user')
   final AppUser? user;
@@ -237,6 +454,9 @@ class _$FeedImpl implements _Feed {
   @DateTimeJsonConverter()
   @JsonKey(name: 'created_at')
   final DateTime createdAt;
+  @override
+  @JsonKey(name: 'feed_id')
+  final int? feedId;
   @override
   @JsonKey(name: 'is_liked')
   final bool isLiked;
@@ -252,18 +472,18 @@ class _$FeedImpl implements _Feed {
 
   @override
   String toString() {
-    return 'Feed(feedId: $feedId, user: $user, createdAt: $createdAt, isLiked: $isLiked, likesCount: $likesCount, commentsCount: $commentsCount, post: $post)';
+    return 'FeedPost(user: $user, createdAt: $createdAt, feedId: $feedId, isLiked: $isLiked, likesCount: $likesCount, commentsCount: $commentsCount, post: $post)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$FeedImpl &&
-            (identical(other.feedId, feedId) || other.feedId == feedId) &&
+            other is _$FeedPostImpl &&
             (identical(other.user, user) || other.user == user) &&
             (identical(other.createdAt, createdAt) ||
                 other.createdAt == createdAt) &&
+            (identical(other.feedId, feedId) || other.feedId == feedId) &&
             (identical(other.isLiked, isLiked) || other.isLiked == isLiked) &&
             (identical(other.likesCount, likesCount) ||
                 other.likesCount == likesCount) &&
@@ -274,40 +494,38 @@ class _$FeedImpl implements _Feed {
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, feedId, user, createdAt, isLiked,
+  int get hashCode => Object.hash(runtimeType, user, createdAt, feedId, isLiked,
       likesCount, commentsCount, post);
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$FeedImplCopyWith<_$FeedImpl> get copyWith =>
-      __$$FeedImplCopyWithImpl<_$FeedImpl>(this, _$identity);
+  _$$FeedPostImplCopyWith<_$FeedPostImpl> get copyWith =>
+      __$$FeedPostImplCopyWithImpl<_$FeedPostImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$FeedImplToJson(
+    return _$$FeedPostImplToJson(
       this,
     );
   }
 }
 
-abstract class _Feed implements Feed {
-  const factory _Feed(
-      {@JsonKey(name: 'feed_id') required final int feedId,
-      @JsonKey(name: 'user') required final AppUser? user,
+abstract class _FeedPost implements FeedPost {
+  const factory _FeedPost(
+      {@JsonKey(name: 'user') required final AppUser? user,
       @DateTimeJsonConverter()
       @JsonKey(name: 'created_at')
       required final DateTime createdAt,
+      @JsonKey(name: 'feed_id') final int? feedId,
       @JsonKey(name: 'is_liked') final bool isLiked,
       @JsonKey(name: 'likes_count') final int likesCount,
       @JsonKey(name: 'comments_count') final int commentsCount,
-      @JsonKey(name: 'post') final Post? post}) = _$FeedImpl;
+      @JsonKey(name: 'post') final Post? post}) = _$FeedPostImpl;
 
-  factory _Feed.fromJson(Map<String, dynamic> json) = _$FeedImpl.fromJson;
+  factory _FeedPost.fromJson(Map<String, dynamic> json) =
+      _$FeedPostImpl.fromJson;
 
-  @override
-  @JsonKey(name: 'feed_id')
-  int get feedId;
   @override
   @JsonKey(name: 'user')
   AppUser? get user;
@@ -315,6 +533,9 @@ abstract class _Feed implements Feed {
   @DateTimeJsonConverter()
   @JsonKey(name: 'created_at')
   DateTime get createdAt;
+  @override
+  @JsonKey(name: 'feed_id')
+  int? get feedId;
   @override
   @JsonKey(name: 'is_liked')
   bool get isLiked;
@@ -329,6 +550,6 @@ abstract class _Feed implements Feed {
   Post? get post;
   @override
   @JsonKey(ignore: true)
-  _$$FeedImplCopyWith<_$FeedImpl> get copyWith =>
+  _$$FeedPostImplCopyWith<_$FeedPostImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

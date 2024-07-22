@@ -225,4 +225,46 @@ class DiscussionRepositoryImpl implements DiscussionRepository {
       );
     }
   }
+
+  @override
+  Future<Either<Failure, ResponseMsg?>> updateDiscussionTopic({
+    required int discussionId,
+    required UpdateDiscussionTopicReq updateDiscussionTopicReq,
+  }) async {
+    try {
+      final res = await _discussionDatasource.updateDiscussionTopic(
+        discussionId: discussionId,
+        updateDiscussionTopicReq: updateDiscussionTopicReq,
+      );
+      return Right(res);
+    } on DioException catch (error) {
+      final dioError = DioExceptions.fromDioError(error);
+      return Left(
+        Failure(
+          statusCode: dioError.statusCode,
+          message: dioError.message,
+        ),
+      );
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<AppUser?>>> fetchDiscussionUninvitedUsers({
+    required int discussionId,
+  }) async {
+    try {
+      final res = await _discussionDatasource.fetchDiscussionUninvitedUsers(
+        discussionId: discussionId,
+      );
+      return Right(res);
+    } on DioException catch (error) {
+      final dioError = DioExceptions.fromDioError(error);
+      return Left(
+        Failure(
+          statusCode: dioError.statusCode,
+          message: dioError.message,
+        ),
+      );
+    }
+  }
 }

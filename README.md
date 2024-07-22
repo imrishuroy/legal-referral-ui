@@ -24,3 +24,17 @@ keytool -genkey -v -keystore ~/legal-referral-dev.jks -keyalg RSA -keysize 2048 
 
 ## Build Runner Clean
 dart run build_runner clean
+
+
+{
+	"Version": "2012-10-17",
+	"Statement": [
+		{
+			"Effect": "Allow",
+			"Principal": {
+				"Service": "elasticbeanstalk.amazonaws.com"
+			},
+			"Action": "sts:AssumeRole"
+		}
+	]
+}

@@ -8,10 +8,14 @@ import 'package:legal_referral_ui/src/features/discussion/domain/domain.dart';
 class DiscussionInviteTile extends StatelessWidget {
   const DiscussionInviteTile({
     required this.discussionInviteRes,
+    required this.onJoin,
+    required this.onReject,
     super.key,
   });
 
   final DiscussionInviteRes? discussionInviteRes;
+  final VoidCallback onJoin;
+  final VoidCallback onReject;
 
   @override
   Widget build(BuildContext context) {
@@ -88,7 +92,7 @@ class DiscussionInviteTile extends StatelessWidget {
                 Expanded(
                   child: Center(
                     child: CustomTextButton(
-                      onPressed: () {},
+                      onPressed: onReject,
                       text: 'Reject',
                       style: textTheme.headlineSmall
                           ?.copyWith(color: LegalReferralColors.textGrey400),
@@ -97,7 +101,7 @@ class DiscussionInviteTile extends StatelessWidget {
                 ),
                 Expanded(
                   child: CustomElevatedButton(
-                    onTap: () {},
+                    onTap: onJoin,
                     text: 'Join',
                     height: 36.h,
                   ),

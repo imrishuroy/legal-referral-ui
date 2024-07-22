@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:legal_referral_ui/src/core/common_widgets/widgets.dart';
 import 'package:legal_referral_ui/src/core/config/config.dart';
 import 'package:legal_referral_ui/src/features/auth/presentation/presentation.dart';
@@ -45,13 +46,7 @@ class _DiscussionInvitesState extends State<DiscussionInvites> {
                 style: textTheme.headlineLarge,
               ),
               CustomTextButton(
-                onPressed: () {
-                  // Navigator.of(context).push(
-                  //   MaterialPageRoute(
-                  //     builder: (context) => const DiscussionInvitePage(),
-                  //   ),
-                  // );
-                },
+                onPressed: () => context.pushNamed(DiscussionInvitesPage.name),
                 text: 'View all',
                 style: textTheme.bodyLarge,
               ),
@@ -72,8 +67,34 @@ class _DiscussionInvitesState extends State<DiscussionInvites> {
               child: ListView.separated(
                 itemCount: state.discussionInvites.length,
                 itemBuilder: (context, index) {
+                  final discussionInviteRes = state.discussionInvites[index];
+
                   return DiscussionInviteTile(
-                    discussionInviteRes: state.discussionInvites[index],
+                    discussionInviteRes: discussionInviteRes,
+                    onJoin: () {
+                      final discussionId =
+                          discussionInviteRes?.discussion.discussionId;
+
+                      if (discussionId != null) {
+                        _discussionBloc.add(
+                          DiscussionJoined(
+                            discussionId: discussionId,
+                          ),
+                        );
+                      }
+                    },
+                    onReject: () {
+                      final discussionId =
+                          discussionInviteRes?.discussion.discussionId;
+
+                      if (discussionId != null) {
+                        _discussionBloc.add(
+                          DiscussionRejected(
+                            discussionId: discussionId,
+                          ),
+                        );
+                      }
+                    },
                   );
                 },
                 separatorBuilder: (context, index) {

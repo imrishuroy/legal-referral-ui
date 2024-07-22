@@ -15,6 +15,7 @@ class DiscussionState extends Equatable {
     this.discussionMessages = const [],
     this.parentMessage,
     this.discussionParticipants = const [],
+    this.discussionUpdateToggle = false,
     this.failure,
   });
 
@@ -33,6 +34,7 @@ class DiscussionState extends Equatable {
   final List<DiscussionMessage?> discussionMessages;
   final DiscussionMessage? parentMessage;
   final List<AppUser?> discussionParticipants;
+  final bool discussionUpdateToggle;
   final DiscussionStatus status;
 
   DiscussionState copyWith({
@@ -45,6 +47,7 @@ class DiscussionState extends Equatable {
     List<DiscussionMessage?>? discussionMessages,
     DiscussionMessage? parentMessage,
     List<AppUser?>? discussionParticipants,
+    bool? discussionUpdateToggle,
     DiscussionStatus? status,
   }) {
     return DiscussionState(
@@ -58,6 +61,8 @@ class DiscussionState extends Equatable {
       parentMessage: parentMessage,
       discussionParticipants:
           discussionParticipants ?? this.discussionParticipants,
+      discussionUpdateToggle:
+          discussionUpdateToggle ?? this.discussionUpdateToggle,
       status: status ?? this.status,
     );
   }
@@ -76,6 +81,7 @@ class DiscussionState extends Equatable {
         discussionMessages,
         parentMessage,
         discussionParticipants,
+        discussionUpdateToggle,
         status,
       ];
 }

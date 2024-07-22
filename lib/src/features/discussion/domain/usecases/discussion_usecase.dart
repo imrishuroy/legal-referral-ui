@@ -25,6 +25,20 @@ class DiscussionUsecase {
     }
   }
 
+  Future<Either<Failure, ResponseMsg?>> updateDiscussionTopic({
+    required int discussionId,
+    required UpdateDiscussionTopicReq updateDiscussionTopicReq,
+  }) async {
+    try {
+      return await _discussionRepository.updateDiscussionTopic(
+        discussionId: discussionId,
+        updateDiscussionTopicReq: updateDiscussionTopicReq,
+      );
+    } catch (_) {
+      rethrow;
+    }
+  }
+
   Future<Either<Failure, List<AppUser?>>> fetchConnectedUsers({
     required String userId,
     required int limit,
@@ -136,6 +150,18 @@ class DiscussionUsecase {
   }) async {
     try {
       return await _discussionRepository.fetchDiscussionParticipants(
+        discussionId: discussionId,
+      );
+    } catch (_) {
+      rethrow;
+    }
+  }
+
+  Future<Either<Failure, List<AppUser?>>> fetchDiscussionUninvitedUsers({
+    required int discussionId,
+  }) async {
+    try {
+      return await _discussionRepository.fetchDiscussionUninvitedUsers(
         discussionId: discussionId,
       );
     } catch (_) {

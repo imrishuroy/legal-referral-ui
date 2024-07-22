@@ -58,6 +58,7 @@ class IconStringConstants {
   static const String addFollow = 'assets/icons/add_follow.svg';
   static const String flag = 'assets/icons/flag.svg';
   static const String restrict = 'assets/icons/restrict.svg';
+  static const String card = 'assets/icons/card.svg';
 
   // -- Brand Icons
 

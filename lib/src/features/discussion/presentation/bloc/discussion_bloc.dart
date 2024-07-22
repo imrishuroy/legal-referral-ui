@@ -21,6 +21,7 @@ class DiscussionBloc extends Bloc<DiscussionEvent, DiscussionState> {
     on<UserConnectionsFetched>(_onUserConnectionsFetched);
     on<UsersFetched>(_onUsersFetched);
     on<DiscussionCreated>(_onDiscussionCreated);
+    on<DiscussionTopicUpdated>(_onDiscussionTopicUpdated);
     on<DiscussionAudienceSelected>(_onDiscussionAudienceSelected);
     on<AllUsersSelected>(_onAllUserSelected);
     on<UserSelected>(_onUserSelected);
@@ -32,6 +33,8 @@ class DiscussionBloc extends Bloc<DiscussionEvent, DiscussionState> {
     on<DiscussionRejected>(_onDiscussionRejected);
     on<ParentMesssgeUpdated>(_onParentMessageUpdated);
     on<DiscussionParticipantsFetched>(_onDiscussionParticipantsFetched);
+    on<DiscussionUpdateToggled>(_onDiscussionUpdateToggled);
+    on<DiscussionUninvitedUsersFetched>(_onDiscussionUninvitedUsersFetched);
   }
 
   final AuthBloc _authBloc;
@@ -60,6 +63,36 @@ class DiscussionBloc extends Bloc<DiscussionEvent, DiscussionState> {
       (discussion) => emit(
         state.copyWith(
           status: DiscussionStatus.discussionCreated,
+        ),
+      ),
+    );
+  }
+
+  Future<void> _onDiscussionTopicUpdated(
+    DiscussionTopicUpdated event,
+    Emitter<DiscussionState> emit,
+  ) async {
+    emit(
+      state.copyWith(
+        status: DiscussionStatus.loading,
+      ),
+    );
+
+    final result = await _discussionUsecase.updateDiscussionTopic(
+      discussionId: event.discussionId,
+      updateDiscussionTopicReq: event.updateDiscussionTopicReq,
+    );
+
+    result.fold(
+      (failure) => emit(
+        state.copyWith(
+          status: DiscussionStatus.failure,
+        ),
+      ),
+      (discussion) => emit(
+        state.copyWith(
+          discussionUpdateToggle: false,
+          status: DiscussionStatus.success,
         ),
       ),
     );
@@ -389,6 +422,47 @@ class DiscussionBloc extends Bloc<DiscussionEvent, DiscussionState> {
         emit(
           state.copyWith(
             discussionParticipants: participants,
+            status: DiscussionStatus.success,
+          ),
+        );
+      },
+    );
+  }
+
+  void _onDiscussionUpdateToggled(
+    DiscussionUpdateToggled event,
+    Emitter<DiscussionState> emit,
+  ) {
+    emit(
+      state.copyWith(
+        discussionUpdateToggle: !state.discussionUpdateToggle,
+      ),
+    );
+  }
+
+  Future<void> _onDiscussionUninvitedUsersFetched(
+    DiscussionUninvitedUsersFetched event,
+    Emitter<DiscussionState> emit,
+  ) async {
+    emit(state.copyWith(status: DiscussionStatus.loading));
+
+    final res = await _discussionUsecase.fetchDiscussionUninvitedUsers(
+      discussionId: event.discussionId,
+    );
+
+    res.fold(
+      (failure) {
+        emit(
+          state.copyWith(
+            status: DiscussionStatus.failure,
+            failure: failure,
+          ),
+        );
+      },
+      (users) {
+        emit(
+          state.copyWith(
+            users: users,
             status: DiscussionStatus.success,
           ),
         );

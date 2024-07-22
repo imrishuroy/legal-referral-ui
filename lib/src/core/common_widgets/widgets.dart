@@ -17,5 +17,6 @@ export 'custom_tile.dart';
 export 'expandable_text.dart';
 export 'horizontal_icon_text.dart';
 export 'notification_label.dart';
+export 'preview_video.dart';
 export 'root_layout.dart';
 export 'svg_button.dart';

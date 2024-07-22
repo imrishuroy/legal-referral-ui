@@ -25,7 +25,7 @@ class CustomBottomSheet {
       ),
       sheetAnimationStyle: AnimationStyle(
         curve: Curves.easeIn,
-        duration: const Duration(milliseconds: 600),
+        duration: const Duration(milliseconds: 550),
       ),
       isDismissible: isDismissible ?? false,
       backgroundColor: LegalReferralColors.containerWhite500,

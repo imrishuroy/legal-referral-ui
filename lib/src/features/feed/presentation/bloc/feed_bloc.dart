@@ -144,9 +144,12 @@ class FeedBloc extends Bloc<FeedEvent, FeedState> {
         if (index >= 0 && index < updatedFeeds.length) {
           final feed = updatedFeeds[index];
           updatedFeed = feed?.copyWith(
-            likesCount:
-                feed.isLiked ? feed.likesCount - 1 : feed.likesCount + 1,
-            isLiked: !feed.isLiked,
+            feedPost: feed.feedPost?.copyWith(
+              likesCount: feed.feedPost?.isLiked ?? false
+                  ? feed.feedPost!.likesCount - 1
+                  : feed.feedPost!.likesCount + 1,
+              isLiked: !feed.feedPost!.isLiked,
+            ),
           );
           updatedFeeds[index] = updatedFeed;
         }
@@ -184,9 +187,12 @@ class FeedBloc extends Bloc<FeedEvent, FeedState> {
         if (index >= 0 && index < feeds.length) {
           final feed = feeds[index];
           updatedFeed = feed?.copyWith(
-            likesCount:
-                feed.isLiked ? feed.likesCount - 1 : feed.likesCount + 1,
-            isLiked: !feed.isLiked,
+            feedPost: feed.feedPost?.copyWith(
+              likesCount: feed.feedPost?.isLiked ?? false
+                  ? feed.feedPost!.likesCount - 1
+                  : feed.feedPost!.likesCount + 1,
+              isLiked: !feed.feedPost!.isLiked,
+            ),
           );
           feeds[index] = updatedFeed;
         }
@@ -263,7 +269,9 @@ class FeedBloc extends Bloc<FeedEvent, FeedState> {
         if (index >= 0 && index < feeds.length) {
           final feed = feeds[index];
           updatedFeed = feed?.copyWith(
-            commentsCount: feed.commentsCount + 1,
+            feedPost: feed.feedPost?.copyWith(
+              commentsCount: feed.feedPost!.commentsCount + 1,
+            ),
           );
           feeds[index] = updatedFeed;
         }
