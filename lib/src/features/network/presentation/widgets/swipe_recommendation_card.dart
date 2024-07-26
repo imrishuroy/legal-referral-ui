@@ -7,14 +7,14 @@ class RecommendationSwipeCard extends StatelessWidget {
     required this.name,
     required this.attorneyType,
     required this.avatarUrl,
-    required this.location,
+    required this.practiceLocation,
     required this.percentThresholdX,
     super.key,
   });
   final String name;
   final String attorneyType;
   final String avatarUrl;
-  final String location;
+  final String practiceLocation;
   final int percentThresholdX;
 
   @override
@@ -63,7 +63,7 @@ class RecommendationSwipeCard extends StatelessWidget {
                     ?.copyWith(color: LegalReferralColors.textWhite255),
               ),
               Text(
-                location,
+                practiceLocation,
                 style: Theme.of(context)
                     .textTheme
                     .bodyLarge

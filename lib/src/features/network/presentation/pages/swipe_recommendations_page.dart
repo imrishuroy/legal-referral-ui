@@ -153,7 +153,8 @@ class _SwipeRecommendationsPageState extends State<SwipeRecommendationsPage> {
                         name: name,
                         attorneyType: recommendation?.practiceArea ?? '',
                         avatarUrl: recommendation?.avatarUrl ?? '',
-                        location: recommendation?.practiceLocation ?? '',
+                        practiceLocation:
+                            recommendation?.practiceLocation ?? '',
                         percentThresholdX: percentThresholdX,
                       );
                     },
