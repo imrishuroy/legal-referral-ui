@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_card_swiper/flutter_card_swiper.dart';
 import 'package:injectable/injectable.dart';
 import 'package:legal_referral_ui/src/core/config/config.dart';
 import 'package:legal_referral_ui/src/features/network/data/data.dart';
@@ -19,10 +20,11 @@ class NetworkBloc extends Bloc<NetworkEvent, NetworkState> {
     on<ConnectionsFetched>(_onConnectionsFetched);
     on<ConnectionAccepted>(_onConnectionAccepted);
     on<ConnectionRejected>(_onConnectionRejected);
-    on<ConnectionReqSent>(_onConnectionReqSent);
+    on<ConnectionRequestSent>(_onConnectionRequestSent);
     on<RecommendationCancelled>(_onRecommendationCancelled);
     on<ConnectionChecked>(_onConnectionChecked);
     on<RecommendationIndexUpdated>(_onRecommendationIndexUpdated);
+    on<CardSwipeDetected>(_onCardSwipeDetected);
   }
 
   Future<void> _onConnectionInvitationsFetched(
@@ -176,8 +178,8 @@ class NetworkBloc extends Bloc<NetworkEvent, NetworkState> {
     );
   }
 
-  Future<void> _onConnectionReqSent(
-    ConnectionReqSent event,
+  Future<void> _onConnectionRequestSent(
+    ConnectionRequestSent event,
     Emitter<NetworkState> emit,
   ) async {
     final result = await _networkUseCase.sendConnection(
@@ -281,6 +283,17 @@ class NetworkBloc extends Bloc<NetworkEvent, NetworkState> {
     emit(
       state.copyWith(
         recommendationCardIndex: event.index,
+      ),
+    );
+  }
+
+  Future<void> _onCardSwipeDetected(
+    CardSwipeDetected event,
+    Emitter<NetworkState> emit,
+  ) async {
+    emit(
+      state.copyWith(
+        direction: event.direction,
       ),
     );
   }

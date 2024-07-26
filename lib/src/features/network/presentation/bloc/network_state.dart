@@ -21,6 +21,7 @@ class NetworkState extends Equatable {
       status: ConnectionInvitationStatus.none,
     ),
     this.recommendationCardIndex = 0,
+    this.direction = CardSwiperDirection.none,
     this.failure,
   });
 
@@ -37,6 +38,7 @@ class NetworkState extends Equatable {
   final List<Connection?> connections;
   final UserConnectionStatus userConnectionStatus;
   final int recommendationCardIndex;
+  final CardSwiperDirection direction;
   final Failure? failure;
 
   NetworkState copyWith({
@@ -49,6 +51,7 @@ class NetworkState extends Equatable {
     List<Connection?>? connections,
     UserConnectionStatus? userConnectionStatus,
     int? recommendationCardIndex,
+    CardSwiperDirection? direction,
     Failure? failure,
   }) {
     return NetworkState(
@@ -63,6 +66,7 @@ class NetworkState extends Equatable {
       userConnectionStatus: userConnectionStatus ?? this.userConnectionStatus,
       recommendationCardIndex:
           recommendationCardIndex ?? this.recommendationCardIndex,
+      direction: direction ?? this.direction,
       failure: failure ?? this.failure,
     );
   }
@@ -78,6 +82,7 @@ class NetworkState extends Equatable {
         connections,
         userConnectionStatus,
         recommendationCardIndex,
+        direction,
         failure,
       ];
 }

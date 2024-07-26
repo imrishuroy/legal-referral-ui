@@ -14,6 +14,7 @@ _$RecommendationImpl _$$RecommendationImplFromJson(Map<String, dynamic> json) =>
       about: json['about'] as String?,
       avatarUrl: json['avatar_url'] as String?,
       practiceArea: json['practice_area'] as String?,
+      practiceLocation: json['practice_location'] as String?,
       experience: json['experience'] as String?,
     );
 
@@ -26,5 +27,6 @@ Map<String, dynamic> _$$RecommendationImplToJson(
       'about': instance.about,
       'avatar_url': instance.avatarUrl,
       'practice_area': instance.practiceArea,
+      'practice_location': instance.practiceLocation,
       'experience': instance.experience,
     };

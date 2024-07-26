@@ -64,7 +64,7 @@ class _SplashPageState extends State<SplashPage> {
               context.goNamed(ContactDetailsPage.name);
             } else if (state.user?.wizardCompleted == true) {
               // context.goNamed(FeedsPage.name);
-              context.goNamed(RecommendationSwipeCards.name);
+              context.goNamed(SwipeRecommendationsPage.name);
             } else {
               context.goNamed(WizardInspectionPage.name);
             }

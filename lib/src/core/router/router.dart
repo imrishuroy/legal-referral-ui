@@ -315,10 +315,10 @@ class AppRouter {
       ),
       GoRoute(
         path: '/recommendation-swipe-cards',
-        name: RecommendationSwipeCards.name,
+        name: SwipeRecommendationsPage.name,
         parentNavigatorKey: _rootNavigatorKey,
         pageBuilder: (context, state) => CustomTransitionPage(
-          child: const RecommendationSwipeCards(),
+          child: const SwipeRecommendationsPage(),
           transitionDuration: const Duration(
             milliseconds: _routeTransitionDuration,
           ),
