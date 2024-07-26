@@ -4,8 +4,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:legal_referral_ui/src/core/common_widgets/widgets.dart';
 import 'package:legal_referral_ui/src/core/config/config.dart';
+import 'package:legal_referral_ui/src/core/utils/utils.dart';
 import 'package:legal_referral_ui/src/features/auth/presentation/presentation.dart';
 import 'package:legal_referral_ui/src/features/discussion/presentation/presentation.dart';
+import 'package:toastification/toastification.dart';
 
 class DiscussionInvites extends StatefulWidget {
   const DiscussionInvites({super.key});
@@ -58,52 +60,70 @@ class _DiscussionInvitesState extends State<DiscussionInvites> {
         ),
         BlocConsumer<DiscussionBloc, DiscussionState>(
           bloc: _discussionBloc,
-          listener: (context, state) {},
-          builder: (context, state) {
-            if (state.status == DiscussionStatus.loading) {
-              return const CustomLoadingIndicator();
+          listener: (context, state) {
+            if (state.status == DiscussionStatus.failure) {
+              ToastUtil.showToast(
+                context,
+                title: 'Error',
+                description: state.failure?.message ?? 'something went wrong',
+                type: ToastificationType.error,
+              );
             }
-            return Expanded(
-              child: ListView.separated(
-                itemCount: state.discussionInvites.length,
-                itemBuilder: (context, index) {
-                  final discussionInviteRes = state.discussionInvites[index];
+          },
+          builder: (context, state) {
+            if (state.status == DiscussionStatus.success) {
+              if (state.discussionInvites.isEmpty) {
+                return const Expanded(
+                  child: EmptyListWidget(
+                    message: 'No discussion invites found',
+                  ),
+                );
+              }
 
-                  return DiscussionInviteTile(
-                    discussionInviteRes: discussionInviteRes,
-                    onJoin: () {
-                      final discussionId =
-                          discussionInviteRes?.discussion.discussionId;
+              return Expanded(
+                child: ListView.separated(
+                  itemCount: state.discussionInvites.length,
+                  itemBuilder: (context, index) {
+                    final discussionInviteRes = state.discussionInvites[index];
 
-                      if (discussionId != null) {
-                        _discussionBloc.add(
-                          DiscussionJoined(
-                            discussionId: discussionId,
-                          ),
-                        );
-                      }
-                    },
-                    onReject: () {
-                      final discussionId =
-                          discussionInviteRes?.discussion.discussionId;
+                    return DiscussionInviteTile(
+                      discussionInviteRes: discussionInviteRes,
+                      onJoin: () {
+                        final discussionId =
+                            discussionInviteRes?.discussion.discussionId;
 
-                      if (discussionId != null) {
-                        _discussionBloc.add(
-                          DiscussionRejected(
-                            discussionId: discussionId,
-                          ),
-                        );
-                      }
-                    },
-                  );
-                },
-                separatorBuilder: (context, index) {
-                  return SizedBox(
-                    height: 12.h,
-                  );
-                },
-              ),
-            );
+                        if (discussionId != null) {
+                          _discussionBloc.add(
+                            DiscussionJoined(
+                              discussionId: discussionId,
+                            ),
+                          );
+                        }
+                      },
+                      onReject: () {
+                        final discussionId =
+                            discussionInviteRes?.discussion.discussionId;
+
+                        if (discussionId != null) {
+                          _discussionBloc.add(
+                            DiscussionRejected(
+                              discussionId: discussionId,
+                            ),
+                          );
+                        }
+                      },
+                    );
+                  },
+                  separatorBuilder: (context, index) {
+                    return SizedBox(
+                      height: 12.h,
+                    );
+                  },
+                ),
+              );
+            }
+
+            return const CustomLoadingIndicator();
           },
         ),
       ],

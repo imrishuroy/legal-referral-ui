@@ -31,6 +31,8 @@ mixin _$Recommendation {
   String? get avatarUrl => throw _privateConstructorUsedError;
   @JsonKey(name: 'practice_area')
   String? get practiceArea => throw _privateConstructorUsedError;
+  @JsonKey(name: 'practice_location')
+  String? get practiceLocation => throw _privateConstructorUsedError;
   String? get experience => throw _privateConstructorUsedError;
   @JsonKey(includeFromJson: false, includeToJson: false)
   ConnectionInvitationStatus? get status => throw _privateConstructorUsedError;
@@ -54,6 +56,7 @@ abstract class $RecommendationCopyWith<$Res> {
       String? about,
       @JsonKey(name: 'avatar_url') String? avatarUrl,
       @JsonKey(name: 'practice_area') String? practiceArea,
+      @JsonKey(name: 'practice_location') String? practiceLocation,
       String? experience,
       @JsonKey(includeFromJson: false, includeToJson: false)
       ConnectionInvitationStatus? status});
@@ -78,6 +81,7 @@ class _$RecommendationCopyWithImpl<$Res, $Val extends Recommendation>
     Object? about = freezed,
     Object? avatarUrl = freezed,
     Object? practiceArea = freezed,
+    Object? practiceLocation = freezed,
     Object? experience = freezed,
     Object? status = freezed,
   }) {
@@ -106,6 +110,10 @@ class _$RecommendationCopyWithImpl<$Res, $Val extends Recommendation>
           ? _value.practiceArea
           : practiceArea // ignore: cast_nullable_to_non_nullable
               as String?,
+      practiceLocation: freezed == practiceLocation
+          ? _value.practiceLocation
+          : practiceLocation // ignore: cast_nullable_to_non_nullable
+              as String?,
       experience: freezed == experience
           ? _value.experience
           : experience // ignore: cast_nullable_to_non_nullable
@@ -133,6 +141,7 @@ abstract class _$$RecommendationImplCopyWith<$Res>
       String? about,
       @JsonKey(name: 'avatar_url') String? avatarUrl,
       @JsonKey(name: 'practice_area') String? practiceArea,
+      @JsonKey(name: 'practice_location') String? practiceLocation,
       String? experience,
       @JsonKey(includeFromJson: false, includeToJson: false)
       ConnectionInvitationStatus? status});
@@ -155,6 +164,7 @@ class __$$RecommendationImplCopyWithImpl<$Res>
     Object? about = freezed,
     Object? avatarUrl = freezed,
     Object? practiceArea = freezed,
+    Object? practiceLocation = freezed,
     Object? experience = freezed,
     Object? status = freezed,
   }) {
@@ -183,6 +193,10 @@ class __$$RecommendationImplCopyWithImpl<$Res>
           ? _value.practiceArea
           : practiceArea // ignore: cast_nullable_to_non_nullable
               as String?,
+      practiceLocation: freezed == practiceLocation
+          ? _value.practiceLocation
+          : practiceLocation // ignore: cast_nullable_to_non_nullable
+              as String?,
       experience: freezed == experience
           ? _value.experience
           : experience // ignore: cast_nullable_to_non_nullable
@@ -205,6 +219,7 @@ class _$RecommendationImpl implements _Recommendation {
       required this.about,
       @JsonKey(name: 'avatar_url') required this.avatarUrl,
       @JsonKey(name: 'practice_area') required this.practiceArea,
+      @JsonKey(name: 'practice_location') required this.practiceLocation,
       required this.experience,
       @JsonKey(includeFromJson: false, includeToJson: false)
       this.status = ConnectionInvitationStatus.none});
@@ -230,6 +245,9 @@ class _$RecommendationImpl implements _Recommendation {
   @JsonKey(name: 'practice_area')
   final String? practiceArea;
   @override
+  @JsonKey(name: 'practice_location')
+  final String? practiceLocation;
+  @override
   final String? experience;
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
@@ -237,7 +255,7 @@ class _$RecommendationImpl implements _Recommendation {
 
   @override
   String toString() {
-    return 'Recommendation(userId: $userId, firstName: $firstName, lastName: $lastName, about: $about, avatarUrl: $avatarUrl, practiceArea: $practiceArea, experience: $experience, status: $status)';
+    return 'Recommendation(userId: $userId, firstName: $firstName, lastName: $lastName, about: $about, avatarUrl: $avatarUrl, practiceArea: $practiceArea, practiceLocation: $practiceLocation, experience: $experience, status: $status)';
   }
 
   @override
@@ -255,6 +273,8 @@ class _$RecommendationImpl implements _Recommendation {
                 other.avatarUrl == avatarUrl) &&
             (identical(other.practiceArea, practiceArea) ||
                 other.practiceArea == practiceArea) &&
+            (identical(other.practiceLocation, practiceLocation) ||
+                other.practiceLocation == practiceLocation) &&
             (identical(other.experience, experience) ||
                 other.experience == experience) &&
             (identical(other.status, status) || other.status == status));
@@ -263,7 +283,7 @@ class _$RecommendationImpl implements _Recommendation {
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(runtimeType, userId, firstName, lastName,
-      about, avatarUrl, practiceArea, experience, status);
+      about, avatarUrl, practiceArea, practiceLocation, experience, status);
 
   @JsonKey(ignore: true)
   @override
@@ -288,6 +308,8 @@ abstract class _Recommendation implements Recommendation {
       required final String? about,
       @JsonKey(name: 'avatar_url') required final String? avatarUrl,
       @JsonKey(name: 'practice_area') required final String? practiceArea,
+      @JsonKey(name: 'practice_location')
+      required final String? practiceLocation,
       required final String? experience,
       @JsonKey(includeFromJson: false, includeToJson: false)
       final ConnectionInvitationStatus? status}) = _$RecommendationImpl;
@@ -312,6 +334,9 @@ abstract class _Recommendation implements Recommendation {
   @override
   @JsonKey(name: 'practice_area')
   String? get practiceArea;
+  @override
+  @JsonKey(name: 'practice_location')
+  String? get practiceLocation;
   @override
   String? get experience;
   @override

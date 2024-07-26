@@ -79,7 +79,7 @@ class _RecommendationsSectionState extends State<RecommendationsSection> {
                   final userId = _authBloc.state.user?.userId;
                   if (userId != null && recommendation?.userId != null) {
                     widget.networkBloc.add(
-                      ConnectionReqSent(
+                      ConnectionRequestSent(
                         sendConnectionReq: SendConnectionReq(
                           senderId: userId,
                           recipientId: recommendation!.userId!,

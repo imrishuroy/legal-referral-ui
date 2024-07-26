@@ -13,17 +13,17 @@ import 'package:legal_referral_ui/src/features/network/data/data.dart';
 import 'package:legal_referral_ui/src/features/network/presentation/presentation.dart';
 import 'package:toastification/toastification.dart';
 
-class RecommendationSwipeCards extends StatefulWidget {
-  const RecommendationSwipeCards({super.key});
+class SwipeRecommendationsPage extends StatefulWidget {
+  const SwipeRecommendationsPage({super.key});
 
-  static const String name = 'RecommendationSwipeCards';
+  static const String name = 'SwipeRecommendationsPage';
 
   @override
-  State<RecommendationSwipeCards> createState() =>
-      _RecommendationSwipeCardsState();
+  State<SwipeRecommendationsPage> createState() =>
+      _SwipeRecommendationsPageState();
 }
 
-class _RecommendationSwipeCardsState extends State<RecommendationSwipeCards> {
+class _SwipeRecommendationsPageState extends State<SwipeRecommendationsPage> {
   final CardSwiperController _cardSwiperController = CardSwiperController();
   final _authBloc = getIt<AuthBloc>();
   final _networkBloc = getIt<NetworkBloc>();
@@ -84,24 +84,26 @@ class _RecommendationSwipeCardsState extends State<RecommendationSwipeCards> {
         builder: (context, state) {
           if (state.recommendationStatus == RecommendationStatus.success) {
             if (state.recommendations.length < 2) {
-              return const Center(
-                child: Text(
-                  'No recommendations found',
-                  style: TextStyle(
-                    color: LegalReferralColors.textBlack,
-                    fontSize: 16,
-                  ),
-                ),
-              );
+              return const CustomLoadingIndicator();
             }
             return Column(
               children: [
                 Flexible(
                   child: CardSwiper(
                     controller: _cardSwiperController,
+                    onEnd: () {
+                      context.goNamed(FeedsPage.name);
+                    },
                     allowedSwipeDirection:
                         const AllowedSwipeDirection.symmetric(horizontal: true),
                     cardsCount: state.recommendations.length,
+                    onSwipeDirectionChange: (direction, card) {
+                      _networkBloc.add(
+                        CardSwipeDetected(
+                          direction: direction,
+                        ),
+                      );
+                    },
                     onSwipe: (previousIndex, currentIndex, direction) async {
                       if (currentIndex == null) {
                         return false;
@@ -129,7 +131,7 @@ class _RecommendationSwipeCardsState extends State<RecommendationSwipeCards> {
                         final userId = _authBloc.state.user?.userId;
                         if (userId != null && recommendation?.userId != null) {
                           _networkBloc.add(
-                            ConnectionReqSent(
+                            ConnectionRequestSent(
                               sendConnectionReq: SendConnectionReq(
                                 senderId: userId,
                                 recipientId: recommendation!.userId!,
@@ -144,15 +146,15 @@ class _RecommendationSwipeCardsState extends State<RecommendationSwipeCards> {
                     cardBuilder:
                         (context, index, percentThresholdX, percentThresholdY) {
                       final recommendation = state.recommendations[index];
-
                       final name = '${recommendation?.firstName} '
                           '${recommendation?.lastName}';
 
-                      return _FollowersCard(
+                      return RecommendationSwipeCard(
                         name: name,
                         attorneyType: recommendation?.practiceArea ?? '',
                         avatarUrl: recommendation?.avatarUrl ?? '',
-                        location: 'San Francisco',
+                        location: recommendation?.practiceLocation ?? '',
+                        percentThresholdX: percentThresholdX,
                       );
                     },
                   ),
@@ -214,7 +216,7 @@ class _RecommendationSwipeCardsState extends State<RecommendationSwipeCards> {
                               if (userId != null &&
                                   recommendation?.userId != null) {
                                 _networkBloc.add(
-                                  ConnectionReqSent(
+                                  ConnectionRequestSent(
                                     sendConnectionReq: SendConnectionReq(
                                       senderId: userId,
                                       recipientId: recommendation!.userId!,
@@ -239,69 +241,6 @@ class _RecommendationSwipeCardsState extends State<RecommendationSwipeCards> {
           return const CustomLoadingIndicator();
         },
       ),
-    );
-  }
-}
-
-class _FollowersCard extends StatelessWidget {
-  const _FollowersCard({
-    required this.name,
-    required this.attorneyType,
-    required this.avatarUrl,
-    required this.location,
-  });
-  final String name;
-  final String attorneyType;
-  final String avatarUrl;
-  final String location;
-  @override
-  Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        Container(
-          color: LegalReferralColors.backgroundWhite255,
-        ),
-        Image.network(
-          avatarUrl,
-          fit: BoxFit.cover,
-          height: double.infinity,
-          width: double.infinity,
-        ),
-        Container(
-          alignment: Alignment.center,
-          color: Colors.black.withOpacity(0.4),
-        ),
-        Positioned(
-          bottom: 12,
-          left: 12,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                name,
-                style: Theme.of(context)
-                    .textTheme
-                    .headlineMedium
-                    ?.copyWith(color: LegalReferralColors.textWhite255),
-              ),
-              Text(
-                attorneyType,
-                style: Theme.of(context)
-                    .textTheme
-                    .bodyLarge
-                    ?.copyWith(color: LegalReferralColors.textWhite255),
-              ),
-              Text(
-                location,
-                style: Theme.of(context)
-                    .textTheme
-                    .bodyLarge
-                    ?.copyWith(color: LegalReferralColors.textWhite255),
-              ),
-            ],
-          ),
-        ),
-      ],
     );
   }
 }

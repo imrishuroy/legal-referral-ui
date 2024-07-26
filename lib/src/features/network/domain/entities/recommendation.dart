@@ -13,6 +13,7 @@ class Recommendation with _$Recommendation {
     required String? about,
     @JsonKey(name: 'avatar_url') required String? avatarUrl,
     @JsonKey(name: 'practice_area') required String? practiceArea,
+    @JsonKey(name: 'practice_location') required String? practiceLocation,
     required String? experience,
     @JsonKey(includeFromJson: false, includeToJson: false)
     @Default(ConnectionInvitationStatus.none)

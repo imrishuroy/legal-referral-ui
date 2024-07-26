@@ -5,8 +5,10 @@ import 'package:go_router/go_router.dart';
 import 'package:legal_referral_ui/src/core/common_widgets/widgets.dart';
 import 'package:legal_referral_ui/src/core/config/config.dart';
 import 'package:legal_referral_ui/src/core/constants/colors.dart';
+import 'package:legal_referral_ui/src/core/utils/utils.dart';
 import 'package:legal_referral_ui/src/features/auth/presentation/presentation.dart';
 import 'package:legal_referral_ui/src/features/discussion/presentation/presentation.dart';
+import 'package:toastification/toastification.dart';
 
 class ActiveDiscussions extends StatefulWidget {
   const ActiveDiscussions({super.key});
@@ -37,60 +39,73 @@ class _ActiveDiscussionsState extends State<ActiveDiscussions> {
       padding: EdgeInsets.symmetric(vertical: 16.h),
       child: BlocConsumer<DiscussionBloc, DiscussionState>(
         bloc: _discussionBloc,
-        listener: (context, state) {},
+        listener: (context, state) {
+          if (state.status == DiscussionStatus.failure) {
+            ToastUtil.showToast(
+              context,
+              title: 'Error',
+              description: state.failure?.message ?? 'something went wrong',
+              type: ToastificationType.error,
+            );
+          }
+        },
         builder: (context, state) {
-          if (state.status == DiscussionStatus.loading) {
-            return const CustomLoadingIndicator();
+          if (state.status == DiscussionStatus.success) {
+            if (state.discussions.isEmpty) {
+              return const EmptyListWidget(message: 'No active discussions');
+            }
+
+            return ListView.builder(
+              shrinkWrap: true,
+              itemBuilder: (BuildContext context, int index) {
+                final discussion = state.discussions[index];
+                return Card(
+                  margin: EdgeInsets.only(
+                    left: 16.w,
+                    right: 16.w,
+                    bottom: 1.h,
+                  ),
+                  elevation: 1,
+                  child: ListTile(
+                    contentPadding:
+                        EdgeInsets.symmetric(horizontal: 12.w, vertical: 12.h),
+                    onTap: () {
+                      final discussionId = discussion?.discussionId;
+                      if (discussionId == null) {
+                        return;
+                      }
+                      context.pushNamed(
+                        DiscussionChatsPage.name,
+                        extra: discussion,
+                        pathParameters: {
+                          'discussionId': '$discussionId',
+                        },
+                      );
+                    },
+                    title: Padding(
+                      padding: const EdgeInsets.only(bottom: 4, right: 2),
+                      child: Text(
+                        discussion?.topic ?? '',
+                        style: textTheme.bodyLarge,
+                      ),
+                    ),
+                    subtitle: Text(
+                      '${discussion?.activeMemberCount ?? 0} active members',
+                      style: textTheme.bodyLarge
+                          ?.copyWith(color: LegalReferralColors.textGrey400),
+                    ),
+                    // We will add this later
+                    // trailing: const NotificationLabel(
+                    //   notificationNum: '1',
+                    // ),
+                  ),
+                );
+              },
+              itemCount: state.discussions.length,
+            );
           }
 
-          return ListView.builder(
-            shrinkWrap: true,
-            itemBuilder: (BuildContext context, int index) {
-              final discussion = state.discussions[index];
-              return Card(
-                margin: EdgeInsets.only(
-                  left: 16.w,
-                  right: 16.w,
-                  bottom: 1.h,
-                ),
-                elevation: 1,
-                child: ListTile(
-                  contentPadding:
-                      EdgeInsets.symmetric(horizontal: 12.w, vertical: 12.h),
-                  onTap: () {
-                    final discussionId = discussion?.discussionId;
-                    if (discussionId == null) {
-                      return;
-                    }
-                    context.pushNamed(
-                      DiscussionChatsPage.name,
-                      extra: discussion,
-                      pathParameters: {
-                        'discussionId': '$discussionId',
-                      },
-                    );
-                  },
-                  title: Padding(
-                    padding: const EdgeInsets.only(bottom: 4, right: 2),
-                    child: Text(
-                      discussion?.topic ?? '',
-                      style: textTheme.bodyLarge,
-                    ),
-                  ),
-                  subtitle: Text(
-                    '${discussion?.activeMemberCount ?? 0} active members',
-                    style: textTheme.bodyLarge
-                        ?.copyWith(color: LegalReferralColors.textGrey400),
-                  ),
-                  // We will add this later
-                  // trailing: const NotificationLabel(
-                  //   notificationNum: '1',
-                  // ),
-                ),
-              );
-            },
-            itemCount: state.discussions.length,
-          );
+          return const CustomLoadingIndicator();
         },
       ),
     );

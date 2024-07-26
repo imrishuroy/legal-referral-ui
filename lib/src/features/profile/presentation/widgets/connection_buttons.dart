@@ -109,7 +109,7 @@ class _ConnectionButtonsState extends State<ConnectionButtons> {
     final currentUserId = _authBloc.state.user?.userId;
     if (currentUserId != null && currentUserId != widget.userId) {
       _networkBloc.add(
-        ConnectionReqSent(
+        ConnectionRequestSent(
           sendConnectionReq: SendConnectionReq(
             senderId: currentUserId,
             recipientId: widget.userId,
