@@ -50,6 +50,8 @@ class _HeaderSectionState extends State<HeaderSection> {
                 ),
                 icon: SvgPicture.asset(
                   IconStringConstants.editIcon,
+                  height: 20.h,
+                  width: 20.w,
                 ),
               ),
             ),

@@ -54,9 +54,11 @@ class ProfileSection extends StatelessWidget {
                       CustomIconButton(
                         onTap: onTapAdd,
                         icon: SizedBox(
-                          height: 24.h,
-                          width: 24.w,
-                          child: SvgPicture.asset(IconStringConstants.addIcon),
+                          height: 20.h,
+                          width: 20.w,
+                          child: SvgPicture.asset(
+                            IconStringConstants.addIcon,
+                          ),
                         ),
                       ),
                     if (showEditButton)
@@ -67,9 +69,11 @@ class ProfileSection extends StatelessWidget {
                       CustomIconButton(
                         onTap: onTapEdit,
                         icon: SizedBox(
-                          height: 24.h,
-                          width: 24.w,
-                          child: SvgPicture.asset(IconStringConstants.editIcon),
+                          height: 20.h,
+                          width: 20.w,
+                          child: SvgPicture.asset(
+                            IconStringConstants.editIcon,
+                          ),
                         ),
                       ),
                   ],
