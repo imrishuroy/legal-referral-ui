@@ -113,7 +113,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                           IconStringConstants.favIcon,
                                         ),
                                         Text(
-                                          '4.3 by 433 attorneys',
+                                          '4.7 by 433 attorneys',
                                           style: Theme.of(context)
                                               .textTheme
                                               .bodyLarge
@@ -140,8 +140,6 @@ class _ProfilePageState extends State<ProfilePage> {
                               SizedBox(
                                 height: 8.h,
                               ),
-
-                              // connection buttons
                               if (!isCurrentUser)
                                 ConnectionButtons(
                                   userId: widget.userId,

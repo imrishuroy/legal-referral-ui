@@ -24,7 +24,7 @@ class FeedTile extends StatelessWidget {
     required this.isLiked,
     required this.likesCount,
     required this.commentsCount,
-    this.imageHeight = 400,
+    this.imageHeight = 380,
     super.key,
   });
 

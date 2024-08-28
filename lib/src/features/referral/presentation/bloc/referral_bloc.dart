@@ -101,7 +101,8 @@ class ReferralBloc extends Bloc<ReferralEvent, ReferralState> {
 
     final res = await _referralUseCases.fetchUsers(
       limit: event.limit,
-      offset: event.offset,
+      // offset: event.offset,
+      offset: 0,
     );
 
     res.fold(
@@ -169,7 +170,6 @@ class ReferralBloc extends Bloc<ReferralEvent, ReferralState> {
     ReferralStateReset event,
     Emitter<ReferralState> emit,
   ) async {
-    AppLogger.info('Referral state reset');
     emit(state.copyWith(status: ReferralStatus.loading));
     await Future.delayed(const Duration(milliseconds: 500));
     emit(state.copyWith(status: ReferralStatus.success));
