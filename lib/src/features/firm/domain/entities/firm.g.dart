@@ -13,6 +13,9 @@ _$FirmImpl _$$FirmImplFromJson(Map<String, dynamic> json) => _$FirmImpl(
       website: json['website'] as String,
       location: json['location'] as String,
       about: json['about'] as String,
+      ownerUserId: json['owner_user_id'] as String,
+      createdAt:
+          const DateTimeJsonConverter().fromJson(json['created_at'] as String),
       firmId: (json['firm_id'] as num?)?.toInt(),
     );
 
@@ -24,4 +27,6 @@ Map<String, dynamic> _$$FirmImplToJson(_$FirmImpl instance) =>
       'website': instance.website,
       'location': instance.location,
       'about': instance.about,
+      'owner_user_id': instance.ownerUserId,
+      'created_at': const DateTimeJsonConverter().toJson(instance.createdAt),
     };

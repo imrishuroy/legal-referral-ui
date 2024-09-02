@@ -9,6 +9,7 @@ import 'package:legal_referral_ui/src/features/chat/presentation/presentation.da
 import 'package:legal_referral_ui/src/features/discussion/domain/domain.dart';
 import 'package:legal_referral_ui/src/features/discussion/presentation/presentation.dart';
 import 'package:legal_referral_ui/src/features/feed/presentation/presentation.dart';
+import 'package:legal_referral_ui/src/features/firm/presentation/presentation.dart';
 import 'package:legal_referral_ui/src/features/network/presentation/presentation.dart';
 import 'package:legal_referral_ui/src/features/post/presentation/presentation.dart';
 import 'package:legal_referral_ui/src/features/profile/presentation/presentation.dart';
@@ -353,6 +354,36 @@ class AppRouter {
           transitionsBuilder: (_, a, __, c) =>
               FadeTransition(opacity: a, child: c),
         ),
+        routes: [
+          GoRoute(
+            path: 'my-law-firm',
+            name: MyLawFirmPage.name,
+            parentNavigatorKey: _rootNavigatorKey,
+            pageBuilder: (context, state) => CustomTransitionPage(
+              child: const MyLawFirmPage(),
+              transitionDuration: const Duration(
+                milliseconds: _routeTransitionDuration,
+              ),
+              transitionsBuilder: (_, a, __, c) =>
+                  FadeTransition(opacity: a, child: c),
+            ),
+            routes: [
+              GoRoute(
+                path: 'add-law-firm',
+                name: AddLawFirmPage.name,
+                parentNavigatorKey: _rootNavigatorKey,
+                pageBuilder: (context, state) => CustomTransitionPage(
+                  child: const AddLawFirmPage(),
+                  transitionDuration: const Duration(
+                    milliseconds: _routeTransitionDuration,
+                  ),
+                  transitionsBuilder: (_, a, __, c) =>
+                      FadeTransition(opacity: a, child: c),
+                ),
+              ),
+            ],
+          ),
+        ],
       ),
       GoRoute(
         path: '/add-update-experience',

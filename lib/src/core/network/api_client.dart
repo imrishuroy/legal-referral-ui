@@ -12,6 +12,7 @@ import 'package:legal_referral_ui/src/features/discussion/data/data.dart';
 import 'package:legal_referral_ui/src/features/discussion/domain/domain.dart';
 import 'package:legal_referral_ui/src/features/feed/data/data.dart';
 import 'package:legal_referral_ui/src/features/feed/domain/domain.dart';
+import 'package:legal_referral_ui/src/features/firm/domain/domain.dart';
 import 'package:legal_referral_ui/src/features/network/data/data.dart';
 import 'package:legal_referral_ui/src/features/network/domain/domain.dart';
 import 'package:legal_referral_ui/src/features/profile/data/data.dart';
@@ -119,11 +120,28 @@ abstract class APIClient {
     @Path('userId') String userId,
   );
 
+  @POST('/firms')
+  @MultiPart()
+  Future<Firm> addFirm(
+    @Part(name: 'name') String name,
+    @Part(name: 'owner_user_id') String ownerId,
+    @Part(name: 'org_type') String orgType,
+    @Part(name: 'file') File file,
+    @Part(name: 'website') String website,
+    @Part(name: 'location') String location,
+    @Part(name: 'about') String about,
+  );
+
   @GET('/firms')
   Future<List<Firm?>> searchFirm(
     @Query('query') String query,
     @Query('limit') int limit,
     @Query('offset') int offset,
+  );
+
+  @GET('/firms/owner/{ownerId}')
+  Future<List<Firm>> fetchMyFirms(
+    @Path('ownerId') String ownerId,
   );
 
   @PUT('/users/info')

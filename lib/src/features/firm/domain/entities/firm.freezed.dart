@@ -28,6 +28,11 @@ mixin _$Firm {
   String get website => throw _privateConstructorUsedError;
   String get location => throw _privateConstructorUsedError;
   String get about => throw _privateConstructorUsedError;
+  @JsonKey(name: 'owner_user_id')
+  String get ownerUserId => throw _privateConstructorUsedError;
+  @JsonKey(name: 'created_at')
+  @DateTimeJsonConverter()
+  DateTime get createdAt => throw _privateConstructorUsedError;
   @JsonKey(name: 'firm_id', includeToJson: false)
   int? get firmId => throw _privateConstructorUsedError;
 
@@ -48,6 +53,8 @@ abstract class $FirmCopyWith<$Res> {
       String website,
       String location,
       String about,
+      @JsonKey(name: 'owner_user_id') String ownerUserId,
+      @JsonKey(name: 'created_at') @DateTimeJsonConverter() DateTime createdAt,
       @JsonKey(name: 'firm_id', includeToJson: false) int? firmId});
 }
 
@@ -70,6 +77,8 @@ class _$FirmCopyWithImpl<$Res, $Val extends Firm>
     Object? website = null,
     Object? location = null,
     Object? about = null,
+    Object? ownerUserId = null,
+    Object? createdAt = null,
     Object? firmId = freezed,
   }) {
     return _then(_value.copyWith(
@@ -97,6 +106,14 @@ class _$FirmCopyWithImpl<$Res, $Val extends Firm>
           ? _value.about
           : about // ignore: cast_nullable_to_non_nullable
               as String,
+      ownerUserId: null == ownerUserId
+          ? _value.ownerUserId
+          : ownerUserId // ignore: cast_nullable_to_non_nullable
+              as String,
+      createdAt: null == createdAt
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
       firmId: freezed == firmId
           ? _value.firmId
           : firmId // ignore: cast_nullable_to_non_nullable
@@ -119,6 +136,8 @@ abstract class _$$FirmImplCopyWith<$Res> implements $FirmCopyWith<$Res> {
       String website,
       String location,
       String about,
+      @JsonKey(name: 'owner_user_id') String ownerUserId,
+      @JsonKey(name: 'created_at') @DateTimeJsonConverter() DateTime createdAt,
       @JsonKey(name: 'firm_id', includeToJson: false) int? firmId});
 }
 
@@ -138,6 +157,8 @@ class __$$FirmImplCopyWithImpl<$Res>
     Object? website = null,
     Object? location = null,
     Object? about = null,
+    Object? ownerUserId = null,
+    Object? createdAt = null,
     Object? firmId = freezed,
   }) {
     return _then(_$FirmImpl(
@@ -165,6 +186,14 @@ class __$$FirmImplCopyWithImpl<$Res>
           ? _value.about
           : about // ignore: cast_nullable_to_non_nullable
               as String,
+      ownerUserId: null == ownerUserId
+          ? _value.ownerUserId
+          : ownerUserId // ignore: cast_nullable_to_non_nullable
+              as String,
+      createdAt: null == createdAt
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
       firmId: freezed == firmId
           ? _value.firmId
           : firmId // ignore: cast_nullable_to_non_nullable
@@ -183,6 +212,10 @@ class _$FirmImpl implements _Firm {
       required this.website,
       required this.location,
       required this.about,
+      @JsonKey(name: 'owner_user_id') required this.ownerUserId,
+      @JsonKey(name: 'created_at')
+      @DateTimeJsonConverter()
+      required this.createdAt,
       @JsonKey(name: 'firm_id', includeToJson: false) this.firmId});
 
   factory _$FirmImpl.fromJson(Map<String, dynamic> json) =>
@@ -203,12 +236,19 @@ class _$FirmImpl implements _Firm {
   @override
   final String about;
   @override
+  @JsonKey(name: 'owner_user_id')
+  final String ownerUserId;
+  @override
+  @JsonKey(name: 'created_at')
+  @DateTimeJsonConverter()
+  final DateTime createdAt;
+  @override
   @JsonKey(name: 'firm_id', includeToJson: false)
   final int? firmId;
 
   @override
   String toString() {
-    return 'Firm(name: $name, orgType: $orgType, logoUrl: $logoUrl, website: $website, location: $location, about: $about, firmId: $firmId)';
+    return 'Firm(name: $name, orgType: $orgType, logoUrl: $logoUrl, website: $website, location: $location, about: $about, ownerUserId: $ownerUserId, createdAt: $createdAt, firmId: $firmId)';
   }
 
   @override
@@ -223,13 +263,17 @@ class _$FirmImpl implements _Firm {
             (identical(other.location, location) ||
                 other.location == location) &&
             (identical(other.about, about) || other.about == about) &&
+            (identical(other.ownerUserId, ownerUserId) ||
+                other.ownerUserId == ownerUserId) &&
+            (identical(other.createdAt, createdAt) ||
+                other.createdAt == createdAt) &&
             (identical(other.firmId, firmId) || other.firmId == firmId));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType, name, orgType, logoUrl, website, location, about, firmId);
+  int get hashCode => Object.hash(runtimeType, name, orgType, logoUrl, website,
+      location, about, ownerUserId, createdAt, firmId);
 
   @JsonKey(ignore: true)
   @override
@@ -253,6 +297,10 @@ abstract class _Firm implements Firm {
           required final String website,
           required final String location,
           required final String about,
+          @JsonKey(name: 'owner_user_id') required final String ownerUserId,
+          @JsonKey(name: 'created_at')
+          @DateTimeJsonConverter()
+          required final DateTime createdAt,
           @JsonKey(name: 'firm_id', includeToJson: false) final int? firmId}) =
       _$FirmImpl;
 
@@ -272,6 +320,13 @@ abstract class _Firm implements Firm {
   String get location;
   @override
   String get about;
+  @override
+  @JsonKey(name: 'owner_user_id')
+  String get ownerUserId;
+  @override
+  @JsonKey(name: 'created_at')
+  @DateTimeJsonConverter()
+  DateTime get createdAt;
   @override
   @JsonKey(name: 'firm_id', includeToJson: false)
   int? get firmId;

@@ -32,7 +32,7 @@ class CustomTextField extends StatelessWidget {
   final Color? borderColor;
   final Color? fillColor;
   final bool obscureText;
-  final String? Function(String?)? onChanged;
+  final void Function(String?)? onChanged;
   final String? Function(String?)? onSubmitted;
   final String? Function(String?)? validator;
   final int minLines;
@@ -71,6 +71,9 @@ class CustomTextField extends StatelessWidget {
                 vertical: 12.h,
                 horizontal: 12.w,
               ),
+              errorStyle: Theme.of(context).textTheme.bodySmall?.copyWith(
+                    color: LegalReferralColors.error,
+                  ),
               hintText: hintText,
               hintStyle: Theme.of(context).textTheme.bodyLarge?.copyWith(
                     color: LegalReferralColors.textgrey300,
