@@ -21,6 +21,8 @@ enum SocialPlatform {
   instagram,
   @JsonValue('snapchat')
   snapchat,
+  @JsonValue('none')
+  none,
 }
 
 @freezed

@@ -71,7 +71,6 @@ class _SearchFirmPageState extends State<SearchFirmPage> {
                     ),
                   );
                 }
-                return null;
               },
             ),
             const SizedBox(height: 16),

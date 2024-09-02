@@ -56,3 +56,5 @@ android/app/src/main/res/values/string.xml
 pubspec.lock
 extras.txt
 android/app/src/main/res/values/string.xml
+
+firebase.json

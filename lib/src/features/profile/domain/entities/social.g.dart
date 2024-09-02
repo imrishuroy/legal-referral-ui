@@ -32,4 +32,5 @@ const _$SocialPlatformEnumMap = {
   SocialPlatform.linkedin: 'linkedin',
   SocialPlatform.instagram: 'instagram',
   SocialPlatform.snapchat: 'snapchat',
+  SocialPlatform.none: 'none',
 };

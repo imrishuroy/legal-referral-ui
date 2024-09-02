@@ -168,7 +168,6 @@ class _CreatePostPageState extends State<CreatePostPage> {
                                   PostTextChanged(text: value),
                                 );
                               }
-                              return null;
                             },
                           ),
                           SizedBox(

@@ -527,6 +527,73 @@ class _APIClient implements APIClient {
   }
 
   @override
+  Future<Firm> addFirm(
+    String name,
+    String ownerId,
+    String orgType,
+    File file,
+    String website,
+    String location,
+    String about,
+  ) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = FormData();
+    _data.fields.add(MapEntry(
+      'name',
+      name,
+    ));
+    _data.fields.add(MapEntry(
+      'owner_user_id',
+      ownerId,
+    ));
+    _data.fields.add(MapEntry(
+      'org_type',
+      orgType,
+    ));
+    _data.files.add(MapEntry(
+      'file',
+      MultipartFile.fromFileSync(
+        file.path,
+        filename: file.path.split(Platform.pathSeparator).last,
+      ),
+    ));
+    _data.fields.add(MapEntry(
+      'website',
+      website,
+    ));
+    _data.fields.add(MapEntry(
+      'location',
+      location,
+    ));
+    _data.fields.add(MapEntry(
+      'about',
+      about,
+    ));
+    final _result =
+        await _dio.fetch<Map<String, dynamic>>(_setStreamType<Firm>(Options(
+      method: 'POST',
+      headers: _headers,
+      extra: _extra,
+      contentType: 'multipart/form-data',
+    )
+            .compose(
+              _dio.options,
+              '/firms',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
+    final _value = Firm.fromJson(_result.data!);
+    return _value;
+  }
+
+  @override
   Future<List<Firm?>> searchFirm(
     String query,
     int limit,
@@ -560,6 +627,35 @@ class _APIClient implements APIClient {
     var _value = _result.data!
         .map((dynamic i) =>
             i == null ? null : Firm.fromJson(i as Map<String, dynamic>))
+        .toList();
+    return _value;
+  }
+
+  @override
+  Future<List<Firm>> fetchMyFirms(String ownerId) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    const Map<String, dynamic>? _data = null;
+    final _result =
+        await _dio.fetch<List<dynamic>>(_setStreamType<List<Firm>>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              '/firms/owner/${ownerId}',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
+    var _value = _result.data!
+        .map((dynamic i) => Firm.fromJson(i as Map<String, dynamic>))
         .toList();
     return _value;
   }

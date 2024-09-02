@@ -164,9 +164,7 @@ class _ChatMessagesPageState extends State<ChatMessagesPage> {
                                   focusNode: _focusNode,
                                   hintText: 'Your message here',
                                   controller: _textEditingController,
-                                  onChanged: (value) {
-                                    return null;
-                                  },
+                                  onChanged: (value) {},
                                 ),
                               ),
                               IconButton(

@@ -157,4 +157,14 @@ class ImageUtil {
       return null;
     }
   }
+
+  static String getFileName(File? file) {
+    final path = file?.path;
+    if (path != null) {
+      final splitPath = path.split('/');
+      return splitPath.isNotEmpty ? splitPath.last : 'No file uploaded';
+    } else {
+      return 'No file uploaded';
+    }
+  }
 }

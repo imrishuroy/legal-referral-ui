@@ -45,6 +45,11 @@ class _ProfilePageState extends State<ProfilePage> {
       backgroundColor: LegalReferralColors.primaryBackground,
       appBar: AppBar(
         backgroundColor: Colors.white,
+        title: Text(
+          'Your Profile',
+          style: Theme.of(context).textTheme.headlineMedium,
+        ),
+        titleSpacing: 0,
       ),
       body: BlocConsumer<ProfileBloc, ProfileState>(
         bloc: _profileBloc,
