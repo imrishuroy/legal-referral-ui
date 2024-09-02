@@ -7,6 +7,7 @@ class FirmState extends Equatable {
     required this.myFirms,
     required this.socialMedias,
     required this.status,
+    this.socials = const [],
     this.pickedFile,
     this.failure,
   });
@@ -22,7 +23,9 @@ class FirmState extends Equatable {
   final List<Firm> myFirms;
   final List<SocialMedia> socialMedias;
   final File? pickedFile;
+  final List<Social?> socials;
   final FirmStatus status;
+
   final Failure? failure;
 
   FirmState copyWith({
@@ -30,6 +33,7 @@ class FirmState extends Equatable {
     List<SocialMedia>? socialMedias,
     File? pickedFile,
     FirmStatus? status,
+    List<Social?>? socials,
     Failure? failure,
   }) {
     return FirmState(
@@ -37,6 +41,7 @@ class FirmState extends Equatable {
       socialMedias: socialMedias ?? this.socialMedias,
       pickedFile: pickedFile ?? this.pickedFile,
       status: status ?? this.status,
+      socials: socials ?? this.socials,
       failure: failure ?? this.failure,
     );
   }
@@ -47,6 +52,7 @@ class FirmState extends Equatable {
         socialMedias,
         pickedFile,
         status,
+        socials,
         failure,
       ];
 }

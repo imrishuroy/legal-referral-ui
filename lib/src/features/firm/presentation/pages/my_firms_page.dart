@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:legal_referral_ui/src/core/common_widgets/widgets.dart';
 import 'package:legal_referral_ui/src/core/config/config.dart';
-import 'package:legal_referral_ui/src/core/constants/constants.dart';
 import 'package:legal_referral_ui/src/core/utils/utils.dart';
 import 'package:legal_referral_ui/src/features/auth/presentation/presentation.dart';
 import 'package:legal_referral_ui/src/features/firm/presentation/presentation.dart';
@@ -100,20 +99,23 @@ class _MyLawFirmPageState extends State<MyLawFirmPage> {
                               fontWeight: FontWeight.w600,
                             ),
                           ),
-                          trailing: SvgButton(
-                            imagePath: IconStringConstants.editIcon,
-                            height: 18,
-                            width: 18,
-                            color: Colors.blue,
-                            onPressed: () => context.pushNamed(
-                              AddEditLawFirmPage.name,
-                              extra: AddEditLawFirmPageArgs(
-                                firmBloc: _firmBloc,
-                                firm: firm,
-                              ),
-                            ),
+                          // trailing: SvgButton(
+                          //   imagePath: IconStringConstants.editIcon,
+                          //   height: 18,
+                          //   width: 18,
+                          //   color: Colors.blue,
+                          //   onPressed: () => context.pushNamed(
+                          //     AddEditLawFirmPage.name,
+                          //     extra: AddEditLawFirmPageArgs(
+                          //       firmBloc: _firmBloc,
+                          //       firm: firm,
+                          //     ),
+                          //   ),
+                          // ),
+                          onTap: () => context.pushNamed(
+                            FirmPage.name,
+                            extra: firm,
                           ),
-                          onTap: () {},
                           contentPadding: const EdgeInsets.symmetric(
                             horizontal: 16,
                             vertical: 8,

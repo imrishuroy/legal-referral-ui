@@ -204,7 +204,7 @@ class _AddEditLawFirmPageState extends State<AddEditLawFirmPage> {
                       height: 16,
                     ),
                     CustomTextField(
-                      controller: _websiteController,
+                      controller: _locationController,
                       hintText: 'Arizona',
                       labelText: 'Location',
                       validator: (value) {
@@ -218,7 +218,7 @@ class _AddEditLawFirmPageState extends State<AddEditLawFirmPage> {
                       height: 16,
                     ),
                     CustomTextField(
-                      controller: _locationController,
+                      controller: _websiteController,
                       hintText: 'https://',
                       labelText: 'Website',
                       validator: Validator.validateURL,

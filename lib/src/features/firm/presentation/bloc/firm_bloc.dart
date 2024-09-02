@@ -30,6 +30,7 @@ class FirmBloc extends Bloc<FirmEvent, FirmState> {
     on<FirmLogoFileSelected>(_onFirmLogoFileSelected);
     on<FirmLogoFileDeleted>(_onFirmLogoFileDeleted);
     on<FirmSocialMediaAdded>(_onFirmSocialMediaAdded);
+    on<FirmSocialsFetched>(_onFirmSocialsFetched);
   }
 
   final FirmUseCase _firmUseCase;
@@ -225,6 +226,34 @@ class FirmBloc extends Bloc<FirmEvent, FirmState> {
       state.copyWith(
         status: FirmStatus.firmAdded,
       ),
+    );
+  }
+
+  Future<void> _onFirmSocialsFetched(
+    FirmSocialsFetched event,
+    Emitter<FirmState> emit,
+  ) async {
+    emit(state.copyWith(status: FirmStatus.loading));
+
+    final result = await _profileUseCase.fetchSocials(
+      entityType: EntityType.firm,
+      entityId: event.userId,
+    );
+
+    result.fold(
+      (failure) => emit(
+        state.copyWith(
+          status: FirmStatus.failure,
+        ),
+      ),
+      (socials) {
+        emit(
+          state.copyWith(
+            socials: socials,
+            status: FirmStatus.success,
+          ),
+        );
+      },
     );
   }
 }

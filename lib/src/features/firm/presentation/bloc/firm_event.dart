@@ -70,3 +70,12 @@ class FirmLogoFileSelected extends FirmEvent {}
 class FirmLogoFileDeleted extends FirmEvent {}
 
 class FirmSocialMediaAdded extends FirmEvent {}
+
+class FirmSocialsFetched extends FirmEvent {
+  const FirmSocialsFetched({required this.userId});
+
+  final String userId;
+
+  @override
+  List<Object> get props => [userId];
+}
