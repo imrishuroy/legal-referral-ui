@@ -52,7 +52,7 @@ class FirmBloc extends Bloc<FirmEvent, FirmState> {
     result.fold(
       (failure) => emit(
         state.copyWith(
-          status: FirmStatus.error,
+          status: FirmStatus.failure,
         ),
       ),
       (firm) {
@@ -79,7 +79,7 @@ class FirmBloc extends Bloc<FirmEvent, FirmState> {
     result.fold(
       (failure) => emit(
         state.copyWith(
-          status: FirmStatus.error,
+          status: FirmStatus.failure,
         ),
       ),
       (firms) {
@@ -216,7 +216,7 @@ class FirmBloc extends Bloc<FirmEvent, FirmState> {
       final failure = response.fold((failure) => failure, (_) => null);
 
       if (failure != null) {
-        emit(state.copyWith(status: FirmStatus.error));
+        emit(state.copyWith(status: FirmStatus.failure));
         return;
       }
     }

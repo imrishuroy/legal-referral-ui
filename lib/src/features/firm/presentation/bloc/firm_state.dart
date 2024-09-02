@@ -1,6 +1,6 @@
 part of 'firm_bloc.dart';
 
-enum FirmStatus { initial, loading, success, error, firmAdded }
+enum FirmStatus { initial, loading, success, failure, firmAdded }
 
 class FirmState extends Equatable {
   const FirmState({

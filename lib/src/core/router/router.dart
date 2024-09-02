@@ -370,10 +370,12 @@ class AppRouter {
             routes: [
               GoRoute(
                 path: 'add-law-firm',
-                name: AddLawFirmPage.name,
+                name: AddEditLawFirmPage.name,
                 parentNavigatorKey: _rootNavigatorKey,
                 pageBuilder: (context, state) => CustomTransitionPage(
-                  child: const AddLawFirmPage(),
+                  child: AddEditLawFirmPage(
+                    args: state.extra as AddEditLawFirmPageArgs,
+                  ),
                   transitionDuration: const Duration(
                     milliseconds: _routeTransitionDuration,
                   ),

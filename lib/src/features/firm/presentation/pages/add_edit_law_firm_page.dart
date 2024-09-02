@@ -10,38 +10,53 @@ import 'package:legal_referral_ui/src/core/utils/utils.dart';
 import 'package:legal_referral_ui/src/core/validators/validators.dart';
 import 'package:legal_referral_ui/src/features/auth/presentation/presentation.dart';
 import 'package:legal_referral_ui/src/features/firm/data/data.dart';
+import 'package:legal_referral_ui/src/features/firm/domain/domain.dart';
 import 'package:legal_referral_ui/src/features/firm/presentation/presentation.dart';
 import 'package:toastification/toastification.dart';
 
-class AddLawFirmPage extends StatefulWidget {
-  const AddLawFirmPage({super.key});
+class AddEditLawFirmPageArgs {
+  AddEditLawFirmPageArgs({
+    required this.firmBloc,
+    this.firm,
+  });
+  final FirmBloc firmBloc;
+  final Firm? firm;
+}
+
+class AddEditLawFirmPage extends StatefulWidget {
+  const AddEditLawFirmPage({
+    required this.args,
+    super.key,
+  });
+
+  final AddEditLawFirmPageArgs args;
 
   static const String name = 'AddLawFirmPage';
 
   @override
-  State<AddLawFirmPage> createState() => _AddLawFirmPageState();
+  State<AddEditLawFirmPage> createState() => _AddEditLawFirmPageState();
 }
 
-class _AddLawFirmPageState extends State<AddLawFirmPage> {
+class _AddEditLawFirmPageState extends State<AddEditLawFirmPage> {
   final _formKey = GlobalKey<FormState>();
   final _authBloc = getIt<AuthBloc>();
   final _firmBloc = getIt<FirmBloc>();
 
-  @override
-  void initState() {
-    final userId = _authBloc.state.user?.userId;
-
-    if (userId != null) {
-      _firmBloc.add(MyFirmsFetched(ownerId: userId));
-    }
-    super.initState();
-  }
-
-  final _nameameController = TextEditingController();
+  final _nameController = TextEditingController();
   final _websiteController = TextEditingController();
   final _orgTypeController = TextEditingController();
   final _locationController = TextEditingController();
   final _aboutController = TextEditingController();
+
+  @override
+  void initState() {
+    _nameController.text = widget.args.firm?.name ?? '';
+    _websiteController.text = widget.args.firm?.website ?? '';
+    _orgTypeController.text = widget.args.firm?.orgType ?? '';
+    _locationController.text = widget.args.firm?.location ?? '';
+    _aboutController.text = widget.args.firm?.about ?? '';
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -54,7 +69,7 @@ class _AddLawFirmPageState extends State<AddLawFirmPage> {
         listener: (context, state) {
           if (state.status == FirmStatus.firmAdded) {
             context.pop();
-          } else if (state.status == FirmStatus.error) {
+          } else if (state.status == FirmStatus.failure) {
             ToastUtil.showToast(
               context,
               title: 'Error',
@@ -79,7 +94,7 @@ class _AddLawFirmPageState extends State<AddLawFirmPage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     CustomTextField(
-                      controller: _nameameController,
+                      controller: _nameController,
                       hintText: 'Firm Name',
                       validator: (value) {
                         if (value == null || value.isEmpty) {
@@ -289,7 +304,7 @@ class _AddLawFirmPageState extends State<AddLawFirmPage> {
       }
 
       final addFirm = AddFirmReq(
-        name: _nameameController.text,
+        name: _nameController.text,
         ownerUserId: userId,
         orgType: _orgTypeController.text,
         file: file,
