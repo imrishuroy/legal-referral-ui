@@ -64,4 +64,21 @@ class FeedUsecase {
       commentId: commentId,
     );
   }
+
+  Future<Either<Failure, PostLikesAndCommentsCount>>
+      fetchPostLikesAndCommentsCount({
+    required int postId,
+  }) async {
+    return _feedRepository.fetchPostLikesAndCommentsCount(
+      postId: postId,
+    );
+  }
+
+  Future<Either<Failure, bool>> isPostLiked({
+    required int postId,
+  }) async {
+    return _feedRepository.isPostLiked(
+      postId: postId,
+    );
+  }
 }

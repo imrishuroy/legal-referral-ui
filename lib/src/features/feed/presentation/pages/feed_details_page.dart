@@ -17,11 +17,13 @@ class FeedDetailsPageArgs {
     required this.feedBloc,
     required this.feed,
     required this.index,
+    this.fetchLikesAndCommentsCount = false,
   });
+
   final FeedBloc feedBloc;
   final Feed? feed;
-
   final int index;
+  final bool fetchLikesAndCommentsCount;
 }
 
 class FeedDetailsPage extends StatefulWidget {
@@ -43,18 +45,34 @@ class _FeedDetailsPageState extends State<FeedDetailsPage> {
 
   @override
   void initState() {
-    widget.args.feedBloc.add(
+    final args = widget.args;
+    args.feedBloc.add(
       FeedDetailsInitialized(
         feed: widget.args.feed,
       ),
     );
+
+    final postId = args.feed?.feedPost?.post?.postId;
+    if (postId != null && args.fetchLikesAndCommentsCount) {
+      args.feedBloc.add(
+        PostLikesAndCommentsCountFetched(
+          postId: postId,
+        ),
+      );
+
+      args.feedBloc.add(
+        PostIsLikedFetched(
+          postId: postId,
+        ),
+      );
+    }
+
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     final post = widget.args.feed?.feedPost?.post;
-
     return Scaffold(
       appBar: AppBar(),
       backgroundColor: LegalReferralColors.containerWhite500,
@@ -73,7 +91,7 @@ class _FeedDetailsPageState extends State<FeedDetailsPage> {
             }
           },
           builder: (context, state) {
-            final feedPost = widget.args.feed?.feedPost;
+            final feedPost = state.feed?.feedPost;
             return Column(
               children: [
                 Expanded(
@@ -172,14 +190,14 @@ class _FeedDetailsPageState extends State<FeedDetailsPage> {
     if (postId != null) {
       if (isLiked == true) {
         widget.args.feedBloc.add(
-          PostUnliked(
+          FeedPostUnliked(
             postId: postId,
             index: index,
           ),
         );
       } else {
         widget.args.feedBloc.add(
-          PostLiked(
+          FeedPostLiked(
             postId: postId,
             index: index,
           ),

@@ -30,4 +30,13 @@ abstract class FeedRepository {
   Future<Either<Failure, void>> unlikeComment({
     required int commentId,
   });
+
+  Future<Either<Failure, PostLikesAndCommentsCount>>
+      fetchPostLikesAndCommentsCount({
+    required int postId,
+  });
+
+  Future<Either<Failure, bool>> isPostLiked({
+    required int postId,
+  });
 }

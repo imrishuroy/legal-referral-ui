@@ -1,49 +1,33 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:legal_referral_ui/src/core/common_widgets/widgets.dart';
 import 'package:legal_referral_ui/src/core/constants/colors.dart';
 import 'package:legal_referral_ui/src/core/constants/icon_string_constants.dart';
-import 'package:legal_referral_ui/src/core/utils/utils.dart';
-import 'package:legal_referral_ui/src/features/feed/domain/domain.dart';
 import 'package:legal_referral_ui/src/features/feed/presentation/presentation.dart';
 import 'package:legal_referral_ui/src/features/post/domain/domain.dart';
 import 'package:legal_referral_ui/src/features/post/presentation/presentation.dart';
 import 'package:legal_referral_ui/src/features/profile/presentation/presentation.dart';
+import 'package:legal_referral_ui/src/features/saved_posts/domain/domain.dart';
 
-class FeedTile extends StatelessWidget {
-  const FeedTile({
-    required this.feed,
-    required this.onLikePressed,
-    required this.onCommentPressed,
-    required this.onDiscussPressed,
-    required this.onSharePressed,
-    required this.isLiked,
-    required this.likesCount,
-    required this.commentsCount,
-    this.onTap,
+class SavedPostTile extends StatelessWidget {
+  const SavedPostTile({
+    required this.savedPost,
+    required this.onTap,
     this.onOptionsPressed,
     this.imageHeight = 380,
     super.key,
   });
 
-  final Feed? feed;
-  final VoidCallback onLikePressed;
-  final VoidCallback onCommentPressed;
-  final VoidCallback onDiscussPressed;
-  final VoidCallback onSharePressed;
+  final SavedPost savedPost;
   final double imageHeight;
-  final bool isLiked;
-  final int likesCount;
-  final int commentsCount;
-  final VoidCallback? onTap;
+  final VoidCallback onTap;
   final VoidCallback? onOptionsPressed;
 
   @override
   Widget build(BuildContext context) {
-    final user = feed?.feedPost?.user;
-    final post = feed?.feedPost?.post;
+    final user = savedPost.owner;
+    final post = savedPost.post;
     final name = '${user?.firstName} ${user?.lastName}';
     final theme = Theme.of(context).textTheme;
     return ColoredBox(
@@ -111,13 +95,6 @@ class FeedTile extends StatelessWidget {
                       SizedBox(
                         height: 2.8.h,
                       ),
-                      Text(
-                        DateTimeUtil.timeAgo(feed?.feedPost?.createdAt),
-                        style: theme.bodyMedium?.copyWith(
-                          color: LegalReferralColors.textGrey117,
-                          fontSize: 12.sp,
-                        ),
-                      ),
                     ],
                   ),
                 ),
@@ -162,89 +139,6 @@ class FeedTile extends StatelessWidget {
                   ),
               ],
             ),
-          ),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16.w),
-            child: Row(
-              children: [
-                Row(
-                  children: [
-                    SvgPicture.asset(
-                      IconStringConstants.thumbUp,
-                      height: 12.h,
-                      width: 12.w,
-                    ),
-                    SizedBox(
-                      width: 4.w,
-                    ),
-                    Text(
-                      '$likesCount ${likesCount == 1 ? 'Like' : 'Likes'}',
-                      style: Theme.of(context).textTheme.bodyMedium,
-                    ),
-                  ],
-                ),
-                const Spacer(),
-                Row(
-                  children: [
-                    SvgPicture.asset(
-                      IconStringConstants.comment,
-                      height: 12.h,
-                      width: 12.w,
-                    ),
-                    SizedBox(
-                      width: 4.w,
-                    ),
-                    Text(
-                      '$commentsCount '
-                      '${commentsCount == 1 ? 'Comment' : 'Comments'}',
-                      style: Theme.of(context).textTheme.bodyMedium,
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ),
-          SizedBox(
-            height: 8.h,
-          ),
-          const Divider(
-            thickness: 1,
-          ),
-          SizedBox(
-            height: 8.h,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              VerticalIconButton(
-                icon: IconStringConstants.thumbUp,
-                text: 'Like',
-                textColor: LegalReferralColors.textGrey117,
-                onTap: onLikePressed,
-                iconColor: isLiked ? LegalReferralColors.textBlue100 : null,
-              ),
-              VerticalIconButton(
-                icon: IconStringConstants.comment,
-                text: 'Comment',
-                textColor: LegalReferralColors.textGrey117,
-                onTap: onCommentPressed,
-              ),
-              VerticalIconButton(
-                icon: IconStringConstants.discuss,
-                text: 'Discuss',
-                textColor: LegalReferralColors.textGrey117,
-                onTap: () {},
-              ),
-              VerticalIconButton(
-                icon: IconStringConstants.share,
-                text: 'Share',
-                textColor: LegalReferralColors.textGrey117,
-                onTap: () {},
-              ),
-            ],
-          ),
-          SizedBox(
-            height: 16.h,
           ),
         ],
       ),

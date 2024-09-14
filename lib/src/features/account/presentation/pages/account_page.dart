@@ -8,13 +8,13 @@ import 'package:legal_referral_ui/src/core/common_widgets/widgets.dart';
 import 'package:legal_referral_ui/src/core/config/config.dart';
 import 'package:legal_referral_ui/src/core/constants/constants.dart';
 import 'package:legal_referral_ui/src/features/account/presentation/pages/notification_page.dart';
-import 'package:legal_referral_ui/src/features/account/presentation/pages/saved_post_page.dart';
 import 'package:legal_referral_ui/src/features/account/presentation/pages/signin_security_page.dart';
 import 'package:legal_referral_ui/src/features/account/presentation/pages/support_help_page.dart';
 import 'package:legal_referral_ui/src/features/advertisement/presentation/presentation.dart';
 import 'package:legal_referral_ui/src/features/auth/presentation/presentation.dart';
 import 'package:legal_referral_ui/src/features/firm/presentation/presentation.dart';
 import 'package:legal_referral_ui/src/features/profile/presentation/presentation.dart';
+import 'package:legal_referral_ui/src/features/saved_posts/presentation/presentation.dart';
 
 class AccountPage extends StatefulWidget {
   const AccountPage({super.key});
@@ -129,13 +129,8 @@ class _AccountPageState extends State<AccountPage> {
                             break;
                           // Saved Posts
                           case 1:
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) =>
-                                    SavedPostPage(title: title[index]),
-                              ),
-                            );
+                            context.pushNamed(SavedPostsPage.name);
+
                             break;
                           // Sign in & Security
                           case 2:

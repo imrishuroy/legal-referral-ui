@@ -19,6 +19,8 @@ import 'package:legal_referral_ui/src/features/profile/data/data.dart';
 import 'package:legal_referral_ui/src/features/profile/domain/domain.dart';
 import 'package:legal_referral_ui/src/features/referral/data/data.dart';
 import 'package:legal_referral_ui/src/features/referral/domain/domain.dart';
+import 'package:legal_referral_ui/src/features/saved_posts/data/data.dart';
+import 'package:legal_referral_ui/src/features/saved_posts/domain/domain.dart';
 import 'package:legal_referral_ui/src/features/wizard/data/data.dart';
 import 'package:legal_referral_ui/src/features/wizard/domain/domain.dart';
 import 'package:retrofit/retrofit.dart';
@@ -576,5 +578,30 @@ abstract class APIClient {
   Future<Ad?> extendAdPeriod(
     @Path('adId') int adId,
     @Body() ExtendAdReq extendAdReq,
+  );
+
+  @POST('/saved-posts')
+  Future<ResponseMsg> savePost(
+    @Body() SavePostReq savePostReq,
+  );
+
+  @DELETE('/saved-posts/{savedPostId}')
+  Future<ResponseMsg> unsavePost(
+    @Path('savedPostId') int savedPostId,
+  );
+
+  @GET('/saved-posts/{userId}')
+  Future<List<SavedPost>> fetchSavedPosts(
+    @Path('userId') String userId,
+  );
+
+  @GET('/posts/{post_id}/likes-comments-count')
+  Future<PostLikesAndCommentsCount> fetchPostLikesAndCommentsCount(
+    @Path('post_id') int postId,
+  );
+
+  @GET('/posts/{post_id}/is-liked')
+  Future<bool> isPostLiked(
+    @Path('post_id') int postId,
   );
 }

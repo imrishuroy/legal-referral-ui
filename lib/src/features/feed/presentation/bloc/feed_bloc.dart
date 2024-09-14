@@ -8,6 +8,7 @@ import 'package:legal_referral_ui/src/features/auth/presentation/presentation.da
 import 'package:legal_referral_ui/src/features/feed/data/data.dart';
 import 'package:legal_referral_ui/src/features/feed/domain/domain.dart';
 import 'package:legal_referral_ui/src/features/post/domain/domain.dart';
+import 'package:legal_referral_ui/src/features/saved_posts/domain/domain.dart';
 import 'package:stream_transform/stream_transform.dart';
 
 part 'feed_event.dart';
@@ -28,9 +29,11 @@ class FeedBloc extends Bloc<FeedEvent, FeedState> {
   FeedBloc({
     required FeedUsecase feedUsecase,
     required PostUsecase postUsecase,
+    required SavedPostsUsecase savedPostUseCase,
     required AuthBloc authBloc,
   })  : _feedUsecase = feedUsecase,
         _postUsecase = postUsecase,
+        _savedPostUseCase = savedPostUseCase,
         _authBloc = authBloc,
         super(FeedState.initial()) {
     on<FeedsFetched>(
@@ -38,8 +41,8 @@ class FeedBloc extends Bloc<FeedEvent, FeedState> {
       transformer: _throttleDroppable(_throttleDuration),
     );
     on<FeedRefreshed>(_onFeedRefreshed);
-    on<PostLiked>(_onPostLiked);
-    on<PostUnliked>(_onPostUnliked);
+    on<FeedPostLiked>(_onFeedPostLiked);
+    on<FeedPostUnliked>(_onFeedPostUnliked);
     on<PostLikedUsersFetched>(_onPostLikedUsersFetched);
     on<Commented>(_onCommented);
     on<CommentsFetched>(_onCommentsFetched);
@@ -47,10 +50,14 @@ class FeedBloc extends Bloc<FeedEvent, FeedState> {
     on<CommentUnliked>(_onCommentUnliked);
     on<FeedDetailsInitialized>(_onFeedDetailsInitialized);
     on<ParentCommentIdChanged>(_onParentCommentIdChanged);
+    on<PostLikesAndCommentsCountFetched>(_onPostLikesAndCommentsCountFetched);
+    on<PostIsLikedFetched>(_onIsLikedPostFetched);
+    on<PostSaved>(_onPostSaved);
   }
 
   final FeedUsecase _feedUsecase;
   final PostUsecase _postUsecase;
+  final SavedPostsUsecase _savedPostUseCase;
   final AuthBloc _authBloc;
 
   Future<void> _onFeedsFetched(
@@ -125,90 +132,99 @@ class FeedBloc extends Bloc<FeedEvent, FeedState> {
     add(FeedsFetched(userId: event.userId));
   }
 
-  Future<void> _onPostLiked(
-    PostLiked event,
+  Future<void> _onFeedPostLiked(
+    FeedPostLiked event,
     Emitter<FeedState> emit,
   ) async {
     final response = await _postUsecase.likePost(
       postId: event.postId,
     );
 
-    response.fold(
-      (failure) {},
-      (_) {
-        final index = event.index;
+    if (response.isRight()) {
+      final index = event.index;
+      var feed = state.feed;
+      final feeds = List.of(state.feeds);
+      Feed? updatedFeed;
+      if (feed == null && index != null) {
+        feed = feeds[index];
+      }
+      updatedFeed = feed?.copyWith(
+        feedPost: feed.feedPost?.copyWith(
+          likesCount: feed.feedPost?.isLiked ?? false
+              ? (state.feed?.feedPost?.likesCount ?? 0) > 0
+                  ? (state.feed?.feedPost?.likesCount ?? 0) - 1
+                  : 0
+              : (state.feed?.feedPost?.likesCount ?? 0) + 1,
+          isLiked: !feed.feedPost!.isLiked,
+        ),
+      );
 
-        final updatedFeeds = List.of(state.feeds);
-        Feed? updatedFeed;
-
-        if (index >= 0 && index < updatedFeeds.length) {
-          final feed = updatedFeeds[index];
-          updatedFeed = feed?.copyWith(
-            feedPost: feed.feedPost?.copyWith(
-              likesCount: feed.feedPost?.isLiked ?? false
-                  ? feed.feedPost!.likesCount - 1
-                  : feed.feedPost!.likesCount + 1,
-              isLiked: !feed.feedPost!.isLiked,
-            ),
-          );
-          updatedFeeds[index] = updatedFeed;
+      if (index != null) {
+        if (index >= 0 && index < feeds.length) {
+          feeds[index] = updatedFeed;
         }
+      }
 
-        emit(
-          state.copyWith(
-            feeds: updatedFeeds,
-            feed: updatedFeed,
-            status: FeedStatus.success,
-            postLikedUsers: [
-              _authBloc.state.user,
-              ...state.postLikedUsers,
-            ],
-          ),
-        );
-      },
-    );
+      emit(
+        state.copyWith(
+          feeds: feeds,
+          feed: updatedFeed,
+          status: FeedStatus.success,
+          postLikedUsers: [
+            _authBloc.state.user,
+            ...state.postLikedUsers,
+          ],
+        ),
+      );
+    }
   }
 
-  Future<void> _onPostUnliked(
-    PostUnliked event,
+  Future<void> _onFeedPostUnliked(
+    FeedPostUnliked event,
     Emitter<FeedState> emit,
   ) async {
     final response = await _postUsecase.unlikePost(
       postId: event.postId,
     );
 
-    response.fold(
-      (failure) {},
-      (_) {
-        final index = event.index;
+    if (response.isRight()) {
+      final index = event.index;
+      var feed = state.feed;
+      final feeds = List.of(state.feeds);
 
-        final feeds = List.of(state.feeds);
-        Feed? updatedFeed;
+      if (feed == null && index != null) {
+        feed = feeds[index];
+      }
+
+      Feed? updatedFeed;
+      updatedFeed = feed?.copyWith(
+        feedPost: feed.feedPost?.copyWith(
+          likesCount: feed.feedPost?.isLiked ?? false
+              ? (state.feed?.feedPost?.likesCount ?? 0) > 0
+                  ? (state.feed?.feedPost?.likesCount ?? 0) - 1
+                  : 0
+              : (state.feed?.feedPost?.likesCount ?? 0) + 1,
+          isLiked: !feed.feedPost!.isLiked,
+        ),
+      );
+
+      if (index != null) {
         if (index >= 0 && index < feeds.length) {
-          final feed = feeds[index];
-          updatedFeed = feed?.copyWith(
-            feedPost: feed.feedPost?.copyWith(
-              likesCount: feed.feedPost?.isLiked ?? false
-                  ? feed.feedPost!.likesCount - 1
-                  : feed.feedPost!.likesCount + 1,
-              isLiked: !feed.feedPost!.isLiked,
-            ),
-          );
           feeds[index] = updatedFeed;
         }
+      }
 
-        final postLikesUsers = List.of(state.postLikedUsers);
+      final postLikesUsers = List.of(state.postLikedUsers);
 
-        emit(
-          state.copyWith(
-            feeds: feeds,
-            feed: updatedFeed,
-            postLikedUsers: postLikesUsers..removeAt(0),
-            status: FeedStatus.success,
-          ),
-        );
-      },
-    );
+      emit(
+        state.copyWith(
+          feeds: feeds,
+          feed: updatedFeed,
+          postLikedUsers: postLikesUsers..removeAt(0),
+          status: FeedStatus.success,
+        ),
+      );
+    }
   }
 
   Future<void> _onPostLikedUsersFetched(
@@ -428,6 +444,105 @@ class FeedBloc extends Bloc<FeedEvent, FeedState> {
       state.copyWith(
         parentCommentId: event.parentCommentId,
       ),
+    );
+  }
+
+  Future<void> _onPostLikesAndCommentsCountFetched(
+    PostLikesAndCommentsCountFetched event,
+    Emitter<FeedState> emit,
+  ) async {
+    emit(
+      state.copyWith(
+        status: FeedStatus.loading,
+      ),
+    );
+
+    final response = await _feedUsecase.fetchPostLikesAndCommentsCount(
+      postId: event.postId,
+    );
+
+    response.fold(
+      (failure) {
+        emit(
+          state.copyWith(
+            status: FeedStatus.failure,
+            failure: failure,
+          ),
+        );
+      },
+      (res) {
+        emit(
+          state.copyWith(
+            status: FeedStatus.success,
+            feed: state.feed?.copyWith(
+              feedPost: state.feed?.feedPost?.copyWith(
+                likesCount: res.likes,
+                commentsCount: res.comments,
+              ),
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  Future<void> _onIsLikedPostFetched(
+    PostIsLikedFetched event,
+    Emitter<FeedState> emit,
+  ) async {
+    final response = await _feedUsecase.isPostLiked(
+      postId: event.postId,
+    );
+
+    response.fold(
+      (failure) {
+        emit(
+          state.copyWith(
+            status: FeedStatus.failure,
+            failure: failure,
+          ),
+        );
+      },
+      (isLiked) {
+        emit(
+          state.copyWith(
+            status: FeedStatus.success,
+            feed: state.feed?.copyWith(
+              feedPost: state.feed?.feedPost?.copyWith(
+                isLiked: isLiked,
+              ),
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  Future<void> _onPostSaved(
+    PostSaved event,
+    Emitter<FeedState> emit,
+  ) async {
+    final response = await _savedPostUseCase.savePost(
+      userId: event.userId,
+      postId: event.postId,
+    );
+
+    response.fold(
+      (failure) {
+        emit(
+          state.copyWith(
+            feedActionsStatus: FeedActionsStatus.failure,
+            failure: failure,
+          ),
+        );
+      },
+      (_) {
+        emit(
+          state.copyWith(
+            feedActionsStatus: FeedActionsStatus.success,
+          ),
+        );
+      },
     );
   }
 }
