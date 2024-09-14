@@ -16,6 +16,7 @@ import 'package:legal_referral_ui/src/features/post/presentation/presentation.da
 import 'package:legal_referral_ui/src/features/profile/presentation/presentation.dart';
 import 'package:legal_referral_ui/src/features/referral/domain/domain.dart';
 import 'package:legal_referral_ui/src/features/referral/presentation/presentation.dart';
+import 'package:legal_referral_ui/src/features/saved_posts/presentation/presentation.dart';
 import 'package:legal_referral_ui/src/features/search/presentation/presentation.dart';
 import 'package:legal_referral_ui/src/features/wizard/presentation/presentation.dart';
 
@@ -400,6 +401,19 @@ class AppRouter {
                 ),
               ),
             ],
+          ),
+          GoRoute(
+            path: 'saved-posts',
+            name: SavedPostsPage.name,
+            parentNavigatorKey: _rootNavigatorKey,
+            pageBuilder: (context, state) => CustomTransitionPage(
+              child: const SavedPostsPage(),
+              transitionDuration: const Duration(
+                milliseconds: _routeTransitionDuration,
+              ),
+              transitionsBuilder: (_, a, __, c) =>
+                  FadeTransition(opacity: a, child: c),
+            ),
           ),
         ],
       ),

@@ -2,8 +2,11 @@ part of 'feed_bloc.dart';
 
 enum FeedStatus { initial, loading, success, failure }
 
+enum FeedActionsStatus { initial, loading, success, failure }
+
 class FeedState extends Equatable {
   const FeedState({
+    required this.feedActionsStatus,
     required this.status,
     required this.feeds,
     this.offset = 1,
@@ -16,11 +19,10 @@ class FeedState extends Equatable {
   });
 
   factory FeedState.initial() => const FeedState(
+        feedActionsStatus: FeedActionsStatus.initial,
         status: FeedStatus.initial,
         feeds: [],
       );
-
-  final FeedStatus status;
 
   final int offset;
   final List<Feed?> feeds;
@@ -29,9 +31,12 @@ class FeedState extends Equatable {
   final List<Comment?> comments;
   final Feed? feed;
   final int? parentCommentId;
+  final FeedActionsStatus feedActionsStatus;
+  final FeedStatus status;
   final Failure? failure;
 
   FeedState copyWith({
+    FeedActionsStatus? feedActionsStatus,
     FeedStatus? status,
     int? offset,
     List<Feed?>? feeds,
@@ -43,6 +48,7 @@ class FeedState extends Equatable {
     Failure? failure,
   }) {
     return FeedState(
+      feedActionsStatus: feedActionsStatus ?? this.feedActionsStatus,
       status: status ?? this.status,
       offset: offset ?? this.offset,
       feeds: feeds ?? this.feeds,
@@ -60,6 +66,7 @@ class FeedState extends Equatable {
 
   @override
   List<Object?> get props => [
+        feedActionsStatus,
         status,
         offset,
         feeds,

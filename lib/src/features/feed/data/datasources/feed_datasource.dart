@@ -92,4 +92,28 @@ class FeedDatasource {
       rethrow;
     }
   }
+
+  Future<PostLikesAndCommentsCount> fetchPostLikesAndCommentsCount({
+    required int postId,
+  }) async {
+    try {
+      final response = await _apiClient.fetchPostLikesAndCommentsCount(
+        postId,
+      );
+      return response;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<bool> isPostLiked({required int postId}) async {
+    try {
+      final response = await _apiClient.isPostLiked(
+        postId,
+      );
+      return response;
+    } catch (e) {
+      rethrow;
+    }
+  }
 }

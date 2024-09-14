@@ -138,4 +138,45 @@ class FeedRepositoryImpl extends FeedRepository {
       );
     }
   }
+
+  @override
+  Future<Either<Failure, PostLikesAndCommentsCount>>
+      fetchPostLikesAndCommentsCount({
+    required int postId,
+  }) async {
+    try {
+      final response = await _feedDatasource.fetchPostLikesAndCommentsCount(
+        postId: postId,
+      );
+      return Right(response);
+    } on DioException catch (error) {
+      final dioError = DioExceptions.fromDioError(error);
+      return Left(
+        Failure(
+          statusCode: dioError.statusCode,
+          message: dioError.message,
+        ),
+      );
+    }
+  }
+
+  @override
+  Future<Either<Failure, bool>> isPostLiked({
+    required int postId,
+  }) async {
+    try {
+      final res = await _feedDatasource.isPostLiked(
+        postId: postId,
+      );
+      return Right(res);
+    } on DioException catch (error) {
+      final dioError = DioExceptions.fromDioError(error);
+      return Left(
+        Failure(
+          statusCode: dioError.statusCode,
+          message: dioError.message,
+        ),
+      );
+    }
+  }
 }

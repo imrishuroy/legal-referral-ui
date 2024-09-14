@@ -5,4 +5,3 @@ export 'link_post.dart';
 export 'normal_post.dart';
 export 'poll_post.dart';
 export 'shimmers/shimmers.dart';
-export 'single_post.dart';

@@ -1,12 +1,15 @@
+import 'package:appinio_social_share/appinio_social_share.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:legal_referral_ui/src/core/common_widgets/widgets.dart';
 import 'package:legal_referral_ui/src/core/config/config.dart';
 import 'package:legal_referral_ui/src/core/constants/constants.dart';
 import 'package:legal_referral_ui/src/core/utils/utils.dart';
-import 'package:legal_referral_ui/src/features/advertisement/presentation/pages/preview_ad_page.dart';
+import 'package:legal_referral_ui/src/features/advertisement/presentation/presentation.dart';
 import 'package:legal_referral_ui/src/features/auth/presentation/presentation.dart';
 import 'package:legal_referral_ui/src/features/feed/domain/entities/feed.dart';
 import 'package:legal_referral_ui/src/features/feed/presentation/presentation.dart';
@@ -25,7 +28,6 @@ class _FeedsPageState extends State<FeedsPage> {
   final _authBloc = getIt<AuthBloc>();
   final _feedBloc = getIt<FeedBloc>();
   final _searchController = TextEditingController();
-
   final _scrollController = ScrollController();
 
   @override
@@ -84,7 +86,15 @@ class _FeedsPageState extends State<FeedsPage> {
       body: BlocConsumer<FeedBloc, FeedState>(
         bloc: _feedBloc,
         listener: (context, state) {
-          if (state.status == FeedStatus.failure) {
+          if (state.feedActionsStatus == FeedActionsStatus.success) {
+            ToastUtil.showToast(
+              context,
+              title: 'Success',
+              description: 'Post saved successfully',
+              type: ToastificationType.success,
+            );
+          } else if (state.status == FeedStatus.failure ||
+              state.feedActionsStatus == FeedActionsStatus.failure) {
             ToastUtil.showToast(
               context,
               title: 'Error',
@@ -148,20 +158,21 @@ class _FeedsPageState extends State<FeedsPage> {
                                 feedPost?.isLiked ?? false,
                                 index,
                               ),
-                              onCommentPressed: () {
-                                if (feed != null) {
-                                  context.pushNamed(
-                                    FeedDetailsPage.name,
-                                    extra: FeedDetailsPageArgs(
-                                      feedBloc: _feedBloc,
-                                      feed: feed,
-                                      index: index,
-                                    ),
-                                  );
-                                }
-                              },
+                              onCommentPressed: () =>
+                                  _navigateToFeedDetailsPage(
+                                feed,
+                                index,
+                              ),
                               onSharePressed: () {},
                               onDiscussPressed: () {},
+                              onTap: () => _navigateToFeedDetailsPage(
+                                feed,
+                                index,
+                              ),
+                              onOptionsPressed: () => _showPostOptionsSheet(
+                                context: context,
+                                feed: feed,
+                              ),
                             ),
                           );
                         } else {
@@ -186,6 +197,22 @@ class _FeedsPageState extends State<FeedsPage> {
     );
   }
 
+  void _navigateToFeedDetailsPage(
+    Feed? feed,
+    int index,
+  ) {
+    if (feed != null) {
+      context.pushNamed(
+        FeedDetailsPage.name,
+        extra: FeedDetailsPageArgs(
+          feedBloc: _feedBloc,
+          feed: feed,
+          index: index,
+        ),
+      );
+    }
+  }
+
   void _onLikePressed(
     FeedPost? feedPost,
     bool isLiked,
@@ -195,20 +222,184 @@ class _FeedsPageState extends State<FeedsPage> {
     if (postId != null) {
       if (isLiked == true) {
         _feedBloc.add(
-          PostUnliked(
+          FeedPostUnliked(
             postId: postId,
             index: index,
           ),
         );
       } else {
         _feedBloc.add(
-          PostLiked(
+          FeedPostLiked(
             postId: postId,
             index: index,
           ),
         );
       }
     }
+  }
+
+  void _showPostOptionsSheet({
+    required BuildContext context,
+    required Feed? feed,
+  }) {
+    final userId = _authBloc.state.user?.userId;
+    CustomBottomSheet.show(
+      isDismissible: true,
+      borderRadius: true,
+      maxWidth: double.infinity,
+      context: context,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          ListTile(
+            onTap: () {
+              final postId = feed?.feedPost?.post?.postId;
+              if (postId != null && userId != null) {
+                _feedBloc.add(
+                  PostSaved(
+                    postId: postId,
+                    userId: userId,
+                  ),
+                );
+                context.pop();
+              }
+            },
+            leading: SvgPicture.asset(IconStringConstants.download),
+            title: Text(
+              'Save',
+              style: Theme.of(context)
+                  .textTheme
+                  .bodyLarge
+                  ?.copyWith(color: LegalReferralColors.textGrey500),
+            ),
+          ),
+          const Divider(),
+          ListTile(
+            onTap: () {},
+            leading: SvgPicture.asset(IconStringConstants.message),
+            title: Text(
+              'Message',
+              style: Theme.of(context)
+                  .textTheme
+                  .bodyLarge
+                  ?.copyWith(color: LegalReferralColors.textGrey500),
+            ),
+          ),
+          const Divider(),
+          ListTile(
+            onTap: () {},
+            leading: SvgPicture.asset(IconStringConstants.addFollow),
+            title: Text(
+              'Follow',
+              style: Theme.of(context)
+                  .textTheme
+                  .bodyLarge
+                  ?.copyWith(color: LegalReferralColors.textGrey500),
+            ),
+          ),
+          const Divider(),
+          ListTile(
+            onTap: () async {
+              final appinioSocialShare = AppinioSocialShare();
+
+              final result = await FilePicker.platform.pickFiles();
+
+              if (result != null && result.paths.isNotEmpty) {
+                await appinioSocialShare.android
+                    .shareFilesToSMS(result.paths.nonNulls.toList());
+              }
+            },
+            leading: SvgPicture.asset(
+              IconStringConstants.share,
+              colorFilter: const ColorFilter.mode(
+                LegalReferralColors.borderBlue100,
+                BlendMode.srcIn,
+              ),
+            ),
+            title: Text(
+              'Share via',
+              style: Theme.of(context)
+                  .textTheme
+                  .bodyLarge
+                  ?.copyWith(color: LegalReferralColors.textGrey500),
+            ),
+          ),
+          const Divider(),
+          ListTile(
+            onTap: () {},
+            leading: SvgPicture.asset(IconStringConstants.restrict),
+            title: Text(
+              '''I don't want to see this''',
+              style: Theme.of(context)
+                  .textTheme
+                  .bodyLarge
+                  ?.copyWith(color: LegalReferralColors.textGrey500),
+            ),
+          ),
+          const Divider(),
+          ListTile(
+            onTap: () {},
+            leading: SvgPicture.asset(IconStringConstants.flag),
+            title: Text(
+              'Report post',
+              style: Theme.of(context)
+                  .textTheme
+                  .bodyLarge
+                  ?.copyWith(color: LegalReferralColors.textGrey500),
+            ),
+          ),
+          const Divider(),
+          ListTile(
+            onTap: () {},
+            leading: SvgPicture.asset(
+              IconStringConstants.editIcon,
+              colorFilter: const ColorFilter.mode(
+                LegalReferralColors.borderBlue100,
+                BlendMode.srcIn,
+              ),
+            ),
+            title: Text(
+              'Edit',
+              style: Theme.of(context)
+                  .textTheme
+                  .bodyLarge
+                  ?.copyWith(color: LegalReferralColors.textGrey500),
+            ),
+          ),
+          const Divider(),
+          ListTile(
+            onTap: () {},
+            leading: SvgPicture.asset(IconStringConstants.favorite),
+            title: Text(
+              'Make feature post',
+              style: Theme.of(context)
+                  .textTheme
+                  .bodyLarge
+                  ?.copyWith(color: LegalReferralColors.textGrey500),
+            ),
+          ),
+          const Divider(),
+          ListTile(
+            onTap: () {},
+            leading: SvgPicture.asset(
+              IconStringConstants.deleteIcon,
+              colorFilter: const ColorFilter.mode(
+                LegalReferralColors.borderBlue100,
+                BlendMode.srcIn,
+              ),
+            ),
+            title: Text(
+              'Delete',
+              style: Theme.of(context)
+                  .textTheme
+                  .bodyLarge
+                  ?.copyWith(color: LegalReferralColors.textGrey500),
+            ),
+          ),
+          const Divider(),
+        ],
+      ),
+    );
   }
 
   void _onScroll() {
