@@ -1,5 +1,3 @@
-import 'package:appinio_social_share/appinio_social_share.dart';
-import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -13,7 +11,9 @@ import 'package:legal_referral_ui/src/features/advertisement/presentation/presen
 import 'package:legal_referral_ui/src/features/auth/presentation/presentation.dart';
 import 'package:legal_referral_ui/src/features/feed/domain/entities/feed.dart';
 import 'package:legal_referral_ui/src/features/feed/presentation/presentation.dart';
+import 'package:legal_referral_ui/src/features/post/domain/domain.dart';
 import 'package:legal_referral_ui/src/features/search/presentation/presentation.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:toastification/toastification.dart';
 
 class FeedsPage extends StatefulWidget {
@@ -163,7 +163,12 @@ class _FeedsPageState extends State<FeedsPage> {
                                 feed,
                                 index,
                               ),
-                              onSharePressed: () {},
+                              onSharePressed: () async {
+                                final post = feedPost?.post;
+                                if (post != null) {
+                                  await _sharePost(post);
+                                }
+                              },
                               onDiscussPressed: () {},
                               onTap: () => _navigateToFeedDetailsPage(
                                 feed,
@@ -211,6 +216,14 @@ class _FeedsPageState extends State<FeedsPage> {
         ),
       );
     }
+  }
+
+  Future<void> _sharePost(Post? post) async {
+    if (post == null) return;
+    final media = post.filesUrls.isNotEmpty ? post.filesUrls.first : '';
+    await Share.share(
+      'check out this post from Legal Referral app $media',
+    );
   }
 
   void _onLikePressed(
@@ -300,14 +313,7 @@ class _FeedsPageState extends State<FeedsPage> {
           const Divider(),
           ListTile(
             onTap: () async {
-              final appinioSocialShare = AppinioSocialShare();
-
-              final result = await FilePicker.platform.pickFiles();
-
-              if (result != null && result.paths.isNotEmpty) {
-                await appinioSocialShare.android
-                    .shareFilesToSMS(result.paths.nonNulls.toList());
-              }
+              await _sharePost(feed?.feedPost?.post);
             },
             leading: SvgPicture.asset(
               IconStringConstants.share,
