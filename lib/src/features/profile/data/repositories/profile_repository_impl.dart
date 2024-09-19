@@ -457,4 +457,44 @@ class ProfileRepositoryImpl extends ProfileRepository {
       );
     }
   }
+
+  @override
+  Future<Either<Failure, List<FeaturePost>>> fetchFeaturePosts({
+    required String userId,
+  }) async {
+    try {
+      final res = await _profileDataSource.fetchFeaturePosts(
+        userId: userId,
+      );
+      return Right(res);
+    } on DioException catch (error) {
+      final dioError = DioExceptions.fromDioError(error);
+      return Left(
+        Failure(
+          statusCode: dioError.statusCode,
+          message: dioError.message,
+        ),
+      );
+    }
+  }
+
+  @override
+  Future<Either<Failure, ResponseMsg?>> unSaveFeaturePost({
+    required int postId,
+  }) async {
+    try {
+      final res = await _profileDataSource.unSaveFeaturePost(
+        postId: postId,
+      );
+      return Right(res);
+    } on DioException catch (error) {
+      final dioError = DioExceptions.fromDioError(error);
+      return Left(
+        Failure(
+          statusCode: dioError.statusCode,
+          message: dioError.message,
+        ),
+      );
+    }
+  }
 }

@@ -38,8 +38,12 @@ mixin _$Education {
   @JsonKey(name: 'education_id', includeToJson: false)
   int? get educationId => throw _privateConstructorUsedError;
 
+  /// Serializes this Education to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of Education
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $EducationCopyWith<Education> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -76,6 +80,8 @@ class _$EducationCopyWithImpl<$Res, $Val extends Education>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of Education
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -168,6 +174,8 @@ class __$$EducationImplCopyWithImpl<$Res>
       _$EducationImpl _value, $Res Function(_$EducationImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of Education
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -310,7 +318,7 @@ class _$EducationImpl implements _Education {
                 other.educationId == educationId));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
       runtimeType,
@@ -325,7 +333,9 @@ class _$EducationImpl implements _Education {
       const DeepCollectionEquality().hash(_skills),
       educationId);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of Education
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$EducationImplCopyWith<_$EducationImpl> get copyWith =>
@@ -387,8 +397,11 @@ abstract class _Education implements Education {
   @override
   @JsonKey(name: 'education_id', includeToJson: false)
   int? get educationId;
+
+  /// Create a copy of Education
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$EducationImplCopyWith<_$EducationImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

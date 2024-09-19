@@ -43,9 +43,13 @@ class _SplashPageState extends State<SplashPage> {
         } else {
           final onBoarding = SharedPrefs.getOnBoarding();
           if (onBoarding) {
-            context.goNamed(SignInPage.name);
+            if (mounted) {
+              context.goNamed(SignInPage.name);
+            }
           } else {
-            context.goNamed(OnBoardingPage.name);
+            if (mounted) {
+              context.goNamed(OnBoardingPage.name);
+            }
           }
         }
       },

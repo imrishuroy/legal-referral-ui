@@ -27,8 +27,12 @@ mixin _$DiscussionInviteRes {
   @JsonKey(name: 'user')
   AppUser get user => throw _privateConstructorUsedError;
 
+  /// Serializes this DiscussionInviteRes to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of DiscussionInviteRes
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $DiscussionInviteResCopyWith<DiscussionInviteRes> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -59,6 +63,8 @@ class _$DiscussionInviteResCopyWithImpl<$Res, $Val extends DiscussionInviteRes>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of DiscussionInviteRes
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -82,6 +88,8 @@ class _$DiscussionInviteResCopyWithImpl<$Res, $Val extends DiscussionInviteRes>
     ) as $Val);
   }
 
+  /// Create a copy of DiscussionInviteRes
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $DiscussionInviteCopyWith<$Res> get discussionInvite {
@@ -90,6 +98,8 @@ class _$DiscussionInviteResCopyWithImpl<$Res, $Val extends DiscussionInviteRes>
     });
   }
 
+  /// Create a copy of DiscussionInviteRes
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $DiscussionCopyWith<$Res> get discussion {
@@ -98,6 +108,8 @@ class _$DiscussionInviteResCopyWithImpl<$Res, $Val extends DiscussionInviteRes>
     });
   }
 
+  /// Create a copy of DiscussionInviteRes
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $AppUserCopyWith<$Res> get user {
@@ -136,6 +148,8 @@ class __$$DiscussionInviteResImplCopyWithImpl<$Res>
       $Res Function(_$DiscussionInviteResImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of DiscussionInviteRes
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -198,12 +212,14 @@ class _$DiscussionInviteResImpl implements _DiscussionInviteRes {
             (identical(other.user, user) || other.user == user));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode =>
       Object.hash(runtimeType, discussionInvite, discussion, user);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of DiscussionInviteRes
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$DiscussionInviteResImplCopyWith<_$DiscussionInviteResImpl> get copyWith =>
@@ -238,8 +254,11 @@ abstract class _DiscussionInviteRes implements DiscussionInviteRes {
   @override
   @JsonKey(name: 'user')
   AppUser get user;
+
+  /// Create a copy of DiscussionInviteRes
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$DiscussionInviteResImplCopyWith<_$DiscussionInviteResImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

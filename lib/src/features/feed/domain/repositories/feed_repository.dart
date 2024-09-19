@@ -39,4 +39,12 @@ abstract class FeedRepository {
   Future<Either<Failure, bool>> isPostLiked({
     required int postId,
   });
+
+  Future<Either<Failure, ResponseMsg?>> saveFeaturePost({
+    required SaveFeaturePostReq saveFeaturePostReq,
+  });
+
+  Future<Either<Failure, ResponseMsg?>> unSaveFeaturePost({
+    required int postId,
+  });
 }

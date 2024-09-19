@@ -49,6 +49,8 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     on<EducationFetched>(_onEducationFetched);
     on<EducationUpdated>(_onEducationUpdated);
     on<EducationDeleted>(_onEducationDeleted);
+    on<FeaturePostsFetched>(_onFeaturePostsFetched);
+    on<FeaturePostUnsaved>(_onFeaturePostUnsaved);
   }
 
   final AuthBloc _authBloc;
@@ -860,6 +862,74 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
             state.copyWith(
               educationStatus: EducationStatus.success,
               educations: updatedEducations,
+            ),
+          );
+        }
+      },
+    );
+  }
+
+  Future<void> _onFeaturePostsFetched(
+    FeaturePostsFetched event,
+    Emitter<ProfileState> emit,
+  ) async {
+    emit(
+      state.copyWith(
+        profileStatus: ProfileStatus.loading,
+      ),
+    );
+
+    final res = await _profileUseCase.fetchFeaturePosts(
+      userId: event.userId,
+    );
+
+    res.fold(
+      (failure) {
+        emit(
+          state.copyWith(
+            profileStatus: ProfileStatus.failure,
+            failure: failure,
+          ),
+        );
+      },
+      (featurePosts) {
+        emit(
+          state.copyWith(
+            profileStatus: ProfileStatus.success,
+            featurePosts: featurePosts,
+          ),
+        );
+      },
+    );
+  }
+
+  Future<void> _onFeaturePostUnsaved(
+    FeaturePostUnsaved event,
+    Emitter<ProfileState> emit,
+  ) async {
+    final response = await _profileUseCase.unsaveFeaturePost(
+      postId: event.postId,
+    );
+
+    response.fold(
+      (failure) {
+        emit(
+          state.copyWith(
+            profileStatus: ProfileStatus.failure,
+            failure: failure,
+          ),
+        );
+      },
+      (res) {
+        if (res != null) {
+          final updatedFeaturePosts = state.featurePosts
+              .where((featurePost) => featurePost.post?.postId != event.postId)
+              .toList();
+
+          emit(
+            state.copyWith(
+              profileStatus: ProfileStatus.success,
+              featurePosts: updatedFeaturePosts,
             ),
           );
         }

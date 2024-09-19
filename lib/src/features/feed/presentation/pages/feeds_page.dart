@@ -373,8 +373,9 @@ class _FeedsPageState extends State<FeedsPage> {
             ),
           ),
           const Divider(),
+          // TODO:check it the post is already featured,
+          // then make it unfeatured
           ListTile(
-            onTap: () {},
             leading: SvgPicture.asset(IconStringConstants.favorite),
             title: Text(
               'Make feature post',
@@ -383,6 +384,18 @@ class _FeedsPageState extends State<FeedsPage> {
                   .bodyLarge
                   ?.copyWith(color: LegalReferralColors.textGrey500),
             ),
+            onTap: () {
+              final postId = feed?.feedPost?.post?.postId;
+              if (postId != null && userId != null) {
+                _feedBloc.add(
+                  PostSaved(
+                    postId: postId,
+                    userId: userId,
+                  ),
+                );
+                context.pop();
+              }
+            },
           ),
           const Divider(),
           ListTile(

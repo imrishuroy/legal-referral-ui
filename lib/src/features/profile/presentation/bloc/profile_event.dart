@@ -246,3 +246,25 @@ class EducationDeleted extends ProfileEvent {
   @override
   List<Object> get props => [educationId];
 }
+
+class FeaturePostUnsaved extends ProfileEvent {
+  const FeaturePostUnsaved({
+    required this.postId,
+  });
+
+  final int postId;
+
+  @override
+  List<Object> get props => [postId];
+}
+
+class FeaturePostsFetched extends ProfileEvent {
+  const FeaturePostsFetched({
+    required this.userId,
+  });
+
+  final String userId;
+
+  @override
+  List<Object> get props => [userId];
+}

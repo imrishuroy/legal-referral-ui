@@ -22,8 +22,12 @@ UserConnectionStatus _$UserConnectionStatusFromJson(Map<String, dynamic> json) {
 mixin _$UserConnectionStatus {
   ConnectionInvitationStatus get status => throw _privateConstructorUsedError;
 
+  /// Serializes this UserConnectionStatus to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of UserConnectionStatus
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $UserConnectionStatusCopyWith<UserConnectionStatus> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -48,6 +52,8 @@ class _$UserConnectionStatusCopyWithImpl<$Res,
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of UserConnectionStatus
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -81,6 +87,8 @@ class __$$UserConnectionStatusImplCopyWithImpl<$Res>
       $Res Function(_$UserConnectionStatusImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of UserConnectionStatus
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -119,11 +127,13 @@ class _$UserConnectionStatusImpl implements _UserConnectionStatus {
             (identical(other.status, status) || other.status == status));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, status);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of UserConnectionStatus
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$UserConnectionStatusImplCopyWith<_$UserConnectionStatusImpl>
@@ -149,8 +159,11 @@ abstract class _UserConnectionStatus implements UserConnectionStatus {
 
   @override
   ConnectionInvitationStatus get status;
+
+  /// Create a copy of UserConnectionStatus
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$UserConnectionStatusImplCopyWith<_$UserConnectionStatusImpl>
       get copyWith => throw _privateConstructorUsedError;
 }

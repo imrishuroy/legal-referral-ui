@@ -25,8 +25,12 @@ mixin _$UserExperience {
   @JsonKey(name: 'firm')
   Firm? get firm => throw _privateConstructorUsedError;
 
+  /// Serializes this UserExperience to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of UserExperience
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $UserExperienceCopyWith<UserExperience> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -55,6 +59,8 @@ class _$UserExperienceCopyWithImpl<$Res, $Val extends UserExperience>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of UserExperience
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -73,6 +79,8 @@ class _$UserExperienceCopyWithImpl<$Res, $Val extends UserExperience>
     ) as $Val);
   }
 
+  /// Create a copy of UserExperience
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $ExperienceCopyWith<$Res>? get experience {
@@ -85,6 +93,8 @@ class _$UserExperienceCopyWithImpl<$Res, $Val extends UserExperience>
     });
   }
 
+  /// Create a copy of UserExperience
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $FirmCopyWith<$Res>? get firm {
@@ -124,6 +134,8 @@ class __$$UserExperienceImplCopyWithImpl<$Res>
       _$UserExperienceImpl _value, $Res Function(_$UserExperienceImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of UserExperience
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -175,11 +187,13 @@ class _$UserExperienceImpl implements _UserExperience {
             (identical(other.firm, firm) || other.firm == firm));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, experience, firm);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of UserExperience
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$UserExperienceImplCopyWith<_$UserExperienceImpl> get copyWith =>
@@ -208,8 +222,11 @@ abstract class _UserExperience implements UserExperience {
   @override
   @JsonKey(name: 'firm')
   Firm? get firm;
+
+  /// Create a copy of UserExperience
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$UserExperienceImplCopyWith<_$UserExperienceImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

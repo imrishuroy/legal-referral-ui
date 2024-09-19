@@ -37,8 +37,12 @@ mixin _$Connection {
   @JsonKey(name: 'created_at')
   DateTime? get createdAt => throw _privateConstructorUsedError;
 
+  /// Serializes this Connection to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of Connection
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $ConnectionCopyWith<Connection> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -72,6 +76,8 @@ class _$ConnectionCopyWithImpl<$Res, $Val extends Connection>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of Connection
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -150,6 +156,8 @@ class __$$ConnectionImplCopyWithImpl<$Res>
       _$ConnectionImpl _value, $Res Function(_$ConnectionImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of Connection
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -268,12 +276,14 @@ class _$ConnectionImpl implements _Connection {
                 other.createdAt == createdAt));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, id, senderId, recipientId,
       firstName, lastName, about, avatarUrl, createdAt);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of Connection
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$ConnectionImplCopyWith<_$ConnectionImpl> get copyWith =>
@@ -327,8 +337,11 @@ abstract class _Connection implements Connection {
   @DateTimeJsonConverter()
   @JsonKey(name: 'created_at')
   DateTime? get createdAt;
+
+  /// Create a copy of Connection
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$ConnectionImplCopyWith<_$ConnectionImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

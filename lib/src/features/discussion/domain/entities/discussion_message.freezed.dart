@@ -42,8 +42,12 @@ mixin _$DiscussionMessage {
   @JsonKey(name: 'sender_avatar_image', includeIfNull: false)
   String? get senderAvatarImg => throw _privateConstructorUsedError;
 
+  /// Serializes this DiscussionMessage to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of DiscussionMessage
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $DiscussionMessageCopyWith<DiscussionMessage> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -86,6 +90,8 @@ class _$DiscussionMessageCopyWithImpl<$Res, $Val extends DiscussionMessage>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of DiscussionMessage
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -144,6 +150,8 @@ class _$DiscussionMessageCopyWithImpl<$Res, $Val extends DiscussionMessage>
     ) as $Val);
   }
 
+  /// Create a copy of DiscussionMessage
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $DiscussionMessageCopyWith<$Res>? get repliedMessage {
@@ -196,6 +204,8 @@ class __$$DiscussionMessageImplCopyWithImpl<$Res>
       $Res Function(_$DiscussionMessageImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of DiscussionMessage
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -342,7 +352,7 @@ class _$DiscussionMessageImpl implements _DiscussionMessage {
                 other.senderAvatarImg == senderAvatarImg));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
       runtimeType,
@@ -357,7 +367,9 @@ class _$DiscussionMessageImpl implements _DiscussionMessage {
       senderLastName,
       senderAvatarImg);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of DiscussionMessage
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$DiscussionMessageImplCopyWith<_$DiscussionMessageImpl> get copyWith =>
@@ -426,8 +438,11 @@ abstract class _DiscussionMessage implements DiscussionMessage {
   @override
   @JsonKey(name: 'sender_avatar_image', includeIfNull: false)
   String? get senderAvatarImg;
+
+  /// Create a copy of DiscussionMessage
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$DiscussionMessageImplCopyWith<_$DiscussionMessageImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

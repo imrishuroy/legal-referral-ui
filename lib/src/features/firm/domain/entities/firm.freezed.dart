@@ -36,8 +36,12 @@ mixin _$Firm {
   @JsonKey(name: 'firm_id', includeToJson: false)
   int? get firmId => throw _privateConstructorUsedError;
 
+  /// Serializes this Firm to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of Firm
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $FirmCopyWith<Firm> get copyWith => throw _privateConstructorUsedError;
 }
 
@@ -68,6 +72,8 @@ class _$FirmCopyWithImpl<$Res, $Val extends Firm>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of Firm
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -148,6 +154,8 @@ class __$$FirmImplCopyWithImpl<$Res>
   __$$FirmImplCopyWithImpl(_$FirmImpl _value, $Res Function(_$FirmImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of Firm
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -270,12 +278,14 @@ class _$FirmImpl implements _Firm {
             (identical(other.firmId, firmId) || other.firmId == firmId));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, name, orgType, logoUrl, website,
       location, about, ownerUserId, createdAt, firmId);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of Firm
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$FirmImplCopyWith<_$FirmImpl> get copyWith =>
@@ -330,8 +340,11 @@ abstract class _Firm implements Firm {
   @override
   @JsonKey(name: 'firm_id', includeToJson: false)
   int? get firmId;
+
+  /// Create a copy of Firm
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$FirmImplCopyWith<_$FirmImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

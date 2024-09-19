@@ -1,5 +1,6 @@
 export 'entities/education.dart';
 export 'entities/experience.dart';
+export 'entities/feature_post.dart';
 export 'entities/price.dart';
 export 'entities/social.dart';
 export 'entities/user_experience.dart';

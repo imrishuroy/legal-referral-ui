@@ -1,6 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
-import 'package:legal_referral_ui/src/core/config/failure.dart';
+import 'package:legal_referral_ui/src/core/config/config.dart';
 import 'package:legal_referral_ui/src/features/auth/domain/domain.dart';
 import 'package:legal_referral_ui/src/features/feed/data/data.dart';
 import 'package:legal_referral_ui/src/features/feed/domain/domain.dart';
@@ -78,6 +78,22 @@ class FeedUsecase {
     required int postId,
   }) async {
     return _feedRepository.isPostLiked(
+      postId: postId,
+    );
+  }
+
+  Future<Either<Failure, ResponseMsg?>> saveFeaturePost({
+    required SaveFeaturePostReq saveFeaturePostReq,
+  }) async {
+    return _feedRepository.saveFeaturePost(
+      saveFeaturePostReq: saveFeaturePostReq,
+    );
+  }
+
+  Future<Either<Failure, ResponseMsg?>> unSaveFeaturePost({
+    required int postId,
+  }) async {
+    return _feedRepository.unSaveFeaturePost(
       postId: postId,
     );
   }

@@ -213,7 +213,7 @@ class _ProfilePageState extends State<ProfilePage> {
                           profileBloc: _profileBloc,
                           isCurrentUser: isCurrentUser,
                         ),
-                        const FeaturedSection(),
+                        const FeaturedPostsSection(),
                         CustomCard(
                           onTap: () {},
                           title: 'Activity',

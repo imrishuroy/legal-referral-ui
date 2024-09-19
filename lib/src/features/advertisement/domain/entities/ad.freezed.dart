@@ -42,8 +42,12 @@ mixin _$Ad {
   @JsonKey(name: 'media')
   List<String?> get mediaUrls => throw _privateConstructorUsedError;
 
+  /// Serializes this Ad to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of Ad
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $AdCopyWith<Ad> get copyWith => throw _privateConstructorUsedError;
 }
 
@@ -75,6 +79,8 @@ class _$AdCopyWithImpl<$Res, $Val extends Ad> implements $AdCopyWith<$Res> {
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of Ad
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -165,6 +171,8 @@ class __$$AdImplCopyWithImpl<$Res> extends _$AdCopyWithImpl<$Res, _$AdImpl>
   __$$AdImplCopyWithImpl(_$AdImpl _value, $Res Function(_$AdImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of Ad
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -318,7 +326,7 @@ class _$AdImpl implements _Ad {
                 .equals(other._mediaUrls, _mediaUrls));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
       runtimeType,
@@ -334,7 +342,9 @@ class _$AdImpl implements _Ad {
       adId,
       const DeepCollectionEquality().hash(_mediaUrls));
 
-  @JsonKey(ignore: true)
+  /// Create a copy of Ad
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$AdImplCopyWith<_$AdImpl> get copyWith =>
@@ -400,8 +410,11 @@ abstract class _Ad implements Ad {
   @override
   @JsonKey(name: 'media')
   List<String?> get mediaUrls;
+
+  /// Create a copy of Ad
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$AdImplCopyWith<_$AdImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

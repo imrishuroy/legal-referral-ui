@@ -710,7 +710,7 @@ class _APIClient implements APIClient {
     };
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<List<Firm>>(Options(
+    final _options = _setStreamType<List<Firm?>>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
@@ -1005,7 +1005,7 @@ class _APIClient implements APIClient {
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<List<Social>>(Options(
+    final _options = _setStreamType<List<Social?>>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
@@ -1560,7 +1560,7 @@ class _APIClient implements APIClient {
     };
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<List<ConnectionInvitation>>(Options(
+    final _options = _setStreamType<List<ConnectionInvitation?>>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
@@ -1604,7 +1604,7 @@ class _APIClient implements APIClient {
     };
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<List<Connection>>(Options(
+    final _options = _setStreamType<List<Connection?>>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
@@ -1647,7 +1647,7 @@ class _APIClient implements APIClient {
     };
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<List<Recommendation>>(Options(
+    final _options = _setStreamType<List<Recommendation?>>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
@@ -1766,7 +1766,7 @@ class _APIClient implements APIClient {
     };
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<List<AppUser>>(Options(
+    final _options = _setStreamType<List<AppUser?>>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
@@ -1947,7 +1947,7 @@ class _APIClient implements APIClient {
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<List<Project>>(Options(
+    final _options = _setStreamType<List<Project?>>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
@@ -1983,7 +1983,7 @@ class _APIClient implements APIClient {
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<List<ReferedUser>>(Options(
+    final _options = _setStreamType<List<ReferedUser?>>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
@@ -2020,7 +2020,7 @@ class _APIClient implements APIClient {
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<List<Project>>(Options(
+    final _options = _setStreamType<List<Project?>>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
@@ -2197,7 +2197,7 @@ class _APIClient implements APIClient {
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<List<Project>>(Options(
+    final _options = _setStreamType<List<Project?>>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
@@ -2269,7 +2269,7 @@ class _APIClient implements APIClient {
     final queryParameters = <String, dynamic>{r'role': role};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<List<Project>>(Options(
+    final _options = _setStreamType<List<Project?>>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
@@ -2508,7 +2508,7 @@ class _APIClient implements APIClient {
     final queryParameters = <String, dynamic>{r'role': role};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<List<Project>>(Options(
+    final _options = _setStreamType<List<Project?>>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
@@ -2551,7 +2551,7 @@ class _APIClient implements APIClient {
     };
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<List<AppUser>>(Options(
+    final _options = _setStreamType<List<AppUser?>>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
@@ -2593,7 +2593,7 @@ class _APIClient implements APIClient {
     };
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<List<AppUser>>(Options(
+    final _options = _setStreamType<List<AppUser?>>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
@@ -2693,7 +2693,7 @@ class _APIClient implements APIClient {
     };
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<List<Feed>>(Options(
+    final _options = _setStreamType<List<Feed?>>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
@@ -2779,7 +2779,7 @@ class _APIClient implements APIClient {
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<List<AppUser>>(Options(
+    final _options = _setStreamType<List<AppUser?>>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
@@ -2852,7 +2852,7 @@ class _APIClient implements APIClient {
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<List<Comment>>(Options(
+    final _options = _setStreamType<List<Comment?>>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
@@ -3048,7 +3048,7 @@ class _APIClient implements APIClient {
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<List<Discussion>>(Options(
+    final _options = _setStreamType<List<Discussion?>>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
@@ -3085,7 +3085,7 @@ class _APIClient implements APIClient {
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<List<DiscussionInviteRes>>(Options(
+    final _options = _setStreamType<List<DiscussionInviteRes?>>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
@@ -3270,7 +3270,7 @@ class _APIClient implements APIClient {
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<List<AppUser>>(Options(
+    final _options = _setStreamType<List<AppUser?>>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
@@ -3306,7 +3306,7 @@ class _APIClient implements APIClient {
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<List<AppUser>>(Options(
+    final _options = _setStreamType<List<AppUser?>>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
@@ -3425,7 +3425,7 @@ class _APIClient implements APIClient {
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<List<Ad>>(Options(
+    final _options = _setStreamType<List<Ad?>>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
@@ -3461,7 +3461,7 @@ class _APIClient implements APIClient {
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<List<Ad>>(Options(
+    final _options = _setStreamType<List<Ad?>>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
@@ -3690,6 +3690,109 @@ class _APIClient implements APIClient {
     late bool _value;
     try {
       _value = _result.data!;
+    } on Object catch (e, s) {
+      errorLogger?.logError(e, s, _options);
+      rethrow;
+    }
+    return _value;
+  }
+
+  @override
+  Future<ResponseMsg> saveFeaturePost(
+      SaveFeaturePostReq saveFeaturePostReq) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(saveFeaturePostReq.toJson());
+    final _options = _setStreamType<ResponseMsg>(Options(
+      method: 'POST',
+      headers: _headers,
+      extra: _extra,
+    )
+        .compose(
+          _dio.options,
+          '/feature-posts',
+          queryParameters: queryParameters,
+          data: _data,
+        )
+        .copyWith(
+            baseUrl: _combineBaseUrls(
+          _dio.options.baseUrl,
+          baseUrl,
+        )));
+    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    late ResponseMsg _value;
+    try {
+      _value = ResponseMsg.fromJson(_result.data!);
+    } on Object catch (e, s) {
+      errorLogger?.logError(e, s, _options);
+      rethrow;
+    }
+    return _value;
+  }
+
+  @override
+  Future<ResponseMsg> unSaveFeaturePost(int postId) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    const Map<String, dynamic>? _data = null;
+    final _options = _setStreamType<ResponseMsg>(Options(
+      method: 'DELETE',
+      headers: _headers,
+      extra: _extra,
+    )
+        .compose(
+          _dio.options,
+          '/feature-posts/${postId}',
+          queryParameters: queryParameters,
+          data: _data,
+        )
+        .copyWith(
+            baseUrl: _combineBaseUrls(
+          _dio.options.baseUrl,
+          baseUrl,
+        )));
+    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    late ResponseMsg _value;
+    try {
+      _value = ResponseMsg.fromJson(_result.data!);
+    } on Object catch (e, s) {
+      errorLogger?.logError(e, s, _options);
+      rethrow;
+    }
+    return _value;
+  }
+
+  @override
+  Future<List<FeaturePost>> fetchFeaturePosts(String userId) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    const Map<String, dynamic>? _data = null;
+    final _options = _setStreamType<List<FeaturePost>>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+        .compose(
+          _dio.options,
+          '/feature-posts/${userId}',
+          queryParameters: queryParameters,
+          data: _data,
+        )
+        .copyWith(
+            baseUrl: _combineBaseUrls(
+          _dio.options.baseUrl,
+          baseUrl,
+        )));
+    final _result = await _dio.fetch<List<dynamic>>(_options);
+    late List<FeaturePost> _value;
+    try {
+      _value = _result.data!
+          .map((dynamic i) => FeaturePost.fromJson(i as Map<String, dynamic>))
+          .toList();
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options);
       rethrow;

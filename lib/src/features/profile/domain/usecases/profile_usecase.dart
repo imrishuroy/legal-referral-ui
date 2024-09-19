@@ -208,4 +208,20 @@ class ProfileUseCase {
       educationId: educationId,
     );
   }
+
+  Future<Either<Failure, List<FeaturePost>>> fetchFeaturePosts({
+    required String userId,
+  }) async {
+    return _profileRepository.fetchFeaturePosts(
+      userId: userId,
+    );
+  }
+
+  Future<Either<Failure, ResponseMsg?>> unsaveFeaturePost({
+    required int postId,
+  }) async {
+    return _profileRepository.unSaveFeaturePost(
+      postId: postId,
+    );
+  }
 }

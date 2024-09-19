@@ -34,8 +34,12 @@ mixin _$DiscussionInvite {
   @JsonKey(name: 'created_at', includeIfNull: false)
   DateTime? get createdAt => throw _privateConstructorUsedError;
 
+  /// Serializes this DiscussionInvite to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of DiscussionInvite
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $DiscussionInviteCopyWith<DiscussionInvite> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -67,6 +71,8 @@ class _$DiscussionInviteCopyWithImpl<$Res, $Val extends DiscussionInvite>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of DiscussionInvite
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -133,6 +139,8 @@ class __$$DiscussionInviteImplCopyWithImpl<$Res>
       $Res Function(_$DiscussionInviteImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of DiscussionInvite
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -232,12 +240,14 @@ class _$DiscussionInviteImpl implements _DiscussionInvite {
                 other.createdAt == createdAt));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, discussionInviteId, discussionId,
       status, inviteeUserId, invitedUserId, createdAt);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of DiscussionInvite
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$DiscussionInviteImplCopyWith<_$DiscussionInviteImpl> get copyWith =>
@@ -287,8 +297,11 @@ abstract class _DiscussionInvite implements DiscussionInvite {
   @DateTimeJsonConverter()
   @JsonKey(name: 'created_at', includeIfNull: false)
   DateTime? get createdAt;
+
+  /// Create a copy of DiscussionInvite
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$DiscussionInviteImplCopyWith<_$DiscussionInviteImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
