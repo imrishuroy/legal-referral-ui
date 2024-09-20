@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:legal_referral_ui/src/core/config/config.dart';
+import 'package:legal_referral_ui/src/features/account/domain/domain.dart';
 import 'package:legal_referral_ui/src/features/advertisement/data/data.dart';
 import 'package:legal_referral_ui/src/features/advertisement/domain/domain.dart';
 import 'package:legal_referral_ui/src/features/auth/data/data.dart';
@@ -618,5 +619,14 @@ abstract class APIClient {
   @GET('/feature-posts/{userId}')
   Future<List<FeaturePost>> fetchFeaturePosts(
     @Path('userId') String userId,
+  );
+
+  // FAQ
+  @GET('/faqs')
+  Future<List<FAQ>> fetchFAQs();
+
+  @POST('/faqs')
+  Future<FAQ> createFAQ(
+    @Body() FAQ faq,
   );
 }

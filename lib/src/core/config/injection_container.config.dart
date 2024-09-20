@@ -11,6 +11,14 @@
 import 'package:get_it/get_it.dart' as _i174;
 import 'package:injectable/injectable.dart' as _i526;
 
+import '../../features/account/data/data.dart' as _i970;
+import '../../features/account/data/datasources/account_datasource.dart'
+    as _i1048;
+import '../../features/account/data/repositories/account_repository_impl.dart'
+    as _i857;
+import '../../features/account/domain/domain.dart' as _i808;
+import '../../features/account/domain/usecases/account_usecase.dart' as _i772;
+import '../../features/account/presentation/bloc/account_bloc.dart' as _i708;
 import '../../features/advertisement/data/data.dart' as _i161;
 import '../../features/advertisement/data/datasources/ad_datasource.dart'
     as _i78;
@@ -154,6 +162,8 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i78.AdDatasource(apiClient: gh<_i855.APIClient>()));
     gh.singleton<_i219.DiscussionDatasource>(
         () => _i219.DiscussionDatasource(apiClient: gh<_i557.APIClient>()));
+    gh.singleton<_i1048.AccountDatasource>(
+        () => _i1048.AccountDatasource(apiClient: gh<_i557.APIClient>()));
     gh.lazySingleton<_i566.SearchDataSource>(
         () => _i566.SearchDataSource(apiClient: gh<_i855.APIClient>()));
     gh.lazySingleton<_i931.DiscussionRepository>(() =>
@@ -171,6 +181,10 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i202.AdRepositoryImpl(adDatasource: gh<_i161.AdDatasource>()));
     gh.lazySingleton<_i40.FeedRepository>(() =>
         _i452.FeedRepositoryImpl(feedDatasource: gh<_i84.FeedDatasource>()));
+    gh.lazySingleton<_i808.AccountRepository>(() => _i857.AccountRepositoryImpl(
+        accountDatasource: gh<_i970.AccountDatasource>()));
+    gh.lazySingleton<_i772.AccountUsecase>(() =>
+        _i772.AccountUsecase(accountRepository: gh<_i808.AccountRepository>()));
     gh.lazySingleton<_i386.ReferralRepository>(() =>
         _i750.ReferralRepositoryImpl(
             referralDataSource: gh<_i622.ReferralDataSource>()));
@@ -192,6 +206,8 @@ extension GetItInjectableX on _i174.GetIt {
         discussionRepository: gh<_i931.DiscussionRepository>()));
     gh.lazySingleton<_i995.FeedUsecase>(
         () => _i995.FeedUsecase(feedRepository: gh<_i40.FeedRepository>()));
+    gh.factory<_i708.AccountBloc>(
+        () => _i708.AccountBloc(accountUsecase: gh<_i808.AccountUsecase>()));
     gh.lazySingleton<_i140.AuthRepository>(() =>
         _i153.AuthRepositoryImpl(authDataSource: gh<_i704.AuthDataSource>()));
     gh.lazySingleton<_i569.ChatUseCase>(

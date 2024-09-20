@@ -117,7 +117,7 @@ class _AccountPageState extends State<AccountPage> {
                         horizontal: 16.w,
                       ),
                       title: Text(
-                        title[index],
+                        _accountSection[index],
                         style: Theme.of(context).textTheme.titleMedium,
                       ),
                       onTap: () {
@@ -137,8 +137,9 @@ class _AccountPageState extends State<AccountPage> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) =>
-                                    SignInSecurityPage(title: title[index]),
+                                builder: (context) => SignInSecurityPage(
+                                  title: _accountSection[index],
+                                ),
                               ),
                             );
                             break;
@@ -152,20 +153,14 @@ class _AccountPageState extends State<AccountPage> {
                               context,
                               MaterialPageRoute(
                                 builder: (context) => NotificationSettingPage(
-                                  title: title[index],
+                                  title: _accountSection[index],
                                 ),
                               ),
                             );
                             break;
                           // Support/Help
                           case 5:
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) =>
-                                    SupportHelpPage(title: title[index]),
-                              ),
-                            );
+                            context.pushNamed(SupportHelpPage.name);
                             break;
                         }
                       },
@@ -175,7 +170,7 @@ class _AccountPageState extends State<AccountPage> {
                       height: 4.h,
                       color: const Color(0x18000000),
                     ),
-                    itemCount: title.length,
+                    itemCount: _accountSection.length,
                   ),
                 ),
               ],
@@ -186,7 +181,7 @@ class _AccountPageState extends State<AccountPage> {
     );
   }
 
-  final List<String> title = [
+  final List<String> _accountSection = [
     'My Law Firm Page',
     'Saved Posts',
     'Sign in & Security',

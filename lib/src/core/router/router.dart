@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:legal_referral_ui/src/core/common_widgets/widgets.dart';
-import 'package:legal_referral_ui/src/features/account/presentation/pages/account_page.dart';
+import 'package:legal_referral_ui/src/features/account/presentation/presentation.dart';
 import 'package:legal_referral_ui/src/features/advertisement/domain/domain.dart';
 import 'package:legal_referral_ui/src/features/advertisement/presentation/presentation.dart';
 import 'package:legal_referral_ui/src/features/auth/presentation/presentation.dart';
@@ -415,6 +415,47 @@ class AppRouter {
                   FadeTransition(opacity: a, child: c),
             ),
           ),
+          GoRoute(
+            path: 'support-help',
+            name: SupportHelpPage.name,
+            parentNavigatorKey: _rootNavigatorKey,
+            pageBuilder: (context, state) => CustomTransitionPage(
+              child: const SupportHelpPage(),
+              transitionDuration: const Duration(
+                milliseconds: _routeTransitionDuration,
+              ),
+              transitionsBuilder: (_, a, __, c) =>
+                  FadeTransition(opacity: a, child: c),
+            ),
+            routes: [
+              GoRoute(
+                path: 'faq',
+                name: FAQPage.name,
+                parentNavigatorKey: _rootNavigatorKey,
+                pageBuilder: (context, state) => CustomTransitionPage(
+                  child: const FAQPage(),
+                  transitionDuration: const Duration(
+                    milliseconds: _routeTransitionDuration,
+                  ),
+                  transitionsBuilder: (_, a, __, c) =>
+                      FadeTransition(opacity: a, child: c),
+                ),
+              ),
+              GoRoute(
+                path: 'ask-us',
+                name: AskUsPage.name,
+                parentNavigatorKey: _rootNavigatorKey,
+                pageBuilder: (context, state) => CustomTransitionPage(
+                  child: const AskUsPage(),
+                  transitionDuration: const Duration(
+                    milliseconds: _routeTransitionDuration,
+                  ),
+                  transitionsBuilder: (_, a, __, c) =>
+                      FadeTransition(opacity: a, child: c),
+                ),
+              ),
+            ],
+          ),
         ],
       ),
       GoRoute(
@@ -707,9 +748,6 @@ class AppRouter {
               FadeTransition(opacity: a, child: c),
         ),
       ),
-
-      // post
-
       GoRoute(
         path: '/addReferral',
         name: PostPage.name,
@@ -726,8 +764,6 @@ class AppRouter {
               FadeTransition(opacity: a, child: c),
         ),
       ),
-
-      // discuss
       GoRoute(
         path: '/discuss',
         name: DiscussPage.name,
@@ -770,7 +806,6 @@ class AppRouter {
               FadeTransition(opacity: a, child: c),
         ),
       ),
-
       GoRoute(
         path: '/discussion-invites',
         name: DiscussionInvitesPage.name,
@@ -784,7 +819,6 @@ class AppRouter {
               FadeTransition(opacity: a, child: c),
         ),
       ),
-
       GoRoute(
         path: '/discussion/:discussionId/messages',
         name: DiscussionChatsPage.name,
@@ -800,7 +834,6 @@ class AppRouter {
               FadeTransition(opacity: a, child: c),
         ),
       ),
-
       GoRoute(
         path: '/discussion/details/:discussionId',
         name: DiscussionDetailsPage.name,
@@ -816,9 +849,6 @@ class AppRouter {
               FadeTransition(opacity: a, child: c),
         ),
       ),
-
-      // ads
-
       GoRoute(
         path: '/ad-page',
         name: AdPage.name,
@@ -845,7 +875,6 @@ class AppRouter {
           ),
         ],
       ),
-
       GoRoute(
         path: '/preview-ad',
         name: PreviewAdPage.name,
@@ -860,7 +889,6 @@ class AppRouter {
               FadeTransition(opacity: a, child: c),
         ),
       ),
-
       GoRoute(
         path: '/payment-cycle',
         name: PaymentCyclePage.name,
@@ -875,7 +903,6 @@ class AppRouter {
               FadeTransition(opacity: a, child: c),
         ),
       ),
-
       GoRoute(
         path: '/extend-ad',
         name: ExtendAdPeriodPage.name,
