@@ -32,8 +32,12 @@ mixin _$Discussion {
   @JsonKey(name: 'active_member_count', includeIfNull: false)
   int? get activeMemberCount => throw _privateConstructorUsedError;
 
+  /// Serializes this Discussion to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of Discussion
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $DiscussionCopyWith<Discussion> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -65,6 +69,8 @@ class _$DiscussionCopyWithImpl<$Res, $Val extends Discussion>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of Discussion
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -126,6 +132,8 @@ class __$$DiscussionImplCopyWithImpl<$Res>
       _$DiscussionImpl _value, $Res Function(_$DiscussionImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of Discussion
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -214,12 +222,14 @@ class _$DiscussionImpl implements _Discussion {
                 other.activeMemberCount == activeMemberCount));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
       runtimeType, discussionId, topic, authorId, createdAt, activeMemberCount);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of Discussion
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$DiscussionImplCopyWith<_$DiscussionImpl> get copyWith =>
@@ -264,8 +274,11 @@ abstract class _Discussion implements Discussion {
   @override
   @JsonKey(name: 'active_member_count', includeIfNull: false)
   int? get activeMemberCount;
+
+  /// Create a copy of Discussion
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$DiscussionImplCopyWith<_$DiscussionImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

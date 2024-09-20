@@ -29,6 +29,7 @@ class ProfileState extends Equatable {
     this.userProfile,
     this.firms = const <Firm>[],
     this.socials = const <Social>[],
+    this.featurePosts = const <FeaturePost>[],
     this.failure,
   });
 
@@ -49,6 +50,7 @@ class ProfileState extends Equatable {
   final UserProfile? userProfile;
   final List<Firm?> firms;
   final List<Social?> socials;
+  final List<FeaturePost> featurePosts;
   final Failure? failure;
 
   ProfileState copyWith({
@@ -65,6 +67,7 @@ class ProfileState extends Equatable {
     UserProfile? userProfile,
     List<Firm?>? firms,
     List<Social?>? socials,
+    List<FeaturePost>? featurePosts,
     Failure? failure,
   }) {
     return ProfileState(
@@ -82,6 +85,7 @@ class ProfileState extends Equatable {
       userProfile: userProfile ?? this.userProfile,
       firms: firms ?? this.firms,
       socials: socials ?? this.socials,
+      featurePosts: featurePosts ?? this.featurePosts,
       failure: failure ?? this.failure,
     );
   }
@@ -101,6 +105,7 @@ class ProfileState extends Equatable {
         userProfile,
         firms,
         socials,
+        featurePosts,
         failure,
       ];
 }

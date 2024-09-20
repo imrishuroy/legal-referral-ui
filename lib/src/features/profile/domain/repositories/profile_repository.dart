@@ -107,4 +107,12 @@ abstract class ProfileRepository {
     required String userId,
     required int educationId,
   });
+
+  Future<Either<Failure, ResponseMsg?>> unSaveFeaturePost({
+    required int postId,
+  });
+
+  Future<Either<Failure, List<FeaturePost>>> fetchFeaturePosts({
+    required String userId,
+  });
 }

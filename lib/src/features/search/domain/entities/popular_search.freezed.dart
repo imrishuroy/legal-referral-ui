@@ -20,7 +20,9 @@ mixin _$PopularSearch {
   int get count => throw _privateConstructorUsedError;
   String get location => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PopularSearch
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $PopularSearchCopyWith<PopularSearch> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -44,6 +46,8 @@ class _$PopularSearchCopyWithImpl<$Res, $Val extends PopularSearch>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of PopularSearch
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -87,6 +91,8 @@ class __$$PopularSearchImplCopyWithImpl<$Res>
       _$PopularSearchImpl _value, $Res Function(_$PopularSearchImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of PopularSearch
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -143,7 +149,9 @@ class _$PopularSearchImpl implements _PopularSearch {
   @override
   int get hashCode => Object.hash(runtimeType, query, count, location);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PopularSearch
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$PopularSearchImplCopyWith<_$PopularSearchImpl> get copyWith =>
@@ -162,8 +170,11 @@ abstract class _PopularSearch implements PopularSearch {
   int get count;
   @override
   String get location;
+
+  /// Create a copy of PopularSearch
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$PopularSearchImplCopyWith<_$PopularSearchImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

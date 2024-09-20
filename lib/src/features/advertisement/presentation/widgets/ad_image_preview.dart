@@ -22,7 +22,7 @@ class AdImagePreview extends StatefulWidget {
 
 class _AdImagePreviewState extends State<AdImagePreview> {
   double _current = 0;
-  final CarouselController _controller = CarouselController();
+  final CarouselSliderController _controller = CarouselSliderController();
 
   @override
   Widget build(BuildContext context) {

@@ -179,4 +179,44 @@ class FeedRepositoryImpl extends FeedRepository {
       );
     }
   }
+
+  @override
+  Future<Either<Failure, ResponseMsg?>> saveFeaturePost({
+    required SaveFeaturePostReq saveFeaturePostReq,
+  }) async {
+    try {
+      final res = await _feedDatasource.saveFeaturePost(
+        saveFeaturePostReq: saveFeaturePostReq,
+      );
+      return Right(res);
+    } on DioException catch (error) {
+      final dioError = DioExceptions.fromDioError(error);
+      return Left(
+        Failure(
+          statusCode: dioError.statusCode,
+          message: dioError.message,
+        ),
+      );
+    }
+  }
+
+  @override
+  Future<Either<Failure, ResponseMsg?>> unSaveFeaturePost({
+    required int postId,
+  }) async {
+    try {
+      final res = await _feedDatasource.unsaveFeaturePost(
+        postId: postId,
+      );
+      return Right(res);
+    } on DioException catch (error) {
+      final dioError = DioExceptions.fromDioError(error);
+      return Left(
+        Failure(
+          statusCode: dioError.statusCode,
+          message: dioError.message,
+        ),
+      );
+    }
+  }
 }

@@ -41,8 +41,12 @@ mixin _$Experience {
   @JsonKey(name: 'user_id', includeToJson: false)
   String? get userId => throw _privateConstructorUsedError;
 
+  /// Serializes this Experience to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of Experience
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $ExperienceCopyWith<Experience> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -81,6 +85,8 @@ class _$ExperienceCopyWithImpl<$Res, $Val extends Experience>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of Experience
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -179,6 +185,8 @@ class __$$ExperienceImplCopyWithImpl<$Res>
       _$ExperienceImpl _value, $Res Function(_$ExperienceImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of Experience
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -334,7 +342,7 @@ class _$ExperienceImpl implements _Experience {
             (identical(other.userId, userId) || other.userId == userId));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
       runtimeType,
@@ -350,7 +358,9 @@ class _$ExperienceImpl implements _Experience {
       experienceId,
       userId);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of Experience
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$ExperienceImplCopyWith<_$ExperienceImpl> get copyWith =>
@@ -419,8 +429,11 @@ abstract class _Experience implements Experience {
   @override
   @JsonKey(name: 'user_id', includeToJson: false)
   String? get userId;
+
+  /// Create a copy of Experience
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$ExperienceImplCopyWith<_$ExperienceImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

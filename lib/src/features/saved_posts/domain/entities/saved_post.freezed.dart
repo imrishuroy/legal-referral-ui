@@ -29,8 +29,12 @@ mixin _$SavedPost {
   @JsonKey(name: 'created_at')
   DateTime get createdAt => throw _privateConstructorUsedError;
 
+  /// Serializes this SavedPost to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of SavedPost
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $SavedPostCopyWith<SavedPost> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -62,6 +66,8 @@ class _$SavedPostCopyWithImpl<$Res, $Val extends SavedPost>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of SavedPost
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -90,6 +96,8 @@ class _$SavedPostCopyWithImpl<$Res, $Val extends SavedPost>
     ) as $Val);
   }
 
+  /// Create a copy of SavedPost
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $PostCopyWith<$Res>? get post {
@@ -102,6 +110,8 @@ class _$SavedPostCopyWithImpl<$Res, $Val extends SavedPost>
     });
   }
 
+  /// Create a copy of SavedPost
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $AppUserCopyWith<$Res>? get owner {
@@ -145,6 +155,8 @@ class __$$SavedPostImplCopyWithImpl<$Res>
       _$SavedPostImpl _value, $Res Function(_$SavedPostImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of SavedPost
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -219,12 +231,14 @@ class _$SavedPostImpl implements _SavedPost {
                 other.createdAt == createdAt));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode =>
       Object.hash(runtimeType, post, owner, savedPostId, createdAt);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of SavedPost
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$SavedPostImplCopyWith<_$SavedPostImpl> get copyWith =>
@@ -262,8 +276,11 @@ abstract class _SavedPost implements SavedPost {
   @DateTimeJsonConverter()
   @JsonKey(name: 'created_at')
   DateTime get createdAt;
+
+  /// Create a copy of SavedPost
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$SavedPostImplCopyWith<_$SavedPostImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

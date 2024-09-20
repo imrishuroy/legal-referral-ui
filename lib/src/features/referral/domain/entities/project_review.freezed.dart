@@ -32,8 +32,12 @@ mixin _$ProjectReview {
   @JsonKey(name: 'review_id', includeIfNull: false)
   int? get reviewId => throw _privateConstructorUsedError;
 
+  /// Serializes this ProjectReview to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of ProjectReview
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $ProjectReviewCopyWith<ProjectReview> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -65,6 +69,8 @@ class _$ProjectReviewCopyWithImpl<$Res, $Val extends ProjectReview>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of ProjectReview
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -131,6 +137,8 @@ class __$$ProjectReviewImplCopyWithImpl<$Res>
       _$ProjectReviewImpl _value, $Res Function(_$ProjectReviewImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of ProjectReview
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -225,12 +233,14 @@ class _$ProjectReviewImpl implements _ProjectReview {
                 other.reviewId == reviewId));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
       runtimeType, projectId, userId, review, rating, createdAt, reviewId);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of ProjectReview
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$ProjectReviewImplCopyWith<_$ProjectReviewImpl> get copyWith =>
@@ -276,8 +286,11 @@ abstract class _ProjectReview implements ProjectReview {
   @override
   @JsonKey(name: 'review_id', includeIfNull: false)
   int? get reviewId;
+
+  /// Create a copy of ProjectReview
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$ProjectReviewImplCopyWith<_$ProjectReviewImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

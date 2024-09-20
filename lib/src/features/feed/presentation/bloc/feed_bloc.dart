@@ -53,6 +53,7 @@ class FeedBloc extends Bloc<FeedEvent, FeedState> {
     on<PostLikesAndCommentsCountFetched>(_onPostLikesAndCommentsCountFetched);
     on<PostIsLikedFetched>(_onIsLikedPostFetched);
     on<PostSaved>(_onPostSaved);
+    on<FeaturePostSaved>(_onFeaturePostSaved);
   }
 
   final FeedUsecase _feedUsecase;
@@ -525,6 +526,38 @@ class FeedBloc extends Bloc<FeedEvent, FeedState> {
     final response = await _savedPostUseCase.savePost(
       userId: event.userId,
       postId: event.postId,
+    );
+
+    response.fold(
+      (failure) {
+        emit(
+          state.copyWith(
+            feedActionsStatus: FeedActionsStatus.failure,
+            failure: failure,
+          ),
+        );
+      },
+      (_) {
+        emit(
+          state.copyWith(
+            feedActionsStatus: FeedActionsStatus.success,
+          ),
+        );
+      },
+    );
+  }
+
+  Future<void> _onFeaturePostSaved(
+    FeaturePostSaved event,
+    Emitter<FeedState> emit,
+  ) async {
+    final saveFeaturePostReq = SaveFeaturePostReq(
+      userId: event.userId,
+      postId: event.postId,
+    );
+
+    final response = await _feedUsecase.saveFeaturePost(
+      saveFeaturePostReq: saveFeaturePostReq,
     );
 
     response.fold(

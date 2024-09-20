@@ -1,11 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:legal_referral_ui/src/core/common_widgets/widgets.dart';
 import 'package:legal_referral_ui/src/core/constants/colors.dart';
+import 'package:legal_referral_ui/src/core/constants/icon_string_constants.dart';
+import 'package:legal_referral_ui/src/features/post/domain/domain.dart';
 
 class FeaturedWidget extends StatelessWidget {
   const FeaturedWidget({
+    required this.post,
+    required this.onUnSave,
     super.key,
   });
+
+  final Post? post;
+  final VoidCallback onUnSave;
 
   @override
   Widget build(BuildContext context) {
@@ -22,43 +30,80 @@ class FeaturedWidget extends StatelessWidget {
           SizedBox(height: 12.h),
           Padding(
             padding: EdgeInsets.only(left: 12.w),
-            child: Text(
-              'post'.toUpperCase(),
-              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                    color: LegalReferralColors.textGrey400,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  'POST',
+                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                        color: LegalReferralColors.textGrey400,
+                      ),
+                ),
+                Padding(
+                  padding: EdgeInsets.only(right: 8.w),
+                  child: SvgButton(
+                    imagePath: IconStringConstants.deleteIcon,
+                    onPressed: onUnSave,
+                    height: 20.h,
+                    width: 20.w,
                   ),
+                ),
+              ],
             ),
           ),
           SizedBox(height: 8.h),
           SizedBox(
             height: 212.h,
             width: 253.w,
-            child: Image.asset(
-              'assets/tempImages/Frame 202.png',
-              fit: BoxFit.fill,
-            ),
+            child: _PreviewFeaturePostMedia(post: post),
           ),
           SizedBox(height: 8.h),
           Padding(
             padding: EdgeInsets.only(left: 12.w),
             child: Text(
-              'Guidelines to file bankruptcy',
-              style: Theme.of(context).textTheme.titleSmall,
+              post?.content ?? '',
+              style: Theme.of(context).textTheme.bodyMedium,
+              overflow: TextOverflow.ellipsis,
+              maxLines: 2,
             ),
           ),
-          SizedBox(height: 4.h),
-          Padding(
-            padding: EdgeInsets.only(left: 12.w),
-            child: Text(
-              'Lorem ipsum dolor sit amet',
-              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                    color: LegalReferralColors.textGrey400,
-                  ),
-            ),
-          ),
-          SizedBox(height: 19.h),
         ],
       ),
     );
+  }
+}
+
+class _PreviewFeaturePostMedia extends StatelessWidget {
+  const _PreviewFeaturePostMedia({
+    required this.post,
+  });
+
+  final Post? post;
+
+  @override
+  Widget build(BuildContext context) {
+    final filesUrls = post?.filesUrls ?? [];
+    final postType = post?.type;
+    String? previewUrl;
+    if (filesUrls.isNotEmpty) {
+      previewUrl = filesUrls.first;
+    }
+
+    debugPrint('postType: $postType');
+
+    switch (postType) {
+      case PostType.image:
+        return CustomNetworkImage(
+          imageUrl: previewUrl,
+          height: 212.h,
+          width: 253.w,
+        );
+      default:
+        return Image.asset(
+          'assets/images/placeholder_image.png',
+          height: 212.h,
+          width: 253.w,
+        );
+    }
   }
 }

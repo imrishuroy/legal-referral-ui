@@ -298,4 +298,28 @@ class ProfileDataSource {
       rethrow;
     }
   }
+
+  Future<ResponseMsg?> unSaveFeaturePost({
+    required int postId,
+  }) async {
+    try {
+      final res = await _apiClient.unSaveFeaturePost(
+        postId,
+      );
+      return res;
+    } catch (_) {
+      rethrow;
+    }
+  }
+
+  Future<List<FeaturePost>> fetchFeaturePosts({
+    required String userId,
+  }) async {
+    try {
+      final res = await _apiClient.fetchFeaturePosts(userId);
+      return res;
+    } catch (_) {
+      rethrow;
+    }
+  }
 }

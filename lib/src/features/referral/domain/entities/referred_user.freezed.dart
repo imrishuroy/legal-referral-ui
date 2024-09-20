@@ -45,8 +45,12 @@ mixin _$ReferedUser {
   @JsonKey(name: 'hybrid_price')
   String? get hybridPrice => throw _privateConstructorUsedError;
 
+  /// Serializes this ReferedUser to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of ReferedUser
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $ReferedUserCopyWith<ReferedUser> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -82,6 +86,8 @@ class _$ReferedUserCopyWithImpl<$Res, $Val extends ReferedUser>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of ReferedUser
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -182,6 +188,8 @@ class __$$ReferedUserImplCopyWithImpl<$Res>
       _$ReferedUserImpl _value, $Res Function(_$ReferedUserImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of ReferedUser
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -342,7 +350,7 @@ class _$ReferedUserImpl implements _ReferedUser {
                 other.hybridPrice == hybridPrice));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
       runtimeType,
@@ -359,7 +367,9 @@ class _$ReferedUserImpl implements _ReferedUser {
       contingencyPrice,
       hybridPrice);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of ReferedUser
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$ReferedUserImplCopyWith<_$ReferedUserImpl> get copyWith =>
@@ -428,8 +438,11 @@ abstract class _ReferedUser implements ReferedUser {
   @override
   @JsonKey(name: 'hybrid_price')
   String? get hybridPrice;
+
+  /// Create a copy of ReferedUser
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$ReferedUserImplCopyWith<_$ReferedUserImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

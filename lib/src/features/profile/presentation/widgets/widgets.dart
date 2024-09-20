@@ -6,7 +6,7 @@ export 'education_tile.dart';
 export 'experience_section.dart';
 export 'experience_tile.dart';
 export 'experience_timeline_tile.dart';
-export 'featured_section.dart';
+export 'featured_post_section.dart';
 export 'header_section.dart';
 export 'pricing_section.dart';
 export 'profile_shimmer.dart';

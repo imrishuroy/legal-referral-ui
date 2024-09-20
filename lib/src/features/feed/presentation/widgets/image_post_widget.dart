@@ -21,7 +21,7 @@ class ImagePostWidget extends StatefulWidget {
 
 class _ImagePostWidgetState extends State<ImagePostWidget> {
   double _current = 0;
-  final CarouselController _controller = CarouselController();
+  final CarouselSliderController _controller = CarouselSliderController();
 
   @override
   Widget build(BuildContext context) {

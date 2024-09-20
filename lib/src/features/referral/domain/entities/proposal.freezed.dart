@@ -37,8 +37,12 @@ mixin _$Proposal {
   @DateTimeJsonConverter()
   DateTime? get updatedAt => throw _privateConstructorUsedError;
 
+  /// Serializes this Proposal to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of Proposal
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $ProposalCopyWith<Proposal> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -73,6 +77,8 @@ class _$ProposalCopyWithImpl<$Res, $Val extends Proposal>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of Proposal
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -153,6 +159,8 @@ class __$$ProposalImplCopyWithImpl<$Res>
       _$ProposalImpl _value, $Res Function(_$ProposalImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of Proposal
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -273,12 +281,14 @@ class _$ProposalImpl implements _Proposal {
                 other.updatedAt == updatedAt));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, referralId, userId, title,
       proposal, proposalId, status, createdAt, updatedAt);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of Proposal
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$ProposalImplCopyWith<_$ProposalImpl> get copyWith =>
@@ -335,8 +345,11 @@ abstract class _Proposal implements Proposal {
   @JsonKey(name: 'updated_at', includeToJson: false)
   @DateTimeJsonConverter()
   DateTime? get updatedAt;
+
+  /// Create a copy of Proposal
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$ProposalImplCopyWith<_$ProposalImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

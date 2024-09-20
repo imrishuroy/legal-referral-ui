@@ -604,4 +604,19 @@ abstract class APIClient {
   Future<bool> isPostLiked(
     @Path('post_id') int postId,
   );
+
+  @POST('/feature-posts')
+  Future<ResponseMsg> saveFeaturePost(
+    @Body() SaveFeaturePostReq saveFeaturePostReq,
+  );
+
+  @DELETE('/feature-posts/{postId}')
+  Future<ResponseMsg> unSaveFeaturePost(
+    @Path('postId') int postId,
+  );
+
+  @GET('/feature-posts/{userId}')
+  Future<List<FeaturePost>> fetchFeaturePosts(
+    @Path('userId') String userId,
+  );
 }

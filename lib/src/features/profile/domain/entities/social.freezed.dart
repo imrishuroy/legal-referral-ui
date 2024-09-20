@@ -31,8 +31,12 @@ mixin _$Social {
   @JsonKey(name: 'entity_id', includeToJson: false)
   String? get entityId => throw _privateConstructorUsedError;
 
+  /// Serializes this Social to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of Social
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $SocialCopyWith<Social> get copyWith => throw _privateConstructorUsedError;
 }
 
@@ -59,6 +63,8 @@ class _$SocialCopyWithImpl<$Res, $Val extends Social>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of Social
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -116,6 +122,8 @@ class __$$SocialImplCopyWithImpl<$Res>
       _$SocialImpl _value, $Res Function(_$SocialImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of Social
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -200,12 +208,14 @@ class _$SocialImpl implements _Social {
                 other.entityId == entityId));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode =>
       Object.hash(runtimeType, entityType, platform, link, socialId, entityId);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of Social
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$SocialImplCopyWith<_$SocialImpl> get copyWith =>
@@ -245,8 +255,11 @@ abstract class _Social implements Social {
   @override
   @JsonKey(name: 'entity_id', includeToJson: false)
   String? get entityId;
+
+  /// Create a copy of Social
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$SocialImplCopyWith<_$SocialImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
