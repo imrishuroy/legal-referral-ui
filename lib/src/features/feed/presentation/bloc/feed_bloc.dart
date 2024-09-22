@@ -54,6 +54,7 @@ class FeedBloc extends Bloc<FeedEvent, FeedState> {
     on<PostIsLikedFetched>(_onIsLikedPostFetched);
     on<PostSaved>(_onPostSaved);
     on<FeaturePostSaved>(_onFeaturePostSaved);
+    on<PostDeleted>(_onPostDeleted);
   }
 
   final FeedUsecase _feedUsecase;
@@ -573,6 +574,39 @@ class FeedBloc extends Bloc<FeedEvent, FeedState> {
         emit(
           state.copyWith(
             feedActionsStatus: FeedActionsStatus.success,
+          ),
+        );
+      },
+    );
+  }
+
+  Future<void> _onPostDeleted(
+    PostDeleted event,
+    Emitter<FeedState> emit,
+  ) async {
+    final response = await _postUsecase.deletePost(
+      postId: event.postId,
+    );
+
+    response.fold(
+      (failure) {
+        emit(
+          state.copyWith(
+            feedActionsStatus: FeedActionsStatus.failure,
+            failure: failure,
+          ),
+        );
+      },
+      (_) {
+        final feeds = List.of(state.feeds);
+        feeds.removeWhere(
+          (feed) => feed?.feedPost?.post?.postId == event.postId,
+        );
+
+        emit(
+          state.copyWith(
+            feedActionsStatus: FeedActionsStatus.success,
+            feeds: feeds,
           ),
         );
       },

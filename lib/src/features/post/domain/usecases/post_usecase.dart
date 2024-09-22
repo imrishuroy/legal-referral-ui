@@ -1,6 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
-import 'package:legal_referral_ui/src/core/config/failure.dart';
+import 'package:legal_referral_ui/src/core/config/config.dart';
 import 'package:legal_referral_ui/src/features/post/data/data.dart';
 import 'package:legal_referral_ui/src/features/post/domain/domain.dart';
 
@@ -28,5 +28,11 @@ class PostUsecase {
     required int postId,
   }) async {
     return _postRepository.unlikePost(postId: postId);
+  }
+
+  Future<Either<Failure, ResponseMsg>> deletePost({
+    required int postId,
+  }) async {
+    return _postRepository.deletePost(postId: postId);
   }
 }

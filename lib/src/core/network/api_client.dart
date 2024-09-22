@@ -449,6 +449,11 @@ abstract class APIClient {
     @Part(name: 'files') List<File> files,
   );
 
+  @DELETE('/posts/{postId}')
+  Future<ResponseMsg> deletePost(
+    @Path('postId') int postId,
+  );
+
   // feed
   @GET('/feeds/{userId}')
   Future<List<Feed?>> fetchFeeds(

@@ -155,3 +155,13 @@ class FeaturePostSaved extends FeedEvent {
   @override
   List<Object> get props => [userId, postId];
 }
+
+class PostDeleted extends FeedEvent {
+  const PostDeleted({
+    required this.postId,
+  });
+  final int postId;
+
+  @override
+  List<Object> get props => [postId];
+}
