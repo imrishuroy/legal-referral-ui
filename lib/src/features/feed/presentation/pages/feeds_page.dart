@@ -398,23 +398,34 @@ class _FeedsPageState extends State<FeedsPage> {
             },
           ),
           const Divider(),
-          ListTile(
-            onTap: () {},
-            leading: SvgPicture.asset(
-              IconStringConstants.deleteIcon,
-              colorFilter: const ColorFilter.mode(
-                LegalReferralColors.borderBlue100,
-                BlendMode.srcIn,
+          if (feed?.feedPost?.post?.ownerId == userId)
+            ListTile(
+              onTap: () {
+                final postId = feed?.feedPost?.post?.postId;
+                if (postId != null) {
+                  _feedBloc.add(
+                    PostDeleted(
+                      postId: postId,
+                    ),
+                  );
+                  context.pop();
+                }
+              },
+              leading: SvgPicture.asset(
+                IconStringConstants.deleteIcon,
+                colorFilter: const ColorFilter.mode(
+                  LegalReferralColors.borderBlue100,
+                  BlendMode.srcIn,
+                ),
+              ),
+              title: Text(
+                'Delete',
+                style: Theme.of(context)
+                    .textTheme
+                    .bodyLarge
+                    ?.copyWith(color: LegalReferralColors.textGrey500),
               ),
             ),
-            title: Text(
-              'Delete',
-              style: Theme.of(context)
-                  .textTheme
-                  .bodyLarge
-                  ?.copyWith(color: LegalReferralColors.textGrey500),
-            ),
-          ),
           const Divider(),
         ],
       ),

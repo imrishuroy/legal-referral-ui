@@ -73,4 +73,22 @@ class PostRepositoryImpl extends PostRepository {
       );
     }
   }
+
+  @override
+  Future<Either<Failure, ResponseMsg>> deletePost({required int postId}) async {
+    try {
+      final response = await _postDatasource.deletePost(
+        postId: postId,
+      );
+      return Right(response);
+    } on DioException catch (error) {
+      final dioError = DioExceptions.fromDioError(error);
+      return Left(
+        Failure(
+          statusCode: dioError.statusCode,
+          message: dioError.message,
+        ),
+      );
+    }
+  }
 }

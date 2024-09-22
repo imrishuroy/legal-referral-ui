@@ -14,4 +14,8 @@ abstract class PostRepository {
   Future<Either<Failure, void>> unlikePost({
     required int postId,
   });
+
+  Future<Either<Failure, ResponseMsg>> deletePost({
+    required int postId,
+  });
 }

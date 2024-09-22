@@ -1,4 +1,5 @@
 import 'package:injectable/injectable.dart';
+import 'package:legal_referral_ui/src/core/config/config.dart';
 import 'package:legal_referral_ui/src/core/network/api_client.dart';
 import 'package:legal_referral_ui/src/features/post/data/data.dart';
 
@@ -35,6 +36,19 @@ class PostDatasource {
   Future<void> unlikePost({required int postId}) async {
     try {
       await _apiClient.unlikePost(postId);
+    } catch (_) {
+      rethrow;
+    }
+  }
+
+  Future<ResponseMsg> deletePost({
+    required int postId,
+  }) async {
+    try {
+      final res = await _apiClient.deletePost(
+        postId,
+      );
+      return res;
     } catch (_) {
       rethrow;
     }
