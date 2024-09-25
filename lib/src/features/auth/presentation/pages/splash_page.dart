@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
+import 'package:legal_referral_ui/src/core/common_widgets/widgets.dart';
 import 'package:legal_referral_ui/src/core/config/config.dart';
 import 'package:legal_referral_ui/src/core/constants/colors.dart';
 import 'package:legal_referral_ui/src/core/constants/icon_string_constants.dart';
@@ -26,34 +27,19 @@ class _SplashPageState extends State<SplashPage> {
   @override
   void initState() {
     super.initState();
-
-    Future.delayed(
-      const Duration(seconds: 3),
-      () {
-        appUser = SharedPrefs.getUser();
-        final token = SharedPrefs.getToken();
-
-        AppLogger.info('app user from spalsh $appUser');
-        if (appUser?.userId != null &&
-            appUser!.userId!.isNotEmpty &&
-            token != null) {
-          _authBloc.add(
-            AuthUserRequested(userId: appUser!.userId!),
-          );
-        } else {
-          final onBoarding = SharedPrefs.getOnBoarding();
-          if (onBoarding) {
-            if (mounted) {
-              context.goNamed(SignInPage.name);
-            }
-          } else {
-            if (mounted) {
-              context.goNamed(OnBoardingPage.name);
-            }
+    final onBoarding = SharedPrefs.getOnBoarding();
+    if (onBoarding) {
+      _authBloc.add(AuthInitialized());
+    } else {
+      Future.delayed(
+        const Duration(seconds: 3),
+        () {
+          if (mounted) {
+            context.goNamed(OnBoardingPage.name);
           }
-        }
-      },
-    );
+        },
+      );
+    }
   }
 
   @override
@@ -63,17 +49,19 @@ class _SplashPageState extends State<SplashPage> {
       body: BlocListener<AuthBloc, AuthState>(
         bloc: _authBloc,
         listener: (context, state) {
-          if (state.authStatus == AuthStatus.signedIn) {
-            if (state.user?.mobileVerified == false) {
-              context.goNamed(ContactDetailsPage.name);
-            } else if (state.user?.wizardCompleted == true) {
-              // context.goNamed(FeedsPage.name);
-              context.goNamed(SwipeRecommendationsPage.name);
-            } else {
-              context.goNamed(WizardInspectionPage.name);
+          if (state.authStatus != AuthStatus.loading) {
+            if (state.authStatus == AuthStatus.signedIn) {
+              if (state.user?.mobileVerified == false) {
+                context.goNamed(ContactDetailsPage.name);
+              } else if (state.user?.wizardCompleted == true) {
+                context.goNamed(SwipeRecommendationsPage.name);
+              } else {
+                context.goNamed(WizardInspectionPage.name);
+              }
+            } else if (state.authStatus == AuthStatus.failure ||
+                state.authStatus == AuthStatus.initial) {
+              context.goNamed(SignInPage.name);
             }
-          } else if (state.authStatus == AuthStatus.failure) {
-            context.goNamed(SignInPage.name);
           }
         },
         child: Column(
@@ -91,6 +79,11 @@ class _SplashPageState extends State<SplashPage> {
                 ),
               ),
             ),
+            const CustomLoadingIndicator(
+              size: 32,
+              lineWidth: 2,
+            ),
+            const SizedBox(height: 20),
             Expanded(
               child: Text(
                 'Access attorney referral network nationwide',

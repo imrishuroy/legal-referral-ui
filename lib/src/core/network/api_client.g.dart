@@ -55,6 +55,154 @@ class _APIClient implements APIClient {
   }
 
   @override
+  Future<EmailAuthRes> signInWithEmail(EmailSignInReq emailSignInReq) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(emailSignInReq.toJson());
+    final _options = _setStreamType<EmailAuthRes>(Options(
+      method: 'POST',
+      headers: _headers,
+      extra: _extra,
+    )
+        .compose(
+          _dio.options,
+          '/sign-in',
+          queryParameters: queryParameters,
+          data: _data,
+        )
+        .copyWith(
+            baseUrl: _combineBaseUrls(
+          _dio.options.baseUrl,
+          baseUrl,
+        )));
+    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    late EmailAuthRes _value;
+    try {
+      _value = EmailAuthRes.fromJson(_result.data!);
+    } on Object catch (e, s) {
+      errorLogger?.logError(e, s, _options);
+      rethrow;
+    }
+    return _value;
+  }
+
+  @override
+  Future<EmailAuthRes> signUpWithEmail({
+    required String email,
+    required String password,
+    required String firstName,
+    required String lastName,
+    String? mobile,
+    String? avatarUrl,
+    File? avatarFile,
+  }) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    queryParameters.removeWhere((k, v) => v == null);
+    final _headers = <String, dynamic>{};
+    final _data = FormData();
+    _data.fields.add(MapEntry(
+      'email',
+      email,
+    ));
+    _data.fields.add(MapEntry(
+      'password',
+      password,
+    ));
+    _data.fields.add(MapEntry(
+      'first_name',
+      firstName,
+    ));
+    _data.fields.add(MapEntry(
+      'last_name',
+      lastName,
+    ));
+    if (mobile != null) {
+      _data.fields.add(MapEntry(
+        'mobile',
+        mobile,
+      ));
+    }
+    if (avatarUrl != null) {
+      _data.fields.add(MapEntry(
+        'avatar_url',
+        avatarUrl,
+      ));
+    }
+    if (avatarFile != null) {
+      _data.files.add(MapEntry(
+        'avatar_file',
+        MultipartFile.fromFileSync(
+          avatarFile.path,
+          filename: avatarFile.path.split(Platform.pathSeparator).last,
+        ),
+      ));
+    }
+    final _options = _setStreamType<EmailAuthRes>(Options(
+      method: 'POST',
+      headers: _headers,
+      extra: _extra,
+      contentType: 'multipart/form-data',
+    )
+        .compose(
+          _dio.options,
+          '/sign-up',
+          queryParameters: queryParameters,
+          data: _data,
+        )
+        .copyWith(
+            baseUrl: _combineBaseUrls(
+          _dio.options.baseUrl,
+          baseUrl,
+        )));
+    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    late EmailAuthRes _value;
+    try {
+      _value = EmailAuthRes.fromJson(_result.data!);
+    } on Object catch (e, s) {
+      errorLogger?.logError(e, s, _options);
+      rethrow;
+    }
+    return _value;
+  }
+
+  @override
+  Future<RefreshTokenRes> refreshToken(RefreshTokenReq refreshTokenReq) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(refreshTokenReq.toJson());
+    final _options = _setStreamType<RefreshTokenRes>(Options(
+      method: 'POST',
+      headers: _headers,
+      extra: _extra,
+    )
+        .compose(
+          _dio.options,
+          '/refresh-token',
+          queryParameters: queryParameters,
+          data: _data,
+        )
+        .copyWith(
+            baseUrl: _combineBaseUrls(
+          _dio.options.baseUrl,
+          baseUrl,
+        )));
+    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    late RefreshTokenRes _value;
+    try {
+      _value = RefreshTokenRes.fromJson(_result.data!);
+    } on Object catch (e, s) {
+      errorLogger?.logError(e, s, _options);
+      rethrow;
+    }
+    return _value;
+  }
+
+  @override
   Future<String?> customSignUp(AppUser appUser) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};

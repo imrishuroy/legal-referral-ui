@@ -14,6 +14,30 @@ class AuthUseCase {
 
   final AuthRepository _authRepository;
 
+  Future<Either<Failure, EmailAuthRes?>> signInWithEmail({
+    required EmailSignInReq emailSignInReq,
+  }) async {
+    return _authRepository.signInWithEmail(
+      emailSignInReq: emailSignInReq,
+    );
+  }
+
+  Future<Either<Failure, EmailAuthRes?>> signUpWithEmail({
+    required EmailSignUpReq emailSignUpReq,
+  }) async {
+    return _authRepository.signUpWithEmail(
+      emailSignUpReq: emailSignUpReq,
+    );
+  }
+
+  Future<Either<Failure, RefreshTokenRes?>> refreshToken({
+    required RefreshTokenReq refreshTokenReq,
+  }) async {
+    return _authRepository.refreshToken(
+      refreshTokenReq: refreshTokenReq,
+    );
+  }
+
   Future<Either<Failure, AppUser?>> createUser({
     required String email,
     required String firstName,

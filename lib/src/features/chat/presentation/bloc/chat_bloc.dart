@@ -117,7 +117,7 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
         'ws://${APIConstants.host}/api/chat/${state.currentChatRoom.roomId}',
       ),
       headers: {
-        'Authorization': 'Bearer ${SharedPrefs.getToken()}',
+        'Authorization': 'Bearer ${SharedPrefs.getIDToken()}',
       },
     );
 

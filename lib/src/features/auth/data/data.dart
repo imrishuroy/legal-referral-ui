@@ -1,6 +1,11 @@
 export 'datasources/auth_datasource.dart';
+export 'models/email_auth_res.dart';
+export 'models/email_signin_req.dart';
+export 'models/email_signup_req.dart';
 export 'models/linkedin_signin_req.dart';
 export 'models/linkedin_signin_res.dart';
+export 'models/refresh_token_req.dart';
+export 'models/refresh_token_res.dart';
 export 'models/reset_password_req.dart';
 export 'models/send_otp_req.dart';
 export 'models/signin_req.dart';

@@ -1862,10 +1862,10 @@ packages:
     dependency: "direct main"
     description:
       name: toastification
-      sha256: "441adf261f03b82db7067cba349756f70e9e2c0b7276bcba856210742f85f394"
+      sha256: "4d97fbfa463dfe83691044cba9f37cb185a79bb9205cfecb655fa1f6be126a13"
       url: "https://pub.dev"
     source: hosted
-    version: "2.2.0"
+    version: "2.3.0"
   typed_data:
     dependency: transitive
     description:

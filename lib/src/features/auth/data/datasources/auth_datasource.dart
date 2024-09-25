@@ -14,6 +14,51 @@ class AuthDataSource {
 
   final APIClient _apiClient;
 
+  Future<EmailAuthRes?> signInWithEmail({
+    required EmailSignInReq emailSignInReq,
+  }) async {
+    try {
+      final response = await _apiClient.signInWithEmail(
+        emailSignInReq,
+      );
+      return response;
+    } catch (_) {
+      rethrow;
+    }
+  }
+
+  Future<EmailAuthRes?> signUpWithEmail({
+    required EmailSignUpReq emailSignUpReq,
+  }) async {
+    try {
+      final user = await _apiClient.signUpWithEmail(
+        email: emailSignUpReq.email,
+        password: emailSignUpReq.password,
+        firstName: emailSignUpReq.firstName,
+        lastName: emailSignUpReq.lastName,
+        mobile: emailSignUpReq.mobile,
+        avatarUrl: emailSignUpReq.avatarUrl,
+        avatarFile: emailSignUpReq.avararFile,
+      );
+      return user;
+    } catch (_) {
+      rethrow;
+    }
+  }
+
+  Future<RefreshTokenRes?> refreshToken({
+    required RefreshTokenReq refreshTokenReq,
+  }) async {
+    try {
+      final response = await _apiClient.refreshToken(
+        refreshTokenReq,
+      );
+      return response;
+    } catch (_) {
+      rethrow;
+    }
+  }
+
   Future<AppUser?> createUser({
     required String email,
     required String firstName,

@@ -21,7 +21,12 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   AuthBloc({
     required AuthUseCase authUseCase,
   })  : _firebaseAuth = FirebaseAuth.instance,
-        _googleSignIn = GoogleSignIn(),
+        _googleSignIn = GoogleSignIn(
+          scopes: [
+            'https://www.googleapis.com/auth/userinfo.profile',
+            'https://www.googleapis.com/auth/userinfo.email',
+          ],
+        ),
         _authUseCase = authUseCase,
         super(AuthState.initial()) {
     on<AuthInitialized>(_onAuthInitialized);
@@ -49,7 +54,91 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     AuthInitialized event,
     Emitter<AuthState> emit,
   ) async {
-    emit(AuthState.initial());
+    emit(
+      state.copyWith(
+        authStatus: AuthStatus.loading,
+      ),
+    );
+
+    final idToken = SharedPrefs.getIDToken();
+    final refreshToken = SharedPrefs.getRefreshToken();
+
+    if (idToken == null || refreshToken == null) {
+      emit(
+        state.copyWith(
+          authStatus: AuthStatus.initial,
+        ),
+      );
+
+      return;
+    }
+
+    final res = await _authUseCase.refreshToken(
+      refreshTokenReq: RefreshTokenReq(
+        refreshToken: refreshToken,
+        grantType: 'refresh_token',
+      ),
+    );
+
+    await res.fold(
+      (failure) {
+        emit(
+          state.copyWith(
+            authStatus: AuthStatus.initial,
+            failure: failure,
+          ),
+        );
+      },
+      (data) async {
+        if (data == null) {
+          emit(
+            state.copyWith(
+              authStatus: AuthStatus.initial,
+              failure: const Failure(
+                message: 'Failed to refresh token',
+              ),
+            ),
+          );
+          return;
+        }
+        await SharedPrefs.setIDToken(token: data.idToken);
+        await SharedPrefs.setRefreshToken(token: data.refreshToken);
+
+        final userRes = await _authUseCase.getUser(
+          userId: data.userId,
+        );
+
+        userRes.fold(
+          (failure) {
+            emit(
+              state.copyWith(
+                authStatus: AuthStatus.initial,
+                failure: failure,
+              ),
+            );
+          },
+          (user) {
+            if (user == null) {
+              emit(
+                state.copyWith(
+                  authStatus: AuthStatus.initial,
+                  failure: const Failure(
+                    message: 'Failed to get user',
+                  ),
+                ),
+              );
+              return;
+            }
+            emit(
+              state.copyWith(
+                user: user,
+                authStatus: AuthStatus.signedIn,
+              ),
+            );
+          },
+        );
+      },
+    );
   }
 
   Future<void> _onAuthTempSignedUp(
@@ -147,220 +236,138 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     AuthSignedUp event,
     Emitter<AuthState> emit,
   ) async {
-    try {
+    emit(
+      state.copyWith(
+        authStatus: AuthStatus.loading,
+      ),
+    );
+
+    final user = state.user;
+
+    if (user == null) {
       emit(
         state.copyWith(
-          authStatus: AuthStatus.loading,
+          authStatus: AuthStatus.failure,
+          failure: const Failure(
+            message: 'Failed to sign up',
+          ),
         ),
       );
+      return;
+    }
 
-      final user = state.user;
-
-      if (user == null) {
-        emit(
-          state.copyWith(
-            authStatus: AuthStatus.failure,
-            failure: const Failure(
-              message: 'Failed to sign up',
-            ),
+    if (user.email == null) {
+      emit(
+        state.copyWith(
+          authStatus: AuthStatus.failure,
+          failure: const Failure(
+            message: 'Failed to sign up',
           ),
-        );
-        return;
-      }
+        ),
+      );
+      return;
+    }
 
-      if (user.email == null) {
-        emit(
-          state.copyWith(
-            authStatus: AuthStatus.failure,
-            failure: const Failure(
-              message: 'Failed to sign up',
-            ),
-          ),
-        );
-        return;
-      }
-
-      final userCred = await _firebaseAuth.createUserWithEmailAndPassword(
+    final res = await _authUseCase.signUpWithEmail(
+      emailSignUpReq: EmailSignUpReq(
         email: user.email!,
         password: event.password,
-      );
+        firstName: user.firstName ?? '',
+        lastName: user.lastName ?? '',
+        mobile: user.mobile ?? '',
+        avararFile: File(event.userImageFile.path),
+      ),
+    );
 
-      final firebaseUser = userCred.user;
-
-      final idToken = await firebaseUser?.getIdToken();
-      if (idToken != null) {
-        await SharedPrefs.setToken(token: idToken);
-      }
-
-      if (user.email == null) {
+    await res.fold(
+      (failure) {
         emit(
           state.copyWith(
             authStatus: AuthStatus.failure,
-            failure: const Failure(
-              message: 'Failed to sign up',
-            ),
+            failure: failure,
           ),
         );
-        return;
-      }
-
-      final userRes = await _authUseCase.createUser(
-        email: user.email!,
-        firstName: user.firstName ?? '',
-        lastName: user.lastName ?? '',
-        mobile: user.mobile,
-        signUpMethod: 0,
-        userImage: File(event.userImageFile.path),
-      );
-
-      await userRes.fold(
-        (failure) {
+      },
+      (data) async {
+        if (data == null) {
           emit(
             state.copyWith(
-              failure: failure,
               authStatus: AuthStatus.failure,
-            ),
-          );
-        },
-        (user) async {
-          AppLogger.debug('User: $user');
-          if (user == null) {
-            emit(
-              state.copyWith(
-                authStatus: AuthStatus.failure,
-                failure: const Failure(
-                  message: 'Failed to sign in',
-                ),
+              failure: const Failure(
+                message: 'Failed to sign up',
               ),
-            );
-            return;
-          }
-          await SharedPrefs.setAppUser(
-            appUser: user,
-          );
-
-          emit(
-            state.copyWith(
-              user: user,
-              authStatus: AuthStatus.signedUp,
             ),
           );
-        },
-      );
-    } on FirebaseAuthException catch (error) {
-      emit(
-        state.copyWith(
-          authStatus: AuthStatus.failure,
-          failure: Failure(
-            message: error.message ?? 'Failed to sign up',
+          return;
+        }
+        final idToken = data.idToken;
+        await SharedPrefs.setIDToken(token: idToken);
+        await SharedPrefs.setRefreshToken(token: data.refreshToken);
+        await SharedPrefs.setAppUser(
+          appUser: data.user,
+        );
+        emit(
+          state.copyWith(
+            user: data.user,
+            authStatus: AuthStatus.signedUp,
           ),
-        ),
-      );
-    } catch (error) {
-      emit(
-        state.copyWith(
-          authStatus: AuthStatus.failure,
-          failure: Failure(
-            message: error.toString(),
-          ),
-        ),
-      );
-    }
+        );
+      },
+    );
   }
 
   Future<void> _onAuthSignedIn(
     AuthSignedIn event,
     Emitter<AuthState> emit,
   ) async {
-    try {
-      emit(
-        state.copyWith(
-          authStatus: AuthStatus.loading,
-        ),
-      );
+    emit(
+      state.copyWith(
+        authStatus: AuthStatus.loading,
+      ),
+    );
 
-      final userCredential = await _firebaseAuth.signInWithEmailAndPassword(
+    final res = await _authUseCase.signInWithEmail(
+      emailSignInReq: EmailSignInReq(
         email: event.email,
         password: event.password,
-      );
+      ),
+    );
 
-      if (userCredential.user == null || userCredential.user?.email == null) {
+    await res.fold(
+      (failure) {
         emit(
           state.copyWith(
             authStatus: AuthStatus.failure,
-            failure: const Failure(
-              message: 'Failed to sign in',
-            ),
+            failure: failure,
           ),
         );
-        return;
-      }
-
-      final idToken = await userCredential.user?.getIdToken();
-      if (idToken != null) {
-        AppLogger.info('Sign In - Token: $idToken');
-        await SharedPrefs.setToken(token: idToken);
-      }
-
-      final userRes = await _authUseCase.getUser(
-        userId: '${userCredential.user?.uid}',
-      );
-
-      await userRes.fold(
-        (failure) async {
-          await SharedPrefs.removeUser();
+      },
+      (data) async {
+        if (data == null) {
           emit(
             state.copyWith(
               authStatus: AuthStatus.failure,
-              failure: failure,
-            ),
-          );
-        },
-        (user) async {
-          if (user == null) {
-            emit(
-              state.copyWith(
-                authStatus: AuthStatus.failure,
-                failure: const Failure(
-                  message: 'Failed to sign in',
-                ),
+              failure: const Failure(
+                message: 'Failed to sign in',
               ),
-            );
-            return;
-          }
-          await SharedPrefs.setAppUser(
-            appUser: user,
-          );
-          AppLogger.info('Logged In User 1: $user');
-          emit(
-            state.copyWith(
-              user: user,
-              authStatus: AuthStatus.signedIn,
             ),
           );
-
-          AppLogger.info('Logged In User 2: ${state.user}');
-        },
-      );
-    } on FirebaseAuthException catch (error) {
-      emit(
-        state.copyWith(
-          authStatus: AuthStatus.failure,
-          failure: Failure(
-            message: error.message ?? 'Failed to sign in',
+          return;
+        }
+        final idToken = data.idToken;
+        await SharedPrefs.setIDToken(token: idToken);
+        await SharedPrefs.setRefreshToken(token: data.refreshToken);
+        await SharedPrefs.setAppUser(
+          appUser: data.user,
+        );
+        emit(
+          state.copyWith(
+            user: data.user,
+            authStatus: AuthStatus.signedIn,
           ),
-        ),
-      );
-    } catch (_) {
-      emit(
-        state.copyWith(
-          authStatus: AuthStatus.failure,
-          failure: const Failure(
-            message: 'Failed to sign in',
-          ),
-        ),
-      );
-    }
+        );
+      },
+    );
   }
 
   Future<void> _onAuthGoogleSignedIn(
@@ -388,9 +395,14 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       final userCred =
           await FirebaseAuth.instance.signInWithCredential(credential);
 
+      // final accessToken = googleAuth?.accessToken;
+
+      final accessToken = userCred.credential?.accessToken;
+      AppLogger.info('Google access token: $accessToken');
+
       final idToken = await userCred.user?.getIdToken();
       if (idToken != null) {
-        await SharedPrefs.setToken(token: idToken);
+        await SharedPrefs.setIDToken(token: idToken);
       }
 
       final user = userCred.user;
@@ -495,6 +507,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         );
       }
     } on FirebaseAuthException catch (error) {
+      AppLogger.error('Firebase Google Auth Error: $error');
       emit(
         state.copyWith(
           authStatus: AuthStatus.failure,
@@ -503,7 +516,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           ),
         ),
       );
-    } catch (_) {
+    } catch (error) {
+      AppLogger.error('Google Auth Error 2: $error');
       emit(
         state.copyWith(
           authStatus: AuthStatus.failure,
@@ -572,7 +586,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         final idToken = await userCed.user?.getIdToken();
         AppLogger.info('Firebase id token $idToken');
         if (idToken != null) {
-          await SharedPrefs.setToken(token: idToken);
+          await SharedPrefs.setIDToken(token: idToken);
         }
 
         AppUser? checkUser;
@@ -698,7 +712,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
       final idToken = await userCredential.user?.getIdToken();
       if (idToken != null) {
-        await SharedPrefs.setToken(token: idToken);
+        await SharedPrefs.setIDToken(token: idToken);
       }
 
       final user = userCredential.user;
