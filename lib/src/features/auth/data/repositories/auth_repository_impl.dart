@@ -17,6 +17,66 @@ class AuthRepositoryImpl extends AuthRepository {
   final AuthDataSource _authDataSource;
 
   @override
+  Future<Either<Failure, EmailAuthRes?>> signUpWithEmail({
+    required EmailSignUpReq emailSignUpReq,
+  }) async {
+    try {
+      final response = await _authDataSource.signUpWithEmail(
+        emailSignUpReq: emailSignUpReq,
+      );
+      return Right(response);
+    } on DioException catch (error) {
+      final dioError = DioExceptions.fromDioError(error);
+      return Left(
+        Failure(
+          statusCode: dioError.statusCode,
+          message: dioError.message,
+        ),
+      );
+    }
+  }
+
+  @override
+  Future<Either<Failure, EmailAuthRes?>> signInWithEmail({
+    required EmailSignInReq emailSignInReq,
+  }) async {
+    try {
+      final response = await _authDataSource.signInWithEmail(
+        emailSignInReq: emailSignInReq,
+      );
+      return Right(response);
+    } on DioException catch (error) {
+      final dioError = DioExceptions.fromDioError(error);
+      return Left(
+        Failure(
+          statusCode: dioError.statusCode,
+          message: dioError.message,
+        ),
+      );
+    }
+  }
+
+  @override
+  Future<Either<Failure, RefreshTokenRes?>> refreshToken({
+    required RefreshTokenReq refreshTokenReq,
+  }) async {
+    try {
+      final response = await _authDataSource.refreshToken(
+        refreshTokenReq: refreshTokenReq,
+      );
+      return Right(response);
+    } on DioException catch (error) {
+      final dioError = DioExceptions.fromDioError(error);
+      return Left(
+        Failure(
+          statusCode: dioError.statusCode,
+          message: dioError.message,
+        ),
+      );
+    }
+  }
+
+  @override
   Future<Either<Failure, AppUser?>> createUser({
     required String email,
     required String firstName,

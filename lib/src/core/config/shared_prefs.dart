@@ -4,7 +4,8 @@ import 'package:legal_referral_ui/src/features/auth/domain/domain.dart';
 import 'package:legal_referral_ui/src/features/auth/domain/entities/app_user.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-const _token = 'token';
+const _idToken = 'idToken';
+const _refershToken = 'refreshToken';
 const _appUser = 'appUser';
 const _onBoarding = 'onBoarding';
 const _searchUsersHistories = 'searchUsersHistories';
@@ -19,19 +20,38 @@ class SharedPrefs {
     _sharedPrefs ??= await SharedPreferences.getInstance();
   }
 
-  static Future<void> setToken({
+  static Future<void> setIDToken({
     required String token,
   }) async {
     if (_sharedPrefs != null) {
       await _sharedPrefs?.setString(
-        _token,
+        _idToken,
         token,
       );
     }
   }
 
-  static String? getToken() {
-    return _sharedPrefs?.getString(_token);
+  static Future<void> removeIDToken() async {
+    await _sharedPrefs?.remove(_idToken);
+  }
+
+  static String? getIDToken() {
+    return _sharedPrefs?.getString(_idToken);
+  }
+
+  static Future<void> setRefreshToken({
+    required String token,
+  }) async {
+    if (_sharedPrefs != null) {
+      await _sharedPrefs?.setString(
+        _refershToken,
+        token,
+      );
+    }
+  }
+
+  static String? getRefreshToken() {
+    return _sharedPrefs?.getString(_refershToken);
   }
 
   static Future<void> setAppUser({
@@ -162,7 +182,8 @@ class SharedPrefs {
 
   static Future<void> removeUser() async {
     await _sharedPrefs?.remove(_appUser);
-    await _sharedPrefs?.remove(_token);
+    await _sharedPrefs?.remove(_idToken);
+    await _sharedPrefs?.remove(_refershToken);
   }
 
   static Future<void> clear() async {

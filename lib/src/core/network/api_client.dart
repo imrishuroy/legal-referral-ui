@@ -38,6 +38,28 @@ abstract class APIClient {
   @GET('/')
   Future<String> ping();
 
+  @POST('/sign-in')
+  Future<EmailAuthRes> signInWithEmail(
+    @Body() EmailSignInReq emailSignInReq,
+  );
+
+  @POST('/sign-up')
+  @MultiPart()
+  Future<EmailAuthRes> signUpWithEmail({
+    @Part(name: 'email') required String email,
+    @Part(name: 'password') required String password,
+    @Part(name: 'first_name') required String firstName,
+    @Part(name: 'last_name') required String lastName,
+    @Part(name: 'mobile') String? mobile,
+    @Part(name: 'avatar_url') String? avatarUrl,
+    @Part(name: 'avatar_file') File? avatarFile,
+  });
+
+  @POST('/refresh-token')
+  Future<RefreshTokenRes> refreshToken(
+    @Body() RefreshTokenReq refreshTokenReq,
+  );
+
   @POST('/custom-signup')
   Future<String?> customSignUp(
     @Body() AppUser appUser,

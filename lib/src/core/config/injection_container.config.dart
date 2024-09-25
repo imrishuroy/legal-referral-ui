@@ -124,7 +124,7 @@ import '../../features/wizard/domain/usecases/wizard_usecase.dart' as _i974;
 import '../../features/wizard/presentation/bloc/wizard_bloc.dart' as _i991;
 import '../network/api_client.dart' as _i557;
 import '../network/network.dart' as _i855;
-import 'api_client_module.dart' as _i430;
+import 'register_module.dart' as _i291;
 
 extension GetItInjectableX on _i174.GetIt {
 // initializes the registration of main-scope dependencies inside of GetIt
@@ -137,11 +137,11 @@ extension GetItInjectableX on _i174.GetIt {
       environment,
       environmentFilter,
     );
-    final aPIClientModule = _$APIClientModule();
-    gh.singleton<_i855.APIClient>(() => aPIClientModule.apiClient());
-    gh.singleton<_i704.AuthDataSource>(() => aPIClientModule.authDataSource());
+    final registerModule = _$RegisterModule();
+    gh.singleton<_i855.APIClient>(() => registerModule.apiClient());
+    gh.singleton<_i704.AuthDataSource>(() => registerModule.authDataSource());
     gh.singleton<_i323.WizardDataSource>(
-        () => aPIClientModule.wizardDataSource());
+        () => registerModule.wizardDataSource());
     gh.singleton<_i48.ReferralDataSource>(
         () => _i48.ReferralDataSource(apiClient: gh<_i855.APIClient>()));
     gh.singleton<_i121.PostDatasource>(
@@ -160,17 +160,17 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i787.FeedDatasource(apiClient: gh<_i855.APIClient>()));
     gh.singleton<_i78.AdDatasource>(
         () => _i78.AdDatasource(apiClient: gh<_i855.APIClient>()));
-    gh.singleton<_i219.DiscussionDatasource>(
-        () => _i219.DiscussionDatasource(apiClient: gh<_i557.APIClient>()));
     gh.singleton<_i1048.AccountDatasource>(
         () => _i1048.AccountDatasource(apiClient: gh<_i557.APIClient>()));
+    gh.singleton<_i219.DiscussionDatasource>(
+        () => _i219.DiscussionDatasource(apiClient: gh<_i557.APIClient>()));
     gh.lazySingleton<_i566.SearchDataSource>(
         () => _i566.SearchDataSource(apiClient: gh<_i855.APIClient>()));
     gh.lazySingleton<_i931.DiscussionRepository>(() =>
         _i425.DiscussionRepositoryImpl(
             discussionDatasource: gh<_i238.DiscussionDatasource>()));
     gh.factory<String>(
-      () => aPIClientModule.baseUrl,
+      () => registerModule.baseUrl,
       instanceName: 'baseUrl',
     );
     gh.lazySingleton<_i57.WizardRepository>(() => _i888.WizardRepositoryImpl(
@@ -274,4 +274,4 @@ extension GetItInjectableX on _i174.GetIt {
   }
 }
 
-class _$APIClientModule extends _i430.APIClientModule {}
+class _$RegisterModule extends _i291.RegisterModule {}
