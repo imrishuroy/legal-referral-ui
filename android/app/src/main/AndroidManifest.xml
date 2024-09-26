@@ -49,6 +49,32 @@
                  the Android process has started. This theme is visible to the user
                  while the Flutter UI initializes. After that, this theme continues
                  to determine the Window background behind the Flutter UI. -->
+
+            <!-- Disable default Flutter deep linking -->
+            <meta-data android:name="flutter_deeplinking_enabled" android:value="false" />
+
+
+            <!-- App Link sample -->
+            <intent-filter android:autoVerify="true">
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="https" android:host="network.legalreferral.legalreferral" />
+                <data android:scheme="https" android:host="network.legalreferral.legalreferral" />
+            </intent-filter>
+
+            <!-- Deep Link sample -->
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <!-- Add optional android:host to distinguish your app
+                    from others in case of conflicting scheme name -->
+                <data android:scheme="sample" android:host="network.legalreferral.legalreferral" />
+                <!-- <data android:scheme="sample" /> -->
+            </intent-filter>
+
+
             <meta-data
               android:name="io.flutter.embedding.android.NormalTheme"
               android:resource="@style/NormalTheme"/>

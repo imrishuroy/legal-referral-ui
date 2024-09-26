@@ -13,6 +13,8 @@ import 'package:legal_referral_ui/src/core/router/router.dart';
 import 'package:legal_referral_ui/src/core/theme/theme.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
+const kWindowsScheme = 'sample';
+
 Future<void> main() async {
   // await dotenv.load(fileName: 'assets/.env');
   WidgetsFlutterBinding.ensureInitialized();
