@@ -35,6 +35,24 @@ class PostRepositoryImpl extends PostRepository {
   }
 
   @override
+  Future<Either<Failure, Post>> fetchPost({
+    required int postId,
+  }) async {
+    try {
+      final post = await _postDatasource.fetchPost(postId: postId);
+      return Right(post);
+    } on DioException catch (error) {
+      final dioError = DioExceptions.fromDioError(error);
+      return Left(
+        Failure(
+          statusCode: dioError.statusCode,
+          message: dioError.message,
+        ),
+      );
+    }
+  }
+
+  @override
   Future<Either<Failure, void>> likePost({
     required int postId,
   }) async {

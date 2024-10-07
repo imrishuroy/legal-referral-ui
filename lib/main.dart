@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:dio/dio.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -11,9 +12,16 @@ import 'package:legal_referral_ui/src/core/config/config.dart';
 import 'package:legal_referral_ui/src/core/network/network.dart';
 import 'package:legal_referral_ui/src/core/router/router.dart';
 import 'package:legal_referral_ui/src/core/theme/theme.dart';
+import 'package:legal_referral_ui/src/core/utils/utils.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
-const kWindowsScheme = 'sample';
+@pragma('vm:entry-point')
+Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+
+  getIt<LocalNotificationUtil>().showFlutterNotification(message);
+  AppLogger.info('Handling a background message ${message.messageId}');
+}
 
 Future<void> main() async {
   // await dotenv.load(fileName: 'assets/.env');
@@ -41,6 +49,11 @@ Future<void> main() async {
   // await SharedPrefs.clear();
   AppLogger.init();
   Bloc.observer = const SimpleBlocObserver();
+
+  await getIt<LocalNotificationUtil>().setupLocalNotification();
+
+  FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+
   runApp(const MyApp());
 }
 

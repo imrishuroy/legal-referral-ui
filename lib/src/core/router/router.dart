@@ -917,6 +917,20 @@ class AppRouter {
               FadeTransition(opacity: a, child: c),
         ),
       ),
+      GoRoute(
+        path: '/post/:postId',
+        name: PostDetailsPage.name,
+        parentNavigatorKey: _rootNavigatorKey,
+        pageBuilder: (context, state) => CustomTransitionPage(
+          child: PostDetailsPage(
+            postId: int.tryParse(state.pathParameters['postId']!)!,
+          ),
+          transitionDuration:
+              const Duration(milliseconds: _routeTransitionDuration),
+          transitionsBuilder: (_, a, __, c) =>
+              FadeTransition(opacity: a, child: c),
+        ),
+      ),
     ],
     debugLogDiagnostics: true,
   );

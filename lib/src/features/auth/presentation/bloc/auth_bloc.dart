@@ -44,6 +44,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<PasswordChanged>(_onPassworChanged);
     on<AuthSignOutRequested>(_onAuthSignOutRequested);
     on<UserUpdated>(_onUserUpdated);
+    on<DeviceDetailsSaved>(_onDeviceDetailsSaved);
   }
 
   final FirebaseAuth _firebaseAuth;
@@ -1032,6 +1033,15 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       state.copyWith(
         user: event.user,
       ),
+    );
+  }
+
+  Future<void> _onDeviceDetailsSaved(
+    DeviceDetailsSaved event,
+    Emitter<AuthState> emit,
+  ) async {
+    await _authUseCase.saveDeviceDetails(
+      deviceDetails: event.deviceDetails,
     );
   }
 

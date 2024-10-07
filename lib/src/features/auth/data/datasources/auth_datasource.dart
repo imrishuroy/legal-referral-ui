@@ -5,7 +5,6 @@ import 'package:legal_referral_ui/src/core/config/config.dart';
 import 'package:legal_referral_ui/src/core/network/network.dart';
 import 'package:legal_referral_ui/src/features/auth/data/data.dart';
 import 'package:legal_referral_ui/src/features/auth/domain/domain.dart';
-import 'package:legal_referral_ui/src/features/auth/domain/entities/app_user.dart';
 
 class AuthDataSource {
   AuthDataSource({
@@ -177,6 +176,16 @@ class AuthDataSource {
     try {
       final user = await _apiClient.getUser(userId);
       return user;
+    } catch (_) {
+      rethrow;
+    }
+  }
+
+  Future<void> saveDeviceDetails({
+    required DeviceDetails deviceDetails,
+  }) async {
+    try {
+      await _apiClient.saveDeviceDetails(deviceDetails);
     } catch (_) {
       rethrow;
     }

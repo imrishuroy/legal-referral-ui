@@ -46,3 +46,25 @@ class PostCreated extends PostEvent {
   @override
   List<Object> get props => [ownerId, content];
 }
+
+class PostFetched extends PostEvent {
+  const PostFetched({
+    required this.postId,
+  });
+
+  final int postId;
+
+  @override
+  List<Object> get props => [postId];
+}
+
+class PostLikesAndCommentsCountFetched extends PostEvent {
+  const PostLikesAndCommentsCountFetched({
+    required this.postId,
+  });
+
+  final int postId;
+
+  @override
+  List<Object> get props => [postId];
+}

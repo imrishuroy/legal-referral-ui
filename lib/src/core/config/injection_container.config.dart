@@ -124,6 +124,7 @@ import '../../features/wizard/domain/usecases/wizard_usecase.dart' as _i974;
 import '../../features/wizard/presentation/bloc/wizard_bloc.dart' as _i991;
 import '../network/api_client.dart' as _i557;
 import '../network/network.dart' as _i855;
+import '../utils/local_notification_util.dart' as _i820;
 import 'register_module.dart' as _i291;
 
 extension GetItInjectableX on _i174.GetIt {
@@ -142,6 +143,8 @@ extension GetItInjectableX on _i174.GetIt {
     gh.singleton<_i704.AuthDataSource>(() => registerModule.authDataSource());
     gh.singleton<_i323.WizardDataSource>(
         () => registerModule.wizardDataSource());
+    gh.lazySingleton<_i820.LocalNotificationUtil>(
+        () => _i820.LocalNotificationUtil());
     gh.singleton<_i48.ReferralDataSource>(
         () => _i48.ReferralDataSource(apiClient: gh<_i855.APIClient>()));
     gh.singleton<_i121.PostDatasource>(

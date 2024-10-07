@@ -21,6 +21,7 @@ class PostBloc extends Bloc<PostEvent, PostState> {
     on<FilePicked>(_onFileAdded);
     on<FileRemoved>(_onFileRemoved);
     on<PostCreated>(_onPostCreated);
+    on<PostFetched>(_onPostFetched);
   }
 
   final PostUsecase _postUsecase;
@@ -106,6 +107,37 @@ class PostBloc extends Bloc<PostEvent, PostState> {
         emit(
           state.copyWith(
             status: PostStatus.success,
+          ),
+        );
+      },
+    );
+  }
+
+  FutureOr<void> _onPostFetched(event, emit) async {
+    emit(
+      state.copyWith(
+        status: PostStatus.loading,
+      ),
+    );
+
+    final response = await _postUsecase.fetchPost(
+      postId: event.postId,
+    );
+
+    response.fold(
+      (failure) {
+        emit(
+          state.copyWith(
+            status: PostStatus.failure,
+            failure: failure,
+          ),
+        );
+      },
+      (post) {
+        emit(
+          state.copyWith(
+            status: PostStatus.success,
+            post: post,
           ),
         );
       },

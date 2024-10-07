@@ -121,4 +121,12 @@ class AuthUseCase {
       userId: userId,
     );
   }
+
+  Future<Either<Failure, void>> saveDeviceDetails({
+    required DeviceDetails deviceDetails,
+  }) async {
+    return _authRepository.saveDeviceDetails(
+      deviceDetails: deviceDetails,
+    );
+  }
 }
