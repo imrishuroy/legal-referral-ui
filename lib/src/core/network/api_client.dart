@@ -16,6 +16,7 @@ import 'package:legal_referral_ui/src/features/feed/domain/domain.dart';
 import 'package:legal_referral_ui/src/features/firm/domain/domain.dart';
 import 'package:legal_referral_ui/src/features/network/data/data.dart';
 import 'package:legal_referral_ui/src/features/network/domain/domain.dart';
+import 'package:legal_referral_ui/src/features/post/data/data.dart';
 import 'package:legal_referral_ui/src/features/profile/data/data.dart';
 import 'package:legal_referral_ui/src/features/profile/domain/domain.dart';
 import 'package:legal_referral_ui/src/features/referral/data/data.dart';
@@ -487,6 +488,7 @@ abstract class APIClient {
   @POST('/posts/{postId}/like')
   Future<void> likePost(
     @Path('postId') int postId,
+    @Body() LikePostReq likePostReq,
   );
 
   @DELETE('/posts/{postId}/like')

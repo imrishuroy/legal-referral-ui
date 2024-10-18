@@ -196,12 +196,20 @@ class _FeedDetailsPageState extends State<FeedDetailsPage> {
           ),
         );
       } else {
-        widget.args.feedBloc.add(
-          FeedPostLiked(
-            postId: postId,
-            index: index,
-          ),
-        );
+        final senderId = getIt<AuthBloc>().state.user?.userId;
+        final userId = feed?.feedPost?.post?.ownerId;
+        final postId = feed?.feedPost?.post?.postId;
+
+        if (userId != null && senderId != null && postId != null) {
+          widget.args.feedBloc.add(
+            FeedPostLiked(
+              postId: postId,
+              index: index,
+              userId: userId,
+              senderId: senderId,
+            ),
+          );
+        }
       }
     }
   }

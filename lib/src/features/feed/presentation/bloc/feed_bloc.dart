@@ -7,6 +7,7 @@ import 'package:legal_referral_ui/src/features/auth/domain/domain.dart';
 import 'package:legal_referral_ui/src/features/auth/presentation/presentation.dart';
 import 'package:legal_referral_ui/src/features/feed/data/data.dart';
 import 'package:legal_referral_ui/src/features/feed/domain/domain.dart';
+import 'package:legal_referral_ui/src/features/post/data/data.dart';
 import 'package:legal_referral_ui/src/features/post/domain/domain.dart';
 import 'package:legal_referral_ui/src/features/saved_posts/domain/domain.dart';
 import 'package:stream_transform/stream_transform.dart';
@@ -174,7 +175,13 @@ class FeedBloc extends Bloc<FeedEvent, FeedState> {
         ),
       );
 
-      final response = await _postUsecase.likePost(postId: event.postId);
+      final likePostReq = LikePostReq(
+        userId: event.userId,
+        senderId: event.senderId,
+        postId: event.postId,
+      );
+
+      final response = await _postUsecase.likePost(likePostReq: likePostReq);
 
       // Revert the change if the API call fails
       if (response.isLeft()) {

@@ -5,7 +5,7 @@ class APIConstants {
       // 'http://legal-referral-api-prod.ap-south-1.elasticbeanstalk.com/api';
       // 'https://api.sixteenbrains.studio/api';
 
-      'http://192.168.234.88:8080/api';
+      'http://192.168.77.88:8082/api';
 
   static const host = 'legal-referral-api-prod.ap-south-1.elasticbeanstalk.com';
 

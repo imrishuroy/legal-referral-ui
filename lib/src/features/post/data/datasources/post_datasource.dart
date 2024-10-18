@@ -25,9 +25,12 @@ class PostDatasource {
     }
   }
 
-  Future<void> likePost({required int postId}) async {
+  Future<void> likePost({required LikePostReq likePostReq}) async {
     try {
-      await _apiClient.likePost(postId);
+      await _apiClient.likePost(
+        likePostReq.postId,
+        likePostReq,
+      );
     } catch (_) {
       rethrow;
     }

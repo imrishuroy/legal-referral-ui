@@ -19,9 +19,9 @@ class PostUsecase {
   }
 
   Future<Either<Failure, void>> likePost({
-    required int postId,
+    required LikePostReq likePostReq,
   }) async {
-    return _postRepository.likePost(postId: postId);
+    return _postRepository.likePost(likePostReq: likePostReq);
   }
 
   Future<Either<Failure, void>> unlikePost({

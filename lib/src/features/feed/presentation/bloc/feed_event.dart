@@ -28,9 +28,13 @@ class FeedRefreshed extends FeedEvent {
 
 class FeedPostLiked extends FeedEvent {
   const FeedPostLiked({
+    required this.userId,
+    required this.senderId,
     required this.postId,
     required this.index,
   });
+  final String userId;
+  final String senderId;
   final int postId;
   final int? index;
 }
