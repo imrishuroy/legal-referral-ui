@@ -130,68 +130,61 @@ class _FeedsPageState extends State<FeedsPage> {
               onRefresh: () async {
                 _refreshFeed();
               },
-              child: CustomScrollView(
+              child: ListView.builder(
                 controller: _scrollController,
-                slivers: [
-                  SliverList(
-                    delegate: SliverChildBuilderDelegate(
-                      (context, index) {
-                        if (index >= state.feeds.length) {
-                          return const FeedShimmer();
-                        }
+                itemCount: state.hasReachedMax
+                    ? state.feeds.length
+                    : state.feeds.length + 1,
+                itemBuilder: (context, index) {
+                  if (index >= state.feeds.length) {
+                    return const FeedShimmer();
+                  }
 
-                        final feed = state.feeds[index];
-                        final feedType = feed?.type;
-                        if (feedType == FeedType.post) {
-                          final feedPost = feed?.feedPost;
-                          return Padding(
-                            padding: EdgeInsets.symmetric(
-                              vertical: 4.h,
-                            ),
-                            child: FeedTile(
-                              feed: feed,
-                              isLiked: feedPost?.isLiked ?? false,
-                              likesCount: feedPost?.likesCount ?? 0,
-                              commentsCount: feedPost?.commentsCount ?? 0,
-                              onLikePressed: () => _onLikePressed(
-                                feedPost,
-                                feedPost?.isLiked ?? false,
-                                index,
-                              ),
-                              onCommentPressed: () =>
-                                  _navigateToFeedDetailsPage(
-                                feed,
-                                index,
-                              ),
-                              onSharePressed: () async {
-                                final post = feedPost?.post;
-                                if (post != null) {
-                                  await _sharePost(post);
-                                }
-                              },
-                              onDiscussPressed: () {},
-                              onTap: () => _navigateToFeedDetailsPage(
-                                feed,
-                                index,
-                              ),
-                              onOptionsPressed: () => _showPostOptionsSheet(
-                                context: context,
-                                feed: feed,
-                              ),
-                            ),
-                          );
-                        } else {
-                          return FeedAdTile(
-                            ad: feed?.ad,
-                          );
-                        }
-                      },
-                      childCount: state.hasReachedMax
-                          ? state.feeds.length
-                          : state.feeds.length + 1,
-                    ),
-                  ),
-                ],
+                  final feed = state.feeds[index];
+                  final feedType = feed?.type;
+                  if (feedType == FeedType.post) {
+                    final feedPost = feed?.feedPost;
+                    return Padding(
+                      padding: EdgeInsets.symmetric(
+                        vertical: 4.h,
+                      ),
+                      child: FeedTile(
+                        feed: feed,
+                        isLiked: feedPost?.isLiked ?? false,
+                        likesCount: feedPost?.likesCount ?? 0,
+                        commentsCount: feedPost?.commentsCount ?? 0,
+                        onLikePressed: () => _onLikePressed(
+                          feedPost,
+                          feedPost?.isLiked ?? false,
+                          index,
+                        ),
+                        onCommentPressed: () => _navigateToFeedDetailsPage(
+                          feed,
+                          index,
+                        ),
+                        onSharePressed: () async {
+                          final post = feedPost?.post;
+                          if (post != null) {
+                            await _sharePost(post);
+                          }
+                        },
+                        onDiscussPressed: () {},
+                        onTap: () => _navigateToFeedDetailsPage(
+                          feed,
+                          index,
+                        ),
+                        onOptionsPressed: () => _showPostOptionsSheet(
+                          context: context,
+                          feed: feed,
+                        ),
+                      ),
+                    );
+                  } else {
+                    return FeedAdTile(
+                      ad: feed?.ad,
+                    );
+                  }
+                },
               ),
             );
           } else {
@@ -241,12 +234,19 @@ class _FeedsPageState extends State<FeedsPage> {
           ),
         );
       } else {
-        _feedBloc.add(
-          FeedPostLiked(
-            postId: postId,
-            index: index,
-          ),
-        );
+        final senderId = _authBloc.state.user?.userId;
+        final userId = feedPost?.post?.ownerId;
+        final postId = feedPost?.post?.postId;
+        if (userId != null && senderId != null && postId != null) {
+          _feedBloc.add(
+            FeedPostLiked(
+              postId: postId,
+              index: index,
+              userId: userId,
+              senderId: senderId,
+            ),
+          );
+        }
       }
     }
   }
