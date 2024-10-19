@@ -13,7 +13,7 @@ abstract class PostRepository {
   });
 
   Future<Either<Failure, void>> likePost({
-    required int postId,
+    required LikePostReq likePostReq,
   });
 
   Future<Either<Failure, void>> unlikePost({

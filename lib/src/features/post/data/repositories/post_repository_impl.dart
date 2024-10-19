@@ -54,11 +54,11 @@ class PostRepositoryImpl extends PostRepository {
 
   @override
   Future<Either<Failure, void>> likePost({
-    required int postId,
+    required LikePostReq likePostReq,
   }) async {
     try {
       await _postDatasource.likePost(
-        postId: postId,
+        likePostReq: likePostReq,
       );
       return const Right(null);
     } on DioException catch (error) {

@@ -7,6 +7,7 @@ import 'package:legal_referral_ui/src/features/auth/domain/domain.dart';
 import 'package:legal_referral_ui/src/features/auth/presentation/presentation.dart';
 import 'package:legal_referral_ui/src/features/feed/data/data.dart';
 import 'package:legal_referral_ui/src/features/feed/domain/domain.dart';
+import 'package:legal_referral_ui/src/features/post/data/data.dart';
 import 'package:legal_referral_ui/src/features/post/domain/domain.dart';
 import 'package:legal_referral_ui/src/features/saved_posts/domain/domain.dart';
 import 'package:stream_transform/stream_transform.dart';
@@ -138,33 +139,31 @@ class FeedBloc extends Bloc<FeedEvent, FeedState> {
     FeedPostLiked event,
     Emitter<FeedState> emit,
   ) async {
-    final response = await _postUsecase.likePost(
-      postId: event.postId,
-    );
+    Feed? feed;
 
-    if (response.isRight()) {
-      final index = event.index;
-      var feed = state.feed;
-      final feeds = List.of(state.feeds);
-      Feed? updatedFeed;
-      if (feed == null && index != null) {
-        feed = feeds[index];
-      }
-      updatedFeed = feed?.copyWith(
-        feedPost: feed.feedPost?.copyWith(
-          likesCount: feed.feedPost?.isLiked ?? false
-              ? (state.feed?.feedPost?.likesCount ?? 0) > 0
-                  ? (state.feed?.feedPost?.likesCount ?? 0) - 1
-                  : 0
-              : (state.feed?.feedPost?.likesCount ?? 0) + 1,
-          isLiked: !feed.feedPost!.isLiked,
+    if (event.isFromeDetails) {
+      feed = state.feed;
+    } else {
+      feed = state.feeds[event.index];
+    }
+    final feeds = List.of(state.feeds);
+
+    if (feed != null) {
+      final feedPost = feed.feedPost;
+      final isCurrentlyLiked = feedPost?.isLiked ?? false;
+      final updatedLikesCount = isCurrentlyLiked
+          ? (feedPost?.likesCount ?? 0) - 1
+          : (feedPost?.likesCount ?? 0) + 1;
+
+      final updatedFeed = feed.copyWith(
+        feedPost: feedPost?.copyWith(
+          likesCount: updatedLikesCount,
+          isLiked: !isCurrentlyLiked,
         ),
       );
 
-      if (index != null) {
-        if (index >= 0 && index < feeds.length) {
-          feeds[index] = updatedFeed;
-        }
+      if (event.index >= 0 && event.index < feeds.length) {
+        feeds[event.index] = updatedFeed;
       }
 
       emit(
@@ -178,6 +177,40 @@ class FeedBloc extends Bloc<FeedEvent, FeedState> {
           ],
         ),
       );
+
+      final likePostReq = LikePostReq(
+        userId: event.userId,
+        senderId: event.senderId,
+        postId: event.postId,
+      );
+
+      final response = await _postUsecase.likePost(likePostReq: likePostReq);
+
+      // Revert the change if the API call fails
+      if (response.isLeft()) {
+        final revertedLikesCount = !isCurrentlyLiked
+            ? (feedPost?.likesCount ?? 0) - 1
+            : (feedPost?.likesCount ?? 0) + 1;
+
+        final revertedFeed = feed.copyWith(
+          feedPost: feedPost?.copyWith(
+            likesCount: revertedLikesCount,
+            isLiked: isCurrentlyLiked,
+          ),
+        );
+
+        if (event.index >= 0 && event.index < feeds.length) {
+          feeds[event.index] = revertedFeed;
+        }
+
+        emit(
+          state.copyWith(
+            feeds: feeds,
+            feed: revertedFeed,
+            status: FeedStatus.failure,
+          ),
+        );
+      }
     }
   }
 
@@ -185,47 +218,80 @@ class FeedBloc extends Bloc<FeedEvent, FeedState> {
     FeedPostUnliked event,
     Emitter<FeedState> emit,
   ) async {
-    final response = await _postUsecase.unlikePost(
-      postId: event.postId,
-    );
+    Feed? feed;
 
-    if (response.isRight()) {
-      final index = event.index;
-      var feed = state.feed;
-      final feeds = List.of(state.feeds);
+    if (event.isFromeDetails) {
+      feed = state.feed;
+    } else {
+      feed = state.feeds[event.index];
+    }
+    final feeds = List.of(state.feeds);
 
-      if (feed == null && index != null) {
-        feed = feeds[index];
-      }
+    if (feed != null) {
+      final feedPost = feed.feedPost;
+      final isCurrentlyLiked = feedPost?.isLiked ?? false;
+      final updatedLikesCount = isCurrentlyLiked
+          ? (feedPost?.likesCount ?? 0) - 1
+          : (feedPost?.likesCount ?? 0) + 1;
 
-      Feed? updatedFeed;
-      updatedFeed = feed?.copyWith(
-        feedPost: feed.feedPost?.copyWith(
-          likesCount: feed.feedPost?.isLiked ?? false
-              ? (state.feed?.feedPost?.likesCount ?? 0) > 0
-                  ? (state.feed?.feedPost?.likesCount ?? 0) - 1
-                  : 0
-              : (state.feed?.feedPost?.likesCount ?? 0) + 1,
-          isLiked: !feed.feedPost!.isLiked,
+      // Create an updated feed with the new like state (unlike action)
+      final updatedFeed = feed.copyWith(
+        feedPost: feedPost?.copyWith(
+          likesCount: updatedLikesCount,
+          isLiked: !isCurrentlyLiked,
         ),
       );
 
-      if (index != null) {
-        if (index >= 0 && index < feeds.length) {
-          feeds[index] = updatedFeed;
-        }
+      // Update the specific feed in the list
+      if (event.index >= 0 && event.index < feeds.length) {
+        feeds[event.index] = updatedFeed;
       }
 
-      final postLikesUsers = List.of(state.postLikedUsers);
+      final postLikedUsers = List.of(state.postLikedUsers);
+      if (postLikedUsers.isNotEmpty) {
+        postLikedUsers.removeAt(0);
+      }
 
       emit(
         state.copyWith(
           feeds: feeds,
           feed: updatedFeed,
-          postLikedUsers: postLikesUsers..removeAt(0),
+          postLikedUsers: postLikedUsers,
           status: FeedStatus.success,
         ),
       );
+
+      final response = await _postUsecase.unlikePost(postId: event.postId);
+
+      // Revert the change if the API call fails
+      if (response.isLeft()) {
+        final revertedLikesCount = !isCurrentlyLiked
+            ? (feedPost?.likesCount ?? 0) - 1
+            : (feedPost?.likesCount ?? 0) + 1;
+
+        final revertedFeed = feed.copyWith(
+          feedPost: feedPost?.copyWith(
+            likesCount: revertedLikesCount,
+            isLiked: isCurrentlyLiked,
+          ),
+        );
+
+        if (event.index >= 0 && event.index < feeds.length) {
+          feeds[event.index] = revertedFeed;
+        }
+
+        emit(
+          state.copyWith(
+            feeds: feeds,
+            feed: revertedFeed,
+            postLikedUsers: [
+              _authBloc.state.user,
+              ...postLikedUsers,
+            ],
+            status: FeedStatus.failure,
+          ),
+        );
+      }
     }
   }
 

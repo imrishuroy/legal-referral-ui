@@ -28,20 +28,34 @@ class FeedRefreshed extends FeedEvent {
 
 class FeedPostLiked extends FeedEvent {
   const FeedPostLiked({
+    required this.userId,
+    required this.senderId,
     required this.postId,
     required this.index,
+    required this.isFromeDetails,
   });
+  final String userId;
+  final String senderId;
   final int postId;
-  final int? index;
+  final int index;
+  final bool isFromeDetails;
+
+  @override
+  List<Object> get props => [userId, senderId, postId, index, isFromeDetails];
 }
 
 class FeedPostUnliked extends FeedEvent {
   const FeedPostUnliked({
     required this.postId,
     required this.index,
+    required this.isFromeDetails,
   });
   final int postId;
-  final int? index;
+  final int index;
+  final bool isFromeDetails;
+
+  @override
+  List<Object> get props => [postId, index, isFromeDetails];
 }
 
 class PostLikedUsersFetched extends FeedEvent {

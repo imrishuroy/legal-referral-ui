@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 import 'dart:math';
 
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -33,18 +34,17 @@ class LocalNotificationUtil {
   }
 
   Future<void> setupLocalNotification() async {
-    // final notificationAppLaunchDetails = !kIsWeb && Platform.isLinux
-    //     ? null
-    //     : await flutterLocalNotificationsPlugin
-    //         .getNotificationAppLaunchDetails();
-    // // String initialRoute = HomePage.routeName;
+    final notificationAppLaunchDetails = !kIsWeb && Platform.isLinux
+        ? null
+        : await flutterLocalNotificationsPlugin
+            .getNotificationAppLaunchDetails();
+
     // var initialRoute = '/';
-    // if (notificationAppLaunchDetails?.didNotificationLaunchApp ?? false) {
-    //   selectedNotificationPayload =
-    //       notificationAppLaunchDetails!.notificationResponse?.payload;
-    //   // initialRoute = SecondPage.routeName;
-    //   initialRoute = '/second';
-    // }
+    if (notificationAppLaunchDetails?.didNotificationLaunchApp ?? false) {
+      selectedNotificationPayload =
+          notificationAppLaunchDetails!.notificationResponse?.payload;
+      // initialRoute = '/post-details';
+    }
 
     const initializationSettingsAndroid =
         AndroidInitializationSettings('app_icon');
@@ -155,8 +155,8 @@ class LocalNotificationUtil {
     if (notification != null && android != null && !kIsWeb) {
       flutterLocalNotificationsPlugin.show(
         notification.hashCode,
-        notification.title,
-        notification.body,
+        notification.title ?? '',
+        notification.body ?? '',
         payload: jsonEncode(message.data),
         const NotificationDetails(
           android: AndroidNotificationDetails(
@@ -201,26 +201,30 @@ class LocalNotificationUtil {
     required String? body,
     required String? payload,
   }) async {
-    final id = Random().nextInt(100);
-    const android = AndroidNotificationDetails(
-      'id',
-      'channel ',
-      priority: Priority.high,
-      importance: Importance.max,
-    );
-    const iOS = DarwinNotificationDetails();
-    const platform = NotificationDetails(
-      android: android,
-      iOS: iOS,
-    );
+    try {
+      final id = Random().nextInt(100);
+      const android = AndroidNotificationDetails(
+        'id',
+        'channel ',
+        priority: Priority.high,
+        importance: Importance.max,
+      );
+      const iOS = DarwinNotificationDetails();
+      const platform = NotificationDetails(
+        android: android,
+        iOS: iOS,
+      );
 
-    await flutterLocalNotificationsPlugin.show(
-      id,
-      title ?? 'Hello',
-      body ?? 'You may have new notifications',
-      platform,
-      payload: payload,
-    );
+      await flutterLocalNotificationsPlugin.show(
+        id,
+        title ?? 'Hello',
+        body ?? 'You may have new notifications',
+        platform,
+        payload: payload,
+      );
+    } catch (error) {
+      debugPrint('error in showing notification: $error');
+    }
   }
 
   Future<void> cancelNotification(int id) async {
