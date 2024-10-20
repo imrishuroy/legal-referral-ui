@@ -73,6 +73,16 @@ import '../../features/network/data/repositories/network_repository_impl.dart'
 import '../../features/network/domain/domain.dart' as _i318;
 import '../../features/network/domain/usecases/network_usecase.dart' as _i573;
 import '../../features/network/presentation/bloc/network_bloc.dart' as _i179;
+import '../../features/notifications/data/data.dart' as _i566;
+import '../../features/notifications/data/datasources/notifications_datasource.dart'
+    as _i200;
+import '../../features/notifications/data/repositories/notifications_repository_impl.dart'
+    as _i201;
+import '../../features/notifications/domain/domain.dart' as _i661;
+import '../../features/notifications/domain/usecases/notifications_usecase.dart'
+    as _i40;
+import '../../features/notifications/presentation/bloc/notifications_bloc.dart'
+    as _i1041;
 import '../../features/post/data/data.dart' as _i1069;
 import '../../features/post/data/datasources/post_datasource.dart' as _i121;
 import '../../features/post/data/repositories/post_repository_impl.dart'
@@ -167,6 +177,8 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i1048.AccountDatasource(apiClient: gh<_i557.APIClient>()));
     gh.singleton<_i219.DiscussionDatasource>(
         () => _i219.DiscussionDatasource(apiClient: gh<_i557.APIClient>()));
+    gh.singleton<_i200.NotificationsDatasource>(
+        () => _i200.NotificationsDatasource(apiClient: gh<_i557.APIClient>()));
     gh.lazySingleton<_i566.SearchDataSource>(
         () => _i566.SearchDataSource(apiClient: gh<_i855.APIClient>()));
     gh.lazySingleton<_i931.DiscussionRepository>(() =>
@@ -188,6 +200,9 @@ extension GetItInjectableX on _i174.GetIt {
         accountDatasource: gh<_i970.AccountDatasource>()));
     gh.lazySingleton<_i772.AccountUsecase>(() =>
         _i772.AccountUsecase(accountRepository: gh<_i808.AccountRepository>()));
+    gh.lazySingleton<_i661.NotificationsRepository>(() =>
+        _i201.NotificationsRepositoryImpl(
+            notificationsDatasource: gh<_i566.NotificationsDatasource>()));
     gh.lazySingleton<_i386.ReferralRepository>(() =>
         _i750.ReferralRepositoryImpl(
             referralDataSource: gh<_i622.ReferralDataSource>()));
@@ -226,6 +241,8 @@ extension GetItInjectableX on _i174.GetIt {
             savedPostsDatasource: gh<_i358.SavedPostsDatasource>()));
     gh.lazySingleton<_i974.WizardUseCase>(() =>
         _i974.WizardUseCase(wizardRepository: gh<_i57.WizardRepository>()));
+    gh.lazySingleton<_i40.NotificationsUsecase>(() => _i40.NotificationsUsecase(
+        notificationsRepository: gh<_i661.NotificationsRepository>()));
     gh.lazySingleton<_i573.NetworkUseCase>(() =>
         _i573.NetworkUseCase(networkRepository: gh<_i318.NetworkRepository>()));
     gh.lazySingleton<_i797.AuthBloc>(
@@ -239,6 +256,8 @@ extension GetItInjectableX on _i174.GetIt {
           networkUseCase: gh<_i318.NetworkUseCase>(),
           chatUseCase: gh<_i1003.ChatUseCase>(),
         ));
+    gh.factory<_i1041.NotificationsBloc>(() => _i1041.NotificationsBloc(
+        notificationsUsecase: gh<_i661.NotificationsUsecase>()));
     gh.factory<_i469.ProfileBloc>(() => _i469.ProfileBloc(
           authBloc: gh<_i481.AuthBloc>(),
           profileUseCase: gh<_i193.ProfileUseCase>(),
