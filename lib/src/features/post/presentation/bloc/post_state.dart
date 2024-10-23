@@ -8,6 +8,9 @@ class PostState extends Equatable {
     this.text = '',
     this.pickedFile,
     this.postType = PostType.text,
+    this.post,
+    this.likesCount = 0,
+    this.commentsCount = 0,
     this.files = const [],
     this.failure,
   });
@@ -22,6 +25,9 @@ class PostState extends Equatable {
   final String text;
   final List<File> files;
   final File? pickedFile;
+  final Post? post;
+  final int likesCount;
+  final int commentsCount;
   final PostStatus status;
   final Failure? failure;
 
@@ -31,6 +37,9 @@ class PostState extends Equatable {
     List<File>? files,
     PostType? postType,
     File? filePath,
+    Post? post,
+    int? likesCount,
+    int? commentsCount,
     Failure? failure,
   }) {
     return PostState(
@@ -38,6 +47,9 @@ class PostState extends Equatable {
       text: text ?? this.text,
       files: files ?? this.files,
       postType: postType ?? this.postType,
+      post: post ?? this.post,
+      likesCount: likesCount ?? this.likesCount,
+      commentsCount: commentsCount ?? this.commentsCount,
       pickedFile: filePath ?? pickedFile,
       failure: failure ?? this.failure,
     );
@@ -50,6 +62,9 @@ class PostState extends Equatable {
         postType,
         files,
         pickedFile,
+        post,
+        likesCount,
+        commentsCount,
         failure,
       ];
 }

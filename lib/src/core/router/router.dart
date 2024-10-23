@@ -12,6 +12,7 @@ import 'package:legal_referral_ui/src/features/feed/presentation/presentation.da
 import 'package:legal_referral_ui/src/features/firm/domain/domain.dart';
 import 'package:legal_referral_ui/src/features/firm/presentation/presentation.dart';
 import 'package:legal_referral_ui/src/features/network/presentation/presentation.dart';
+import 'package:legal_referral_ui/src/features/notifications/presentation/presentation.dart';
 import 'package:legal_referral_ui/src/features/post/presentation/presentation.dart';
 import 'package:legal_referral_ui/src/features/profile/presentation/presentation.dart';
 import 'package:legal_referral_ui/src/features/referral/domain/domain.dart';
@@ -911,6 +912,33 @@ class AppRouter {
           child: ExtendAdPeriodPage(
             ad: state.extra as Ad?,
           ),
+          transitionDuration:
+              const Duration(milliseconds: _routeTransitionDuration),
+          transitionsBuilder: (_, a, __, c) =>
+              FadeTransition(opacity: a, child: c),
+        ),
+      ),
+      GoRoute(
+        path: '/post/:postId',
+        name: PostDetailsPage.name,
+        parentNavigatorKey: _rootNavigatorKey,
+        pageBuilder: (context, state) => CustomTransitionPage(
+          child: PostDetailsPage(
+            postId: int.tryParse(state.pathParameters['postId']!)!,
+          ),
+          transitionDuration:
+              const Duration(milliseconds: _routeTransitionDuration),
+          transitionsBuilder: (_, a, __, c) =>
+              FadeTransition(opacity: a, child: c),
+        ),
+      ),
+
+      GoRoute(
+        path: '/notifications',
+        name: NotificationsPage.name,
+        parentNavigatorKey: _rootNavigatorKey,
+        pageBuilder: (context, state) => CustomTransitionPage(
+          child: const NotificationsPage(),
           transitionDuration:
               const Duration(milliseconds: _routeTransitionDuration),
           transitionsBuilder: (_, a, __, c) =>

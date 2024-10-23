@@ -1,3 +1,4 @@
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -7,10 +8,11 @@ import 'package:legal_referral_ui/src/core/common_widgets/widgets.dart';
 import 'package:legal_referral_ui/src/core/config/config.dart';
 import 'package:legal_referral_ui/src/core/constants/constants.dart';
 import 'package:legal_referral_ui/src/core/utils/utils.dart';
-import 'package:legal_referral_ui/src/features/advertisement/presentation/presentation.dart';
+import 'package:legal_referral_ui/src/features/auth/domain/domain.dart';
 import 'package:legal_referral_ui/src/features/auth/presentation/presentation.dart';
 import 'package:legal_referral_ui/src/features/feed/domain/entities/feed.dart';
 import 'package:legal_referral_ui/src/features/feed/presentation/presentation.dart';
+import 'package:legal_referral_ui/src/features/notifications/presentation/presentation.dart';
 import 'package:legal_referral_ui/src/features/post/domain/domain.dart';
 import 'package:legal_referral_ui/src/features/search/presentation/presentation.dart';
 import 'package:share_plus/share_plus.dart';
@@ -29,12 +31,35 @@ class _FeedsPageState extends State<FeedsPage> {
   final _feedBloc = getIt<FeedBloc>();
   final _searchController = TextEditingController();
   final _scrollController = ScrollController();
+  final _notificationUtil = getIt<LocalNotificationUtil>();
 
   @override
   void initState() {
+    _requestNotificationPermission();
     _scrollController.addListener(_onScroll);
     _fetchFeeds();
+    _saveDeviceDetails();
+
+    FirebaseMessaging.instance.getInitialMessage().then((value) {
+      AppLogger.info('getInitialMessage: $value');
+    });
+
+    /// Forground ( When the app is running in the forground )
+    FirebaseMessaging.onMessage
+        .listen(_notificationUtil.showFlutterNotification);
+
+    /// When the app is running in the background but still open,
+    /// and the user taps on it.
+    FirebaseMessaging.onMessageOpenedApp.listen((message) {
+      AppLogger.info('onMessageOpenedApp: $message');
+    });
+
     super.initState();
+  }
+
+  Future<void> _requestNotificationPermission() async {
+    final settings = await FirebaseMessaging.instance.requestPermission();
+    AppLogger.info('settings: $settings');
   }
 
   void _fetchFeeds() {
@@ -73,7 +98,7 @@ class _FeedsPageState extends State<FeedsPage> {
             ),
             SizedBox(width: 8.w),
             SvgButton(
-              onPressed: () => context.pushNamed(PreviewAdPage.name),
+              onPressed: () => context.pushNamed(NotificationsPage.name),
               imagePath: IconStringConstants.bell,
               width: 24.w,
               height: 24.h,
@@ -231,6 +256,7 @@ class _FeedsPageState extends State<FeedsPage> {
           FeedPostUnliked(
             postId: postId,
             index: index,
+            isFromeDetails: false,
           ),
         );
       } else {
@@ -244,6 +270,7 @@ class _FeedsPageState extends State<FeedsPage> {
               index: index,
               userId: userId,
               senderId: senderId,
+              isFromeDetails: false,
             ),
           );
         }
@@ -452,5 +479,23 @@ class _FeedsPageState extends State<FeedsPage> {
       ..dispose();
     _searchController.dispose();
     super.dispose();
+  }
+
+  Future<void> _saveDeviceDetails() async {
+    final deviceId = await DeviceUtil.getId();
+    final deviceToken = await FirebaseMessaging.instance.getToken();
+    final userId = _authBloc.state.user?.userId;
+    if (deviceId != null && deviceToken != null && userId != null) {
+      final deviceDetails = DeviceDetails(
+        deviceId: deviceId,
+        deviceToken: deviceToken,
+        userId: userId,
+      );
+      _authBloc.add(
+        DeviceDetailsSaved(
+          deviceDetails: deviceDetails,
+        ),
+      );
+    }
   }
 }

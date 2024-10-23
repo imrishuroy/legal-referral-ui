@@ -160,3 +160,14 @@ class UserUpdated extends AuthEvent {
 
   final AppUser? user;
 }
+
+class DeviceDetailsSaved extends AuthEvent {
+  const DeviceDetailsSaved({
+    required this.deviceDetails,
+  });
+
+  final DeviceDetails deviceDetails;
+
+  @override
+  List<Object> get props => [deviceDetails];
+}

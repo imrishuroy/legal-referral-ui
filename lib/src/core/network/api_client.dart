@@ -16,7 +16,9 @@ import 'package:legal_referral_ui/src/features/feed/domain/domain.dart';
 import 'package:legal_referral_ui/src/features/firm/domain/domain.dart';
 import 'package:legal_referral_ui/src/features/network/data/data.dart';
 import 'package:legal_referral_ui/src/features/network/domain/domain.dart';
+import 'package:legal_referral_ui/src/features/notifications/domain/domain.dart';
 import 'package:legal_referral_ui/src/features/post/data/data.dart';
+import 'package:legal_referral_ui/src/features/post/domain/domain.dart';
 import 'package:legal_referral_ui/src/features/profile/data/data.dart';
 import 'package:legal_referral_ui/src/features/profile/domain/domain.dart';
 import 'package:legal_referral_ui/src/features/referral/data/data.dart';
@@ -472,6 +474,11 @@ abstract class APIClient {
     @Part(name: 'files') List<File> files,
   );
 
+  @GET('/posts/{postId}')
+  Future<Post> fetchPost(
+    @Path('postId') int postId,
+  );
+
   @DELETE('/posts/{postId}')
   Future<ResponseMsg> deletePost(
     @Path('postId') int postId,
@@ -657,5 +664,18 @@ abstract class APIClient {
   @POST('/faqs')
   Future<FAQ> createFAQ(
     @Body() FAQ faq,
+  );
+
+  @POST('/device-details')
+  Future<void> saveDeviceDetails(
+    @Body() DeviceDetails deviceDetails,
+  );
+
+  // notifications
+  @GET('/notifications/{userId}')
+  Future<List<Notification>> fetchNotifications(
+    @Path('userId') String userId,
+    @Query('limit') int limit,
+    @Query('offset') int offset,
   );
 }

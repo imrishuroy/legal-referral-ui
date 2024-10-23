@@ -139,8 +139,13 @@ class FeedBloc extends Bloc<FeedEvent, FeedState> {
     FeedPostLiked event,
     Emitter<FeedState> emit,
   ) async {
-    final feed =
-        state.feed ?? (event.index != null ? state.feeds[event.index!] : null);
+    Feed? feed;
+
+    if (event.isFromeDetails) {
+      feed = state.feed;
+    } else {
+      feed = state.feeds[event.index];
+    }
     final feeds = List.of(state.feeds);
 
     if (feed != null) {
@@ -157,10 +162,8 @@ class FeedBloc extends Bloc<FeedEvent, FeedState> {
         ),
       );
 
-      if (event.index != null &&
-          event.index! >= 0 &&
-          event.index! < feeds.length) {
-        feeds[event.index!] = updatedFeed;
+      if (event.index >= 0 && event.index < feeds.length) {
+        feeds[event.index] = updatedFeed;
       }
 
       emit(
@@ -196,10 +199,8 @@ class FeedBloc extends Bloc<FeedEvent, FeedState> {
           ),
         );
 
-        if (event.index != null &&
-            event.index! >= 0 &&
-            event.index! < feeds.length) {
-          feeds[event.index!] = revertedFeed;
+        if (event.index >= 0 && event.index < feeds.length) {
+          feeds[event.index] = revertedFeed;
         }
 
         emit(
@@ -217,8 +218,13 @@ class FeedBloc extends Bloc<FeedEvent, FeedState> {
     FeedPostUnliked event,
     Emitter<FeedState> emit,
   ) async {
-    final feed =
-        state.feed ?? (event.index != null ? state.feeds[event.index!] : null);
+    Feed? feed;
+
+    if (event.isFromeDetails) {
+      feed = state.feed;
+    } else {
+      feed = state.feeds[event.index];
+    }
     final feeds = List.of(state.feeds);
 
     if (feed != null) {
@@ -237,10 +243,8 @@ class FeedBloc extends Bloc<FeedEvent, FeedState> {
       );
 
       // Update the specific feed in the list
-      if (event.index != null &&
-          event.index! >= 0 &&
-          event.index! < feeds.length) {
-        feeds[event.index!] = updatedFeed;
+      if (event.index >= 0 && event.index < feeds.length) {
+        feeds[event.index] = updatedFeed;
       }
 
       final postLikedUsers = List.of(state.postLikedUsers);
@@ -272,10 +276,8 @@ class FeedBloc extends Bloc<FeedEvent, FeedState> {
           ),
         );
 
-        if (event.index != null &&
-            event.index! >= 0 &&
-            event.index! < feeds.length) {
-          feeds[event.index!] = revertedFeed;
+        if (event.index >= 0 && event.index < feeds.length) {
+          feeds[event.index] = revertedFeed;
         }
 
         emit(

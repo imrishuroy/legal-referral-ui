@@ -2,6 +2,7 @@ import 'package:injectable/injectable.dart';
 import 'package:legal_referral_ui/src/core/config/config.dart';
 import 'package:legal_referral_ui/src/core/network/api_client.dart';
 import 'package:legal_referral_ui/src/features/post/data/data.dart';
+import 'package:legal_referral_ui/src/features/post/domain/domain.dart';
 
 @singleton
 class PostDatasource {
@@ -20,6 +21,15 @@ class PostDatasource {
         post.files,
       );
       return response;
+    } catch (_) {
+      rethrow;
+    }
+  }
+
+  Future<Post> fetchPost({required int postId}) async {
+    try {
+      final post = await _apiClient.fetchPost(postId);
+      return post;
     } catch (_) {
       rethrow;
     }

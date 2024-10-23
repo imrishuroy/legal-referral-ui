@@ -193,6 +193,7 @@ class _FeedDetailsPageState extends State<FeedDetailsPage> {
           FeedPostUnliked(
             postId: postId,
             index: index,
+            isFromeDetails: true,
           ),
         );
       } else {
@@ -207,6 +208,7 @@ class _FeedDetailsPageState extends State<FeedDetailsPage> {
               index: index,
               userId: userId,
               senderId: senderId,
+              isFromeDetails: true,
             ),
           );
         }
