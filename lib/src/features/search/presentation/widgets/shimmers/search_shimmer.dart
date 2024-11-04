@@ -93,7 +93,6 @@ class SearchShimmer extends StatelessWidget {
                 ],
               ),
             SizedBox(height: 34.h),
-
             for (var i = 0; i < 3; i++)
               Column(
                 children: [
@@ -153,7 +152,6 @@ class SearchShimmer extends StatelessWidget {
                   ),
                 ],
               ),
-            // const Text("Today's news and views"),
           ],
         ),
       ),

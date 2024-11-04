@@ -42,9 +42,8 @@ class FeedTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final user = feed?.feedPost?.user;
-    final post = feed?.feedPost?.post;
-    final name = '${user?.firstName} ${user?.lastName}';
+    final feedPost = feed?.feedPost;
+    final name = '${feedPost?.ownerFirstName} ${feedPost?.ownerLastName}';
     final theme = Theme.of(context).textTheme;
     return ColoredBox(
       color: LegalReferralColors.containerWhite500,
@@ -60,7 +59,7 @@ class FeedTile extends StatelessWidget {
               children: [
                 GestureDetector(
                   onTap: () {
-                    final userId = user?.userId;
+                    final userId = feedPost?.ownerId;
                     if (userId != null) {
                       context.pushNamed(
                         ProfilePage.name,
@@ -69,7 +68,7 @@ class FeedTile extends StatelessWidget {
                     }
                   },
                   child: CustomAvatar(
-                    imageUrl: user?.avatarUrl,
+                    imageUrl: feedPost?.ownerAvatarUrl,
                     radius: 28.r,
                   ),
                 ),
@@ -100,7 +99,9 @@ class FeedTile extends StatelessWidget {
                                 color: LegalReferralColors.textGrey117,
                               ),
                               children: [
-                                TextSpan(text: '${user?.practiceArea ?? ''} '),
+                                TextSpan(
+                                  text: '${feedPost?.ownerPracticeArea ?? ''} ',
+                                ),
                                 const TextSpan(text: ' • 1st'),
                               ],
                             ),
@@ -136,29 +137,30 @@ class FeedTile extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                if (post?.content != null && post!.content!.isNotEmpty)
+                if (feedPost?.content != null && feedPost!.content!.isNotEmpty)
                   ExpandableText(
                     padding: EdgeInsets.symmetric(
                       horizontal: 16.w,
                       vertical: 8.h,
                     ),
-                    text: post.content ?? '',
+                    text: feedPost.content ?? '',
                   ),
-                if (post?.type == PostType.link && post?.content != null)
+                if (feedPost?.postType == PostType.link &&
+                    feedPost?.content != null)
                   Padding(
                     padding: EdgeInsets.symmetric(
                       vertical: 20.h,
                     ),
                     child: LinkPreviewWidget(
-                      text: post!.content!,
+                      text: feedPost!.content!,
                     ),
                   )
                 else
                   MediaPost(
                     imageHeight: imageHeight,
-                    postType: post?.type ?? PostType.image,
-                    mediaUrls: post?.filesUrls ?? [],
-                    fileName: post?.content,
+                    postType: feedPost?.postType ?? PostType.image,
+                    mediaUrls: feedPost?.media ?? [],
+                    fileName: feedPost?.content,
                   ),
               ],
             ),

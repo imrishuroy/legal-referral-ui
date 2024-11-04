@@ -10,27 +10,25 @@ abstract class SearchEvent extends Equatable {
 class UserSearched extends SearchEvent {
   const UserSearched({
     required this.query,
-    required this.limit,
-    required this.offset,
   });
 
   final String query;
-  final int limit;
-  final int offset;
 
   @override
-  List<Object> get props => [query, limit, offset];
+  List<Object> get props => [query];
 }
 
-class SearchFilterSelected extends SearchEvent {
-  const SearchFilterSelected({
-    required this.filter,
+class SearchTypeSelected extends SearchEvent {
+  const SearchTypeSelected({
+    required this.searchType,
+    required this.query,
   });
 
-  final String filter;
+  final SearchType searchType;
+  final String query;
 
   @override
-  List<Object> get props => [filter];
+  List<Object> get props => [searchType, query];
 }
 
 class PeopleFilterSelected extends SearchEvent {
@@ -47,3 +45,14 @@ class PeopleFilterSelected extends SearchEvent {
 class SearchHistoryFetched extends SearchEvent {}
 
 class SearchHistoryCleared extends SearchEvent {}
+
+class PostSearched extends SearchEvent {
+  const PostSearched({
+    required this.query,
+  });
+
+  final String query;
+
+  @override
+  List<Object> get props => [query];
+}

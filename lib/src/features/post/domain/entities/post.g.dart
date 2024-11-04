@@ -12,6 +12,10 @@ _$PostImpl _$$PostImplFromJson(Map<String, dynamic> json) => _$PostImpl(
       createdAt:
           const DateTimeJsonConverter().fromJson(json['created_at'] as String),
       postId: (json['post_id'] as num).toInt(),
+      ownerFirstName: json['owner_first_name'] as String?,
+      ownerLastName: json['owner_last_name'] as String?,
+      ownerAvatarUrl: json['owner_avatar_url'] as String?,
+      ownerPracticeArea: json['owner_practice_area'] as String?,
       content: json['content'] as String?,
       filesUrls: (json['media'] as List<dynamic>?)
               ?.map((e) => e as String?)
@@ -25,6 +29,10 @@ Map<String, dynamic> _$$PostImplToJson(_$PostImpl instance) {
     'owner_id': instance.ownerId,
     'post_type': _$PostTypeEnumMap[instance.type]!,
     'post_id': instance.postId,
+    'owner_first_name': instance.ownerFirstName,
+    'owner_last_name': instance.ownerLastName,
+    'owner_avatar_url': instance.ownerAvatarUrl,
+    'owner_practice_area': instance.ownerPracticeArea,
     'content': instance.content,
     'media': instance.filesUrls,
   };

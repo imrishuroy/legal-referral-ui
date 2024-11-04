@@ -6,6 +6,7 @@ part 'comment_req.g.dart';
 class CommentReq {
   CommentReq({
     required this.userId,
+    required this.senderId,
     required this.postId,
     required this.content,
     this.parentCommentId,
@@ -16,6 +17,8 @@ class CommentReq {
 
   @JsonKey(name: 'user_id')
   final String userId;
+  @JsonKey(name: 'sender_id')
+  final String senderId;
   @JsonKey(name: 'post_id')
   final int postId;
   final String content;

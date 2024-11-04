@@ -342,6 +342,7 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
   @override
   Future<void> close() {
     _chatSubscription?.cancel();
+    _channel?.sink.close();
     return super.close();
   }
 

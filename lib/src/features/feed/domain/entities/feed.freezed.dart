@@ -254,21 +254,35 @@ FeedPost _$FeedPostFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$FeedPost {
-  @JsonKey(name: 'user')
-  AppUser? get user => throw _privateConstructorUsedError;
   @DateTimeJsonConverter()
   @JsonKey(name: 'created_at')
   DateTime get createdAt => throw _privateConstructorUsedError;
-  @JsonKey(name: 'feed_id')
-  int? get feedId => throw _privateConstructorUsedError;
+  @JsonKey(name: 'owner_id')
+  String get ownerId => throw _privateConstructorUsedError;
+  @JsonKey(name: 'post_id')
+  int get postId => throw _privateConstructorUsedError;
+  @JsonKey(name: 'content')
+  String? get content => throw _privateConstructorUsedError;
+  @JsonKey(name: 'post_type')
+  PostType get postType => throw _privateConstructorUsedError;
+  @JsonKey(name: 'poll_id')
+  int? get pollId => throw _privateConstructorUsedError;
+  @JsonKey(name: 'owner_first_name')
+  String? get ownerFirstName => throw _privateConstructorUsedError;
+  @JsonKey(name: 'owner_last_name')
+  String? get ownerLastName => throw _privateConstructorUsedError;
+  @JsonKey(name: 'owner_avatar_url')
+  String? get ownerAvatarUrl => throw _privateConstructorUsedError;
+  @JsonKey(name: 'owner_practice_area')
+  String? get ownerPracticeArea => throw _privateConstructorUsedError;
+  @JsonKey(name: 'media')
+  List<String> get media => throw _privateConstructorUsedError;
   @JsonKey(name: 'is_liked')
   bool get isLiked => throw _privateConstructorUsedError;
   @JsonKey(name: 'likes_count')
   int get likesCount => throw _privateConstructorUsedError;
   @JsonKey(name: 'comments_count')
   int get commentsCount => throw _privateConstructorUsedError;
-  @JsonKey(name: 'post')
-  Post? get post => throw _privateConstructorUsedError;
 
   /// Serializes this FeedPost to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -286,16 +300,20 @@ abstract class $FeedPostCopyWith<$Res> {
       _$FeedPostCopyWithImpl<$Res, FeedPost>;
   @useResult
   $Res call(
-      {@JsonKey(name: 'user') AppUser? user,
-      @DateTimeJsonConverter() @JsonKey(name: 'created_at') DateTime createdAt,
-      @JsonKey(name: 'feed_id') int? feedId,
+      {@DateTimeJsonConverter() @JsonKey(name: 'created_at') DateTime createdAt,
+      @JsonKey(name: 'owner_id') String ownerId,
+      @JsonKey(name: 'post_id') int postId,
+      @JsonKey(name: 'content') String? content,
+      @JsonKey(name: 'post_type') PostType postType,
+      @JsonKey(name: 'poll_id') int? pollId,
+      @JsonKey(name: 'owner_first_name') String? ownerFirstName,
+      @JsonKey(name: 'owner_last_name') String? ownerLastName,
+      @JsonKey(name: 'owner_avatar_url') String? ownerAvatarUrl,
+      @JsonKey(name: 'owner_practice_area') String? ownerPracticeArea,
+      @JsonKey(name: 'media') List<String> media,
       @JsonKey(name: 'is_liked') bool isLiked,
       @JsonKey(name: 'likes_count') int likesCount,
-      @JsonKey(name: 'comments_count') int commentsCount,
-      @JsonKey(name: 'post') Post? post});
-
-  $AppUserCopyWith<$Res>? get user;
-  $PostCopyWith<$Res>? get post;
+      @JsonKey(name: 'comments_count') int commentsCount});
 }
 
 /// @nodoc
@@ -313,27 +331,66 @@ class _$FeedPostCopyWithImpl<$Res, $Val extends FeedPost>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? user = freezed,
     Object? createdAt = null,
-    Object? feedId = freezed,
+    Object? ownerId = null,
+    Object? postId = null,
+    Object? content = freezed,
+    Object? postType = null,
+    Object? pollId = freezed,
+    Object? ownerFirstName = freezed,
+    Object? ownerLastName = freezed,
+    Object? ownerAvatarUrl = freezed,
+    Object? ownerPracticeArea = freezed,
+    Object? media = null,
     Object? isLiked = null,
     Object? likesCount = null,
     Object? commentsCount = null,
-    Object? post = freezed,
   }) {
     return _then(_value.copyWith(
-      user: freezed == user
-          ? _value.user
-          : user // ignore: cast_nullable_to_non_nullable
-              as AppUser?,
       createdAt: null == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
               as DateTime,
-      feedId: freezed == feedId
-          ? _value.feedId
-          : feedId // ignore: cast_nullable_to_non_nullable
+      ownerId: null == ownerId
+          ? _value.ownerId
+          : ownerId // ignore: cast_nullable_to_non_nullable
+              as String,
+      postId: null == postId
+          ? _value.postId
+          : postId // ignore: cast_nullable_to_non_nullable
+              as int,
+      content: freezed == content
+          ? _value.content
+          : content // ignore: cast_nullable_to_non_nullable
+              as String?,
+      postType: null == postType
+          ? _value.postType
+          : postType // ignore: cast_nullable_to_non_nullable
+              as PostType,
+      pollId: freezed == pollId
+          ? _value.pollId
+          : pollId // ignore: cast_nullable_to_non_nullable
               as int?,
+      ownerFirstName: freezed == ownerFirstName
+          ? _value.ownerFirstName
+          : ownerFirstName // ignore: cast_nullable_to_non_nullable
+              as String?,
+      ownerLastName: freezed == ownerLastName
+          ? _value.ownerLastName
+          : ownerLastName // ignore: cast_nullable_to_non_nullable
+              as String?,
+      ownerAvatarUrl: freezed == ownerAvatarUrl
+          ? _value.ownerAvatarUrl
+          : ownerAvatarUrl // ignore: cast_nullable_to_non_nullable
+              as String?,
+      ownerPracticeArea: freezed == ownerPracticeArea
+          ? _value.ownerPracticeArea
+          : ownerPracticeArea // ignore: cast_nullable_to_non_nullable
+              as String?,
+      media: null == media
+          ? _value.media
+          : media // ignore: cast_nullable_to_non_nullable
+              as List<String>,
       isLiked: null == isLiked
           ? _value.isLiked
           : isLiked // ignore: cast_nullable_to_non_nullable
@@ -346,39 +403,7 @@ class _$FeedPostCopyWithImpl<$Res, $Val extends FeedPost>
           ? _value.commentsCount
           : commentsCount // ignore: cast_nullable_to_non_nullable
               as int,
-      post: freezed == post
-          ? _value.post
-          : post // ignore: cast_nullable_to_non_nullable
-              as Post?,
     ) as $Val);
-  }
-
-  /// Create a copy of FeedPost
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @pragma('vm:prefer-inline')
-  $AppUserCopyWith<$Res>? get user {
-    if (_value.user == null) {
-      return null;
-    }
-
-    return $AppUserCopyWith<$Res>(_value.user!, (value) {
-      return _then(_value.copyWith(user: value) as $Val);
-    });
-  }
-
-  /// Create a copy of FeedPost
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @pragma('vm:prefer-inline')
-  $PostCopyWith<$Res>? get post {
-    if (_value.post == null) {
-      return null;
-    }
-
-    return $PostCopyWith<$Res>(_value.post!, (value) {
-      return _then(_value.copyWith(post: value) as $Val);
-    });
   }
 }
 
@@ -391,18 +416,20 @@ abstract class _$$FeedPostImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {@JsonKey(name: 'user') AppUser? user,
-      @DateTimeJsonConverter() @JsonKey(name: 'created_at') DateTime createdAt,
-      @JsonKey(name: 'feed_id') int? feedId,
+      {@DateTimeJsonConverter() @JsonKey(name: 'created_at') DateTime createdAt,
+      @JsonKey(name: 'owner_id') String ownerId,
+      @JsonKey(name: 'post_id') int postId,
+      @JsonKey(name: 'content') String? content,
+      @JsonKey(name: 'post_type') PostType postType,
+      @JsonKey(name: 'poll_id') int? pollId,
+      @JsonKey(name: 'owner_first_name') String? ownerFirstName,
+      @JsonKey(name: 'owner_last_name') String? ownerLastName,
+      @JsonKey(name: 'owner_avatar_url') String? ownerAvatarUrl,
+      @JsonKey(name: 'owner_practice_area') String? ownerPracticeArea,
+      @JsonKey(name: 'media') List<String> media,
       @JsonKey(name: 'is_liked') bool isLiked,
       @JsonKey(name: 'likes_count') int likesCount,
-      @JsonKey(name: 'comments_count') int commentsCount,
-      @JsonKey(name: 'post') Post? post});
-
-  @override
-  $AppUserCopyWith<$Res>? get user;
-  @override
-  $PostCopyWith<$Res>? get post;
+      @JsonKey(name: 'comments_count') int commentsCount});
 }
 
 /// @nodoc
@@ -418,27 +445,66 @@ class __$$FeedPostImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? user = freezed,
     Object? createdAt = null,
-    Object? feedId = freezed,
+    Object? ownerId = null,
+    Object? postId = null,
+    Object? content = freezed,
+    Object? postType = null,
+    Object? pollId = freezed,
+    Object? ownerFirstName = freezed,
+    Object? ownerLastName = freezed,
+    Object? ownerAvatarUrl = freezed,
+    Object? ownerPracticeArea = freezed,
+    Object? media = null,
     Object? isLiked = null,
     Object? likesCount = null,
     Object? commentsCount = null,
-    Object? post = freezed,
   }) {
     return _then(_$FeedPostImpl(
-      user: freezed == user
-          ? _value.user
-          : user // ignore: cast_nullable_to_non_nullable
-              as AppUser?,
       createdAt: null == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
               as DateTime,
-      feedId: freezed == feedId
-          ? _value.feedId
-          : feedId // ignore: cast_nullable_to_non_nullable
+      ownerId: null == ownerId
+          ? _value.ownerId
+          : ownerId // ignore: cast_nullable_to_non_nullable
+              as String,
+      postId: null == postId
+          ? _value.postId
+          : postId // ignore: cast_nullable_to_non_nullable
+              as int,
+      content: freezed == content
+          ? _value.content
+          : content // ignore: cast_nullable_to_non_nullable
+              as String?,
+      postType: null == postType
+          ? _value.postType
+          : postType // ignore: cast_nullable_to_non_nullable
+              as PostType,
+      pollId: freezed == pollId
+          ? _value.pollId
+          : pollId // ignore: cast_nullable_to_non_nullable
               as int?,
+      ownerFirstName: freezed == ownerFirstName
+          ? _value.ownerFirstName
+          : ownerFirstName // ignore: cast_nullable_to_non_nullable
+              as String?,
+      ownerLastName: freezed == ownerLastName
+          ? _value.ownerLastName
+          : ownerLastName // ignore: cast_nullable_to_non_nullable
+              as String?,
+      ownerAvatarUrl: freezed == ownerAvatarUrl
+          ? _value.ownerAvatarUrl
+          : ownerAvatarUrl // ignore: cast_nullable_to_non_nullable
+              as String?,
+      ownerPracticeArea: freezed == ownerPracticeArea
+          ? _value.ownerPracticeArea
+          : ownerPracticeArea // ignore: cast_nullable_to_non_nullable
+              as String?,
+      media: null == media
+          ? _value._media
+          : media // ignore: cast_nullable_to_non_nullable
+              as List<String>,
       isLiked: null == isLiked
           ? _value.isLiked
           : isLiked // ignore: cast_nullable_to_non_nullable
@@ -451,10 +517,6 @@ class __$$FeedPostImplCopyWithImpl<$Res>
           ? _value.commentsCount
           : commentsCount // ignore: cast_nullable_to_non_nullable
               as int,
-      post: freezed == post
-          ? _value.post
-          : post // ignore: cast_nullable_to_non_nullable
-              as Post?,
     ));
   }
 }
@@ -463,29 +525,67 @@ class __$$FeedPostImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$FeedPostImpl implements _FeedPost {
   const _$FeedPostImpl(
-      {@JsonKey(name: 'user') required this.user,
-      @DateTimeJsonConverter()
+      {@DateTimeJsonConverter()
       @JsonKey(name: 'created_at')
       required this.createdAt,
-      @JsonKey(name: 'feed_id') this.feedId,
+      @JsonKey(name: 'owner_id') required this.ownerId,
+      @JsonKey(name: 'post_id') required this.postId,
+      @JsonKey(name: 'content') required this.content,
+      @JsonKey(name: 'post_type') required this.postType,
+      @JsonKey(name: 'poll_id') this.pollId,
+      @JsonKey(name: 'owner_first_name') this.ownerFirstName,
+      @JsonKey(name: 'owner_last_name') this.ownerLastName,
+      @JsonKey(name: 'owner_avatar_url') this.ownerAvatarUrl,
+      @JsonKey(name: 'owner_practice_area') this.ownerPracticeArea,
+      @JsonKey(name: 'media') final List<String> media = const [],
       @JsonKey(name: 'is_liked') this.isLiked = false,
       @JsonKey(name: 'likes_count') this.likesCount = 0,
-      @JsonKey(name: 'comments_count') this.commentsCount = 0,
-      @JsonKey(name: 'post') this.post});
+      @JsonKey(name: 'comments_count') this.commentsCount = 0})
+      : _media = media;
 
   factory _$FeedPostImpl.fromJson(Map<String, dynamic> json) =>
       _$$FeedPostImplFromJson(json);
 
   @override
-  @JsonKey(name: 'user')
-  final AppUser? user;
-  @override
   @DateTimeJsonConverter()
   @JsonKey(name: 'created_at')
   final DateTime createdAt;
   @override
-  @JsonKey(name: 'feed_id')
-  final int? feedId;
+  @JsonKey(name: 'owner_id')
+  final String ownerId;
+  @override
+  @JsonKey(name: 'post_id')
+  final int postId;
+  @override
+  @JsonKey(name: 'content')
+  final String? content;
+  @override
+  @JsonKey(name: 'post_type')
+  final PostType postType;
+  @override
+  @JsonKey(name: 'poll_id')
+  final int? pollId;
+  @override
+  @JsonKey(name: 'owner_first_name')
+  final String? ownerFirstName;
+  @override
+  @JsonKey(name: 'owner_last_name')
+  final String? ownerLastName;
+  @override
+  @JsonKey(name: 'owner_avatar_url')
+  final String? ownerAvatarUrl;
+  @override
+  @JsonKey(name: 'owner_practice_area')
+  final String? ownerPracticeArea;
+  final List<String> _media;
+  @override
+  @JsonKey(name: 'media')
+  List<String> get media {
+    if (_media is EqualUnmodifiableListView) return _media;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_media);
+  }
+
   @override
   @JsonKey(name: 'is_liked')
   final bool isLiked;
@@ -495,13 +595,10 @@ class _$FeedPostImpl implements _FeedPost {
   @override
   @JsonKey(name: 'comments_count')
   final int commentsCount;
-  @override
-  @JsonKey(name: 'post')
-  final Post? post;
 
   @override
   String toString() {
-    return 'FeedPost(user: $user, createdAt: $createdAt, feedId: $feedId, isLiked: $isLiked, likesCount: $likesCount, commentsCount: $commentsCount, post: $post)';
+    return 'FeedPost(createdAt: $createdAt, ownerId: $ownerId, postId: $postId, content: $content, postType: $postType, pollId: $pollId, ownerFirstName: $ownerFirstName, ownerLastName: $ownerLastName, ownerAvatarUrl: $ownerAvatarUrl, ownerPracticeArea: $ownerPracticeArea, media: $media, isLiked: $isLiked, likesCount: $likesCount, commentsCount: $commentsCount)';
   }
 
   @override
@@ -509,22 +606,48 @@ class _$FeedPostImpl implements _FeedPost {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$FeedPostImpl &&
-            (identical(other.user, user) || other.user == user) &&
             (identical(other.createdAt, createdAt) ||
                 other.createdAt == createdAt) &&
-            (identical(other.feedId, feedId) || other.feedId == feedId) &&
+            (identical(other.ownerId, ownerId) || other.ownerId == ownerId) &&
+            (identical(other.postId, postId) || other.postId == postId) &&
+            (identical(other.content, content) || other.content == content) &&
+            (identical(other.postType, postType) ||
+                other.postType == postType) &&
+            (identical(other.pollId, pollId) || other.pollId == pollId) &&
+            (identical(other.ownerFirstName, ownerFirstName) ||
+                other.ownerFirstName == ownerFirstName) &&
+            (identical(other.ownerLastName, ownerLastName) ||
+                other.ownerLastName == ownerLastName) &&
+            (identical(other.ownerAvatarUrl, ownerAvatarUrl) ||
+                other.ownerAvatarUrl == ownerAvatarUrl) &&
+            (identical(other.ownerPracticeArea, ownerPracticeArea) ||
+                other.ownerPracticeArea == ownerPracticeArea) &&
+            const DeepCollectionEquality().equals(other._media, _media) &&
             (identical(other.isLiked, isLiked) || other.isLiked == isLiked) &&
             (identical(other.likesCount, likesCount) ||
                 other.likesCount == likesCount) &&
             (identical(other.commentsCount, commentsCount) ||
-                other.commentsCount == commentsCount) &&
-            (identical(other.post, post) || other.post == post));
+                other.commentsCount == commentsCount));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, user, createdAt, feedId, isLiked,
-      likesCount, commentsCount, post);
+  int get hashCode => Object.hash(
+      runtimeType,
+      createdAt,
+      ownerId,
+      postId,
+      content,
+      postType,
+      pollId,
+      ownerFirstName,
+      ownerLastName,
+      ownerAvatarUrl,
+      ownerPracticeArea,
+      const DeepCollectionEquality().hash(_media),
+      isLiked,
+      likesCount,
+      commentsCount);
 
   /// Create a copy of FeedPost
   /// with the given fields replaced by the non-null parameter values.
@@ -544,29 +667,61 @@ class _$FeedPostImpl implements _FeedPost {
 
 abstract class _FeedPost implements FeedPost {
   const factory _FeedPost(
-      {@JsonKey(name: 'user') required final AppUser? user,
-      @DateTimeJsonConverter()
-      @JsonKey(name: 'created_at')
-      required final DateTime createdAt,
-      @JsonKey(name: 'feed_id') final int? feedId,
-      @JsonKey(name: 'is_liked') final bool isLiked,
-      @JsonKey(name: 'likes_count') final int likesCount,
-      @JsonKey(name: 'comments_count') final int commentsCount,
-      @JsonKey(name: 'post') final Post? post}) = _$FeedPostImpl;
+          {@DateTimeJsonConverter()
+          @JsonKey(name: 'created_at')
+          required final DateTime createdAt,
+          @JsonKey(name: 'owner_id') required final String ownerId,
+          @JsonKey(name: 'post_id') required final int postId,
+          @JsonKey(name: 'content') required final String? content,
+          @JsonKey(name: 'post_type') required final PostType postType,
+          @JsonKey(name: 'poll_id') final int? pollId,
+          @JsonKey(name: 'owner_first_name') final String? ownerFirstName,
+          @JsonKey(name: 'owner_last_name') final String? ownerLastName,
+          @JsonKey(name: 'owner_avatar_url') final String? ownerAvatarUrl,
+          @JsonKey(name: 'owner_practice_area') final String? ownerPracticeArea,
+          @JsonKey(name: 'media') final List<String> media,
+          @JsonKey(name: 'is_liked') final bool isLiked,
+          @JsonKey(name: 'likes_count') final int likesCount,
+          @JsonKey(name: 'comments_count') final int commentsCount}) =
+      _$FeedPostImpl;
 
   factory _FeedPost.fromJson(Map<String, dynamic> json) =
       _$FeedPostImpl.fromJson;
 
   @override
-  @JsonKey(name: 'user')
-  AppUser? get user;
-  @override
   @DateTimeJsonConverter()
   @JsonKey(name: 'created_at')
   DateTime get createdAt;
   @override
-  @JsonKey(name: 'feed_id')
-  int? get feedId;
+  @JsonKey(name: 'owner_id')
+  String get ownerId;
+  @override
+  @JsonKey(name: 'post_id')
+  int get postId;
+  @override
+  @JsonKey(name: 'content')
+  String? get content;
+  @override
+  @JsonKey(name: 'post_type')
+  PostType get postType;
+  @override
+  @JsonKey(name: 'poll_id')
+  int? get pollId;
+  @override
+  @JsonKey(name: 'owner_first_name')
+  String? get ownerFirstName;
+  @override
+  @JsonKey(name: 'owner_last_name')
+  String? get ownerLastName;
+  @override
+  @JsonKey(name: 'owner_avatar_url')
+  String? get ownerAvatarUrl;
+  @override
+  @JsonKey(name: 'owner_practice_area')
+  String? get ownerPracticeArea;
+  @override
+  @JsonKey(name: 'media')
+  List<String> get media;
   @override
   @JsonKey(name: 'is_liked')
   bool get isLiked;
@@ -576,9 +731,6 @@ abstract class _FeedPost implements FeedPost {
   @override
   @JsonKey(name: 'comments_count')
   int get commentsCount;
-  @override
-  @JsonKey(name: 'post')
-  Post? get post;
 
   /// Create a copy of FeedPost
   /// with the given fields replaced by the non-null parameter values.

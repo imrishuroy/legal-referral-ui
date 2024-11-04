@@ -9,9 +9,9 @@ import 'package:legal_referral_ui/src/features/auth/presentation/presentation.da
 import 'package:legal_referral_ui/src/features/feed/data/data.dart';
 import 'package:legal_referral_ui/src/features/feed/domain/domain.dart';
 import 'package:legal_referral_ui/src/features/feed/presentation/presentation.dart';
-import 'package:legal_referral_ui/src/features/post/domain/domain.dart';
 import 'package:toastification/toastification.dart';
 
+// TODO: Check if we can remove this feed details page
 class FeedDetailsPageArgs {
   FeedDetailsPageArgs({
     required this.feedBloc,
@@ -52,7 +52,7 @@ class _FeedDetailsPageState extends State<FeedDetailsPage> {
       ),
     );
 
-    final postId = args.feed?.feedPost?.post?.postId;
+    final postId = args.feed?.feedPost?.postId;
     if (postId != null && args.fetchLikesAndCommentsCount) {
       args.feedBloc.add(
         PostLikesAndCommentsCountFetched(
@@ -72,7 +72,6 @@ class _FeedDetailsPageState extends State<FeedDetailsPage> {
 
   @override
   Widget build(BuildContext context) {
-    final post = widget.args.feed?.feedPost?.post;
     return Scaffold(
       appBar: AppBar(),
       backgroundColor: LegalReferralColors.containerWhite500,
@@ -133,16 +132,16 @@ class _FeedDetailsPageState extends State<FeedDetailsPage> {
                                       ),
                                 ),
                               SizedBox(height: 8.h),
-                              if (post?.postId != null)
+                              if (feedPost?.postId != null)
                                 PostLikedUsers(
-                                  postId: post!.postId,
+                                  postId: feedPost!.postId,
                                   feedBloc: widget.args.feedBloc,
                                 ),
                               SizedBox(height: 24.h),
-                              if (post?.postId != null)
+                              if (feedPost?.postId != null)
                                 CommentsList(
                                   feedBloc: widget.args.feedBloc,
-                                  postId: post!.postId,
+                                  postId: feedPost!.postId,
                                   onReplyPressed: (commentId) {
                                     widget.args.feedBloc.add(
                                       ParentCommentIdChanged(
@@ -169,7 +168,8 @@ class _FeedDetailsPageState extends State<FeedDetailsPage> {
                   commentsController: _commentsController,
                   onSend: () => _commentOnPost(
                     feedBloc: widget.args.feedBloc,
-                    post: widget.args.feed?.feedPost?.post,
+                    userId: feedPost?.ownerId,
+                    postId: feedPost?.postId,
                     parentCommentId: state.parentCommentId,
                   ),
                 ),
@@ -186,7 +186,7 @@ class _FeedDetailsPageState extends State<FeedDetailsPage> {
     bool isLiked,
     int index,
   ) {
-    final postId = feed?.feedPost?.post?.postId;
+    final postId = feed?.feedPost?.postId;
     if (postId != null) {
       if (isLiked == true) {
         widget.args.feedBloc.add(
@@ -198,8 +198,8 @@ class _FeedDetailsPageState extends State<FeedDetailsPage> {
         );
       } else {
         final senderId = getIt<AuthBloc>().state.user?.userId;
-        final userId = feed?.feedPost?.post?.ownerId;
-        final postId = feed?.feedPost?.post?.postId;
+        final userId = feed?.feedPost?.ownerId;
+        final postId = feed?.feedPost?.postId;
 
         if (userId != null && senderId != null && postId != null) {
           widget.args.feedBloc.add(
@@ -218,17 +218,21 @@ class _FeedDetailsPageState extends State<FeedDetailsPage> {
 
   void _commentOnPost({
     required FeedBloc feedBloc,
-    required Post? post,
+    required String? userId,
+    required int? postId,
     required int? parentCommentId,
   }) {
-    final userId = getIt<AuthBloc>().state.user?.userId;
-    final postId = post?.postId;
+    final senderId = getIt<AuthBloc>().state.user?.userId;
     final comment = _commentsController.text;
-    if (postId != null && userId != null && comment.isNotEmpty) {
+    if (postId != null &&
+        userId != null &&
+        senderId != null &&
+        comment.isNotEmpty) {
       feedBloc.add(
         Commented(
           comment: CommentReq(
             userId: userId,
+            senderId: senderId,
             postId: postId,
             content: comment,
             parentCommentId: parentCommentId,

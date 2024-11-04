@@ -7,8 +7,6 @@ import 'package:legal_referral_ui/src/core/config/config.dart';
 import 'package:legal_referral_ui/src/core/constants/constants.dart';
 import 'package:legal_referral_ui/src/core/utils/utils.dart';
 import 'package:legal_referral_ui/src/features/auth/presentation/presentation.dart';
-import 'package:legal_referral_ui/src/features/feed/domain/domain.dart';
-import 'package:legal_referral_ui/src/features/feed/presentation/presentation.dart';
 import 'package:legal_referral_ui/src/features/saved_posts/domain/domain.dart';
 import 'package:legal_referral_ui/src/features/saved_posts/presentation/presentation.dart';
 import 'package:toastification/toastification.dart';
@@ -83,24 +81,27 @@ class _SavedPostsPageState extends State<SavedPostsPage> {
               return SavedPostTile(
                 savedPost: savedPost,
                 onTap: () {
-                  final feed = Feed(
-                    type: FeedType.post,
-                    feedPost: FeedPost(
-                      post: savedPost.post,
-                      user: savedPost.owner,
-                      createdAt: savedPost.createdAt,
-                    ),
-                  );
+                  // TODO: fix this, instead this pushing this to
+                  // feed details page, we should push to post details page
+                  // final feed = Feed(
+                  //   type: FeedType.post,
+                  //   feedPost: FeedPost(
+                  //     // feedId: savedPost.savedPostId,
+                  //     post: savedPost.post,
+                  //     // user: savedPost.owner,
+                  //     createdAt: savedPost.createdAt,
+                  //   ),
+                  // );
 
-                  context.pushNamed(
-                    FeedDetailsPage.name,
-                    extra: FeedDetailsPageArgs(
-                      feedBloc: getIt<FeedBloc>(),
-                      feed: feed,
-                      index: index,
-                      fetchLikesAndCommentsCount: true,
-                    ),
-                  );
+                  // context.pushNamed(
+                  //   FeedDetailsPage.name,
+                  //   extra: FeedDetailsPageArgs(
+                  //     feedBloc: getIt<FeedBloc>(),
+                  //     feed: feed,
+                  //     index: index,
+                  //     fetchLikesAndCommentsCount: true,
+                  //   ),
+                  // );
                 },
                 onOptionsPressed: () => _showOptionsSheet(
                   context: context,

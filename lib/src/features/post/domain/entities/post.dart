@@ -29,6 +29,10 @@ class Post with _$Post {
     @DateTimeJsonConverter()
     required DateTime createdAt,
     @JsonKey(name: 'post_id') required int postId,
+    @JsonKey(name: 'owner_first_name') String? ownerFirstName,
+    @JsonKey(name: 'owner_last_name') String? ownerLastName,
+    @JsonKey(name: 'owner_avatar_url') String? ownerAvatarUrl,
+    @JsonKey(name: 'owner_practice_area') String? ownerPracticeArea,
     String? content,
     @JsonKey(name: 'media') @Default([]) List<String?> filesUrls,
     @JsonKey(name: 'poll_id', includeIfNull: false) int? pollId,
