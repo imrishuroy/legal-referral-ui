@@ -181,9 +181,15 @@ class SharedPrefs {
   }
 
   static Future<void> removeUser() async {
-    await _sharedPrefs?.remove(_appUser);
-    await _sharedPrefs?.remove(_idToken);
-    await _sharedPrefs?.remove(_refershToken);
+    if (_sharedPrefs == null) {
+      return;
+    }
+
+    await Future.wait([
+      _sharedPrefs!.remove(_appUser),
+      _sharedPrefs!.remove(_idToken),
+      _sharedPrefs!.remove(_refershToken),
+    ]);
   }
 
   static Future<void> clear() async {

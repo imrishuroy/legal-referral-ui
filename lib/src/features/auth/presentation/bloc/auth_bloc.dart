@@ -42,9 +42,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<AuthFacebookSignedIn>(_onAuthFacebookSignedIn);
     on<AuthUserRequested>(_onAuthUserRequested);
     on<PasswordChanged>(_onPassworChanged);
-    on<AuthSignOutRequested>(_onAuthSignOutRequested);
     on<UserUpdated>(_onUserUpdated);
     on<DeviceDetailsSaved>(_onDeviceDetailsSaved);
+    on<AuthSignOutRequested>(_onAuthSignOutRequested);
   }
 
   final FirebaseAuth _firebaseAuth;
@@ -55,12 +55,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     AuthInitialized event,
     Emitter<AuthState> emit,
   ) async {
-    emit(
-      state.copyWith(
-        authStatus: AuthStatus.loading,
-      ),
-    );
-
     final idToken = SharedPrefs.getIDToken();
     final refreshToken = SharedPrefs.getRefreshToken();
 
@@ -73,6 +67,12 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
       return;
     }
+
+    emit(
+      state.copyWith(
+        authStatus: AuthStatus.loading,
+      ),
+    );
 
     final res = await _authUseCase.refreshToken(
       refreshTokenReq: RefreshTokenReq(
@@ -1049,12 +1049,10 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     AuthSignOutRequested event,
     Emitter<AuthState> emit,
   ) async {
+    await SharedPrefs.removeUser();
     await _googleSignIn.signOut();
     await _firebaseAuth.signOut();
     await SignInWithLinkedIn.logout();
-    await SharedPrefs.removeUser();
-    emit(
-      AuthState.initial(),
-    );
+    add(AuthInitialized());
   }
 }
