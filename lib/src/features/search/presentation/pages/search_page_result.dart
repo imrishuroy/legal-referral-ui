@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:legal_referral_ui/src/core/common_widgets/widgets.dart';
 import 'package:legal_referral_ui/src/core/constants/colors.dart';
-import 'package:legal_referral_ui/src/features/search/presentation/widgets/shimmers/search_result_shimmer.dart';
+import 'package:legal_referral_ui/src/features/search/presentation/widgets/shimmers/search_people_shimmer.dart';
 
 class SearchPageResult extends StatefulWidget {
   const SearchPageResult({super.key});
@@ -89,7 +89,8 @@ class _SearchPageResultState extends State<SearchPageResult> {
       body: Column(
         children: [
           SizedBox(height: 8.h),
-          const SearchResultShimmer(),
+          const SearchPeopleShimmer(),
+          // TODO: fix this
           // const SearchResultWidget(),
         ],
       ),

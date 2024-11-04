@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:legal_referral_ui/src/core/config/config.dart';
 import 'package:legal_referral_ui/src/features/auth/domain/domain.dart';
+import 'package:legal_referral_ui/src/features/post/domain/domain.dart';
 import 'package:legal_referral_ui/src/features/search/domain/domain.dart';
 import 'package:stream_transform/stream_transform.dart';
 
@@ -24,7 +25,11 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
       _onUserSearched,
       transformer: debounce(_duration),
     );
-    on<SearchFilterSelected>(_onSearchFilterSelected);
+    on<PostSearched>(
+      _onPostSearched,
+      transformer: debounce(_duration),
+    );
+    on<SearchTypeSelected>(_onSearchTypeSelected);
     on<PeopleFilterSelected>(_onPeopleFilterSelected);
     on<SearchHistoryFetched>(_onSearchHistoryFetched);
     on<SearchHistoryCleared>(_onSearchHistoryCleared);
@@ -55,8 +60,8 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
     final result = await _searchUseCase.searchUsers(
       query: event.query.toLowerCase().replaceAll(' ', ''),
       filter: state.selectedPeopleFilter,
-      limit: event.limit,
-      offset: event.offset,
+      limit: _limit,
+      offset: 1,
     );
     result.fold(
       (failure) => emit(
@@ -68,21 +73,84 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
       (users) => emit(
         state.copyWith(
           status: SearchStatus.success,
-          searchUsers: users,
+          users: users,
         ),
       ),
     );
   }
 
-  void _onSearchFilterSelected(
-    SearchFilterSelected event,
+  Future<void> _onPostSearched(
+    PostSearched event,
+    Emitter<SearchState> emit,
+  ) async {
+    if (event.query.isEmpty) {
+      emit(
+        state.copyWith(
+          isSearching: false,
+        ),
+      );
+      return;
+    }
+
+    emit(
+      state.copyWith(
+        status: SearchStatus.loading,
+        isSearching: true,
+        offset: 1,
+        hasReachedMax: false,
+      ),
+    );
+
+    final result = await _searchUseCase.searchPosts(
+      query: event.query.toLowerCase().replaceAll(' ', ''),
+      limit: _limit,
+      offset: 1,
+    );
+    result.fold(
+      (failure) => emit(
+        state.copyWith(
+          status: SearchStatus.failure,
+          failure: failure,
+        ),
+      ),
+      (posts) => emit(
+        state.copyWith(
+          status: SearchStatus.success,
+          posts: posts,
+          offset: state.offset + 1,
+          hasReachedMax: posts.length < _limit,
+        ),
+      ),
+    );
+  }
+
+  void _onSearchTypeSelected(
+    SearchTypeSelected event,
     Emitter<SearchState> emit,
   ) {
     emit(
       state.copyWith(
-        selectedFilter: event.filter,
+        selectedSearchType: event.searchType,
+        users: [],
+        posts: [],
+        offset: 1,
+        hasReachedMax: false,
       ),
     );
+
+    if (event.searchType == SearchType.people) {
+      add(
+        UserSearched(
+          query: event.query,
+        ),
+      );
+    } else {
+      add(
+        PostSearched(
+          query: event.query,
+        ),
+      );
+    }
   }
 
   void _onPeopleFilterSelected(

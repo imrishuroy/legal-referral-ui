@@ -13,7 +13,6 @@ import 'package:legal_referral_ui/src/features/auth/presentation/presentation.da
 import 'package:legal_referral_ui/src/features/feed/domain/entities/feed.dart';
 import 'package:legal_referral_ui/src/features/feed/presentation/presentation.dart';
 import 'package:legal_referral_ui/src/features/notifications/presentation/presentation.dart';
-import 'package:legal_referral_ui/src/features/post/domain/domain.dart';
 import 'package:legal_referral_ui/src/features/search/presentation/presentation.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:toastification/toastification.dart';
@@ -188,9 +187,9 @@ class _FeedsPageState extends State<FeedsPage> {
                           index,
                         ),
                         onSharePressed: () async {
-                          final post = feedPost?.post;
-                          if (post != null) {
-                            await _sharePost(post);
+                          final files = feedPost?.media;
+                          if (files != null) {
+                            await _sharePost(files);
                           }
                         },
                         onDiscussPressed: () {},
@@ -236,11 +235,10 @@ class _FeedsPageState extends State<FeedsPage> {
     }
   }
 
-  Future<void> _sharePost(Post? post) async {
-    if (post == null) return;
-    final media = post.filesUrls.isNotEmpty ? post.filesUrls.first : '';
+  Future<void> _sharePost(List<String> postFiles) async {
+    final file = postFiles.isNotEmpty ? postFiles.first : '';
     await Share.share(
-      'check out this post from Legal Referral app $media',
+      'check out this post from Legal Referral app $file',
     );
   }
 
@@ -249,7 +247,7 @@ class _FeedsPageState extends State<FeedsPage> {
     bool isLiked,
     int index,
   ) {
-    final postId = feedPost?.post?.postId;
+    final postId = feedPost?.postId;
     if (postId != null) {
       if (isLiked == true) {
         _feedBloc.add(
@@ -261,8 +259,8 @@ class _FeedsPageState extends State<FeedsPage> {
         );
       } else {
         final senderId = _authBloc.state.user?.userId;
-        final userId = feedPost?.post?.ownerId;
-        final postId = feedPost?.post?.postId;
+        final userId = feedPost?.ownerId;
+        final postId = feedPost?.postId;
         if (userId != null && senderId != null && postId != null) {
           _feedBloc.add(
             FeedPostLiked(
@@ -293,7 +291,7 @@ class _FeedsPageState extends State<FeedsPage> {
         children: [
           ListTile(
             onTap: () {
-              final postId = feed?.feedPost?.post?.postId;
+              final postId = feed?.feedPost?.postId;
               if (postId != null && userId != null) {
                 _feedBloc.add(
                   PostSaved(
@@ -340,7 +338,7 @@ class _FeedsPageState extends State<FeedsPage> {
           const Divider(),
           ListTile(
             onTap: () async {
-              await _sharePost(feed?.feedPost?.post);
+              await _sharePost(feed?.feedPost?.media ?? []);
             },
             leading: SvgPicture.asset(
               IconStringConstants.share,
@@ -412,7 +410,7 @@ class _FeedsPageState extends State<FeedsPage> {
                   ?.copyWith(color: LegalReferralColors.textGrey500),
             ),
             onTap: () {
-              final postId = feed?.feedPost?.post?.postId;
+              final postId = feed?.feedPost?.postId;
               if (postId != null && userId != null) {
                 _feedBloc.add(
                   PostSaved(
@@ -425,10 +423,10 @@ class _FeedsPageState extends State<FeedsPage> {
             },
           ),
           const Divider(),
-          if (feed?.feedPost?.post?.ownerId == userId)
+          if (feed?.feedPost?.ownerId == userId)
             ListTile(
               onTap: () {
-                final postId = feed?.feedPost?.post?.postId;
+                final postId = feed?.feedPost?.postId;
                 if (postId != null) {
                   _feedBloc.add(
                     PostDeleted(

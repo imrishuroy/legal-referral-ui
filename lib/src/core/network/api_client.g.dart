@@ -1945,6 +1945,49 @@ class _APIClient implements APIClient {
   }
 
   @override
+  Future<List<Post>> searchPosts(
+    String query,
+    int limit,
+    int offset,
+  ) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{
+      r'query': query,
+      r'limit': limit,
+      r'offset': offset,
+    };
+    final _headers = <String, dynamic>{};
+    const Map<String, dynamic>? _data = null;
+    final _options = _setStreamType<List<Post>>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+        .compose(
+          _dio.options,
+          '/search/posts',
+          queryParameters: queryParameters,
+          data: _data,
+        )
+        .copyWith(
+            baseUrl: _combineBaseUrls(
+          _dio.options.baseUrl,
+          baseUrl,
+        )));
+    final _result = await _dio.fetch<List<dynamic>>(_options);
+    late List<Post> _value;
+    try {
+      _value = _result.data!
+          .map((dynamic i) => Post.fromJson(i as Map<String, dynamic>))
+          .toList();
+    } on Object catch (e, s) {
+      errorLogger?.logError(e, s, _options);
+      rethrow;
+    }
+    return _value;
+  }
+
+  @override
   Future<List<ChatMessage>> fetchMessages(
     String roomId,
     int limit,
@@ -2914,7 +2957,7 @@ class _APIClient implements APIClient {
     )
         .compose(
           _dio.options,
-          '/feeds/${userId}',
+          '/v2/feeds/${userId}',
           queryParameters: queryParameters,
           data: _data,
         )

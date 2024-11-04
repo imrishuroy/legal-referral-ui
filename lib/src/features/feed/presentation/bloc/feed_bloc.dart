@@ -666,7 +666,7 @@ class FeedBloc extends Bloc<FeedEvent, FeedState> {
       (_) {
         final feeds = List.of(state.feeds);
         feeds.removeWhere(
-          (feed) => feed?.feedPost?.post?.postId == event.postId,
+          (feed) => feed?.feedPost?.postId == event.postId,
         );
 
         emit(

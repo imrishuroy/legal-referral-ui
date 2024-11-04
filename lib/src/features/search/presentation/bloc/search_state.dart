@@ -1,10 +1,6 @@
 part of 'search_bloc.dart';
 
-const List<String> searchFilters = [
-  'People',
-  'Posts',
-  'News',
-];
+enum SearchType { people, posts }
 
 const List<String> peopleFilters = [
   'All',
@@ -12,14 +8,19 @@ const List<String> peopleFilters = [
   '2nd',
 ];
 
+const _limit = 20;
+
 enum SearchStatus { initial, loading, success, failure }
 
 class SearchState extends Equatable {
   const SearchState({
     required this.status,
-    required this.searchUsers,
+    this.users = const [],
+    this.posts = const [],
+    this.offset = 1,
+    this.hasReachedMax = false,
     this.isSearching = false,
-    this.selectedFilter = 'People',
+    this.selectedSearchType = SearchType.people,
     this.selectedPeopleFilter = 'All',
     this.searchUsersHistories = const [],
     this.searchQueryHistories = const [],
@@ -29,24 +30,30 @@ class SearchState extends Equatable {
   factory SearchState.initial() {
     return const SearchState(
       status: SearchStatus.initial,
-      searchUsers: <AppUser>[],
     );
   }
 
   final SearchStatus status;
-  final List<AppUser?> searchUsers;
+  final List<AppUser?> users;
+  final List<Post?> posts;
+  final int offset;
+  final bool hasReachedMax;
   final bool isSearching;
-  final String selectedFilter;
+  final SearchType selectedSearchType;
   final String selectedPeopleFilter;
   final List<AppUser?> searchUsersHistories;
   final List<String> searchQueryHistories;
+
   final Failure? failure;
 
   SearchState copyWith({
     SearchStatus? status,
-    List<AppUser?>? searchUsers,
+    List<AppUser?>? users,
+    List<Post?>? posts,
+    int? offset,
+    bool? hasReachedMax,
     bool? isSearching,
-    String? selectedFilter,
+    SearchType? selectedSearchType,
     String? selectedPeopleFilter,
     List<AppUser?>? searchUsersHistories,
     List<String>? searchQueryHistories,
@@ -54,9 +61,11 @@ class SearchState extends Equatable {
   }) {
     return SearchState(
       status: status ?? this.status,
-      searchUsers: searchUsers ?? this.searchUsers,
+      offset: offset ?? this.offset,
+      users: users ?? this.users,
+      posts: posts ?? this.posts,
       isSearching: isSearching ?? this.isSearching,
-      selectedFilter: selectedFilter ?? this.selectedFilter,
+      selectedSearchType: selectedSearchType ?? this.selectedSearchType,
       selectedPeopleFilter: selectedPeopleFilter ?? this.selectedPeopleFilter,
       searchUsersHistories: searchUsersHistories ?? this.searchUsersHistories,
       searchQueryHistories: searchQueryHistories ?? this.searchQueryHistories,
@@ -67,9 +76,11 @@ class SearchState extends Equatable {
   @override
   List<Object?> get props => [
         status,
-        searchUsers,
+        offset,
+        users,
+        posts,
         isSearching,
-        selectedFilter,
+        selectedSearchType,
         selectedPeopleFilter,
         searchUsersHistories,
         searchQueryHistories,

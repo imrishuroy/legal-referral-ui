@@ -4,6 +4,7 @@ import 'package:injectable/injectable.dart';
 import 'package:legal_referral_ui/src/core/config/failure.dart';
 import 'package:legal_referral_ui/src/core/network/network.dart';
 import 'package:legal_referral_ui/src/features/auth/domain/entities/app_user.dart';
+import 'package:legal_referral_ui/src/features/post/domain/entities/post.dart';
 import 'package:legal_referral_ui/src/features/search/data/data.dart';
 import 'package:legal_referral_ui/src/features/search/domain/repositories/search_repository.dart';
 
@@ -30,6 +31,30 @@ class SearchRepositoryImpl extends SearchRepository {
         offset: offset,
       );
       return Right(users);
+    } on DioException catch (error) {
+      final dioError = DioExceptions.fromDioError(error);
+      return Left(
+        Failure(
+          statusCode: dioError.statusCode,
+          message: dioError.message,
+        ),
+      );
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<Post?>>> searchPosts({
+    required String query,
+    required int limit,
+    required int offset,
+  }) async {
+    try {
+      final posts = await _searchDataSource.searchPosts(
+        query: query,
+        limit: limit,
+        offset: offset,
+      );
+      return Right(posts);
     } on DioException catch (error) {
       final dioError = DioExceptions.fromDioError(error);
       return Left(

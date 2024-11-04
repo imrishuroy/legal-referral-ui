@@ -474,10 +474,10 @@ packages:
     dependency: "direct main"
     description:
       name: file_picker
-      sha256: "167bb619cdddaa10ef2907609feb8a79c16dfa479d3afaf960f8e223f754bf12"
+      sha256: aac85f20436608e01a6ffd1fdd4e746a7f33c93a2c83752e626bdfaea139b877
       url: "https://pub.dev"
     source: hosted
-    version: "8.1.2"
+    version: "8.1.3"
   file_selector_linux:
     dependency: transitive
     description:
@@ -634,10 +634,10 @@ packages:
     dependency: "direct main"
     description:
       name: firebase_storage
-      sha256: e00e2909e36f5e44f839fd77dff90ff764f7bb303ed548d43617014ce05c77c8
+      sha256: "04da94a710b0c08666de7dfa19812c9b5d404ea080a7a9d402ecb80705754122"
       url: "https://pub.dev"
     source: hosted
-    version: "12.3.3"
+    version: "12.3.4"
   firebase_storage_platform_interface:
     dependency: transitive
     description:
@@ -1721,10 +1721,10 @@ packages:
     dependency: "direct main"
     description:
       name: share_plus
-      sha256: "334fcdf0ef9c0df0e3b428faebcac9568f35c747d59831474b2fc56e156d244e"
+      sha256: "3af2cda1752e5c24f2fc04b6083b40f013ffe84fb90472f30c6499a9213d5442"
       url: "https://pub.dev"
     source: hosted
-    version: "10.1.0"
+    version: "10.1.1"
   share_plus_platform_interface:
     dependency: transitive
     description:
@@ -2278,10 +2278,10 @@ packages:
     dependency: transitive
     description:
       name: win32
-      sha256: "2294c64768987ea280b43a3d8357d42d5679f3e2b5b69b602be45b2abbd165b0"
+      sha256: e1d0cc62e65dc2561f5071fcbccecf58ff20c344f8f3dc7d4922df372a11df1f
       url: "https://pub.dev"
     source: hosted
-    version: "5.6.1"
+    version: "5.7.1"
   win32_registry:
     dependency: transitive
     description:

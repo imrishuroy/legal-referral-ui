@@ -340,6 +340,13 @@ abstract class APIClient {
     @Query('offset') int offset,
   );
 
+  @GET('/search/posts')
+  Future<List<Post>> searchPosts(
+    @Query('query') String query,
+    @Query('limit') int limit,
+    @Query('offset') int offset,
+  );
+
   // chat
   @GET('/chat/{room_id}/messages')
   Future<List<ChatMessage>> fetchMessages(
@@ -485,7 +492,7 @@ abstract class APIClient {
   );
 
   // feed
-  @GET('/feeds/{userId}')
+  @GET('/v2/feeds/{userId}')
   Future<List<Feed?>> fetchFeeds(
     @Path('userId') String userId,
     @Query('limit') int limit,
