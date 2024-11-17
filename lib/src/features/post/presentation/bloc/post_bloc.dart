@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:legal_referral_ui/src/core/config/config.dart';
 import 'package:legal_referral_ui/src/core/utils/utils.dart';
+import 'package:legal_referral_ui/src/features/auth/domain/domain.dart';
 import 'package:legal_referral_ui/src/features/post/data/data.dart';
 import 'package:legal_referral_ui/src/features/post/domain/domain.dart';
 
@@ -22,6 +23,13 @@ class PostBloc extends Bloc<PostEvent, PostState> {
     on<FileRemoved>(_onFileRemoved);
     on<PostCreated>(_onPostCreated);
     on<PostFetched>(_onPostFetched);
+    on<PostLiked>(_onPostLiked);
+    on<PostUnliked>(_onPostUnliked);
+    on<PostCommented>(_onPostCommented);
+    on<PostCommentsFetched>(_onPostCommentsFetched);
+    on<PostCommentLiked>(_onPostCommentLiked);
+    on<PostCommentUnliked>(_onPostCommentUnliked);
+    on<FeedParentCommentIdChanged>(_onFeedParentCommentIdChanged);
   }
 
   final PostUsecase _postUsecase;
@@ -141,6 +149,215 @@ class PostBloc extends Bloc<PostEvent, PostState> {
           ),
         );
       },
+    );
+  }
+
+  FutureOr<void> _onPostLiked(PostLiked event, emit) async {
+    emit(
+      state.copyWith(
+        post: state.post?.copyWith(
+          isLiked: true,
+          likesCount: (state.post?.likesCount ?? 0) + 1,
+        ),
+      ),
+    );
+
+    final response = await _postUsecase.likePost(
+      likePostReq: LikePostReq(
+        postId: event.postId,
+        userId: event.postOwnerId,
+        senderId: event.currentUserId,
+      ),
+    );
+    // Revert the change if the API call fails
+    if (response.isLeft()) {
+      emit(
+        state.copyWith(
+          post: state.post?.copyWith(
+            isLiked: false,
+            likesCount: (state.post?.likesCount ?? 0) - 1,
+          ),
+        ),
+      );
+    }
+  }
+
+  FutureOr<void> _onPostUnliked(PostUnliked event, emit) async {
+    emit(
+      state.copyWith(
+        post: state.post?.copyWith(
+          isLiked: false,
+          likesCount: (state.post?.likesCount ?? 0) - 1,
+        ),
+      ),
+    );
+
+    final response = await _postUsecase.unlikePost(
+      postId: event.postId,
+    );
+    // Revert the change if the API call fails
+    if (response.isLeft()) {
+      emit(
+        state.copyWith(
+          post: state.post?.copyWith(
+            isLiked: true,
+            likesCount: (state.post?.likesCount ?? 0) + 1,
+          ),
+        ),
+      );
+    }
+  }
+
+  FutureOr<void> _onPostCommented(PostCommented event, emit) async {
+    final response = await _postUsecase.commentPost(
+      commentReq: event.comment,
+    );
+
+    response.fold(
+      (failure) {
+        emit(
+          state.copyWith(
+            status: PostStatus.failure,
+            failure: failure,
+          ),
+        );
+      },
+      (comment) {
+        emit(
+          state.copyWith(
+            post: state.post?.copyWith(
+              commentsCount: (state.post?.commentsCount ?? 0) + 1,
+            ),
+            comments: [comment, ...state.comments],
+          ),
+        );
+      },
+    );
+  }
+
+  FutureOr<void> _onPostCommentsFetched(PostCommentsFetched event, emit) async {
+    emit(
+      state.copyWith(
+        status: PostStatus.loading,
+      ),
+    );
+
+    final response = await _postUsecase.fetchPostComments(
+      postId: event.postId,
+    );
+
+    response.fold(
+      (failure) {
+        emit(
+          state.copyWith(
+            status: PostStatus.failure,
+            failure: failure,
+          ),
+        );
+      },
+      (comments) {
+        emit(
+          state.copyWith(
+            status: PostStatus.success,
+            comments: comments,
+          ),
+        );
+      },
+    );
+  }
+
+  FutureOr<void> _onPostCommentLiked(PostCommentLiked event, emit) async {
+    // TODO: work on notifing the user that the comment has been liked ( notification )
+    final response = await _postUsecase.likeComment(
+      commentId: event.commentId,
+    );
+
+    response.fold(
+      (failure) {
+        emit(
+          state.copyWith(
+            status: PostStatus.failure,
+            failure: failure,
+          ),
+        );
+      },
+      (comment) {
+        final comments = List.of(state.comments);
+        final commentId = event.commentId;
+
+        final index =
+            comments.indexWhere((comment) => comment?.commentId == commentId);
+
+        if (index >= 0 && index < comments.length) {
+          final comment = comments[index];
+
+          final updatedComment = comment?.copyWith(
+            likesCount: comment.isLiked
+                ? comment.likesCount - 1
+                : comment.likesCount + 1,
+            isLiked: !comment.isLiked,
+          );
+          comments[index] = updatedComment;
+        }
+
+        emit(
+          state.copyWith(
+            status: PostStatus.success,
+            comments: comments,
+          ),
+        );
+      },
+    );
+  }
+
+  FutureOr<void> _onPostCommentUnliked(PostCommentUnliked event, emit) async {
+    final response = await _postUsecase.unlikeComment(
+      commentId: event.commentId,
+    );
+
+    response.fold(
+      (failure) {
+        emit(
+          state.copyWith(
+            status: PostStatus.failure,
+            failure: failure,
+          ),
+        );
+      },
+      (comment) {
+        final comments = List.of(state.comments);
+        final commentId = event.commentId;
+        final index =
+            comments.indexWhere((comment) => comment?.commentId == commentId);
+
+        if (index >= 0 && index < comments.length) {
+          final comment = comments[index];
+
+          final updatedComment = comment?.copyWith(
+            likesCount: comment.isLiked
+                ? comment.likesCount - 1
+                : comment.likesCount + 1,
+            isLiked: !comment.isLiked,
+          );
+          comments[index] = updatedComment;
+        }
+
+        emit(
+          state.copyWith(
+            status: PostStatus.success,
+            comments: comments,
+          ),
+        );
+      },
+    );
+  }
+
+  FutureOr<void> _onFeedParentCommentIdChanged(
+      FeedParentCommentIdChanged event, emit) async {
+    emit(
+      state.copyWith(
+        parentCommentId: event.parentCommentId,
+      ),
     );
   }
 

@@ -33,38 +33,6 @@ class FeedUsecase {
     );
   }
 
-  Future<Either<Failure, Comment?>> commentPost({
-    required CommentReq commentReq,
-  }) async {
-    return _feedRepository.commentPost(
-      commentReq: commentReq,
-    );
-  }
-
-  Future<Either<Failure, List<Comment?>>> fetchPostComments({
-    required int postId,
-  }) async {
-    return _feedRepository.fetchPostComments(
-      postId: postId,
-    );
-  }
-
-  Future<Either<Failure, void>> likeComment({
-    required int commentId,
-  }) async {
-    return _feedRepository.likeComment(
-      commentId: commentId,
-    );
-  }
-
-  Future<Either<Failure, void>> unlikeComment({
-    required int commentId,
-  }) async {
-    return _feedRepository.unlikeComment(
-      commentId: commentId,
-    );
-  }
-
   Future<Either<Failure, PostLikesAndCommentsCount>>
       fetchPostLikesAndCommentsCount({
     required int postId,

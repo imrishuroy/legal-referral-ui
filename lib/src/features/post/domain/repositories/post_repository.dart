@@ -23,4 +23,20 @@ abstract class PostRepository {
   Future<Either<Failure, ResponseMsg>> deletePost({
     required int postId,
   });
+
+  Future<Either<Failure, Comment?>> commentPost({
+    required CommentReq commentReq,
+  });
+
+  Future<Either<Failure, List<Comment?>>> fetchPostComments({
+    required int postId,
+  });
+
+  Future<Either<Failure, void>> likeComment({
+    required int commentId,
+  });
+
+  Future<Either<Failure, void>> unlikeComment({
+    required int commentId,
+  });
 }

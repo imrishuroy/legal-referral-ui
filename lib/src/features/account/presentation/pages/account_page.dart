@@ -88,6 +88,7 @@ class _AccountPageState extends State<AccountPage> {
                             IconStringConstants.favIcon,
                           ),
                           Text(
+                            // TODO: Replace with actual data
                             '4.3 by 433 attorneys',
                             style:
                                 Theme.of(context).textTheme.bodyLarge?.copyWith(
@@ -98,6 +99,7 @@ class _AccountPageState extends State<AccountPage> {
                       ),
                       const Gap(height: 8),
                       Text(
+                        // TODO: Replace with actual data
                         '898 Followers • 233 Connections',
                         style: Theme.of(context).textTheme.titleSmall?.copyWith(
                               color: LegalReferralColors.textBlue100,

@@ -29,6 +29,12 @@ mixin _$Post {
   DateTime get createdAt => throw _privateConstructorUsedError;
   @JsonKey(name: 'post_id')
   int get postId => throw _privateConstructorUsedError;
+  @JsonKey(name: 'likes_count')
+  int? get likesCount => throw _privateConstructorUsedError;
+  @JsonKey(name: 'comments_count')
+  int? get commentsCount => throw _privateConstructorUsedError;
+  @JsonKey(name: 'is_liked')
+  bool? get isLiked => throw _privateConstructorUsedError;
   @JsonKey(name: 'owner_first_name')
   String? get ownerFirstName => throw _privateConstructorUsedError;
   @JsonKey(name: 'owner_last_name')
@@ -64,6 +70,9 @@ abstract class $PostCopyWith<$Res> {
       @DateTimeJsonConverter()
       DateTime createdAt,
       @JsonKey(name: 'post_id') int postId,
+      @JsonKey(name: 'likes_count') int? likesCount,
+      @JsonKey(name: 'comments_count') int? commentsCount,
+      @JsonKey(name: 'is_liked') bool? isLiked,
       @JsonKey(name: 'owner_first_name') String? ownerFirstName,
       @JsonKey(name: 'owner_last_name') String? ownerLastName,
       @JsonKey(name: 'owner_avatar_url') String? ownerAvatarUrl,
@@ -92,6 +101,9 @@ class _$PostCopyWithImpl<$Res, $Val extends Post>
     Object? type = null,
     Object? createdAt = null,
     Object? postId = null,
+    Object? likesCount = freezed,
+    Object? commentsCount = freezed,
+    Object? isLiked = freezed,
     Object? ownerFirstName = freezed,
     Object? ownerLastName = freezed,
     Object? ownerAvatarUrl = freezed,
@@ -117,6 +129,18 @@ class _$PostCopyWithImpl<$Res, $Val extends Post>
           ? _value.postId
           : postId // ignore: cast_nullable_to_non_nullable
               as int,
+      likesCount: freezed == likesCount
+          ? _value.likesCount
+          : likesCount // ignore: cast_nullable_to_non_nullable
+              as int?,
+      commentsCount: freezed == commentsCount
+          ? _value.commentsCount
+          : commentsCount // ignore: cast_nullable_to_non_nullable
+              as int?,
+      isLiked: freezed == isLiked
+          ? _value.isLiked
+          : isLiked // ignore: cast_nullable_to_non_nullable
+              as bool?,
       ownerFirstName: freezed == ownerFirstName
           ? _value.ownerFirstName
           : ownerFirstName // ignore: cast_nullable_to_non_nullable
@@ -163,6 +187,9 @@ abstract class _$$PostImplCopyWith<$Res> implements $PostCopyWith<$Res> {
       @DateTimeJsonConverter()
       DateTime createdAt,
       @JsonKey(name: 'post_id') int postId,
+      @JsonKey(name: 'likes_count') int? likesCount,
+      @JsonKey(name: 'comments_count') int? commentsCount,
+      @JsonKey(name: 'is_liked') bool? isLiked,
       @JsonKey(name: 'owner_first_name') String? ownerFirstName,
       @JsonKey(name: 'owner_last_name') String? ownerLastName,
       @JsonKey(name: 'owner_avatar_url') String? ownerAvatarUrl,
@@ -188,6 +215,9 @@ class __$$PostImplCopyWithImpl<$Res>
     Object? type = null,
     Object? createdAt = null,
     Object? postId = null,
+    Object? likesCount = freezed,
+    Object? commentsCount = freezed,
+    Object? isLiked = freezed,
     Object? ownerFirstName = freezed,
     Object? ownerLastName = freezed,
     Object? ownerAvatarUrl = freezed,
@@ -213,6 +243,18 @@ class __$$PostImplCopyWithImpl<$Res>
           ? _value.postId
           : postId // ignore: cast_nullable_to_non_nullable
               as int,
+      likesCount: freezed == likesCount
+          ? _value.likesCount
+          : likesCount // ignore: cast_nullable_to_non_nullable
+              as int?,
+      commentsCount: freezed == commentsCount
+          ? _value.commentsCount
+          : commentsCount // ignore: cast_nullable_to_non_nullable
+              as int?,
+      isLiked: freezed == isLiked
+          ? _value.isLiked
+          : isLiked // ignore: cast_nullable_to_non_nullable
+              as bool?,
       ownerFirstName: freezed == ownerFirstName
           ? _value.ownerFirstName
           : ownerFirstName // ignore: cast_nullable_to_non_nullable
@@ -255,6 +297,9 @@ class _$PostImpl implements _Post {
       @DateTimeJsonConverter()
       required this.createdAt,
       @JsonKey(name: 'post_id') required this.postId,
+      @JsonKey(name: 'likes_count') this.likesCount,
+      @JsonKey(name: 'comments_count') this.commentsCount,
+      @JsonKey(name: 'is_liked') this.isLiked,
       @JsonKey(name: 'owner_first_name') this.ownerFirstName,
       @JsonKey(name: 'owner_last_name') this.ownerLastName,
       @JsonKey(name: 'owner_avatar_url') this.ownerAvatarUrl,
@@ -280,6 +325,15 @@ class _$PostImpl implements _Post {
   @override
   @JsonKey(name: 'post_id')
   final int postId;
+  @override
+  @JsonKey(name: 'likes_count')
+  final int? likesCount;
+  @override
+  @JsonKey(name: 'comments_count')
+  final int? commentsCount;
+  @override
+  @JsonKey(name: 'is_liked')
+  final bool? isLiked;
   @override
   @JsonKey(name: 'owner_first_name')
   final String? ownerFirstName;
@@ -309,7 +363,7 @@ class _$PostImpl implements _Post {
 
   @override
   String toString() {
-    return 'Post(ownerId: $ownerId, type: $type, createdAt: $createdAt, postId: $postId, ownerFirstName: $ownerFirstName, ownerLastName: $ownerLastName, ownerAvatarUrl: $ownerAvatarUrl, ownerPracticeArea: $ownerPracticeArea, content: $content, filesUrls: $filesUrls, pollId: $pollId)';
+    return 'Post(ownerId: $ownerId, type: $type, createdAt: $createdAt, postId: $postId, likesCount: $likesCount, commentsCount: $commentsCount, isLiked: $isLiked, ownerFirstName: $ownerFirstName, ownerLastName: $ownerLastName, ownerAvatarUrl: $ownerAvatarUrl, ownerPracticeArea: $ownerPracticeArea, content: $content, filesUrls: $filesUrls, pollId: $pollId)';
   }
 
   @override
@@ -322,6 +376,11 @@ class _$PostImpl implements _Post {
             (identical(other.createdAt, createdAt) ||
                 other.createdAt == createdAt) &&
             (identical(other.postId, postId) || other.postId == postId) &&
+            (identical(other.likesCount, likesCount) ||
+                other.likesCount == likesCount) &&
+            (identical(other.commentsCount, commentsCount) ||
+                other.commentsCount == commentsCount) &&
+            (identical(other.isLiked, isLiked) || other.isLiked == isLiked) &&
             (identical(other.ownerFirstName, ownerFirstName) ||
                 other.ownerFirstName == ownerFirstName) &&
             (identical(other.ownerLastName, ownerLastName) ||
@@ -344,6 +403,9 @@ class _$PostImpl implements _Post {
       type,
       createdAt,
       postId,
+      likesCount,
+      commentsCount,
+      isLiked,
       ownerFirstName,
       ownerLastName,
       ownerAvatarUrl,
@@ -376,6 +438,9 @@ abstract class _Post implements Post {
           @DateTimeJsonConverter()
           required final DateTime createdAt,
           @JsonKey(name: 'post_id') required final int postId,
+          @JsonKey(name: 'likes_count') final int? likesCount,
+          @JsonKey(name: 'comments_count') final int? commentsCount,
+          @JsonKey(name: 'is_liked') final bool? isLiked,
           @JsonKey(name: 'owner_first_name') final String? ownerFirstName,
           @JsonKey(name: 'owner_last_name') final String? ownerLastName,
           @JsonKey(name: 'owner_avatar_url') final String? ownerAvatarUrl,
@@ -400,6 +465,15 @@ abstract class _Post implements Post {
   @override
   @JsonKey(name: 'post_id')
   int get postId;
+  @override
+  @JsonKey(name: 'likes_count')
+  int? get likesCount;
+  @override
+  @JsonKey(name: 'comments_count')
+  int? get commentsCount;
+  @override
+  @JsonKey(name: 'is_liked')
+  bool? get isLiked;
   @override
   @JsonKey(name: 'owner_first_name')
   String? get ownerFirstName;

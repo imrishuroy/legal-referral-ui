@@ -3,8 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:legal_referral_ui/src/core/constants/constants.dart';
-import 'package:legal_referral_ui/src/features/feed/domain/domain.dart';
 import 'package:legal_referral_ui/src/features/feed/presentation/presentation.dart';
+import 'package:legal_referral_ui/src/features/post/domain/domain.dart';
+import 'package:legal_referral_ui/src/features/post/presentation/presentation.dart';
 
 class CommentsList extends StatefulWidget {
   const CommentsList({
@@ -26,7 +27,7 @@ class _CommentsListState extends State<CommentsList> {
   @override
   void initState() {
     widget.feedBloc.add(
-      CommentsFetched(postId: widget.postId),
+      FeedPostCommentsFetched(postId: widget.postId),
     );
     super.initState();
   }
@@ -106,13 +107,13 @@ class _CommentsListState extends State<CommentsList> {
     if (commentId != null) {
       if (comment?.isLiked == true) {
         widget.feedBloc.add(
-          CommentUnliked(
+          FeedPostCommentUnliked(
             commentId: commentId,
           ),
         );
       } else {
         widget.feedBloc.add(
-          CommentLiked(
+          FeedPostCommentLiked(
             commentId: commentId,
           ),
         );

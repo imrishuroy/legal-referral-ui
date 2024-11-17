@@ -29,6 +29,9 @@ class Post with _$Post {
     @DateTimeJsonConverter()
     required DateTime createdAt,
     @JsonKey(name: 'post_id') required int postId,
+    @JsonKey(name: 'likes_count') int? likesCount,
+    @JsonKey(name: 'comments_count') int? commentsCount,
+    @JsonKey(name: 'is_liked') bool? isLiked,
     @JsonKey(name: 'owner_first_name') String? ownerFirstName,
     @JsonKey(name: 'owner_last_name') String? ownerLastName,
     @JsonKey(name: 'owner_avatar_url') String? ownerAvatarUrl,

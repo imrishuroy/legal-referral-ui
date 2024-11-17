@@ -66,4 +66,55 @@ class PostDatasource {
       rethrow;
     }
   }
+
+  Future<Comment?> commentPost({
+    required CommentReq commentReq,
+  }) async {
+    try {
+      final response = await _apiClient.commentPost(
+        commentReq.postId,
+        commentReq,
+      );
+      return response;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<List<Comment?>> fetchPostComments({
+    required int postId,
+  }) async {
+    try {
+      final response = await _apiClient.fetchPostComments(
+        postId,
+      );
+      return response;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<void> likeComment({
+    required int commentId,
+  }) async {
+    try {
+      await _apiClient.likeComment(
+        commentId,
+      );
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<void> unlikeComment({
+    required int commentId,
+  }) async {
+    try {
+      await _apiClient.unlikeComment(
+        commentId,
+      );
+    } catch (e) {
+      rethrow;
+    }
+  }
 }

@@ -41,4 +41,36 @@ class PostUsecase {
   }) async {
     return _postRepository.deletePost(postId: postId);
   }
+
+  Future<Either<Failure, Comment?>> commentPost({
+    required CommentReq commentReq,
+  }) async {
+    return _postRepository.commentPost(
+      commentReq: commentReq,
+    );
+  }
+
+  Future<Either<Failure, List<Comment?>>> fetchPostComments({
+    required int postId,
+  }) async {
+    return _postRepository.fetchPostComments(
+      postId: postId,
+    );
+  }
+
+  Future<Either<Failure, void>> likeComment({
+    required int commentId,
+  }) async {
+    return _postRepository.likeComment(
+      commentId: commentId,
+    );
+  }
+
+  Future<Either<Failure, void>> unlikeComment({
+    required int commentId,
+  }) async {
+    return _postRepository.unlikeComment(
+      commentId: commentId,
+    );
+  }
 }
