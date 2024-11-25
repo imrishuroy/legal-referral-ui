@@ -6,12 +6,12 @@ import 'package:legal_referral_ui/src/core/config/config.dart';
 import 'package:legal_referral_ui/src/core/constants/colors.dart';
 import 'package:legal_referral_ui/src/core/utils/utils.dart';
 import 'package:legal_referral_ui/src/features/auth/presentation/presentation.dart';
-import 'package:legal_referral_ui/src/features/feed/data/data.dart';
 import 'package:legal_referral_ui/src/features/feed/domain/domain.dart';
 import 'package:legal_referral_ui/src/features/feed/presentation/presentation.dart';
+import 'package:legal_referral_ui/src/features/post/data/data.dart';
+import 'package:legal_referral_ui/src/features/post/presentation/presentation.dart';
 import 'package:toastification/toastification.dart';
 
-// TODO: Check if we can remove this feed details page
 class FeedDetailsPageArgs {
   FeedDetailsPageArgs({
     required this.feedBloc,
@@ -112,6 +112,7 @@ class _FeedDetailsPageState extends State<FeedDetailsPage> {
                             _focusNode.unfocus();
                             FocusScope.of(context).requestFocus(_focusNode);
                           },
+                          // TODO: Implement discuss and share
                           onDiscussPressed: () {},
                           onSharePressed: () {},
                           imageHeight: 250,
@@ -144,7 +145,7 @@ class _FeedDetailsPageState extends State<FeedDetailsPage> {
                                   postId: feedPost!.postId,
                                   onReplyPressed: (commentId) {
                                     widget.args.feedBloc.add(
-                                      ParentCommentIdChanged(
+                                      FeedParentCommentIdChanged(
                                         parentCommentId: commentId,
                                       ),
                                     );
@@ -229,7 +230,7 @@ class _FeedDetailsPageState extends State<FeedDetailsPage> {
         senderId != null &&
         comment.isNotEmpty) {
       feedBloc.add(
-        Commented(
+        FeedPostCommented(
           comment: CommentReq(
             userId: userId,
             senderId: senderId,

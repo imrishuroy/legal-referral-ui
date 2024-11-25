@@ -109,4 +109,84 @@ class PostRepositoryImpl extends PostRepository {
       );
     }
   }
+
+  @override
+  Future<Either<Failure, Comment?>> commentPost({
+    required CommentReq commentReq,
+  }) async {
+    try {
+      final response = await _postDatasource.commentPost(
+        commentReq: commentReq,
+      );
+      return Right(response);
+    } on DioException catch (error) {
+      final dioError = DioExceptions.fromDioError(error);
+      return Left(
+        Failure(
+          statusCode: dioError.statusCode,
+          message: dioError.message,
+        ),
+      );
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<Comment?>>> fetchPostComments({
+    required int postId,
+  }) async {
+    try {
+      final response = await _postDatasource.fetchPostComments(
+        postId: postId,
+      );
+      return Right(response);
+    } on DioException catch (error) {
+      final dioError = DioExceptions.fromDioError(error);
+      return Left(
+        Failure(
+          statusCode: dioError.statusCode,
+          message: dioError.message,
+        ),
+      );
+    }
+  }
+
+  @override
+  Future<Either<Failure, void>> likeComment({
+    required int commentId,
+  }) async {
+    try {
+      await _postDatasource.likeComment(
+        commentId: commentId,
+      );
+      return const Right(null);
+    } on DioException catch (error) {
+      final dioError = DioExceptions.fromDioError(error);
+      return Left(
+        Failure(
+          statusCode: dioError.statusCode,
+          message: dioError.message,
+        ),
+      );
+    }
+  }
+
+  @override
+  Future<Either<Failure, void>> unlikeComment({
+    required int commentId,
+  }) async {
+    try {
+      await _postDatasource.unlikeComment(
+        commentId: commentId,
+      );
+      return const Right(null);
+    } on DioException catch (error) {
+      final dioError = DioExceptions.fromDioError(error);
+      return Left(
+        Failure(
+          statusCode: dioError.statusCode,
+          message: dioError.message,
+        ),
+      );
+    }
+  }
 }

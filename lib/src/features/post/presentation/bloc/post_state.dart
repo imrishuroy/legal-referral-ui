@@ -11,6 +11,8 @@ class PostState extends Equatable {
     this.post,
     this.likesCount = 0,
     this.commentsCount = 0,
+    this.comments = const [],
+    this.parentCommentId,
     this.files = const [],
     this.failure,
   });
@@ -28,6 +30,9 @@ class PostState extends Equatable {
   final Post? post;
   final int likesCount;
   final int commentsCount;
+  final List<Comment?> comments;
+  final int? parentCommentId;
+
   final PostStatus status;
   final Failure? failure;
 
@@ -40,6 +45,8 @@ class PostState extends Equatable {
     Post? post,
     int? likesCount,
     int? commentsCount,
+    List<Comment?>? comments,
+    int? parentCommentId,
     Failure? failure,
   }) {
     return PostState(
@@ -50,6 +57,8 @@ class PostState extends Equatable {
       post: post ?? this.post,
       likesCount: likesCount ?? this.likesCount,
       commentsCount: commentsCount ?? this.commentsCount,
+      comments: comments ?? this.comments,
+      parentCommentId: parentCommentId ?? this.parentCommentId,
       pickedFile: filePath ?? pickedFile,
       failure: failure ?? this.failure,
     );
@@ -65,6 +74,8 @@ class PostState extends Equatable {
         post,
         likesCount,
         commentsCount,
+        comments,
+        parentCommentId,
         failure,
       ];
 }

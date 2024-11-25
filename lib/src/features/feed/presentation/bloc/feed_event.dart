@@ -68,8 +68,8 @@ class PostLikedUsersFetched extends FeedEvent {
   List<Object> get props => [postId];
 }
 
-class Commented extends FeedEvent {
-  const Commented({
+class FeedPostCommented extends FeedEvent {
+  const FeedPostCommented({
     required this.comment,
     required this.user,
     required this.index,
@@ -79,8 +79,8 @@ class Commented extends FeedEvent {
   final int index;
 }
 
-class CommentsFetched extends FeedEvent {
-  const CommentsFetched({
+class FeedPostCommentsFetched extends FeedEvent {
+  const FeedPostCommentsFetched({
     required this.postId,
   });
   final int postId;
@@ -89,8 +89,8 @@ class CommentsFetched extends FeedEvent {
   List<Object> get props => [postId];
 }
 
-class CommentLiked extends FeedEvent {
-  const CommentLiked({
+class FeedPostCommentLiked extends FeedEvent {
+  const FeedPostCommentLiked({
     required this.commentId,
   });
   final int commentId;
@@ -99,8 +99,8 @@ class CommentLiked extends FeedEvent {
   List<Object> get props => [commentId];
 }
 
-class CommentUnliked extends FeedEvent {
-  const CommentUnliked({
+class FeedPostCommentUnliked extends FeedEvent {
+  const FeedPostCommentUnliked({
     required this.commentId,
   });
   final int commentId;
@@ -116,8 +116,8 @@ class FeedDetailsInitialized extends FeedEvent {
   final Feed? feed;
 }
 
-class ParentCommentIdChanged extends FeedEvent {
-  const ParentCommentIdChanged({
+class FeedParentCommentIdChanged extends FeedEvent {
+  const FeedParentCommentIdChanged({
     required this.parentCommentId,
   });
   final int parentCommentId;

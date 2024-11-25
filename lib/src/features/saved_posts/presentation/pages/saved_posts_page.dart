@@ -7,6 +7,7 @@ import 'package:legal_referral_ui/src/core/config/config.dart';
 import 'package:legal_referral_ui/src/core/constants/constants.dart';
 import 'package:legal_referral_ui/src/core/utils/utils.dart';
 import 'package:legal_referral_ui/src/features/auth/presentation/presentation.dart';
+import 'package:legal_referral_ui/src/features/post/presentation/presentation.dart';
 import 'package:legal_referral_ui/src/features/saved_posts/domain/domain.dart';
 import 'package:legal_referral_ui/src/features/saved_posts/presentation/presentation.dart';
 import 'package:toastification/toastification.dart';
@@ -102,6 +103,11 @@ class _SavedPostsPageState extends State<SavedPostsPage> {
                   //     fetchLikesAndCommentsCount: true,
                   //   ),
                   // );
+
+                  context.pushNamed(
+                    PostDetailsPage.name,
+                    pathParameters: {'postId': '${savedPost.post?.postId}'},
+                  );
                 },
                 onOptionsPressed: () => _showOptionsSheet(
                   context: context,

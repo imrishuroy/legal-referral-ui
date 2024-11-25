@@ -67,7 +67,7 @@ class ReviewWidget extends StatelessWidget {
               Row(
                 children: [
                   SvgPicture.asset(
-                    IconStringConstants.favIcon,
+                    IconStringConstants.rating,
                     height: 18.h,
                     width: 18.w,
                   ),

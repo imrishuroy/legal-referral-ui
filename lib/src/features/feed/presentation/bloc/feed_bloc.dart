@@ -45,12 +45,12 @@ class FeedBloc extends Bloc<FeedEvent, FeedState> {
     on<FeedPostLiked>(_onFeedPostLiked);
     on<FeedPostUnliked>(_onFeedPostUnliked);
     on<PostLikedUsersFetched>(_onPostLikedUsersFetched);
-    on<Commented>(_onCommented);
-    on<CommentsFetched>(_onCommentsFetched);
-    on<CommentLiked>(_onCommentLiked);
-    on<CommentUnliked>(_onCommentUnliked);
+    on<FeedPostCommented>(_onFeedPostCommented);
+    on<FeedPostCommentsFetched>(_onFeedPostCommentsFetched);
+    on<FeedPostCommentLiked>(_onFeedPostCommentLiked);
+    on<FeedPostCommentUnliked>(_onFeedPostCommentUnliked);
     on<FeedDetailsInitialized>(_onFeedDetailsInitialized);
-    on<ParentCommentIdChanged>(_onParentCommentIdChanged);
+    on<FeedParentCommentIdChanged>(_onParentCommentIdChanged);
     on<PostLikesAndCommentsCountFetched>(_onPostLikesAndCommentsCountFetched);
     on<PostIsLikedFetched>(_onIsLikedPostFetched);
     on<PostSaved>(_onPostSaved);
@@ -329,11 +329,11 @@ class FeedBloc extends Bloc<FeedEvent, FeedState> {
     );
   }
 
-  Future<void> _onCommented(
-    Commented event,
+  Future<void> _onFeedPostCommented(
+    FeedPostCommented event,
     Emitter<FeedState> emit,
   ) async {
-    final response = await _feedUsecase.commentPost(
+    final response = await _postUsecase.commentPost(
       commentReq: event.comment,
     );
 
@@ -381,8 +381,8 @@ class FeedBloc extends Bloc<FeedEvent, FeedState> {
     );
   }
 
-  Future<void> _onCommentsFetched(
-    CommentsFetched event,
+  Future<void> _onFeedPostCommentsFetched(
+    FeedPostCommentsFetched event,
     Emitter<FeedState> emit,
   ) async {
     emit(
@@ -391,7 +391,7 @@ class FeedBloc extends Bloc<FeedEvent, FeedState> {
       ),
     );
 
-    final response = await _feedUsecase.fetchPostComments(
+    final response = await _postUsecase.fetchPostComments(
       postId: event.postId,
     );
 
@@ -415,11 +415,11 @@ class FeedBloc extends Bloc<FeedEvent, FeedState> {
     );
   }
 
-  Future<void> _onCommentLiked(
-    CommentLiked event,
+  Future<void> _onFeedPostCommentLiked(
+    FeedPostCommentLiked event,
     Emitter<FeedState> emit,
   ) async {
-    final response = await _feedUsecase.likeComment(
+    final response = await _postUsecase.likeComment(
       commentId: event.commentId,
     );
 
@@ -454,11 +454,11 @@ class FeedBloc extends Bloc<FeedEvent, FeedState> {
     );
   }
 
-  Future<void> _onCommentUnliked(
-    CommentUnliked event,
+  Future<void> _onFeedPostCommentUnliked(
+    FeedPostCommentUnliked event,
     Emitter<FeedState> emit,
   ) async {
-    final response = await _feedUsecase.unlikeComment(
+    final response = await _postUsecase.unlikeComment(
       commentId: event.commentId,
     );
 
@@ -505,7 +505,7 @@ class FeedBloc extends Bloc<FeedEvent, FeedState> {
   }
 
   void _onParentCommentIdChanged(
-    ParentCommentIdChanged event,
+    FeedParentCommentIdChanged event,
     Emitter<FeedState> emit,
   ) {
     emit(

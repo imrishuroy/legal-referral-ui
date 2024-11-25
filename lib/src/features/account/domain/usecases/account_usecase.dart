@@ -11,6 +11,19 @@ class AccountUsecase {
 
   final AccountRepository _accountRepository;
 
+  Future<Either<Failure, AccountInfo>> fetchAccountInfo({
+    required String userId,
+  }) async {
+    try {
+      final response = await _accountRepository.fetchAccountInfo(
+        userId: userId,
+      );
+      return response;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
   Future<Either<Failure, List<FAQ>>> fetchFAQs() async {
     try {
       final response = await _accountRepository.fetchFAQs();

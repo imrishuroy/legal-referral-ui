@@ -66,7 +66,7 @@ class SocialTile extends StatelessWidget {
       case SocialPlatform.snapchat:
         return IconStringConstants.snapchat;
       default:
-        return IconStringConstants.favIcon;
+        return IconStringConstants.rating;
     }
   }
 

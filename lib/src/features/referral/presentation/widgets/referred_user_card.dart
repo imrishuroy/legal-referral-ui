@@ -53,7 +53,7 @@ class ReferredUserCard extends StatelessWidget {
           ),
           Row(
             children: [
-              SvgPicture.asset(IconStringConstants.favIcon),
+              SvgPicture.asset(IconStringConstants.rating),
               Text(
                 '4.3 by 433 attorneys • 422 project',
                 style: textTheme.bodyLarge
