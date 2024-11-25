@@ -15,6 +15,25 @@ class AccountRepositoryImpl extends AccountRepository {
   final AccountDatasource _accountDatasource;
 
   @override
+  Future<Either<Failure, AccountInfo>> fetchAccountInfo({
+    required String userId,
+  }) async {
+    try {
+      final response =
+          await _accountDatasource.fetchAccountInfo(userId: userId);
+      return Right(response);
+    } on DioException catch (error) {
+      final dioError = DioExceptions.fromDioError(error);
+      return Left(
+        Failure(
+          statusCode: dioError.statusCode,
+          message: dioError.message,
+        ),
+      );
+    }
+  }
+
+  @override
   Future<Either<Failure, FAQ>> createFAQ({
     required FAQ faq,
   }) async {

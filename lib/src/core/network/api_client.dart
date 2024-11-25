@@ -282,6 +282,13 @@ abstract class APIClient {
     @Path('educationId') int educationId,
   );
 
+  // accounts
+
+  @GET('/accounts/{userId}')
+  Future<AccountInfo> fetchAccountInfo(
+    @Path('userId') String userId,
+  );
+
   // network
 
   @POST('/connections/send')

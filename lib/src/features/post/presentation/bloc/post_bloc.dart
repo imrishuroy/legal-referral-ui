@@ -353,7 +353,9 @@ class PostBloc extends Bloc<PostEvent, PostState> {
   }
 
   FutureOr<void> _onFeedParentCommentIdChanged(
-      FeedParentCommentIdChanged event, emit) async {
+    FeedParentCommentIdChanged event,
+    emit,
+  ) async {
     emit(
       state.copyWith(
         parentCommentId: event.parentCommentId,

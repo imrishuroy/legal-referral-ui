@@ -19,7 +19,7 @@ class IconStringConstants {
   static const String deleteIcon = 'assets/icons/deleteIcon.svg';
   static const String editIcon = 'assets/icons/editIcon.svg';
   static const String addIcon = 'assets/icons/addIcon.svg';
-  static const String favIcon = 'assets/icons/favIcon.svg';
+  static const String rating = 'assets/icons/rating.svg';
   static const String threeDots = 'assets/icons/3dots.svg';
   static const String thumbUp = 'assets/icons/thumb-up.svg';
   static const String share = 'assets/icons/share.svg';

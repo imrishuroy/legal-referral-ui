@@ -12,11 +12,46 @@ class AccountBloc extends Bloc<AccountEvent, AccountState> {
   AccountBloc({required AccountUsecase accountUsecase})
       : _accountUsecase = accountUsecase,
         super(AccountState.initial()) {
+    on<AccountInfoFetched>(_onAccountInfoFetched);
     on<FAQFetched>(_onFAQFetched);
     on<FAQCreated>(_onFAQCreated);
   }
 
   final AccountUsecase _accountUsecase;
+
+  Future<void> _onAccountInfoFetched(
+    AccountInfoFetched event,
+    Emitter<AccountState> emit,
+  ) async {
+    emit(
+      state.copyWith(
+        status: AccountStatus.loading,
+      ),
+    );
+
+    final response = await _accountUsecase.fetchAccountInfo(
+      userId: event.userId,
+    );
+
+    response.fold(
+      (failure) {
+        emit(
+          state.copyWith(
+            status: AccountStatus.failure,
+            failure: failure,
+          ),
+        );
+      },
+      (accountInfo) {
+        emit(
+          state.copyWith(
+            status: AccountStatus.success,
+            accountInfo: accountInfo,
+          ),
+        );
+      },
+    );
+  }
 
   Future<void> _onFAQFetched(
     FAQFetched event,

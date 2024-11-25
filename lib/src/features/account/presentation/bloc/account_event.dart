@@ -7,6 +7,16 @@ abstract class AccountEvent extends Equatable {
   List<Object> get props => [];
 }
 
+class AccountInfoFetched extends AccountEvent {
+  const AccountInfoFetched({
+    required this.userId,
+  });
+  final String userId;
+
+  @override
+  List<Object> get props => [userId];
+}
+
 class FAQFetched extends AccountEvent {}
 
 class FAQCreated extends AccountEvent {

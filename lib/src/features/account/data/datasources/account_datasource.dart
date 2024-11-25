@@ -10,6 +10,19 @@ class AccountDatasource {
 
   final APIClient _apiClient;
 
+  Future<AccountInfo> fetchAccountInfo({
+    required String userId,
+  }) async {
+    try {
+      final response = await _apiClient.fetchAccountInfo(
+        userId,
+      );
+      return response;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
   Future<List<FAQ>> fetchFAQs() async {
     try {
       final response = await _apiClient.fetchFAQs();
