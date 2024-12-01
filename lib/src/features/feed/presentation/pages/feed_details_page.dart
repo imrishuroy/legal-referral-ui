@@ -9,7 +9,6 @@ import 'package:legal_referral_ui/src/features/auth/presentation/presentation.da
 import 'package:legal_referral_ui/src/features/feed/domain/domain.dart';
 import 'package:legal_referral_ui/src/features/feed/presentation/presentation.dart';
 import 'package:legal_referral_ui/src/features/post/data/data.dart';
-import 'package:legal_referral_ui/src/features/post/presentation/presentation.dart';
 import 'package:toastification/toastification.dart';
 
 class FeedDetailsPageArgs {
@@ -134,18 +133,18 @@ class _FeedDetailsPageState extends State<FeedDetailsPage> {
                                 ),
                               SizedBox(height: 8.h),
                               if (feedPost?.postId != null)
-                                PostLikedUsers(
+                                FeedPostLikedUsers(
                                   postId: feedPost!.postId,
                                   feedBloc: widget.args.feedBloc,
                                 ),
                               SizedBox(height: 24.h),
                               if (feedPost?.postId != null)
-                                CommentsList(
+                                FeedPostCommentsList(
                                   feedBloc: widget.args.feedBloc,
                                   postId: feedPost!.postId,
                                   onReplyPressed: (commentId) {
                                     widget.args.feedBloc.add(
-                                      FeedParentCommentIdChanged(
+                                      FeedPostParentCommentIdChanged(
                                         parentCommentId: commentId,
                                       ),
                                     );

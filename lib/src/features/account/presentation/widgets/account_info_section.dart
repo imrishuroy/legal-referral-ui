@@ -54,6 +54,7 @@ class _AccountInfoSectionState extends State<AccountInfoSection> {
         final name = '${accountInfo?.firstName} ${accountInfo?.lastName}';
         final avgRating = accountInfo?.ratingInfo?.averageRating ?? 0;
         final totalAttorneys = accountInfo?.ratingInfo?.attorneys ?? 0;
+        final attorneyLabel = totalAttorneys == 1 ? 'attorney' : 'attorneys';
 
         return Padding(
           padding: EdgeInsets.symmetric(horizontal: 16.h),
@@ -96,7 +97,7 @@ class _AccountInfoSectionState extends State<AccountInfoSection> {
                   ),
                   Text(
                     '$avgRating by '
-                    '$totalAttorneys ${totalAttorneys == 1 ? 'attorney' : 'attorneys'}',
+                    '$totalAttorneys $attorneyLabel',
                     style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                           color: LegalReferralColors.textGrey400,
                         ),

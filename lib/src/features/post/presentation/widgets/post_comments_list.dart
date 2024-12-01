@@ -7,35 +7,35 @@ import 'package:legal_referral_ui/src/features/feed/presentation/presentation.da
 import 'package:legal_referral_ui/src/features/post/domain/domain.dart';
 import 'package:legal_referral_ui/src/features/post/presentation/presentation.dart';
 
-class CommentsList extends StatefulWidget {
-  const CommentsList({
-    required this.feedBloc,
+class PostCommentsList extends StatefulWidget {
+  const PostCommentsList({
+    required this.postBloc,
     required this.postId,
     required this.onReplyPressed,
     super.key,
   });
 
-  final FeedBloc feedBloc;
+  final PostBloc postBloc;
   final int postId;
   final void Function(int commentId) onReplyPressed;
 
   @override
-  State<CommentsList> createState() => _CommentsListState();
+  State<PostCommentsList> createState() => _PostCommentsListState();
 }
 
-class _CommentsListState extends State<CommentsList> {
+class _PostCommentsListState extends State<PostCommentsList> {
   @override
   void initState() {
-    widget.feedBloc.add(
-      FeedPostCommentsFetched(postId: widget.postId),
+    widget.postBloc.add(
+      PostCommentsFetched(postId: widget.postId),
     );
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<FeedBloc, FeedState>(
-      bloc: widget.feedBloc,
+    return BlocBuilder<PostBloc, PostState>(
+      bloc: widget.postBloc,
       builder: (context, state) {
         final groupedComments = groupBy<Comment?, int?>(
           state.comments,
@@ -55,7 +55,7 @@ class _CommentsListState extends State<CommentsList> {
                     ),
               ),
             SizedBox(height: 8.h),
-            if (state.status == FeedStatus.loading)
+            if (state.commentStatus == CommentStatus.loading)
               const CommentsShimmer()
             else
               ListView.builder(
@@ -106,14 +106,14 @@ class _CommentsListState extends State<CommentsList> {
     final commentId = comment?.commentId;
     if (commentId != null) {
       if (comment?.isLiked == true) {
-        widget.feedBloc.add(
-          FeedPostCommentUnliked(
+        widget.postBloc.add(
+          PostCommentUnliked(
             commentId: commentId,
           ),
         );
       } else {
-        widget.feedBloc.add(
-          FeedPostCommentLiked(
+        widget.postBloc.add(
+          PostCommentLiked(
             commentId: commentId,
           ),
         );

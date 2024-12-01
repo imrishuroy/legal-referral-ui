@@ -44,13 +44,13 @@ class FeedBloc extends Bloc<FeedEvent, FeedState> {
     on<FeedRefreshed>(_onFeedRefreshed);
     on<FeedPostLiked>(_onFeedPostLiked);
     on<FeedPostUnliked>(_onFeedPostUnliked);
-    on<PostLikedUsersFetched>(_onPostLikedUsersFetched);
+    on<FeedPostLikedUsersFetched>(_onFeedPostLikedUsersFetched);
     on<FeedPostCommented>(_onFeedPostCommented);
     on<FeedPostCommentsFetched>(_onFeedPostCommentsFetched);
     on<FeedPostCommentLiked>(_onFeedPostCommentLiked);
     on<FeedPostCommentUnliked>(_onFeedPostCommentUnliked);
     on<FeedDetailsInitialized>(_onFeedDetailsInitialized);
-    on<FeedParentCommentIdChanged>(_onParentCommentIdChanged);
+    on<FeedPostParentCommentIdChanged>(_onFeedPostParentCommentIdChanged);
     on<PostLikesAndCommentsCountFetched>(_onPostLikesAndCommentsCountFetched);
     on<PostIsLikedFetched>(_onIsLikedPostFetched);
     on<PostSaved>(_onPostSaved);
@@ -295,8 +295,8 @@ class FeedBloc extends Bloc<FeedEvent, FeedState> {
     }
   }
 
-  Future<void> _onPostLikedUsersFetched(
-    PostLikedUsersFetched event,
+  Future<void> _onFeedPostLikedUsersFetched(
+    FeedPostLikedUsersFetched event,
     Emitter<FeedState> emit,
   ) async {
     emit(
@@ -305,7 +305,7 @@ class FeedBloc extends Bloc<FeedEvent, FeedState> {
       ),
     );
 
-    final response = await _feedUsecase.fetchPostLikedUsers(
+    final response = await _postUsecase.fetchPostLikedUsers(
       postId: event.postId,
     );
 
@@ -504,8 +504,8 @@ class FeedBloc extends Bloc<FeedEvent, FeedState> {
     );
   }
 
-  void _onParentCommentIdChanged(
-    FeedParentCommentIdChanged event,
+  void _onFeedPostParentCommentIdChanged(
+    FeedPostParentCommentIdChanged event,
     Emitter<FeedState> emit,
   ) {
     emit(

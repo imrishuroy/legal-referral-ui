@@ -1,6 +1,7 @@
 import 'package:injectable/injectable.dart';
 import 'package:legal_referral_ui/src/core/config/config.dart';
 import 'package:legal_referral_ui/src/core/network/api_client.dart';
+import 'package:legal_referral_ui/src/features/auth/domain/domain.dart';
 import 'package:legal_referral_ui/src/features/post/data/data.dart';
 import 'package:legal_referral_ui/src/features/post/domain/domain.dart';
 
@@ -50,6 +51,19 @@ class PostDatasource {
     try {
       await _apiClient.unlikePost(postId);
     } catch (_) {
+      rethrow;
+    }
+  }
+
+  Future<List<AppUser?>> fetchPostLikedUsers({
+    required int postId,
+  }) async {
+    try {
+      final response = await _apiClient.fetchPostLikedUsers(
+        postId,
+      );
+      return response;
+    } catch (e) {
       rethrow;
     }
   }

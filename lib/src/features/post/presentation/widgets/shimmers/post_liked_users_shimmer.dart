@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:legal_referral_ui/src/core/common_widgets/custom_shimmer.dart';
 
-class LikesUsersShimmer extends StatelessWidget {
-  const LikesUsersShimmer({super.key});
+class PostLikedUsersShimmer extends StatelessWidget {
+  const PostLikedUsersShimmer({super.key});
 
   @override
   Widget build(BuildContext context) {

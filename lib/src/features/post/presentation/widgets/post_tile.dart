@@ -72,7 +72,6 @@ class PostTile extends StatelessWidget {
                 SizedBox(
                   width: 8.w,
                 ),
-
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -120,8 +119,6 @@ class PostTile extends StatelessWidget {
                     ],
                   ),
                 ),
-                // Post details options
-
                 SvgButton(
                   height: 24.w,
                   width: 24.h,

@@ -1,7 +1,6 @@
 import 'package:injectable/injectable.dart';
 import 'package:legal_referral_ui/src/core/config/config.dart';
 import 'package:legal_referral_ui/src/core/network/network.dart';
-import 'package:legal_referral_ui/src/features/auth/domain/domain.dart';
 import 'package:legal_referral_ui/src/features/feed/data/data.dart';
 import 'package:legal_referral_ui/src/features/feed/domain/domain.dart';
 
@@ -23,19 +22,6 @@ class FeedDatasource {
         userId,
         limit,
         offset,
-      );
-      return response;
-    } catch (e) {
-      rethrow;
-    }
-  }
-
-  Future<List<AppUser?>> fetchPostLikedUsers({
-    required int postId,
-  }) async {
-    try {
-      final response = await _apiClient.fetchPostLikedUsers(
-        postId,
       );
       return response;
     } catch (e) {
