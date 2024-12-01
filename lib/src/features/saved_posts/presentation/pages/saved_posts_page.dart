@@ -82,28 +82,6 @@ class _SavedPostsPageState extends State<SavedPostsPage> {
               return SavedPostTile(
                 savedPost: savedPost,
                 onTap: () {
-                  // TODO: fix this, instead this pushing this to
-                  // feed details page, we should push to post details page
-                  // final feed = Feed(
-                  //   type: FeedType.post,
-                  //   feedPost: FeedPost(
-                  //     // feedId: savedPost.savedPostId,
-                  //     post: savedPost.post,
-                  //     // user: savedPost.owner,
-                  //     createdAt: savedPost.createdAt,
-                  //   ),
-                  // );
-
-                  // context.pushNamed(
-                  //   FeedDetailsPage.name,
-                  //   extra: FeedDetailsPageArgs(
-                  //     feedBloc: getIt<FeedBloc>(),
-                  //     feed: feed,
-                  //     index: index,
-                  //     fetchLikesAndCommentsCount: true,
-                  //   ),
-                  // );
-
                   context.pushNamed(
                     PostDetailsPage.name,
                     pathParameters: {'postId': '${savedPost.post?.postId}'},

@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:legal_referral_ui/src/core/common_widgets/widgets.dart';
 import 'package:legal_referral_ui/src/core/config/config.dart';
 import 'package:legal_referral_ui/src/core/constants/constants.dart';
 import 'package:legal_referral_ui/src/core/utils/utils.dart';
+import 'package:legal_referral_ui/src/features/auth/domain/domain.dart';
 import 'package:legal_referral_ui/src/features/auth/presentation/presentation.dart';
 import 'package:legal_referral_ui/src/features/post/data/data.dart';
 import 'package:legal_referral_ui/src/features/post/domain/domain.dart';
@@ -57,9 +59,7 @@ class _PostDetailsPageState extends State<PostDetailsPage> {
           },
           builder: (context, state) {
             if (state.status == PostStatus.loading) {
-              return const Center(
-                child: CircularProgressIndicator(),
-              );
+              return const PostDetailsShimmer();
             }
             final post = state.post;
             return Column(
@@ -80,6 +80,47 @@ class _PostDetailsPageState extends State<PostDetailsPage> {
                           likesCount: post?.likesCount ?? 0,
                           commentsCount: post?.commentsCount ?? 0,
                         ),
+                        Padding(
+                          padding: EdgeInsets.only(left: 12.w, right: 4.w),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              if (state.postLikedUsers.isNotEmpty)
+                                Text(
+                                  'LIKES',
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodyMedium
+                                      ?.copyWith(
+                                        color: LegalReferralColors.textGrey400,
+                                      ),
+                                ),
+                              SizedBox(height: 8.h),
+                              if (post?.postId != null)
+                                PostLikedUsers(
+                                  postId: post!.postId,
+                                  postBloc: _postBloc,
+                                ),
+                              SizedBox(height: 24.h),
+                              if (post?.postId != null)
+                                PostCommentsList(
+                                  postId: post!.postId,
+                                  postBloc: _postBloc,
+                                  onReplyPressed: (commendId) {
+                                    _postBloc.add(
+                                      PostParentCommentIdChanged(
+                                        parentCommentId: commendId,
+                                      ),
+                                    );
+
+                                    _focusNode.unfocus();
+                                    FocusScope.of(context)
+                                        .requestFocus(_focusNode);
+                                  },
+                                ),
+                            ],
+                          ),
+                        ),
                       ],
                     ),
                   ),
@@ -93,8 +134,8 @@ class _PostDetailsPageState extends State<PostDetailsPage> {
                     postBloc: _postBloc,
                     userId: post?.ownerId,
                     postId: post?.postId,
-                    // TODO: check how it is used
                     parentCommentId: state.parentCommentId,
+                    currentUser: _authBloc.state.user,
                   ),
                 ),
               ],
@@ -127,8 +168,9 @@ class _PostDetailsPageState extends State<PostDetailsPage> {
     required String? userId,
     required int? postId,
     required int? parentCommentId,
+    required AppUser? currentUser,
   }) {
-    final senderId = getIt<AuthBloc>().state.user?.userId;
+    final senderId = currentUser?.userId;
     final comment = _commentsController.text;
     if (postId != null &&
         userId != null &&
@@ -143,9 +185,7 @@ class _PostDetailsPageState extends State<PostDetailsPage> {
             content: comment,
             parentCommentId: parentCommentId,
           ),
-          user: getIt<AuthBloc>().state.user,
-          // index: widget.args.index,
-          index: 0,
+          user: currentUser,
         ),
       );
       _commentsController.clear();

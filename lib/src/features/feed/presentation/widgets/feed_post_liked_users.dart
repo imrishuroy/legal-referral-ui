@@ -4,10 +4,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:legal_referral_ui/src/core/common_widgets/widgets.dart';
 import 'package:legal_referral_ui/src/features/feed/presentation/presentation.dart';
+import 'package:legal_referral_ui/src/features/post/presentation/presentation.dart';
 import 'package:legal_referral_ui/src/features/profile/presentation/presentation.dart';
 
-class PostLikedUsers extends StatefulWidget {
-  const PostLikedUsers({
+class FeedPostLikedUsers extends StatefulWidget {
+  const FeedPostLikedUsers({
     required this.postId,
     required this.feedBloc,
     super.key,
@@ -17,16 +18,14 @@ class PostLikedUsers extends StatefulWidget {
   final FeedBloc feedBloc;
 
   @override
-  State<PostLikedUsers> createState() => _PostLikedUsersState();
+  State<FeedPostLikedUsers> createState() => _FeedPostLikedUsersState();
 }
 
-class _PostLikedUsersState extends State<PostLikedUsers> {
-  //final _feedBloc = getIt<FeedBloc>();
-
+class _FeedPostLikedUsersState extends State<FeedPostLikedUsers> {
   @override
   void initState() {
     widget.feedBloc.add(
-      PostLikedUsersFetched(postId: widget.postId),
+      FeedPostLikedUsersFetched(postId: widget.postId),
     );
     super.initState();
   }
@@ -39,7 +38,7 @@ class _PostLikedUsersState extends State<PostLikedUsers> {
         if (state.status == FeedStatus.loading) {
           return SizedBox(
             height: 52.h,
-            child: const LikesUsersShimmer(),
+            child: const PostLikedUsersShimmer(),
           );
         } else {
           final postLikedUsers = state.postLikedUsers;

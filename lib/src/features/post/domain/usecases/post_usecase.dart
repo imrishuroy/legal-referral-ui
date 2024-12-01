@@ -1,6 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
 import 'package:legal_referral_ui/src/core/config/config.dart';
+import 'package:legal_referral_ui/src/features/auth/domain/domain.dart';
 import 'package:legal_referral_ui/src/features/post/data/data.dart';
 import 'package:legal_referral_ui/src/features/post/domain/domain.dart';
 
@@ -34,6 +35,14 @@ class PostUsecase {
     required int postId,
   }) async {
     return _postRepository.unlikePost(postId: postId);
+  }
+
+  Future<Either<Failure, List<AppUser?>>> fetchPostLikedUsers({
+    required int postId,
+  }) async {
+    return _postRepository.fetchPostLikedUsers(
+      postId: postId,
+    );
   }
 
   Future<Either<Failure, ResponseMsg>> deletePost({

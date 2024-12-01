@@ -1,7 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
 import 'package:legal_referral_ui/src/core/config/config.dart';
-import 'package:legal_referral_ui/src/features/auth/domain/domain.dart';
 import 'package:legal_referral_ui/src/features/feed/data/data.dart';
 import 'package:legal_referral_ui/src/features/feed/domain/domain.dart';
 
@@ -22,14 +21,6 @@ class FeedUsecase {
       userId: userId,
       limit: limit,
       offset: offset,
-    );
-  }
-
-  Future<Either<Failure, List<AppUser?>>> fetchPostLikedUsers({
-    required int postId,
-  }) async {
-    return _feedRepository.fetchPostLikedUsers(
-      postId: postId,
     );
   }
 

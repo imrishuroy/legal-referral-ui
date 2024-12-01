@@ -1,6 +1,5 @@
 export 'bloc/search_bloc.dart';
 export 'pages/search_page.dart';
-export 'pages/search_page_result.dart';
 export 'widgets/people_search_results.dart';
 export 'widgets/post_search_results.dart';
 export 'widgets/recent_search_widget.dart';

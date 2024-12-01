@@ -3,6 +3,7 @@ import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 import 'package:legal_referral_ui/src/core/config/config.dart';
 import 'package:legal_referral_ui/src/core/network/network.dart';
+import 'package:legal_referral_ui/src/features/auth/domain/domain.dart';
 import 'package:legal_referral_ui/src/features/post/data/data.dart';
 import 'package:legal_referral_ui/src/features/post/domain/domain.dart';
 
@@ -81,6 +82,26 @@ class PostRepositoryImpl extends PostRepository {
         postId: postId,
       );
       return const Right(null);
+    } on DioException catch (error) {
+      final dioError = DioExceptions.fromDioError(error);
+      return Left(
+        Failure(
+          statusCode: dioError.statusCode,
+          message: dioError.message,
+        ),
+      );
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<AppUser?>>> fetchPostLikedUsers({
+    required int postId,
+  }) async {
+    try {
+      final response = await _postDatasource.fetchPostLikedUsers(
+        postId: postId,
+      );
+      return Right(response);
     } on DioException catch (error) {
       final dioError = DioExceptions.fromDioError(error);
       return Left(
