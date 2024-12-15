@@ -1,19 +1,19 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'save_feature_post_req.dart';
+part of 'unfeature_post_req.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-SaveFeaturePostReq _$SaveFeaturePostReqFromJson(Map<String, dynamic> json) =>
-    SaveFeaturePostReq(
-      userId: json['user_id'] as String,
+UnFeaturePostReq _$UnFeaturePostReqFromJson(Map<String, dynamic> json) =>
+    UnFeaturePostReq(
       postId: (json['post_id'] as num).toInt(),
+      userId: json['user_id'] as String,
     );
 
-Map<String, dynamic> _$SaveFeaturePostReqToJson(SaveFeaturePostReq instance) =>
+Map<String, dynamic> _$UnFeaturePostReqToJson(UnFeaturePostReq instance) =>
     <String, dynamic>{
-      'user_id': instance.userId,
       'post_id': instance.postId,
+      'user_id': instance.userId,
     };

@@ -28,20 +28,26 @@ class FeedRefreshed extends FeedEvent {
 
 class FeedPostLiked extends FeedEvent {
   const FeedPostLiked({
-    required this.userId,
-    required this.senderId,
+    required this.postOwnerId,
+    required this.currentUserId,
     required this.postId,
     required this.index,
     required this.isFromeDetails,
   });
-  final String userId;
-  final String senderId;
+  final String postOwnerId;
+  final String currentUserId;
   final int postId;
   final int index;
   final bool isFromeDetails;
 
   @override
-  List<Object> get props => [userId, senderId, postId, index, isFromeDetails];
+  List<Object> get props => [
+        postOwnerId,
+        currentUserId,
+        postId,
+        index,
+        isFromeDetails,
+      ];
 }
 
 class FeedPostUnliked extends FeedEvent {
@@ -158,8 +164,20 @@ class PostSaved extends FeedEvent {
   List<Object> get props => [userId, postId];
 }
 
-class FeaturePostSaved extends FeedEvent {
-  const FeaturePostSaved({
+class FeedPostFeatured extends FeedEvent {
+  const FeedPostFeatured({
+    required this.userId,
+    required this.postId,
+  });
+  final String userId;
+  final int postId;
+
+  @override
+  List<Object> get props => [userId, postId];
+}
+
+class FeedPostUnFeatured extends FeedEvent {
+  const FeedPostUnFeatured({
     required this.userId,
     required this.postId,
   });
@@ -179,3 +197,35 @@ class PostDeleted extends FeedEvent {
   @override
   List<Object> get props => [postId];
 }
+
+class FeedActionChanged extends FeedEvent {
+  const FeedActionChanged({
+    required this.feedAction,
+  });
+  final FeedAction feedAction;
+
+  @override
+  List<Object> get props => [feedAction];
+}
+
+class FeedActionStatusChanged extends FeedEvent {
+  const FeedActionStatusChanged({
+    required this.feedActionStatus,
+  });
+  final FeedActionStatus feedActionStatus;
+
+  @override
+  List<Object> get props => [feedActionStatus];
+}
+
+class IsFeedPostFeatured extends FeedEvent {
+  const IsFeedPostFeatured({
+    required this.postId,
+  });
+  final int postId;
+
+  @override
+  List<Object> get props => [postId];
+}
+
+class FeedActionReseted extends FeedEvent {}

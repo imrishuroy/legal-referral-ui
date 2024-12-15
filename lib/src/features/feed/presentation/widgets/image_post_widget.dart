@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:legal_referral_ui/src/core/common_widgets/widgets.dart';
 import 'package:legal_referral_ui/src/core/constants/constants.dart';
+import 'package:legal_referral_ui/src/core/utils/utils.dart';
 
 class ImagePostWidget extends StatefulWidget {
   const ImagePostWidget({
@@ -45,7 +46,6 @@ class _ImagePostWidgetState extends State<ImagePostWidget> {
               },
             ),
             items: widget.imageUrls.map((imageUrl) {
-              final cdnUrl = '${APIConstants.cloudFrontUrl}$imageUrl';
               return Builder(
                 builder: (BuildContext context) {
                   return Padding(
@@ -53,7 +53,7 @@ class _ImagePostWidgetState extends State<ImagePostWidget> {
                       horizontal: multipleImages ? 12.w : 0.w,
                     ),
                     child: CustomNetworkImage(
-                      imageUrl: cdnUrl,
+                      imageUrl: UrlUtil.getCDNURL(imageUrl),
                     ),
                   );
                 },

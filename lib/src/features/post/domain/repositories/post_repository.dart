@@ -44,4 +44,8 @@ abstract class PostRepository {
   Future<Either<Failure, void>> unlikeComment({
     required int commentId,
   });
+
+  Future<Either<Failure, bool>> isPostFeatured({
+    required int postId,
+  });
 }

@@ -19,11 +19,12 @@ abstract class FeedRepository {
     required int postId,
   });
 
-  Future<Either<Failure, ResponseMsg?>> saveFeaturePost({
-    required SaveFeaturePostReq saveFeaturePostReq,
+  Future<Either<Failure, ResponseMsg?>> featurePost({
+    required FeaturePostReq featurePostReq,
   });
 
-  Future<Either<Failure, ResponseMsg?>> unSaveFeaturePost({
+  Future<Either<Failure, ResponseMsg?>> unFeaturePost({
     required int postId,
+    required UnFeaturePostReq unFeaturePostReq,
   });
 }

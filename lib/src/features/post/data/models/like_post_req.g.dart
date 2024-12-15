@@ -7,14 +7,14 @@ part of 'like_post_req.dart';
 // **************************************************************************
 
 LikePostReq _$LikePostReqFromJson(Map<String, dynamic> json) => LikePostReq(
-      userId: json['user_id'] as String,
-      senderId: json['sender_id'] as String,
+      postOwnerId: json['post_user_id'] as String,
+      currentUserId: json['current_user_id'] as String,
       postId: (json['post_id'] as num).toInt(),
     );
 
 Map<String, dynamic> _$LikePostReqToJson(LikePostReq instance) =>
     <String, dynamic>{
-      'user_id': instance.userId,
-      'sender_id': instance.senderId,
+      'post_user_id': instance.postOwnerId,
+      'current_user_id': instance.currentUserId,
       'post_id': instance.postId,
     };

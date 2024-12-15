@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:legal_referral_ui/src/core/config/config.dart';
 import 'package:legal_referral_ui/src/features/auth/presentation/presentation.dart';
+import 'package:legal_referral_ui/src/features/feed/data/data.dart';
 import 'package:legal_referral_ui/src/features/firm/domain/domain.dart';
 import 'package:legal_referral_ui/src/features/profile/data/data.dart';
 import 'package:legal_referral_ui/src/features/profile/domain/domain.dart';
@@ -50,7 +51,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     on<EducationUpdated>(_onEducationUpdated);
     on<EducationDeleted>(_onEducationDeleted);
     on<FeaturePostsFetched>(_onFeaturePostsFetched);
-    on<FeaturePostUnsaved>(_onFeaturePostUnsaved);
+    on<PostUnFeatured>(_onFeaturePostUnsaved);
   }
 
   final AuthBloc _authBloc;
@@ -904,11 +905,15 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
   }
 
   Future<void> _onFeaturePostUnsaved(
-    FeaturePostUnsaved event,
+    PostUnFeatured event,
     Emitter<ProfileState> emit,
   ) async {
-    final response = await _profileUseCase.unsaveFeaturePost(
+    final response = await _profileUseCase.unFeaturePost(
       postId: event.postId,
+      unFeaturePostReq: UnFeaturePostReq(
+        userId: _authBloc.state.user?.userId ?? '',
+        postId: event.postId,
+      ),
     );
 
     response.fold(

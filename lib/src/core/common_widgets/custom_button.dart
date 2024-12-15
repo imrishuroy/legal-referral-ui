@@ -163,7 +163,7 @@ class CustomIconButton extends StatelessWidget {
     super.key,
   });
 
-  final VoidCallback onTap;
+  final VoidCallback? onTap;
   final Widget icon;
 
   @override

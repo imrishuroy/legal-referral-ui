@@ -206,8 +206,8 @@ class _FeedDetailsPageState extends State<FeedDetailsPage> {
             FeedPostLiked(
               postId: postId,
               index: index,
-              userId: userId,
-              senderId: senderId,
+              postOwnerId: userId,
+              currentUserId: senderId,
               isFromeDetails: true,
             ),
           );

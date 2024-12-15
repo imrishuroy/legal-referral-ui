@@ -1,9 +1,14 @@
 import 'package:any_link_preview/any_link_preview.dart';
+import 'package:legal_referral_ui/src/core/constants/constants.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class UrlUtil {
   factory UrlUtil() => UrlUtil._internal();
   UrlUtil._internal();
+
+  static String getCDNURL(String? previewUrl) {
+    return '${APIConstants.cloudFrontUrl}$previewUrl';
+  }
 
   static Future<void> launchURL(String? url) async {
     if (url == null || url.isEmpty) {

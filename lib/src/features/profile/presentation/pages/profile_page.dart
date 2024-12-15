@@ -117,6 +117,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                         SvgPicture.asset(
                                           IconStringConstants.rating,
                                         ),
+                                        // TODO: Add rating
                                         Text(
                                           '4.7 by 433 attorneys',
                                           style: Theme.of(context)
@@ -129,6 +130,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                         ),
                                       ],
                                     ),
+                                    // TODO: Add followers and connections
                                     Text(
                                       '898 Followers • 233 Connections',
                                       style: Theme.of(context)
@@ -189,6 +191,7 @@ class _ProfilePageState extends State<ProfilePage> {
                             ),
                           ),
                         ),
+                        // TODO: Add case resolution rate
                         CustomCard(
                           onTap: () {},
                           visibility: false,
@@ -200,6 +203,7 @@ class _ProfilePageState extends State<ProfilePage> {
                             style: Theme.of(context).textTheme.displaySmall,
                           ),
                         ),
+                        // TODO: Add about section
                         CustomCard(
                           onTap: () {},
                           title: 'About',
@@ -214,6 +218,7 @@ class _ProfilePageState extends State<ProfilePage> {
                           isCurrentUser: isCurrentUser,
                         ),
                         const FeaturedPostsSection(),
+                        // TODO: Add activity section
                         CustomCard(
                           onTap: () {},
                           title: 'Activity',
