@@ -2994,7 +2994,7 @@ class _APIClient implements APIClient {
     )
         .compose(
           _dio.options,
-          '/v2/feeds/${userId}',
+          '/v3/feeds/${userId}',
           queryParameters: queryParameters,
           data: _data,
         )
@@ -3173,6 +3173,39 @@ class _APIClient implements APIClient {
           .map((dynamic i) =>
               i == null ? null : Comment.fromJson(i as Map<String, dynamic>))
           .toList();
+    } on Object catch (e, s) {
+      errorLogger?.logError(e, s, _options);
+      rethrow;
+    }
+    return _value;
+  }
+
+  @override
+  Future<bool> isPostFeatured(int postId) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    const Map<String, dynamic>? _data = null;
+    final _options = _setStreamType<bool>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+        .compose(
+          _dio.options,
+          '/posts/${postId}/is-featured',
+          queryParameters: queryParameters,
+          data: _data,
+        )
+        .copyWith(
+            baseUrl: _combineBaseUrls(
+          _dio.options.baseUrl,
+          baseUrl,
+        )));
+    final _result = await _dio.fetch<bool>(_options);
+    late bool _value;
+    try {
+      _value = _result.data!;
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options);
       rethrow;
@@ -3996,8 +4029,7 @@ class _APIClient implements APIClient {
   }
 
   @override
-  Future<ResponseMsg> saveFeaturePost(
-      SaveFeaturePostReq saveFeaturePostReq) async {
+  Future<ResponseMsg> featurePost(FeaturePostReq saveFeaturePostReq) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
@@ -4031,11 +4063,15 @@ class _APIClient implements APIClient {
   }
 
   @override
-  Future<ResponseMsg> unSaveFeaturePost(int postId) async {
+  Future<ResponseMsg> unFeaturePost(
+    int postId,
+    UnFeaturePostReq unFeaturePostReq,
+  ) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    const Map<String, dynamic>? _data = null;
+    final _data = <String, dynamic>{};
+    _data.addAll(unFeaturePostReq.toJson());
     final _options = _setStreamType<ResponseMsg>(Options(
       method: 'DELETE',
       headers: _headers,

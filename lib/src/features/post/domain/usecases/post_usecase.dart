@@ -82,4 +82,12 @@ class PostUsecase {
       commentId: commentId,
     );
   }
+
+  Future<Either<Failure, bool>> isPostFeatured({
+    required int postId,
+  }) async {
+    return _postRepository.isPostFeatured(
+      postId: postId,
+    );
+  }
 }

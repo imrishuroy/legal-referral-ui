@@ -210,4 +210,24 @@ class PostRepositoryImpl extends PostRepository {
       );
     }
   }
+
+  @override
+  Future<Either<Failure, bool>> isPostFeatured({
+    required int postId,
+  }) async {
+    try {
+      final response = await _postDatasource.isPostFeatured(
+        postId: postId,
+      );
+      return Right(response);
+    } on DioException catch (error) {
+      final dioError = DioExceptions.fromDioError(error);
+      return Left(
+        Failure(
+          statusCode: dioError.statusCode,
+          message: dioError.message,
+        ),
+      );
+    }
+  }
 }

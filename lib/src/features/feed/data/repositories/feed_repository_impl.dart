@@ -80,12 +80,12 @@ class FeedRepositoryImpl extends FeedRepository {
   }
 
   @override
-  Future<Either<Failure, ResponseMsg?>> saveFeaturePost({
-    required SaveFeaturePostReq saveFeaturePostReq,
+  Future<Either<Failure, ResponseMsg?>> featurePost({
+    required FeaturePostReq featurePostReq,
   }) async {
     try {
-      final res = await _feedDatasource.saveFeaturePost(
-        saveFeaturePostReq: saveFeaturePostReq,
+      final res = await _feedDatasource.featurePost(
+        saveFeaturePostReq: featurePostReq,
       );
       return Right(res);
     } on DioException catch (error) {
@@ -100,12 +100,14 @@ class FeedRepositoryImpl extends FeedRepository {
   }
 
   @override
-  Future<Either<Failure, ResponseMsg?>> unSaveFeaturePost({
+  Future<Either<Failure, ResponseMsg?>> unFeaturePost({
     required int postId,
+    required UnFeaturePostReq unFeaturePostReq,
   }) async {
     try {
-      final res = await _feedDatasource.unsaveFeaturePost(
+      final res = await _feedDatasource.unFeaturePost(
         postId: postId,
+        unFeaturePostReq: unFeaturePostReq,
       );
       return Right(res);
     } on DioException catch (error) {

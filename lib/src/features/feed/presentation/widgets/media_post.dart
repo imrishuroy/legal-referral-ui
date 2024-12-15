@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:legal_referral_ui/src/features/feed/presentation/presentation.dart';
-import 'package:legal_referral_ui/src/features/post/domain/entities/post.dart';
+import 'package:legal_referral_ui/src/features/post/domain/domain.dart';
 import 'package:legal_referral_ui/src/features/post/presentation/presentation.dart';
-import 'package:legal_referral_ui/src/features/post/presentation/widgets/widgets.dart';
 
 class MediaPost extends StatelessWidget {
   const MediaPost({

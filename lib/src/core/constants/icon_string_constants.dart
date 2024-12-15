@@ -53,7 +53,8 @@ class IconStringConstants {
   static const String subtract = 'assets/icons/subtract.svg';
   static const String video = 'assets/icons/video.svg';
   static const String document = 'assets/icons/document.svg';
-  static const String favorite = 'assets/icons/favorite.svg';
+  static const String favourite = 'assets/icons/favourite.svg';
+  static const String favouriteFilled = 'assets/icons/favourite_filled.svg';
   static const String download = 'assets/icons/download.svg';
   static const String addFollow = 'assets/icons/add_follow.svg';
   static const String flag = 'assets/icons/flag.svg';

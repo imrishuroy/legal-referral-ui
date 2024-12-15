@@ -166,8 +166,8 @@ class PostBloc extends Bloc<PostEvent, PostState> {
     final response = await _postUsecase.likePost(
       likePostReq: LikePostReq(
         postId: event.postId,
-        userId: event.postOwnerId,
-        senderId: event.currentUserId,
+        postOwnerId: event.postOwnerId,
+        currentUserId: event.currentUserId,
       ),
     );
     // Revert the change if the API call fails

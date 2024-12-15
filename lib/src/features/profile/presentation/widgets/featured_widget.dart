@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:legal_referral_ui/src/core/common_widgets/widgets.dart';
-import 'package:legal_referral_ui/src/core/constants/colors.dart';
-import 'package:legal_referral_ui/src/core/constants/icon_string_constants.dart';
+import 'package:legal_referral_ui/src/core/constants/constants.dart';
+import 'package:legal_referral_ui/src/core/utils/utils.dart';
 import 'package:legal_referral_ui/src/features/post/domain/domain.dart';
 
 class FeaturedWidget extends StatelessWidget {
@@ -89,12 +89,10 @@ class _PreviewFeaturePostMedia extends StatelessWidget {
       previewUrl = filesUrls.first;
     }
 
-    debugPrint('postType: $postType');
-
     switch (postType) {
       case PostType.image:
         return CustomNetworkImage(
-          imageUrl: previewUrl,
+          imageUrl: UrlUtil.getCDNURL(previewUrl),
           height: 212.h,
           width: 253.w,
         );

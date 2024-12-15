@@ -6,7 +6,7 @@ import 'package:legal_referral_ui/src/core/constants/constants.dart';
 
 class CustomCard extends StatelessWidget {
   const CustomCard({
-    required this.onTap,
+    this.onTap,
     super.key,
     this.title,
     this.subTitle,
@@ -18,8 +18,8 @@ class CustomCard extends StatelessWidget {
   final String? subTitle;
   final Widget? child;
   final bool? isNewdetails;
-  final bool? visibility;
-  final VoidCallback onTap;
+  final bool visibility;
+  final VoidCallback? onTap;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -43,7 +43,7 @@ class CustomCard extends StatelessWidget {
                 style: Theme.of(context).textTheme.headlineSmall,
               ),
               const Spacer(),
-              if (visibility!)
+              if (visibility)
                 isNewdetails!
                     ? CustomIconButton(
                         onTap: onTap,

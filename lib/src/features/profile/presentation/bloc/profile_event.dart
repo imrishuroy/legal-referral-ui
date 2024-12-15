@@ -247,8 +247,8 @@ class EducationDeleted extends ProfileEvent {
   List<Object> get props => [educationId];
 }
 
-class FeaturePostUnsaved extends ProfileEvent {
-  const FeaturePostUnsaved({
+class PostUnFeatured extends ProfileEvent {
+  const PostUnFeatured({
     required this.postId,
   });
 

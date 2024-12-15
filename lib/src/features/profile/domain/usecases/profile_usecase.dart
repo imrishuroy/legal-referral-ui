@@ -4,6 +4,7 @@ import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
 import 'package:legal_referral_ui/src/core/config/config.dart';
 import 'package:legal_referral_ui/src/features/auth/domain/domain.dart';
+import 'package:legal_referral_ui/src/features/feed/data/data.dart';
 import 'package:legal_referral_ui/src/features/firm/domain/domain.dart';
 import 'package:legal_referral_ui/src/features/profile/data/data.dart';
 import 'package:legal_referral_ui/src/features/profile/domain/domain.dart';
@@ -217,11 +218,13 @@ class ProfileUseCase {
     );
   }
 
-  Future<Either<Failure, ResponseMsg?>> unsaveFeaturePost({
+  Future<Either<Failure, ResponseMsg?>> unFeaturePost({
     required int postId,
+    required UnFeaturePostReq unFeaturePostReq,
   }) async {
-    return _profileRepository.unSaveFeaturePost(
+    return _profileRepository.unFeaturePost(
       postId: postId,
+      unFeaturePostReq: unFeaturePostReq,
     );
   }
 }

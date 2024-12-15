@@ -499,7 +499,7 @@ abstract class APIClient {
   );
 
   // feed
-  @GET('/v2/feeds/{userId}')
+  @GET('/v3/feeds/{userId}')
   Future<List<Feed?>> fetchFeeds(
     @Path('userId') String userId,
     @Query('limit') int limit,
@@ -530,6 +530,11 @@ abstract class APIClient {
 
   @GET('/posts/{postId}/comments')
   Future<List<Comment?>> fetchPostComments(
+    @Path('postId') int postId,
+  );
+
+  @GET('/posts/{postId}/is-featured')
+  Future<bool> isPostFeatured(
     @Path('postId') int postId,
   );
 
@@ -656,14 +661,17 @@ abstract class APIClient {
     @Path('post_id') int postId,
   );
 
+  // feature posts
+
   @POST('/feature-posts')
-  Future<ResponseMsg> saveFeaturePost(
-    @Body() SaveFeaturePostReq saveFeaturePostReq,
+  Future<ResponseMsg> featurePost(
+    @Body() FeaturePostReq saveFeaturePostReq,
   );
 
   @DELETE('/feature-posts/{postId}')
-  Future<ResponseMsg> unSaveFeaturePost(
+  Future<ResponseMsg> unFeaturePost(
     @Path('postId') int postId,
+    @Body() UnFeaturePostReq unFeaturePostReq,
   );
 
   @GET('/feature-posts/{userId}')

@@ -53,11 +53,11 @@ class FeedDatasource {
     }
   }
 
-  Future<ResponseMsg?> saveFeaturePost({
-    required SaveFeaturePostReq saveFeaturePostReq,
+  Future<ResponseMsg?> featurePost({
+    required FeaturePostReq saveFeaturePostReq,
   }) async {
     try {
-      final res = await _apiClient.saveFeaturePost(
+      final res = await _apiClient.featurePost(
         saveFeaturePostReq,
       );
       return res;
@@ -66,12 +66,14 @@ class FeedDatasource {
     }
   }
 
-  Future<ResponseMsg?> unsaveFeaturePost({
+  Future<ResponseMsg?> unFeaturePost({
     required int postId,
+    required UnFeaturePostReq unFeaturePostReq,
   }) async {
     try {
-      final res = await _apiClient.unSaveFeaturePost(
+      final res = await _apiClient.unFeaturePost(
         postId,
+        unFeaturePostReq,
       );
       return res;
     } catch (_) {

@@ -41,19 +41,21 @@ class FeedUsecase {
     );
   }
 
-  Future<Either<Failure, ResponseMsg?>> saveFeaturePost({
-    required SaveFeaturePostReq saveFeaturePostReq,
+  Future<Either<Failure, ResponseMsg?>> featurePost({
+    required FeaturePostReq featurePostReq,
   }) async {
-    return _feedRepository.saveFeaturePost(
-      saveFeaturePostReq: saveFeaturePostReq,
+    return _feedRepository.featurePost(
+      featurePostReq: featurePostReq,
     );
   }
 
-  Future<Either<Failure, ResponseMsg?>> unSaveFeaturePost({
+  Future<Either<Failure, ResponseMsg?>> unFeaturePost({
     required int postId,
+    required UnFeaturePostReq unFeaturePostReq,
   }) async {
-    return _feedRepository.unSaveFeaturePost(
+    return _feedRepository.unFeaturePost(
       postId: postId,
+      unFeaturePostReq: unFeaturePostReq,
     );
   }
 }

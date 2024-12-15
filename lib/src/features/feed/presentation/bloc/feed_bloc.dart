@@ -54,8 +54,13 @@ class FeedBloc extends Bloc<FeedEvent, FeedState> {
     on<PostLikesAndCommentsCountFetched>(_onPostLikesAndCommentsCountFetched);
     on<PostIsLikedFetched>(_onIsLikedPostFetched);
     on<PostSaved>(_onPostSaved);
-    on<FeaturePostSaved>(_onFeaturePostSaved);
+    on<FeedPostFeatured>(_onFeedPostFeatured);
+    on<FeedPostUnFeatured>(_onFeedPostUnFeatured);
     on<PostDeleted>(_onPostDeleted);
+    on<FeedActionChanged>(_onFeedActionChanged);
+    on<FeedActionStatusChanged>(_onFeedActionStatusChanged);
+    on<FeedActionReseted>(_onFeedActionReseted);
+    on<IsFeedPostFeatured>(_onIsFeedPostFeatured);
   }
 
   final FeedUsecase _feedUsecase;
@@ -179,8 +184,8 @@ class FeedBloc extends Bloc<FeedEvent, FeedState> {
       );
 
       final likePostReq = LikePostReq(
-        userId: event.userId,
-        senderId: event.senderId,
+        postOwnerId: event.postOwnerId,
+        currentUserId: event.currentUserId,
         postId: event.postId,
       );
 
@@ -599,7 +604,8 @@ class FeedBloc extends Bloc<FeedEvent, FeedState> {
       (failure) {
         emit(
           state.copyWith(
-            feedActionsStatus: FeedActionsStatus.failure,
+            feedAction: FeedAction.save,
+            feedActionStatus: FeedActionStatus.failure,
             failure: failure,
           ),
         );
@@ -607,31 +613,33 @@ class FeedBloc extends Bloc<FeedEvent, FeedState> {
       (_) {
         emit(
           state.copyWith(
-            feedActionsStatus: FeedActionsStatus.success,
+            feedAction: FeedAction.save,
+            feedActionStatus: FeedActionStatus.success,
           ),
         );
       },
     );
   }
 
-  Future<void> _onFeaturePostSaved(
-    FeaturePostSaved event,
+  Future<void> _onFeedPostFeatured(
+    FeedPostFeatured event,
     Emitter<FeedState> emit,
   ) async {
-    final saveFeaturePostReq = SaveFeaturePostReq(
+    final featurePostReq = FeaturePostReq(
       userId: event.userId,
       postId: event.postId,
     );
 
-    final response = await _feedUsecase.saveFeaturePost(
-      saveFeaturePostReq: saveFeaturePostReq,
+    final response = await _feedUsecase.featurePost(
+      featurePostReq: featurePostReq,
     );
 
     response.fold(
       (failure) {
         emit(
           state.copyWith(
-            feedActionsStatus: FeedActionsStatus.failure,
+            feedAction: FeedAction.featured,
+            feedActionStatus: FeedActionStatus.failure,
             failure: failure,
           ),
         );
@@ -639,7 +647,43 @@ class FeedBloc extends Bloc<FeedEvent, FeedState> {
       (_) {
         emit(
           state.copyWith(
-            feedActionsStatus: FeedActionsStatus.success,
+            isPostFeatured: true,
+            feedAction: FeedAction.featured,
+            feedActionStatus: FeedActionStatus.success,
+          ),
+        );
+      },
+    );
+  }
+
+  Future<void> _onFeedPostUnFeatured(
+    FeedPostUnFeatured event,
+    Emitter<FeedState> emit,
+  ) async {
+    final response = await _feedUsecase.unFeaturePost(
+      postId: event.postId,
+      unFeaturePostReq: UnFeaturePostReq(
+        userId: event.userId,
+        postId: event.postId,
+      ),
+    );
+
+    response.fold(
+      (failure) {
+        emit(
+          state.copyWith(
+            feedAction: FeedAction.unfeatured,
+            feedActionStatus: FeedActionStatus.failure,
+            failure: failure,
+          ),
+        );
+      },
+      (_) {
+        emit(
+          state.copyWith(
+            isPostFeatured: false,
+            feedAction: FeedAction.unfeatured,
+            feedActionStatus: FeedActionStatus.success,
           ),
         );
       },
@@ -658,8 +702,9 @@ class FeedBloc extends Bloc<FeedEvent, FeedState> {
       (failure) {
         emit(
           state.copyWith(
-            feedActionsStatus: FeedActionsStatus.failure,
             failure: failure,
+            feedAction: FeedAction.delete,
+            feedActionStatus: FeedActionStatus.failure,
           ),
         );
       },
@@ -671,8 +716,77 @@ class FeedBloc extends Bloc<FeedEvent, FeedState> {
 
         emit(
           state.copyWith(
-            feedActionsStatus: FeedActionsStatus.success,
             feeds: feeds,
+            feedAction: FeedAction.delete,
+            feedActionStatus: FeedActionStatus.success,
+          ),
+        );
+      },
+    );
+  }
+
+  void _onFeedActionChanged(
+    FeedActionChanged event,
+    Emitter<FeedState> emit,
+  ) {
+    emit(
+      state.copyWith(
+        feedAction: event.feedAction,
+      ),
+    );
+  }
+
+  void _onFeedActionStatusChanged(
+    FeedActionStatusChanged event,
+    Emitter<FeedState> emit,
+  ) {
+    emit(
+      state.copyWith(
+        feedActionStatus: event.feedActionStatus,
+      ),
+    );
+  }
+
+  void _onFeedActionReseted(
+    FeedActionReseted event,
+    Emitter<FeedState> emit,
+  ) {
+    emit(
+      state.copyWith(
+        feedAction: FeedAction.initial,
+        feedActionStatus: FeedActionStatus.initial,
+      ),
+    );
+  }
+
+  Future<void> _onIsFeedPostFeatured(
+    IsFeedPostFeatured event,
+    Emitter<FeedState> emit,
+  ) async {
+    emit(
+      state.copyWith(
+        feedActionStatus: FeedActionStatus.loading,
+      ),
+    );
+
+    final response = await _postUsecase.isPostFeatured(
+      postId: event.postId,
+    );
+
+    response.fold(
+      (failure) {
+        emit(
+          state.copyWith(
+            status: FeedStatus.failure,
+            failure: failure,
+          ),
+        );
+      },
+      (isPostFeatured) {
+        emit(
+          state.copyWith(
+            status: FeedStatus.success,
+            isPostFeatured: isPostFeatured,
           ),
         );
       },

@@ -4,7 +4,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:legal_referral_ui/src/core/config/config.dart';
 import 'package:legal_referral_ui/src/features/auth/presentation/presentation.dart';
 import 'package:legal_referral_ui/src/features/profile/presentation/presentation.dart';
-import 'package:legal_referral_ui/src/features/profile/presentation/widgets/feature_widget.dart';
 
 class FeaturedPostsSection extends StatefulWidget {
   const FeaturedPostsSection({super.key});
@@ -30,7 +29,6 @@ class _FeaturedPostsSectionState extends State<FeaturedPostsSection> {
   @override
   Widget build(BuildContext context) {
     return CustomCard(
-      onTap: () {},
       title: 'Featured',
       visibility: false,
       child: BlocBuilder<ProfileBloc, ProfileState>(
@@ -59,11 +57,14 @@ class _FeaturedPostsSectionState extends State<FeaturedPostsSection> {
                   child: FeaturedWidget(
                     post: featurePosts[index].post,
                     onUnSave: () {
-                      _profileBloc.add(
-                        FeaturePostUnsaved(
-                          postId: featurePosts[index].post!.postId,
-                        ),
-                      );
+                      final postId = featurePosts[index].post?.postId;
+                      if (postId != null) {
+                        _profileBloc.add(
+                          PostUnFeatured(
+                            postId: featurePosts[index].post!.postId,
+                          ),
+                        );
+                      }
                     },
                   ),
                 ),

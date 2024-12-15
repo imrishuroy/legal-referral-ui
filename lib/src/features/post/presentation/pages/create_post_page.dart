@@ -11,9 +11,7 @@ import 'package:legal_referral_ui/src/core/utils/utils.dart';
 import 'package:legal_referral_ui/src/features/auth/presentation/presentation.dart';
 import 'package:legal_referral_ui/src/features/feed/presentation/presentation.dart';
 import 'package:legal_referral_ui/src/features/post/domain/domain.dart';
-import 'package:legal_referral_ui/src/features/post/presentation/bloc/post_bloc.dart';
 import 'package:legal_referral_ui/src/features/post/presentation/presentation.dart';
-import 'package:legal_referral_ui/src/features/post/presentation/widgets/widgets.dart';
 import 'package:toastification/toastification.dart';
 
 enum PostCondition { anyone, connectionOnly }
@@ -47,7 +45,7 @@ class _CreatePostPageState extends State<CreatePostPage> {
           ToastUtil.showToast(
             context,
             title: 'Success',
-            description: 'Discussion created!',
+            description: 'Post created successfully',
             type: ToastificationType.success,
           );
           context.pushReplacementNamed(FeedsPage.name);

@@ -131,4 +131,17 @@ class PostDatasource {
       rethrow;
     }
   }
+
+  Future<bool> isPostFeatured({
+    required int postId,
+  }) async {
+    try {
+      final response = await _apiClient.isPostFeatured(
+        postId,
+      );
+      return response;
+    } catch (e) {
+      rethrow;
+    }
+  }
 }
