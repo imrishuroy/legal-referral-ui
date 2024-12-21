@@ -25,29 +25,19 @@ _$AdImpl _$$AdImplFromJson(Map<String, dynamic> json) => _$AdImpl(
           const [],
     );
 
-Map<String, dynamic> _$$AdImplToJson(_$AdImpl instance) {
-  final val = <String, dynamic>{
-    'ad_type': _$AdTypeEnumMap[instance.type]!,
-    'title': instance.title,
-    'description': instance.description,
-    'link': instance.link,
-    'payment_cycle': _$PaymentCycleEnumMap[instance.paymentCycle]!,
-    'author_id': instance.authorId,
-    'start_date': const DateTimeJsonConverter().toJson(instance.startDate),
-    'end_date': const DateTimeJsonConverter().toJson(instance.endDate),
-    'created_at': instance.createdAt.toIso8601String(),
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('ad_id', instance.adId);
-  val['media'] = instance.mediaUrls;
-  return val;
-}
+Map<String, dynamic> _$$AdImplToJson(_$AdImpl instance) => <String, dynamic>{
+      'ad_type': _$AdTypeEnumMap[instance.type]!,
+      'title': instance.title,
+      'description': instance.description,
+      'link': instance.link,
+      'payment_cycle': _$PaymentCycleEnumMap[instance.paymentCycle]!,
+      'author_id': instance.authorId,
+      'start_date': const DateTimeJsonConverter().toJson(instance.startDate),
+      'end_date': const DateTimeJsonConverter().toJson(instance.endDate),
+      'created_at': instance.createdAt.toIso8601String(),
+      if (instance.adId case final value?) 'ad_id': value,
+      'media': instance.mediaUrls,
+    };
 
 const _$AdTypeEnumMap = {
   AdType.image: 'image',

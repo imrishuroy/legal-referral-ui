@@ -9,6 +9,7 @@ import 'package:legal_referral_ui/src/core/constants/constants.dart';
 import 'package:legal_referral_ui/src/core/utils/utils.dart';
 import 'package:legal_referral_ui/src/features/auth/domain/domain.dart';
 import 'package:legal_referral_ui/src/features/auth/presentation/presentation.dart';
+import 'package:legal_referral_ui/src/features/discussion/presentation/presentation.dart';
 import 'package:legal_referral_ui/src/features/feed/domain/entities/feed.dart';
 import 'package:legal_referral_ui/src/features/feed/presentation/presentation.dart';
 import 'package:legal_referral_ui/src/features/notifications/presentation/presentation.dart';
@@ -180,7 +181,12 @@ class _FeedsPageState extends State<FeedsPage> {
                             await _sharePost(files);
                           }
                         },
-                        onDiscussPressed: () {},
+                        onDiscussPressed: () => context.pushNamed(
+                          CreateDiscussionPage.name,
+                          pathParameters: {
+                            'title': '${feedPost?.content}',
+                          },
+                        ),
                         onTap: () => _navigateToFeedDetailsPage(
                           feed,
                           index,

@@ -152,13 +152,13 @@ class _SignInPageState extends State<SignInPage> {
                                   onPressed: () =>
                                       _authBloc.add(AuthGoogleSignedIn()),
                                 ),
-                                SizedBox(width: 12.w),
-                                SvgButton(
-                                  imagePath: IconStringConstants.facebookIcon,
-                                  onPressed: () => _authBloc.add(
-                                    AuthFacebookSignedIn(),
-                                  ),
-                                ),
+                                // SizedBox(width: 12.w),
+                                // SvgButton(
+                                //  imagePath: IconStringConstants.facebookIcon,
+                                //   onPressed: () => _authBloc.add(
+                                //     AuthFacebookSignedIn(),
+                                //   ),
+                                // ),
                                 SizedBox(width: 12.w),
                                 SvgButton(
                                   imagePath: IconStringConstants.appleIcon,

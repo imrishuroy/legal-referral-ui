@@ -17,23 +17,16 @@ _$PriceImpl _$$PriceImplFromJson(Map<String, dynamic> json) => _$PriceImpl(
       userId: json['user_id'] as String?,
     );
 
-Map<String, dynamic> _$$PriceImplToJson(_$PriceImpl instance) {
-  final val = <String, dynamic>{
-    'service_type': _$PriceServiceTypeEnumMap[instance.serviceType],
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('per_hour_price', instance.perHourPrice);
-  writeNotNull('per_hearing_price', instance.perHearingPrice);
-  writeNotNull('contingency_price', instance.contingencyPrice);
-  writeNotNull('hybrid_price', instance.hybridPrice);
-  return val;
-}
+Map<String, dynamic> _$$PriceImplToJson(_$PriceImpl instance) =>
+    <String, dynamic>{
+      'service_type': _$PriceServiceTypeEnumMap[instance.serviceType],
+      if (instance.perHourPrice case final value?) 'per_hour_price': value,
+      if (instance.perHearingPrice case final value?)
+        'per_hearing_price': value,
+      if (instance.contingencyPrice case final value?)
+        'contingency_price': value,
+      if (instance.hybridPrice case final value?) 'hybrid_price': value,
+    };
 
 const _$PriceServiceTypeEnumMap = {
   PriceServiceType.perHour: 'per_hour',

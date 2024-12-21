@@ -33,38 +33,32 @@ _$AppUserImpl _$$AppUserImplFromJson(Map<String, dynamic> json) =>
       openToReferral: json['open_to_referral'] as bool? ?? false,
     );
 
-Map<String, dynamic> _$$AppUserImplToJson(_$AppUserImpl instance) {
-  final val = <String, dynamic>{
-    'email': instance.email,
-    'first_name': instance.firstName,
-    'last_name': instance.lastName,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('about', instance.about);
-  writeNotNull('signup_method', instance.signupMethod);
-  writeNotNull('email_verified', instance.emailVerified);
-  writeNotNull('mobile_verified', instance.mobileVerified);
-  writeNotNull('wizard_step', instance.wizardStep);
-  writeNotNull('wizard_completed', instance.wizardCompleted);
-  val['mobile'] = instance.mobile;
-  val['address'] = instance.address;
-  writeNotNull('avatar_url', instance.avatarUrl);
-  writeNotNull('banner_url', instance.bannerUrl);
-  writeNotNull('user_id', instance.userId);
-  writeNotNull('practice_area', instance.practiceArea);
-  writeNotNull('practice_location', instance.practiceLocation);
-  writeNotNull('case_resolution_rate', instance.caseResolutionRate);
-  writeNotNull('average_billing_per_client', instance.averageBillingPerClient);
-  writeNotNull('experience', instance.experience);
-  writeNotNull('open_to_referral', instance.openToReferral);
-  return val;
-}
+Map<String, dynamic> _$$AppUserImplToJson(_$AppUserImpl instance) =>
+    <String, dynamic>{
+      'email': instance.email,
+      'first_name': instance.firstName,
+      'last_name': instance.lastName,
+      if (instance.about case final value?) 'about': value,
+      if (instance.signupMethod case final value?) 'signup_method': value,
+      if (instance.emailVerified case final value?) 'email_verified': value,
+      if (instance.mobileVerified case final value?) 'mobile_verified': value,
+      if (instance.wizardStep case final value?) 'wizard_step': value,
+      if (instance.wizardCompleted case final value?) 'wizard_completed': value,
+      'mobile': instance.mobile,
+      'address': instance.address,
+      if (instance.avatarUrl case final value?) 'avatar_url': value,
+      if (instance.bannerUrl case final value?) 'banner_url': value,
+      if (instance.userId case final value?) 'user_id': value,
+      if (instance.practiceArea case final value?) 'practice_area': value,
+      if (instance.practiceLocation case final value?)
+        'practice_location': value,
+      if (instance.caseResolutionRate case final value?)
+        'case_resolution_rate': value,
+      if (instance.averageBillingPerClient case final value?)
+        'average_billing_per_client': value,
+      if (instance.experience case final value?) 'experience': value,
+      if (instance.openToReferral case final value?) 'open_to_referral': value,
+    };
 
 Value? _$JsonConverterFromJson<Json, Value>(
   Object? json,

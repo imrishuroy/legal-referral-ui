@@ -228,7 +228,7 @@ class VerticalIconButton extends StatelessWidget {
   const VerticalIconButton({
     required this.icon,
     required this.text,
-    required this.onTap,
+    this.onTap,
     super.key,
     this.height,
     this.width,
@@ -240,7 +240,7 @@ class VerticalIconButton extends StatelessWidget {
   final String icon;
   final String text;
   final Color? textColor;
-  final VoidCallback onTap;
+  final VoidCallback? onTap;
   final Color? iconColor;
   @override
   Widget build(BuildContext context) {

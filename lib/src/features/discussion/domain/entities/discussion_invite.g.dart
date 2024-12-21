@@ -19,27 +19,18 @@ _$DiscussionInviteImpl _$$DiscussionInviteImplFromJson(
     );
 
 Map<String, dynamic> _$$DiscussionInviteImplToJson(
-    _$DiscussionInviteImpl instance) {
-  final val = <String, dynamic>{
-    'discussion_invite_id': instance.discussionInviteId,
-    'discussion_id': instance.discussionId,
-    'status': _$DiscussionInviteStatusEnumMap[instance.status]!,
-    'invitee_user_id': instance.inviteeUserId,
-    'invited_user_id': instance.invitedUserId,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull(
-      'created_at',
-      _$JsonConverterToJson<String, DateTime>(
-          instance.createdAt, const DateTimeJsonConverter().toJson));
-  return val;
-}
+        _$DiscussionInviteImpl instance) =>
+    <String, dynamic>{
+      'discussion_invite_id': instance.discussionInviteId,
+      'discussion_id': instance.discussionId,
+      'status': _$DiscussionInviteStatusEnumMap[instance.status]!,
+      'invitee_user_id': instance.inviteeUserId,
+      'invited_user_id': instance.invitedUserId,
+      if (_$JsonConverterToJson<String, DateTime>(
+              instance.createdAt, const DateTimeJsonConverter().toJson)
+          case final value?)
+        'created_at': value,
+    };
 
 const _$DiscussionInviteStatusEnumMap = {
   DiscussionInviteStatus.pending: 'pending',

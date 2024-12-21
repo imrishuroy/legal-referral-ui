@@ -1,4 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:legal_referral_ui/src/features/account/domain/domain.dart';
 import 'package:legal_referral_ui/src/features/profile/domain/domain.dart';
 
 part 'user_profile.freezed.dart';
@@ -7,6 +8,8 @@ part 'user_profile.g.dart';
 @freezed
 class UserProfile with _$UserProfile {
   const factory UserProfile({
+    @JsonKey(name: 'followers_count') required int followersCount,
+    @JsonKey(name: 'connections_count') required int connectionsCount,
     @JsonKey(name: 'service_type') PriceServiceType? serviceType,
     @JsonKey(name: 'user_id') String? userId,
     @JsonKey(name: 'first_name') String? firstName,
@@ -23,6 +26,7 @@ class UserProfile with _$UserProfile {
     @JsonKey(name: 'per_hearing_price') double? perHearingPrice,
     @JsonKey(name: 'contingency_price') String? contingencyPrice,
     @JsonKey(name: 'hybrid_price') String? hybridPrice,
+    @JsonKey(name: 'rating_info') RatingInfo? ratingInfo,
   }) = _UserProfile;
 
   factory UserProfile.fromJson(Map<String, dynamic> json) =>
