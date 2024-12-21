@@ -24,29 +24,20 @@ _$ExperienceImpl _$$ExperienceImplFromJson(Map<String, dynamic> json) =>
       userId: json['user_id'] as String?,
     );
 
-Map<String, dynamic> _$$ExperienceImplToJson(_$ExperienceImpl instance) {
-  final val = <String, dynamic>{
-    'title': instance.title,
-    'practice_area': instance.practiceArea,
-    'practice_location': instance.practiceLocation,
-    'start_date': _$JsonConverterToJson<String, DateTime>(
-        instance.startDate, const ExperienceDateTimeConverter().toJson),
-    'end_date': _$JsonConverterToJson<String, DateTime>(
-        instance.endDate, const ExperienceDateTimeConverter().toJson),
-    'skills': instance.skills,
-    'description': instance.description,
-    'current': instance.current,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('firm_id', instance.firmId);
-  return val;
-}
+Map<String, dynamic> _$$ExperienceImplToJson(_$ExperienceImpl instance) =>
+    <String, dynamic>{
+      'title': instance.title,
+      'practice_area': instance.practiceArea,
+      'practice_location': instance.practiceLocation,
+      'start_date': _$JsonConverterToJson<String, DateTime>(
+          instance.startDate, const ExperienceDateTimeConverter().toJson),
+      'end_date': _$JsonConverterToJson<String, DateTime>(
+          instance.endDate, const ExperienceDateTimeConverter().toJson),
+      'skills': instance.skills,
+      'description': instance.description,
+      'current': instance.current,
+      if (instance.firmId case final value?) 'firm_id': value,
+    };
 
 Value? _$JsonConverterFromJson<Json, Value>(
   Object? json,

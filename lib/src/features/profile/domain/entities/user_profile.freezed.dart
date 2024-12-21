@@ -20,6 +20,10 @@ UserProfile _$UserProfileFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$UserProfile {
+  @JsonKey(name: 'followers_count')
+  int get followersCount => throw _privateConstructorUsedError;
+  @JsonKey(name: 'connections_count')
+  int get connectionsCount => throw _privateConstructorUsedError;
   @JsonKey(name: 'service_type')
   PriceServiceType? get serviceType => throw _privateConstructorUsedError;
   @JsonKey(name: 'user_id')
@@ -52,6 +56,8 @@ mixin _$UserProfile {
   String? get contingencyPrice => throw _privateConstructorUsedError;
   @JsonKey(name: 'hybrid_price')
   String? get hybridPrice => throw _privateConstructorUsedError;
+  @JsonKey(name: 'rating_info')
+  RatingInfo? get ratingInfo => throw _privateConstructorUsedError;
 
   /// Serializes this UserProfile to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -70,7 +76,9 @@ abstract class $UserProfileCopyWith<$Res> {
       _$UserProfileCopyWithImpl<$Res, UserProfile>;
   @useResult
   $Res call(
-      {@JsonKey(name: 'service_type') PriceServiceType? serviceType,
+      {@JsonKey(name: 'followers_count') int followersCount,
+      @JsonKey(name: 'connections_count') int connectionsCount,
+      @JsonKey(name: 'service_type') PriceServiceType? serviceType,
       @JsonKey(name: 'user_id') String? userId,
       @JsonKey(name: 'first_name') String? firstName,
       @JsonKey(name: 'last_name') String? lastName,
@@ -85,7 +93,8 @@ abstract class $UserProfileCopyWith<$Res> {
       @JsonKey(name: 'per_hour_price') double? perHourPrice,
       @JsonKey(name: 'per_hearing_price') double? perHearingPrice,
       @JsonKey(name: 'contingency_price') String? contingencyPrice,
-      @JsonKey(name: 'hybrid_price') String? hybridPrice});
+      @JsonKey(name: 'hybrid_price') String? hybridPrice,
+      @JsonKey(name: 'rating_info') RatingInfo? ratingInfo});
 }
 
 /// @nodoc
@@ -103,6 +112,8 @@ class _$UserProfileCopyWithImpl<$Res, $Val extends UserProfile>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? followersCount = null,
+    Object? connectionsCount = null,
     Object? serviceType = freezed,
     Object? userId = freezed,
     Object? firstName = freezed,
@@ -119,8 +130,17 @@ class _$UserProfileCopyWithImpl<$Res, $Val extends UserProfile>
     Object? perHearingPrice = freezed,
     Object? contingencyPrice = freezed,
     Object? hybridPrice = freezed,
+    Object? ratingInfo = freezed,
   }) {
     return _then(_value.copyWith(
+      followersCount: null == followersCount
+          ? _value.followersCount
+          : followersCount // ignore: cast_nullable_to_non_nullable
+              as int,
+      connectionsCount: null == connectionsCount
+          ? _value.connectionsCount
+          : connectionsCount // ignore: cast_nullable_to_non_nullable
+              as int,
       serviceType: freezed == serviceType
           ? _value.serviceType
           : serviceType // ignore: cast_nullable_to_non_nullable
@@ -185,6 +205,10 @@ class _$UserProfileCopyWithImpl<$Res, $Val extends UserProfile>
           ? _value.hybridPrice
           : hybridPrice // ignore: cast_nullable_to_non_nullable
               as String?,
+      ratingInfo: freezed == ratingInfo
+          ? _value.ratingInfo
+          : ratingInfo // ignore: cast_nullable_to_non_nullable
+              as RatingInfo?,
     ) as $Val);
   }
 }
@@ -198,7 +222,9 @@ abstract class _$$UserProfileImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {@JsonKey(name: 'service_type') PriceServiceType? serviceType,
+      {@JsonKey(name: 'followers_count') int followersCount,
+      @JsonKey(name: 'connections_count') int connectionsCount,
+      @JsonKey(name: 'service_type') PriceServiceType? serviceType,
       @JsonKey(name: 'user_id') String? userId,
       @JsonKey(name: 'first_name') String? firstName,
       @JsonKey(name: 'last_name') String? lastName,
@@ -213,7 +239,8 @@ abstract class _$$UserProfileImplCopyWith<$Res>
       @JsonKey(name: 'per_hour_price') double? perHourPrice,
       @JsonKey(name: 'per_hearing_price') double? perHearingPrice,
       @JsonKey(name: 'contingency_price') String? contingencyPrice,
-      @JsonKey(name: 'hybrid_price') String? hybridPrice});
+      @JsonKey(name: 'hybrid_price') String? hybridPrice,
+      @JsonKey(name: 'rating_info') RatingInfo? ratingInfo});
 }
 
 /// @nodoc
@@ -229,6 +256,8 @@ class __$$UserProfileImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? followersCount = null,
+    Object? connectionsCount = null,
     Object? serviceType = freezed,
     Object? userId = freezed,
     Object? firstName = freezed,
@@ -245,8 +274,17 @@ class __$$UserProfileImplCopyWithImpl<$Res>
     Object? perHearingPrice = freezed,
     Object? contingencyPrice = freezed,
     Object? hybridPrice = freezed,
+    Object? ratingInfo = freezed,
   }) {
     return _then(_$UserProfileImpl(
+      followersCount: null == followersCount
+          ? _value.followersCount
+          : followersCount // ignore: cast_nullable_to_non_nullable
+              as int,
+      connectionsCount: null == connectionsCount
+          ? _value.connectionsCount
+          : connectionsCount // ignore: cast_nullable_to_non_nullable
+              as int,
       serviceType: freezed == serviceType
           ? _value.serviceType
           : serviceType // ignore: cast_nullable_to_non_nullable
@@ -311,6 +349,10 @@ class __$$UserProfileImplCopyWithImpl<$Res>
           ? _value.hybridPrice
           : hybridPrice // ignore: cast_nullable_to_non_nullable
               as String?,
+      ratingInfo: freezed == ratingInfo
+          ? _value.ratingInfo
+          : ratingInfo // ignore: cast_nullable_to_non_nullable
+              as RatingInfo?,
     ));
   }
 }
@@ -319,7 +361,9 @@ class __$$UserProfileImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$UserProfileImpl implements _UserProfile {
   const _$UserProfileImpl(
-      {@JsonKey(name: 'service_type') this.serviceType,
+      {@JsonKey(name: 'followers_count') required this.followersCount,
+      @JsonKey(name: 'connections_count') required this.connectionsCount,
+      @JsonKey(name: 'service_type') this.serviceType,
       @JsonKey(name: 'user_id') this.userId,
       @JsonKey(name: 'first_name') this.firstName,
       @JsonKey(name: 'last_name') this.lastName,
@@ -334,11 +378,18 @@ class _$UserProfileImpl implements _UserProfile {
       @JsonKey(name: 'per_hour_price') this.perHourPrice,
       @JsonKey(name: 'per_hearing_price') this.perHearingPrice,
       @JsonKey(name: 'contingency_price') this.contingencyPrice,
-      @JsonKey(name: 'hybrid_price') this.hybridPrice});
+      @JsonKey(name: 'hybrid_price') this.hybridPrice,
+      @JsonKey(name: 'rating_info') this.ratingInfo});
 
   factory _$UserProfileImpl.fromJson(Map<String, dynamic> json) =>
       _$$UserProfileImplFromJson(json);
 
+  @override
+  @JsonKey(name: 'followers_count')
+  final int followersCount;
+  @override
+  @JsonKey(name: 'connections_count')
+  final int connectionsCount;
   @override
   @JsonKey(name: 'service_type')
   final PriceServiceType? serviceType;
@@ -387,10 +438,13 @@ class _$UserProfileImpl implements _UserProfile {
   @override
   @JsonKey(name: 'hybrid_price')
   final String? hybridPrice;
+  @override
+  @JsonKey(name: 'rating_info')
+  final RatingInfo? ratingInfo;
 
   @override
   String toString() {
-    return 'UserProfile(serviceType: $serviceType, userId: $userId, firstName: $firstName, lastName: $lastName, practiceArea: $practiceArea, avatarUrl: $avatarUrl, bannerUrl: $bannerUrl, averageBillingPerClient: $averageBillingPerClient, caseResolutionRate: $caseResolutionRate, openToReferral: $openToReferral, about: $about, priceId: $priceId, perHourPrice: $perHourPrice, perHearingPrice: $perHearingPrice, contingencyPrice: $contingencyPrice, hybridPrice: $hybridPrice)';
+    return 'UserProfile(followersCount: $followersCount, connectionsCount: $connectionsCount, serviceType: $serviceType, userId: $userId, firstName: $firstName, lastName: $lastName, practiceArea: $practiceArea, avatarUrl: $avatarUrl, bannerUrl: $bannerUrl, averageBillingPerClient: $averageBillingPerClient, caseResolutionRate: $caseResolutionRate, openToReferral: $openToReferral, about: $about, priceId: $priceId, perHourPrice: $perHourPrice, perHearingPrice: $perHearingPrice, contingencyPrice: $contingencyPrice, hybridPrice: $hybridPrice, ratingInfo: $ratingInfo)';
   }
 
   @override
@@ -398,6 +452,10 @@ class _$UserProfileImpl implements _UserProfile {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$UserProfileImpl &&
+            (identical(other.followersCount, followersCount) ||
+                other.followersCount == followersCount) &&
+            (identical(other.connectionsCount, connectionsCount) ||
+                other.connectionsCount == connectionsCount) &&
             (identical(other.serviceType, serviceType) ||
                 other.serviceType == serviceType) &&
             (identical(other.userId, userId) || other.userId == userId) &&
@@ -427,29 +485,35 @@ class _$UserProfileImpl implements _UserProfile {
             (identical(other.contingencyPrice, contingencyPrice) ||
                 other.contingencyPrice == contingencyPrice) &&
             (identical(other.hybridPrice, hybridPrice) ||
-                other.hybridPrice == hybridPrice));
+                other.hybridPrice == hybridPrice) &&
+            (identical(other.ratingInfo, ratingInfo) ||
+                other.ratingInfo == ratingInfo));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      serviceType,
-      userId,
-      firstName,
-      lastName,
-      practiceArea,
-      avatarUrl,
-      bannerUrl,
-      averageBillingPerClient,
-      caseResolutionRate,
-      openToReferral,
-      about,
-      priceId,
-      perHourPrice,
-      perHearingPrice,
-      contingencyPrice,
-      hybridPrice);
+  int get hashCode => Object.hashAll([
+        runtimeType,
+        followersCount,
+        connectionsCount,
+        serviceType,
+        userId,
+        firstName,
+        lastName,
+        practiceArea,
+        avatarUrl,
+        bannerUrl,
+        averageBillingPerClient,
+        caseResolutionRate,
+        openToReferral,
+        about,
+        priceId,
+        perHourPrice,
+        perHearingPrice,
+        contingencyPrice,
+        hybridPrice,
+        ratingInfo
+      ]);
 
   /// Create a copy of UserProfile
   /// with the given fields replaced by the non-null parameter values.
@@ -469,28 +533,37 @@ class _$UserProfileImpl implements _UserProfile {
 
 abstract class _UserProfile implements UserProfile {
   const factory _UserProfile(
-          {@JsonKey(name: 'service_type') final PriceServiceType? serviceType,
-          @JsonKey(name: 'user_id') final String? userId,
-          @JsonKey(name: 'first_name') final String? firstName,
-          @JsonKey(name: 'last_name') final String? lastName,
-          @JsonKey(name: 'practice_area') final String? practiceArea,
-          @JsonKey(name: 'avatar_url') final String? avatarUrl,
-          @JsonKey(name: 'banner_url') final String? bannerUrl,
-          @JsonKey(name: 'average_billing_per_client')
-          final int? averageBillingPerClient,
-          @JsonKey(name: 'case_resolution_rate') final int? caseResolutionRate,
-          @JsonKey(name: 'open_to_referral') final bool? openToReferral,
-          @JsonKey(name: 'about') final String? about,
-          @JsonKey(name: 'price_id') final int? priceId,
-          @JsonKey(name: 'per_hour_price') final double? perHourPrice,
-          @JsonKey(name: 'per_hearing_price') final double? perHearingPrice,
-          @JsonKey(name: 'contingency_price') final String? contingencyPrice,
-          @JsonKey(name: 'hybrid_price') final String? hybridPrice}) =
-      _$UserProfileImpl;
+      {@JsonKey(name: 'followers_count') required final int followersCount,
+      @JsonKey(name: 'connections_count') required final int connectionsCount,
+      @JsonKey(name: 'service_type') final PriceServiceType? serviceType,
+      @JsonKey(name: 'user_id') final String? userId,
+      @JsonKey(name: 'first_name') final String? firstName,
+      @JsonKey(name: 'last_name') final String? lastName,
+      @JsonKey(name: 'practice_area') final String? practiceArea,
+      @JsonKey(name: 'avatar_url') final String? avatarUrl,
+      @JsonKey(name: 'banner_url') final String? bannerUrl,
+      @JsonKey(name: 'average_billing_per_client')
+      final int? averageBillingPerClient,
+      @JsonKey(name: 'case_resolution_rate') final int? caseResolutionRate,
+      @JsonKey(name: 'open_to_referral') final bool? openToReferral,
+      @JsonKey(name: 'about') final String? about,
+      @JsonKey(name: 'price_id') final int? priceId,
+      @JsonKey(name: 'per_hour_price') final double? perHourPrice,
+      @JsonKey(name: 'per_hearing_price') final double? perHearingPrice,
+      @JsonKey(name: 'contingency_price') final String? contingencyPrice,
+      @JsonKey(name: 'hybrid_price') final String? hybridPrice,
+      @JsonKey(name: 'rating_info')
+      final RatingInfo? ratingInfo}) = _$UserProfileImpl;
 
   factory _UserProfile.fromJson(Map<String, dynamic> json) =
       _$UserProfileImpl.fromJson;
 
+  @override
+  @JsonKey(name: 'followers_count')
+  int get followersCount;
+  @override
+  @JsonKey(name: 'connections_count')
+  int get connectionsCount;
   @override
   @JsonKey(name: 'service_type')
   PriceServiceType? get serviceType;
@@ -539,6 +612,9 @@ abstract class _UserProfile implements UserProfile {
   @override
   @JsonKey(name: 'hybrid_price')
   String? get hybridPrice;
+  @override
+  @JsonKey(name: 'rating_info')
+  RatingInfo? get ratingInfo;
 
   /// Create a copy of UserProfile
   /// with the given fields replaced by the non-null parameter values.

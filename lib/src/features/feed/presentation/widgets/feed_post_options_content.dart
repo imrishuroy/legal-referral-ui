@@ -103,10 +103,9 @@ class _FeedPostOptionsContentState extends State<FeedPostOptionsContent> {
               ),
               title: Text(
                 'Share via',
-                style: Theme.of(context)
-                    .textTheme
-                    .bodyLarge
-                    ?.copyWith(color: LegalReferralColors.textGrey500),
+                style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                      color: LegalReferralColors.textGrey500,
+                    ),
               ),
             ),
             const Divider(),

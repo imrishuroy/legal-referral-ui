@@ -17,23 +17,14 @@ _$ProjectReviewImpl _$$ProjectReviewImplFromJson(Map<String, dynamic> json) =>
       reviewId: (json['review_id'] as num?)?.toInt(),
     );
 
-Map<String, dynamic> _$$ProjectReviewImplToJson(_$ProjectReviewImpl instance) {
-  final val = <String, dynamic>{
-    'project_id': instance.projectId,
-    'user_id': instance.userId,
-    'review': instance.review,
-    'rating': instance.rating,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('review_id', instance.reviewId);
-  return val;
-}
+Map<String, dynamic> _$$ProjectReviewImplToJson(_$ProjectReviewImpl instance) =>
+    <String, dynamic>{
+      'project_id': instance.projectId,
+      'user_id': instance.userId,
+      'review': instance.review,
+      'rating': instance.rating,
+      if (instance.reviewId case final value?) 'review_id': value,
+    };
 
 Value? _$JsonConverterFromJson<Json, Value>(
   Object? json,

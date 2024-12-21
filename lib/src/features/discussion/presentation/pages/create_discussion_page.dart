@@ -15,7 +15,12 @@ import 'package:toastification/toastification.dart';
 enum PostCondition { anyone, connectionOnly }
 
 class CreateDiscussionPage extends StatefulWidget {
-  const CreateDiscussionPage({super.key});
+  const CreateDiscussionPage({
+    super.key,
+    this.title,
+  });
+
+  final String? title;
   static const name = 'CreateDiscussionPage';
 
   @override
@@ -23,10 +28,15 @@ class CreateDiscussionPage extends StatefulWidget {
 }
 
 class _CreateDiscussionPageState extends State<CreateDiscussionPage> {
-  final TextEditingController _postContentController = TextEditingController();
-
+  final _textEditingController = TextEditingController();
   final _authBloc = getIt<AuthBloc>();
   final _discussionBloc = getIt<DiscussionBloc>();
+
+  @override
+  void initState() {
+    _textEditingController.text = widget.title ?? '';
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +54,7 @@ class _CreateDiscussionPageState extends State<CreateDiscussionPage> {
           ToastUtil.showToast(
             context,
             title: 'Success',
-            description: 'Post created successfully',
+            description: 'Discussion created successfully',
             type: ToastificationType.success,
           );
           context.pushReplacementNamed(FeedsPage.name);
@@ -72,7 +82,7 @@ class _CreateDiscussionPageState extends State<CreateDiscussionPage> {
                     DiscussionCreated(
                       createDiscussionReq: CreateDiscussionReq(
                         authorId: userId,
-                        topic: _postContentController.text,
+                        topic: _textEditingController.text,
                         invitedUserIds: invitedUsers,
                       ),
                     ),
@@ -129,7 +139,7 @@ class _CreateDiscussionPageState extends State<CreateDiscussionPage> {
                             keyboardType: TextInputType.multiline,
                             fillColor: Colors.transparent,
                             borderColor: Colors.transparent,
-                            controller: _postContentController,
+                            controller: _textEditingController,
                             hintText: 'Discuss on...',
                           ),
                         ],

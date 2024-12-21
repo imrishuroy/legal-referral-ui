@@ -3,8 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:legal_referral_ui/src/core/common_widgets/widgets.dart';
-import 'package:legal_referral_ui/src/core/constants/colors.dart';
-import 'package:legal_referral_ui/src/core/constants/icon_string_constants.dart';
+import 'package:legal_referral_ui/src/core/constants/constants.dart';
 import 'package:legal_referral_ui/src/core/utils/utils.dart';
 import 'package:legal_referral_ui/src/features/feed/domain/domain.dart';
 import 'package:legal_referral_ui/src/features/feed/presentation/presentation.dart';
@@ -17,11 +16,11 @@ class FeedTile extends StatelessWidget {
     required this.feed,
     required this.onLikePressed,
     required this.onCommentPressed,
-    required this.onDiscussPressed,
-    required this.onSharePressed,
     required this.isLiked,
     required this.likesCount,
     required this.commentsCount,
+    this.onSharePressed,
+    this.onDiscussPressed,
     this.onTap,
     this.onOptionsPressed,
     this.imageHeight = 380,
@@ -31,8 +30,8 @@ class FeedTile extends StatelessWidget {
   final Feed? feed;
   final VoidCallback onLikePressed;
   final VoidCallback onCommentPressed;
-  final VoidCallback onDiscussPressed;
-  final VoidCallback onSharePressed;
+  final VoidCallback? onDiscussPressed;
+  final VoidCallback? onSharePressed;
   final double imageHeight;
   final bool isLiked;
   final int likesCount;

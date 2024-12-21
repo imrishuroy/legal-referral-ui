@@ -16,25 +16,18 @@ _$DiscussionImpl _$$DiscussionImplFromJson(Map<String, dynamic> json) =>
       activeMemberCount: (json['active_member_count'] as num?)?.toInt(),
     );
 
-Map<String, dynamic> _$$DiscussionImplToJson(_$DiscussionImpl instance) {
-  final val = <String, dynamic>{};
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('discussion_id', instance.discussionId);
-  writeNotNull('topic', instance.topic);
-  val['author_id'] = instance.authorId;
-  writeNotNull(
-      'created_at',
-      _$JsonConverterToJson<String, DateTime>(
-          instance.createdAt, const DateTimeJsonConverter().toJson));
-  writeNotNull('active_member_count', instance.activeMemberCount);
-  return val;
-}
+Map<String, dynamic> _$$DiscussionImplToJson(_$DiscussionImpl instance) =>
+    <String, dynamic>{
+      if (instance.discussionId case final value?) 'discussion_id': value,
+      if (instance.topic case final value?) 'topic': value,
+      'author_id': instance.authorId,
+      if (_$JsonConverterToJson<String, DateTime>(
+              instance.createdAt, const DateTimeJsonConverter().toJson)
+          case final value?)
+        'created_at': value,
+      if (instance.activeMemberCount case final value?)
+        'active_member_count': value,
+    };
 
 Value? _$JsonConverterFromJson<Json, Value>(
   Object? json,

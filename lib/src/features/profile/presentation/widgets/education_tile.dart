@@ -81,7 +81,7 @@ class EducationTile extends StatelessWidget {
         ),
         if (onTapEdit != null)
           CustomIconButton(
-            onTap: onTapEdit!,
+            onTap: onTapEdit,
             icon: SizedBox(
               height: 24.h,
               width: 24.w,

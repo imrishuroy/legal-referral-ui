@@ -21,23 +21,14 @@ _$ProposalImpl _$$ProposalImplFromJson(Map<String, dynamic> json) =>
           json['updated_at'], const DateTimeJsonConverter().fromJson),
     );
 
-Map<String, dynamic> _$$ProposalImplToJson(_$ProposalImpl instance) {
-  final val = <String, dynamic>{
-    'project_id': instance.referralId,
-    'user_id': instance.userId,
-    'title': instance.title,
-    'proposal': instance.proposal,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('proposal_id', instance.proposalId);
-  return val;
-}
+Map<String, dynamic> _$$ProposalImplToJson(_$ProposalImpl instance) =>
+    <String, dynamic>{
+      'project_id': instance.referralId,
+      'user_id': instance.userId,
+      'title': instance.title,
+      'proposal': instance.proposal,
+      if (instance.proposalId case final value?) 'proposal_id': value,
+    };
 
 const _$ProposalStatusEnumMap = {
   ProposalStatus.active: 'active',

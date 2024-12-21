@@ -39,6 +39,8 @@ class FeedDetailsPage extends StatefulWidget {
 }
 
 class _FeedDetailsPageState extends State<FeedDetailsPage> {
+  final _authBloc = getIt<AuthBloc>();
+  FeedBloc get _feedBloc => widget.args.feedBloc;
   final _commentsController = TextEditingController();
   final _focusNode = FocusNode();
 
@@ -107,13 +109,14 @@ class _FeedDetailsPageState extends State<FeedDetailsPage> {
                             feedPost?.isLiked ?? false,
                             widget.args.index,
                           ),
+                          onOptionsPressed: () => _showPostOptionsSheet(
+                            context: context,
+                            feed: widget.args.feed,
+                          ),
                           onCommentPressed: () {
                             _focusNode.unfocus();
                             FocusScope.of(context).requestFocus(_focusNode);
                           },
-                          // TODO: Implement discuss and share
-                          onDiscussPressed: () {},
-                          onSharePressed: () {},
                           imageHeight: 250,
                         ),
                         Padding(
@@ -177,6 +180,24 @@ class _FeedDetailsPageState extends State<FeedDetailsPage> {
             );
           },
         ),
+      ),
+    );
+  }
+
+  void _showPostOptionsSheet({
+    required BuildContext context,
+    required Feed? feed,
+  }) {
+    final userId = _authBloc.state.user?.userId;
+    CustomBottomSheet.show(
+      isDismissible: true,
+      borderRadius: true,
+      maxWidth: double.infinity,
+      context: context,
+      child: FeedPostOptionsContent(
+        feedBloc: _feedBloc,
+        feed: feed,
+        userId: userId,
       ),
     );
   }

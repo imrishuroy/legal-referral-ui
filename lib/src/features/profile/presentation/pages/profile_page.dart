@@ -64,43 +64,66 @@ class _ProfilePageState extends State<ProfilePage> {
           }
         },
         builder: (context, state) {
-          final user = state.userProfile;
+          if (state.profileStatus == ProfileStatus.loading) {
+            return const ProfileShimmer();
+          } else {
+            final user = state.userProfile;
+            final avgRating = user?.ratingInfo?.averageRating ?? 0;
+            final totalAttorneys = user?.ratingInfo?.attorneys ?? 0;
+            final attorneyLabel =
+                totalAttorneys == 1 ? 'attorney' : 'attorneys';
 
-          return state.profileStatus == ProfileStatus.loading
-              ? const ProfileShimmer()
-              : SafeArea(
-                  child: SingleChildScrollView(
-                    child: Column(
-                      children: [
-                        SizedBox(
-                          height: 4.h,
-                        ),
-                        ColoredBox(
-                          color: LegalReferralColors.containerWhite500,
-                          child: Column(
-                            children: [
-                              HeaderSection(
-                                user: user,
-                                profileBloc: _profileBloc,
-                                isCurrentUser: isCurrentUser,
-                              ),
-                              SizedBox(
-                                height: 8.h,
-                              ),
-                              Container(
-                                padding: EdgeInsets.only(left: 16.w),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
+            return SafeArea(
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    SizedBox(
+                      height: 4.h,
+                    ),
+                    ColoredBox(
+                      color: LegalReferralColors.containerWhite500,
+                      child: Column(
+                        children: [
+                          HeaderSection(
+                            user: user,
+                            profileBloc: _profileBloc,
+                            isCurrentUser: isCurrentUser,
+                          ),
+                          SizedBox(
+                            height: 8.h,
+                          ),
+                          Container(
+                            padding: EdgeInsets.only(left: 16.w),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  '${user?.firstName ?? ''} '
+                                  '${user?.lastName}',
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .headlineMedium,
+                                ),
+                                Text(
+                                  user?.practiceArea ?? '',
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodyLarge
+                                      ?.copyWith(
+                                        color: LegalReferralColors.textGrey400,
+                                      ),
+                                ),
+                                SizedBox(
+                                  height: 8.h,
+                                ),
+                                Row(
                                   children: [
-                                    Text(
-                                      '${user?.firstName ?? ''} '
-                                      '${user?.lastName}',
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .headlineMedium,
+                                    SvgPicture.asset(
+                                      IconStringConstants.rating,
                                     ),
                                     Text(
-                                      user?.practiceArea ?? '',
+                                      '$avgRating by '
+                                      '$totalAttorneys $attorneyLabel',
                                       style: Theme.of(context)
                                           .textTheme
                                           .bodyLarge
@@ -109,135 +132,113 @@ class _ProfilePageState extends State<ProfilePage> {
                                                 LegalReferralColors.textGrey400,
                                           ),
                                     ),
-                                    SizedBox(
-                                      height: 8.h,
-                                    ),
-                                    Row(
-                                      children: [
-                                        SvgPicture.asset(
-                                          IconStringConstants.rating,
-                                        ),
-                                        // TODO: Add rating
-                                        Text(
-                                          '4.7 by 433 attorneys',
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .bodyLarge
-                                              ?.copyWith(
-                                                color: LegalReferralColors
-                                                    .textGrey400,
-                                              ),
-                                        ),
-                                      ],
-                                    ),
-                                    // TODO: Add followers and connections
-                                    Text(
-                                      '898 Followers • 233 Connections',
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .titleSmall
-                                          ?.copyWith(
-                                            color:
-                                                LegalReferralColors.textBlue100,
-                                          ),
-                                    ),
                                   ],
                                 ),
-                              ),
-                              SizedBox(
-                                height: 8.h,
-                              ),
-                              if (!isCurrentUser)
-                                ConnectionButtons(
-                                  userId: widget.userId,
-                                ),
-                            ],
-                          ),
-                        ),
-                        SizedBox(
-                          height: 2.h,
-                        ),
-                        PricingSection(
-                          user: user,
-                          profileBloc: _profileBloc,
-                          isCurrentUser: isCurrentUser,
-                        ),
-                        CustomCard(
-                          onTap: () {
-                            context.pushNamed(
-                              AddUpdatePricePage.name,
-                              extra: AddUpdatePricePageArgs(
-                                profileBloc: _profileBloc,
-                              ),
-                            );
-                          },
-                          title: 'Average billing per client',
-                          visibility: false,
-                          child: Text.rich(
-                            TextSpan(
-                              text: user?.averageBillingPerClient == null
-                                  ? ''
-                                  : '\$${user?.averageBillingPerClient}',
-                              style: Theme.of(context).textTheme.displaySmall,
-                              children: <TextSpan>[
-                                TextSpan(
-                                  text: user?.averageBillingPerClient == null
-                                      ? ''
-                                      : '/hr',
-                                  style:
-                                      Theme.of(context).textTheme.titleMedium,
+                                Text(
+                                  '${user?.followersCount ?? 0} Followers '
+                                  '• '
+                                  '${user?.connectionsCount ?? 0} '
+                                  'Connections',
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .titleSmall
+                                      ?.copyWith(
+                                        color: LegalReferralColors.textBlue100,
+                                      ),
                                 ),
                               ],
                             ),
                           ),
-                        ),
-                        // TODO: Add case resolution rate
-                        CustomCard(
-                          onTap: () {},
-                          visibility: false,
-                          title: 'Case resolution rate',
-                          child: Text(
-                            user?.caseResolutionRate == null
-                                ? ''
-                                : '${user?.caseResolutionRate}%',
-                            style: Theme.of(context).textTheme.displaySmall,
+                          SizedBox(
+                            height: 8.h,
                           ),
-                        ),
-                        // TODO: Add about section
-                        CustomCard(
-                          onTap: () {},
-                          title: 'About',
-                          visibility: false,
-                          child: Text(
-                            user?.about ?? '',
-                            style: Theme.of(context).textTheme.bodyLarge,
-                          ),
-                        ),
-                        ProfileSocialSection(
-                          profileBloc: _profileBloc,
-                          isCurrentUser: isCurrentUser,
-                        ),
-                        const FeaturedPostsSection(),
-                        // TODO: Add activity section
-                        CustomCard(
-                          onTap: () {},
-                          title: 'Activity',
-                          visibility: false,
-                          child: const ActivitySection(),
-                        ),
-                        ExperienceSection(
-                          profileBloc: _profileBloc,
-                          isCurrentUser: isCurrentUser,
-                        ),
-                        EducationSection(
-                          profileBloc: _profileBloc,
-                          isCurrentUser: isCurrentUser,
-                        ),
-                        const ReviewsSection(),
-                      ],
+                          if (!isCurrentUser)
+                            ConnectionButtons(
+                              userId: widget.userId,
+                            ),
+                        ],
+                      ),
                     ),
-                  ),
-                );
+                    SizedBox(
+                      height: 2.h,
+                    ),
+                    PricingSection(
+                      user: user,
+                      profileBloc: _profileBloc,
+                      isCurrentUser: isCurrentUser,
+                    ),
+                    CustomCard(
+                      onTap: () {
+                        context.pushNamed(
+                          AddUpdatePricePage.name,
+                          extra: AddUpdatePricePageArgs(
+                            profileBloc: _profileBloc,
+                          ),
+                        );
+                      },
+                      title: 'Average billing per client',
+                      visibility: false,
+                      child: Text.rich(
+                        TextSpan(
+                          text: user?.averageBillingPerClient == null
+                              ? ''
+                              : '\$${user?.averageBillingPerClient}',
+                          style: Theme.of(context).textTheme.displaySmall,
+                          children: <TextSpan>[
+                            TextSpan(
+                              text: user?.averageBillingPerClient == null
+                                  ? ''
+                                  : '/hr',
+                              style: Theme.of(context).textTheme.titleMedium,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    CustomCard(
+                      visibility: false,
+                      title: 'Case resolution rate',
+                      child: Text(
+                        user?.caseResolutionRate == null
+                            ? ''
+                            : '${user?.caseResolutionRate}%',
+                        style: Theme.of(context).textTheme.displaySmall,
+                      ),
+                    ),
+                    CustomCard(
+                      title: 'About',
+                      visibility: false,
+                      child: Text(
+                        user?.about ?? '',
+                        style: Theme.of(context).textTheme.bodyLarge,
+                      ),
+                    ),
+                    ProfileSocialSection(
+                      profileBloc: _profileBloc,
+                      isCurrentUser: isCurrentUser,
+                    ),
+                    const FeaturedPostsSection(),
+                    // TODO: Add activity section
+                    CustomCard(
+                      onTap: () {},
+                      title: 'Activity',
+                      visibility: false,
+                      child: const ActivitySection(),
+                    ),
+                    ExperienceSection(
+                      profileBloc: _profileBloc,
+                      isCurrentUser: isCurrentUser,
+                    ),
+                    EducationSection(
+                      profileBloc: _profileBloc,
+                      isCurrentUser: isCurrentUser,
+                    ),
+                    const ReviewsSection(),
+                  ],
+                ),
+              ),
+            );
+          }
         },
       ),
     );

@@ -27,31 +27,22 @@ _$PostImpl _$$PostImplFromJson(Map<String, dynamic> json) => _$PostImpl(
       pollId: (json['poll_id'] as num?)?.toInt(),
     );
 
-Map<String, dynamic> _$$PostImplToJson(_$PostImpl instance) {
-  final val = <String, dynamic>{
-    'owner_id': instance.ownerId,
-    'post_type': _$PostTypeEnumMap[instance.type]!,
-    'post_id': instance.postId,
-    'likes_count': instance.likesCount,
-    'comments_count': instance.commentsCount,
-    'is_liked': instance.isLiked,
-    'owner_first_name': instance.ownerFirstName,
-    'owner_last_name': instance.ownerLastName,
-    'owner_avatar_url': instance.ownerAvatarUrl,
-    'owner_practice_area': instance.ownerPracticeArea,
-    'content': instance.content,
-    'media': instance.filesUrls,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('poll_id', instance.pollId);
-  return val;
-}
+Map<String, dynamic> _$$PostImplToJson(_$PostImpl instance) =>
+    <String, dynamic>{
+      'owner_id': instance.ownerId,
+      'post_type': _$PostTypeEnumMap[instance.type]!,
+      'post_id': instance.postId,
+      'likes_count': instance.likesCount,
+      'comments_count': instance.commentsCount,
+      'is_liked': instance.isLiked,
+      'owner_first_name': instance.ownerFirstName,
+      'owner_last_name': instance.ownerLastName,
+      'owner_avatar_url': instance.ownerAvatarUrl,
+      'owner_practice_area': instance.ownerPracticeArea,
+      'content': instance.content,
+      'media': instance.filesUrls,
+      if (instance.pollId case final value?) 'poll_id': value,
+    };
 
 const _$PostTypeEnumMap = {
   PostType.text: 'text',

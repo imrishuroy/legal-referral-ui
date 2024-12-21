@@ -26,31 +26,25 @@ _$DiscussionMessageImpl _$$DiscussionMessageImplFromJson(
     );
 
 Map<String, dynamic> _$$DiscussionMessageImplToJson(
-    _$DiscussionMessageImpl instance) {
-  final val = <String, dynamic>{
-    'sender_id': instance.senderId,
-    'message': instance.message,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('replied_message', instance.repliedMessage);
-  val['discussion_id'] = instance.discussionId;
-  writeNotNull(
-      'sent_at',
-      _$JsonConverterToJson<String, DateTime>(
-          instance.sentAt, const DateTimeJsonConverter().toJson));
-  writeNotNull('parent_message_id', instance.parentMessageId);
-  writeNotNull('message_id', instance.messageId);
-  writeNotNull('sender_first_name', instance.senderFirstName);
-  writeNotNull('sender_last_name', instance.senderLastName);
-  writeNotNull('sender_avatar_image', instance.senderAvatarImg);
-  return val;
-}
+        _$DiscussionMessageImpl instance) =>
+    <String, dynamic>{
+      'sender_id': instance.senderId,
+      'message': instance.message,
+      if (instance.repliedMessage case final value?) 'replied_message': value,
+      'discussion_id': instance.discussionId,
+      if (_$JsonConverterToJson<String, DateTime>(
+              instance.sentAt, const DateTimeJsonConverter().toJson)
+          case final value?)
+        'sent_at': value,
+      if (instance.parentMessageId case final value?)
+        'parent_message_id': value,
+      if (instance.messageId case final value?) 'message_id': value,
+      if (instance.senderFirstName case final value?)
+        'sender_first_name': value,
+      if (instance.senderLastName case final value?) 'sender_last_name': value,
+      if (instance.senderAvatarImg case final value?)
+        'sender_avatar_image': value,
+    };
 
 Value? _$JsonConverterFromJson<Json, Value>(
   Object? json,
