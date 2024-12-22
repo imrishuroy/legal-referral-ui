@@ -90,4 +90,22 @@ class PostUsecase {
       postId: postId,
     );
   }
+
+  Future<Either<Failure, ResponseMsg>> reportPost({
+    required ReportPostReq reportPostReq,
+  }) async {
+    return _postRepository.reportPost(
+      reportPostReq: reportPostReq,
+    );
+  }
+
+  Future<Either<Failure, bool>> isPostReported({
+    required int postId,
+    required String userId,
+  }) async {
+    return _postRepository.isPostReported(
+      postId: postId,
+      userId: userId,
+    );
+  }
 }

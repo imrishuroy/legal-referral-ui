@@ -144,4 +144,32 @@ class PostDatasource {
       rethrow;
     }
   }
+
+  Future<ResponseMsg> reportPost({
+    required ReportPostReq reportPostReq,
+  }) async {
+    try {
+      final response = await _apiClient.reportPost(
+        reportPostReq,
+      );
+      return response;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<bool> isPostReported({
+    required int postId,
+    required String userId,
+  }) async {
+    try {
+      final response = await _apiClient.isPostReported(
+        postId,
+        userId,
+      );
+      return response;
+    } catch (e) {
+      rethrow;
+    }
+  }
 }

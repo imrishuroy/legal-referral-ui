@@ -48,4 +48,13 @@ abstract class PostRepository {
   Future<Either<Failure, bool>> isPostFeatured({
     required int postId,
   });
+
+  Future<Either<Failure, ResponseMsg>> reportPost({
+    required ReportPostReq reportPostReq,
+  });
+
+  Future<Either<Failure, bool>> isPostReported({
+    required int postId,
+    required String userId,
+  });
 }

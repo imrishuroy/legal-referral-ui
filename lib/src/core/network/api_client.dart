@@ -700,4 +700,16 @@ abstract class APIClient {
     @Query('limit') int limit,
     @Query('offset') int offset,
   );
+
+  // report post
+  @POST('/report-post')
+  Future<ResponseMsg> reportPost(
+    @Body() ReportPostReq reportPostReq,
+  );
+
+  @GET('/posts/{postId}/reported-status/{userId}')
+  Future<bool> isPostReported(
+    @Path('postId') int postId,
+    @Path('userId') String userId,
+  );
 }

@@ -61,6 +61,8 @@ class FeedBloc extends Bloc<FeedEvent, FeedState> {
     on<FeedActionStatusChanged>(_onFeedActionStatusChanged);
     on<FeedActionReseted>(_onFeedActionReseted);
     on<IsFeedPostFeatured>(_onIsFeedPostFeatured);
+    on<IsFeedPostReported>(_onIsFeedPostReported);
+    on<FeedPostReported>(_onFeedPostReported);
   }
 
   final FeedUsecase _feedUsecase;
@@ -787,6 +789,73 @@ class FeedBloc extends Bloc<FeedEvent, FeedState> {
           state.copyWith(
             status: FeedStatus.success,
             isPostFeatured: isPostFeatured,
+          ),
+        );
+      },
+    );
+  }
+
+  Future<void> _onIsFeedPostReported(
+    IsFeedPostReported event,
+    Emitter<FeedState> emit,
+  ) async {
+    emit(
+      state.copyWith(
+        feedActionStatus: FeedActionStatus.loading,
+      ),
+    );
+
+    final response = await _postUsecase.isPostReported(
+      postId: event.postId,
+      userId: event.userId,
+    );
+
+    response.fold(
+      (failure) {
+        emit(
+          state.copyWith(
+            status: FeedStatus.failure,
+            failure: failure,
+          ),
+        );
+      },
+      (isPostReported) {
+        emit(
+          state.copyWith(
+            status: FeedStatus.success,
+            isPostReported: isPostReported,
+          ),
+        );
+      },
+    );
+  }
+
+  Future<void> _onFeedPostReported(
+    FeedPostReported event,
+    Emitter<FeedState> emit,
+  ) async {
+    final response = await _postUsecase.reportPost(
+      reportPostReq: ReportPostReq(
+        reportedBy: event.reportedBy,
+        postId: event.postId,
+        reason: event.reason,
+      ),
+    );
+    response.fold(
+      (failure) {
+        emit(
+          state.copyWith(
+            feedAction: FeedAction.report,
+            feedActionStatus: FeedActionStatus.failure,
+            failure: failure,
+          ),
+        );
+      },
+      (_) {
+        emit(
+          state.copyWith(
+            feedAction: FeedAction.report,
+            feedActionStatus: FeedActionStatus.success,
           ),
         );
       },
