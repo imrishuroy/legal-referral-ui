@@ -363,6 +363,13 @@ class _FeedsPageState extends State<FeedsPage> {
             description: 'Post saved successfully',
             type: ToastificationType.success,
           );
+        case FeedAction.report:
+          ToastUtil.showToast(
+            context,
+            title: 'Success',
+            description: "Thanks for reporting! We'll review the post",
+            type: ToastificationType.success,
+          );
           break;
         default:
           break;

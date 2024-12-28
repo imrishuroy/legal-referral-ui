@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
+import 'package:legal_referral_ui/src/core/common_widgets/widgets.dart';
 import 'package:legal_referral_ui/src/core/constants/constants.dart';
 import 'package:legal_referral_ui/src/features/feed/domain/domain.dart';
 import 'package:legal_referral_ui/src/features/feed/presentation/presentation.dart';
@@ -66,6 +67,7 @@ class _FeedPostOptionsContentState extends State<FeedPostOptionsContent> {
               ),
             ),
             const Divider(),
+            // TODO: Implement this
             ListTile(
               onTap: () {},
               leading: SvgPicture.asset(IconStringConstants.message),
@@ -124,7 +126,12 @@ class _FeedPostOptionsContentState extends State<FeedPostOptionsContent> {
             const Divider(),
             // TODO: Implement this
             ListTile(
-              onTap: () {},
+              onTap: () {
+                final postId = widget.feed?.feedPost?.postId;
+                if (postId != null) {
+                  _featurePost(postId);
+                }
+              },
               leading: SvgPicture.asset(IconStringConstants.flag),
               title: Text(
                 'Report post',
@@ -135,6 +142,7 @@ class _FeedPostOptionsContentState extends State<FeedPostOptionsContent> {
               ),
             ),
             const Divider(),
+            // TODO: Implement this
             ListTile(
               onTap: () {},
               leading: SvgPicture.asset(
@@ -191,7 +199,6 @@ class _FeedPostOptionsContentState extends State<FeedPostOptionsContent> {
                               ),
                             );
                           }
-
                           context.pop();
                         }
                       },
@@ -235,6 +242,20 @@ class _FeedPostOptionsContentState extends State<FeedPostOptionsContent> {
     final file = postFiles.isNotEmpty ? postFiles.first : '';
     await Share.share(
       'check out this post from Legal Referral app $file',
+    );
+  }
+
+  void _featurePost(int postId) {
+    context.pop();
+    CustomBottomSheet.show(
+      isDismissible: true,
+      borderRadius: true,
+      maxWidth: double.infinity,
+      context: context,
+      child: ReportFeedPostContent(
+        feedBloc: _feedBloc,
+        postId: postId,
+      ),
     );
   }
 }

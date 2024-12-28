@@ -6,4 +6,5 @@ export 'widgets/feed_post_liked_users.dart';
 export 'widgets/feed_post_options_content.dart';
 export 'widgets/feed_user_avatar.dart';
 export 'widgets/media_post.dart';
+export 'widgets/report_feed_post_content.dart';
 export 'widgets/widgets.dart';

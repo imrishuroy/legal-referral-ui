@@ -33,6 +33,7 @@ class FeedState extends Equatable {
     this.feed,
     this.isPostFeatured = false,
     this.parentCommentId,
+    this.isPostReported = false,
     this.failure,
   });
 
@@ -53,7 +54,7 @@ class FeedState extends Equatable {
   final bool isPostFeatured;
   final FeedAction feedAction;
   final FeedActionStatus? feedActionStatus;
-
+  final bool isPostReported;
   final FeedStatus status;
   final Failure? failure;
 
@@ -69,6 +70,7 @@ class FeedState extends Equatable {
     bool? isPostFeatured,
     Feed? feed,
     int? parentCommentId,
+    bool? isPostReported,
     Failure? failure,
   }) {
     return FeedState(
@@ -83,6 +85,7 @@ class FeedState extends Equatable {
       isPostFeatured: isPostFeatured ?? this.isPostFeatured,
       feed: feed ?? this.feed,
       parentCommentId: parentCommentId,
+      isPostReported: isPostReported ?? this.isPostReported,
       failure: failure ?? this.failure,
     );
   }
@@ -103,6 +106,7 @@ class FeedState extends Equatable {
         isPostFeatured,
         feed,
         parentCommentId,
+        isPostReported,
         failure,
       ];
 }

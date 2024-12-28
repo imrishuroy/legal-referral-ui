@@ -229,3 +229,29 @@ class IsFeedPostFeatured extends FeedEvent {
 }
 
 class FeedActionReseted extends FeedEvent {}
+
+class IsFeedPostReported extends FeedEvent {
+  const IsFeedPostReported({
+    required this.postId,
+    required this.userId,
+  });
+  final int postId;
+  final String userId;
+
+  @override
+  List<Object> get props => [postId, userId];
+}
+
+class FeedPostReported extends FeedEvent {
+  const FeedPostReported({
+    required this.reportedBy,
+    required this.postId,
+    required this.reason,
+  });
+  final String reportedBy;
+  final int postId;
+  final String reason;
+
+  @override
+  List<Object> get props => [reportedBy, postId, reason];
+}

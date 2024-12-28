@@ -230,4 +230,46 @@ class PostRepositoryImpl extends PostRepository {
       );
     }
   }
+
+  @override
+  Future<Either<Failure, ResponseMsg>> reportPost({
+    required ReportPostReq reportPostReq,
+  }) async {
+    try {
+      final response = await _postDatasource.reportPost(
+        reportPostReq: reportPostReq,
+      );
+      return Right(response);
+    } on DioException catch (error) {
+      final dioError = DioExceptions.fromDioError(error);
+      return Left(
+        Failure(
+          statusCode: dioError.statusCode,
+          message: dioError.message,
+        ),
+      );
+    }
+  }
+
+  @override
+  Future<Either<Failure, bool>> isPostReported({
+    required int postId,
+    required String userId,
+  }) async {
+    try {
+      final response = await _postDatasource.isPostReported(
+        postId: postId,
+        userId: userId,
+      );
+      return Right(response);
+    } on DioException catch (error) {
+      final dioError = DioExceptions.fromDioError(error);
+      return Left(
+        Failure(
+          statusCode: dioError.statusCode,
+          message: dioError.message,
+        ),
+      );
+    }
+  }
 }
