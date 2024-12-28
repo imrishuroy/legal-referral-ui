@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:legal_referral_ui/src/core/common_widgets/widgets.dart';
 import 'package:legal_referral_ui/src/core/config/config.dart';
+import 'package:legal_referral_ui/src/core/constants/constants.dart';
 import 'package:legal_referral_ui/src/core/extensions.dart';
 import 'package:legal_referral_ui/src/features/auth/presentation/presentation.dart';
 import 'package:legal_referral_ui/src/features/feed/presentation/presentation.dart';
@@ -68,11 +69,25 @@ class _ReportFeedPostContentState extends State<ReportFeedPostContent> {
           return SizedBox(
             height: 360,
             width: double.infinity,
-            child: Center(
-              child: Text(
-                'Post already reported',
-                style: Theme.of(context).textTheme.bodyLarge,
-              ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  'You have already reported this post',
+                  style: Theme.of(context).textTheme.bodyLarge,
+                  textAlign: TextAlign.center,
+                ),
+                const SizedBox(height: 8),
+                TextButton(
+                  onPressed: context.pop,
+                  child: Text(
+                    'Go Back',
+                    style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                          color: LegalReferralColors.textBlue100,
+                        ),
+                  ),
+                ),
+              ],
             ),
           );
         }

@@ -367,7 +367,7 @@ class _FeedsPageState extends State<FeedsPage> {
           ToastUtil.showToast(
             context,
             title: 'Success',
-            description: 'Post reported successfully',
+            description: "Thanks for reporting! We'll review the post",
             type: ToastificationType.success,
           );
           break;
