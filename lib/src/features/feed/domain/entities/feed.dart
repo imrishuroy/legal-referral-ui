@@ -17,6 +17,7 @@ enum FeedType {
 @freezed
 class Feed with _$Feed {
   const factory Feed({
+    @JsonKey(name: 'feed_id') required int feedId,
     @JsonKey(name: 'feed_type') required FeedType type,
     @JsonKey(name: 'feed_post') FeedPost? feedPost,
     @JsonKey(name: 'ad') Ad? ad,

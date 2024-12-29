@@ -63,6 +63,8 @@ class FeedBloc extends Bloc<FeedEvent, FeedState> {
     on<IsFeedPostFeatured>(_onIsFeedPostFeatured);
     on<IsFeedPostReported>(_onIsFeedPostReported);
     on<FeedPostReported>(_onFeedPostReported);
+    on<FeedPostIgnored>(_onFeedPostIgnored);
+    on<FeedPostIgnoreUndoed>(_onFeedPostIgnoreUndoed);
   }
 
   final FeedUsecase _feedUsecase;
@@ -824,6 +826,7 @@ class FeedBloc extends Bloc<FeedEvent, FeedState> {
           state.copyWith(
             status: FeedStatus.success,
             isPostReported: isPostReported,
+            feedActionStatus: FeedActionStatus.success,
           ),
         );
       },
@@ -859,6 +862,69 @@ class FeedBloc extends Bloc<FeedEvent, FeedState> {
           ),
         );
       },
+    );
+  }
+
+  Future<void> _onFeedPostIgnored(
+    FeedPostIgnored event,
+    Emitter<FeedState> emit,
+  ) async {
+    final feeds = List.of(state.feeds);
+    final feed = feeds[event.index];
+    feeds.removeAt(event.index);
+    emit(
+      state.copyWith(
+        feedAction: FeedAction.ignore,
+        feeds: feeds,
+        ignoredFeed: feed,
+        ignoredFeedIndex: event.index,
+      ),
+    );
+    await Future.delayed(
+      const Duration(seconds: 5),
+      () async {
+        if (state.feedAction == FeedAction.ignore) {
+          final response = await _feedUsecase.ignoreFeed(
+            feedId: event.feedId,
+          );
+          response.fold(
+            (failure) {
+              final feeds = List.of(state.feeds);
+              feeds.insert(event.index, state.ignoredFeed);
+              emit(
+                state.copyWith(
+                  feeds: feeds,
+                  feedAction: FeedAction.ignore,
+                  feedActionStatus: FeedActionStatus.failure,
+                ),
+              );
+            },
+            (_) {
+              emit(
+                state.copyWith(
+                  feedAction: FeedAction.initial,
+                  feedActionStatus: FeedActionStatus.initial,
+                ),
+              );
+            },
+          );
+        }
+      },
+    );
+  }
+
+  void _onFeedPostIgnoreUndoed(
+    FeedPostIgnoreUndoed event,
+    Emitter<FeedState> emit,
+  ) {
+    final feeds = List.of(state.feeds);
+    feeds.insert(event.index, event.feed);
+    emit(
+      state.copyWith(
+        feeds: feeds,
+        feedAction: FeedAction.initial,
+        feedActionStatus: FeedActionStatus.initial,
+      ),
     );
   }
 }

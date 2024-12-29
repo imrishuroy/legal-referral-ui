@@ -114,6 +114,8 @@ class _FeedsPageState extends State<FeedsPage> {
           _showFeedActionToastMessage(
             action: state.feedAction,
             status: state.feedActionStatus ?? FeedActionStatus.initial,
+            ignoredFeed: state.ignoredFeed,
+            ignoredFeedIndex: state.ignoredFeedIndex,
           );
         },
         builder: (context, state) {
@@ -194,6 +196,7 @@ class _FeedsPageState extends State<FeedsPage> {
                         onOptionsPressed: () => _showPostOptionsSheet(
                           context: context,
                           feed: feed,
+                          index: index,
                         ),
                       ),
                     );
@@ -266,6 +269,7 @@ class _FeedsPageState extends State<FeedsPage> {
   void _showPostOptionsSheet({
     required BuildContext context,
     required Feed? feed,
+    required int index,
   }) {
     final userId = _authBloc.state.user?.userId;
     CustomBottomSheet.show(
@@ -277,6 +281,7 @@ class _FeedsPageState extends State<FeedsPage> {
         feedBloc: _feedBloc,
         feed: feed,
         userId: userId,
+        index: index,
       ),
     );
   }
@@ -328,52 +333,68 @@ class _FeedsPageState extends State<FeedsPage> {
     );
   }
 
+  void _showSuccessToast(String title, String description) {
+    ToastUtil.showToast(
+      context,
+      title: title,
+      description: description,
+      type: ToastificationType.success,
+    );
+  }
+
+  void _resetFeedAction() {
+    Future.delayed(
+      const Duration(seconds: 2),
+      () => _feedBloc.add(FeedActionReseted()),
+    );
+  }
+
   void _showFeedActionToastMessage({
     required FeedAction action,
     required FeedActionStatus status,
+    Feed? ignoredFeed,
+    int? ignoredFeedIndex,
   }) {
-    if (status == FeedActionStatus.success) {
+    if (action == FeedAction.ignore) {
+      ToastUtil.showUndoToast(
+        context,
+        title: 'Post hidden successfully.',
+        type: ToastificationType.success,
+        onUndo: () {
+          if (ignoredFeed != null && ignoredFeedIndex != null) {
+            _feedBloc.add(
+              FeedPostIgnoreUndoed(
+                index: ignoredFeedIndex,
+                feed: ignoredFeed,
+              ),
+            );
+          }
+        },
+      );
+    } else if (status == FeedActionStatus.success) {
       switch (action) {
         case FeedAction.featured:
-          ToastUtil.showToast(
-            context,
-            title: 'Success',
-            description: 'Post featured successfully',
-            type: ToastificationType.success,
-          );
+          _showSuccessToast('Success', 'Post featured successfully');
           break;
         case FeedAction.unfeatured:
-          ToastUtil.showToast(
-            context,
-            title: 'Success',
-            description: 'Post unfeatured successfully',
-            type: ToastificationType.success,
-          );
+          _showSuccessToast('Success', 'Post unfeatured successfully');
+          break;
         case FeedAction.delete:
-          ToastUtil.showToast(
-            context,
-            title: 'Success',
-            description: 'Post deleted successfully',
-            type: ToastificationType.success,
-          );
+          _showSuccessToast('Success', 'Post deleted successfully');
+          break;
         case FeedAction.save:
-          ToastUtil.showToast(
-            context,
-            title: 'Success',
-            description: 'Post saved successfully',
-            type: ToastificationType.success,
-          );
+          _showSuccessToast('Success', 'Post saved successfully');
+          break;
         case FeedAction.report:
-          ToastUtil.showToast(
-            context,
-            title: 'Success',
-            description: "Thanks for reporting! We'll review the post",
-            type: ToastificationType.success,
+          _showSuccessToast(
+            'Success',
+            "Thanks for reporting! We'll review the post",
           );
           break;
         default:
           break;
       }
+      _resetFeedAction();
     } else if (status == FeedActionStatus.failure) {
       ToastUtil.showToast(
         context,
@@ -381,15 +402,7 @@ class _FeedsPageState extends State<FeedsPage> {
         description: 'Something went wrong',
         type: ToastificationType.error,
       );
+      _resetFeedAction();
     }
-
-    Future.delayed(
-      const Duration(seconds: 2),
-      () {
-        _feedBloc.add(
-          FeedActionReseted(),
-        );
-      },
-    );
   }
 }

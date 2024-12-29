@@ -112,6 +112,7 @@ class _FeedDetailsPageState extends State<FeedDetailsPage> {
                           onOptionsPressed: () => _showPostOptionsSheet(
                             context: context,
                             feed: widget.args.feed,
+                            index: widget.args.index,
                           ),
                           onCommentPressed: () {
                             _focusNode.unfocus();
@@ -187,6 +188,7 @@ class _FeedDetailsPageState extends State<FeedDetailsPage> {
   void _showPostOptionsSheet({
     required BuildContext context,
     required Feed? feed,
+    required int index,
   }) {
     final userId = _authBloc.state.user?.userId;
     CustomBottomSheet.show(
@@ -198,6 +200,7 @@ class _FeedDetailsPageState extends State<FeedDetailsPage> {
         feedBloc: _feedBloc,
         feed: feed,
         userId: userId,
+        index: index,
       ),
     );
   }

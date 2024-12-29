@@ -7,6 +7,7 @@ part of 'feed.dart';
 // **************************************************************************
 
 _$FeedImpl _$$FeedImplFromJson(Map<String, dynamic> json) => _$FeedImpl(
+      feedId: (json['feed_id'] as num).toInt(),
       type: $enumDecode(_$FeedTypeEnumMap, json['feed_type']),
       feedPost: json['feed_post'] == null
           ? null
@@ -18,6 +19,7 @@ _$FeedImpl _$$FeedImplFromJson(Map<String, dynamic> json) => _$FeedImpl(
 
 Map<String, dynamic> _$$FeedImplToJson(_$FeedImpl instance) =>
     <String, dynamic>{
+      'feed_id': instance.feedId,
       'feed_type': _$FeedTypeEnumMap[instance.type]!,
       'feed_post': instance.feedPost,
       'ad': instance.ad,

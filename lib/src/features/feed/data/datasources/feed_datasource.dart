@@ -80,4 +80,16 @@ class FeedDatasource {
       rethrow;
     }
   }
+
+  Future<void> ignoreFeed({
+    required int feeId,
+  }) async {
+    try {
+      await _apiClient.ignoreFeed(
+        feeId,
+      );
+    } catch (_) {
+      rethrow;
+    }
+  }
 }

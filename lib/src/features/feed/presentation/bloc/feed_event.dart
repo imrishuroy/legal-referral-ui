@@ -255,3 +255,25 @@ class FeedPostReported extends FeedEvent {
   @override
   List<Object> get props => [reportedBy, postId, reason];
 }
+
+class FeedPostIgnored extends FeedEvent {
+  const FeedPostIgnored({
+    required this.feedId,
+    required this.index,
+  });
+  final int feedId;
+
+  final int index;
+
+  @override
+  List<Object> get props => [feedId, index];
+}
+
+class FeedPostIgnoreUndoed extends FeedEvent {
+  const FeedPostIgnoreUndoed({
+    required this.index,
+    required this.feed,
+  });
+  final int index;
+  final Feed? feed;
+}

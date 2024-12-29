@@ -16,6 +16,8 @@ enum FeedAction {
   block,
   featured,
   unfeatured,
+  ignore,
+  ignoreUndo,
 }
 
 enum FeedActionStatus { initial, loading, success, failure }
@@ -33,6 +35,8 @@ class FeedState extends Equatable {
     this.feed,
     this.isPostFeatured = false,
     this.parentCommentId,
+    this.ignoredFeed,
+    this.ignoredFeedIndex,
     this.isPostReported = false,
     this.failure,
   });
@@ -55,6 +59,8 @@ class FeedState extends Equatable {
   final FeedAction feedAction;
   final FeedActionStatus? feedActionStatus;
   final bool isPostReported;
+  final Feed? ignoredFeed;
+  final int? ignoredFeedIndex;
   final FeedStatus status;
   final Failure? failure;
 
@@ -69,6 +75,8 @@ class FeedState extends Equatable {
     List<Comment?>? comments,
     bool? isPostFeatured,
     Feed? feed,
+    Feed? ignoredFeed,
+    int? ignoredFeedIndex,
     int? parentCommentId,
     bool? isPostReported,
     Failure? failure,
@@ -84,6 +92,8 @@ class FeedState extends Equatable {
       comments: comments ?? this.comments,
       isPostFeatured: isPostFeatured ?? this.isPostFeatured,
       feed: feed ?? this.feed,
+      ignoredFeed: ignoredFeed ?? this.ignoredFeed,
+      ignoredFeedIndex: ignoredFeedIndex ?? this.ignoredFeedIndex,
       parentCommentId: parentCommentId,
       isPostReported: isPostReported ?? this.isPostReported,
       failure: failure ?? this.failure,
@@ -106,6 +116,8 @@ class FeedState extends Equatable {
         isPostFeatured,
         feed,
         parentCommentId,
+        ignoredFeed,
+        ignoredFeedIndex,
         isPostReported,
         failure,
       ];
