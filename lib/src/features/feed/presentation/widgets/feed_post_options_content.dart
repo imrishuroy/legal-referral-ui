@@ -12,12 +12,14 @@ class FeedPostOptionsContent extends StatefulWidget {
   const FeedPostOptionsContent({
     required this.feedBloc,
     required this.feed,
+    required this.index,
     required this.userId,
     super.key,
   });
 
   final FeedBloc feedBloc;
   final Feed? feed;
+  final int index;
   final String? userId;
 
   @override
@@ -68,18 +70,23 @@ class _FeedPostOptionsContentState extends State<FeedPostOptionsContent> {
             ),
             const Divider(),
             // TODO: Implement this
-            ListTile(
-              onTap: () {},
-              leading: SvgPicture.asset(IconStringConstants.message),
-              title: Text(
-                'Message',
-                style: Theme.of(context)
-                    .textTheme
-                    .bodyLarge
-                    ?.copyWith(color: LegalReferralColors.textGrey500),
+            if (widget.feed?.feedPost?.ownerId != widget.userId)
+              Column(
+                children: [
+                  ListTile(
+                    onTap: () {},
+                    leading: SvgPicture.asset(IconStringConstants.message),
+                    title: Text(
+                      'Message',
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodyLarge
+                          ?.copyWith(color: LegalReferralColors.textGrey500),
+                    ),
+                  ),
+                  const Divider(),
+                ],
               ),
-            ),
-            const Divider(),
             ListTile(
               onTap: () {},
               leading: SvgPicture.asset(IconStringConstants.addFollow),
@@ -111,12 +118,22 @@ class _FeedPostOptionsContentState extends State<FeedPostOptionsContent> {
               ),
             ),
             const Divider(),
-            // TODO: Implement this
             ListTile(
-              onTap: () {},
+              onTap: () {
+                context.pop();
+                final feedId = widget.feed?.feedId;
+                if (feedId != null) {
+                  _feedBloc.add(
+                    FeedPostIgnored(
+                      feedId: feedId,
+                      index: widget.index,
+                    ),
+                  );
+                }
+              },
               leading: SvgPicture.asset(IconStringConstants.restrict),
               title: Text(
-                '''I don't want to see this''',
+                "I don't want to see this",
                 style: Theme.of(context)
                     .textTheme
                     .bodyLarge
@@ -124,12 +141,12 @@ class _FeedPostOptionsContentState extends State<FeedPostOptionsContent> {
               ),
             ),
             const Divider(),
-            // TODO: Implement this
+
             ListTile(
               onTap: () {
                 final postId = widget.feed?.feedPost?.postId;
                 if (postId != null) {
-                  _featurePost(postId);
+                  _reportPost(postId);
                 }
               },
               leading: SvgPicture.asset(IconStringConstants.flag),
@@ -142,24 +159,24 @@ class _FeedPostOptionsContentState extends State<FeedPostOptionsContent> {
               ),
             ),
             const Divider(),
-            // TODO: Implement this
-            ListTile(
-              onTap: () {},
-              leading: SvgPicture.asset(
-                IconStringConstants.editIcon,
-                colorFilter: const ColorFilter.mode(
-                  LegalReferralColors.borderBlue100,
-                  BlendMode.srcIn,
+            if (widget.feed?.feedPost?.ownerId == widget.userId)
+              ListTile(
+                onTap: () {},
+                leading: SvgPicture.asset(
+                  IconStringConstants.editIcon,
+                  colorFilter: const ColorFilter.mode(
+                    LegalReferralColors.borderBlue100,
+                    BlendMode.srcIn,
+                  ),
+                ),
+                title: Text(
+                  'Edit',
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodyLarge
+                      ?.copyWith(color: LegalReferralColors.textGrey500),
                 ),
               ),
-              title: Text(
-                'Edit',
-                style: Theme.of(context)
-                    .textTheme
-                    .bodyLarge
-                    ?.copyWith(color: LegalReferralColors.textGrey500),
-              ),
-            ),
             if (widget.feed?.feedPost?.ownerId == widget.userId)
               Column(
                 children: [
@@ -245,7 +262,7 @@ class _FeedPostOptionsContentState extends State<FeedPostOptionsContent> {
     );
   }
 
-  void _featurePost(int postId) {
+  void _reportPost(int postId) {
     context.pop();
     CustomBottomSheet.show(
       isDismissible: true,

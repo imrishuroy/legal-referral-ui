@@ -712,4 +712,9 @@ abstract class APIClient {
     @Path('postId') int postId,
     @Path('userId') String userId,
   );
+
+  @DELETE('/feeds/{feedId}/ignore')
+  Future<void> ignoreFeed(
+    @Path('feedId') int feedId,
+  );
 }

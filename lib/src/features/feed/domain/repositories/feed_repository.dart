@@ -27,4 +27,8 @@ abstract class FeedRepository {
     required int postId,
     required UnFeaturePostReq unFeaturePostReq,
   });
+
+  Future<Either<Failure, void>> ignoreFeed({
+    required int feeId,
+  });
 }

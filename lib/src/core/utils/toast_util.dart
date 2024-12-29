@@ -42,4 +42,48 @@ class ToastUtil {
       showProgressBar: false,
     );
   }
+
+  static void showUndoToast(
+    BuildContext context, {
+    required String title,
+    required ToastificationType type,
+    required VoidCallback onUndo,
+  }) {
+    toastification.showCustom(
+      context: context,
+      autoCloseDuration: const Duration(seconds: 5),
+      alignment: Alignment.bottomCenter,
+      builder: (BuildContext context, ToastificationItem holder) {
+        return Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(12.r),
+            color: const Color(0xff4caf50),
+          ),
+          padding: const EdgeInsets.all(8),
+          margin: const EdgeInsets.all(8),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                title,
+                style: const TextStyle(color: Colors.white),
+              ),
+              TextButton(
+                onPressed: () {
+                  onUndo();
+                  toastification.dismissAll();
+                },
+                child: const Text(
+                  'Undo',
+                  style: TextStyle(
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
 }

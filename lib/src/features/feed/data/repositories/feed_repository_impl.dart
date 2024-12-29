@@ -120,4 +120,24 @@ class FeedRepositoryImpl extends FeedRepository {
       );
     }
   }
+
+  @override
+  Future<Either<Failure, void>> ignoreFeed({
+    required int feeId,
+  }) async {
+    try {
+      await _feedDatasource.ignoreFeed(
+        feeId: feeId,
+      );
+      return const Right(null);
+    } on DioException catch (error) {
+      final dioError = DioExceptions.fromDioError(error);
+      return Left(
+        Failure(
+          statusCode: dioError.statusCode,
+          message: dioError.message,
+        ),
+      );
+    }
+  }
 }

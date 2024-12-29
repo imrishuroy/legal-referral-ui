@@ -58,4 +58,12 @@ class FeedUsecase {
       unFeaturePostReq: unFeaturePostReq,
     );
   }
+
+  Future<Either<Failure, void>> ignoreFeed({
+    required int feedId,
+  }) async {
+    return _feedRepository.ignoreFeed(
+      feeId: feedId,
+    );
+  }
 }
