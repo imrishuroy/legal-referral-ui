@@ -87,6 +87,7 @@ class _FeedPostOptionsContentState extends State<FeedPostOptionsContent> {
                   const Divider(),
                 ],
               ),
+            // TODO: implement follow
             ListTile(
               onTap: () {},
               leading: SvgPicture.asset(IconStringConstants.addFollow),
@@ -141,7 +142,6 @@ class _FeedPostOptionsContentState extends State<FeedPostOptionsContent> {
               ),
             ),
             const Divider(),
-
             ListTile(
               onTap: () {
                 final postId = widget.feed?.post?.postId;
@@ -160,6 +160,7 @@ class _FeedPostOptionsContentState extends State<FeedPostOptionsContent> {
             ),
             const Divider(),
             if (widget.feed?.post?.ownerId == widget.userId)
+              // TODO: implement edit
               ListTile(
                 onTap: () {},
                 leading: SvgPicture.asset(

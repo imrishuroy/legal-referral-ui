@@ -698,6 +698,13 @@ class FeedBloc extends Bloc<FeedEvent, FeedState> {
     PostDeleted event,
     Emitter<FeedState> emit,
   ) async {
+    emit(
+      state.copyWith(
+        feedAction: FeedAction.initial,
+        feedActionStatus: FeedActionStatus.loading,
+      ),
+    );
+
     final response = await _postUsecase.deletePost(
       postId: event.postId,
     );
