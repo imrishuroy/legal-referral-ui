@@ -344,6 +344,24 @@ class AppRouter {
           transitionsBuilder: (_, a, __, c) =>
               FadeTransition(opacity: a, child: c),
         ),
+        routes: [
+          GoRoute(
+            path: 'all-activities',
+            name: AllActivitiesPage.name,
+            parentNavigatorKey: _rootNavigatorKey,
+            pageBuilder: (context, state) => CustomTransitionPage(
+              child: AllActivitiesPage(
+                userId: state.pathParameters['userId']!,
+                activityType: state.extra as ActivityType,
+              ),
+              transitionDuration: const Duration(
+                milliseconds: _routeTransitionDuration,
+              ),
+              transitionsBuilder: (_, a, __, c) =>
+                  FadeTransition(opacity: a, child: c),
+            ),
+          ),
+        ],
       ),
       GoRoute(
         path: '/account',

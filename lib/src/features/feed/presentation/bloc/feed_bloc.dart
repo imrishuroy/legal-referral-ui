@@ -158,14 +158,14 @@ class FeedBloc extends Bloc<FeedEvent, FeedState> {
     final feeds = List.of(state.feeds);
 
     if (feed != null) {
-      final feedPost = feed.feedPost;
-      final isCurrentlyLiked = feedPost?.isLiked ?? false;
+      final post = feed.post;
+      final isCurrentlyLiked = post?.isLiked ?? false;
       final updatedLikesCount = isCurrentlyLiked
-          ? (feedPost?.likesCount ?? 0) - 1
-          : (feedPost?.likesCount ?? 0) + 1;
+          ? (post?.likesCount ?? 0) - 1
+          : (post?.likesCount ?? 0) + 1;
 
       final updatedFeed = feed.copyWith(
-        feedPost: feedPost?.copyWith(
+        post: post?.copyWith(
           likesCount: updatedLikesCount,
           isLiked: !isCurrentlyLiked,
         ),
@@ -198,11 +198,11 @@ class FeedBloc extends Bloc<FeedEvent, FeedState> {
       // Revert the change if the API call fails
       if (response.isLeft()) {
         final revertedLikesCount = !isCurrentlyLiked
-            ? (feedPost?.likesCount ?? 0) - 1
-            : (feedPost?.likesCount ?? 0) + 1;
+            ? (post?.likesCount ?? 0) - 1
+            : (post?.likesCount ?? 0) + 1;
 
         final revertedFeed = feed.copyWith(
-          feedPost: feedPost?.copyWith(
+          post: post?.copyWith(
             likesCount: revertedLikesCount,
             isLiked: isCurrentlyLiked,
           ),
@@ -237,15 +237,15 @@ class FeedBloc extends Bloc<FeedEvent, FeedState> {
     final feeds = List.of(state.feeds);
 
     if (feed != null) {
-      final feedPost = feed.feedPost;
-      final isCurrentlyLiked = feedPost?.isLiked ?? false;
+      final post = feed.post;
+      final isCurrentlyLiked = post?.isLiked ?? false;
       final updatedLikesCount = isCurrentlyLiked
-          ? (feedPost?.likesCount ?? 0) - 1
-          : (feedPost?.likesCount ?? 0) + 1;
+          ? (post?.likesCount ?? 0) - 1
+          : (post?.likesCount ?? 0) + 1;
 
       // Create an updated feed with the new like state (unlike action)
       final updatedFeed = feed.copyWith(
-        feedPost: feedPost?.copyWith(
+        post: post?.copyWith(
           likesCount: updatedLikesCount,
           isLiked: !isCurrentlyLiked,
         ),
@@ -275,11 +275,11 @@ class FeedBloc extends Bloc<FeedEvent, FeedState> {
       // Revert the change if the API call fails
       if (response.isLeft()) {
         final revertedLikesCount = !isCurrentlyLiked
-            ? (feedPost?.likesCount ?? 0) - 1
-            : (feedPost?.likesCount ?? 0) + 1;
+            ? (post?.likesCount ?? 0) - 1
+            : (post?.likesCount ?? 0) + 1;
 
         final revertedFeed = feed.copyWith(
-          feedPost: feedPost?.copyWith(
+          post: post?.copyWith(
             likesCount: revertedLikesCount,
             isLiked: isCurrentlyLiked,
           ),
@@ -362,8 +362,8 @@ class FeedBloc extends Bloc<FeedEvent, FeedState> {
         if (index >= 0 && index < feeds.length) {
           final feed = feeds[index];
           updatedFeed = feed?.copyWith(
-            feedPost: feed.feedPost?.copyWith(
-              commentsCount: feed.feedPost!.commentsCount + 1,
+            post: feed.post?.copyWith(
+              commentsCount: feed.post?.commentsCount ?? 0 + 1,
             ),
           );
           feeds[index] = updatedFeed;
@@ -552,7 +552,7 @@ class FeedBloc extends Bloc<FeedEvent, FeedState> {
           state.copyWith(
             status: FeedStatus.success,
             feed: state.feed?.copyWith(
-              feedPost: state.feed?.feedPost?.copyWith(
+              post: state.feed?.post?.copyWith(
                 likesCount: res.likes,
                 commentsCount: res.comments,
               ),
@@ -585,7 +585,7 @@ class FeedBloc extends Bloc<FeedEvent, FeedState> {
           state.copyWith(
             status: FeedStatus.success,
             feed: state.feed?.copyWith(
-              feedPost: state.feed?.feedPost?.copyWith(
+              post: state.feed?.post?.copyWith(
                 isLiked: isLiked,
               ),
             ),
@@ -715,7 +715,7 @@ class FeedBloc extends Bloc<FeedEvent, FeedState> {
       (_) {
         final feeds = List.of(state.feeds);
         feeds.removeWhere(
-          (feed) => feed?.feedPost?.postId == event.postId,
+          (feed) => feed?.post?.postId == event.postId,
         );
 
         emit(

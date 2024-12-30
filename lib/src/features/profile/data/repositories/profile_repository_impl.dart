@@ -8,6 +8,7 @@ import 'package:legal_referral_ui/src/core/network/network.dart';
 import 'package:legal_referral_ui/src/features/auth/domain/entities/app_user.dart';
 import 'package:legal_referral_ui/src/features/feed/data/data.dart';
 import 'package:legal_referral_ui/src/features/firm/domain/domain.dart';
+import 'package:legal_referral_ui/src/features/post/domain/domain.dart';
 import 'package:legal_referral_ui/src/features/profile/data/data.dart';
 import 'package:legal_referral_ui/src/features/profile/domain/domain.dart';
 
@@ -488,6 +489,74 @@ class ProfileRepositoryImpl extends ProfileRepository {
       final res = await _profileDataSource.unFeaturePost(
         postId: postId,
         unFeaturePostReq: unFeaturePostReq,
+      );
+      return Right(res);
+    } on DioException catch (error) {
+      final dioError = DioExceptions.fromDioError(error);
+      return Left(
+        Failure(
+          statusCode: dioError.statusCode,
+          message: dioError.message,
+        ),
+      );
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<Post>>> fetchActivityPosts({
+    required String userId,
+    required int limit,
+    required int offset,
+  }) async {
+    try {
+      final res = await _profileDataSource.fetchActivityPosts(
+        userId: userId,
+        limit: limit,
+        offset: offset,
+      );
+      return Right(res);
+    } on DioException catch (error) {
+      final dioError = DioExceptions.fromDioError(error);
+      return Left(
+        Failure(
+          statusCode: dioError.statusCode,
+          message: dioError.message,
+        ),
+      );
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<Comment>>> fetchActivityComments({
+    required String userId,
+    required int limit,
+    required int offset,
+  }) async {
+    try {
+      final res = await _profileDataSource.fetchActivityComments(
+        userId: userId,
+        limit: limit,
+        offset: offset,
+      );
+      return Right(res);
+    } on DioException catch (error) {
+      final dioError = DioExceptions.fromDioError(error);
+      return Left(
+        Failure(
+          statusCode: dioError.statusCode,
+          message: dioError.message,
+        ),
+      );
+    }
+  }
+
+  @override
+  Future<Either<Failure, int>> fetchUserFollowersCount({
+    required String userId,
+  }) async {
+    try {
+      final res = await _profileDataSource.fetchUserFollowersCount(
+        userId: userId,
       );
       return Right(res);
     } on DioException catch (error) {

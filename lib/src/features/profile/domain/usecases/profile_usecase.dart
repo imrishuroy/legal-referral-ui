@@ -6,6 +6,7 @@ import 'package:legal_referral_ui/src/core/config/config.dart';
 import 'package:legal_referral_ui/src/features/auth/domain/domain.dart';
 import 'package:legal_referral_ui/src/features/feed/data/data.dart';
 import 'package:legal_referral_ui/src/features/firm/domain/domain.dart';
+import 'package:legal_referral_ui/src/features/post/domain/domain.dart';
 import 'package:legal_referral_ui/src/features/profile/data/data.dart';
 import 'package:legal_referral_ui/src/features/profile/domain/domain.dart';
 
@@ -225,6 +226,38 @@ class ProfileUseCase {
     return _profileRepository.unFeaturePost(
       postId: postId,
       unFeaturePostReq: unFeaturePostReq,
+    );
+  }
+
+  Future<Either<Failure, int>> fetchUserFollowersCount({
+    required String userId,
+  }) async {
+    return _profileRepository.fetchUserFollowersCount(
+      userId: userId,
+    );
+  }
+
+  Future<Either<Failure, List<Post>>> fetchActivityPosts({
+    required String userId,
+    required int limit,
+    required int offset,
+  }) async {
+    return _profileRepository.fetchActivityPosts(
+      userId: userId,
+      limit: limit,
+      offset: offset,
+    );
+  }
+
+  Future<Either<Failure, List<Comment>>> fetchActivityComments({
+    required String userId,
+    required int limit,
+    required int offset,
+  }) async {
+    return _profileRepository.fetchActivityComments(
+      userId: userId,
+      limit: limit,
+      offset: offset,
     );
   }
 }

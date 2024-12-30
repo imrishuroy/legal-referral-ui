@@ -141,7 +141,7 @@ class PostTile extends StatelessWidget {
                     ),
                     text: post?.content ?? '',
                   ),
-                if (post?.type == PostType.link && post?.content != null)
+                if (post?.postType == PostType.link && post?.content != null)
                   Padding(
                     padding: EdgeInsets.symmetric(
                       vertical: 20.h,
@@ -153,8 +153,8 @@ class PostTile extends StatelessWidget {
                 else
                   MediaPost(
                     imageHeight: imageHeight,
-                    postType: post?.type ?? PostType.image,
-                    mediaUrls: post?.filesUrls ?? [],
+                    postType: post?.postType ?? PostType.image,
+                    mediaUrls: post?.media ?? [],
                     fileName: post?.content,
                   ),
               ],

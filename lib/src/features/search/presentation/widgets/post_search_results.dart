@@ -128,7 +128,7 @@ class PostSearchResults extends StatelessWidget {
                                 ),
                                 text: post.content ?? '',
                               ),
-                            if (post?.type == PostType.link &&
+                            if (post?.postType == PostType.link &&
                                 post?.content != null)
                               Padding(
                                 padding: EdgeInsets.symmetric(
@@ -141,8 +141,8 @@ class PostSearchResults extends StatelessWidget {
                             else
                               MediaPost(
                                 imageHeight: 400,
-                                postType: post?.type ?? PostType.image,
-                                mediaUrls: post?.filesUrls ?? [],
+                                postType: post?.postType ?? PostType.image,
+                                mediaUrls: post?.media ?? [],
                                 fileName: post?.content,
                               ),
                           ],

@@ -717,4 +717,24 @@ abstract class APIClient {
   Future<void> ignoreFeed(
     @Path('feedId') int feedId,
   );
+
+  // activity
+  @GET('/activity/posts/{userId}')
+  Future<List<Post>> fetchActivityPosts(
+    @Path('userId') String userId,
+    @Query('limit') int limit,
+    @Query('offset') int offset,
+  );
+
+  @GET('/activity/comments/{userId}')
+  Future<List<Comment>> fetchActivityComments(
+    @Path('userId') String userId,
+    @Query('limit') int limit,
+    @Query('offset') int offset,
+  );
+
+  @GET('/users/{userId}/followers-count')
+  Future<int> fetchUserFollowersCount(
+    @Path('userId') String userId,
+  );
 }

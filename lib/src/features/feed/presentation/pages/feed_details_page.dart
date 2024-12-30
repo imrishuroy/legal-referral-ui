@@ -53,7 +53,7 @@ class _FeedDetailsPageState extends State<FeedDetailsPage> {
       ),
     );
 
-    final postId = args.feed?.feedPost?.postId;
+    final postId = args.feed?.post?.postId;
     if (postId != null && args.fetchLikesAndCommentsCount) {
       args.feedBloc.add(
         PostLikesAndCommentsCountFetched(
@@ -91,7 +91,7 @@ class _FeedDetailsPageState extends State<FeedDetailsPage> {
             }
           },
           builder: (context, state) {
-            final feedPost = state.feed?.feedPost;
+            final post = state.feed?.post;
             return Column(
               children: [
                 Expanded(
@@ -101,12 +101,12 @@ class _FeedDetailsPageState extends State<FeedDetailsPage> {
                       children: [
                         FeedTile(
                           feed: widget.args.feed,
-                          isLiked: feedPost?.isLiked ?? false,
-                          likesCount: feedPost?.likesCount ?? 0,
-                          commentsCount: feedPost?.commentsCount ?? 0,
+                          isLiked: post?.isLiked ?? false,
+                          likesCount: post?.likesCount ?? 0,
+                          commentsCount: post?.commentsCount ?? 0,
                           onLikePressed: () => _onLikePressed(
                             widget.args.feed,
-                            feedPost?.isLiked ?? false,
+                            post?.isLiked ?? false,
                             widget.args.index,
                           ),
                           onOptionsPressed: () => _showPostOptionsSheet(
@@ -136,16 +136,16 @@ class _FeedDetailsPageState extends State<FeedDetailsPage> {
                                       ),
                                 ),
                               SizedBox(height: 8.h),
-                              if (feedPost?.postId != null)
+                              if (post?.postId != null)
                                 FeedPostLikedUsers(
-                                  postId: feedPost!.postId,
+                                  postId: post!.postId,
                                   feedBloc: widget.args.feedBloc,
                                 ),
                               SizedBox(height: 24.h),
-                              if (feedPost?.postId != null)
+                              if (post?.postId != null)
                                 FeedPostCommentsList(
                                   feedBloc: widget.args.feedBloc,
-                                  postId: feedPost!.postId,
+                                  postId: post!.postId,
                                   onReplyPressed: (commentId) {
                                     widget.args.feedBloc.add(
                                       FeedPostParentCommentIdChanged(
@@ -172,8 +172,8 @@ class _FeedDetailsPageState extends State<FeedDetailsPage> {
                   commentsController: _commentsController,
                   onSend: () => _commentOnPost(
                     feedBloc: widget.args.feedBloc,
-                    userId: feedPost?.ownerId,
-                    postId: feedPost?.postId,
+                    userId: post?.ownerId,
+                    postId: post?.postId,
                     parentCommentId: state.parentCommentId,
                   ),
                 ),
@@ -210,7 +210,7 @@ class _FeedDetailsPageState extends State<FeedDetailsPage> {
     bool isLiked,
     int index,
   ) {
-    final postId = feed?.feedPost?.postId;
+    final postId = feed?.post?.postId;
     if (postId != null) {
       if (isLiked == true) {
         widget.args.feedBloc.add(
@@ -222,8 +222,8 @@ class _FeedDetailsPageState extends State<FeedDetailsPage> {
         );
       } else {
         final senderId = getIt<AuthBloc>().state.user?.userId;
-        final userId = feed?.feedPost?.ownerId;
-        final postId = feed?.feedPost?.postId;
+        final userId = feed?.post?.ownerId;
+        final postId = feed?.post?.postId;
 
         if (userId != null && senderId != null && postId != null) {
           widget.args.feedBloc.add(

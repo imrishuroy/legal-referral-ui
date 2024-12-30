@@ -31,7 +31,7 @@ class _FeedPostOptionsContentState extends State<FeedPostOptionsContent> {
 
   @override
   void initState() {
-    final postId = widget.feed?.feedPost?.postId;
+    final postId = widget.feed?.post?.postId;
     if (postId != null) {
       _feedBloc.add(IsFeedPostFeatured(postId: postId));
     }
@@ -48,7 +48,7 @@ class _FeedPostOptionsContentState extends State<FeedPostOptionsContent> {
           children: [
             ListTile(
               onTap: () {
-                final postId = widget.feed?.feedPost?.postId;
+                final postId = widget.feed?.post?.postId;
                 if (postId != null && widget.userId != null) {
                   widget.feedBloc.add(
                     PostSaved(
@@ -70,7 +70,7 @@ class _FeedPostOptionsContentState extends State<FeedPostOptionsContent> {
             ),
             const Divider(),
             // TODO: Implement this
-            if (widget.feed?.feedPost?.ownerId != widget.userId)
+            if (widget.feed?.post?.ownerId != widget.userId)
               Column(
                 children: [
                   ListTile(
@@ -101,7 +101,7 @@ class _FeedPostOptionsContentState extends State<FeedPostOptionsContent> {
             const Divider(),
             ListTile(
               onTap: () async {
-                await _sharePost(widget.feed?.feedPost?.media ?? []);
+                await _sharePost(widget.feed?.post?.media ?? []);
               },
               leading: SvgPicture.asset(
                 IconStringConstants.share,
@@ -144,7 +144,7 @@ class _FeedPostOptionsContentState extends State<FeedPostOptionsContent> {
 
             ListTile(
               onTap: () {
-                final postId = widget.feed?.feedPost?.postId;
+                final postId = widget.feed?.post?.postId;
                 if (postId != null) {
                   _reportPost(postId);
                 }
@@ -159,7 +159,7 @@ class _FeedPostOptionsContentState extends State<FeedPostOptionsContent> {
               ),
             ),
             const Divider(),
-            if (widget.feed?.feedPost?.ownerId == widget.userId)
+            if (widget.feed?.post?.ownerId == widget.userId)
               ListTile(
                 onTap: () {},
                 leading: SvgPicture.asset(
@@ -177,11 +177,11 @@ class _FeedPostOptionsContentState extends State<FeedPostOptionsContent> {
                       ?.copyWith(color: LegalReferralColors.textGrey500),
                 ),
               ),
-            if (widget.feed?.feedPost?.ownerId == widget.userId)
+            if (widget.feed?.post?.ownerId == widget.userId)
               Column(
                 children: [
                   const Divider(),
-                  if (widget.feed?.feedPost?.ownerId == widget.userId)
+                  if (widget.feed?.post?.ownerId == widget.userId)
                     ListTile(
                       leading: SvgPicture.asset(
                         state.isPostFeatured
@@ -199,7 +199,7 @@ class _FeedPostOptionsContentState extends State<FeedPostOptionsContent> {
                             ),
                       ),
                       onTap: () {
-                        final postId = widget.feed?.feedPost?.postId;
+                        final postId = widget.feed?.post?.postId;
                         if (postId != null && widget.userId != null) {
                           if (state.isPostFeatured) {
                             _feedBloc.add(
@@ -223,7 +223,7 @@ class _FeedPostOptionsContentState extends State<FeedPostOptionsContent> {
                   const Divider(),
                   ListTile(
                     onTap: () {
-                      final postId = widget.feed?.feedPost?.postId;
+                      final postId = widget.feed?.post?.postId;
                       if (postId != null) {
                         widget.feedBloc.add(
                           PostDeleted(
