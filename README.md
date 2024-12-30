@@ -1,5 +1,7 @@
 ## Legal Referral UI
 
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=imrishuroy_legal-referral-ui&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=imrishuroy_legal-referral-ui)
+
 ## APP SIGNING
 keytool -genkey -v -keystore ~/legal-referral-dev.jks -keyalg RSA -keysize 2048 -validity 10000 -alias androiddevkey
 /gradlew signingReport
