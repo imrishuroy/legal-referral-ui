@@ -5,45 +5,29 @@ import 'package:go_router/go_router.dart';
 import 'package:legal_referral_ui/src/core/common_widgets/widgets.dart';
 import 'package:legal_referral_ui/src/core/constants/constants.dart';
 import 'package:legal_referral_ui/src/core/utils/utils.dart';
-import 'package:legal_referral_ui/src/features/feed/domain/domain.dart';
 import 'package:legal_referral_ui/src/features/feed/presentation/presentation.dart';
 import 'package:legal_referral_ui/src/features/post/domain/domain.dart';
 import 'package:legal_referral_ui/src/features/post/presentation/presentation.dart';
-import 'package:legal_referral_ui/src/features/profile/presentation/presentation.dart';
 
-class FeedTile extends StatelessWidget {
-  const FeedTile({
-    required this.feed,
-    required this.onLikePressed,
-    required this.onCommentPressed,
-    required this.isLiked,
-    required this.likesCount,
-    required this.commentsCount,
-    this.onSharePressed,
-    this.onDiscussPressed,
-    this.onTap,
-    this.onOptionsPressed,
-    this.imageHeight = 380,
+class ActivityPostTile extends StatelessWidget {
+  const ActivityPostTile({
     super.key,
+    this.post,
+    this.imageHeight = 380,
+    this.isFromAllActivities = false,
   });
 
-  final Feed? feed;
-  final VoidCallback onLikePressed;
-  final VoidCallback onCommentPressed;
-  final VoidCallback? onDiscussPressed;
-  final VoidCallback? onSharePressed;
+  final Post? post;
   final double imageHeight;
-  final bool isLiked;
-  final int likesCount;
-  final int commentsCount;
-  final VoidCallback? onTap;
-  final VoidCallback? onOptionsPressed;
+  final bool isFromAllActivities;
 
   @override
   Widget build(BuildContext context) {
-    final post = feed?.post;
     final name = '${post?.ownerFirstName} ${post?.ownerLastName}';
     final theme = Theme.of(context).textTheme;
+    final media = post?.media ?? [];
+    final likesCount = post?.likesCount ?? 0;
+    final commentsCount = post?.commentsCount ?? 0;
     return ColoredBox(
       color: LegalReferralColors.containerWhite500,
       child: Column(
@@ -51,25 +35,14 @@ class FeedTile extends StatelessWidget {
         children: [
           Padding(
             padding: EdgeInsets.symmetric(
-              horizontal: 16.w,
+              horizontal: isFromAllActivities ? 16.w : 0,
               vertical: 12.h,
             ),
             child: Row(
               children: [
-                GestureDetector(
-                  onTap: () {
-                    final userId = post?.ownerId;
-                    if (userId != null) {
-                      context.pushNamed(
-                        ProfilePage.name,
-                        pathParameters: {'userId': userId},
-                      );
-                    }
-                  },
-                  child: CustomAvatar(
-                    imageUrl: post?.ownerAvatarUrl,
-                    radius: 28.r,
-                  ),
+                CustomAvatar(
+                  imageUrl: post?.ownerAvatarUrl,
+                  radius: 28.r,
                 ),
                 SizedBox(
                   width: 8.w,
@@ -112,7 +85,7 @@ class FeedTile extends StatelessWidget {
                         height: 1,
                       ),
                       Text(
-                        DateTimeUtil.timeAgo(feed?.post?.createdAt),
+                        DateTimeUtil.timeAgo(post?.createdAt),
                         style: theme.bodyMedium?.copyWith(
                           color: LegalReferralColors.textGrey117,
                           fontSize: 12.sp,
@@ -121,28 +94,26 @@ class FeedTile extends StatelessWidget {
                     ],
                   ),
                 ),
-                // Post details options
-                SvgButton(
-                  height: 24.w,
-                  width: 24.h,
-                  imagePath: IconStringConstants.threeDots,
-                  onPressed: () => onOptionsPressed?.call(),
-                ),
               ],
             ),
           ),
           GestureDetector(
-            onTap: onTap,
+            onTap: () => context.pushNamed(
+              PostDetailsPage.name,
+              pathParameters: {
+                'postId': '${post?.postId}',
+              },
+            ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 if (post?.content != null && post!.content!.isNotEmpty)
                   ExpandableText(
                     padding: EdgeInsets.symmetric(
-                      horizontal: 16.w,
+                      horizontal: isFromAllActivities ? 16.w : 0,
                       vertical: 8.h,
                     ),
-                    text: post.content ?? '',
+                    text: post?.content ?? '',
                   ),
                 if (post?.postType == PostType.link && post?.content != null)
                   Padding(
@@ -157,7 +128,7 @@ class FeedTile extends StatelessWidget {
                   MediaPost(
                     imageHeight: imageHeight,
                     postType: post?.postType ?? PostType.image,
-                    mediaUrls: post?.media ?? [],
+                    mediaUrls: media.isEmpty ? [] : [media.first],
                     fileName: post?.content,
                   ),
               ],
@@ -206,45 +177,6 @@ class FeedTile extends StatelessWidget {
           ),
           SizedBox(
             height: 8.h,
-          ),
-          const Divider(
-            thickness: 1,
-          ),
-          SizedBox(
-            height: 8.h,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              VerticalIconButton(
-                icon: IconStringConstants.thumbUp,
-                text: 'Like',
-                textColor: LegalReferralColors.textGrey117,
-                onTap: onLikePressed,
-                iconColor: isLiked ? LegalReferralColors.textBlue100 : null,
-              ),
-              VerticalIconButton(
-                icon: IconStringConstants.comment,
-                text: 'Comment',
-                textColor: LegalReferralColors.textGrey117,
-                onTap: onCommentPressed,
-              ),
-              VerticalIconButton(
-                icon: IconStringConstants.discuss,
-                text: 'Discuss',
-                textColor: LegalReferralColors.textGrey117,
-                onTap: onDiscussPressed,
-              ),
-              VerticalIconButton(
-                icon: IconStringConstants.share,
-                text: 'Share',
-                textColor: LegalReferralColors.textGrey117,
-                onTap: onSharePressed,
-              ),
-            ],
-          ),
-          SizedBox(
-            height: 16.h,
           ),
         ],
       ),

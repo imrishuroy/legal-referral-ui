@@ -82,8 +82,8 @@ class _PreviewFeaturePostMedia extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final filesUrls = post?.filesUrls ?? [];
-    final postType = post?.type;
+    final filesUrls = post?.media ?? [];
+    final postType = post?.postType;
     String? previewUrl;
     if (filesUrls.isNotEmpty) {
       previewUrl = filesUrls.first;

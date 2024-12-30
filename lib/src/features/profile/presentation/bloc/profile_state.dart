@@ -14,6 +14,10 @@ enum EducationStatus { initial, loading, success, failure }
 
 enum CompanyStatus { initial, loading, success, failure }
 
+enum ActivityStatus { initial, loading, success, failure }
+
+enum ActivityType { post, comment }
+
 class ProfileState extends Equatable {
   const ProfileState({
     this.profileStatus = ProfileStatus.initial,
@@ -30,6 +34,13 @@ class ProfileState extends Equatable {
     this.firms = const <Firm>[],
     this.socials = const <Social>[],
     this.featurePosts = const <FeaturePost>[],
+    this.followersCount = 0,
+    this.activityStatus = ActivityStatus.initial,
+    this.activityType = ActivityType.post,
+    this.activityPosts = const <Post>[],
+    this.activityComments = const <Comment>[],
+    this.activityOffset = 1,
+    this.activityHasReachedMax = false,
     this.failure,
   });
 
@@ -51,6 +62,13 @@ class ProfileState extends Equatable {
   final List<Firm?> firms;
   final List<Social?> socials;
   final List<FeaturePost> featurePosts;
+  final int followersCount;
+  final ActivityStatus activityStatus;
+  final ActivityType activityType;
+  final List<Post> activityPosts;
+  final List<Comment> activityComments;
+  final int activityOffset;
+  final bool activityHasReachedMax;
   final Failure? failure;
 
   ProfileState copyWith({
@@ -68,6 +86,13 @@ class ProfileState extends Equatable {
     List<Firm?>? firms,
     List<Social?>? socials,
     List<FeaturePost>? featurePosts,
+    int? followersCount,
+    ActivityStatus? activityStatus,
+    ActivityType? activityType,
+    List<Post>? activityPosts,
+    List<Comment>? activityComments,
+    int? activityOffset,
+    bool? activityHasReachedMax,
     Failure? failure,
   }) {
     return ProfileState(
@@ -86,6 +111,14 @@ class ProfileState extends Equatable {
       firms: firms ?? this.firms,
       socials: socials ?? this.socials,
       featurePosts: featurePosts ?? this.featurePosts,
+      followersCount: followersCount ?? this.followersCount,
+      activityStatus: activityStatus ?? this.activityStatus,
+      activityType: activityType ?? this.activityType,
+      activityPosts: activityPosts ?? this.activityPosts,
+      activityComments: activityComments ?? this.activityComments,
+      activityOffset: activityOffset ?? this.activityOffset,
+      activityHasReachedMax:
+          activityHasReachedMax ?? this.activityHasReachedMax,
       failure: failure ?? this.failure,
     );
   }
@@ -106,6 +139,13 @@ class ProfileState extends Equatable {
         firms,
         socials,
         featurePosts,
+        followersCount,
+        activityStatus,
+        activityType,
+        activityPosts,
+        activityComments,
+        activityOffset,
+        activityHasReachedMax,
         failure,
       ];
 }

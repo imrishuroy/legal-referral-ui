@@ -1,4 +1,6 @@
 export 'about_shimmer.dart';
+export 'activity_comment_shimmer.dart';
+export 'activity_post_shimmer.dart';
 export 'average_billing_shimmer.dart';
 export 'case_resolution_shimmer.dart';
 export 'connection_buttons_shimmer.dart';

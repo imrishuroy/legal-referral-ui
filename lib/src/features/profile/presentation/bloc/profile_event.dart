@@ -268,3 +268,53 @@ class FeaturePostsFetched extends ProfileEvent {
   @override
   List<Object> get props => [userId];
 }
+
+class UserFollowersCountFetched extends ProfileEvent {
+  const UserFollowersCountFetched({
+    required this.userId,
+  });
+
+  final String userId;
+
+  @override
+  List<Object> get props => [userId];
+}
+
+class ActivityTypeChanged extends ProfileEvent {
+  const ActivityTypeChanged({
+    required this.activityType,
+    this.isFromAllActivities = false,
+  });
+
+  final ActivityType activityType;
+  final bool isFromAllActivities;
+
+  @override
+  List<Object> get props => [activityType, isFromAllActivities];
+}
+
+class ActivityPostsFetched extends ProfileEvent {
+  const ActivityPostsFetched({
+    required this.userId,
+    required this.limit,
+  });
+
+  final String userId;
+  final int limit;
+
+  @override
+  List<Object> get props => [userId, limit];
+}
+
+class ActivityCommentsFetched extends ProfileEvent {
+  const ActivityCommentsFetched({
+    required this.userId,
+    required this.limit,
+  });
+
+  final String userId;
+  final int limit;
+
+  @override
+  List<Object> get props => [userId, limit];
+}

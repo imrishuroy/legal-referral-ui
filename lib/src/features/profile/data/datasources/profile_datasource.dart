@@ -6,6 +6,7 @@ import 'package:legal_referral_ui/src/core/network/network.dart';
 import 'package:legal_referral_ui/src/features/auth/domain/domain.dart';
 import 'package:legal_referral_ui/src/features/feed/data/data.dart';
 import 'package:legal_referral_ui/src/features/firm/domain/domain.dart';
+import 'package:legal_referral_ui/src/features/post/domain/domain.dart';
 import 'package:legal_referral_ui/src/features/profile/data/data.dart';
 import 'package:legal_referral_ui/src/features/profile/domain/domain.dart';
 
@@ -320,6 +321,51 @@ class ProfileDataSource {
   }) async {
     try {
       final res = await _apiClient.fetchFeaturePosts(userId);
+      return res;
+    } catch (_) {
+      rethrow;
+    }
+  }
+
+  Future<List<Post>> fetchActivityPosts({
+    required String userId,
+    required int limit,
+    required int offset,
+  }) async {
+    try {
+      final res = await _apiClient.fetchActivityPosts(
+        userId,
+        limit,
+        offset,
+      );
+      return res;
+    } catch (_) {
+      rethrow;
+    }
+  }
+
+  Future<List<Comment>> fetchActivityComments({
+    required String userId,
+    required int limit,
+    required int offset,
+  }) async {
+    try {
+      final res = await _apiClient.fetchActivityComments(
+        userId,
+        limit,
+        offset,
+      );
+      return res;
+    } catch (_) {
+      rethrow;
+    }
+  }
+
+  Future<int> fetchUserFollowersCount({
+    required String userId,
+  }) async {
+    try {
+      final res = await _apiClient.fetchUserFollowersCount(userId);
       return res;
     } catch (_) {
       rethrow;

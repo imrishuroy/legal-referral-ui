@@ -218,13 +218,12 @@ class _ProfilePageState extends State<ProfilePage> {
                       isCurrentUser: isCurrentUser,
                     ),
                     const FeaturedPostsSection(),
-                    // TODO: Add activity section
-                    CustomCard(
-                      onTap: () {},
-                      title: 'Activity',
-                      visibility: false,
-                      child: const ActivitySection(),
-                    ),
+                    if (isCurrentUser)
+                      const CustomCard(
+                        title: 'Activity',
+                        visibility: false,
+                        child: ActivitySection(),
+                      ),
                     ExperienceSection(
                       profileBloc: _profileBloc,
                       isCurrentUser: isCurrentUser,
@@ -233,6 +232,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       profileBloc: _profileBloc,
                       isCurrentUser: isCurrentUser,
                     ),
+                    // TODO: Add ReviewsSection
                     const ReviewsSection(),
                   ],
                 ),

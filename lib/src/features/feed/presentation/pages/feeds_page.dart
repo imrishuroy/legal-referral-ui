@@ -13,6 +13,7 @@ import 'package:legal_referral_ui/src/features/discussion/presentation/presentat
 import 'package:legal_referral_ui/src/features/feed/domain/entities/feed.dart';
 import 'package:legal_referral_ui/src/features/feed/presentation/presentation.dart';
 import 'package:legal_referral_ui/src/features/notifications/presentation/presentation.dart';
+import 'package:legal_referral_ui/src/features/post/domain/domain.dart';
 import 'package:legal_referral_ui/src/features/search/presentation/presentation.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:toastification/toastification.dart';
@@ -158,19 +159,19 @@ class _FeedsPageState extends State<FeedsPage> {
                   final feed = state.feeds[index];
                   final feedType = feed?.type;
                   if (feedType == FeedType.post) {
-                    final feedPost = feed?.feedPost;
+                    final post = feed?.post;
                     return Padding(
                       padding: EdgeInsets.symmetric(
                         vertical: 4.h,
                       ),
                       child: FeedTile(
                         feed: feed,
-                        isLiked: feedPost?.isLiked ?? false,
-                        likesCount: feedPost?.likesCount ?? 0,
-                        commentsCount: feedPost?.commentsCount ?? 0,
+                        isLiked: post?.isLiked ?? false,
+                        likesCount: post?.likesCount ?? 0,
+                        commentsCount: post?.commentsCount ?? 0,
                         onLikePressed: () => _onLikePressed(
-                          feedPost,
-                          feedPost?.isLiked ?? false,
+                          post,
+                          post?.isLiked ?? false,
                           index,
                         ),
                         onCommentPressed: () => _navigateToFeedDetailsPage(
@@ -178,7 +179,7 @@ class _FeedsPageState extends State<FeedsPage> {
                           index,
                         ),
                         onSharePressed: () async {
-                          final files = feedPost?.media;
+                          final files = post?.media;
                           if (files != null) {
                             await _sharePost(files);
                           }
@@ -186,7 +187,7 @@ class _FeedsPageState extends State<FeedsPage> {
                         onDiscussPressed: () => context.pushNamed(
                           CreateDiscussionPage.name,
                           pathParameters: {
-                            'title': '${feedPost?.content}',
+                            'title': '${post?.content}',
                           },
                         ),
                         onTap: () => _navigateToFeedDetailsPage(
@@ -233,11 +234,11 @@ class _FeedsPageState extends State<FeedsPage> {
   }
 
   void _onLikePressed(
-    FeedPost? feedPost,
+    Post? post,
     bool isLiked,
     int index,
   ) {
-    final postId = feedPost?.postId;
+    final postId = post?.postId;
     if (postId != null) {
       if (isLiked == true) {
         _feedBloc.add(
@@ -249,8 +250,8 @@ class _FeedsPageState extends State<FeedsPage> {
         );
       } else {
         final senderId = _authBloc.state.user?.userId;
-        final userId = feedPost?.ownerId;
-        final postId = feedPost?.postId;
+        final userId = post?.ownerId;
+        final postId = post?.postId;
         if (userId != null && senderId != null && postId != null) {
           _feedBloc.add(
             FeedPostLiked(
