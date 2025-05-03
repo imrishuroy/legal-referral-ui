@@ -1,16 +1,10 @@
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+
 class APIConstants {
   APIConstants._();
 
-  static const baseUrl =
-      // 'http://legal-referral-api-prod.ap-south-1.elasticbeanstalk.com/api';
-      // 'https://api.sixteenbrains.studio/api';
-
-      'http://192.168.0.12:8080/api';
-
-  static const host = 'legal-referral-api-prod.ap-south-1.elasticbeanstalk.com';
-
-  static const authBaseUrl =
-      'https://identitytoolkit.googleapis.com/v1/accounts';
-
-  static const cloudFrontUrl = 'https://d17zzqdqck3vf4.cloudfront.net/';
+  static String get baseURL => dotenv.get('BASE_URL');
+  static String get hostURL => dotenv.get('HOST_URL');
+  static String get authBaseURL => dotenv.get('AUTH_BASE_URL');
+  static String get cloudFrontURL => dotenv.get('CLOUDFRONT_URL');
 }

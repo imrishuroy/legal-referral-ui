@@ -34,7 +34,6 @@ class _ProfilePageState extends State<ProfilePage> {
       AppLogger.info('Fetching profile for user: $userId');
       _profileBloc.add(ProfileFetched(userId: widget.userId));
     }
-
     super.initState();
   }
 

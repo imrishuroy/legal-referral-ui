@@ -47,7 +47,7 @@ class AuthInterceptor extends Interceptor {
       if (refToken != null) {
         try {
           final res = await _dio.post(
-            '${APIConstants.baseUrl}/refresh-token',
+            '${APIConstants.baseURL}/refresh-token',
             data: {
               'refresh_token': refToken,
               'grant_type': 'refresh_token',

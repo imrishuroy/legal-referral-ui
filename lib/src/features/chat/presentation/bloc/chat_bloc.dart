@@ -114,7 +114,7 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
 
     _channel = IOWebSocketChannel.connect(
       Uri.parse(
-        'ws://${APIConstants.host}/api/chat/${state.currentChatRoom.roomId}',
+        'ws://${APIConstants.hostURL}/api/chat/${state.currentChatRoom.roomId}',
       ),
       headers: {
         'Authorization': 'Bearer ${SharedPrefs.getIDToken()}',

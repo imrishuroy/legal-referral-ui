@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:file_picker/file_picker.dart';
-import 'package:flutter_document_picker/flutter_document_picker.dart';
+// import 'package:flutter_document_picker/flutter_document_picker.dart';
 
 enum FileExtension { pdf, jpg, jpeg, png }
 
@@ -15,34 +15,35 @@ class FilePickerUtil {
   }
 
   static Future<File?> pickDocument() async {
-    final params = FlutterDocumentPickerParams(
-      // allowedFileExtensions: ['txt', 'doc', 'docx', 'pdf'],
-      allowedFileExtensions: ['pdf'],
-
-      allowedMimeTypes: ['application/*'],
-      invalidFileNameSymbols: ['/'],
-    );
-    final path = await FlutterDocumentPicker.openDocument(params: params);
-    if (path != null) {
-      return File(path);
-    }
     return null;
+
+    // final params = FlutterDocumentPickerParams(
+    //   // allowedFileExtensions: ['txt', 'doc', 'docx', 'pdf'],
+    //   allowedFileExtensions: ['pdf'],
+
+    //   allowedMimeTypes: ['application/*'],
+    //   invalidFileNameSymbols: ['/'],
+    // );
+    // final path = await FlutterDocumentPicker.openDocument(params: params);
+    // if (path != null) {
+    //   return File(path);
+    // }
+    // return null;
   }
 
-  static Future<List<File>> pickImages() async {
-    final filePicker = FilePicker.platform;
-    final pickedFile = await filePicker.pickFiles(
-      allowMultiple: true,
-      type: FileType.image,
-    );
-    if (pickedFile != null && pickedFile.files.isNotEmpty) {
-      return pickedFile.files
-          .where((file) => file.path != null)
-          .map((file) => File(file.path!))
-          .toList();
-    }
-    return [];
-  }
+  // static Future<List<File>> pickImages() async {
+  //   final pickedFile = await FilePicker.platform.pickFiles(
+  //     allowMultiple: true,
+  //     type: FileType.image,
+  //   );
+  //   if (pickedFile != null && pickedFile.files.isNotEmpty) {
+  //     return pickedFile.files
+  //         .where((file) => file.path != null)
+  //         .map((file) => File(file.path!))
+  //         .toList();
+  //   }
+  //   return [];
+  // }
 
   static Future<File?> pickVideo() async {
     final filePicker = FilePicker.platform;

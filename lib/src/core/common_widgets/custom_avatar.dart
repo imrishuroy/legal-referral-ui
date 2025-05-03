@@ -15,7 +15,7 @@ class CustomAvatar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final image = imageUrl != null
-        ? NetworkImage(imageUrl!)
+        ? NetworkImage('${APIConstants.cloudFrontURL}/$imageUrl')
         : const AssetImage(
             IconStringConstants.avatarPlaceholder,
           );
@@ -42,7 +42,6 @@ class CustomAvatar extends StatelessWidget {
     );
   }
 }
-
 
 // import 'package:flutter/material.dart';
 // import 'package:image_network/image_network.dart';

@@ -36,6 +36,7 @@ Future<void> main() async {
   );
 
   configureDependencies();
+
   getIt<Dio>().interceptors.addAll([
     AuthInterceptor(
       dio: getIt<Dio>(),

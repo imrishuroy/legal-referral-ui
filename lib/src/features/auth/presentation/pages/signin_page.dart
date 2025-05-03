@@ -104,8 +104,12 @@ class _SignInPageState extends State<SignInPage> {
                               hintText: 'Enter Password',
                               labelText: 'Password',
                               obscureText: true,
-                              validator: (value) =>
-                                  Validator.validatePassword(value),
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Please enter your password';
+                                }
+                                return null;
+                              },
                             ),
                             SizedBox(height: 16.h),
                             Container(

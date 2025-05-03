@@ -41,7 +41,7 @@ class FeedAdTile extends StatelessWidget {
             text: ad?.description ?? '',
           ),
           MediaPost(
-            imageHeight: 400,
+            postHeight: 400,
             postType:
                 ad?.type == AdType.image ? PostType.image : PostType.video,
             mediaUrls: ad?.mediaUrls ?? [],

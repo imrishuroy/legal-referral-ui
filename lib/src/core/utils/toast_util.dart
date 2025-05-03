@@ -17,6 +17,8 @@ class ToastUtil {
     required String description,
     required ToastificationType type,
   }) {
+    // Dismiss any existing toasts before showing a new one
+    toastification.dismissAll();
     toastification.show(
       context: context,
       type: type,
@@ -49,6 +51,8 @@ class ToastUtil {
     required ToastificationType type,
     required VoidCallback onUndo,
   }) {
+    // Dismiss any existing toasts before showing a new one
+    toastification.dismissAll();
     toastification.showCustom(
       context: context,
       autoCloseDuration: const Duration(seconds: 5),

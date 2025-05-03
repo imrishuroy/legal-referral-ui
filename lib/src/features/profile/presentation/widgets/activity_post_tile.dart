@@ -126,7 +126,7 @@ class ActivityPostTile extends StatelessWidget {
                   )
                 else
                   MediaPost(
-                    imageHeight: imageHeight,
+                    postHeight: imageHeight,
                     postType: post?.postType ?? PostType.image,
                     mediaUrls: media.isEmpty ? [] : [media.first],
                     fileName: post?.content,
