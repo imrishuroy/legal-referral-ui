@@ -1,3 +1,4 @@
+// dart format width=80
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
@@ -9,93 +10,55 @@ part of 'faq.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// dart format off
 T _$identity<T>(T value) => value;
-
-final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
-
-FAQ _$FAQFromJson(Map<String, dynamic> json) {
-  return _FAQ.fromJson(json);
-}
 
 /// @nodoc
 mixin _$FAQ {
-  String get question => throw _privateConstructorUsedError;
-  String get answer => throw _privateConstructorUsedError;
+  String get question;
+  String get answer;
   @DateTimeJsonConverter()
   @JsonKey(name: 'created_at', includeToJson: false)
-  DateTime? get createdAt => throw _privateConstructorUsedError;
+  DateTime? get createdAt;
   @JsonKey(name: 'faq_id', includeToJson: false)
-  int? get id => throw _privateConstructorUsedError;
-
-  /// Serializes this FAQ to a JSON map.
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  int? get id;
 
   /// Create a copy of FAQ
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
-  $FAQCopyWith<FAQ> get copyWith => throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class $FAQCopyWith<$Res> {
-  factory $FAQCopyWith(FAQ value, $Res Function(FAQ) then) =
-      _$FAQCopyWithImpl<$Res, FAQ>;
-  @useResult
-  $Res call(
-      {String question,
-      String answer,
-      @DateTimeJsonConverter()
-      @JsonKey(name: 'created_at', includeToJson: false)
-      DateTime? createdAt,
-      @JsonKey(name: 'faq_id', includeToJson: false) int? id});
-}
-
-/// @nodoc
-class _$FAQCopyWithImpl<$Res, $Val extends FAQ> implements $FAQCopyWith<$Res> {
-  _$FAQCopyWithImpl(this._value, this._then);
-
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
-
-  /// Create a copy of FAQ
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
+  $FAQCopyWith<FAQ> get copyWith =>
+      _$FAQCopyWithImpl<FAQ>(this as FAQ, _$identity);
+
+  /// Serializes this FAQ to a JSON map.
+  Map<String, dynamic> toJson();
+
   @override
-  $Res call({
-    Object? question = null,
-    Object? answer = null,
-    Object? createdAt = freezed,
-    Object? id = freezed,
-  }) {
-    return _then(_value.copyWith(
-      question: null == question
-          ? _value.question
-          : question // ignore: cast_nullable_to_non_nullable
-              as String,
-      answer: null == answer
-          ? _value.answer
-          : answer // ignore: cast_nullable_to_non_nullable
-              as String,
-      createdAt: freezed == createdAt
-          ? _value.createdAt
-          : createdAt // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
-      id: freezed == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as int?,
-    ) as $Val);
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is FAQ &&
+            (identical(other.question, question) ||
+                other.question == question) &&
+            (identical(other.answer, answer) || other.answer == answer) &&
+            (identical(other.createdAt, createdAt) ||
+                other.createdAt == createdAt) &&
+            (identical(other.id, id) || other.id == id));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(runtimeType, question, answer, createdAt, id);
+
+  @override
+  String toString() {
+    return 'FAQ(question: $question, answer: $answer, createdAt: $createdAt, id: $id)';
   }
 }
 
 /// @nodoc
-abstract class _$$FAQImplCopyWith<$Res> implements $FAQCopyWith<$Res> {
-  factory _$$FAQImplCopyWith(_$FAQImpl value, $Res Function(_$FAQImpl) then) =
-      __$$FAQImplCopyWithImpl<$Res>;
-  @override
+abstract mixin class $FAQCopyWith<$Res> {
+  factory $FAQCopyWith(FAQ value, $Res Function(FAQ) _then) = _$FAQCopyWithImpl;
   @useResult
   $Res call(
       {String question,
@@ -107,10 +70,11 @@ abstract class _$$FAQImplCopyWith<$Res> implements $FAQCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$FAQImplCopyWithImpl<$Res> extends _$FAQCopyWithImpl<$Res, _$FAQImpl>
-    implements _$$FAQImplCopyWith<$Res> {
-  __$$FAQImplCopyWithImpl(_$FAQImpl _value, $Res Function(_$FAQImpl) _then)
-      : super(_value, _then);
+class _$FAQCopyWithImpl<$Res> implements $FAQCopyWith<$Res> {
+  _$FAQCopyWithImpl(this._self, this._then);
+
+  final FAQ _self;
+  final $Res Function(FAQ) _then;
 
   /// Create a copy of FAQ
   /// with the given fields replaced by the non-null parameter values.
@@ -122,21 +86,21 @@ class __$$FAQImplCopyWithImpl<$Res> extends _$FAQCopyWithImpl<$Res, _$FAQImpl>
     Object? createdAt = freezed,
     Object? id = freezed,
   }) {
-    return _then(_$FAQImpl(
+    return _then(_self.copyWith(
       question: null == question
-          ? _value.question
+          ? _self.question
           : question // ignore: cast_nullable_to_non_nullable
               as String,
       answer: null == answer
-          ? _value.answer
+          ? _self.answer
           : answer // ignore: cast_nullable_to_non_nullable
               as String,
       createdAt: freezed == createdAt
-          ? _value.createdAt
+          ? _self.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
               as DateTime?,
       id: freezed == id
-          ? _value.id
+          ? _self.id
           : id // ignore: cast_nullable_to_non_nullable
               as int?,
     ));
@@ -145,17 +109,15 @@ class __$$FAQImplCopyWithImpl<$Res> extends _$FAQCopyWithImpl<$Res, _$FAQImpl>
 
 /// @nodoc
 @JsonSerializable()
-class _$FAQImpl implements _FAQ {
-  const _$FAQImpl(
+class _FAQ implements FAQ {
+  const _FAQ(
       {required this.question,
       required this.answer,
       @DateTimeJsonConverter()
       @JsonKey(name: 'created_at', includeToJson: false)
       this.createdAt,
       @JsonKey(name: 'faq_id', includeToJson: false) this.id});
-
-  factory _$FAQImpl.fromJson(Map<String, dynamic> json) =>
-      _$$FAQImplFromJson(json);
+  factory _FAQ.fromJson(Map<String, dynamic> json) => _$FAQFromJson(json);
 
   @override
   final String question;
@@ -169,16 +131,26 @@ class _$FAQImpl implements _FAQ {
   @JsonKey(name: 'faq_id', includeToJson: false)
   final int? id;
 
+  /// Create a copy of FAQ
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  String toString() {
-    return 'FAQ(question: $question, answer: $answer, createdAt: $createdAt, id: $id)';
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  _$FAQCopyWith<_FAQ> get copyWith =>
+      __$FAQCopyWithImpl<_FAQ>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$FAQToJson(
+      this,
+    );
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$FAQImpl &&
+            other is _FAQ &&
             (identical(other.question, question) ||
                 other.question == question) &&
             (identical(other.answer, answer) || other.answer == answer) &&
@@ -191,50 +163,63 @@ class _$FAQImpl implements _FAQ {
   @override
   int get hashCode => Object.hash(runtimeType, question, answer, createdAt, id);
 
-  /// Create a copy of FAQ
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  @pragma('vm:prefer-inline')
-  _$$FAQImplCopyWith<_$FAQImpl> get copyWith =>
-      __$$FAQImplCopyWithImpl<_$FAQImpl>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$FAQImplToJson(
-      this,
-    );
+  String toString() {
+    return 'FAQ(question: $question, answer: $answer, createdAt: $createdAt, id: $id)';
   }
 }
 
-abstract class _FAQ implements FAQ {
-  const factory _FAQ(
-          {required final String question,
-          required final String answer,
-          @DateTimeJsonConverter()
-          @JsonKey(name: 'created_at', includeToJson: false)
-          final DateTime? createdAt,
-          @JsonKey(name: 'faq_id', includeToJson: false) final int? id}) =
-      _$FAQImpl;
+/// @nodoc
+abstract mixin class _$FAQCopyWith<$Res> implements $FAQCopyWith<$Res> {
+  factory _$FAQCopyWith(_FAQ value, $Res Function(_FAQ) _then) =
+      __$FAQCopyWithImpl;
+  @override
+  @useResult
+  $Res call(
+      {String question,
+      String answer,
+      @DateTimeJsonConverter()
+      @JsonKey(name: 'created_at', includeToJson: false)
+      DateTime? createdAt,
+      @JsonKey(name: 'faq_id', includeToJson: false) int? id});
+}
 
-  factory _FAQ.fromJson(Map<String, dynamic> json) = _$FAQImpl.fromJson;
+/// @nodoc
+class __$FAQCopyWithImpl<$Res> implements _$FAQCopyWith<$Res> {
+  __$FAQCopyWithImpl(this._self, this._then);
 
-  @override
-  String get question;
-  @override
-  String get answer;
-  @override
-  @DateTimeJsonConverter()
-  @JsonKey(name: 'created_at', includeToJson: false)
-  DateTime? get createdAt;
-  @override
-  @JsonKey(name: 'faq_id', includeToJson: false)
-  int? get id;
+  final _FAQ _self;
+  final $Res Function(_FAQ) _then;
 
   /// Create a copy of FAQ
   /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$FAQImplCopyWith<_$FAQImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+  @pragma('vm:prefer-inline')
+  $Res call({
+    Object? question = null,
+    Object? answer = null,
+    Object? createdAt = freezed,
+    Object? id = freezed,
+  }) {
+    return _then(_FAQ(
+      question: null == question
+          ? _self.question
+          : question // ignore: cast_nullable_to_non_nullable
+              as String,
+      answer: null == answer
+          ? _self.answer
+          : answer // ignore: cast_nullable_to_non_nullable
+              as String,
+      createdAt: freezed == createdAt
+          ? _self.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      id: freezed == id
+          ? _self.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int?,
+    ));
+  }
 }
+
+// dart format on

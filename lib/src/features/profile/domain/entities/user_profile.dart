@@ -6,7 +6,7 @@ part 'user_profile.freezed.dart';
 part 'user_profile.g.dart';
 
 @freezed
-class UserProfile with _$UserProfile {
+sealed class UserProfile with _$UserProfile {
   const factory UserProfile({
     @JsonKey(name: 'followers_count') required int followersCount,
     @JsonKey(name: 'connections_count') required int connectionsCount,

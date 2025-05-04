@@ -6,7 +6,7 @@ part of 'social.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$SocialImpl _$$SocialImplFromJson(Map<String, dynamic> json) => _$SocialImpl(
+_Social _$SocialFromJson(Map<String, dynamic> json) => _Social(
       entityType: $enumDecode(_$EntityTypeEnumMap, json['entity_type']),
       platform: $enumDecode(_$SocialPlatformEnumMap, json['platform']),
       link: json['link'] as String,
@@ -14,8 +14,7 @@ _$SocialImpl _$$SocialImplFromJson(Map<String, dynamic> json) => _$SocialImpl(
       entityId: json['entity_id'] as String?,
     );
 
-Map<String, dynamic> _$$SocialImplToJson(_$SocialImpl instance) =>
-    <String, dynamic>{
+Map<String, dynamic> _$SocialToJson(_Social instance) => <String, dynamic>{
       'entity_type': _$EntityTypeEnumMap[instance.entityType]!,
       'platform': _$SocialPlatformEnumMap[instance.platform]!,
       'link': instance.link,

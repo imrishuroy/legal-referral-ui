@@ -1,3 +1,4 @@
+// dart format width=80
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
@@ -9,112 +10,74 @@ part of 'create_referral.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// dart format off
 T _$identity<T>(T value) => value;
-
-final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
-
-CreateReferral _$CreateReferralFromJson(Map<String, dynamic> json) {
-  return _CreateReferral.fromJson(json);
-}
 
 /// @nodoc
 mixin _$CreateReferral {
-  String get title => throw _privateConstructorUsedError;
+  String get title;
   @JsonKey(name: 'case_description')
-  String get caseDescription => throw _privateConstructorUsedError;
+  String get caseDescription;
   @JsonKey(name: 'preferred_practice_area')
-  String get practiceArea => throw _privateConstructorUsedError;
+  String get practiceArea;
   @JsonKey(name: 'preferred_practice_location')
-  String get practiceLocation => throw _privateConstructorUsedError;
+  String get practiceLocation;
   @JsonKey(name: 'referrer_user_id')
-  String get referrerUserId => throw _privateConstructorUsedError;
+  String get referrerUserId;
   @JsonKey(name: 'referred_user_ids')
-  List<String> get referredUserIds => throw _privateConstructorUsedError;
-
-  /// Serializes this CreateReferral to a JSON map.
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  List<String> get referredUserIds;
 
   /// Create a copy of CreateReferral
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
-  $CreateReferralCopyWith<CreateReferral> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class $CreateReferralCopyWith<$Res> {
-  factory $CreateReferralCopyWith(
-          CreateReferral value, $Res Function(CreateReferral) then) =
-      _$CreateReferralCopyWithImpl<$Res, CreateReferral>;
-  @useResult
-  $Res call(
-      {String title,
-      @JsonKey(name: 'case_description') String caseDescription,
-      @JsonKey(name: 'preferred_practice_area') String practiceArea,
-      @JsonKey(name: 'preferred_practice_location') String practiceLocation,
-      @JsonKey(name: 'referrer_user_id') String referrerUserId,
-      @JsonKey(name: 'referred_user_ids') List<String> referredUserIds});
-}
-
-/// @nodoc
-class _$CreateReferralCopyWithImpl<$Res, $Val extends CreateReferral>
-    implements $CreateReferralCopyWith<$Res> {
-  _$CreateReferralCopyWithImpl(this._value, this._then);
-
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
-
-  /// Create a copy of CreateReferral
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
+  $CreateReferralCopyWith<CreateReferral> get copyWith =>
+      _$CreateReferralCopyWithImpl<CreateReferral>(
+          this as CreateReferral, _$identity);
+
+  /// Serializes this CreateReferral to a JSON map.
+  Map<String, dynamic> toJson();
+
   @override
-  $Res call({
-    Object? title = null,
-    Object? caseDescription = null,
-    Object? practiceArea = null,
-    Object? practiceLocation = null,
-    Object? referrerUserId = null,
-    Object? referredUserIds = null,
-  }) {
-    return _then(_value.copyWith(
-      title: null == title
-          ? _value.title
-          : title // ignore: cast_nullable_to_non_nullable
-              as String,
-      caseDescription: null == caseDescription
-          ? _value.caseDescription
-          : caseDescription // ignore: cast_nullable_to_non_nullable
-              as String,
-      practiceArea: null == practiceArea
-          ? _value.practiceArea
-          : practiceArea // ignore: cast_nullable_to_non_nullable
-              as String,
-      practiceLocation: null == practiceLocation
-          ? _value.practiceLocation
-          : practiceLocation // ignore: cast_nullable_to_non_nullable
-              as String,
-      referrerUserId: null == referrerUserId
-          ? _value.referrerUserId
-          : referrerUserId // ignore: cast_nullable_to_non_nullable
-              as String,
-      referredUserIds: null == referredUserIds
-          ? _value.referredUserIds
-          : referredUserIds // ignore: cast_nullable_to_non_nullable
-              as List<String>,
-    ) as $Val);
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is CreateReferral &&
+            (identical(other.title, title) || other.title == title) &&
+            (identical(other.caseDescription, caseDescription) ||
+                other.caseDescription == caseDescription) &&
+            (identical(other.practiceArea, practiceArea) ||
+                other.practiceArea == practiceArea) &&
+            (identical(other.practiceLocation, practiceLocation) ||
+                other.practiceLocation == practiceLocation) &&
+            (identical(other.referrerUserId, referrerUserId) ||
+                other.referrerUserId == referrerUserId) &&
+            const DeepCollectionEquality()
+                .equals(other.referredUserIds, referredUserIds));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(
+      runtimeType,
+      title,
+      caseDescription,
+      practiceArea,
+      practiceLocation,
+      referrerUserId,
+      const DeepCollectionEquality().hash(referredUserIds));
+
+  @override
+  String toString() {
+    return 'CreateReferral(title: $title, caseDescription: $caseDescription, practiceArea: $practiceArea, practiceLocation: $practiceLocation, referrerUserId: $referrerUserId, referredUserIds: $referredUserIds)';
   }
 }
 
 /// @nodoc
-abstract class _$$CreateReferralImplCopyWith<$Res>
-    implements $CreateReferralCopyWith<$Res> {
-  factory _$$CreateReferralImplCopyWith(_$CreateReferralImpl value,
-          $Res Function(_$CreateReferralImpl) then) =
-      __$$CreateReferralImplCopyWithImpl<$Res>;
-  @override
+abstract mixin class $CreateReferralCopyWith<$Res> {
+  factory $CreateReferralCopyWith(
+          CreateReferral value, $Res Function(CreateReferral) _then) =
+      _$CreateReferralCopyWithImpl;
   @useResult
   $Res call(
       {String title,
@@ -126,12 +89,12 @@ abstract class _$$CreateReferralImplCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$CreateReferralImplCopyWithImpl<$Res>
-    extends _$CreateReferralCopyWithImpl<$Res, _$CreateReferralImpl>
-    implements _$$CreateReferralImplCopyWith<$Res> {
-  __$$CreateReferralImplCopyWithImpl(
-      _$CreateReferralImpl _value, $Res Function(_$CreateReferralImpl) _then)
-      : super(_value, _then);
+class _$CreateReferralCopyWithImpl<$Res>
+    implements $CreateReferralCopyWith<$Res> {
+  _$CreateReferralCopyWithImpl(this._self, this._then);
+
+  final CreateReferral _self;
+  final $Res Function(CreateReferral) _then;
 
   /// Create a copy of CreateReferral
   /// with the given fields replaced by the non-null parameter values.
@@ -145,29 +108,29 @@ class __$$CreateReferralImplCopyWithImpl<$Res>
     Object? referrerUserId = null,
     Object? referredUserIds = null,
   }) {
-    return _then(_$CreateReferralImpl(
+    return _then(_self.copyWith(
       title: null == title
-          ? _value.title
+          ? _self.title
           : title // ignore: cast_nullable_to_non_nullable
               as String,
       caseDescription: null == caseDescription
-          ? _value.caseDescription
+          ? _self.caseDescription
           : caseDescription // ignore: cast_nullable_to_non_nullable
               as String,
       practiceArea: null == practiceArea
-          ? _value.practiceArea
+          ? _self.practiceArea
           : practiceArea // ignore: cast_nullable_to_non_nullable
               as String,
       practiceLocation: null == practiceLocation
-          ? _value.practiceLocation
+          ? _self.practiceLocation
           : practiceLocation // ignore: cast_nullable_to_non_nullable
               as String,
       referrerUserId: null == referrerUserId
-          ? _value.referrerUserId
+          ? _self.referrerUserId
           : referrerUserId // ignore: cast_nullable_to_non_nullable
               as String,
       referredUserIds: null == referredUserIds
-          ? _value._referredUserIds
+          ? _self.referredUserIds
           : referredUserIds // ignore: cast_nullable_to_non_nullable
               as List<String>,
     ));
@@ -176,8 +139,8 @@ class __$$CreateReferralImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$CreateReferralImpl implements _CreateReferral {
-  const _$CreateReferralImpl(
+class _CreateReferral implements CreateReferral {
+  const _CreateReferral(
       {required this.title,
       @JsonKey(name: 'case_description') required this.caseDescription,
       @JsonKey(name: 'preferred_practice_area') required this.practiceArea,
@@ -187,9 +150,8 @@ class _$CreateReferralImpl implements _CreateReferral {
       @JsonKey(name: 'referred_user_ids')
       required final List<String> referredUserIds})
       : _referredUserIds = referredUserIds;
-
-  factory _$CreateReferralImpl.fromJson(Map<String, dynamic> json) =>
-      _$$CreateReferralImplFromJson(json);
+  factory _CreateReferral.fromJson(Map<String, dynamic> json) =>
+      _$CreateReferralFromJson(json);
 
   @override
   final String title;
@@ -214,16 +176,26 @@ class _$CreateReferralImpl implements _CreateReferral {
     return EqualUnmodifiableListView(_referredUserIds);
   }
 
+  /// Create a copy of CreateReferral
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  String toString() {
-    return 'CreateReferral(title: $title, caseDescription: $caseDescription, practiceArea: $practiceArea, practiceLocation: $practiceLocation, referrerUserId: $referrerUserId, referredUserIds: $referredUserIds)';
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  _$CreateReferralCopyWith<_CreateReferral> get copyWith =>
+      __$CreateReferralCopyWithImpl<_CreateReferral>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$CreateReferralToJson(
+      this,
+    );
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$CreateReferralImpl &&
+            other is _CreateReferral &&
             (identical(other.title, title) || other.title == title) &&
             (identical(other.caseDescription, caseDescription) ||
                 other.caseDescription == caseDescription) &&
@@ -248,60 +220,76 @@ class _$CreateReferralImpl implements _CreateReferral {
       referrerUserId,
       const DeepCollectionEquality().hash(_referredUserIds));
 
-  /// Create a copy of CreateReferral
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  @pragma('vm:prefer-inline')
-  _$$CreateReferralImplCopyWith<_$CreateReferralImpl> get copyWith =>
-      __$$CreateReferralImplCopyWithImpl<_$CreateReferralImpl>(
-          this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$CreateReferralImplToJson(
-      this,
-    );
+  String toString() {
+    return 'CreateReferral(title: $title, caseDescription: $caseDescription, practiceArea: $practiceArea, practiceLocation: $practiceLocation, referrerUserId: $referrerUserId, referredUserIds: $referredUserIds)';
   }
 }
 
-abstract class _CreateReferral implements CreateReferral {
-  const factory _CreateReferral(
-      {required final String title,
-      @JsonKey(name: 'case_description') required final String caseDescription,
-      @JsonKey(name: 'preferred_practice_area')
-      required final String practiceArea,
-      @JsonKey(name: 'preferred_practice_location')
-      required final String practiceLocation,
-      @JsonKey(name: 'referrer_user_id') required final String referrerUserId,
-      @JsonKey(name: 'referred_user_ids')
-      required final List<String> referredUserIds}) = _$CreateReferralImpl;
+/// @nodoc
+abstract mixin class _$CreateReferralCopyWith<$Res>
+    implements $CreateReferralCopyWith<$Res> {
+  factory _$CreateReferralCopyWith(
+          _CreateReferral value, $Res Function(_CreateReferral) _then) =
+      __$CreateReferralCopyWithImpl;
+  @override
+  @useResult
+  $Res call(
+      {String title,
+      @JsonKey(name: 'case_description') String caseDescription,
+      @JsonKey(name: 'preferred_practice_area') String practiceArea,
+      @JsonKey(name: 'preferred_practice_location') String practiceLocation,
+      @JsonKey(name: 'referrer_user_id') String referrerUserId,
+      @JsonKey(name: 'referred_user_ids') List<String> referredUserIds});
+}
 
-  factory _CreateReferral.fromJson(Map<String, dynamic> json) =
-      _$CreateReferralImpl.fromJson;
+/// @nodoc
+class __$CreateReferralCopyWithImpl<$Res>
+    implements _$CreateReferralCopyWith<$Res> {
+  __$CreateReferralCopyWithImpl(this._self, this._then);
 
-  @override
-  String get title;
-  @override
-  @JsonKey(name: 'case_description')
-  String get caseDescription;
-  @override
-  @JsonKey(name: 'preferred_practice_area')
-  String get practiceArea;
-  @override
-  @JsonKey(name: 'preferred_practice_location')
-  String get practiceLocation;
-  @override
-  @JsonKey(name: 'referrer_user_id')
-  String get referrerUserId;
-  @override
-  @JsonKey(name: 'referred_user_ids')
-  List<String> get referredUserIds;
+  final _CreateReferral _self;
+  final $Res Function(_CreateReferral) _then;
 
   /// Create a copy of CreateReferral
   /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$CreateReferralImplCopyWith<_$CreateReferralImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+  @pragma('vm:prefer-inline')
+  $Res call({
+    Object? title = null,
+    Object? caseDescription = null,
+    Object? practiceArea = null,
+    Object? practiceLocation = null,
+    Object? referrerUserId = null,
+    Object? referredUserIds = null,
+  }) {
+    return _then(_CreateReferral(
+      title: null == title
+          ? _self.title
+          : title // ignore: cast_nullable_to_non_nullable
+              as String,
+      caseDescription: null == caseDescription
+          ? _self.caseDescription
+          : caseDescription // ignore: cast_nullable_to_non_nullable
+              as String,
+      practiceArea: null == practiceArea
+          ? _self.practiceArea
+          : practiceArea // ignore: cast_nullable_to_non_nullable
+              as String,
+      practiceLocation: null == practiceLocation
+          ? _self.practiceLocation
+          : practiceLocation // ignore: cast_nullable_to_non_nullable
+              as String,
+      referrerUserId: null == referrerUserId
+          ? _self.referrerUserId
+          : referrerUserId // ignore: cast_nullable_to_non_nullable
+              as String,
+      referredUserIds: null == referredUserIds
+          ? _self._referredUserIds
+          : referredUserIds // ignore: cast_nullable_to_non_nullable
+              as List<String>,
+    ));
+  }
 }
+
+// dart format on

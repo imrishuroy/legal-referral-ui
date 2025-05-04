@@ -14,7 +14,7 @@ enum FeedType {
 }
 
 @freezed
-class Feed with _$Feed {
+sealed class Feed with _$Feed {
   const factory Feed({
     @JsonKey(name: 'feed_id') required int feedId,
     @JsonKey(name: 'feed_type') required FeedType type,

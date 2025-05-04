@@ -5,7 +5,7 @@ part 'recommendation.freezed.dart';
 part 'recommendation.g.dart';
 
 @freezed
-class Recommendation with _$Recommendation {
+sealed class Recommendation with _$Recommendation {
   const factory Recommendation({
     @JsonKey(name: 'user_id') required String? userId,
     @JsonKey(name: 'first_name') required String? firstName,

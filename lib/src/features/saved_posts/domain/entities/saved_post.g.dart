@@ -6,8 +6,7 @@ part of 'saved_post.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$SavedPostImpl _$$SavedPostImplFromJson(Map<String, dynamic> json) =>
-    _$SavedPostImpl(
+_SavedPost _$SavedPostFromJson(Map<String, dynamic> json) => _SavedPost(
       post: json['post'] == null
           ? null
           : Post.fromJson(json['post'] as Map<String, dynamic>),
@@ -19,7 +18,7 @@ _$SavedPostImpl _$$SavedPostImplFromJson(Map<String, dynamic> json) =>
           const DateTimeJsonConverter().fromJson(json['created_at'] as String),
     );
 
-Map<String, dynamic> _$$SavedPostImplToJson(_$SavedPostImpl instance) =>
+Map<String, dynamic> _$SavedPostToJson(_SavedPost instance) =>
     <String, dynamic>{
       'post': instance.post,
       'user': instance.owner,

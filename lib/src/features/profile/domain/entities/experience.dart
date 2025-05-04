@@ -5,7 +5,7 @@ part 'experience.freezed.dart';
 part 'experience.g.dart';
 
 @freezed
-class Experience with _$Experience {
+sealed class Experience with _$Experience {
   const factory Experience({
     required String title,
     @JsonKey(name: 'practice_area') required String? practiceArea,

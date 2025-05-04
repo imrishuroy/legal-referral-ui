@@ -6,8 +6,8 @@ part of 'project_review.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$ProjectReviewImpl _$$ProjectReviewImplFromJson(Map<String, dynamic> json) =>
-    _$ProjectReviewImpl(
+_ProjectReview _$ProjectReviewFromJson(Map<String, dynamic> json) =>
+    _ProjectReview(
       projectId: (json['project_id'] as num?)?.toInt(),
       userId: json['user_id'] as String?,
       review: json['review'] as String?,
@@ -17,7 +17,7 @@ _$ProjectReviewImpl _$$ProjectReviewImplFromJson(Map<String, dynamic> json) =>
       reviewId: (json['review_id'] as num?)?.toInt(),
     );
 
-Map<String, dynamic> _$$ProjectReviewImplToJson(_$ProjectReviewImpl instance) =>
+Map<String, dynamic> _$ProjectReviewToJson(_ProjectReview instance) =>
     <String, dynamic>{
       'project_id': instance.projectId,
       'user_id': instance.userId,

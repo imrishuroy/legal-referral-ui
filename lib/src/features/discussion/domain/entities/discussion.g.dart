@@ -6,8 +6,7 @@ part of 'discussion.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$DiscussionImpl _$$DiscussionImplFromJson(Map<String, dynamic> json) =>
-    _$DiscussionImpl(
+_Discussion _$DiscussionFromJson(Map<String, dynamic> json) => _Discussion(
       discussionId: (json['discussion_id'] as num?)?.toInt(),
       topic: json['topic'] as String?,
       authorId: json['author_id'] as String?,
@@ -16,7 +15,7 @@ _$DiscussionImpl _$$DiscussionImplFromJson(Map<String, dynamic> json) =>
       activeMemberCount: (json['active_member_count'] as num?)?.toInt(),
     );
 
-Map<String, dynamic> _$$DiscussionImplToJson(_$DiscussionImpl instance) =>
+Map<String, dynamic> _$DiscussionToJson(_Discussion instance) =>
     <String, dynamic>{
       if (instance.discussionId case final value?) 'discussion_id': value,
       if (instance.topic case final value?) 'topic': value,

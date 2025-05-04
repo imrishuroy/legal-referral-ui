@@ -5,7 +5,7 @@ part 'chat_room.freezed.dart';
 part 'chat_room.g.dart';
 
 @freezed
-class ChatRoom with _$ChatRoom {
+sealed class ChatRoom with _$ChatRoom {
   const factory ChatRoom({
     @JsonKey(name: 'room_id') required String roomId,
     @JsonKey(name: 'user_id') required String userId,

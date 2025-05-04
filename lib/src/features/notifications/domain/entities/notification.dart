@@ -25,7 +25,7 @@ enum TargetType {
 }
 
 @freezed
-class Notification with _$Notification {
+sealed class Notification with _$Notification {
   const factory Notification({
     @JsonKey(name: 'notification_id') required int notificationId,
     @JsonKey(name: 'user_id') required String userId,

@@ -6,8 +6,7 @@ part of 'user_profile.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$UserProfileImpl _$$UserProfileImplFromJson(Map<String, dynamic> json) =>
-    _$UserProfileImpl(
+_UserProfile _$UserProfileFromJson(Map<String, dynamic> json) => _UserProfile(
       followersCount: (json['followers_count'] as num).toInt(),
       connectionsCount: (json['connections_count'] as num).toInt(),
       serviceType:
@@ -33,7 +32,7 @@ _$UserProfileImpl _$$UserProfileImplFromJson(Map<String, dynamic> json) =>
           : RatingInfo.fromJson(json['rating_info'] as Map<String, dynamic>),
     );
 
-Map<String, dynamic> _$$UserProfileImplToJson(_$UserProfileImpl instance) =>
+Map<String, dynamic> _$UserProfileToJson(_UserProfile instance) =>
     <String, dynamic>{
       'followers_count': instance.followersCount,
       'connections_count': instance.connectionsCount,

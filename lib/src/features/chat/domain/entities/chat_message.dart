@@ -5,7 +5,7 @@ part 'chat_message.freezed.dart';
 part 'chat_message.g.dart';
 
 @freezed
-class ChatMessage with _$ChatMessage {
+sealed class ChatMessage with _$ChatMessage {
   const factory ChatMessage({
     @JsonKey(name: 'sender_id') required String senderId,
     @JsonKey(name: 'recipient_id') required String recipientId,

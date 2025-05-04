@@ -6,8 +6,7 @@ part of 'referred_user.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$ReferedUserImpl _$$ReferedUserImplFromJson(Map<String, dynamic> json) =>
-    _$ReferedUserImpl(
+_ReferedUser _$ReferedUserFromJson(Map<String, dynamic> json) => _ReferedUser(
       serviceType:
           $enumDecodeNullable(_$PriceServiceTypeEnumMap, json['service_type']),
       userId: json['user_id'] as String?,
@@ -23,7 +22,7 @@ _$ReferedUserImpl _$$ReferedUserImplFromJson(Map<String, dynamic> json) =>
       hybridPrice: json['hybrid_price'] as String?,
     );
 
-Map<String, dynamic> _$$ReferedUserImplToJson(_$ReferedUserImpl instance) =>
+Map<String, dynamic> _$ReferedUserToJson(_ReferedUser instance) =>
     <String, dynamic>{
       'service_type': _$PriceServiceTypeEnumMap[instance.serviceType],
       'user_id': instance.userId,

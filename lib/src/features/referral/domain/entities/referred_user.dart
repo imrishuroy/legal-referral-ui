@@ -5,7 +5,7 @@ part 'referred_user.freezed.dart';
 part 'referred_user.g.dart';
 
 @freezed
-class ReferedUser with _$ReferedUser {
+sealed class ReferedUser with _$ReferedUser {
   const factory ReferedUser({
     @JsonKey(name: 'service_type') PriceServiceType? serviceType,
     @JsonKey(name: 'user_id') String? userId,

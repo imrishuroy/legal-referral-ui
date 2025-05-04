@@ -5,7 +5,7 @@ part 'faq.freezed.dart';
 part 'faq.g.dart';
 
 @freezed
-class FAQ with _$FAQ {
+sealed class FAQ with _$FAQ {
   const factory FAQ({
     required String question,
     required String answer,

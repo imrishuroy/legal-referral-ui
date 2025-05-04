@@ -19,7 +19,7 @@ enum ConnectionInvitationStatus {
 }
 
 @freezed
-class ConnectionInvitation with _$ConnectionInvitation {
+sealed class ConnectionInvitation with _$ConnectionInvitation {
   const factory ConnectionInvitation({
     required int? id,
     @JsonKey(name: 'sender_id') required String? senderId,

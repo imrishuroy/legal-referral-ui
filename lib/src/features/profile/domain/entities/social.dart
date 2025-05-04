@@ -26,7 +26,7 @@ enum SocialPlatform {
 }
 
 @freezed
-class Social with _$Social {
+sealed class Social with _$Social {
   const factory Social({
     @JsonKey(name: 'entity_type') required EntityType entityType,
     @JsonKey(name: 'platform') required SocialPlatform platform,

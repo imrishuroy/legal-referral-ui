@@ -63,7 +63,9 @@ class _VideoPostState extends State<VideoPost> {
                 if (!_controller.value.isPlaying)
                   AspectRatio(
                     aspectRatio: _controller.value.aspectRatio,
-                    child: Container(color: Colors.black.withOpacity(0.6)),
+                    child: Container(
+                      color: Colors.black.withValues(alpha: 0.6),
+                    ),
                   ),
                 Positioned(
                   child: GestureDetector(

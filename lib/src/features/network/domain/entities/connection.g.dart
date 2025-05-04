@@ -6,8 +6,7 @@ part of 'connection.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$ConnectionImpl _$$ConnectionImplFromJson(Map<String, dynamic> json) =>
-    _$ConnectionImpl(
+_Connection _$ConnectionFromJson(Map<String, dynamic> json) => _Connection(
       id: (json['id'] as num?)?.toInt(),
       senderId: json['sender_id'] as String?,
       recipientId: json['recipient_id'] as String?,
@@ -19,7 +18,7 @@ _$ConnectionImpl _$$ConnectionImplFromJson(Map<String, dynamic> json) =>
           json['created_at'], const DateTimeJsonConverter().fromJson),
     );
 
-Map<String, dynamic> _$$ConnectionImplToJson(_$ConnectionImpl instance) =>
+Map<String, dynamic> _$ConnectionToJson(_Connection instance) =>
     <String, dynamic>{
       'id': instance.id,
       'sender_id': instance.senderId,

@@ -378,7 +378,7 @@ packages:
     source: hosted
     version: "0.7.11"
   device_info_plus:
-    dependency: "direct overridden"
+    dependency: "direct main"
     description:
       name: device_info_plus
       sha256: "0c6396126421b590089447154c5f98a5de423b70cfb15b1578fd018843ee6f53"
@@ -1577,7 +1577,7 @@ packages:
     source: hosted
     version: "3.1.0+3"
   pdfx:
-    dependency: "direct overridden"
+    dependency: "direct main"
     description:
       name: pdfx
       sha256: c0f70ab6691b7cde02c0c204763a1edb2689ce245ac34eb629c66273a6aa1caf

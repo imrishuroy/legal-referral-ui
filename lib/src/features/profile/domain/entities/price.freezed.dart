@@ -1,3 +1,4 @@
+// dart format width=80
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
@@ -9,122 +10,70 @@ part of 'price.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// dart format off
 T _$identity<T>(T value) => value;
-
-final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
-
-Price _$PriceFromJson(Map<String, dynamic> json) {
-  return _Price.fromJson(json);
-}
 
 /// @nodoc
 mixin _$Price {
   @JsonKey(name: 'service_type')
-  PriceServiceType? get serviceType => throw _privateConstructorUsedError;
+  PriceServiceType? get serviceType;
   @JsonKey(name: 'per_hour_price', includeIfNull: false)
-  double? get perHourPrice => throw _privateConstructorUsedError;
+  double? get perHourPrice;
   @JsonKey(name: 'per_hearing_price', includeIfNull: false)
-  double? get perHearingPrice => throw _privateConstructorUsedError;
+  double? get perHearingPrice;
   @JsonKey(name: 'contingency_price', includeIfNull: false)
-  String? get contingencyPrice => throw _privateConstructorUsedError;
+  String? get contingencyPrice;
   @JsonKey(name: 'hybrid_price', includeIfNull: false)
-  String? get hybridPrice => throw _privateConstructorUsedError;
+  String? get hybridPrice;
   @JsonKey(name: 'price_id', includeToJson: false)
-  int? get priceId => throw _privateConstructorUsedError;
+  int? get priceId;
   @JsonKey(name: 'user_id', includeToJson: false, includeIfNull: false)
-  String? get userId => throw _privateConstructorUsedError;
-
-  /// Serializes this Price to a JSON map.
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  String? get userId;
 
   /// Create a copy of Price
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
-  $PriceCopyWith<Price> get copyWith => throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class $PriceCopyWith<$Res> {
-  factory $PriceCopyWith(Price value, $Res Function(Price) then) =
-      _$PriceCopyWithImpl<$Res, Price>;
-  @useResult
-  $Res call(
-      {@JsonKey(name: 'service_type') PriceServiceType? serviceType,
-      @JsonKey(name: 'per_hour_price', includeIfNull: false)
-      double? perHourPrice,
-      @JsonKey(name: 'per_hearing_price', includeIfNull: false)
-      double? perHearingPrice,
-      @JsonKey(name: 'contingency_price', includeIfNull: false)
-      String? contingencyPrice,
-      @JsonKey(name: 'hybrid_price', includeIfNull: false) String? hybridPrice,
-      @JsonKey(name: 'price_id', includeToJson: false) int? priceId,
-      @JsonKey(name: 'user_id', includeToJson: false, includeIfNull: false)
-      String? userId});
-}
-
-/// @nodoc
-class _$PriceCopyWithImpl<$Res, $Val extends Price>
-    implements $PriceCopyWith<$Res> {
-  _$PriceCopyWithImpl(this._value, this._then);
-
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
-
-  /// Create a copy of Price
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
+  $PriceCopyWith<Price> get copyWith =>
+      _$PriceCopyWithImpl<Price>(this as Price, _$identity);
+
+  /// Serializes this Price to a JSON map.
+  Map<String, dynamic> toJson();
+
   @override
-  $Res call({
-    Object? serviceType = freezed,
-    Object? perHourPrice = freezed,
-    Object? perHearingPrice = freezed,
-    Object? contingencyPrice = freezed,
-    Object? hybridPrice = freezed,
-    Object? priceId = freezed,
-    Object? userId = freezed,
-  }) {
-    return _then(_value.copyWith(
-      serviceType: freezed == serviceType
-          ? _value.serviceType
-          : serviceType // ignore: cast_nullable_to_non_nullable
-              as PriceServiceType?,
-      perHourPrice: freezed == perHourPrice
-          ? _value.perHourPrice
-          : perHourPrice // ignore: cast_nullable_to_non_nullable
-              as double?,
-      perHearingPrice: freezed == perHearingPrice
-          ? _value.perHearingPrice
-          : perHearingPrice // ignore: cast_nullable_to_non_nullable
-              as double?,
-      contingencyPrice: freezed == contingencyPrice
-          ? _value.contingencyPrice
-          : contingencyPrice // ignore: cast_nullable_to_non_nullable
-              as String?,
-      hybridPrice: freezed == hybridPrice
-          ? _value.hybridPrice
-          : hybridPrice // ignore: cast_nullable_to_non_nullable
-              as String?,
-      priceId: freezed == priceId
-          ? _value.priceId
-          : priceId // ignore: cast_nullable_to_non_nullable
-              as int?,
-      userId: freezed == userId
-          ? _value.userId
-          : userId // ignore: cast_nullable_to_non_nullable
-              as String?,
-    ) as $Val);
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is Price &&
+            (identical(other.serviceType, serviceType) ||
+                other.serviceType == serviceType) &&
+            (identical(other.perHourPrice, perHourPrice) ||
+                other.perHourPrice == perHourPrice) &&
+            (identical(other.perHearingPrice, perHearingPrice) ||
+                other.perHearingPrice == perHearingPrice) &&
+            (identical(other.contingencyPrice, contingencyPrice) ||
+                other.contingencyPrice == contingencyPrice) &&
+            (identical(other.hybridPrice, hybridPrice) ||
+                other.hybridPrice == hybridPrice) &&
+            (identical(other.priceId, priceId) || other.priceId == priceId) &&
+            (identical(other.userId, userId) || other.userId == userId));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(runtimeType, serviceType, perHourPrice,
+      perHearingPrice, contingencyPrice, hybridPrice, priceId, userId);
+
+  @override
+  String toString() {
+    return 'Price(serviceType: $serviceType, perHourPrice: $perHourPrice, perHearingPrice: $perHearingPrice, contingencyPrice: $contingencyPrice, hybridPrice: $hybridPrice, priceId: $priceId, userId: $userId)';
   }
 }
 
 /// @nodoc
-abstract class _$$PriceImplCopyWith<$Res> implements $PriceCopyWith<$Res> {
-  factory _$$PriceImplCopyWith(
-          _$PriceImpl value, $Res Function(_$PriceImpl) then) =
-      __$$PriceImplCopyWithImpl<$Res>;
-  @override
+abstract mixin class $PriceCopyWith<$Res> {
+  factory $PriceCopyWith(Price value, $Res Function(Price) _then) =
+      _$PriceCopyWithImpl;
   @useResult
   $Res call(
       {@JsonKey(name: 'service_type') PriceServiceType? serviceType,
@@ -141,12 +90,11 @@ abstract class _$$PriceImplCopyWith<$Res> implements $PriceCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$PriceImplCopyWithImpl<$Res>
-    extends _$PriceCopyWithImpl<$Res, _$PriceImpl>
-    implements _$$PriceImplCopyWith<$Res> {
-  __$$PriceImplCopyWithImpl(
-      _$PriceImpl _value, $Res Function(_$PriceImpl) _then)
-      : super(_value, _then);
+class _$PriceCopyWithImpl<$Res> implements $PriceCopyWith<$Res> {
+  _$PriceCopyWithImpl(this._self, this._then);
+
+  final Price _self;
+  final $Res Function(Price) _then;
 
   /// Create a copy of Price
   /// with the given fields replaced by the non-null parameter values.
@@ -161,33 +109,33 @@ class __$$PriceImplCopyWithImpl<$Res>
     Object? priceId = freezed,
     Object? userId = freezed,
   }) {
-    return _then(_$PriceImpl(
+    return _then(_self.copyWith(
       serviceType: freezed == serviceType
-          ? _value.serviceType
+          ? _self.serviceType
           : serviceType // ignore: cast_nullable_to_non_nullable
               as PriceServiceType?,
       perHourPrice: freezed == perHourPrice
-          ? _value.perHourPrice
+          ? _self.perHourPrice
           : perHourPrice // ignore: cast_nullable_to_non_nullable
               as double?,
       perHearingPrice: freezed == perHearingPrice
-          ? _value.perHearingPrice
+          ? _self.perHearingPrice
           : perHearingPrice // ignore: cast_nullable_to_non_nullable
               as double?,
       contingencyPrice: freezed == contingencyPrice
-          ? _value.contingencyPrice
+          ? _self.contingencyPrice
           : contingencyPrice // ignore: cast_nullable_to_non_nullable
               as String?,
       hybridPrice: freezed == hybridPrice
-          ? _value.hybridPrice
+          ? _self.hybridPrice
           : hybridPrice // ignore: cast_nullable_to_non_nullable
               as String?,
       priceId: freezed == priceId
-          ? _value.priceId
+          ? _self.priceId
           : priceId // ignore: cast_nullable_to_non_nullable
               as int?,
       userId: freezed == userId
-          ? _value.userId
+          ? _self.userId
           : userId // ignore: cast_nullable_to_non_nullable
               as String?,
     ));
@@ -196,8 +144,8 @@ class __$$PriceImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$PriceImpl implements _Price {
-  const _$PriceImpl(
+class _Price implements Price {
+  const _Price(
       {@JsonKey(name: 'service_type') required this.serviceType,
       @JsonKey(name: 'per_hour_price', includeIfNull: false) this.perHourPrice,
       @JsonKey(name: 'per_hearing_price', includeIfNull: false)
@@ -208,9 +156,7 @@ class _$PriceImpl implements _Price {
       @JsonKey(name: 'price_id', includeToJson: false) this.priceId,
       @JsonKey(name: 'user_id', includeToJson: false, includeIfNull: false)
       this.userId});
-
-  factory _$PriceImpl.fromJson(Map<String, dynamic> json) =>
-      _$$PriceImplFromJson(json);
+  factory _Price.fromJson(Map<String, dynamic> json) => _$PriceFromJson(json);
 
   @override
   @JsonKey(name: 'service_type')
@@ -234,16 +180,26 @@ class _$PriceImpl implements _Price {
   @JsonKey(name: 'user_id', includeToJson: false, includeIfNull: false)
   final String? userId;
 
+  /// Create a copy of Price
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  String toString() {
-    return 'Price(serviceType: $serviceType, perHourPrice: $perHourPrice, perHearingPrice: $perHearingPrice, contingencyPrice: $contingencyPrice, hybridPrice: $hybridPrice, priceId: $priceId, userId: $userId)';
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  _$PriceCopyWith<_Price> get copyWith =>
+      __$PriceCopyWithImpl<_Price>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$PriceToJson(
+      this,
+    );
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$PriceImpl &&
+            other is _Price &&
             (identical(other.serviceType, serviceType) ||
                 other.serviceType == serviceType) &&
             (identical(other.perHourPrice, perHourPrice) ||
@@ -263,66 +219,83 @@ class _$PriceImpl implements _Price {
   int get hashCode => Object.hash(runtimeType, serviceType, perHourPrice,
       perHearingPrice, contingencyPrice, hybridPrice, priceId, userId);
 
-  /// Create a copy of Price
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  @pragma('vm:prefer-inline')
-  _$$PriceImplCopyWith<_$PriceImpl> get copyWith =>
-      __$$PriceImplCopyWithImpl<_$PriceImpl>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$PriceImplToJson(
-      this,
-    );
+  String toString() {
+    return 'Price(serviceType: $serviceType, perHourPrice: $perHourPrice, perHearingPrice: $perHearingPrice, contingencyPrice: $contingencyPrice, hybridPrice: $hybridPrice, priceId: $priceId, userId: $userId)';
   }
 }
 
-abstract class _Price implements Price {
-  const factory _Price(
-      {@JsonKey(name: 'service_type')
-      required final PriceServiceType? serviceType,
+/// @nodoc
+abstract mixin class _$PriceCopyWith<$Res> implements $PriceCopyWith<$Res> {
+  factory _$PriceCopyWith(_Price value, $Res Function(_Price) _then) =
+      __$PriceCopyWithImpl;
+  @override
+  @useResult
+  $Res call(
+      {@JsonKey(name: 'service_type') PriceServiceType? serviceType,
       @JsonKey(name: 'per_hour_price', includeIfNull: false)
-      final double? perHourPrice,
+      double? perHourPrice,
       @JsonKey(name: 'per_hearing_price', includeIfNull: false)
-      final double? perHearingPrice,
+      double? perHearingPrice,
       @JsonKey(name: 'contingency_price', includeIfNull: false)
-      final String? contingencyPrice,
-      @JsonKey(name: 'hybrid_price', includeIfNull: false)
-      final String? hybridPrice,
-      @JsonKey(name: 'price_id', includeToJson: false) final int? priceId,
+      String? contingencyPrice,
+      @JsonKey(name: 'hybrid_price', includeIfNull: false) String? hybridPrice,
+      @JsonKey(name: 'price_id', includeToJson: false) int? priceId,
       @JsonKey(name: 'user_id', includeToJson: false, includeIfNull: false)
-      final String? userId}) = _$PriceImpl;
+      String? userId});
+}
 
-  factory _Price.fromJson(Map<String, dynamic> json) = _$PriceImpl.fromJson;
+/// @nodoc
+class __$PriceCopyWithImpl<$Res> implements _$PriceCopyWith<$Res> {
+  __$PriceCopyWithImpl(this._self, this._then);
 
-  @override
-  @JsonKey(name: 'service_type')
-  PriceServiceType? get serviceType;
-  @override
-  @JsonKey(name: 'per_hour_price', includeIfNull: false)
-  double? get perHourPrice;
-  @override
-  @JsonKey(name: 'per_hearing_price', includeIfNull: false)
-  double? get perHearingPrice;
-  @override
-  @JsonKey(name: 'contingency_price', includeIfNull: false)
-  String? get contingencyPrice;
-  @override
-  @JsonKey(name: 'hybrid_price', includeIfNull: false)
-  String? get hybridPrice;
-  @override
-  @JsonKey(name: 'price_id', includeToJson: false)
-  int? get priceId;
-  @override
-  @JsonKey(name: 'user_id', includeToJson: false, includeIfNull: false)
-  String? get userId;
+  final _Price _self;
+  final $Res Function(_Price) _then;
 
   /// Create a copy of Price
   /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$PriceImplCopyWith<_$PriceImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+  @pragma('vm:prefer-inline')
+  $Res call({
+    Object? serviceType = freezed,
+    Object? perHourPrice = freezed,
+    Object? perHearingPrice = freezed,
+    Object? contingencyPrice = freezed,
+    Object? hybridPrice = freezed,
+    Object? priceId = freezed,
+    Object? userId = freezed,
+  }) {
+    return _then(_Price(
+      serviceType: freezed == serviceType
+          ? _self.serviceType
+          : serviceType // ignore: cast_nullable_to_non_nullable
+              as PriceServiceType?,
+      perHourPrice: freezed == perHourPrice
+          ? _self.perHourPrice
+          : perHourPrice // ignore: cast_nullable_to_non_nullable
+              as double?,
+      perHearingPrice: freezed == perHearingPrice
+          ? _self.perHearingPrice
+          : perHearingPrice // ignore: cast_nullable_to_non_nullable
+              as double?,
+      contingencyPrice: freezed == contingencyPrice
+          ? _self.contingencyPrice
+          : contingencyPrice // ignore: cast_nullable_to_non_nullable
+              as String?,
+      hybridPrice: freezed == hybridPrice
+          ? _self.hybridPrice
+          : hybridPrice // ignore: cast_nullable_to_non_nullable
+              as String?,
+      priceId: freezed == priceId
+          ? _self.priceId
+          : priceId // ignore: cast_nullable_to_non_nullable
+              as int?,
+      userId: freezed == userId
+          ? _self.userId
+          : userId // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ));
+  }
 }
+
+// dart format on

@@ -6,7 +6,7 @@ part of 'price.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$PriceImpl _$$PriceImplFromJson(Map<String, dynamic> json) => _$PriceImpl(
+_Price _$PriceFromJson(Map<String, dynamic> json) => _Price(
       serviceType:
           $enumDecodeNullable(_$PriceServiceTypeEnumMap, json['service_type']),
       perHourPrice: (json['per_hour_price'] as num?)?.toDouble(),
@@ -17,8 +17,7 @@ _$PriceImpl _$$PriceImplFromJson(Map<String, dynamic> json) => _$PriceImpl(
       userId: json['user_id'] as String?,
     );
 
-Map<String, dynamic> _$$PriceImplToJson(_$PriceImpl instance) =>
-    <String, dynamic>{
+Map<String, dynamic> _$PriceToJson(_Price instance) => <String, dynamic>{
       'service_type': _$PriceServiceTypeEnumMap[instance.serviceType],
       if (instance.perHourPrice case final value?) 'per_hour_price': value,
       if (instance.perHearingPrice case final value?)

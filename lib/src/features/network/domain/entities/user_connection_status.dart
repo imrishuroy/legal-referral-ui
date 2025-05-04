@@ -5,7 +5,7 @@ part 'user_connection_status.freezed.dart';
 part 'user_connection_status.g.dart';
 
 @freezed
-class UserConnectionStatus with _$UserConnectionStatus {
+sealed class UserConnectionStatus with _$UserConnectionStatus {
   const factory UserConnectionStatus({
     required ConnectionInvitationStatus status,
   }) = _UserConnectionStatus;

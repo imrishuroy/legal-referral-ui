@@ -20,7 +20,7 @@ class RatingInfo {
 }
 
 @freezed
-class AccountInfo with _$AccountInfo {
+sealed class AccountInfo with _$AccountInfo {
   const factory AccountInfo({
     @JsonKey(name: 'user_id') required String userId,
     @JsonKey(name: 'followers_count') required int followersCount,

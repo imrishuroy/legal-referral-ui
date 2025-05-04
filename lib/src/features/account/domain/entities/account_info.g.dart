@@ -17,8 +17,7 @@ Map<String, dynamic> _$RatingInfoToJson(RatingInfo instance) =>
       'attorneys': instance.attorneys,
     };
 
-_$AccountInfoImpl _$$AccountInfoImplFromJson(Map<String, dynamic> json) =>
-    _$AccountInfoImpl(
+_AccountInfo _$AccountInfoFromJson(Map<String, dynamic> json) => _AccountInfo(
       userId: json['user_id'] as String,
       followersCount: (json['followers_count'] as num).toInt(),
       connectionsCount: (json['connections_count'] as num).toInt(),
@@ -31,7 +30,7 @@ _$AccountInfoImpl _$$AccountInfoImplFromJson(Map<String, dynamic> json) =>
       practiceArea: json['practice_area'] as String?,
     );
 
-Map<String, dynamic> _$$AccountInfoImplToJson(_$AccountInfoImpl instance) =>
+Map<String, dynamic> _$AccountInfoToJson(_AccountInfo instance) =>
     <String, dynamic>{
       'user_id': instance.userId,
       'followers_count': instance.followersCount,

@@ -1,3 +1,4 @@
+// dart format width=80
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
@@ -9,202 +10,34 @@ part of 'discussion_invite_res.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// dart format off
 T _$identity<T>(T value) => value;
-
-final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
-
-DiscussionInviteRes _$DiscussionInviteResFromJson(Map<String, dynamic> json) {
-  return _DiscussionInviteRes.fromJson(json);
-}
 
 /// @nodoc
 mixin _$DiscussionInviteRes {
   @JsonKey(name: 'discussion_invite')
-  DiscussionInvite get discussionInvite => throw _privateConstructorUsedError;
+  DiscussionInvite get discussionInvite;
   @JsonKey(name: 'discussion')
-  Discussion get discussion => throw _privateConstructorUsedError;
+  Discussion get discussion;
   @JsonKey(name: 'user')
-  AppUser get user => throw _privateConstructorUsedError;
-
-  /// Serializes this DiscussionInviteRes to a JSON map.
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  AppUser get user;
 
   /// Create a copy of DiscussionInviteRes
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
   $DiscussionInviteResCopyWith<DiscussionInviteRes> get copyWith =>
-      throw _privateConstructorUsedError;
-}
+      _$DiscussionInviteResCopyWithImpl<DiscussionInviteRes>(
+          this as DiscussionInviteRes, _$identity);
 
-/// @nodoc
-abstract class $DiscussionInviteResCopyWith<$Res> {
-  factory $DiscussionInviteResCopyWith(
-          DiscussionInviteRes value, $Res Function(DiscussionInviteRes) then) =
-      _$DiscussionInviteResCopyWithImpl<$Res, DiscussionInviteRes>;
-  @useResult
-  $Res call(
-      {@JsonKey(name: 'discussion_invite') DiscussionInvite discussionInvite,
-      @JsonKey(name: 'discussion') Discussion discussion,
-      @JsonKey(name: 'user') AppUser user});
-
-  $DiscussionInviteCopyWith<$Res> get discussionInvite;
-  $DiscussionCopyWith<$Res> get discussion;
-  $AppUserCopyWith<$Res> get user;
-}
-
-/// @nodoc
-class _$DiscussionInviteResCopyWithImpl<$Res, $Val extends DiscussionInviteRes>
-    implements $DiscussionInviteResCopyWith<$Res> {
-  _$DiscussionInviteResCopyWithImpl(this._value, this._then);
-
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
-
-  /// Create a copy of DiscussionInviteRes
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? discussionInvite = null,
-    Object? discussion = null,
-    Object? user = null,
-  }) {
-    return _then(_value.copyWith(
-      discussionInvite: null == discussionInvite
-          ? _value.discussionInvite
-          : discussionInvite // ignore: cast_nullable_to_non_nullable
-              as DiscussionInvite,
-      discussion: null == discussion
-          ? _value.discussion
-          : discussion // ignore: cast_nullable_to_non_nullable
-              as Discussion,
-      user: null == user
-          ? _value.user
-          : user // ignore: cast_nullable_to_non_nullable
-              as AppUser,
-    ) as $Val);
-  }
-
-  /// Create a copy of DiscussionInviteRes
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @pragma('vm:prefer-inline')
-  $DiscussionInviteCopyWith<$Res> get discussionInvite {
-    return $DiscussionInviteCopyWith<$Res>(_value.discussionInvite, (value) {
-      return _then(_value.copyWith(discussionInvite: value) as $Val);
-    });
-  }
-
-  /// Create a copy of DiscussionInviteRes
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @pragma('vm:prefer-inline')
-  $DiscussionCopyWith<$Res> get discussion {
-    return $DiscussionCopyWith<$Res>(_value.discussion, (value) {
-      return _then(_value.copyWith(discussion: value) as $Val);
-    });
-  }
-
-  /// Create a copy of DiscussionInviteRes
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @pragma('vm:prefer-inline')
-  $AppUserCopyWith<$Res> get user {
-    return $AppUserCopyWith<$Res>(_value.user, (value) {
-      return _then(_value.copyWith(user: value) as $Val);
-    });
-  }
-}
-
-/// @nodoc
-abstract class _$$DiscussionInviteResImplCopyWith<$Res>
-    implements $DiscussionInviteResCopyWith<$Res> {
-  factory _$$DiscussionInviteResImplCopyWith(_$DiscussionInviteResImpl value,
-          $Res Function(_$DiscussionInviteResImpl) then) =
-      __$$DiscussionInviteResImplCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call(
-      {@JsonKey(name: 'discussion_invite') DiscussionInvite discussionInvite,
-      @JsonKey(name: 'discussion') Discussion discussion,
-      @JsonKey(name: 'user') AppUser user});
-
-  @override
-  $DiscussionInviteCopyWith<$Res> get discussionInvite;
-  @override
-  $DiscussionCopyWith<$Res> get discussion;
-  @override
-  $AppUserCopyWith<$Res> get user;
-}
-
-/// @nodoc
-class __$$DiscussionInviteResImplCopyWithImpl<$Res>
-    extends _$DiscussionInviteResCopyWithImpl<$Res, _$DiscussionInviteResImpl>
-    implements _$$DiscussionInviteResImplCopyWith<$Res> {
-  __$$DiscussionInviteResImplCopyWithImpl(_$DiscussionInviteResImpl _value,
-      $Res Function(_$DiscussionInviteResImpl) _then)
-      : super(_value, _then);
-
-  /// Create a copy of DiscussionInviteRes
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? discussionInvite = null,
-    Object? discussion = null,
-    Object? user = null,
-  }) {
-    return _then(_$DiscussionInviteResImpl(
-      discussionInvite: null == discussionInvite
-          ? _value.discussionInvite
-          : discussionInvite // ignore: cast_nullable_to_non_nullable
-              as DiscussionInvite,
-      discussion: null == discussion
-          ? _value.discussion
-          : discussion // ignore: cast_nullable_to_non_nullable
-              as Discussion,
-      user: null == user
-          ? _value.user
-          : user // ignore: cast_nullable_to_non_nullable
-              as AppUser,
-    ));
-  }
-}
-
-/// @nodoc
-@JsonSerializable()
-class _$DiscussionInviteResImpl implements _DiscussionInviteRes {
-  _$DiscussionInviteResImpl(
-      {@JsonKey(name: 'discussion_invite') required this.discussionInvite,
-      @JsonKey(name: 'discussion') required this.discussion,
-      @JsonKey(name: 'user') required this.user});
-
-  factory _$DiscussionInviteResImpl.fromJson(Map<String, dynamic> json) =>
-      _$$DiscussionInviteResImplFromJson(json);
-
-  @override
-  @JsonKey(name: 'discussion_invite')
-  final DiscussionInvite discussionInvite;
-  @override
-  @JsonKey(name: 'discussion')
-  final Discussion discussion;
-  @override
-  @JsonKey(name: 'user')
-  final AppUser user;
-
-  @override
-  String toString() {
-    return 'DiscussionInviteRes(discussionInvite: $discussionInvite, discussion: $discussion, user: $user)';
-  }
+  /// Serializes this DiscussionInviteRes to a JSON map.
+  Map<String, dynamic> toJson();
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$DiscussionInviteResImpl &&
+            other is DiscussionInviteRes &&
             (identical(other.discussionInvite, discussionInvite) ||
                 other.discussionInvite == discussionInvite) &&
             (identical(other.discussion, discussion) ||
@@ -217,48 +50,234 @@ class _$DiscussionInviteResImpl implements _DiscussionInviteRes {
   int get hashCode =>
       Object.hash(runtimeType, discussionInvite, discussion, user);
 
+  @override
+  String toString() {
+    return 'DiscussionInviteRes(discussionInvite: $discussionInvite, discussion: $discussion, user: $user)';
+  }
+}
+
+/// @nodoc
+abstract mixin class $DiscussionInviteResCopyWith<$Res> {
+  factory $DiscussionInviteResCopyWith(
+          DiscussionInviteRes value, $Res Function(DiscussionInviteRes) _then) =
+      _$DiscussionInviteResCopyWithImpl;
+  @useResult
+  $Res call(
+      {@JsonKey(name: 'discussion_invite') DiscussionInvite discussionInvite,
+      @JsonKey(name: 'discussion') Discussion discussion,
+      @JsonKey(name: 'user') AppUser user});
+
+  $DiscussionInviteCopyWith<$Res> get discussionInvite;
+  $DiscussionCopyWith<$Res> get discussion;
+  $AppUserCopyWith<$Res> get user;
+}
+
+/// @nodoc
+class _$DiscussionInviteResCopyWithImpl<$Res>
+    implements $DiscussionInviteResCopyWith<$Res> {
+  _$DiscussionInviteResCopyWithImpl(this._self, this._then);
+
+  final DiscussionInviteRes _self;
+  final $Res Function(DiscussionInviteRes) _then;
+
   /// Create a copy of DiscussionInviteRes
   /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? discussionInvite = null,
+    Object? discussion = null,
+    Object? user = null,
+  }) {
+    return _then(_self.copyWith(
+      discussionInvite: null == discussionInvite
+          ? _self.discussionInvite
+          : discussionInvite // ignore: cast_nullable_to_non_nullable
+              as DiscussionInvite,
+      discussion: null == discussion
+          ? _self.discussion
+          : discussion // ignore: cast_nullable_to_non_nullable
+              as Discussion,
+      user: null == user
+          ? _self.user
+          : user // ignore: cast_nullable_to_non_nullable
+              as AppUser,
+    ));
+  }
+
+  /// Create a copy of DiscussionInviteRes
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
-  _$$DiscussionInviteResImplCopyWith<_$DiscussionInviteResImpl> get copyWith =>
-      __$$DiscussionInviteResImplCopyWithImpl<_$DiscussionInviteResImpl>(
+  $DiscussionInviteCopyWith<$Res> get discussionInvite {
+    return $DiscussionInviteCopyWith<$Res>(_self.discussionInvite, (value) {
+      return _then(_self.copyWith(discussionInvite: value));
+    });
+  }
+
+  /// Create a copy of DiscussionInviteRes
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $DiscussionCopyWith<$Res> get discussion {
+    return $DiscussionCopyWith<$Res>(_self.discussion, (value) {
+      return _then(_self.copyWith(discussion: value));
+    });
+  }
+
+  /// Create a copy of DiscussionInviteRes
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $AppUserCopyWith<$Res> get user {
+    return $AppUserCopyWith<$Res>(_self.user, (value) {
+      return _then(_self.copyWith(user: value));
+    });
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _DiscussionInviteRes implements DiscussionInviteRes {
+  _DiscussionInviteRes(
+      {@JsonKey(name: 'discussion_invite') required this.discussionInvite,
+      @JsonKey(name: 'discussion') required this.discussion,
+      @JsonKey(name: 'user') required this.user});
+  factory _DiscussionInviteRes.fromJson(Map<String, dynamic> json) =>
+      _$DiscussionInviteResFromJson(json);
+
+  @override
+  @JsonKey(name: 'discussion_invite')
+  final DiscussionInvite discussionInvite;
+  @override
+  @JsonKey(name: 'discussion')
+  final Discussion discussion;
+  @override
+  @JsonKey(name: 'user')
+  final AppUser user;
+
+  /// Create a copy of DiscussionInviteRes
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  _$DiscussionInviteResCopyWith<_DiscussionInviteRes> get copyWith =>
+      __$DiscussionInviteResCopyWithImpl<_DiscussionInviteRes>(
           this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$DiscussionInviteResImplToJson(
+    return _$DiscussionInviteResToJson(
       this,
     );
   }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _DiscussionInviteRes &&
+            (identical(other.discussionInvite, discussionInvite) ||
+                other.discussionInvite == discussionInvite) &&
+            (identical(other.discussion, discussion) ||
+                other.discussion == discussion) &&
+            (identical(other.user, user) || other.user == user));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode =>
+      Object.hash(runtimeType, discussionInvite, discussion, user);
+
+  @override
+  String toString() {
+    return 'DiscussionInviteRes(discussionInvite: $discussionInvite, discussion: $discussion, user: $user)';
+  }
 }
 
-abstract class _DiscussionInviteRes implements DiscussionInviteRes {
-  factory _DiscussionInviteRes(
-          {@JsonKey(name: 'discussion_invite')
-          required final DiscussionInvite discussionInvite,
-          @JsonKey(name: 'discussion') required final Discussion discussion,
-          @JsonKey(name: 'user') required final AppUser user}) =
-      _$DiscussionInviteResImpl;
+/// @nodoc
+abstract mixin class _$DiscussionInviteResCopyWith<$Res>
+    implements $DiscussionInviteResCopyWith<$Res> {
+  factory _$DiscussionInviteResCopyWith(_DiscussionInviteRes value,
+          $Res Function(_DiscussionInviteRes) _then) =
+      __$DiscussionInviteResCopyWithImpl;
+  @override
+  @useResult
+  $Res call(
+      {@JsonKey(name: 'discussion_invite') DiscussionInvite discussionInvite,
+      @JsonKey(name: 'discussion') Discussion discussion,
+      @JsonKey(name: 'user') AppUser user});
 
-  factory _DiscussionInviteRes.fromJson(Map<String, dynamic> json) =
-      _$DiscussionInviteResImpl.fromJson;
+  @override
+  $DiscussionInviteCopyWith<$Res> get discussionInvite;
+  @override
+  $DiscussionCopyWith<$Res> get discussion;
+  @override
+  $AppUserCopyWith<$Res> get user;
+}
 
-  @override
-  @JsonKey(name: 'discussion_invite')
-  DiscussionInvite get discussionInvite;
-  @override
-  @JsonKey(name: 'discussion')
-  Discussion get discussion;
-  @override
-  @JsonKey(name: 'user')
-  AppUser get user;
+/// @nodoc
+class __$DiscussionInviteResCopyWithImpl<$Res>
+    implements _$DiscussionInviteResCopyWith<$Res> {
+  __$DiscussionInviteResCopyWithImpl(this._self, this._then);
+
+  final _DiscussionInviteRes _self;
+  final $Res Function(_DiscussionInviteRes) _then;
 
   /// Create a copy of DiscussionInviteRes
   /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$DiscussionInviteResImplCopyWith<_$DiscussionInviteResImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+  @pragma('vm:prefer-inline')
+  $Res call({
+    Object? discussionInvite = null,
+    Object? discussion = null,
+    Object? user = null,
+  }) {
+    return _then(_DiscussionInviteRes(
+      discussionInvite: null == discussionInvite
+          ? _self.discussionInvite
+          : discussionInvite // ignore: cast_nullable_to_non_nullable
+              as DiscussionInvite,
+      discussion: null == discussion
+          ? _self.discussion
+          : discussion // ignore: cast_nullable_to_non_nullable
+              as Discussion,
+      user: null == user
+          ? _self.user
+          : user // ignore: cast_nullable_to_non_nullable
+              as AppUser,
+    ));
+  }
+
+  /// Create a copy of DiscussionInviteRes
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $DiscussionInviteCopyWith<$Res> get discussionInvite {
+    return $DiscussionInviteCopyWith<$Res>(_self.discussionInvite, (value) {
+      return _then(_self.copyWith(discussionInvite: value));
+    });
+  }
+
+  /// Create a copy of DiscussionInviteRes
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $DiscussionCopyWith<$Res> get discussion {
+    return $DiscussionCopyWith<$Res>(_self.discussion, (value) {
+      return _then(_self.copyWith(discussion: value));
+    });
+  }
+
+  /// Create a copy of DiscussionInviteRes
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $AppUserCopyWith<$Res> get user {
+    return $AppUserCopyWith<$Res>(_self.user, (value) {
+      return _then(_self.copyWith(user: value));
+    });
+  }
 }
+
+// dart format on

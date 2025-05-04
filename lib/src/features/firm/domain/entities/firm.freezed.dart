@@ -1,3 +1,4 @@
+// dart format width=80
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
@@ -9,131 +10,71 @@ part of 'firm.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// dart format off
 T _$identity<T>(T value) => value;
-
-final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
-
-Firm _$FirmFromJson(Map<String, dynamic> json) {
-  return _Firm.fromJson(json);
-}
 
 /// @nodoc
 mixin _$Firm {
-  String get name => throw _privateConstructorUsedError;
+  String get name;
   @JsonKey(name: 'org_type')
-  String get orgType => throw _privateConstructorUsedError;
+  String get orgType;
   @JsonKey(name: 'logo_url')
-  String get logoUrl => throw _privateConstructorUsedError;
-  String get website => throw _privateConstructorUsedError;
-  String get location => throw _privateConstructorUsedError;
-  String get about => throw _privateConstructorUsedError;
+  String get logoUrl;
+  String get website;
+  String get location;
+  String get about;
   @JsonKey(name: 'owner_user_id')
-  String get ownerUserId => throw _privateConstructorUsedError;
+  String get ownerUserId;
   @JsonKey(name: 'created_at')
   @DateTimeJsonConverter()
-  DateTime get createdAt => throw _privateConstructorUsedError;
+  DateTime get createdAt;
   @JsonKey(name: 'firm_id', includeToJson: false)
-  int? get firmId => throw _privateConstructorUsedError;
-
-  /// Serializes this Firm to a JSON map.
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  int? get firmId;
 
   /// Create a copy of Firm
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
-  $FirmCopyWith<Firm> get copyWith => throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class $FirmCopyWith<$Res> {
-  factory $FirmCopyWith(Firm value, $Res Function(Firm) then) =
-      _$FirmCopyWithImpl<$Res, Firm>;
-  @useResult
-  $Res call(
-      {String name,
-      @JsonKey(name: 'org_type') String orgType,
-      @JsonKey(name: 'logo_url') String logoUrl,
-      String website,
-      String location,
-      String about,
-      @JsonKey(name: 'owner_user_id') String ownerUserId,
-      @JsonKey(name: 'created_at') @DateTimeJsonConverter() DateTime createdAt,
-      @JsonKey(name: 'firm_id', includeToJson: false) int? firmId});
-}
-
-/// @nodoc
-class _$FirmCopyWithImpl<$Res, $Val extends Firm>
-    implements $FirmCopyWith<$Res> {
-  _$FirmCopyWithImpl(this._value, this._then);
-
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
-
-  /// Create a copy of Firm
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
+  $FirmCopyWith<Firm> get copyWith =>
+      _$FirmCopyWithImpl<Firm>(this as Firm, _$identity);
+
+  /// Serializes this Firm to a JSON map.
+  Map<String, dynamic> toJson();
+
   @override
-  $Res call({
-    Object? name = null,
-    Object? orgType = null,
-    Object? logoUrl = null,
-    Object? website = null,
-    Object? location = null,
-    Object? about = null,
-    Object? ownerUserId = null,
-    Object? createdAt = null,
-    Object? firmId = freezed,
-  }) {
-    return _then(_value.copyWith(
-      name: null == name
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
-              as String,
-      orgType: null == orgType
-          ? _value.orgType
-          : orgType // ignore: cast_nullable_to_non_nullable
-              as String,
-      logoUrl: null == logoUrl
-          ? _value.logoUrl
-          : logoUrl // ignore: cast_nullable_to_non_nullable
-              as String,
-      website: null == website
-          ? _value.website
-          : website // ignore: cast_nullable_to_non_nullable
-              as String,
-      location: null == location
-          ? _value.location
-          : location // ignore: cast_nullable_to_non_nullable
-              as String,
-      about: null == about
-          ? _value.about
-          : about // ignore: cast_nullable_to_non_nullable
-              as String,
-      ownerUserId: null == ownerUserId
-          ? _value.ownerUserId
-          : ownerUserId // ignore: cast_nullable_to_non_nullable
-              as String,
-      createdAt: null == createdAt
-          ? _value.createdAt
-          : createdAt // ignore: cast_nullable_to_non_nullable
-              as DateTime,
-      firmId: freezed == firmId
-          ? _value.firmId
-          : firmId // ignore: cast_nullable_to_non_nullable
-              as int?,
-    ) as $Val);
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is Firm &&
+            (identical(other.name, name) || other.name == name) &&
+            (identical(other.orgType, orgType) || other.orgType == orgType) &&
+            (identical(other.logoUrl, logoUrl) || other.logoUrl == logoUrl) &&
+            (identical(other.website, website) || other.website == website) &&
+            (identical(other.location, location) ||
+                other.location == location) &&
+            (identical(other.about, about) || other.about == about) &&
+            (identical(other.ownerUserId, ownerUserId) ||
+                other.ownerUserId == ownerUserId) &&
+            (identical(other.createdAt, createdAt) ||
+                other.createdAt == createdAt) &&
+            (identical(other.firmId, firmId) || other.firmId == firmId));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(runtimeType, name, orgType, logoUrl, website,
+      location, about, ownerUserId, createdAt, firmId);
+
+  @override
+  String toString() {
+    return 'Firm(name: $name, orgType: $orgType, logoUrl: $logoUrl, website: $website, location: $location, about: $about, ownerUserId: $ownerUserId, createdAt: $createdAt, firmId: $firmId)';
   }
 }
 
 /// @nodoc
-abstract class _$$FirmImplCopyWith<$Res> implements $FirmCopyWith<$Res> {
-  factory _$$FirmImplCopyWith(
-          _$FirmImpl value, $Res Function(_$FirmImpl) then) =
-      __$$FirmImplCopyWithImpl<$Res>;
-  @override
+abstract mixin class $FirmCopyWith<$Res> {
+  factory $FirmCopyWith(Firm value, $Res Function(Firm) _then) =
+      _$FirmCopyWithImpl;
   @useResult
   $Res call(
       {String name,
@@ -148,11 +89,11 @@ abstract class _$$FirmImplCopyWith<$Res> implements $FirmCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$FirmImplCopyWithImpl<$Res>
-    extends _$FirmCopyWithImpl<$Res, _$FirmImpl>
-    implements _$$FirmImplCopyWith<$Res> {
-  __$$FirmImplCopyWithImpl(_$FirmImpl _value, $Res Function(_$FirmImpl) _then)
-      : super(_value, _then);
+class _$FirmCopyWithImpl<$Res> implements $FirmCopyWith<$Res> {
+  _$FirmCopyWithImpl(this._self, this._then);
+
+  final Firm _self;
+  final $Res Function(Firm) _then;
 
   /// Create a copy of Firm
   /// with the given fields replaced by the non-null parameter values.
@@ -169,41 +110,41 @@ class __$$FirmImplCopyWithImpl<$Res>
     Object? createdAt = null,
     Object? firmId = freezed,
   }) {
-    return _then(_$FirmImpl(
+    return _then(_self.copyWith(
       name: null == name
-          ? _value.name
+          ? _self.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
       orgType: null == orgType
-          ? _value.orgType
+          ? _self.orgType
           : orgType // ignore: cast_nullable_to_non_nullable
               as String,
       logoUrl: null == logoUrl
-          ? _value.logoUrl
+          ? _self.logoUrl
           : logoUrl // ignore: cast_nullable_to_non_nullable
               as String,
       website: null == website
-          ? _value.website
+          ? _self.website
           : website // ignore: cast_nullable_to_non_nullable
               as String,
       location: null == location
-          ? _value.location
+          ? _self.location
           : location // ignore: cast_nullable_to_non_nullable
               as String,
       about: null == about
-          ? _value.about
+          ? _self.about
           : about // ignore: cast_nullable_to_non_nullable
               as String,
       ownerUserId: null == ownerUserId
-          ? _value.ownerUserId
+          ? _self.ownerUserId
           : ownerUserId // ignore: cast_nullable_to_non_nullable
               as String,
       createdAt: null == createdAt
-          ? _value.createdAt
+          ? _self.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
               as DateTime,
       firmId: freezed == firmId
-          ? _value.firmId
+          ? _self.firmId
           : firmId // ignore: cast_nullable_to_non_nullable
               as int?,
     ));
@@ -212,8 +153,8 @@ class __$$FirmImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$FirmImpl implements _Firm {
-  const _$FirmImpl(
+class _Firm implements Firm {
+  const _Firm(
       {required this.name,
       @JsonKey(name: 'org_type') required this.orgType,
       @JsonKey(name: 'logo_url') required this.logoUrl,
@@ -225,9 +166,7 @@ class _$FirmImpl implements _Firm {
       @DateTimeJsonConverter()
       required this.createdAt,
       @JsonKey(name: 'firm_id', includeToJson: false) this.firmId});
-
-  factory _$FirmImpl.fromJson(Map<String, dynamic> json) =>
-      _$$FirmImplFromJson(json);
+  factory _Firm.fromJson(Map<String, dynamic> json) => _$FirmFromJson(json);
 
   @override
   final String name;
@@ -254,16 +193,26 @@ class _$FirmImpl implements _Firm {
   @JsonKey(name: 'firm_id', includeToJson: false)
   final int? firmId;
 
+  /// Create a copy of Firm
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  String toString() {
-    return 'Firm(name: $name, orgType: $orgType, logoUrl: $logoUrl, website: $website, location: $location, about: $about, ownerUserId: $ownerUserId, createdAt: $createdAt, firmId: $firmId)';
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  _$FirmCopyWith<_Firm> get copyWith =>
+      __$FirmCopyWithImpl<_Firm>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$FirmToJson(
+      this,
+    );
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$FirmImpl &&
+            other is _Firm &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.orgType, orgType) || other.orgType == orgType) &&
             (identical(other.logoUrl, logoUrl) || other.logoUrl == logoUrl) &&
@@ -283,68 +232,91 @@ class _$FirmImpl implements _Firm {
   int get hashCode => Object.hash(runtimeType, name, orgType, logoUrl, website,
       location, about, ownerUserId, createdAt, firmId);
 
-  /// Create a copy of Firm
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  @pragma('vm:prefer-inline')
-  _$$FirmImplCopyWith<_$FirmImpl> get copyWith =>
-      __$$FirmImplCopyWithImpl<_$FirmImpl>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$FirmImplToJson(
-      this,
-    );
+  String toString() {
+    return 'Firm(name: $name, orgType: $orgType, logoUrl: $logoUrl, website: $website, location: $location, about: $about, ownerUserId: $ownerUserId, createdAt: $createdAt, firmId: $firmId)';
   }
 }
 
-abstract class _Firm implements Firm {
-  const factory _Firm(
-          {required final String name,
-          @JsonKey(name: 'org_type') required final String orgType,
-          @JsonKey(name: 'logo_url') required final String logoUrl,
-          required final String website,
-          required final String location,
-          required final String about,
-          @JsonKey(name: 'owner_user_id') required final String ownerUserId,
-          @JsonKey(name: 'created_at')
-          @DateTimeJsonConverter()
-          required final DateTime createdAt,
-          @JsonKey(name: 'firm_id', includeToJson: false) final int? firmId}) =
-      _$FirmImpl;
+/// @nodoc
+abstract mixin class _$FirmCopyWith<$Res> implements $FirmCopyWith<$Res> {
+  factory _$FirmCopyWith(_Firm value, $Res Function(_Firm) _then) =
+      __$FirmCopyWithImpl;
+  @override
+  @useResult
+  $Res call(
+      {String name,
+      @JsonKey(name: 'org_type') String orgType,
+      @JsonKey(name: 'logo_url') String logoUrl,
+      String website,
+      String location,
+      String about,
+      @JsonKey(name: 'owner_user_id') String ownerUserId,
+      @JsonKey(name: 'created_at') @DateTimeJsonConverter() DateTime createdAt,
+      @JsonKey(name: 'firm_id', includeToJson: false) int? firmId});
+}
 
-  factory _Firm.fromJson(Map<String, dynamic> json) = _$FirmImpl.fromJson;
+/// @nodoc
+class __$FirmCopyWithImpl<$Res> implements _$FirmCopyWith<$Res> {
+  __$FirmCopyWithImpl(this._self, this._then);
 
-  @override
-  String get name;
-  @override
-  @JsonKey(name: 'org_type')
-  String get orgType;
-  @override
-  @JsonKey(name: 'logo_url')
-  String get logoUrl;
-  @override
-  String get website;
-  @override
-  String get location;
-  @override
-  String get about;
-  @override
-  @JsonKey(name: 'owner_user_id')
-  String get ownerUserId;
-  @override
-  @JsonKey(name: 'created_at')
-  @DateTimeJsonConverter()
-  DateTime get createdAt;
-  @override
-  @JsonKey(name: 'firm_id', includeToJson: false)
-  int? get firmId;
+  final _Firm _self;
+  final $Res Function(_Firm) _then;
 
   /// Create a copy of Firm
   /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$FirmImplCopyWith<_$FirmImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+  @pragma('vm:prefer-inline')
+  $Res call({
+    Object? name = null,
+    Object? orgType = null,
+    Object? logoUrl = null,
+    Object? website = null,
+    Object? location = null,
+    Object? about = null,
+    Object? ownerUserId = null,
+    Object? createdAt = null,
+    Object? firmId = freezed,
+  }) {
+    return _then(_Firm(
+      name: null == name
+          ? _self.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      orgType: null == orgType
+          ? _self.orgType
+          : orgType // ignore: cast_nullable_to_non_nullable
+              as String,
+      logoUrl: null == logoUrl
+          ? _self.logoUrl
+          : logoUrl // ignore: cast_nullable_to_non_nullable
+              as String,
+      website: null == website
+          ? _self.website
+          : website // ignore: cast_nullable_to_non_nullable
+              as String,
+      location: null == location
+          ? _self.location
+          : location // ignore: cast_nullable_to_non_nullable
+              as String,
+      about: null == about
+          ? _self.about
+          : about // ignore: cast_nullable_to_non_nullable
+              as String,
+      ownerUserId: null == ownerUserId
+          ? _self.ownerUserId
+          : ownerUserId // ignore: cast_nullable_to_non_nullable
+              as String,
+      createdAt: null == createdAt
+          ? _self.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+      firmId: freezed == firmId
+          ? _self.firmId
+          : firmId // ignore: cast_nullable_to_non_nullable
+              as int?,
+    ));
+  }
 }
+
+// dart format on

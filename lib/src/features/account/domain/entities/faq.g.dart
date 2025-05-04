@@ -6,7 +6,7 @@ part of 'faq.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$FAQImpl _$$FAQImplFromJson(Map<String, dynamic> json) => _$FAQImpl(
+_FAQ _$FAQFromJson(Map<String, dynamic> json) => _FAQ(
       question: json['question'] as String,
       answer: json['answer'] as String,
       createdAt: _$JsonConverterFromJson<String, DateTime>(
@@ -14,7 +14,7 @@ _$FAQImpl _$$FAQImplFromJson(Map<String, dynamic> json) => _$FAQImpl(
       id: (json['faq_id'] as num?)?.toInt(),
     );
 
-Map<String, dynamic> _$$FAQImplToJson(_$FAQImpl instance) => <String, dynamic>{
+Map<String, dynamic> _$FAQToJson(_FAQ instance) => <String, dynamic>{
       'question': instance.question,
       'answer': instance.answer,
     };

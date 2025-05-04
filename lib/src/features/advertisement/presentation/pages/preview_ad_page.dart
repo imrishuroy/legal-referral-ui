@@ -200,8 +200,6 @@ class _PreviewAdPageState extends State<PreviewAdPage> {
         return r'Pay $100/ Month';
       case PaymentCycle.yearly:
         return r'Pay $1000/ Year';
-      default:
-        return '';
     }
   }
 

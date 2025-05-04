@@ -5,7 +5,7 @@ part 'discussion.freezed.dart';
 part 'discussion.g.dart';
 
 @freezed
-class Discussion with _$Discussion {
+sealed class Discussion with _$Discussion {
   factory Discussion({
     @JsonKey(name: 'discussion_id', includeIfNull: false) int? discussionId,
     @JsonKey(name: 'topic', includeIfNull: false) String? topic,

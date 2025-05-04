@@ -217,8 +217,6 @@ class _AddUpdatePricePageState extends State<AddUpdatePricePage> {
         return 'Contingency';
       case PriceServiceType.hybrid:
         return 'Hybrid';
-      default:
-        return 'Per hour';
     }
   }
 

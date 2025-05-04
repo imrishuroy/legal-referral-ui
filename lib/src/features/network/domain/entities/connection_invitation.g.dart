@@ -6,9 +6,9 @@ part of 'connection_invitation.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$ConnectionInvitationImpl _$$ConnectionInvitationImplFromJson(
+_ConnectionInvitation _$ConnectionInvitationFromJson(
         Map<String, dynamic> json) =>
-    _$ConnectionInvitationImpl(
+    _ConnectionInvitation(
       id: (json['id'] as num?)?.toInt(),
       senderId: json['sender_id'] as String?,
       recipientId: json['recipient_id'] as String?,
@@ -22,8 +22,8 @@ _$ConnectionInvitationImpl _$$ConnectionInvitationImplFromJson(
           _$ConnectionInvitationStatusEnumMap, json['status']),
     );
 
-Map<String, dynamic> _$$ConnectionInvitationImplToJson(
-        _$ConnectionInvitationImpl instance) =>
+Map<String, dynamic> _$ConnectionInvitationToJson(
+        _ConnectionInvitation instance) =>
     <String, dynamic>{
       'id': instance.id,
       'sender_id': instance.senderId,

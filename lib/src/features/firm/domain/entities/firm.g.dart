@@ -6,7 +6,7 @@ part of 'firm.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$FirmImpl _$$FirmImplFromJson(Map<String, dynamic> json) => _$FirmImpl(
+_Firm _$FirmFromJson(Map<String, dynamic> json) => _Firm(
       name: json['name'] as String,
       orgType: json['org_type'] as String,
       logoUrl: json['logo_url'] as String,
@@ -19,8 +19,7 @@ _$FirmImpl _$$FirmImplFromJson(Map<String, dynamic> json) => _$FirmImpl(
       firmId: (json['firm_id'] as num?)?.toInt(),
     );
 
-Map<String, dynamic> _$$FirmImplToJson(_$FirmImpl instance) =>
-    <String, dynamic>{
+Map<String, dynamic> _$FirmToJson(_Firm instance) => <String, dynamic>{
       'name': instance.name,
       'org_type': instance.orgType,
       'logo_url': instance.logoUrl,

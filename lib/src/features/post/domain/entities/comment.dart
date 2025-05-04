@@ -5,7 +5,7 @@ part 'comment.freezed.dart';
 part 'comment.g.dart';
 
 @freezed
-class Comment with _$Comment {
+sealed class Comment with _$Comment {
   const factory Comment({
     @JsonKey(name: 'comment_id') required int commentId,
     @JsonKey(name: 'post_id') required int postId,

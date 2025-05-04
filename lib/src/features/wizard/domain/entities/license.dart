@@ -5,7 +5,7 @@ part 'license.freezed.dart';
 part 'license.g.dart';
 
 @freezed
-class License with _$License {
+sealed class License with _$License {
   const factory License({
     @JsonKey(name: 'user_id', includeToJson: false) required String userId,
     required String name,
