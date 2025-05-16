@@ -16,6 +16,8 @@ import 'package:legal_referral_ui/src/core/theme/theme.dart';
 import 'package:legal_referral_ui/src/core/utils/utils.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
+// testing git setup
+
 @pragma('vm:entry-point')
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
@@ -27,19 +29,13 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
 Future<void> main() async {
   await dotenv.load(fileName: 'assets/.env');
   WidgetsFlutterBinding.ensureInitialized();
-  await SystemChrome.setPreferredOrientations([
-    DeviceOrientation.portraitUp,
-  ]);
+  await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
 
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
   configureDependencies();
   getIt<Dio>().interceptors.addAll([
-    AuthInterceptor(
-      dio: getIt<Dio>(),
-    ),
+    AuthInterceptor(dio: getIt<Dio>()),
     PrettyDioLogger(
       requestHeader: true,
       requestBody: true,
