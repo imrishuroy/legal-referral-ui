@@ -6,7 +6,7 @@ part 'feature_post.freezed.dart';
 part 'feature_post.g.dart';
 
 @freezed
-class FeaturePost with _$FeaturePost {
+sealed class FeaturePost with _$FeaturePost {
   const factory FeaturePost({
     @JsonKey(name: 'feature_post_id') required int featurePostId,
     required Post? post,

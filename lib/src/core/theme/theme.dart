@@ -8,9 +8,11 @@ class LegalReferralTheme {
   LegalReferralTheme._();
   static ThemeData lightTheme = ThemeData(
     textSelectionTheme: TextSelectionThemeData(
-      selectionColor: LegalReferralColors.borderBlue300.withOpacity(.5),
+      selectionColor: LegalReferralColors.borderBlue300.withValues(alpha: 0.5),
       cursorColor: LegalReferralColors.borderBlue300,
-      selectionHandleColor: LegalReferralColors.borderBlue300.withOpacity(1),
+      selectionHandleColor: LegalReferralColors.borderBlue300.withValues(
+        alpha: 1,
+      ),
     ),
     brightness: Brightness.light,
     chipTheme: const ChipThemeData(

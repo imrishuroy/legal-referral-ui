@@ -7,7 +7,7 @@ part 'saved_post.freezed.dart';
 part 'saved_post.g.dart';
 
 @freezed
-class SavedPost with _$SavedPost {
+sealed class SavedPost with _$SavedPost {
   const factory SavedPost({
     required Post? post,
     @JsonKey(name: 'user') required AppUser? owner,

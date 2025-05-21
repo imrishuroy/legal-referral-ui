@@ -6,7 +6,7 @@ part of 'feed.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$FeedImpl _$$FeedImplFromJson(Map<String, dynamic> json) => _$FeedImpl(
+_Feed _$FeedFromJson(Map<String, dynamic> json) => _Feed(
       feedId: (json['feed_id'] as num).toInt(),
       type: $enumDecode(_$FeedTypeEnumMap, json['feed_type']),
       post: json['feed_post'] == null
@@ -17,8 +17,7 @@ _$FeedImpl _$$FeedImplFromJson(Map<String, dynamic> json) => _$FeedImpl(
           : Ad.fromJson(json['ad'] as Map<String, dynamic>),
     );
 
-Map<String, dynamic> _$$FeedImplToJson(_$FeedImpl instance) =>
-    <String, dynamic>{
+Map<String, dynamic> _$FeedToJson(_Feed instance) => <String, dynamic>{
       'feed_id': instance.feedId,
       'feed_type': _$FeedTypeEnumMap[instance.type]!,
       'feed_post': instance.post,

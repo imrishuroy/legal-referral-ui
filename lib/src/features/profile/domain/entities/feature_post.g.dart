@@ -6,8 +6,7 @@ part of 'feature_post.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$FeaturePostImpl _$$FeaturePostImplFromJson(Map<String, dynamic> json) =>
-    _$FeaturePostImpl(
+_FeaturePost _$FeaturePostFromJson(Map<String, dynamic> json) => _FeaturePost(
       featurePostId: (json['feature_post_id'] as num).toInt(),
       post: json['post'] == null
           ? null
@@ -16,7 +15,7 @@ _$FeaturePostImpl _$$FeaturePostImplFromJson(Map<String, dynamic> json) =>
           const DateTimeJsonConverter().fromJson(json['created_at'] as String),
     );
 
-Map<String, dynamic> _$$FeaturePostImplToJson(_$FeaturePostImpl instance) =>
+Map<String, dynamic> _$FeaturePostToJson(_FeaturePost instance) =>
     <String, dynamic>{
       'feature_post_id': instance.featurePostId,
       'post': instance.post,

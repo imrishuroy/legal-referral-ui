@@ -6,7 +6,7 @@ part of 'ad.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$AdImpl _$$AdImplFromJson(Map<String, dynamic> json) => _$AdImpl(
+_Ad _$AdFromJson(Map<String, dynamic> json) => _Ad(
       type: $enumDecode(_$AdTypeEnumMap, json['ad_type']),
       title: json['title'] as String,
       description: json['description'] as String,
@@ -25,7 +25,7 @@ _$AdImpl _$$AdImplFromJson(Map<String, dynamic> json) => _$AdImpl(
           const [],
     );
 
-Map<String, dynamic> _$$AdImplToJson(_$AdImpl instance) => <String, dynamic>{
+Map<String, dynamic> _$AdToJson(_Ad instance) => <String, dynamic>{
       'ad_type': _$AdTypeEnumMap[instance.type]!,
       'title': instance.title,
       'description': instance.description,

@@ -6,8 +6,7 @@ part of 'chat_room.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$ChatRoomImpl _$$ChatRoomImplFromJson(Map<String, dynamic> json) =>
-    _$ChatRoomImpl(
+_ChatRoom _$ChatRoomFromJson(Map<String, dynamic> json) => _ChatRoom(
       roomId: json['room_id'] as String,
       userId: json['user_id'] as String,
       firstName: json['first_name'] as String?,
@@ -19,8 +18,7 @@ _$ChatRoomImpl _$$ChatRoomImplFromJson(Map<String, dynamic> json) =>
       unreadMessages: (json['unread_messages'] as num?)?.toInt() ?? 0,
     );
 
-Map<String, dynamic> _$$ChatRoomImplToJson(_$ChatRoomImpl instance) =>
-    <String, dynamic>{
+Map<String, dynamic> _$ChatRoomToJson(_ChatRoom instance) => <String, dynamic>{
       'room_id': instance.roomId,
       'user_id': instance.userId,
     };

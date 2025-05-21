@@ -130,6 +130,7 @@ class _FeedsPageState extends State<FeedsPage> {
                 _refreshFeed();
               },
               child: SingleChildScrollView(
+                physics: const AlwaysScrollableScrollPhysics(),
                 child: Container(
                   height: MediaQuery.of(context).size.height,
                   alignment: Alignment.center,
@@ -143,11 +144,13 @@ class _FeedsPageState extends State<FeedsPage> {
           } else if (state.status == FeedStatus.success) {
             return RefreshIndicator(
               color: LegalReferralColors.buttonPrimary,
+              backgroundColor: Colors.white,
               onRefresh: () async {
                 _refreshFeed();
               },
               child: ListView.builder(
                 controller: _scrollController,
+                physics: const AlwaysScrollableScrollPhysics(),
                 itemCount: state.hasReachedMax
                     ? state.feeds.length
                     : state.feeds.length + 1,

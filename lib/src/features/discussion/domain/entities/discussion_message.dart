@@ -5,7 +5,7 @@ part 'discussion_message.freezed.dart';
 part 'discussion_message.g.dart';
 
 @freezed
-class DiscussionMessage with _$DiscussionMessage {
+sealed class DiscussionMessage with _$DiscussionMessage {
   const factory DiscussionMessage({
     @JsonKey(
       name: 'sender_id',

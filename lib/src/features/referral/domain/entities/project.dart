@@ -19,7 +19,7 @@ enum ProjectStatus {
 }
 
 @freezed
-class Project with _$Project {
+sealed class Project with _$Project {
   const factory Project({
     @JsonKey(name: 'referrer_user_id') required String? referrerUserId,
     @JsonKey(

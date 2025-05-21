@@ -22,8 +22,6 @@ class SearchResults extends StatelessWidget {
           return const SearchPeopleShimmer();
         case SearchType.posts:
           return const SearchPostShimmer();
-        default:
-          break;
       }
     }
 

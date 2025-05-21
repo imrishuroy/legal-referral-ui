@@ -6,14 +6,14 @@ part of 'user_connection_status.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$UserConnectionStatusImpl _$$UserConnectionStatusImplFromJson(
+_UserConnectionStatus _$UserConnectionStatusFromJson(
         Map<String, dynamic> json) =>
-    _$UserConnectionStatusImpl(
+    _UserConnectionStatus(
       status: $enumDecode(_$ConnectionInvitationStatusEnumMap, json['status']),
     );
 
-Map<String, dynamic> _$$UserConnectionStatusImplToJson(
-        _$UserConnectionStatusImpl instance) =>
+Map<String, dynamic> _$UserConnectionStatusToJson(
+        _UserConnectionStatus instance) =>
     <String, dynamic>{
       'status': _$ConnectionInvitationStatusEnumMap[instance.status]!,
     };

@@ -25,7 +25,7 @@ enum PaymentCycle {
 }
 
 @freezed
-class Ad with _$Ad {
+sealed class Ad with _$Ad {
   const factory Ad({
     @JsonKey(name: 'ad_type') required AdType type,
     required String title,

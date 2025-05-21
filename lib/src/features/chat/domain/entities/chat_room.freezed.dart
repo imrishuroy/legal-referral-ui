@@ -1,3 +1,4 @@
+// dart format width=80
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
@@ -9,132 +10,75 @@ part of 'chat_room.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// dart format off
 T _$identity<T>(T value) => value;
-
-final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
-
-ChatRoom _$ChatRoomFromJson(Map<String, dynamic> json) {
-  return _ChatRoom.fromJson(json);
-}
 
 /// @nodoc
 mixin _$ChatRoom {
   @JsonKey(name: 'room_id')
-  String get roomId => throw _privateConstructorUsedError;
+  String get roomId;
   @JsonKey(name: 'user_id')
-  String get userId => throw _privateConstructorUsedError;
+  String get userId;
   @JsonKey(name: 'first_name', includeToJson: false)
-  String? get firstName => throw _privateConstructorUsedError;
+  String? get firstName;
   @JsonKey(name: 'last_name', includeToJson: false)
-  String? get lastName => throw _privateConstructorUsedError;
+  String? get lastName;
   @JsonKey(name: 'avatar_url', includeToJson: false)
-  String? get avatarUrl => throw _privateConstructorUsedError;
+  String? get avatarUrl;
   @JsonKey(name: 'last_message', includeToJson: false)
-  String? get lastMessage => throw _privateConstructorUsedError;
+  String? get lastMessage;
   @JsonKey(name: 'last_message_sent_at', includeToJson: false)
   @DateTimeJsonConverter()
-  DateTime? get lastMessageAt => throw _privateConstructorUsedError;
+  DateTime? get lastMessageAt;
   @JsonKey(name: 'unread_messages', defaultValue: 0, includeToJson: false)
-  int? get unreadMessages => throw _privateConstructorUsedError;
-
-  /// Serializes this ChatRoom to a JSON map.
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  int? get unreadMessages;
 
   /// Create a copy of ChatRoom
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
-  $ChatRoomCopyWith<ChatRoom> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class $ChatRoomCopyWith<$Res> {
-  factory $ChatRoomCopyWith(ChatRoom value, $Res Function(ChatRoom) then) =
-      _$ChatRoomCopyWithImpl<$Res, ChatRoom>;
-  @useResult
-  $Res call(
-      {@JsonKey(name: 'room_id') String roomId,
-      @JsonKey(name: 'user_id') String userId,
-      @JsonKey(name: 'first_name', includeToJson: false) String? firstName,
-      @JsonKey(name: 'last_name', includeToJson: false) String? lastName,
-      @JsonKey(name: 'avatar_url', includeToJson: false) String? avatarUrl,
-      @JsonKey(name: 'last_message', includeToJson: false) String? lastMessage,
-      @JsonKey(name: 'last_message_sent_at', includeToJson: false)
-      @DateTimeJsonConverter()
-      DateTime? lastMessageAt,
-      @JsonKey(name: 'unread_messages', defaultValue: 0, includeToJson: false)
-      int? unreadMessages});
-}
-
-/// @nodoc
-class _$ChatRoomCopyWithImpl<$Res, $Val extends ChatRoom>
-    implements $ChatRoomCopyWith<$Res> {
-  _$ChatRoomCopyWithImpl(this._value, this._then);
-
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
-
-  /// Create a copy of ChatRoom
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
+  $ChatRoomCopyWith<ChatRoom> get copyWith =>
+      _$ChatRoomCopyWithImpl<ChatRoom>(this as ChatRoom, _$identity);
+
+  /// Serializes this ChatRoom to a JSON map.
+  Map<String, dynamic> toJson();
+
   @override
-  $Res call({
-    Object? roomId = null,
-    Object? userId = null,
-    Object? firstName = freezed,
-    Object? lastName = freezed,
-    Object? avatarUrl = freezed,
-    Object? lastMessage = freezed,
-    Object? lastMessageAt = freezed,
-    Object? unreadMessages = freezed,
-  }) {
-    return _then(_value.copyWith(
-      roomId: null == roomId
-          ? _value.roomId
-          : roomId // ignore: cast_nullable_to_non_nullable
-              as String,
-      userId: null == userId
-          ? _value.userId
-          : userId // ignore: cast_nullable_to_non_nullable
-              as String,
-      firstName: freezed == firstName
-          ? _value.firstName
-          : firstName // ignore: cast_nullable_to_non_nullable
-              as String?,
-      lastName: freezed == lastName
-          ? _value.lastName
-          : lastName // ignore: cast_nullable_to_non_nullable
-              as String?,
-      avatarUrl: freezed == avatarUrl
-          ? _value.avatarUrl
-          : avatarUrl // ignore: cast_nullable_to_non_nullable
-              as String?,
-      lastMessage: freezed == lastMessage
-          ? _value.lastMessage
-          : lastMessage // ignore: cast_nullable_to_non_nullable
-              as String?,
-      lastMessageAt: freezed == lastMessageAt
-          ? _value.lastMessageAt
-          : lastMessageAt // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
-      unreadMessages: freezed == unreadMessages
-          ? _value.unreadMessages
-          : unreadMessages // ignore: cast_nullable_to_non_nullable
-              as int?,
-    ) as $Val);
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is ChatRoom &&
+            (identical(other.roomId, roomId) || other.roomId == roomId) &&
+            (identical(other.userId, userId) || other.userId == userId) &&
+            (identical(other.firstName, firstName) ||
+                other.firstName == firstName) &&
+            (identical(other.lastName, lastName) ||
+                other.lastName == lastName) &&
+            (identical(other.avatarUrl, avatarUrl) ||
+                other.avatarUrl == avatarUrl) &&
+            (identical(other.lastMessage, lastMessage) ||
+                other.lastMessage == lastMessage) &&
+            (identical(other.lastMessageAt, lastMessageAt) ||
+                other.lastMessageAt == lastMessageAt) &&
+            (identical(other.unreadMessages, unreadMessages) ||
+                other.unreadMessages == unreadMessages));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(runtimeType, roomId, userId, firstName,
+      lastName, avatarUrl, lastMessage, lastMessageAt, unreadMessages);
+
+  @override
+  String toString() {
+    return 'ChatRoom(roomId: $roomId, userId: $userId, firstName: $firstName, lastName: $lastName, avatarUrl: $avatarUrl, lastMessage: $lastMessage, lastMessageAt: $lastMessageAt, unreadMessages: $unreadMessages)';
   }
 }
 
 /// @nodoc
-abstract class _$$ChatRoomImplCopyWith<$Res>
-    implements $ChatRoomCopyWith<$Res> {
-  factory _$$ChatRoomImplCopyWith(
-          _$ChatRoomImpl value, $Res Function(_$ChatRoomImpl) then) =
-      __$$ChatRoomImplCopyWithImpl<$Res>;
-  @override
+abstract mixin class $ChatRoomCopyWith<$Res> {
+  factory $ChatRoomCopyWith(ChatRoom value, $Res Function(ChatRoom) _then) =
+      _$ChatRoomCopyWithImpl;
   @useResult
   $Res call(
       {@JsonKey(name: 'room_id') String roomId,
@@ -151,12 +95,11 @@ abstract class _$$ChatRoomImplCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$ChatRoomImplCopyWithImpl<$Res>
-    extends _$ChatRoomCopyWithImpl<$Res, _$ChatRoomImpl>
-    implements _$$ChatRoomImplCopyWith<$Res> {
-  __$$ChatRoomImplCopyWithImpl(
-      _$ChatRoomImpl _value, $Res Function(_$ChatRoomImpl) _then)
-      : super(_value, _then);
+class _$ChatRoomCopyWithImpl<$Res> implements $ChatRoomCopyWith<$Res> {
+  _$ChatRoomCopyWithImpl(this._self, this._then);
+
+  final ChatRoom _self;
+  final $Res Function(ChatRoom) _then;
 
   /// Create a copy of ChatRoom
   /// with the given fields replaced by the non-null parameter values.
@@ -172,37 +115,37 @@ class __$$ChatRoomImplCopyWithImpl<$Res>
     Object? lastMessageAt = freezed,
     Object? unreadMessages = freezed,
   }) {
-    return _then(_$ChatRoomImpl(
+    return _then(_self.copyWith(
       roomId: null == roomId
-          ? _value.roomId
+          ? _self.roomId
           : roomId // ignore: cast_nullable_to_non_nullable
               as String,
       userId: null == userId
-          ? _value.userId
+          ? _self.userId
           : userId // ignore: cast_nullable_to_non_nullable
               as String,
       firstName: freezed == firstName
-          ? _value.firstName
+          ? _self.firstName
           : firstName // ignore: cast_nullable_to_non_nullable
               as String?,
       lastName: freezed == lastName
-          ? _value.lastName
+          ? _self.lastName
           : lastName // ignore: cast_nullable_to_non_nullable
               as String?,
       avatarUrl: freezed == avatarUrl
-          ? _value.avatarUrl
+          ? _self.avatarUrl
           : avatarUrl // ignore: cast_nullable_to_non_nullable
               as String?,
       lastMessage: freezed == lastMessage
-          ? _value.lastMessage
+          ? _self.lastMessage
           : lastMessage // ignore: cast_nullable_to_non_nullable
               as String?,
       lastMessageAt: freezed == lastMessageAt
-          ? _value.lastMessageAt
+          ? _self.lastMessageAt
           : lastMessageAt // ignore: cast_nullable_to_non_nullable
               as DateTime?,
       unreadMessages: freezed == unreadMessages
-          ? _value.unreadMessages
+          ? _self.unreadMessages
           : unreadMessages // ignore: cast_nullable_to_non_nullable
               as int?,
     ));
@@ -211,8 +154,8 @@ class __$$ChatRoomImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$ChatRoomImpl implements _ChatRoom {
-  const _$ChatRoomImpl(
+class _ChatRoom implements ChatRoom {
+  const _ChatRoom(
       {@JsonKey(name: 'room_id') required this.roomId,
       @JsonKey(name: 'user_id') required this.userId,
       @JsonKey(name: 'first_name', includeToJson: false) this.firstName,
@@ -224,9 +167,8 @@ class _$ChatRoomImpl implements _ChatRoom {
       this.lastMessageAt,
       @JsonKey(name: 'unread_messages', defaultValue: 0, includeToJson: false)
       this.unreadMessages});
-
-  factory _$ChatRoomImpl.fromJson(Map<String, dynamic> json) =>
-      _$$ChatRoomImplFromJson(json);
+  factory _ChatRoom.fromJson(Map<String, dynamic> json) =>
+      _$ChatRoomFromJson(json);
 
   @override
   @JsonKey(name: 'room_id')
@@ -254,16 +196,26 @@ class _$ChatRoomImpl implements _ChatRoom {
   @JsonKey(name: 'unread_messages', defaultValue: 0, includeToJson: false)
   final int? unreadMessages;
 
+  /// Create a copy of ChatRoom
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  String toString() {
-    return 'ChatRoom(roomId: $roomId, userId: $userId, firstName: $firstName, lastName: $lastName, avatarUrl: $avatarUrl, lastMessage: $lastMessage, lastMessageAt: $lastMessageAt, unreadMessages: $unreadMessages)';
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  _$ChatRoomCopyWith<_ChatRoom> get copyWith =>
+      __$ChatRoomCopyWithImpl<_ChatRoom>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$ChatRoomToJson(
+      this,
+    );
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$ChatRoomImpl &&
+            other is _ChatRoom &&
             (identical(other.roomId, roomId) || other.roomId == roomId) &&
             (identical(other.userId, userId) || other.userId == userId) &&
             (identical(other.firstName, firstName) ||
@@ -285,72 +237,89 @@ class _$ChatRoomImpl implements _ChatRoom {
   int get hashCode => Object.hash(runtimeType, roomId, userId, firstName,
       lastName, avatarUrl, lastMessage, lastMessageAt, unreadMessages);
 
-  /// Create a copy of ChatRoom
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  @pragma('vm:prefer-inline')
-  _$$ChatRoomImplCopyWith<_$ChatRoomImpl> get copyWith =>
-      __$$ChatRoomImplCopyWithImpl<_$ChatRoomImpl>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$ChatRoomImplToJson(
-      this,
-    );
+  String toString() {
+    return 'ChatRoom(roomId: $roomId, userId: $userId, firstName: $firstName, lastName: $lastName, avatarUrl: $avatarUrl, lastMessage: $lastMessage, lastMessageAt: $lastMessageAt, unreadMessages: $unreadMessages)';
   }
 }
 
-abstract class _ChatRoom implements ChatRoom {
-  const factory _ChatRoom(
-      {@JsonKey(name: 'room_id') required final String roomId,
-      @JsonKey(name: 'user_id') required final String userId,
-      @JsonKey(name: 'first_name', includeToJson: false)
-      final String? firstName,
-      @JsonKey(name: 'last_name', includeToJson: false) final String? lastName,
-      @JsonKey(name: 'avatar_url', includeToJson: false)
-      final String? avatarUrl,
-      @JsonKey(name: 'last_message', includeToJson: false)
-      final String? lastMessage,
+/// @nodoc
+abstract mixin class _$ChatRoomCopyWith<$Res>
+    implements $ChatRoomCopyWith<$Res> {
+  factory _$ChatRoomCopyWith(_ChatRoom value, $Res Function(_ChatRoom) _then) =
+      __$ChatRoomCopyWithImpl;
+  @override
+  @useResult
+  $Res call(
+      {@JsonKey(name: 'room_id') String roomId,
+      @JsonKey(name: 'user_id') String userId,
+      @JsonKey(name: 'first_name', includeToJson: false) String? firstName,
+      @JsonKey(name: 'last_name', includeToJson: false) String? lastName,
+      @JsonKey(name: 'avatar_url', includeToJson: false) String? avatarUrl,
+      @JsonKey(name: 'last_message', includeToJson: false) String? lastMessage,
       @JsonKey(name: 'last_message_sent_at', includeToJson: false)
       @DateTimeJsonConverter()
-      final DateTime? lastMessageAt,
+      DateTime? lastMessageAt,
       @JsonKey(name: 'unread_messages', defaultValue: 0, includeToJson: false)
-      final int? unreadMessages}) = _$ChatRoomImpl;
+      int? unreadMessages});
+}
 
-  factory _ChatRoom.fromJson(Map<String, dynamic> json) =
-      _$ChatRoomImpl.fromJson;
+/// @nodoc
+class __$ChatRoomCopyWithImpl<$Res> implements _$ChatRoomCopyWith<$Res> {
+  __$ChatRoomCopyWithImpl(this._self, this._then);
 
-  @override
-  @JsonKey(name: 'room_id')
-  String get roomId;
-  @override
-  @JsonKey(name: 'user_id')
-  String get userId;
-  @override
-  @JsonKey(name: 'first_name', includeToJson: false)
-  String? get firstName;
-  @override
-  @JsonKey(name: 'last_name', includeToJson: false)
-  String? get lastName;
-  @override
-  @JsonKey(name: 'avatar_url', includeToJson: false)
-  String? get avatarUrl;
-  @override
-  @JsonKey(name: 'last_message', includeToJson: false)
-  String? get lastMessage;
-  @override
-  @JsonKey(name: 'last_message_sent_at', includeToJson: false)
-  @DateTimeJsonConverter()
-  DateTime? get lastMessageAt;
-  @override
-  @JsonKey(name: 'unread_messages', defaultValue: 0, includeToJson: false)
-  int? get unreadMessages;
+  final _ChatRoom _self;
+  final $Res Function(_ChatRoom) _then;
 
   /// Create a copy of ChatRoom
   /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$ChatRoomImplCopyWith<_$ChatRoomImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+  @pragma('vm:prefer-inline')
+  $Res call({
+    Object? roomId = null,
+    Object? userId = null,
+    Object? firstName = freezed,
+    Object? lastName = freezed,
+    Object? avatarUrl = freezed,
+    Object? lastMessage = freezed,
+    Object? lastMessageAt = freezed,
+    Object? unreadMessages = freezed,
+  }) {
+    return _then(_ChatRoom(
+      roomId: null == roomId
+          ? _self.roomId
+          : roomId // ignore: cast_nullable_to_non_nullable
+              as String,
+      userId: null == userId
+          ? _self.userId
+          : userId // ignore: cast_nullable_to_non_nullable
+              as String,
+      firstName: freezed == firstName
+          ? _self.firstName
+          : firstName // ignore: cast_nullable_to_non_nullable
+              as String?,
+      lastName: freezed == lastName
+          ? _self.lastName
+          : lastName // ignore: cast_nullable_to_non_nullable
+              as String?,
+      avatarUrl: freezed == avatarUrl
+          ? _self.avatarUrl
+          : avatarUrl // ignore: cast_nullable_to_non_nullable
+              as String?,
+      lastMessage: freezed == lastMessage
+          ? _self.lastMessage
+          : lastMessage // ignore: cast_nullable_to_non_nullable
+              as String?,
+      lastMessageAt: freezed == lastMessageAt
+          ? _self.lastMessageAt
+          : lastMessageAt // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      unreadMessages: freezed == unreadMessages
+          ? _self.unreadMessages
+          : unreadMessages // ignore: cast_nullable_to_non_nullable
+              as int?,
+    ));
+  }
 }
+
+// dart format on

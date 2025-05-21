@@ -4,7 +4,7 @@ part 'create_referral.freezed.dart';
 part 'create_referral.g.dart';
 
 @freezed
-class CreateReferral with _$CreateReferral {
+sealed class CreateReferral with _$CreateReferral {
   const factory CreateReferral({
     required String title,
     @JsonKey(name: 'case_description') required String caseDescription,

@@ -9,7 +9,7 @@ import 'package:legal_referral_ui/src/features/wizard/data/data.dart';
 @module
 abstract class RegisterModule {
   @Named('baseUrl')
-  String get baseUrl => APIConstants.baseUrl;
+  String get baseUrl => APIConstants.baseURL;
 
   @singleton
   APIClient apiClient() {

@@ -5,7 +5,7 @@ part 'education.freezed.dart';
 part 'education.g.dart';
 
 @freezed
-class Education with _$Education {
+sealed class Education with _$Education {
   const factory Education({
     required String? degree,
     required String? school,

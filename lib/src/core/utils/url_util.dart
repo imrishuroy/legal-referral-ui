@@ -7,7 +7,7 @@ class UrlUtil {
   UrlUtil._internal();
 
   static String getCDNURL(String? previewUrl) {
-    return '${APIConstants.cloudFrontUrl}$previewUrl';
+    return '${APIConstants.cloudFrontURL}/$previewUrl';
   }
 
   static Future<void> launchURL(String? url) async {

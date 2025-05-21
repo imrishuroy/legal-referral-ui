@@ -1,3 +1,4 @@
+// dart format width=80
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
@@ -9,39 +10,55 @@ part of 'feed.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// dart format off
 T _$identity<T>(T value) => value;
-
-final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
-
-Feed _$FeedFromJson(Map<String, dynamic> json) {
-  return _Feed.fromJson(json);
-}
 
 /// @nodoc
 mixin _$Feed {
   @JsonKey(name: 'feed_id')
-  int get feedId => throw _privateConstructorUsedError;
+  int get feedId;
   @JsonKey(name: 'feed_type')
-  FeedType get type => throw _privateConstructorUsedError;
+  FeedType get type;
   @JsonKey(name: 'feed_post')
-  Post? get post => throw _privateConstructorUsedError;
+  Post? get post;
   @JsonKey(name: 'ad')
-  Ad? get ad => throw _privateConstructorUsedError;
-
-  /// Serializes this Feed to a JSON map.
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  Ad? get ad;
 
   /// Create a copy of Feed
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
-  $FeedCopyWith<Feed> get copyWith => throw _privateConstructorUsedError;
+  @pragma('vm:prefer-inline')
+  $FeedCopyWith<Feed> get copyWith =>
+      _$FeedCopyWithImpl<Feed>(this as Feed, _$identity);
+
+  /// Serializes this Feed to a JSON map.
+  Map<String, dynamic> toJson();
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is Feed &&
+            (identical(other.feedId, feedId) || other.feedId == feedId) &&
+            (identical(other.type, type) || other.type == type) &&
+            (identical(other.post, post) || other.post == post) &&
+            (identical(other.ad, ad) || other.ad == ad));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(runtimeType, feedId, type, post, ad);
+
+  @override
+  String toString() {
+    return 'Feed(feedId: $feedId, type: $type, post: $post, ad: $ad)';
+  }
 }
 
 /// @nodoc
-abstract class $FeedCopyWith<$Res> {
-  factory $FeedCopyWith(Feed value, $Res Function(Feed) then) =
-      _$FeedCopyWithImpl<$Res, Feed>;
+abstract mixin class $FeedCopyWith<$Res> {
+  factory $FeedCopyWith(Feed value, $Res Function(Feed) _then) =
+      _$FeedCopyWithImpl;
   @useResult
   $Res call(
       {@JsonKey(name: 'feed_id') int feedId,
@@ -54,14 +71,11 @@ abstract class $FeedCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$FeedCopyWithImpl<$Res, $Val extends Feed>
-    implements $FeedCopyWith<$Res> {
-  _$FeedCopyWithImpl(this._value, this._then);
+class _$FeedCopyWithImpl<$Res> implements $FeedCopyWith<$Res> {
+  _$FeedCopyWithImpl(this._self, this._then);
 
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
+  final Feed _self;
+  final $Res Function(Feed) _then;
 
   /// Create a copy of Feed
   /// with the given fields replaced by the non-null parameter values.
@@ -73,24 +87,24 @@ class _$FeedCopyWithImpl<$Res, $Val extends Feed>
     Object? post = freezed,
     Object? ad = freezed,
   }) {
-    return _then(_value.copyWith(
+    return _then(_self.copyWith(
       feedId: null == feedId
-          ? _value.feedId
+          ? _self.feedId
           : feedId // ignore: cast_nullable_to_non_nullable
               as int,
       type: null == type
-          ? _value.type
+          ? _self.type
           : type // ignore: cast_nullable_to_non_nullable
               as FeedType,
       post: freezed == post
-          ? _value.post
+          ? _self.post
           : post // ignore: cast_nullable_to_non_nullable
               as Post?,
       ad: freezed == ad
-          ? _value.ad
+          ? _self.ad
           : ad // ignore: cast_nullable_to_non_nullable
               as Ad?,
-    ) as $Val);
+    ));
   }
 
   /// Create a copy of Feed
@@ -98,12 +112,12 @@ class _$FeedCopyWithImpl<$Res, $Val extends Feed>
   @override
   @pragma('vm:prefer-inline')
   $PostCopyWith<$Res>? get post {
-    if (_value.post == null) {
+    if (_self.post == null) {
       return null;
     }
 
-    return $PostCopyWith<$Res>(_value.post!, (value) {
-      return _then(_value.copyWith(post: value) as $Val);
+    return $PostCopyWith<$Res>(_self.post!, (value) {
+      return _then(_self.copyWith(post: value));
     });
   }
 
@@ -112,84 +126,25 @@ class _$FeedCopyWithImpl<$Res, $Val extends Feed>
   @override
   @pragma('vm:prefer-inline')
   $AdCopyWith<$Res>? get ad {
-    if (_value.ad == null) {
+    if (_self.ad == null) {
       return null;
     }
 
-    return $AdCopyWith<$Res>(_value.ad!, (value) {
-      return _then(_value.copyWith(ad: value) as $Val);
+    return $AdCopyWith<$Res>(_self.ad!, (value) {
+      return _then(_self.copyWith(ad: value));
     });
   }
 }
 
 /// @nodoc
-abstract class _$$FeedImplCopyWith<$Res> implements $FeedCopyWith<$Res> {
-  factory _$$FeedImplCopyWith(
-          _$FeedImpl value, $Res Function(_$FeedImpl) then) =
-      __$$FeedImplCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call(
-      {@JsonKey(name: 'feed_id') int feedId,
-      @JsonKey(name: 'feed_type') FeedType type,
-      @JsonKey(name: 'feed_post') Post? post,
-      @JsonKey(name: 'ad') Ad? ad});
-
-  @override
-  $PostCopyWith<$Res>? get post;
-  @override
-  $AdCopyWith<$Res>? get ad;
-}
-
-/// @nodoc
-class __$$FeedImplCopyWithImpl<$Res>
-    extends _$FeedCopyWithImpl<$Res, _$FeedImpl>
-    implements _$$FeedImplCopyWith<$Res> {
-  __$$FeedImplCopyWithImpl(_$FeedImpl _value, $Res Function(_$FeedImpl) _then)
-      : super(_value, _then);
-
-  /// Create a copy of Feed
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? feedId = null,
-    Object? type = null,
-    Object? post = freezed,
-    Object? ad = freezed,
-  }) {
-    return _then(_$FeedImpl(
-      feedId: null == feedId
-          ? _value.feedId
-          : feedId // ignore: cast_nullable_to_non_nullable
-              as int,
-      type: null == type
-          ? _value.type
-          : type // ignore: cast_nullable_to_non_nullable
-              as FeedType,
-      post: freezed == post
-          ? _value.post
-          : post // ignore: cast_nullable_to_non_nullable
-              as Post?,
-      ad: freezed == ad
-          ? _value.ad
-          : ad // ignore: cast_nullable_to_non_nullable
-              as Ad?,
-    ));
-  }
-}
-
-/// @nodoc
 @JsonSerializable()
-class _$FeedImpl implements _Feed {
-  const _$FeedImpl(
+class _Feed implements Feed {
+  const _Feed(
       {@JsonKey(name: 'feed_id') required this.feedId,
       @JsonKey(name: 'feed_type') required this.type,
       @JsonKey(name: 'feed_post') required this.post,
       @JsonKey(name: 'ad') this.ad});
-
-  factory _$FeedImpl.fromJson(Map<String, dynamic> json) =>
-      _$$FeedImplFromJson(json);
+  factory _Feed.fromJson(Map<String, dynamic> json) => _$FeedFromJson(json);
 
   @override
   @JsonKey(name: 'feed_id')
@@ -204,16 +159,26 @@ class _$FeedImpl implements _Feed {
   @JsonKey(name: 'ad')
   final Ad? ad;
 
+  /// Create a copy of Feed
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  String toString() {
-    return 'Feed(feedId: $feedId, type: $type, post: $post, ad: $ad)';
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  _$FeedCopyWith<_Feed> get copyWith =>
+      __$FeedCopyWithImpl<_Feed>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$FeedToJson(
+      this,
+    );
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$FeedImpl &&
+            other is _Feed &&
             (identical(other.feedId, feedId) || other.feedId == feedId) &&
             (identical(other.type, type) || other.type == type) &&
             (identical(other.post, post) || other.post == post) &&
@@ -224,48 +189,94 @@ class _$FeedImpl implements _Feed {
   @override
   int get hashCode => Object.hash(runtimeType, feedId, type, post, ad);
 
-  /// Create a copy of Feed
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  @pragma('vm:prefer-inline')
-  _$$FeedImplCopyWith<_$FeedImpl> get copyWith =>
-      __$$FeedImplCopyWithImpl<_$FeedImpl>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$FeedImplToJson(
-      this,
-    );
+  String toString() {
+    return 'Feed(feedId: $feedId, type: $type, post: $post, ad: $ad)';
   }
 }
 
-abstract class _Feed implements Feed {
-  const factory _Feed(
-      {@JsonKey(name: 'feed_id') required final int feedId,
-      @JsonKey(name: 'feed_type') required final FeedType type,
-      @JsonKey(name: 'feed_post') required final Post? post,
-      @JsonKey(name: 'ad') final Ad? ad}) = _$FeedImpl;
+/// @nodoc
+abstract mixin class _$FeedCopyWith<$Res> implements $FeedCopyWith<$Res> {
+  factory _$FeedCopyWith(_Feed value, $Res Function(_Feed) _then) =
+      __$FeedCopyWithImpl;
+  @override
+  @useResult
+  $Res call(
+      {@JsonKey(name: 'feed_id') int feedId,
+      @JsonKey(name: 'feed_type') FeedType type,
+      @JsonKey(name: 'feed_post') Post? post,
+      @JsonKey(name: 'ad') Ad? ad});
 
-  factory _Feed.fromJson(Map<String, dynamic> json) = _$FeedImpl.fromJson;
+  @override
+  $PostCopyWith<$Res>? get post;
+  @override
+  $AdCopyWith<$Res>? get ad;
+}
 
-  @override
-  @JsonKey(name: 'feed_id')
-  int get feedId;
-  @override
-  @JsonKey(name: 'feed_type')
-  FeedType get type;
-  @override
-  @JsonKey(name: 'feed_post')
-  Post? get post;
-  @override
-  @JsonKey(name: 'ad')
-  Ad? get ad;
+/// @nodoc
+class __$FeedCopyWithImpl<$Res> implements _$FeedCopyWith<$Res> {
+  __$FeedCopyWithImpl(this._self, this._then);
+
+  final _Feed _self;
+  final $Res Function(_Feed) _then;
 
   /// Create a copy of Feed
   /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$FeedImplCopyWith<_$FeedImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+  @pragma('vm:prefer-inline')
+  $Res call({
+    Object? feedId = null,
+    Object? type = null,
+    Object? post = freezed,
+    Object? ad = freezed,
+  }) {
+    return _then(_Feed(
+      feedId: null == feedId
+          ? _self.feedId
+          : feedId // ignore: cast_nullable_to_non_nullable
+              as int,
+      type: null == type
+          ? _self.type
+          : type // ignore: cast_nullable_to_non_nullable
+              as FeedType,
+      post: freezed == post
+          ? _self.post
+          : post // ignore: cast_nullable_to_non_nullable
+              as Post?,
+      ad: freezed == ad
+          ? _self.ad
+          : ad // ignore: cast_nullable_to_non_nullable
+              as Ad?,
+    ));
+  }
+
+  /// Create a copy of Feed
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $PostCopyWith<$Res>? get post {
+    if (_self.post == null) {
+      return null;
+    }
+
+    return $PostCopyWith<$Res>(_self.post!, (value) {
+      return _then(_self.copyWith(post: value));
+    });
+  }
+
+  /// Create a copy of Feed
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $AdCopyWith<$Res>? get ad {
+    if (_self.ad == null) {
+      return null;
+    }
+
+    return $AdCopyWith<$Res>(_self.ad!, (value) {
+      return _then(_self.copyWith(ad: value));
+    });
+  }
 }
+
+// dart format on

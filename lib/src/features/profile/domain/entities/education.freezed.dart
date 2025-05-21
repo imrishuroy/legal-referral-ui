@@ -1,3 +1,4 @@
+// dart format width=80
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
@@ -9,145 +10,85 @@ part of 'education.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// dart format off
 T _$identity<T>(T value) => value;
-
-final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
-
-Education _$EducationFromJson(Map<String, dynamic> json) {
-  return _Education.fromJson(json);
-}
 
 /// @nodoc
 mixin _$Education {
-  String? get degree => throw _privateConstructorUsedError;
-  String? get school => throw _privateConstructorUsedError;
+  String? get degree;
+  String? get school;
   @JsonKey(name: 'field_of_study')
-  String? get fieldOfStudy => throw _privateConstructorUsedError;
+  String? get fieldOfStudy;
   @EducationDateTimeConverter()
   @JsonKey(name: 'start_date')
-  DateTime? get startDate => throw _privateConstructorUsedError;
+  DateTime? get startDate;
   @EducationDateTimeConverter()
   @JsonKey(name: 'end_date')
-  DateTime? get endDate => throw _privateConstructorUsedError;
+  DateTime? get endDate;
   @JsonKey(name: 'current')
-  bool get current => throw _privateConstructorUsedError;
-  String? get grade => throw _privateConstructorUsedError;
-  String? get achievements => throw _privateConstructorUsedError;
-  List<String> get skills => throw _privateConstructorUsedError;
+  bool get current;
+  String? get grade;
+  String? get achievements;
+  List<String> get skills;
   @JsonKey(name: 'education_id', includeToJson: false)
-  int? get educationId => throw _privateConstructorUsedError;
-
-  /// Serializes this Education to a JSON map.
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  int? get educationId;
 
   /// Create a copy of Education
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
-  $EducationCopyWith<Education> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class $EducationCopyWith<$Res> {
-  factory $EducationCopyWith(Education value, $Res Function(Education) then) =
-      _$EducationCopyWithImpl<$Res, Education>;
-  @useResult
-  $Res call(
-      {String? degree,
-      String? school,
-      @JsonKey(name: 'field_of_study') String? fieldOfStudy,
-      @EducationDateTimeConverter()
-      @JsonKey(name: 'start_date')
-      DateTime? startDate,
-      @EducationDateTimeConverter()
-      @JsonKey(name: 'end_date')
-      DateTime? endDate,
-      @JsonKey(name: 'current') bool current,
-      String? grade,
-      String? achievements,
-      List<String> skills,
-      @JsonKey(name: 'education_id', includeToJson: false) int? educationId});
-}
-
-/// @nodoc
-class _$EducationCopyWithImpl<$Res, $Val extends Education>
-    implements $EducationCopyWith<$Res> {
-  _$EducationCopyWithImpl(this._value, this._then);
-
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
-
-  /// Create a copy of Education
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
+  $EducationCopyWith<Education> get copyWith =>
+      _$EducationCopyWithImpl<Education>(this as Education, _$identity);
+
+  /// Serializes this Education to a JSON map.
+  Map<String, dynamic> toJson();
+
   @override
-  $Res call({
-    Object? degree = freezed,
-    Object? school = freezed,
-    Object? fieldOfStudy = freezed,
-    Object? startDate = freezed,
-    Object? endDate = freezed,
-    Object? current = null,
-    Object? grade = freezed,
-    Object? achievements = freezed,
-    Object? skills = null,
-    Object? educationId = freezed,
-  }) {
-    return _then(_value.copyWith(
-      degree: freezed == degree
-          ? _value.degree
-          : degree // ignore: cast_nullable_to_non_nullable
-              as String?,
-      school: freezed == school
-          ? _value.school
-          : school // ignore: cast_nullable_to_non_nullable
-              as String?,
-      fieldOfStudy: freezed == fieldOfStudy
-          ? _value.fieldOfStudy
-          : fieldOfStudy // ignore: cast_nullable_to_non_nullable
-              as String?,
-      startDate: freezed == startDate
-          ? _value.startDate
-          : startDate // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
-      endDate: freezed == endDate
-          ? _value.endDate
-          : endDate // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
-      current: null == current
-          ? _value.current
-          : current // ignore: cast_nullable_to_non_nullable
-              as bool,
-      grade: freezed == grade
-          ? _value.grade
-          : grade // ignore: cast_nullable_to_non_nullable
-              as String?,
-      achievements: freezed == achievements
-          ? _value.achievements
-          : achievements // ignore: cast_nullable_to_non_nullable
-              as String?,
-      skills: null == skills
-          ? _value.skills
-          : skills // ignore: cast_nullable_to_non_nullable
-              as List<String>,
-      educationId: freezed == educationId
-          ? _value.educationId
-          : educationId // ignore: cast_nullable_to_non_nullable
-              as int?,
-    ) as $Val);
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is Education &&
+            (identical(other.degree, degree) || other.degree == degree) &&
+            (identical(other.school, school) || other.school == school) &&
+            (identical(other.fieldOfStudy, fieldOfStudy) ||
+                other.fieldOfStudy == fieldOfStudy) &&
+            (identical(other.startDate, startDate) ||
+                other.startDate == startDate) &&
+            (identical(other.endDate, endDate) || other.endDate == endDate) &&
+            (identical(other.current, current) || other.current == current) &&
+            (identical(other.grade, grade) || other.grade == grade) &&
+            (identical(other.achievements, achievements) ||
+                other.achievements == achievements) &&
+            const DeepCollectionEquality().equals(other.skills, skills) &&
+            (identical(other.educationId, educationId) ||
+                other.educationId == educationId));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(
+      runtimeType,
+      degree,
+      school,
+      fieldOfStudy,
+      startDate,
+      endDate,
+      current,
+      grade,
+      achievements,
+      const DeepCollectionEquality().hash(skills),
+      educationId);
+
+  @override
+  String toString() {
+    return 'Education(degree: $degree, school: $school, fieldOfStudy: $fieldOfStudy, startDate: $startDate, endDate: $endDate, current: $current, grade: $grade, achievements: $achievements, skills: $skills, educationId: $educationId)';
   }
 }
 
 /// @nodoc
-abstract class _$$EducationImplCopyWith<$Res>
-    implements $EducationCopyWith<$Res> {
-  factory _$$EducationImplCopyWith(
-          _$EducationImpl value, $Res Function(_$EducationImpl) then) =
-      __$$EducationImplCopyWithImpl<$Res>;
-  @override
+abstract mixin class $EducationCopyWith<$Res> {
+  factory $EducationCopyWith(Education value, $Res Function(Education) _then) =
+      _$EducationCopyWithImpl;
   @useResult
   $Res call(
       {String? degree,
@@ -167,12 +108,11 @@ abstract class _$$EducationImplCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$EducationImplCopyWithImpl<$Res>
-    extends _$EducationCopyWithImpl<$Res, _$EducationImpl>
-    implements _$$EducationImplCopyWith<$Res> {
-  __$$EducationImplCopyWithImpl(
-      _$EducationImpl _value, $Res Function(_$EducationImpl) _then)
-      : super(_value, _then);
+class _$EducationCopyWithImpl<$Res> implements $EducationCopyWith<$Res> {
+  _$EducationCopyWithImpl(this._self, this._then);
+
+  final Education _self;
+  final $Res Function(Education) _then;
 
   /// Create a copy of Education
   /// with the given fields replaced by the non-null parameter values.
@@ -190,45 +130,45 @@ class __$$EducationImplCopyWithImpl<$Res>
     Object? skills = null,
     Object? educationId = freezed,
   }) {
-    return _then(_$EducationImpl(
+    return _then(_self.copyWith(
       degree: freezed == degree
-          ? _value.degree
+          ? _self.degree
           : degree // ignore: cast_nullable_to_non_nullable
               as String?,
       school: freezed == school
-          ? _value.school
+          ? _self.school
           : school // ignore: cast_nullable_to_non_nullable
               as String?,
       fieldOfStudy: freezed == fieldOfStudy
-          ? _value.fieldOfStudy
+          ? _self.fieldOfStudy
           : fieldOfStudy // ignore: cast_nullable_to_non_nullable
               as String?,
       startDate: freezed == startDate
-          ? _value.startDate
+          ? _self.startDate
           : startDate // ignore: cast_nullable_to_non_nullable
               as DateTime?,
       endDate: freezed == endDate
-          ? _value.endDate
+          ? _self.endDate
           : endDate // ignore: cast_nullable_to_non_nullable
               as DateTime?,
       current: null == current
-          ? _value.current
+          ? _self.current
           : current // ignore: cast_nullable_to_non_nullable
               as bool,
       grade: freezed == grade
-          ? _value.grade
+          ? _self.grade
           : grade // ignore: cast_nullable_to_non_nullable
               as String?,
       achievements: freezed == achievements
-          ? _value.achievements
+          ? _self.achievements
           : achievements // ignore: cast_nullable_to_non_nullable
               as String?,
       skills: null == skills
-          ? _value._skills
+          ? _self.skills
           : skills // ignore: cast_nullable_to_non_nullable
               as List<String>,
       educationId: freezed == educationId
-          ? _value.educationId
+          ? _self.educationId
           : educationId // ignore: cast_nullable_to_non_nullable
               as int?,
     ));
@@ -237,8 +177,8 @@ class __$$EducationImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$EducationImpl implements _Education {
-  const _$EducationImpl(
+class _Education implements Education {
+  const _Education(
       {required this.degree,
       required this.school,
       @JsonKey(name: 'field_of_study') required this.fieldOfStudy,
@@ -254,9 +194,8 @@ class _$EducationImpl implements _Education {
       required final List<String> skills,
       @JsonKey(name: 'education_id', includeToJson: false) this.educationId})
       : _skills = skills;
-
-  factory _$EducationImpl.fromJson(Map<String, dynamic> json) =>
-      _$$EducationImplFromJson(json);
+  factory _Education.fromJson(Map<String, dynamic> json) =>
+      _$EducationFromJson(json);
 
   @override
   final String? degree;
@@ -292,16 +231,26 @@ class _$EducationImpl implements _Education {
   @JsonKey(name: 'education_id', includeToJson: false)
   final int? educationId;
 
+  /// Create a copy of Education
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  String toString() {
-    return 'Education(degree: $degree, school: $school, fieldOfStudy: $fieldOfStudy, startDate: $startDate, endDate: $endDate, current: $current, grade: $grade, achievements: $achievements, skills: $skills, educationId: $educationId)';
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  _$EducationCopyWith<_Education> get copyWith =>
+      __$EducationCopyWithImpl<_Education>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$EducationToJson(
+      this,
+    );
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$EducationImpl &&
+            other is _Education &&
             (identical(other.degree, degree) || other.degree == degree) &&
             (identical(other.school, school) || other.school == school) &&
             (identical(other.fieldOfStudy, fieldOfStudy) ||
@@ -333,75 +282,103 @@ class _$EducationImpl implements _Education {
       const DeepCollectionEquality().hash(_skills),
       educationId);
 
-  /// Create a copy of Education
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  @pragma('vm:prefer-inline')
-  _$$EducationImplCopyWith<_$EducationImpl> get copyWith =>
-      __$$EducationImplCopyWithImpl<_$EducationImpl>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$EducationImplToJson(
-      this,
-    );
+  String toString() {
+    return 'Education(degree: $degree, school: $school, fieldOfStudy: $fieldOfStudy, startDate: $startDate, endDate: $endDate, current: $current, grade: $grade, achievements: $achievements, skills: $skills, educationId: $educationId)';
   }
 }
 
-abstract class _Education implements Education {
-  const factory _Education(
-      {required final String? degree,
-      required final String? school,
-      @JsonKey(name: 'field_of_study') required final String? fieldOfStudy,
+/// @nodoc
+abstract mixin class _$EducationCopyWith<$Res>
+    implements $EducationCopyWith<$Res> {
+  factory _$EducationCopyWith(
+          _Education value, $Res Function(_Education) _then) =
+      __$EducationCopyWithImpl;
+  @override
+  @useResult
+  $Res call(
+      {String? degree,
+      String? school,
+      @JsonKey(name: 'field_of_study') String? fieldOfStudy,
       @EducationDateTimeConverter()
       @JsonKey(name: 'start_date')
-      required final DateTime? startDate,
+      DateTime? startDate,
       @EducationDateTimeConverter()
       @JsonKey(name: 'end_date')
-      required final DateTime? endDate,
-      @JsonKey(name: 'current') required final bool current,
-      required final String? grade,
-      required final String? achievements,
-      required final List<String> skills,
-      @JsonKey(name: 'education_id', includeToJson: false)
-      final int? educationId}) = _$EducationImpl;
+      DateTime? endDate,
+      @JsonKey(name: 'current') bool current,
+      String? grade,
+      String? achievements,
+      List<String> skills,
+      @JsonKey(name: 'education_id', includeToJson: false) int? educationId});
+}
 
-  factory _Education.fromJson(Map<String, dynamic> json) =
-      _$EducationImpl.fromJson;
+/// @nodoc
+class __$EducationCopyWithImpl<$Res> implements _$EducationCopyWith<$Res> {
+  __$EducationCopyWithImpl(this._self, this._then);
 
-  @override
-  String? get degree;
-  @override
-  String? get school;
-  @override
-  @JsonKey(name: 'field_of_study')
-  String? get fieldOfStudy;
-  @override
-  @EducationDateTimeConverter()
-  @JsonKey(name: 'start_date')
-  DateTime? get startDate;
-  @override
-  @EducationDateTimeConverter()
-  @JsonKey(name: 'end_date')
-  DateTime? get endDate;
-  @override
-  @JsonKey(name: 'current')
-  bool get current;
-  @override
-  String? get grade;
-  @override
-  String? get achievements;
-  @override
-  List<String> get skills;
-  @override
-  @JsonKey(name: 'education_id', includeToJson: false)
-  int? get educationId;
+  final _Education _self;
+  final $Res Function(_Education) _then;
 
   /// Create a copy of Education
   /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$EducationImplCopyWith<_$EducationImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+  @pragma('vm:prefer-inline')
+  $Res call({
+    Object? degree = freezed,
+    Object? school = freezed,
+    Object? fieldOfStudy = freezed,
+    Object? startDate = freezed,
+    Object? endDate = freezed,
+    Object? current = null,
+    Object? grade = freezed,
+    Object? achievements = freezed,
+    Object? skills = null,
+    Object? educationId = freezed,
+  }) {
+    return _then(_Education(
+      degree: freezed == degree
+          ? _self.degree
+          : degree // ignore: cast_nullable_to_non_nullable
+              as String?,
+      school: freezed == school
+          ? _self.school
+          : school // ignore: cast_nullable_to_non_nullable
+              as String?,
+      fieldOfStudy: freezed == fieldOfStudy
+          ? _self.fieldOfStudy
+          : fieldOfStudy // ignore: cast_nullable_to_non_nullable
+              as String?,
+      startDate: freezed == startDate
+          ? _self.startDate
+          : startDate // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      endDate: freezed == endDate
+          ? _self.endDate
+          : endDate // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      current: null == current
+          ? _self.current
+          : current // ignore: cast_nullable_to_non_nullable
+              as bool,
+      grade: freezed == grade
+          ? _self.grade
+          : grade // ignore: cast_nullable_to_non_nullable
+              as String?,
+      achievements: freezed == achievements
+          ? _self.achievements
+          : achievements // ignore: cast_nullable_to_non_nullable
+              as String?,
+      skills: null == skills
+          ? _self._skills
+          : skills // ignore: cast_nullable_to_non_nullable
+              as List<String>,
+      educationId: freezed == educationId
+          ? _self.educationId
+          : educationId // ignore: cast_nullable_to_non_nullable
+              as int?,
+    ));
+  }
 }
+
+// dart format on

@@ -6,9 +6,8 @@ part of 'discussion_invite.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$DiscussionInviteImpl _$$DiscussionInviteImplFromJson(
-        Map<String, dynamic> json) =>
-    _$DiscussionInviteImpl(
+_DiscussionInvite _$DiscussionInviteFromJson(Map<String, dynamic> json) =>
+    _DiscussionInvite(
       discussionInviteId: (json['discussion_invite_id'] as num).toInt(),
       discussionId: (json['discussion_id'] as num).toInt(),
       status: $enumDecode(_$DiscussionInviteStatusEnumMap, json['status']),
@@ -18,8 +17,7 @@ _$DiscussionInviteImpl _$$DiscussionInviteImplFromJson(
           json['created_at'], const DateTimeJsonConverter().fromJson),
     );
 
-Map<String, dynamic> _$$DiscussionInviteImplToJson(
-        _$DiscussionInviteImpl instance) =>
+Map<String, dynamic> _$DiscussionInviteToJson(_DiscussionInvite instance) =>
     <String, dynamic>{
       'discussion_invite_id': instance.discussionInviteId,
       'discussion_id': instance.discussionId,

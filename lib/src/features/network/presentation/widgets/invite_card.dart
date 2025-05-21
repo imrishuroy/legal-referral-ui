@@ -24,7 +24,9 @@ class InviteCard extends StatelessWidget {
       decoration: BoxDecoration(
         boxShadow: [
           BoxShadow(
-            color: const Color.fromRGBO(0, 0, 0, 0.08).withOpacity(0.2),
+            color: const Color.fromRGBO(0, 0, 0, 0.08).withValues(
+              alpha: 0.2,
+            ),
             blurRadius: 4,
             offset: const Offset(0, 2),
           ),

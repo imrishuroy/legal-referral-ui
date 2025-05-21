@@ -6,9 +6,8 @@ part of 'discussion_message.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$DiscussionMessageImpl _$$DiscussionMessageImplFromJson(
-        Map<String, dynamic> json) =>
-    _$DiscussionMessageImpl(
+_DiscussionMessage _$DiscussionMessageFromJson(Map<String, dynamic> json) =>
+    _DiscussionMessage(
       senderId: json['sender_id'] as String,
       message: json['message'] as String,
       repliedMessage: json['replied_message'] == null
@@ -25,8 +24,7 @@ _$DiscussionMessageImpl _$$DiscussionMessageImplFromJson(
       senderAvatarImg: json['sender_avatar_image'] as String?,
     );
 
-Map<String, dynamic> _$$DiscussionMessageImplToJson(
-        _$DiscussionMessageImpl instance) =>
+Map<String, dynamic> _$DiscussionMessageToJson(_DiscussionMessage instance) =>
     <String, dynamic>{
       'sender_id': instance.senderId,
       'message': instance.message,

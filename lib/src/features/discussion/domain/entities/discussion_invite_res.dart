@@ -6,7 +6,7 @@ part 'discussion_invite_res.freezed.dart';
 part 'discussion_invite_res.g.dart';
 
 @freezed
-class DiscussionInviteRes with _$DiscussionInviteRes {
+sealed class DiscussionInviteRes with _$DiscussionInviteRes {
   factory DiscussionInviteRes({
     @JsonKey(name: 'discussion_invite')
     required DiscussionInvite discussionInvite,

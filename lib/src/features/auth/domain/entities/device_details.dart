@@ -4,7 +4,7 @@ part 'device_details.freezed.dart';
 part 'device_details.g.dart';
 
 @freezed
-class DeviceDetails with _$DeviceDetails {
+sealed class DeviceDetails with _$DeviceDetails {
   const factory DeviceDetails({
     @JsonKey(name: 'device_id') required String? deviceId,
     @JsonKey(name: 'device_token') required String? deviceToken,

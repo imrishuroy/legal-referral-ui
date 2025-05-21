@@ -6,7 +6,7 @@ part of 'post.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$PostImpl _$$PostImplFromJson(Map<String, dynamic> json) => _$PostImpl(
+_Post _$PostFromJson(Map<String, dynamic> json) => _Post(
       ownerId: json['owner_id'] as String,
       postType: $enumDecode(_$PostTypeEnumMap, json['post_type']),
       createdAt:
@@ -26,8 +26,7 @@ _$PostImpl _$$PostImplFromJson(Map<String, dynamic> json) => _$PostImpl(
       pollId: (json['poll_id'] as num?)?.toInt(),
     );
 
-Map<String, dynamic> _$$PostImplToJson(_$PostImpl instance) =>
-    <String, dynamic>{
+Map<String, dynamic> _$PostToJson(_Post instance) => <String, dynamic>{
       'owner_id': instance.ownerId,
       'post_type': _$PostTypeEnumMap[instance.postType]!,
       'post_id': instance.postId,

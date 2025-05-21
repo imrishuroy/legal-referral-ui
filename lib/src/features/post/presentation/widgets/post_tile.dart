@@ -152,7 +152,7 @@ class PostTile extends StatelessWidget {
                   )
                 else
                   MediaPost(
-                    imageHeight: imageHeight,
+                    postHeight: imageHeight,
                     postType: post?.postType ?? PostType.image,
                     mediaUrls: post?.media ?? [],
                     fileName: post?.content,

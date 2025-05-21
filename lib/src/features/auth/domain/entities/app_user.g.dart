@@ -6,8 +6,7 @@ part of 'app_user.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$AppUserImpl _$$AppUserImplFromJson(Map<String, dynamic> json) =>
-    _$AppUserImpl(
+_AppUser _$AppUserFromJson(Map<String, dynamic> json) => _AppUser(
       email: json['email'] as String?,
       firstName: json['first_name'] as String?,
       lastName: json['last_name'] as String?,
@@ -33,8 +32,7 @@ _$AppUserImpl _$$AppUserImplFromJson(Map<String, dynamic> json) =>
       openToReferral: json['open_to_referral'] as bool? ?? false,
     );
 
-Map<String, dynamic> _$$AppUserImplToJson(_$AppUserImpl instance) =>
-    <String, dynamic>{
+Map<String, dynamic> _$AppUserToJson(_AppUser instance) => <String, dynamic>{
       'email': instance.email,
       'first_name': instance.firstName,
       'last_name': instance.lastName,

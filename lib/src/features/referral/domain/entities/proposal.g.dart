@@ -6,8 +6,7 @@ part of 'proposal.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$ProposalImpl _$$ProposalImplFromJson(Map<String, dynamic> json) =>
-    _$ProposalImpl(
+_Proposal _$ProposalFromJson(Map<String, dynamic> json) => _Proposal(
       referralId: (json['project_id'] as num?)?.toInt(),
       userId: json['user_id'] as String?,
       title: json['title'] as String?,
@@ -21,8 +20,7 @@ _$ProposalImpl _$$ProposalImplFromJson(Map<String, dynamic> json) =>
           json['updated_at'], const DateTimeJsonConverter().fromJson),
     );
 
-Map<String, dynamic> _$$ProposalImplToJson(_$ProposalImpl instance) =>
-    <String, dynamic>{
+Map<String, dynamic> _$ProposalToJson(_Proposal instance) => <String, dynamic>{
       'project_id': instance.referralId,
       'user_id': instance.userId,
       'title': instance.title,

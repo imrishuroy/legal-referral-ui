@@ -6,8 +6,8 @@ part of 'recommendation.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$RecommendationImpl _$$RecommendationImplFromJson(Map<String, dynamic> json) =>
-    _$RecommendationImpl(
+_Recommendation _$RecommendationFromJson(Map<String, dynamic> json) =>
+    _Recommendation(
       userId: json['user_id'] as String?,
       firstName: json['first_name'] as String?,
       lastName: json['last_name'] as String?,
@@ -18,8 +18,7 @@ _$RecommendationImpl _$$RecommendationImplFromJson(Map<String, dynamic> json) =>
       experience: json['experience'] as String?,
     );
 
-Map<String, dynamic> _$$RecommendationImplToJson(
-        _$RecommendationImpl instance) =>
+Map<String, dynamic> _$RecommendationToJson(_Recommendation instance) =>
     <String, dynamic>{
       'user_id': instance.userId,
       'first_name': instance.firstName,

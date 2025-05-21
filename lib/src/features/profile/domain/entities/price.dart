@@ -15,7 +15,7 @@ enum PriceServiceType {
 }
 
 @freezed
-class Price with _$Price {
+sealed class Price with _$Price {
   const factory Price({
     @JsonKey(name: 'service_type') required PriceServiceType? serviceType,
     @JsonKey(name: 'per_hour_price', includeIfNull: false) double? perHourPrice,

@@ -6,8 +6,8 @@ part of 'create_referral.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$CreateReferralImpl _$$CreateReferralImplFromJson(Map<String, dynamic> json) =>
-    _$CreateReferralImpl(
+_CreateReferral _$CreateReferralFromJson(Map<String, dynamic> json) =>
+    _CreateReferral(
       title: json['title'] as String,
       caseDescription: json['case_description'] as String,
       practiceArea: json['preferred_practice_area'] as String,
@@ -18,8 +18,7 @@ _$CreateReferralImpl _$$CreateReferralImplFromJson(Map<String, dynamic> json) =>
           .toList(),
     );
 
-Map<String, dynamic> _$$CreateReferralImplToJson(
-        _$CreateReferralImpl instance) =>
+Map<String, dynamic> _$CreateReferralToJson(_CreateReferral instance) =>
     <String, dynamic>{
       'title': instance.title,
       'case_description': instance.caseDescription,

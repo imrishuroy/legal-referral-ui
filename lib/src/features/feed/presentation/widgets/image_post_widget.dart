@@ -48,13 +48,8 @@ class _ImagePostWidgetState extends State<ImagePostWidget> {
             items: widget.imageUrls.map((imageUrl) {
               return Builder(
                 builder: (BuildContext context) {
-                  return Padding(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: multipleImages ? 12.w : 0.w,
-                    ),
-                    child: CustomNetworkImage(
-                      imageUrl: UrlUtil.getCDNURL(imageUrl),
-                    ),
+                  return CustomNetworkImage(
+                    imageUrl: UrlUtil.getCDNURL(imageUrl),
                   );
                 },
               );

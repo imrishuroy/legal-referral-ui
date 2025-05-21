@@ -21,7 +21,7 @@ enum PostType {
 }
 
 @freezed
-class Post with _$Post {
+sealed class Post with _$Post {
   const factory Post({
     @JsonKey(name: 'owner_id') required String ownerId,
     @JsonKey(name: 'post_type') required PostType postType,

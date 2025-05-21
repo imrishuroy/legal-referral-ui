@@ -97,8 +97,10 @@ class _LicenseDetailPageState extends State<LicenseDetailPage> {
                                         primary:
                                             LegalReferralColors.buttonPrimary,
                                       ),
-                                      dialogBackgroundColor:
-                                          LegalReferralColors.primaryBackground,
+                                      dialogTheme: const DialogThemeData(
+                                        backgroundColor: LegalReferralColors
+                                            .primaryBackground,
+                                      ),
                                     ),
                                     child: child!,
                                   );

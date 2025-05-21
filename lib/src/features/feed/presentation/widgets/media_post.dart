@@ -7,7 +7,7 @@ class MediaPost extends StatelessWidget {
   const MediaPost({
     required this.mediaUrls,
     required this.postType,
-    required this.imageHeight,
+    required this.postHeight,
     this.fileName,
     super.key,
   });
@@ -15,18 +15,18 @@ class MediaPost extends StatelessWidget {
   final String? fileName;
   final List<String?> mediaUrls;
   final PostType postType;
-  final double imageHeight;
+  final double postHeight;
 
   @override
   Widget build(BuildContext context) {
     if (postType == PostType.image) {
       return ImagePostWidget(
         imageUrls: mediaUrls,
-        height: imageHeight,
+        height: postHeight,
       );
     } else if (postType == PostType.video && mediaUrls.isNotEmpty) {
       return SizedBox(
-        height: imageHeight,
+        height: postHeight,
         child: VideoPost(
           videoUrl: mediaUrls.first,
         ),

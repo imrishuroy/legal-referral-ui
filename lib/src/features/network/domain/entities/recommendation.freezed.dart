@@ -1,3 +1,4 @@
+// dart format width=80
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
@@ -9,136 +10,77 @@ part of 'recommendation.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// dart format off
 T _$identity<T>(T value) => value;
-
-final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
-
-Recommendation _$RecommendationFromJson(Map<String, dynamic> json) {
-  return _Recommendation.fromJson(json);
-}
 
 /// @nodoc
 mixin _$Recommendation {
   @JsonKey(name: 'user_id')
-  String? get userId => throw _privateConstructorUsedError;
+  String? get userId;
   @JsonKey(name: 'first_name')
-  String? get firstName => throw _privateConstructorUsedError;
+  String? get firstName;
   @JsonKey(name: 'last_name')
-  String? get lastName => throw _privateConstructorUsedError;
-  String? get about => throw _privateConstructorUsedError;
+  String? get lastName;
+  String? get about;
   @JsonKey(name: 'avatar_url')
-  String? get avatarUrl => throw _privateConstructorUsedError;
+  String? get avatarUrl;
   @JsonKey(name: 'practice_area')
-  String? get practiceArea => throw _privateConstructorUsedError;
+  String? get practiceArea;
   @JsonKey(name: 'practice_location')
-  String? get practiceLocation => throw _privateConstructorUsedError;
-  String? get experience => throw _privateConstructorUsedError;
+  String? get practiceLocation;
+  String? get experience;
   @JsonKey(includeFromJson: false, includeToJson: false)
-  ConnectionInvitationStatus? get status => throw _privateConstructorUsedError;
+  ConnectionInvitationStatus? get status;
+
+  /// Create a copy of Recommendation
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  $RecommendationCopyWith<Recommendation> get copyWith =>
+      _$RecommendationCopyWithImpl<Recommendation>(
+          this as Recommendation, _$identity);
 
   /// Serializes this Recommendation to a JSON map.
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  Map<String, dynamic> toJson();
 
-  /// Create a copy of Recommendation
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  $RecommendationCopyWith<Recommendation> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class $RecommendationCopyWith<$Res> {
-  factory $RecommendationCopyWith(
-          Recommendation value, $Res Function(Recommendation) then) =
-      _$RecommendationCopyWithImpl<$Res, Recommendation>;
-  @useResult
-  $Res call(
-      {@JsonKey(name: 'user_id') String? userId,
-      @JsonKey(name: 'first_name') String? firstName,
-      @JsonKey(name: 'last_name') String? lastName,
-      String? about,
-      @JsonKey(name: 'avatar_url') String? avatarUrl,
-      @JsonKey(name: 'practice_area') String? practiceArea,
-      @JsonKey(name: 'practice_location') String? practiceLocation,
-      String? experience,
-      @JsonKey(includeFromJson: false, includeToJson: false)
-      ConnectionInvitationStatus? status});
-}
-
-/// @nodoc
-class _$RecommendationCopyWithImpl<$Res, $Val extends Recommendation>
-    implements $RecommendationCopyWith<$Res> {
-  _$RecommendationCopyWithImpl(this._value, this._then);
-
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
-
-  /// Create a copy of Recommendation
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
   @override
-  $Res call({
-    Object? userId = freezed,
-    Object? firstName = freezed,
-    Object? lastName = freezed,
-    Object? about = freezed,
-    Object? avatarUrl = freezed,
-    Object? practiceArea = freezed,
-    Object? practiceLocation = freezed,
-    Object? experience = freezed,
-    Object? status = freezed,
-  }) {
-    return _then(_value.copyWith(
-      userId: freezed == userId
-          ? _value.userId
-          : userId // ignore: cast_nullable_to_non_nullable
-              as String?,
-      firstName: freezed == firstName
-          ? _value.firstName
-          : firstName // ignore: cast_nullable_to_non_nullable
-              as String?,
-      lastName: freezed == lastName
-          ? _value.lastName
-          : lastName // ignore: cast_nullable_to_non_nullable
-              as String?,
-      about: freezed == about
-          ? _value.about
-          : about // ignore: cast_nullable_to_non_nullable
-              as String?,
-      avatarUrl: freezed == avatarUrl
-          ? _value.avatarUrl
-          : avatarUrl // ignore: cast_nullable_to_non_nullable
-              as String?,
-      practiceArea: freezed == practiceArea
-          ? _value.practiceArea
-          : practiceArea // ignore: cast_nullable_to_non_nullable
-              as String?,
-      practiceLocation: freezed == practiceLocation
-          ? _value.practiceLocation
-          : practiceLocation // ignore: cast_nullable_to_non_nullable
-              as String?,
-      experience: freezed == experience
-          ? _value.experience
-          : experience // ignore: cast_nullable_to_non_nullable
-              as String?,
-      status: freezed == status
-          ? _value.status
-          : status // ignore: cast_nullable_to_non_nullable
-              as ConnectionInvitationStatus?,
-    ) as $Val);
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is Recommendation &&
+            (identical(other.userId, userId) || other.userId == userId) &&
+            (identical(other.firstName, firstName) ||
+                other.firstName == firstName) &&
+            (identical(other.lastName, lastName) ||
+                other.lastName == lastName) &&
+            (identical(other.about, about) || other.about == about) &&
+            (identical(other.avatarUrl, avatarUrl) ||
+                other.avatarUrl == avatarUrl) &&
+            (identical(other.practiceArea, practiceArea) ||
+                other.practiceArea == practiceArea) &&
+            (identical(other.practiceLocation, practiceLocation) ||
+                other.practiceLocation == practiceLocation) &&
+            (identical(other.experience, experience) ||
+                other.experience == experience) &&
+            (identical(other.status, status) || other.status == status));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(runtimeType, userId, firstName, lastName,
+      about, avatarUrl, practiceArea, practiceLocation, experience, status);
+
+  @override
+  String toString() {
+    return 'Recommendation(userId: $userId, firstName: $firstName, lastName: $lastName, about: $about, avatarUrl: $avatarUrl, practiceArea: $practiceArea, practiceLocation: $practiceLocation, experience: $experience, status: $status)';
   }
 }
 
 /// @nodoc
-abstract class _$$RecommendationImplCopyWith<$Res>
-    implements $RecommendationCopyWith<$Res> {
-  factory _$$RecommendationImplCopyWith(_$RecommendationImpl value,
-          $Res Function(_$RecommendationImpl) then) =
-      __$$RecommendationImplCopyWithImpl<$Res>;
-  @override
+abstract mixin class $RecommendationCopyWith<$Res> {
+  factory $RecommendationCopyWith(
+          Recommendation value, $Res Function(Recommendation) _then) =
+      _$RecommendationCopyWithImpl;
   @useResult
   $Res call(
       {@JsonKey(name: 'user_id') String? userId,
@@ -154,12 +96,12 @@ abstract class _$$RecommendationImplCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$RecommendationImplCopyWithImpl<$Res>
-    extends _$RecommendationCopyWithImpl<$Res, _$RecommendationImpl>
-    implements _$$RecommendationImplCopyWith<$Res> {
-  __$$RecommendationImplCopyWithImpl(
-      _$RecommendationImpl _value, $Res Function(_$RecommendationImpl) _then)
-      : super(_value, _then);
+class _$RecommendationCopyWithImpl<$Res>
+    implements $RecommendationCopyWith<$Res> {
+  _$RecommendationCopyWithImpl(this._self, this._then);
+
+  final Recommendation _self;
+  final $Res Function(Recommendation) _then;
 
   /// Create a copy of Recommendation
   /// with the given fields replaced by the non-null parameter values.
@@ -176,41 +118,41 @@ class __$$RecommendationImplCopyWithImpl<$Res>
     Object? experience = freezed,
     Object? status = freezed,
   }) {
-    return _then(_$RecommendationImpl(
+    return _then(_self.copyWith(
       userId: freezed == userId
-          ? _value.userId
+          ? _self.userId
           : userId // ignore: cast_nullable_to_non_nullable
               as String?,
       firstName: freezed == firstName
-          ? _value.firstName
+          ? _self.firstName
           : firstName // ignore: cast_nullable_to_non_nullable
               as String?,
       lastName: freezed == lastName
-          ? _value.lastName
+          ? _self.lastName
           : lastName // ignore: cast_nullable_to_non_nullable
               as String?,
       about: freezed == about
-          ? _value.about
+          ? _self.about
           : about // ignore: cast_nullable_to_non_nullable
               as String?,
       avatarUrl: freezed == avatarUrl
-          ? _value.avatarUrl
+          ? _self.avatarUrl
           : avatarUrl // ignore: cast_nullable_to_non_nullable
               as String?,
       practiceArea: freezed == practiceArea
-          ? _value.practiceArea
+          ? _self.practiceArea
           : practiceArea // ignore: cast_nullable_to_non_nullable
               as String?,
       practiceLocation: freezed == practiceLocation
-          ? _value.practiceLocation
+          ? _self.practiceLocation
           : practiceLocation // ignore: cast_nullable_to_non_nullable
               as String?,
       experience: freezed == experience
-          ? _value.experience
+          ? _self.experience
           : experience // ignore: cast_nullable_to_non_nullable
               as String?,
       status: freezed == status
-          ? _value.status
+          ? _self.status
           : status // ignore: cast_nullable_to_non_nullable
               as ConnectionInvitationStatus?,
     ));
@@ -219,8 +161,8 @@ class __$$RecommendationImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$RecommendationImpl implements _Recommendation {
-  const _$RecommendationImpl(
+class _Recommendation implements Recommendation {
+  const _Recommendation(
       {@JsonKey(name: 'user_id') required this.userId,
       @JsonKey(name: 'first_name') required this.firstName,
       @JsonKey(name: 'last_name') required this.lastName,
@@ -231,9 +173,8 @@ class _$RecommendationImpl implements _Recommendation {
       required this.experience,
       @JsonKey(includeFromJson: false, includeToJson: false)
       this.status = ConnectionInvitationStatus.none});
-
-  factory _$RecommendationImpl.fromJson(Map<String, dynamic> json) =>
-      _$$RecommendationImplFromJson(json);
+  factory _Recommendation.fromJson(Map<String, dynamic> json) =>
+      _$RecommendationFromJson(json);
 
   @override
   @JsonKey(name: 'user_id')
@@ -261,16 +202,26 @@ class _$RecommendationImpl implements _Recommendation {
   @JsonKey(includeFromJson: false, includeToJson: false)
   final ConnectionInvitationStatus? status;
 
+  /// Create a copy of Recommendation
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  String toString() {
-    return 'Recommendation(userId: $userId, firstName: $firstName, lastName: $lastName, about: $about, avatarUrl: $avatarUrl, practiceArea: $practiceArea, practiceLocation: $practiceLocation, experience: $experience, status: $status)';
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  _$RecommendationCopyWith<_Recommendation> get copyWith =>
+      __$RecommendationCopyWithImpl<_Recommendation>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$RecommendationToJson(
+      this,
+    );
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$RecommendationImpl &&
+            other is _Recommendation &&
             (identical(other.userId, userId) || other.userId == userId) &&
             (identical(other.firstName, firstName) ||
                 other.firstName == firstName) &&
@@ -293,70 +244,95 @@ class _$RecommendationImpl implements _Recommendation {
   int get hashCode => Object.hash(runtimeType, userId, firstName, lastName,
       about, avatarUrl, practiceArea, practiceLocation, experience, status);
 
-  /// Create a copy of Recommendation
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  @pragma('vm:prefer-inline')
-  _$$RecommendationImplCopyWith<_$RecommendationImpl> get copyWith =>
-      __$$RecommendationImplCopyWithImpl<_$RecommendationImpl>(
-          this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$RecommendationImplToJson(
-      this,
-    );
+  String toString() {
+    return 'Recommendation(userId: $userId, firstName: $firstName, lastName: $lastName, about: $about, avatarUrl: $avatarUrl, practiceArea: $practiceArea, practiceLocation: $practiceLocation, experience: $experience, status: $status)';
   }
 }
 
-abstract class _Recommendation implements Recommendation {
-  const factory _Recommendation(
-      {@JsonKey(name: 'user_id') required final String? userId,
-      @JsonKey(name: 'first_name') required final String? firstName,
-      @JsonKey(name: 'last_name') required final String? lastName,
-      required final String? about,
-      @JsonKey(name: 'avatar_url') required final String? avatarUrl,
-      @JsonKey(name: 'practice_area') required final String? practiceArea,
-      @JsonKey(name: 'practice_location')
-      required final String? practiceLocation,
-      required final String? experience,
+/// @nodoc
+abstract mixin class _$RecommendationCopyWith<$Res>
+    implements $RecommendationCopyWith<$Res> {
+  factory _$RecommendationCopyWith(
+          _Recommendation value, $Res Function(_Recommendation) _then) =
+      __$RecommendationCopyWithImpl;
+  @override
+  @useResult
+  $Res call(
+      {@JsonKey(name: 'user_id') String? userId,
+      @JsonKey(name: 'first_name') String? firstName,
+      @JsonKey(name: 'last_name') String? lastName,
+      String? about,
+      @JsonKey(name: 'avatar_url') String? avatarUrl,
+      @JsonKey(name: 'practice_area') String? practiceArea,
+      @JsonKey(name: 'practice_location') String? practiceLocation,
+      String? experience,
       @JsonKey(includeFromJson: false, includeToJson: false)
-      final ConnectionInvitationStatus? status}) = _$RecommendationImpl;
+      ConnectionInvitationStatus? status});
+}
 
-  factory _Recommendation.fromJson(Map<String, dynamic> json) =
-      _$RecommendationImpl.fromJson;
+/// @nodoc
+class __$RecommendationCopyWithImpl<$Res>
+    implements _$RecommendationCopyWith<$Res> {
+  __$RecommendationCopyWithImpl(this._self, this._then);
 
-  @override
-  @JsonKey(name: 'user_id')
-  String? get userId;
-  @override
-  @JsonKey(name: 'first_name')
-  String? get firstName;
-  @override
-  @JsonKey(name: 'last_name')
-  String? get lastName;
-  @override
-  String? get about;
-  @override
-  @JsonKey(name: 'avatar_url')
-  String? get avatarUrl;
-  @override
-  @JsonKey(name: 'practice_area')
-  String? get practiceArea;
-  @override
-  @JsonKey(name: 'practice_location')
-  String? get practiceLocation;
-  @override
-  String? get experience;
-  @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  ConnectionInvitationStatus? get status;
+  final _Recommendation _self;
+  final $Res Function(_Recommendation) _then;
 
   /// Create a copy of Recommendation
   /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$RecommendationImplCopyWith<_$RecommendationImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+  @pragma('vm:prefer-inline')
+  $Res call({
+    Object? userId = freezed,
+    Object? firstName = freezed,
+    Object? lastName = freezed,
+    Object? about = freezed,
+    Object? avatarUrl = freezed,
+    Object? practiceArea = freezed,
+    Object? practiceLocation = freezed,
+    Object? experience = freezed,
+    Object? status = freezed,
+  }) {
+    return _then(_Recommendation(
+      userId: freezed == userId
+          ? _self.userId
+          : userId // ignore: cast_nullable_to_non_nullable
+              as String?,
+      firstName: freezed == firstName
+          ? _self.firstName
+          : firstName // ignore: cast_nullable_to_non_nullable
+              as String?,
+      lastName: freezed == lastName
+          ? _self.lastName
+          : lastName // ignore: cast_nullable_to_non_nullable
+              as String?,
+      about: freezed == about
+          ? _self.about
+          : about // ignore: cast_nullable_to_non_nullable
+              as String?,
+      avatarUrl: freezed == avatarUrl
+          ? _self.avatarUrl
+          : avatarUrl // ignore: cast_nullable_to_non_nullable
+              as String?,
+      practiceArea: freezed == practiceArea
+          ? _self.practiceArea
+          : practiceArea // ignore: cast_nullable_to_non_nullable
+              as String?,
+      practiceLocation: freezed == practiceLocation
+          ? _self.practiceLocation
+          : practiceLocation // ignore: cast_nullable_to_non_nullable
+              as String?,
+      experience: freezed == experience
+          ? _self.experience
+          : experience // ignore: cast_nullable_to_non_nullable
+              as String?,
+      status: freezed == status
+          ? _self.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as ConnectionInvitationStatus?,
+    ));
+  }
 }
+
+// dart format on

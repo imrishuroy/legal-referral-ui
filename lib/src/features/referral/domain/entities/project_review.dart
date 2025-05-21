@@ -5,7 +5,7 @@ part 'project_review.freezed.dart';
 part 'project_review.g.dart';
 
 @freezed
-class ProjectReview with _$ProjectReview {
+sealed class ProjectReview with _$ProjectReview {
   const factory ProjectReview({
     @JsonKey(name: 'project_id') required int? projectId,
     @JsonKey(name: 'user_id') required String? userId,

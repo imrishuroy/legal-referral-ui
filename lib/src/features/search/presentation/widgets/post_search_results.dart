@@ -140,7 +140,7 @@ class PostSearchResults extends StatelessWidget {
                               )
                             else
                               MediaPost(
-                                imageHeight: 400,
+                                postHeight: 400,
                                 postType: post?.postType ?? PostType.image,
                                 mediaUrls: post?.media ?? [],
                                 fileName: post?.content,

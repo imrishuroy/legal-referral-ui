@@ -170,9 +170,10 @@ class _AddUpdateEducationPageState extends State<AddUpdateEducationPage> {
                                           primary:
                                               LegalReferralColors.buttonPrimary,
                                         ),
-                                        dialogBackgroundColor:
-                                            LegalReferralColors
-                                                .primaryBackground,
+                                        dialogTheme: const DialogThemeData(
+                                          backgroundColor: LegalReferralColors
+                                              .primaryBackground,
+                                        ),
                                       ),
                                       child: child!,
                                     );
@@ -247,9 +248,10 @@ class _AddUpdateEducationPageState extends State<AddUpdateEducationPage> {
                                             primary: LegalReferralColors
                                                 .buttonPrimary,
                                           ),
-                                          dialogBackgroundColor:
-                                              LegalReferralColors
-                                                  .primaryBackground,
+                                          dialogTheme: const DialogThemeData(
+                                            backgroundColor: LegalReferralColors
+                                                .primaryBackground,
+                                          ),
                                         ),
                                         child: child!,
                                       );

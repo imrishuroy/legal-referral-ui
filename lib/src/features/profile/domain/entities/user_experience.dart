@@ -6,7 +6,7 @@ part 'user_experience.freezed.dart';
 part 'user_experience.g.dart';
 
 @freezed
-class UserExperience with _$UserExperience {
+sealed class UserExperience with _$UserExperience {
   const factory UserExperience({
     @JsonKey(name: 'experience') required Experience? experience,
     @JsonKey(name: 'firm') required Firm? firm,

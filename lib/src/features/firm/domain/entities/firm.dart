@@ -5,7 +5,7 @@ part 'firm.freezed.dart';
 part 'firm.g.dart';
 
 @freezed
-class Firm with _$Firm {
+sealed class Firm with _$Firm {
   const factory Firm({
     required String name,
     @JsonKey(name: 'org_type') required String orgType,

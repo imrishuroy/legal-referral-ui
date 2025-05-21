@@ -15,7 +15,7 @@ enum DiscussionInviteStatus {
 }
 
 @freezed
-class DiscussionInvite with _$DiscussionInvite {
+sealed class DiscussionInvite with _$DiscussionInvite {
   factory DiscussionInvite({
     @JsonKey(name: 'discussion_invite_id') required int discussionInviteId,
     @JsonKey(name: 'discussion_id', includeIfNull: false)

@@ -15,7 +15,7 @@ enum ProposalStatus {
 }
 
 @freezed
-class Proposal with _$Proposal {
+sealed class Proposal with _$Proposal {
   const factory Proposal({
     @JsonKey(name: 'project_id') required int? referralId,
     @JsonKey(name: 'user_id') required String? userId,
